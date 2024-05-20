@@ -17,7 +17,9 @@
 ## ⚒️ 개발 환경 및 사용 기술
 Front End (iOS)
 - Xcode (version 15.1)
-- SwiftUI
+- Swift5
+- MVP
+- Clean Architecture
 
 <br>
 
