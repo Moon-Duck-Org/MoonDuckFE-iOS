@@ -3,9 +3,10 @@
 # 린트 과정에서 무시할 파일 경로.
 excluded:
   - Pods
-  - Todorim/AppDelegate.swift
+  - MoonDuck/Sources/SceneDelegate.swift
+  - MoonDuck/Sources/AppDelegate.swift
 included:
-  - Todorim
+  - MoonDuck
 analyzer_rules:
   - unused_declaration
   - unused_import
