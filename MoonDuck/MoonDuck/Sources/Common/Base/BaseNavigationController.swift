@@ -1,24 +1,21 @@
 //
-//  IntroViewController.swift
+//  BaseNavigationController.swift
 //  MoonDuck
 //
-//  Created by suni on 5/22/24.
+//  Created by suni on 5/23/24.
 //
 
 import UIKit
 
-protocol IntroView: AnyObject {
-    
-}
-
-class IntroViewController: UIViewController, IntroView {
+class BaseNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.interactivePopGestureRecognizer?.isEnabled = true
         // Do any additional setup after loading the view.
     }
-
+    
 
     /*
     // MARK: - Navigation

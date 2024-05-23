@@ -19,8 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let introVc = IntroViewController(nibName: "IntroViewController", bundle: nil)
-        window?.rootViewController =  UINavigationController(rootViewController: introVc)
+        
+        let navigator = Navigator.default
+        navigator.show(seque: .intro(presenter: IntroViewPresenter()), sender: nil, transition: .root)
+        window?.windowScene = windowScene
+        window?.rootViewController = navigator.root
         window?.makeKeyAndVisible()
         
         guard let _ = (scene as? UIWindowScene) else { return }
