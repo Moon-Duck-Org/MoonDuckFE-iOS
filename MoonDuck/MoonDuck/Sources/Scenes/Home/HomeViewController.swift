@@ -15,15 +15,18 @@ class HomeViewController: UIViewController, HomeView {
 
     @IBOutlet private(set) weak var cvCategory: UICollectionView!
     
+    @IBOutlet weak var lbHistoryCount: UILabel!
+    @IBOutlet weak var lbSortTitle: UILabel!
+    
     let presenter: HomePresenter
     var navigator: Navigator!
-    let dataSource: HomeViewDataSource
+    let dataSource: HomeCategoryCvDataSource
     
     init(navigator: Navigator,
          presenter: HomePresenter) {
         self.navigator = navigator
         self.presenter = presenter
-        self.dataSource = HomeViewDataSource(presenter: presenter)
+        self.dataSource = HomeCategoryCvDataSource(presenter: presenter)
         super.init(nibName: HomeViewController.className, bundle: Bundle(for: HomeViewController.self))
     }
     
@@ -36,6 +39,10 @@ class HomeViewController: UIViewController, HomeView {
         
         dataSource.configure(with: cvCategory)
         presenter.view = self
+    }
+    
+    func reloadData() {
+        cvCategory.reloadData()
     }
 
 }

@@ -29,6 +29,11 @@ class BaseCategoryCell: UICollectionViewCell {
     
     var cellMode: CellMode = .home
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
     func configure(with category: Category) {
         lbTitle?.text = category.title
         ivIcon?.image = category.image

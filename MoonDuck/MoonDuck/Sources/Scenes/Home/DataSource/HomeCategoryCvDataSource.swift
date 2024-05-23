@@ -1,5 +1,5 @@
 //
-//  HomeViewDataSource.swift
+//  HomeCategoryCvDataSource.swift
 //  MoonDuck
 //
 //  Created by suni on 5/23/24.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class HomeViewDataSource: NSObject {
+final class HomeCategoryCvDataSource: NSObject {
     fileprivate let presenter: HomePresenter
     
     init(presenter: HomePresenter) {
@@ -18,12 +18,11 @@ final class HomeViewDataSource: NSObject {
     func configure(with collectionView: UICollectionView) {
         collectionView.dataSource = self
         collectionView.delegate = self
-        
-        collectionView.register(HomeCategoryCvCell.self, forCellWithReuseIdentifier: HomeCategoryCvCell.className)
+        collectionView.register(UINib(nibName: HomeCategoryCvCell.className, bundle: nil), forCellWithReuseIdentifier: HomeCategoryCvCell.className)
     }
 }
 
-extension HomeViewDataSource: UICollectionViewDataSource {
+extension HomeCategoryCvDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.numberOfCategory
     }
@@ -36,6 +35,13 @@ extension HomeViewDataSource: UICollectionViewDataSource {
     }
 }
 
-extension HomeViewDataSource: UICollectionViewDelegate {
+extension HomeCategoryCvDataSource: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return HomeCategoryCvCell.cellSize(collectionView, cellCount: presenter.numberOfCategory)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO: [홈화면] 카테고리 클릭 이벤트
+    }
 }

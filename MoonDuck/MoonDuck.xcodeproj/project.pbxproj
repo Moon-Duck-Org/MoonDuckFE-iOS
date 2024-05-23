@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		42A65B64F92776178572EC0F /* Pods_MoonDuckTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6804495908A307471DB8A904 /* Pods_MoonDuckTests.framework */; };
 		5EEE2DF6C73F533BFA556AD2 /* Pods_MoonDuck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31889ED7FB1E6AAD97B6990E /* Pods_MoonDuck.framework */; };
+		A07826AC2BFFAB6300D7BA63 /* HomeListTvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07826AB2BFFAB6300D7BA63 /* HomeListTvCell.xib */; };
+		A07826AD2BFFAB6300D7BA63 /* HomeListTvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07826AA2BFFAB6300D7BA63 /* HomeListTvCell.swift */; };
 		A0E657FB2BFE22B7001A8D54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E657FA2BFE22B7001A8D54 /* AppDelegate.swift */; };
 		A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E657FC2BFE22B7001A8D54 /* SceneDelegate.swift */; };
-		A0E657FF2BFE22B7001A8D54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E657FE2BFE22B7001A8D54 /* ViewController.swift */; };
 		A0E658022BFE22B7001A8D54 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A0E658012BFE22B7001A8D54 /* Base */; };
 		A0E658042BFE22B9001A8D54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0E658032BFE22B9001A8D54 /* Assets.xcassets */; };
 		A0E658072BFE22B9001A8D54 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A0E658062BFE22B9001A8D54 /* Base */; };
@@ -33,6 +34,8 @@
 		A0E6584D2BFE3C0B001A8D54 /* XCAssets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E6584C2BFE3C0A001A8D54 /* XCAssets+Generated.swift */; };
 		A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E6584E2BFE3F6C001A8D54 /* IntroViewController.swift */; };
 		A0E658532BFE40F9001A8D54 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E658522BFE40F9001A8D54 /* LoadingView.swift */; };
+		A0F384082BFFAF8B0035D2E3 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F384072BFFAF8B0035D2E3 /* StarRatingView.swift */; };
+		A0F3840E2BFFB2440035D2E3 /* StarRatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0F3840D2BFFB2440035D2E3 /* StarRatingView.xib */; };
 		B1172CFFFCCD4092EAB9B177 /* Pods_MoonDuck_MoonDuckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */; };
 		EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379C42BFEF3FA00464A19 /* Navigator.swift */; };
 		EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379C72BFEF49800464A19 /* BaseNavigationController.swift */; };
@@ -53,7 +56,7 @@
 		EA6D9A7A2BFF6884003B459A /* RadiusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6D9A792BFF6884003B459A /* RadiusView.swift */; };
 		EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */; };
 		EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A82BFF716600FDC7A7 /* Category.swift */; };
-		EA81F4AB2BFF79FA00FDC7A7 /* HomeViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4AA2BFF79FA00FDC7A7 /* HomeViewDataSource.swift */; };
+		EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */; };
 		EA81F4AD2BFF7B6900FDC7A7 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4AC2BFF7B6900FDC7A7 /* UICollectionView+Extension.swift */; };
 		EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA81F4B12BFF881800FDC7A7 /* IntroViewController.xib */; };
 /* End PBXBuildFile section */
@@ -82,10 +85,11 @@
 		6804495908A307471DB8A904 /* Pods_MoonDuckTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoonDuckTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A3FE1C14076657825120DA9 /* Pods-MoonDuck-MoonDuckUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck-MoonDuckUITests.release.xcconfig"; path = "Target Support Files/Pods-MoonDuck-MoonDuckUITests/Pods-MoonDuck-MoonDuckUITests.release.xcconfig"; sourceTree = "<group>"; };
 		812049C204C639AFB27ABED3 /* Pods-MoonDuckTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuckTests.release.xcconfig"; path = "Target Support Files/Pods-MoonDuckTests/Pods-MoonDuckTests.release.xcconfig"; sourceTree = "<group>"; };
+		A07826AA2BFFAB6300D7BA63 /* HomeListTvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListTvCell.swift; sourceTree = "<group>"; };
+		A07826AB2BFFAB6300D7BA63 /* HomeListTvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeListTvCell.xib; sourceTree = "<group>"; };
 		A0E657F72BFE22B7001A8D54 /* MoonDuck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonDuck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E657FA2BFE22B7001A8D54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0E657FC2BFE22B7001A8D54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A0E657FE2BFE22B7001A8D54 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A0E658012BFE22B7001A8D54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A0E658032BFE22B9001A8D54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0E658062BFE22B9001A8D54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -110,6 +114,8 @@
 		A0E6584C2BFE3C0A001A8D54 /* XCAssets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCAssets+Generated.swift"; sourceTree = "<group>"; };
 		A0E6584E2BFE3F6C001A8D54 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		A0E658522BFE40F9001A8D54 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		A0F384072BFFAF8B0035D2E3 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
+		A0F3840D2BFFB2440035D2E3 /* StarRatingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StarRatingView.xib; sourceTree = "<group>"; };
 		B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoonDuck_MoonDuckUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD2F616893EF44F45B03BA4 /* Pods-MoonDuck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck/Pods-MoonDuck.debug.xcconfig"; sourceTree = "<group>"; };
 		DFBEA84FB81504AE187A5E07 /* Pods-MoonDuck-MoonDuckUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck-MoonDuckUITests/Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,7 +138,7 @@
 		EA6D9A792BFF6884003B459A /* RadiusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusView.swift; sourceTree = "<group>"; };
 		EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCategoryCell.swift; sourceTree = "<group>"; };
 		EA81F4A82BFF716600FDC7A7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		EA81F4AA2BFF79FA00FDC7A7 /* HomeViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewDataSource.swift; sourceTree = "<group>"; };
+		EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCvDataSource.swift; sourceTree = "<group>"; };
 		EA81F4AC2BFF7B6900FDC7A7 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		EA81F4B12BFF881800FDC7A7 /* IntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,6 +194,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A07826A92BFFA91000D7BA63 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		A0E657EE2BFE22B6001A8D54 = {
 			isa = PBXGroup;
 			children = (
@@ -216,7 +230,6 @@
 			children = (
 				A0E6582C2BFE2419001A8D54 /* Sources */,
 				A0E6582A2BFE240F001A8D54 /* Resources */,
-				A0E657FE2BFE22B7001A8D54 /* ViewController.swift */,
 			);
 			path = MoonDuck;
 			sourceTree = "<group>";
@@ -290,9 +303,10 @@
 		A0E6582F2BFE2851001A8D54 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				EA81F4A42BFF70BF00FDC7A7 /* Cell */,
-				EA6379BC2BFEED8900464A19 /* Navigation */,
+				A0F384062BFFAF390035D2E3 /* Base */,
 				A0E658522BFE40F9001A8D54 /* LoadingView.swift */,
+				A0F384072BFFAF8B0035D2E3 /* StarRatingView.swift */,
+				A0F3840D2BFFB2440035D2E3 /* StarRatingView.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -323,11 +337,12 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
-		EA6379BC2BFEED8900464A19 /* Navigation */ = {
+		A0F384062BFFAF390035D2E3 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */,
 			);
-			path = Navigation;
+			path = Base;
 			sourceTree = "<group>";
 		};
 		EA6379C62BFEF47100464A19 /* Base */ = {
@@ -390,6 +405,8 @@
 			children = (
 				EA6D9A722BFF67A0003B459A /* HomeCategoryCvCell.swift */,
 				EA6D9A732BFF67A0003B459A /* HomeCategoryCvCell.xib */,
+				A07826AA2BFFAB6300D7BA63 /* HomeListTvCell.swift */,
+				A07826AB2BFFAB6300D7BA63 /* HomeListTvCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -400,14 +417,6 @@
 				EA6D9A792BFF6884003B459A /* RadiusView.swift */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		EA81F4A42BFF70BF00FDC7A7 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		EA81F4A72BFF714000FDC7A7 /* Model */ = {
@@ -421,11 +430,11 @@
 		EAC703A32BFECBC700E99378 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				A07826A92BFFA91000D7BA63 /* DataSource */,
 				EA6D9A712BFF6026003B459A /* Cell */,
 				EA6379E32BFF33C500464A19 /* HomeViewController.xib */,
 				EA6379E22BFF33C500464A19 /* HomeViewController.swift */,
 				EA6379E62BFF342F00464A19 /* HomeViewPresenter.swift */,
-				EA81F4AA2BFF79FA00FDC7A7 /* HomeViewDataSource.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -548,9 +557,11 @@
 				A0E658402BFE36A5001A8D54 /* NotoSansCJKkr-Regular.otf in Resources */,
 				A0E6583E2BFE36A5001A8D54 /* NotoSansCJKkr-Thin.otf in Resources */,
 				A0E658452BFE36A5001A8D54 /* NotoSansCJKkr-Bold.otf in Resources */,
+				A0F3840E2BFFB2440035D2E3 /* StarRatingView.xib in Resources */,
 				A0E658042BFE22B9001A8D54 /* Assets.xcassets in Resources */,
 				A0E658322BFE300D001A8D54 /* Color.xcassets in Resources */,
 				A0E658432BFE36A5001A8D54 /* NotoSansMonoCJKkr-Bold.otf in Resources */,
+				A07826AC2BFFAB6300D7BA63 /* HomeListTvCell.xib in Resources */,
 				EA6D9A752BFF67A0003B459A /* HomeCategoryCvCell.xib in Resources */,
 				A0E658072BFE22B9001A8D54 /* Base in Resources */,
 				A0E658492BFE394F001A8D54 /* .swiftlint.yml in Resources */,
@@ -731,23 +742,24 @@
 				EA81F4AD2BFF7B6900FDC7A7 /* UICollectionView+Extension.swift in Sources */,
 				EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */,
 				EA6379E52BFF33C500464A19 /* HomeViewController.swift in Sources */,
-				A0E657FF2BFE22B7001A8D54 /* ViewController.swift in Sources */,
 				EA6D9A7A2BFF6884003B459A /* RadiusView.swift in Sources */,
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,
 				EA6379D22BFF295C00464A19 /* OSLog+Extension.swift in Sources */,
+				A07826AD2BFFAB6300D7BA63 /* HomeListTvCell.swift in Sources */,
 				EA6379D52BFF2A4000464A19 /* UserRequest.swift in Sources */,
 				EA6379CA2BFEF73500464A19 /* IntroViewPresenter.swift in Sources */,
 				A0E657FB2BFE22B7001A8D54 /* AppDelegate.swift in Sources */,
 				A0E658532BFE40F9001A8D54 /* LoadingView.swift in Sources */,
 				EA6379E72BFF342F00464A19 /* HomeViewPresenter.swift in Sources */,
 				EA6D9A772BFF6823003B459A /* UIView+Extension.swift in Sources */,
-				EA81F4AB2BFF79FA00FDC7A7 /* HomeViewDataSource.swift in Sources */,
+				EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */,
 				EA6D9A742BFF67A0003B459A /* HomeCategoryCvCell.swift in Sources */,
 				EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */,
 				EA6379CF2BFF1C5400464A19 /* MoonDuckAPI.swift in Sources */,
 				EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */,
 				A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */,
 				EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */,
+				A0F384082BFFAF8B0035D2E3 /* StarRatingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

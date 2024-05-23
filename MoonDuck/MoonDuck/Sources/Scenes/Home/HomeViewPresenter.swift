@@ -23,7 +23,7 @@ class HomeViewPresenter: HomePresenter {
     private let category: [Category]
     
     init() {
-        self.category = [.all, .movie, .book, .drama, .concert]
+         self.category = [.all, .movie, .book, .drama, .concert]
     }
     
     func category(at index: Int) -> Category {
