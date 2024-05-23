@@ -26,13 +26,20 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 internal enum Asset {
   internal enum Assets {
     internal static let accentColor = ColorAsset(name: "AccentColor")
-    internal static let logo = ImageAsset(name: "logo")
-    internal static let logoTitle = ImageAsset(name: "logo_title")
-    internal static let my = ImageAsset(name: "my")
+    internal static let all = ImageAsset(name: "All")
+    internal static let book = ImageAsset(name: "Book")
+    internal static let concert = ImageAsset(name: "Concert")
+    internal static let drama = ImageAsset(name: "Drama")
+    internal static let empty = ImageAsset(name: "Empty")
+    internal static let movie = ImageAsset(name: "Movie")
+    internal static let my = ImageAsset(name: "My")
+    internal static let logo = ImageAsset(name: "Logo")
+    internal static let logoTitle = ImageAsset(name: "LogoTitle")
   }
   internal enum Color {
     internal static let black = ColorAsset(name: "Black")
     internal static let blue = ColorAsset(name: "Blue")
+    internal static let gray = ColorAsset(name: "Gray")
     internal static let main = ColorAsset(name: "Main")
     internal static let navy = ColorAsset(name: "Navy")
     internal static let white = ColorAsset(name: "White")

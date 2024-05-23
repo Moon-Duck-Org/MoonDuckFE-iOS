@@ -20,7 +20,7 @@ class IntroViewController: UIViewController, IntroView, Navigatable {
          presenter: IntroPresenter) {
         self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: IntroViewController.className, bundle: nil)
+        super.init(nibName: IntroViewController.className, bundle: Bundle(for: IntroViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -19,43 +19,43 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tNq-ad-fM8">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A0V-Zx-fAG">
                     <rect key="frame" x="153" y="375" width="87.333333333333314" height="127.33333333333331"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="nDg-4c-Ous">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="CPa-BN-XaT">
                             <rect key="frame" x="8" y="0.0" width="71" height="71"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="71" id="4v6-tj-xRH"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="71" id="dEb-kY-pBD"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="71" id="Chl-bQ-eit"/>
+                                <constraint firstAttribute="width" constant="71" id="m22-NX-0R2"/>
                             </constraints>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_title" translatesAutoresizingMaskIntoConstraints="NO" id="Isz-HJ-XQ4">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ION-GE-8DY">
                             <rect key="frame" x="0.0" y="86" width="87.333333333333329" height="41.333333333333343"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="Isz-HJ-XQ4" secondAttribute="trailing" id="3cF-1R-3mV"/>
-                        <constraint firstItem="nDg-4c-Ous" firstAttribute="top" secondItem="tNq-ad-fM8" secondAttribute="top" id="Co6-5a-vYx"/>
-                        <constraint firstItem="nDg-4c-Ous" firstAttribute="centerX" secondItem="tNq-ad-fM8" secondAttribute="centerX" id="Wh0-yP-NuA"/>
-                        <constraint firstItem="Isz-HJ-XQ4" firstAttribute="leading" secondItem="tNq-ad-fM8" secondAttribute="leading" id="rN9-rP-AFE"/>
-                        <constraint firstAttribute="bottom" secondItem="Isz-HJ-XQ4" secondAttribute="bottom" id="sJD-DI-B26"/>
-                        <constraint firstItem="Isz-HJ-XQ4" firstAttribute="top" secondItem="nDg-4c-Ous" secondAttribute="bottom" constant="15" id="yL4-YY-bd6"/>
+                        <constraint firstItem="ION-GE-8DY" firstAttribute="leading" secondItem="A0V-Zx-fAG" secondAttribute="leading" id="0wH-bq-tHT"/>
+                        <constraint firstAttribute="trailing" secondItem="ION-GE-8DY" secondAttribute="trailing" id="3vQ-cH-icx"/>
+                        <constraint firstAttribute="bottom" secondItem="ION-GE-8DY" secondAttribute="bottom" id="KXS-X3-a6h"/>
+                        <constraint firstItem="CPa-BN-XaT" firstAttribute="centerX" secondItem="A0V-Zx-fAG" secondAttribute="centerX" id="OQL-iL-1JU"/>
+                        <constraint firstItem="CPa-BN-XaT" firstAttribute="top" secondItem="A0V-Zx-fAG" secondAttribute="top" id="edL-Sx-fAN"/>
+                        <constraint firstItem="ION-GE-8DY" firstAttribute="top" secondItem="CPa-BN-XaT" secondAttribute="bottom" constant="15" id="y5h-lI-9cY"/>
                     </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="Main"/>
             <constraints>
-                <constraint firstItem="tNq-ad-fM8" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="1uA-5e-GlO"/>
-                <constraint firstItem="tNq-ad-fM8" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="SLG-NS-na4"/>
+                <constraint firstItem="A0V-Zx-fAG" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="rKX-bw-UyK"/>
+                <constraint firstItem="A0V-Zx-fAG" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="tx4-hp-mSh"/>
             </constraints>
-            <point key="canvasLocation" x="-48" y="20"/>
+            <point key="canvasLocation" x="28" y="21"/>
         </view>
     </objects>
     <resources>
-        <image name="logo" width="71" height="70.666664123535156"/>
-        <image name="logo_title" width="87.333335876464844" height="41.333332061767578"/>
+        <image name="Logo" width="71" height="70.666664123535156"/>
+        <image name="LogoTitle" width="87.333335876464844" height="41.333332061767578"/>
         <namedColor name="Main">
             <color red="1" green="0.8666666666666667" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

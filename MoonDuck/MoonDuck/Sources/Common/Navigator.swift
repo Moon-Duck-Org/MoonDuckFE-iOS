@@ -41,12 +41,12 @@ class Navigator {
         case custom
     }
     
-    func get (seque: Scene) -> UIViewController? {
+    func get(seque: Scene) -> UIViewController? {
         switch seque {
         case .intro(let presenter):
             return IntroViewController(navigator: self, presenter: presenter)
-        case .home: 
-            return HomeViewController(nibName: "HomeViewController", bundle: nil)
+        case .home(let presenter):
+            return HomeViewController(navigator: self, presenter: presenter)
         }
     }
     
