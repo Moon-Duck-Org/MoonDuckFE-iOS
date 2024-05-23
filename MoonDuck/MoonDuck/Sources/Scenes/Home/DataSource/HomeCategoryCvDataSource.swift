@@ -28,10 +28,12 @@ extension HomeCategoryCvDataSource: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: HomeCategoryCvCell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCategoryCvCell.className, for: indexPath) as! HomeCategoryCvCell
-        let category = presenter.category(at: indexPath.row)
-        cell.configure(with: category)
-        return cell
+        if let cell: HomeCategoryCvCell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCategoryCvCell.className, for: indexPath) as? HomeCategoryCvCell {
+            let category = presenter.category(at: indexPath.row)
+            cell.configure(with: category)
+            return cell
+        }
+        return UICollectionViewCell()
     }
 }
 

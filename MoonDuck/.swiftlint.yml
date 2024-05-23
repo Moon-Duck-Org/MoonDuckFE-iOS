@@ -74,7 +74,7 @@ disabled_rules:
   - vertical_whitespace_closing_braces
 
 # Customized Configurable Rules
-line_length: 140
+line_length: 200
 force_cast: error
 nesting:
   type_level:

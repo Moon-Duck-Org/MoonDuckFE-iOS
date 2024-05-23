@@ -10,7 +10,7 @@ import UIKit
 class RadiusView: UIView {
 
     /// 노멀 백그라운드 컬러 : 기본값 클리어
-    @IBInspectable public var borderColor : UIColor = UIColor.clear {
+    @IBInspectable public var borderColor: UIColor = UIColor.clear {
         didSet {
             layer.borderColor = borderColor.cgColor
         }
@@ -22,13 +22,13 @@ class RadiusView: UIView {
             layer.borderWidth = borderWidth
         }
     }
+        
     /// corner radius값 : 기본 2
-    @IBInspectable public var cornerRadius : CGFloat = 2 {
+    @IBInspectable public var cornerRadius: CGFloat = 2 {
         didSet {
             self.layer.cornerRadius = cornerRadius
         }
     }
-    
     
     public override init(frame: CGRect) {
         super.init(frame: frame)

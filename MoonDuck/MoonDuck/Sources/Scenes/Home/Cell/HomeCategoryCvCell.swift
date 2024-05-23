@@ -14,7 +14,7 @@ class HomeCategoryCvCell: BaseCategoryCell {
         var cellSize: CGSize = collectionView.bounds.size
         cellSize.width -= 56 // Insets
         cellSize.width -= CGFloat(7 * (floatCount - 1))
-        cellSize.width = cellSize.width / floatCount
+        cellSize.width /= floatCount
         
         cellSize.height -= 12 // Insets
         

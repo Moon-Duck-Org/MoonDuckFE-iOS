@@ -15,7 +15,6 @@ class BaseNavigationController: UINavigationController {
         self.interactivePopGestureRecognizer?.isEnabled = true
         // Do any additional setup after loading the view.
     }
-    
 
     /*
     // MARK: - Navigation
