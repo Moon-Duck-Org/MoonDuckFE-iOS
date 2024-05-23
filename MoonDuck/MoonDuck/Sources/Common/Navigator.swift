@@ -29,6 +29,7 @@ class Navigator {
     // MARK: - all app scenes
     enum Scene {
         case intro(presenter: IntroViewPresenter)
+        case home(presentr: HomeViewPresenter)
     }
 
     enum Transition {
@@ -42,7 +43,10 @@ class Navigator {
     
     func get (seque: Scene) -> UIViewController? {
         switch seque {
-        case .intro: return IntroViewController(nibName: "IntroViewController", bundle: nil)
+        case .intro(let presenter):
+            return IntroViewController(navigator: self, presenter: presenter)
+        case .home: 
+            return HomeViewController(nibName: "HomeViewController", bundle: nil)
         }
     }
     

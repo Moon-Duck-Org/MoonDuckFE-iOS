@@ -9,10 +9,30 @@ import Foundation
 
 protocol IntroPresenter: AnyObject {
     var view: IntroView? { get set }
+    func viewDidLoad()
+    func viewWillAppear()
+    func viewWillDisappear()
 }
 
-class IntroViewPresenter {
+class IntroViewPresenter: IntroPresenter {
+    
     weak var view: IntroView?
     
+    let userService: UserService
     
+    init(userService: UserService) {
+        self.userService = userService
+    }
+    
+    func viewDidLoad() {
+        view?.moveHome()
+    }
+    
+    func viewWillAppear() {
+        
+    }
+    
+    func viewWillDisappear() {
+        
+    }
 }

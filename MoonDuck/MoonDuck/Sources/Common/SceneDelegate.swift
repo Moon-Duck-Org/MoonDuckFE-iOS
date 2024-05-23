@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         let navigator = Navigator.default
-        navigator.show(seque: .intro(presenter: IntroViewPresenter()), sender: nil, transition: .root)
+        navigator.show(seque: .intro(presenter: IntroViewPresenter(userService: UserService())), sender: nil, transition: .root)
         window?.windowScene = windowScene
         window?.rootViewController = navigator.root
         window?.makeKeyAndVisible()

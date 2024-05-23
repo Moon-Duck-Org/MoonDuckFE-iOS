@@ -46,6 +46,10 @@
 		EA6379D72BFF2B2D00464A19 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379D62BFF2B2D00464A19 /* TargetType.swift */; };
 		EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379DE2BFF2D6900464A19 /* UserService.swift */; };
 		EA6379E12BFF2E5300464A19 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379E02BFF2E5300464A19 /* User.swift */; };
+		EA6379E42BFF33C500464A19 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA6379E32BFF33C500464A19 /* HomeViewController.xib */; };
+		EA6379E52BFF33C500464A19 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379E22BFF33C500464A19 /* HomeViewController.swift */; };
+		EA6379E72BFF342F00464A19 /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379E62BFF342F00464A19 /* HomeViewPresenter.swift */; };
+		EA6379E92BFF359100464A19 /* NSObjectProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379E82BFF359100464A19 /* NSObjectProtocol+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +119,10 @@
 		EA6379D62BFF2B2D00464A19 /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		EA6379DE2BFF2D6900464A19 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		EA6379E02BFF2E5300464A19 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		EA6379E22BFF33C500464A19 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		EA6379E32BFF33C500464A19 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		EA6379E62BFF342F00464A19 /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
+		EA6379E82BFF359100464A19 /* NSObjectProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObjectProtocol+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,8 +285,8 @@
 		A0E658302BFE2F18001A8D54 /* Intro */ = {
 			isa = PBXGroup;
 			children = (
-				A0E6584E2BFE3F6C001A8D54 /* IntroViewController.swift */,
 				A0E6584F2BFE3F6C001A8D54 /* IntroViewController.xib */,
+				A0E6584E2BFE3F6C001A8D54 /* IntroViewController.swift */,
 				EA6379C92BFEF73500464A19 /* IntroViewPresenter.swift */,
 			);
 			path = Intro;
@@ -329,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				EA6379D12BFF295C00464A19 /* OSLog+Extension.swift */,
+				EA6379E82BFF359100464A19 /* NSObjectProtocol+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -364,6 +373,9 @@
 		EAC703A32BFECBC700E99378 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				EA6379E32BFF33C500464A19 /* HomeViewController.xib */,
+				EA6379E22BFF33C500464A19 /* HomeViewController.swift */,
+				EA6379E62BFF342F00464A19 /* HomeViewPresenter.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -492,6 +504,7 @@
 				A0E658072BFE22B9001A8D54 /* Base in Resources */,
 				A0E658492BFE394F001A8D54 /* .swiftlint.yml in Resources */,
 				A0E658502BFE3F6D001A8D54 /* IntroViewController.xib in Resources */,
+				EA6379E42BFF33C500464A19 /* HomeViewController.xib in Resources */,
 				A0E658462BFE36A5001A8D54 /* NotoSansCJKkr-Medium.otf in Resources */,
 				A0E658422BFE36A5001A8D54 /* NotoSansCJKkr-Light.otf in Resources */,
 				A0E658022BFE22B7001A8D54 /* Base in Resources */,
@@ -661,9 +674,11 @@
 			files = (
 				EA6379D72BFF2B2D00464A19 /* TargetType.swift in Sources */,
 				A0E6584D2BFE3C0B001A8D54 /* XCAssets+Generated.swift in Sources */,
+				EA6379E92BFF359100464A19 /* NSObjectProtocol+Extension.swift in Sources */,
 				A0E6584B2BFE3C03001A8D54 /* Fonts+Generated.swift in Sources */,
 				EA6379E12BFF2E5300464A19 /* User.swift in Sources */,
 				EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */,
+				EA6379E52BFF33C500464A19 /* HomeViewController.swift in Sources */,
 				A0E657FF2BFE22B7001A8D54 /* ViewController.swift in Sources */,
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,
 				EA6379D22BFF295C00464A19 /* OSLog+Extension.swift in Sources */,
@@ -672,6 +687,7 @@
 				EA6379BE2BFEEDB000464A19 /* HomeHeaderView.swift in Sources */,
 				A0E657FB2BFE22B7001A8D54 /* AppDelegate.swift in Sources */,
 				A0E658532BFE40F9001A8D54 /* LoadingView.swift in Sources */,
+				EA6379E72BFF342F00464A19 /* HomeViewPresenter.swift in Sources */,
 				EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */,
 				EA6379CF2BFF1C5400464A19 /* MoonDuckAPI.swift in Sources */,
 				EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */,
