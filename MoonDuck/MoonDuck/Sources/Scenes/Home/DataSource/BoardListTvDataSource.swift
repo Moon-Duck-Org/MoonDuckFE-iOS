@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class HomeListTvDataSource: NSObject {
+final class BoardListTvDataSource: NSObject {
     fileprivate let presenter: HomePresenter
     
     init(presenter: HomePresenter) {
@@ -22,7 +22,7 @@ final class HomeListTvDataSource: NSObject {
     }
 }
 
-extension HomeListTvDataSource: UITableViewDataSource {
+extension BoardListTvDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfBoard
     }
@@ -37,6 +37,6 @@ extension HomeListTvDataSource: UITableViewDataSource {
     }
 }
 
-extension HomeListTvDataSource: UITableViewDelegate {
+extension BoardListTvDataSource: UITableViewDelegate {
     
 }

@@ -10,8 +10,11 @@ import Foundation
 protocol HomePresenter: AnyObject {
     var view: HomeView? { get set }
     var service: AppServices { get }
+    
     var numberOfCategory: Int { get }
     var numberOfBoard: Int { get }
+    
+    var selectedCategoryIndex: Int { get set }
     
     func category(at index: Int) -> Category
     func board(at index: Int) -> Board
@@ -32,6 +35,7 @@ class HomeViewPresenter: HomePresenter {
     private let user: User
     
     let service: AppServices
+    var selectedCategoryIndex: Int = 0
     
     init(with service: AppServices, user: User) {
         self.service = service

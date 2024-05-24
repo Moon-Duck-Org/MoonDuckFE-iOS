@@ -8,27 +8,29 @@
 import UIKit
 
 protocol HomeView: AnyObject {
-    
+    func updateEmptyView(isEmpty: Bool)
+    func updateCountLabel(_ cnt: Int)
 }
 
-class HomeViewController: UIViewController, HomeView {
+class HomeViewController: UIViewController, HomeView, Navigatable {
 
-    @IBOutlet private weak var cvCategory: UICollectionView!
-    @IBOutlet private weak var lbHistoryCount: UILabel!
-    @IBOutlet private weak var lbSortTitle: UILabel!
-    @IBOutlet private weak var tvBoardList: UITableView!
+    @IBOutlet private weak var categoryCollectionView: UICollectionView!
+    @IBOutlet private weak var historyCountLabel: UILabel!
+    @IBOutlet private weak var sortLabel: UILabel!
+    @IBOutlet private weak var boardTableView: UITableView!
+    @IBOutlet private weak var boardEmptyView: UIView!
     
     let presenter: HomePresenter
     var navigator: Navigator!
-    let cvDatasource: HomeCategoryCvDataSource
-    let tvDatasource: HomeListTvDataSource
+    let categoryDataSource: HomeCategoryCvDataSource
+    let boardDataSource: BoardListTvDataSource
     
     init(navigator: Navigator,
          presenter: HomePresenter) {
         self.navigator = navigator
         self.presenter = presenter
-        self.cvDatasource = HomeCategoryCvDataSource(presenter: presenter)
-        self.tvDatasource = HomeListTvDataSource(presenter: presenter)
+        self.categoryDataSource = HomeCategoryCvDataSource(presenter: presenter)
+        self.boardDataSource = BoardListTvDataSource(presenter: presenter)
         super.init(nibName: HomeViewController.className, bundle: Bundle(for: HomeViewController.self))
     }
     
@@ -39,13 +41,19 @@ class HomeViewController: UIViewController, HomeView {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cvDatasource.configure(with: cvCategory)
-        tvDatasource.configure(with: tvBoardList)
         presenter.view = self
+        
+        categoryDataSource.configure(with: categoryCollectionView)
+        boardDataSource.configure(with: boardTableView)
+        
+        categoryCollectionView.selectItem(at: IndexPath(row: presenter.selectedCategoryIndex, section: 0), animated: false, scrollPosition: .top)
     }
     
-    func reloadData() {
-        cvCategory.reloadData()
+    func updateEmptyView(isEmpty: Bool) {
+        boardEmptyView.isHidden = isEmpty
     }
-
+    
+    func updateCountLabel(_ cnt: Int) {
+        historyCountLabel.text = "\(cnt)"
+    }
 }

@@ -21,6 +21,7 @@ final class HomeCategoryCvDataSource: NSObject {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension HomeCategoryCvDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.numberOfCategory
@@ -36,6 +37,7 @@ extension HomeCategoryCvDataSource: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 extension HomeCategoryCvDataSource: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -43,6 +45,13 @@ extension HomeCategoryCvDataSource: UICollectionViewDelegate, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: [홈화면] 카테고리 클릭 이벤트
+        guard presenter.selectedCategoryIndex != indexPath.row else { return }
+    
+        if let currentcell = collectionView.cellForItem(at: indexPath) as? HomeCategoryCvCell,
+           let selectedCell = collectionView.cellForItem(at: IndexPath(row: presenter.selectedCategoryIndex, section: 0)) as? HomeCategoryCvCell {
+            presenter.selectedCategoryIndex = indexPath.row
+            currentcell.setSelect(true)
+            selectedCell.setSelect(false)
+        }
     }
 }

@@ -36,6 +36,8 @@
 		A0E658532BFE40F9001A8D54 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E658522BFE40F9001A8D54 /* LoadingView.swift */; };
 		B1172CFFFCCD4092EAB9B177 /* Pods_MoonDuck_MoonDuckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */; };
 		EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0B92C00F6D70041A8B4 /* TextField.swift */; };
+		EA5EA0C52C0119880041A8B4 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0C32C0119880041A8B4 /* BoardViewController.swift */; };
+		EA5EA0C62C0119880041A8B4 /* BoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5EA0C42C0119880041A8B4 /* BoardViewController.xib */; };
 		EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379C42BFEF3FA00464A19 /* Navigator.swift */; };
 		EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379C72BFEF49800464A19 /* BaseNavigationController.swift */; };
 		EA6379CA2BFEF73500464A19 /* IntroViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379C92BFEF73500464A19 /* IntroViewPresenter.swift */; };
@@ -62,19 +64,19 @@
 		EA9A84272C00BCAF004B7FDF /* NameSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA9A84252C00BCAF004B7FDF /* NameSettingViewController.xib */; };
 		EA9A84292C00BF04004B7FDF /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84282C00BF04004B7FDF /* UITextField+Extension.swift */; };
 		EA9A842B2C00C33E004B7FDF /* NameSettingViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A842A2C00C33E004B7FDF /* NameSettingViewPresenter.swift */; };
-		EA9A842D2C00D28C004B7FDF /* EmptyBoardListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA9A842C2C00D28C004B7FDF /* EmptyBoardListView.xib */; };
 		EA9A842F2C00D577004B7FDF /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A842E2C00D577004B7FDF /* Alert.swift */; };
 		EA9A843F2C00DCDA004B7FDF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA9A843D2C00DCDA004B7FDF /* Localizable.strings */; };
 		EA9A84422C00DD08004B7FDF /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84412C00DD08004B7FDF /* Strings+Generated.swift */; };
 		EA9A84452C00E306004B7FDF /* APIEventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84442C00E306004B7FDF /* APIEventLogger.swift */; };
-		EAD9575F2C002384001FB6E1 /* HomeListTvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9575E2C002384001FB6E1 /* HomeListTvDataSource.swift */; };
+		EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */; };
 		EAD957632C002982001FB6E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957622C002982001FB6E1 /* User.swift */; };
 		EAD957652C0029D3001FB6E1 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957642C0029D3001FB6E1 /* Board.swift */; };
-		EAD957672C002FCD001FB6E1 /* StarRatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD957662C002FCD001FB6E1 /* StarRatingView.xib */; };
-		EAD957692C00303B001FB6E1 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957682C00303B001FB6E1 /* StarRatingView.swift */; };
 		EAD9576D2C008ED5001FB6E1 /* OnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9576B2C008ED5001FB6E1 /* OnboardViewController.swift */; };
 		EAD9576E2C008ED5001FB6E1 /* OnboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD9576C2C008ED5001FB6E1 /* OnboardViewController.xib */; };
 		EAD957702C0094A1001FB6E1 /* OnboardViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9576F2C0094A1001FB6E1 /* OnboardViewPresenter.swift */; };
+		EAE017CC2C012C1900699145 /* BoardImageCvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE017CB2C012C1900699145 /* BoardImageCvCell.xib */; };
+		EAE017CD2C012C1900699145 /* BoardImageCvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017CA2C012C1900699145 /* BoardImageCvCell.swift */; };
+		EAE017CF2C012DF500699145 /* StarRatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017CE2C012DF500699145 /* StarRatingButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +136,8 @@
 		DBD2F616893EF44F45B03BA4 /* Pods-MoonDuck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck/Pods-MoonDuck.debug.xcconfig"; sourceTree = "<group>"; };
 		DFBEA84FB81504AE187A5E07 /* Pods-MoonDuck-MoonDuckUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck-MoonDuckUITests/Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EA5EA0B92C00F6D70041A8B4 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		EA5EA0C32C0119880041A8B4 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
+		EA5EA0C42C0119880041A8B4 /* BoardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardViewController.xib; sourceTree = "<group>"; };
 		EA6379C42BFEF3FA00464A19 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		EA6379C72BFEF49800464A19 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		EA6379C92BFEF73500464A19 /* IntroViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewPresenter.swift; sourceTree = "<group>"; };
@@ -160,21 +164,21 @@
 		EA9A84252C00BCAF004B7FDF /* NameSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NameSettingViewController.xib; sourceTree = "<group>"; };
 		EA9A84282C00BF04004B7FDF /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		EA9A842A2C00C33E004B7FDF /* NameSettingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSettingViewPresenter.swift; sourceTree = "<group>"; };
-		EA9A842C2C00D28C004B7FDF /* EmptyBoardListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyBoardListView.xib; sourceTree = "<group>"; };
 		EA9A842E2C00D577004B7FDF /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		EA9A84362C00DBC4004B7FDF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		EA9A84372C00DBC4004B7FDF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		EA9A84402C00DCDD004B7FDF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EA9A84412C00DD08004B7FDF /* Strings+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
 		EA9A84442C00E306004B7FDF /* APIEventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEventLogger.swift; sourceTree = "<group>"; };
-		EAD9575E2C002384001FB6E1 /* HomeListTvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListTvDataSource.swift; sourceTree = "<group>"; };
+		EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListTvDataSource.swift; sourceTree = "<group>"; };
 		EAD957622C002982001FB6E1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EAD957642C0029D3001FB6E1 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
-		EAD957662C002FCD001FB6E1 /* StarRatingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StarRatingView.xib; sourceTree = "<group>"; };
-		EAD957682C00303B001FB6E1 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		EAD9576B2C008ED5001FB6E1 /* OnboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewController.swift; sourceTree = "<group>"; };
 		EAD9576C2C008ED5001FB6E1 /* OnboardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardViewController.xib; sourceTree = "<group>"; };
 		EAD9576F2C0094A1001FB6E1 /* OnboardViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewPresenter.swift; sourceTree = "<group>"; };
+		EAE017CA2C012C1900699145 /* BoardImageCvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardImageCvCell.swift; sourceTree = "<group>"; };
+		EAE017CB2C012C1900699145 /* BoardImageCvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardImageCvCell.xib; sourceTree = "<group>"; };
+		EAE017CE2C012DF500699145 /* StarRatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,7 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */,
-				EAD9575E2C002384001FB6E1 /* HomeListTvDataSource.swift */,
+				EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -334,6 +338,7 @@
 				EAD9576A2C008EB6001FB6E1 /* Onboard */,
 				EA9A84212C00BBAE004B7FDF /* NameSetting */,
 				EAC703A32BFECBC700E99378 /* Home */,
+				EA5EA0C02C0119650041A8B4 /* Board */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -342,9 +347,9 @@
 			isa = PBXGroup;
 			children = (
 				A0F384062BFFAF390035D2E3 /* Base */,
+				EAE017CA2C012C1900699145 /* BoardImageCvCell.swift */,
+				EAE017CB2C012C1900699145 /* BoardImageCvCell.xib */,
 				A0E658522BFE40F9001A8D54 /* LoadingView.swift */,
-				EAD957662C002FCD001FB6E1 /* StarRatingView.xib */,
-				EAD957682C00303B001FB6E1 /* StarRatingView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -382,6 +387,15 @@
 				EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		EA5EA0C02C0119650041A8B4 /* Board */ = {
+			isa = PBXGroup;
+			children = (
+				EA5EA0C32C0119880041A8B4 /* BoardViewController.swift */,
+				EA5EA0C42C0119880041A8B4 /* BoardViewController.xib */,
+			);
+			path = Board;
 			sourceTree = "<group>";
 		};
 		EA6379CD2BFF1C4000464A19 /* Request */ = {
@@ -440,7 +454,6 @@
 				EA6D9A732BFF67A0003B459A /* HomeCategoryCvCell.xib */,
 				A07826AA2BFFAB6300D7BA63 /* BoardListTvCell.swift */,
 				A07826AB2BFFAB6300D7BA63 /* BoardListTvCell.xib */,
-				EA9A842C2C00D28C004B7FDF /* EmptyBoardListView.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -451,6 +464,7 @@
 				EA6D9A792BFF6884003B459A /* RadiusView.swift */,
 				EA9A842E2C00D577004B7FDF /* Alert.swift */,
 				EA5EA0B92C00F6D70041A8B4 /* TextField.swift */,
+				EAE017CE2C012DF500699145 /* StarRatingButton.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -616,16 +630,16 @@
 				EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */,
 				A0E658402BFE36A5001A8D54 /* NotoSansCJKkr-Regular.otf in Resources */,
 				A0E6583E2BFE36A5001A8D54 /* NotoSansCJKkr-Thin.otf in Resources */,
+				EA5EA0C62C0119880041A8B4 /* BoardViewController.xib in Resources */,
 				EAD9576E2C008ED5001FB6E1 /* OnboardViewController.xib in Resources */,
 				A0E658452BFE36A5001A8D54 /* NotoSansCJKkr-Bold.otf in Resources */,
-				EAD957672C002FCD001FB6E1 /* StarRatingView.xib in Resources */,
 				A0E658042BFE22B9001A8D54 /* Assets.xcassets in Resources */,
 				A0E658322BFE300D001A8D54 /* Color.xcassets in Resources */,
 				A0E658432BFE36A5001A8D54 /* NotoSansMonoCJKkr-Bold.otf in Resources */,
 				A07826AC2BFFAB6300D7BA63 /* BoardListTvCell.xib in Resources */,
 				EA6D9A752BFF67A0003B459A /* HomeCategoryCvCell.xib in Resources */,
 				EA9A84272C00BCAF004B7FDF /* NameSettingViewController.xib in Resources */,
-				EA9A842D2C00D28C004B7FDF /* EmptyBoardListView.xib in Resources */,
+				EAE017CC2C012C1900699145 /* BoardImageCvCell.xib in Resources */,
 				A0E658072BFE22B9001A8D54 /* Base in Resources */,
 				A0E658492BFE394F001A8D54 /* .swiftlint.yml in Resources */,
 				EA6379E42BFF33C500464A19 /* HomeViewController.xib in Resources */,
@@ -802,6 +816,7 @@
 				A0E6584D2BFE3C0B001A8D54 /* XCAssets+Generated.swift in Sources */,
 				EA6379E92BFF359100464A19 /* NSObjectProtocol+Extension.swift in Sources */,
 				A0E6584B2BFE3C03001A8D54 /* Fonts+Generated.swift in Sources */,
+				EAE017CF2C012DF500699145 /* StarRatingButton.swift in Sources */,
 				EA6379E12BFF2E5300464A19 /* UserResponse.swift in Sources */,
 				EA9A842B2C00C33E004B7FDF /* NameSettingViewPresenter.swift in Sources */,
 				EA9A84202C00AA93004B7FDF /* AppServices.swift in Sources */,
@@ -815,6 +830,7 @@
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,
 				EAD957702C0094A1001FB6E1 /* OnboardViewPresenter.swift in Sources */,
 				EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */,
+				EA5EA0C52C0119880041A8B4 /* BoardViewController.swift in Sources */,
 				EA6379D22BFF295C00464A19 /* OSLog+Extension.swift in Sources */,
 				A07826AD2BFFAB6300D7BA63 /* BoardListTvCell.swift in Sources */,
 				EA9A84422C00DD08004B7FDF /* Strings+Generated.swift in Sources */,
@@ -827,11 +843,11 @@
 				EA6D9A772BFF6823003B459A /* UIView+Extension.swift in Sources */,
 				EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */,
 				EA6D9A742BFF67A0003B459A /* HomeCategoryCvCell.swift in Sources */,
-				EAD957692C00303B001FB6E1 /* StarRatingView.swift in Sources */,
 				EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */,
 				EA6379CF2BFF1C5400464A19 /* MoonDuckAPI.swift in Sources */,
 				EA9A84292C00BF04004B7FDF /* UITextField+Extension.swift in Sources */,
-				EAD9575F2C002384001FB6E1 /* HomeListTvDataSource.swift in Sources */,
+				EAE017CD2C012C1900699145 /* BoardImageCvCell.swift in Sources */,
+				EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */,
 				EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */,
 				A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */,
 				EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */,

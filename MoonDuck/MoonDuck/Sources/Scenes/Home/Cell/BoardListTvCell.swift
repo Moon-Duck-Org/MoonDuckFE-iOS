@@ -16,15 +16,23 @@ class BoardListTvCell: UITableViewCell {
     @IBOutlet private weak var lbContent: UILabel!
     @IBOutlet private weak var lbLink: UILabel!
     
+    @IBOutlet private weak var linkView: UIView!
+    @IBOutlet private weak var bottomMarginConstraint: NSLayoutConstraint!
+    
     func configure(with board: Board) {
         lbUserNickname?.text = board.userNickname
         lbCreatedData?.text = board.created
         lbTitle?.text = board.title
         lbContent?.text = board.content
-        lbLink?.text = board.link
-    }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+        
+        if let link = board.link, !link.isEmpty {
+            lbLink?.text = board.link
+            linkView?.isHidden = false
+            bottomMarginConstraint?.constant = 49
+        } else {
+            lbLink?.text = ""
+            linkView?.isHidden = true
+            bottomMarginConstraint?.constant = 20
+        }
     }
 }

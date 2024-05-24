@@ -26,7 +26,8 @@ class IntroViewPresenter: IntroPresenter {
     }
     
     func viewDidLoad() {
-        login()
+//        login()
+        self.view?.moveHome(with: self.service, user: User(deviceId: "123", nickname: "포덕이"))
     }
 }
 
