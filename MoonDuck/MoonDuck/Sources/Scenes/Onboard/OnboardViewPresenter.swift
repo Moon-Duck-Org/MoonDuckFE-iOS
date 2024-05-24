@@ -10,6 +10,7 @@ import Foundation
 protocol OnboardPresenter: AnyObject {
     var view: OnboardView? { get set }
     var service: AppServices { get }
+    
     func startButtonTap()
 }
 

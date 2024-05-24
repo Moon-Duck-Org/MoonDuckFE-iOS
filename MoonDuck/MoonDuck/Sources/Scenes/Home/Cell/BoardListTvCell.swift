@@ -9,12 +9,12 @@ import UIKit
 
 class BoardListTvCell: UITableViewCell {
 
-    @IBOutlet weak var lbUserNickname: UILabel!
-    @IBOutlet weak var lbCreatedData: UILabel!
+    @IBOutlet private weak var lbUserNickname: UILabel!
+    @IBOutlet private weak var lbCreatedData: UILabel!
         
-    @IBOutlet weak var lbTitle: UILabel!
-    @IBOutlet weak var lbContent: UILabel!
-    @IBOutlet weak var lbLink: UILabel!
+    @IBOutlet private weak var lbTitle: UILabel!
+    @IBOutlet private weak var lbContent: UILabel!
+    @IBOutlet private weak var lbLink: UILabel!
     
     func configure(with board: Board) {
         lbUserNickname?.text = board.userNickname

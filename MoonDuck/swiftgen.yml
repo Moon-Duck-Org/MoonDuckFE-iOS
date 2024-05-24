@@ -71,5 +71,13 @@ fonts:
   inputs:
     - Font
   outputs:
-    templateName: swift5
-    output: Fonts+Generated.swift
+    - templateName: swift5
+      output: Fonts+Generated.swift
+       
+strings:
+  inputs:
+    - ko.lproj
+  filter: .+\.strings$
+  outputs:
+   - templateName: structured-swift5
+     output: Strings+Generated.swift

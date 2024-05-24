@@ -40,7 +40,6 @@ opt_in_rules:
   - pattern_matching_keywords
   - private_action
   - private_outlet
-  - prohibited_interface_builder
   - prohibited_super_call
   - quick_discouraged_call
   - quick_discouraged_focused_test
@@ -107,4 +106,3 @@ custom_rules:
     message: Rule Test Function mustn't end with `rule`
     regex: func\s*test\w+(r|R)ule\(\)
     severity: error
-

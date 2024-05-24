@@ -23,16 +23,11 @@ class BaseCategoryCell: UICollectionViewCell {
         }
     }
     
-    @IBOutlet weak var vBack: UIView?
-    @IBOutlet weak var lbTitle: UILabel?
-    @IBOutlet weak var ivIcon: UIImageView?
+    @IBOutlet private weak var vBack: UIView?
+    @IBOutlet private weak var lbTitle: UILabel?
+    @IBOutlet private weak var ivIcon: UIImageView?
     
     var cellMode: CellMode = .home
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
     
     func configure(with category: Category) {
         lbTitle?.text = category.title

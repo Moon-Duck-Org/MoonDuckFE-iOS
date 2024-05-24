@@ -10,6 +10,7 @@ import Foundation
 protocol IntroPresenter: AnyObject {
     var view: IntroView? { get set }
     var service: AppServices { get }
+    
     func viewDidLoad()
 }
 

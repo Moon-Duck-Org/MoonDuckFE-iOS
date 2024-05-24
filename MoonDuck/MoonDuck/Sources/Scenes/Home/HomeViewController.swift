@@ -13,10 +13,10 @@ protocol HomeView: AnyObject {
 
 class HomeViewController: UIViewController, HomeView {
 
-    @IBOutlet private(set) weak var cvCategory: UICollectionView!
-    @IBOutlet weak var lbHistoryCount: UILabel!
-    @IBOutlet weak var lbSortTitle: UILabel!
-    @IBOutlet weak var tvBoardList: UITableView!
+    @IBOutlet private weak var cvCategory: UICollectionView!
+    @IBOutlet private weak var lbHistoryCount: UILabel!
+    @IBOutlet private weak var lbSortTitle: UILabel!
+    @IBOutlet private weak var tvBoardList: UITableView!
     
     let presenter: HomePresenter
     var navigator: Navigator!

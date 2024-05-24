@@ -17,7 +17,7 @@ class OnboardViewController: UIViewController, OnboardView, Navigatable {
     let presenter: OnboardPresenter
     var navigator: Navigator!
     
-    @IBAction func startButtonTap(_ sender: Any) {
+    @IBAction private func startButtonTap(_ sender: Any) {
         presenter.startButtonTap()
     }
     

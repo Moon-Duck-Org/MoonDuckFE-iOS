@@ -17,6 +17,7 @@ extension MoonDuckAPI: TargetType {
     static func baseUrl() -> String {
         return "http://223.130.162.22:8080/"
     }
+    
     var baseURL: URL {
         switch self {
         default:

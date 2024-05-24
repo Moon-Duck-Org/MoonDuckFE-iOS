@@ -20,14 +20,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GgW-As-1lX">
                                 <rect key="frame" x="153" y="375" width="87.333333333333314" height="127.33333333333331"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="U09-1m-S0E">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="U09-1m-S0E">
                                         <rect key="frame" x="8" y="0.0" width="71" height="71"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="71" id="Tb3-eU-fuw"/>
                                             <constraint firstAttribute="width" constant="71" id="z7B-Yf-qcA"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_title" translatesAutoresizingMaskIntoConstraints="NO" id="alM-z7-VLr">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="alM-z7-VLr">
                                         <rect key="frame" x="0.0" y="86" width="87.333333333333329" height="41.333333333333343"/>
                                     </imageView>
                                 </subviews>
@@ -56,8 +56,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="71" height="70.666664123535156"/>
-        <image name="logo_title" width="87.333335876464844" height="41.333332061767578"/>
+        <image name="Logo" width="71" height="70.666664123535156"/>
+        <image name="LogoTitle" width="87.333335876464844" height="41.333332061767578"/>
         <namedColor name="Main">
             <color red="1" green="0.8666666666666667" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

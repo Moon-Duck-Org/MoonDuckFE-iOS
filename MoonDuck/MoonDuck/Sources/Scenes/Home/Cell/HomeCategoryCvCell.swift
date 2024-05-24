@@ -7,9 +7,8 @@
 
 import UIKit
 
-class HomeCategoryCvCell: BaseCategoryCell {
-    
-    public static func cellSize(_ collectionView: UICollectionView, cellCount: Int) -> CGSize {
+class HomeCategoryCvCell: BaseCategoryCell {    
+    static func cellSize(_ collectionView: UICollectionView, cellCount: Int) -> CGSize {
         let floatCount: CGFloat = CGFloat(cellCount)
         var cellSize: CGSize = collectionView.bounds.size
         cellSize.width -= 56 // Insets
@@ -19,6 +18,5 @@ class HomeCategoryCvCell: BaseCategoryCell {
         cellSize.height -= 12 // Insets
         
         return cellSize
-//        return CGSize(width: 10, height: 10)
     }
 }
