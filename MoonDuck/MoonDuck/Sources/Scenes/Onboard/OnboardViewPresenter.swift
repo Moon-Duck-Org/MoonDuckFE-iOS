@@ -6,33 +6,25 @@
 //
 
 import Foundation
+
 protocol OnboardPresenter: AnyObject {
     var view: OnboardView? { get set }
-    var userService: UserService { get }
-    func viewDidLoad()
-    func viewWillAppear()
-    func viewWillDisappear()
+    var service: AppServices { get }
+    func startButtonTap()
 }
 
 class OnboardViewPresenter: OnboardPresenter {
     
     weak var view: OnboardView?
     
-    let userService: UserService
+    let service: AppServices
     
-    init(userService: UserService) {
-        self.userService = userService
+    init(with service: AppServices) {
+        self.service = service
     }
     
-    func viewDidLoad() {
-        view?.moveHome()
+    func startButtonTap() {
+        view?.moveNameSetting(with: service)
     }
-    
-    func viewWillAppear() {
-        
-    }
-    
-    func viewWillDisappear() {
-        
-    }
+
 }

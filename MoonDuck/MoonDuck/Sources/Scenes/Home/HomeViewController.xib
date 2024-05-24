@@ -9,6 +9,17 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSansCJKkr-Bold.otf">
+            <string>NotoSansCJKkr-Bold</string>
+        </array>
+        <array key="NotoSansCJKkr-Medium.otf">
+            <string>NotoSansCJKkr-Medium</string>
+        </array>
+        <array key="NotoSansCJKkr-Regular.otf">
+            <string>NotoSansCJKkr-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
@@ -136,7 +147,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" name="White"/>
                     <constraints>
                         <constraint firstItem="Osf-hB-GPm" firstAttribute="centerY" secondItem="Lkn-Nd-Qz1" secondAttribute="centerY" id="Hjo-j6-iCL"/>
                         <constraint firstAttribute="trailing" secondItem="Osf-hB-GPm" secondAttribute="trailing" constant="16" id="OBA-cd-2KK"/>
@@ -156,7 +167,7 @@
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IeJ-hE-v5h">
                     <rect key="frame" x="0.0" y="264" width="393" height="588"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" name="White"/>
                 </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="LeH-dl-Ksy"/>

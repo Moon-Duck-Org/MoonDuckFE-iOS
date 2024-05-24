@@ -8,13 +8,18 @@
 import UIKit
 
 protocol OnboardView: AnyObject {
-    func moveHome()
+    func moveHome(with service: AppServices)
+    func moveNameSetting(with service: AppServices)
 }
 
 class OnboardViewController: UIViewController, OnboardView, Navigatable {
-    
+        
     let presenter: OnboardPresenter
     var navigator: Navigator!
+    
+    @IBAction func startButtonTap(_ sender: Any) {
+        presenter.startButtonTap()
+    }
     
     init(navigator: Navigator,
          presenter: OnboardPresenter) {
@@ -29,23 +34,19 @@ class OnboardViewController: UIViewController, OnboardView, Navigatable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         presenter.view = self
-        presenter.viewDidLoad()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        presenter.viewWillAppear()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        presenter.viewWillDisappear()
-    }
-    
-    func moveHome() {
-        let presenter = HomeViewPresenter()
+}
+
+// MARK: - Navigation
+extension OnboardViewController {
+    func moveHome(with service: AppServices) {
+        let presenter = HomeViewPresenter(with: service)
         navigator.show(seque: .home(presentr: presenter), sender: nil, transition: .root)
+    }
+    
+    func moveNameSetting(with service: AppServices) {
+        let presenter = NameSettingViewPresenter(with: service)
+        navigator.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
     }
 }

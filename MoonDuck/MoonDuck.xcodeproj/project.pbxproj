@@ -57,6 +57,11 @@
 		EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */; };
 		EA81F4AD2BFF7B6900FDC7A7 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4AC2BFF7B6900FDC7A7 /* UICollectionView+Extension.swift */; };
 		EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA81F4B12BFF881800FDC7A7 /* IntroViewController.xib */; };
+		EA9A84202C00AA93004B7FDF /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A841F2C00AA93004B7FDF /* AppServices.swift */; };
+		EA9A84262C00BCAF004B7FDF /* NameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84242C00BCAF004B7FDF /* NameSettingViewController.swift */; };
+		EA9A84272C00BCAF004B7FDF /* NameSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA9A84252C00BCAF004B7FDF /* NameSettingViewController.xib */; };
+		EA9A84292C00BF04004B7FDF /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84282C00BF04004B7FDF /* UITextField+Extension.swift */; };
+		EA9A842B2C00C33E004B7FDF /* NameSettingViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A842A2C00C33E004B7FDF /* NameSettingViewPresenter.swift */; };
 		EAD9575F2C002384001FB6E1 /* HomeListTvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9575E2C002384001FB6E1 /* HomeListTvDataSource.swift */; };
 		EAD957632C002982001FB6E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957622C002982001FB6E1 /* User.swift */; };
 		EAD957652C0029D3001FB6E1 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957642C0029D3001FB6E1 /* Board.swift */; };
@@ -145,6 +150,11 @@
 		EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCvDataSource.swift; sourceTree = "<group>"; };
 		EA81F4AC2BFF7B6900FDC7A7 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		EA81F4B12BFF881800FDC7A7 /* IntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
+		EA9A841F2C00AA93004B7FDF /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
+		EA9A84242C00BCAF004B7FDF /* NameSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSettingViewController.swift; sourceTree = "<group>"; };
+		EA9A84252C00BCAF004B7FDF /* NameSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NameSettingViewController.xib; sourceTree = "<group>"; };
+		EA9A84282C00BF04004B7FDF /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		EA9A842A2C00C33E004B7FDF /* NameSettingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSettingViewPresenter.swift; sourceTree = "<group>"; };
 		EAD9575E2C002384001FB6E1 /* HomeListTvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListTvDataSource.swift; sourceTree = "<group>"; };
 		EAD957622C002982001FB6E1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EAD957642C0029D3001FB6E1 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
@@ -328,8 +338,8 @@
 			isa = PBXGroup;
 			children = (
 				A0E6584E2BFE3F6C001A8D54 /* IntroViewController.swift */,
-				EA6379C92BFEF73500464A19 /* IntroViewPresenter.swift */,
 				EA81F4B12BFF881800FDC7A7 /* IntroViewController.xib */,
+				EA6379C92BFEF73500464A19 /* IntroViewPresenter.swift */,
 			);
 			path = Intro;
 			sourceTree = "<group>";
@@ -374,6 +384,7 @@
 				EA6379E82BFF359100464A19 /* NSObjectProtocol+Extension.swift */,
 				EA6D9A762BFF6823003B459A /* UIView+Extension.swift */,
 				EA81F4AC2BFF7B6900FDC7A7 /* UICollectionView+Extension.swift */,
+				EA9A84282C00BF04004B7FDF /* UITextField+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -401,6 +412,7 @@
 		EA6379DD2BFF2D3900464A19 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				EA9A841F2C00AA93004B7FDF /* AppServices.swift */,
 				EA6379DE2BFF2D6900464A19 /* UserService.swift */,
 			);
 			path = Service;
@@ -435,6 +447,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		EA9A84212C00BBAE004B7FDF /* NameSetting */ = {
+			isa = PBXGroup;
+			children = (
+				EA9A84242C00BCAF004B7FDF /* NameSettingViewController.swift */,
+				EA9A84252C00BCAF004B7FDF /* NameSettingViewController.xib */,
+				EA9A842A2C00C33E004B7FDF /* NameSettingViewPresenter.swift */,
+			);
+			path = NameSetting;
+			sourceTree = "<group>";
+		};
 		EAC703A32BFECBC700E99378 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +472,7 @@
 		EAD9576A2C008EB6001FB6E1 /* Onboard */ = {
 			isa = PBXGroup;
 			children = (
+				EA9A84212C00BBAE004B7FDF /* NameSetting */,
 				EAD9576B2C008ED5001FB6E1 /* OnboardViewController.swift */,
 				EAD9576C2C008ED5001FB6E1 /* OnboardViewController.xib */,
 				EAD9576F2C0094A1001FB6E1 /* OnboardViewPresenter.swift */,
@@ -582,6 +605,7 @@
 				A0E658432BFE36A5001A8D54 /* NotoSansMonoCJKkr-Bold.otf in Resources */,
 				A07826AC2BFFAB6300D7BA63 /* BoardListTvCell.xib in Resources */,
 				EA6D9A752BFF67A0003B459A /* HomeCategoryCvCell.xib in Resources */,
+				EA9A84272C00BCAF004B7FDF /* NameSettingViewController.xib in Resources */,
 				A0E658072BFE22B9001A8D54 /* Base in Resources */,
 				A0E658492BFE394F001A8D54 /* .swiftlint.yml in Resources */,
 				EA6379E42BFF33C500464A19 /* HomeViewController.xib in Resources */,
@@ -759,6 +783,9 @@
 				EA6379E92BFF359100464A19 /* NSObjectProtocol+Extension.swift in Sources */,
 				A0E6584B2BFE3C03001A8D54 /* Fonts+Generated.swift in Sources */,
 				EA6379E12BFF2E5300464A19 /* UserResponse.swift in Sources */,
+				EA9A842B2C00C33E004B7FDF /* NameSettingViewPresenter.swift in Sources */,
+				EA9A84202C00AA93004B7FDF /* AppServices.swift in Sources */,
+				EA9A84262C00BCAF004B7FDF /* NameSettingViewController.swift in Sources */,
 				EA81F4AD2BFF7B6900FDC7A7 /* UICollectionView+Extension.swift in Sources */,
 				EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */,
 				EAD957632C002982001FB6E1 /* User.swift in Sources */,
@@ -780,6 +807,7 @@
 				EAD957692C00303B001FB6E1 /* StarRatingView.swift in Sources */,
 				EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */,
 				EA6379CF2BFF1C5400464A19 /* MoonDuckAPI.swift in Sources */,
+				EA9A84292C00BF04004B7FDF /* UITextField+Extension.swift in Sources */,
 				EAD9575F2C002384001FB6E1 /* HomeListTvDataSource.swift in Sources */,
 				EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */,
 				A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */,

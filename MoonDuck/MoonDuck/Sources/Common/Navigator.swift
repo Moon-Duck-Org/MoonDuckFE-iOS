@@ -29,6 +29,8 @@ class Navigator {
     // MARK: - all app scenes
     enum Scene {
         case intro(presenter: IntroViewPresenter)
+        case onboard(presenter: OnboardViewPresenter)
+        case nameSetting(presenter: NameSettingViewPresenter)
         case home(presentr: HomeViewPresenter)
     }
 
@@ -45,6 +47,10 @@ class Navigator {
         switch seque {
         case .intro(let presenter):
             return IntroViewController(navigator: self, presenter: presenter)
+        case .onboard(let presenter):
+            return OnboardViewController(navigator: self, presenter: presenter)
+        case .nameSetting(let presenter):
+            return NameSettingViewController(navigator: self, presenter: presenter)
         case .home(let presenter):
             return HomeViewController(navigator: self, presenter: presenter)
         }
