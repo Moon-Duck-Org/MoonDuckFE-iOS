@@ -14,19 +14,21 @@ protocol HomeView: AnyObject {
 class HomeViewController: UIViewController, HomeView {
 
     @IBOutlet private(set) weak var cvCategory: UICollectionView!
-    
     @IBOutlet weak var lbHistoryCount: UILabel!
     @IBOutlet weak var lbSortTitle: UILabel!
+    @IBOutlet weak var tvBoardList: UITableView!
     
     let presenter: HomePresenter
     var navigator: Navigator!
-    let dataSource: HomeCategoryCvDataSource
+    let cvDatasource: HomeCategoryCvDataSource
+    let tvDatasource: HomeListTvDataSource
     
     init(navigator: Navigator,
          presenter: HomePresenter) {
         self.navigator = navigator
         self.presenter = presenter
-        self.dataSource = HomeCategoryCvDataSource(presenter: presenter)
+        self.cvDatasource = HomeCategoryCvDataSource(presenter: presenter)
+        self.tvDatasource = HomeListTvDataSource(presenter: presenter)
         super.init(nibName: HomeViewController.className, bundle: Bundle(for: HomeViewController.self))
     }
     
@@ -37,7 +39,8 @@ class HomeViewController: UIViewController, HomeView {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource.configure(with: cvCategory)
+        cvDatasource.configure(with: cvCategory)
+        tvDatasource.configure(with: tvBoardList)
         presenter.view = self
     }
     

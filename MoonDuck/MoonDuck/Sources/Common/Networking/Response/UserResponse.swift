@@ -18,11 +18,7 @@ struct UserRseponse: Decodable {
 
 extension UserRseponse {
     var toDomain: User {
-        return User(deviceId: deviceId, nickname: nickname)
+        return User(deviceId: deviceId,
+                    nickname: nickname)
     }
-}
-
-struct User {
-    let deviceId: String
-    let nickname: String
 }

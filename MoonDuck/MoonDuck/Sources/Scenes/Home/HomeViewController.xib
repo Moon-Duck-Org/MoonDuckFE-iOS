@@ -15,6 +15,7 @@
                 <outlet property="cvCategory" destination="dTc-CL-Im9" id="zLR-gA-kzu"/>
                 <outlet property="lbHistoryCount" destination="YBa-HC-796" id="aFC-Kz-RAg"/>
                 <outlet property="lbSortTitle" destination="uzQ-cp-Rmk" id="8CF-AB-zaJ"/>
+                <outlet property="tvBoardList" destination="IeJ-hE-v5h" id="8lO-2k-p4E"/>
                 <outlet property="view" destination="EKg-iH-Kx3" id="CWf-yP-9un"/>
             </connections>
         </placeholder>

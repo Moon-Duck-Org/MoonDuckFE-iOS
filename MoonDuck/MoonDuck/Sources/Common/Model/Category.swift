@@ -22,15 +22,15 @@ enum Category: String {
     var image: UIImage {
         switch self {
         case .all:
-            return Asset.Assets.all.image
+            return Asset.Assets.categoryAll.image
         case .movie:
-            return Asset.Assets.movie.image
+            return Asset.Assets.categoryMovie.image
         case .book:
-            return Asset.Assets.book.image
+            return Asset.Assets.categoryBook.image
         case .drama:
-            return Asset.Assets.drama.image
+            return Asset.Assets.categoryDrama.image
         case .concert:
-            return Asset.Assets.concert.image
+            return Asset.Assets.categoryConcert.image
         }
     }
 }
