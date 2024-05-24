@@ -1,23 +1,22 @@
 //
-//  IntroViewPresenter.swift
+//  OnboardViewPresenter.swift
 //  MoonDuck
 //
-//  Created by suni on 5/23/24.
+//  Created by suni on 5/24/24.
 //
 
 import Foundation
-
-protocol IntroPresenter: AnyObject {
-    var view: IntroView? { get set }
+protocol OnboardPresenter: AnyObject {
+    var view: OnboardView? { get set }
     var userService: UserService { get }
     func viewDidLoad()
     func viewWillAppear()
     func viewWillDisappear()
 }
 
-class IntroViewPresenter: IntroPresenter {
+class OnboardViewPresenter: OnboardPresenter {
     
-    weak var view: IntroView?
+    weak var view: OnboardView?
     
     let userService: UserService
     

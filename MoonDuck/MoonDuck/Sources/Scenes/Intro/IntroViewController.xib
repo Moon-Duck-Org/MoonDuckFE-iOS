@@ -25,7 +25,7 @@
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="CPa-BN-XaT">
                             <rect key="frame" x="8" y="0.0" width="71" height="71"/>
                             <constraints>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="71" id="Chl-bQ-eit"/>
+                                <constraint firstAttribute="height" constant="71" id="Chl-bQ-eit"/>
                                 <constraint firstAttribute="width" constant="71" id="m22-NX-0R2"/>
                             </constraints>
                         </imageView>
@@ -43,10 +43,19 @@
                         <constraint firstItem="ION-GE-8DY" firstAttribute="top" secondItem="CPa-BN-XaT" secondAttribute="bottom" constant="15" id="y5h-lI-9cY"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright 2024. Moonduck2. All Right Reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpz-qn-ss5">
+                    <rect key="frame" x="16" y="777" width="361" height="25"/>
+                    <fontDescription key="fontDescription" name="NotoNastaliqUrdu" family="Noto Nastaliq Urdu" pointSize="10"/>
+                    <color key="textColor" name="Black"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="Main"/>
             <constraints>
+                <constraint firstItem="tpz-qn-ss5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="JqD-jX-kFi"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tpz-qn-ss5" secondAttribute="trailing" constant="16" id="QuN-hV-Xwz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="tpz-qn-ss5" secondAttribute="bottom" constant="16" id="RLq-2t-7LL"/>
                 <constraint firstItem="A0V-Zx-fAG" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="rKX-bw-UyK"/>
                 <constraint firstItem="A0V-Zx-fAG" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="tx4-hp-mSh"/>
             </constraints>
@@ -56,6 +65,9 @@
     <resources>
         <image name="Logo" width="71" height="70.666664123535156"/>
         <image name="LogoTitle" width="87.333335876464844" height="41.333332061767578"/>
+        <namedColor name="Black">
+            <color red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Main">
             <color red="1" green="0.8666666666666667" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
