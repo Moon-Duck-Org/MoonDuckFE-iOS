@@ -13,11 +13,15 @@ internal enum L10n {
   internal enum LaunchScreen {
     }
   internal enum Localizable {
+    /// 취소하시겠어요?
+    internal static let alertCancelTitle = L10n.tr("Localizable", "alert_cancel_title", fallback: "취소하시겠어요?")
+    /// 취소
+    internal static let cancel = L10n.tr("Localizable", "cancel", fallback: "취소")
     /// Localizable.strings
     ///   MoonDuck
     /// 
     ///   Created by suni on 5/24/24.
-    internal static let test = L10n.tr("Localizable", "test", fallback: "test")
+    internal static let done = L10n.tr("Localizable", "done", fallback: "확인")
   }
   internal enum Main {
     }

@@ -9,5 +9,5 @@ import Foundation
 
 struct User {
     let deviceId: String
-    let nickname: String
+    var nickname: String
 }

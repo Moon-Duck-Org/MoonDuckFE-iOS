@@ -9,8 +9,13 @@ import UIKit
 
 extension UIView {
  
-    func roundCornersAndAddBorder(corners: UIRectCorner = [.topLeft, .topRight, .bottomRight, .bottomLeft], radius: CGFloat, borderWidth: CGFloat = 0.0, borderColor: UIColor = .clear, pathBounds: CGRect? = nil) {
-         
+    func roundCornersAndAddBorder(
+        corners: UIRectCorner = [.topLeft, .topRight, .bottomRight, .bottomLeft],
+        radius: CGFloat,
+        borderWidth: CGFloat = 0.0,
+        borderColor: UIColor = .clear,
+        pathBounds: CGRect? = nil)
+    {
         // 경로를 그립니다.
         let maskPath = UIBezierPath(
             roundedRect: (pathBounds == nil) ? bounds : pathBounds!,
@@ -33,4 +38,11 @@ extension UIView {
         maskLayer.path = maskPath.cgPath
         layer.mask = maskLayer
     }
+    
+    func addBorder(color: UIColor = Asset.Color.black.color,
+                   width: CGFloat = 1.0) {
+        self.layer.borderColor = color.cgColor
+        self.layer.borderWidth = width
+    }
+    
 }

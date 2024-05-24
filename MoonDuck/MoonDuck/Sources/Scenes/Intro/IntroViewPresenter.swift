@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol IntroPresenter: AnyObject {
     var view: IntroView? { get set }
@@ -25,6 +26,32 @@ class IntroViewPresenter: IntroPresenter {
     }
     
     func viewDidLoad() {
-        view?.moveOnboard(with: service)
+        login()
+    }
+}
+
+// MARK: - Networking
+extension IntroViewPresenter {
+    func login() {
+        // FIXME: - UUID로 설정
+        if let id = UIDevice.current.identifierForVendor?.uuidString {
+            service.userService.login(request: UserLoginRequest(deviceId: id)) { succeed, _ in
+                if let succeed, succeed {
+                    self.user(id: id)
+                } else {
+                    self.view?.moveOnboard(with: self.service, user: User(deviceId: id, nickname: ""))
+                }
+            }
+        }
+    }
+    
+    func user(id: String) {
+        service.userService.user(request: UserRequest(deviceId: id)) { succeed, _ in
+            if let succeed {
+                self.view?.moveHome(with: self.service, user: succeed)
+            } else {
+                self.view?.moveOnboard(with: self.service, user: User(deviceId: id, nickname: ""))
+            }
+        }
     }
 }

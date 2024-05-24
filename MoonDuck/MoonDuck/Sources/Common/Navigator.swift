@@ -25,13 +25,12 @@ class Navigator {
         return viewController
     }()
     
-    
     // MARK: - all app scenes
     enum Scene {
         case intro(presenter: IntroViewPresenter)
         case onboard(presenter: OnboardViewPresenter)
         case nameSetting(presenter: NameSettingViewPresenter)
-        case home(presentr: HomeViewPresenter)
+        case home(presenter: HomeViewPresenter)
     }
 
     enum Transition {

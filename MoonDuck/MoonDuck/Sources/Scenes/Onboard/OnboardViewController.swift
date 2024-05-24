@@ -8,8 +8,7 @@
 import UIKit
 
 protocol OnboardView: AnyObject {
-    func moveHome(with service: AppServices)
-    func moveNameSetting(with service: AppServices)
+    func moveNameSetting(with service: AppServices, user: User)
 }
 
 class OnboardViewController: UIViewController, OnboardView, Navigatable {
@@ -39,14 +38,9 @@ class OnboardViewController: UIViewController, OnboardView, Navigatable {
 }
 
 // MARK: - Navigation
-extension OnboardViewController {
-    func moveHome(with service: AppServices) {
-        let presenter = HomeViewPresenter(with: service)
-        navigator.show(seque: .home(presentr: presenter), sender: nil, transition: .root)
-    }
-    
-    func moveNameSetting(with service: AppServices) {
-        let presenter = NameSettingViewPresenter(with: service)
+extension OnboardViewController {    
+    func moveNameSetting(with service: AppServices, user: User) {
+        let presenter = NameSettingViewPresenter(with: service, user: user)
         navigator.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
     }
 }

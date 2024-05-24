@@ -8,8 +8,8 @@
 import UIKit
 
 protocol IntroView: AnyObject {
-    func moveOnboard(with service: AppServices)
-    func moveHome(with service: AppServices)
+    func moveOnboard(with service: AppServices, user: User)
+    func moveHome(with service: AppServices, user: User)
 }
 
 class IntroViewController: UIViewController, IntroView, Navigatable {
@@ -38,13 +38,13 @@ class IntroViewController: UIViewController, IntroView, Navigatable {
 
 // MARK: - Navigation
 extension IntroViewController {
-    func moveHome(with service: AppServices) {
-        let presenter = HomeViewPresenter(with: service)
-        navigator.show(seque: .home(presentr: presenter), sender: nil, transition: .root)
+    func moveHome(with service: AppServices, user: User) {
+        let presenter = HomeViewPresenter(with: service, user: user)
+        navigator.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
     
-    func moveOnboard(with service: AppServices) {
-        let presenter = OnboardViewPresenter(with: service)
+    func moveOnboard(with service: AppServices, user: User) {
+        let presenter = OnboardViewPresenter(with: service, user: user)
         navigator.show(seque: .onboard(presenter: presenter), sender: nil, transition: .root)
     }
 }

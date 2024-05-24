@@ -12,6 +12,7 @@ protocol HomePresenter: AnyObject {
     var service: AppServices { get }
     var numberOfCategory: Int { get }
     var numberOfBoard: Int { get }
+    
     func category(at index: Int) -> Category
     func board(at index: Int) -> Board
 }
@@ -28,10 +29,11 @@ class HomeViewPresenter: HomePresenter {
     
     private let category: [Category]
     private var boardList: [Board]
+    private let user: User
     
     let service: AppServices
     
-    init(with service: AppServices) {
+    init(with service: AppServices, user: User) {
         self.service = service
         self.category = [.all, .movie, .book, .drama, .concert]
         self.boardList = [
@@ -42,6 +44,7 @@ class HomeViewPresenter: HomePresenter {
             Board(id: 0, created: "2024년 5월 24일", userNickname: "포덕이", title: "범죄도시", content: "재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 ㅍ 재밌다 재밌다 재밌다 ㅍ", category: .movie),
             Board(id: 0, created: "2024년 5월 24일", userNickname: "포덕이", title: "범죄도시", content: "재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 ㅍ 재밌다 재밌다 재밌다 ㅍ", category: .movie)
         ]
+        self.user = user
     }
     
     func category(at index: Int) -> Category {

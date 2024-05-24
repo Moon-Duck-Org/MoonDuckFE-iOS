@@ -44,6 +44,6 @@ extension UITextField {
      - Note: 플레이스 홀더 추가 공통 함수.
      */
     func addPlaceHolder(_ text: String) {
-        self.attributedPlaceholder = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: Asset.Color.black.color])
+        self.attributedPlaceholder = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: Asset.Color.gray2.color])
     }
 }

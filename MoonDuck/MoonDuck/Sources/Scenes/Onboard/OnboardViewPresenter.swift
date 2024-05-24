@@ -19,13 +19,15 @@ class OnboardViewPresenter: OnboardPresenter {
     weak var view: OnboardView?
     
     let service: AppServices
+    private let user: User
     
-    init(with service: AppServices) {
+    init(with service: AppServices, user: User) {
         self.service = service
+        self.user = user
     }
     
     func startButtonTap() {
-        view?.moveNameSetting(with: service)
+        view?.moveNameSetting(with: service, user: user)
     }
 
 }

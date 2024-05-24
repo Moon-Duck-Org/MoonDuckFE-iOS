@@ -23,7 +23,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w0l-yw-PVs">
-                    <rect key="frame" x="40" y="291" width="313" height="295.33333333333326"/>
+                    <rect key="frame" x="40" y="290.33333333333326" width="313" height="296.66666666666674"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QaB-gH-MAU">
                             <rect key="frame" x="113" y="0.0" width="87.333333333333314" height="127.33333333333333"/>
@@ -50,16 +50,13 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="환영합니다. 문화생활덕후, 문덕이입니다." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVU-Qq-Pzr">
-                            <rect key="frame" x="0.0" y="148.33333333333331" width="313" height="64"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="64" id="uVX-3W-X41"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="NotoSansKannada-Regular" family="Noto Sans Kannada" pointSize="22"/>
+                            <rect key="frame" x="0.0" y="148.33333333333337" width="313" height="65.333333333333314"/>
+                            <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="22"/>
                             <color key="textColor" name="Black"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kJT-wP-VJI" customClass="RadiusView" customModule="MoonDuck" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="235.33333333333337" width="313" height="60"/>
+                            <rect key="frame" x="0.0" y="236.66666666666669" width="313" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7G-vf-wcR">
                                     <rect key="frame" x="0.0" y="0.0" width="313" height="60"/>
@@ -69,9 +66,9 @@
                                         <action selector="startButtonTap:" destination="-1" eventType="touchUpInside" id="FvQ-Eh-ZBC"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시작하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCT-tl-hDp">
-                                    <rect key="frame" x="122" y="16.333333333333258" width="69.333333333333314" height="27"/>
-                                    <fontDescription key="fontDescription" name="NotoSansKannada-Regular" family="Noto Sans Kannada" pointSize="20"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시작하기" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCT-tl-hDp">
+                                    <rect key="frame" x="119.66666666666666" y="15.000000000000002" width="73.666666666666657" height="29.666666666666671"/>
+                                    <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="20"/>
                                     <color key="textColor" name="White"/>
                                     <nil key="highlightedColor"/>
                                 </label>
