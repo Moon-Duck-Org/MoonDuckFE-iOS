@@ -16,8 +16,7 @@ protocol HomeView: AnyObject {
     func reloadBoard()
     
     func moveBoardDetail(with service: AppServices, user: User, board: Board)
-    
-    func showBoardMoreAlert(sharedString: String, deleteHandler: (() -> Void)?)
+    func showBoardMoreAlert(at indexOfBoard: Int)
 }
 
 class HomeViewController: UIViewController, HomeView, Navigatable {
@@ -30,8 +29,7 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
     
     @IBAction private func sortButtonTap(_ sender: Any) {
         let titleList = presenter.sortList.map { String($0.title) }
-        Alert.shared.showList(self,
-                       buttonTitleList: titleList) { index in
+        Alert.shared.showList(self, buttonTitleList: titleList) { index in
             self.presenter.selectSort(at: index)
         }
     }
@@ -70,7 +68,7 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
     }
     
     func updateEmptyView(isEmpty: Bool) {
-        boardEmptyView.isHidden = isEmpty
+        boardEmptyView.isHidden = !isEmpty
     }
     
     func updateCountLabel(_ cnt: Int) {
@@ -85,11 +83,15 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
         boardTableView.reloadData()
     }
     
-    func showBoardMoreAlert(sharedString: String, deleteHandler: (() -> Void)?) {
+    func showBoardMoreAlert(at indexOfBoard: Int) {
         Alert.shared.showActionSheet(self, defaultTitle: "공유", destructiveTitle: "삭제", defaultHandler: {
-            
-            Alert.shared.showSystemShare(self, str: sharedString)
-        }, destructiveHandler: deleteHandler)
+            let str = self.presenter.board(at: indexOfBoard).content
+            Alert.shared.showSystemShare(self, str: str)
+        }, destructiveHandler: {
+            Alert.shared.showAlert(self, style: .deleteTwoButton, title: "삭제하시겠어요?", destructiveHandler:  {
+                self.presenter.deleteBoard(at: indexOfBoard)
+            })
+        })
     }
 }
 

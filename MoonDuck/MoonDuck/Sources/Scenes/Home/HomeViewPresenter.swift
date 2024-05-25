@@ -28,7 +28,9 @@ protocol HomePresenter: AnyObject {
     func selectCategory(at index: Int)
     func selectSort(at index: Int)
     func selectBoard(at index: Int)
-    func tappedMoreButton(at index: Int)
+    
+    func tappedBoardMore(at index: Int)
+    func deleteBoard(at index: Int)
 }
 
 class HomeViewPresenter: HomePresenter {
@@ -90,29 +92,34 @@ class HomeViewPresenter: HomePresenter {
         view?.moveBoardDetail(with: service, user: user, board: board)
     }
     
-    func tappedMoreButton(at index: Int) {
-        let board = boardList[index]
-        view?.showBoardMoreAlert(sharedString: board.content, deleteHandler: {
-            Log.debug("tappedMoreButton \(board)")
-        })
+    func tappedBoardMore(at index: Int) {
+        view?.showBoardMoreAlert(at: index)
+    }
+    
+    func deleteBoard(at index: Int) {
+        // TODO: API board delete
+        boardList.remove(at: index)
+        reloadBoard()
+    }
+    
+    private func reloadBoard() {
+        self.view?.reloadBoard()
+        if self.boardList.count < 1 {
+            self.view?.updateEmptyView(isEmpty: true)
+        }
     }
 }
 
 // MARK: - Netwroking
 extension HomeViewPresenter {
     func boardPostsUser(at category: Category) {
-        // FIXME: - TEST CODE : 홈 진입
-        let request = BoardPosetUserRequest(userId: user.deviceId, category: category.apiString)
+        // TODO: - API boardPostsUser
+        let request = BoardPosetUserRequest(userId: user.deviceId, category: category.apiKey)
         service.boardService.boardPostsUser(request: request) { succeed, _ in
             if let succeed {
                 self.boardList = succeed
-                self.view?.reloadBoard()
-                if self.boardList.count < 1 {
-                    self.view?.updateEmptyView(isEmpty: true)
-                }
-            } else {
-                self.view?.updateEmptyView(isEmpty: true)
             }
+            self.reloadBoard()
         }
     }
 }

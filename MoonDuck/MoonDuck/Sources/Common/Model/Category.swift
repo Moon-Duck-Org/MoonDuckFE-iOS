@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 
 enum Category: String {
-    case all = "전체"
-    case movie = "영화"
-    case book = "책"
-    case drama = "드라마"
-    case concert = "공연"
+    case all = "ALL"
+    case movie = "MOVIE"
+    case book = "BOOK"
+    case drama = "DRAMA"
+    case concert = "CONCERT"
     
-    var title: String {
+    var apiKey: String {
         return self.rawValue
     }
     
@@ -34,18 +34,32 @@ enum Category: String {
         }
     }
     
-    var apiString: String {
+    var roundImage: UIImage {
+        switch self {
+        case .movie:
+            return Asset.Assets.categoryMovieRound.image
+        case .book:
+            return Asset.Assets.categoryBookRound.image
+        case .drama:
+            return Asset.Assets.categoryDramaRound.image
+        case .concert:
+            return Asset.Assets.categoryConcertRound.image
+        default: return Asset.Assets.categoryConcertRound.image
+        }
+    }
+    
+    var title: String {
         switch self {
         case .all:
             return "ALL"
         case .movie:
-            return "MOVIE"
+            return "영화"
         case .book:
-            return "BOOK"
+            return "책"
         case .drama:
-            return "DRAMA"
+            return "드라마"
         case .concert:
-            return "CONCERT"
+            return "공연"
         }
     }
 }

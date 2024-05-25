@@ -38,12 +38,12 @@ class Alert {
                    message: String? = "",
                    cancelTitle: String = L10n.Localizable.cancel,
                    completeTitle: String = L10n.Localizable.done,
-                   destructiveTitle: String = L10n.Localizable.done,
+                   destructiveTitle: String = "삭제",
                    cancelHandler: (() -> Void)? = nil,
                    completeHandler: (() -> Void)? = nil,
                    destructiveHandler: (() -> Void)? = nil) {
-        dismissAlert()
         DispatchQueue.main.async {
+            self.dismissAlert()
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             
             if style == .deleteTwoButton {
@@ -84,8 +84,8 @@ class Alert {
                          destructiveHandler: (() -> Void)? = nil,
                          cancelTitle: String = L10n.Localizable.close,
                          cancelHandler: (() -> Void)? = nil) {
-        dismissAlert()
         DispatchQueue.main.async {
+            self.dismissAlert()
             let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             
             if style == .deleteTwoButton {
@@ -106,7 +106,6 @@ class Alert {
                 alert.addAction(cancelAction)
             }
             
-            
             viewController.present(alert, animated: true, completion: {
                 self.currentAlert = alert
             })
@@ -121,8 +120,8 @@ class Alert {
                   cancelTitle: String = L10n.Localizable.close,
                   cancelHandler: (() -> Void)? = nil
     ) {
-        dismissAlert()
         DispatchQueue.main.async {
+            self.dismissAlert()
             let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             
             for (index, title) in buttonTitleList.enumerated() {
@@ -147,12 +146,14 @@ class Alert {
     
     func showSystemShare(_ viewController: UIViewController, str: String? = nil) {
         guard let str else { return }
-        dismissAlert()
-        let shareContent = [str]
-        let activityController = UIActivityViewController(activityItems: shareContent,
-                                                          applicationActivities: nil)
-        viewController.present(activityController, animated: true, completion: {
-            self.currentAlert = activityController
-        })
+        DispatchQueue.main.async {
+            self.dismissAlert()
+            let shareContent = [str]
+            let activityController = UIActivityViewController(activityItems: shareContent,
+                                                              applicationActivities: nil)
+            viewController.present(activityController, animated: true, completion: {
+                self.currentAlert = activityController
+            })
+        }
     }
 }

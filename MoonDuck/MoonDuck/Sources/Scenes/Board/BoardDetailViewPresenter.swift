@@ -13,6 +13,7 @@ protocol BoardDetailPresenter: AnyObject {
         
     /// Life Cycle
     func viewDidLoad()
+    func viewWillAppear()
     
     /// Data
     
@@ -36,6 +37,9 @@ class BoardDetailViewPresenter: BoardDetailPresenter {
     
     func viewDidLoad() {
         
-    }   
+    }
     
+    func viewWillAppear() {
+        view?.reloadData(board: board)
+    }
 }

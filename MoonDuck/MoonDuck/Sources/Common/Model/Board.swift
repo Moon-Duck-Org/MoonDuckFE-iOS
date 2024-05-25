@@ -13,6 +13,7 @@ struct Board {
     let created: String
     let nickname: String
     
+    var category: Category
     var content: String
     var imageUrlList: [String]
     var link: String?
