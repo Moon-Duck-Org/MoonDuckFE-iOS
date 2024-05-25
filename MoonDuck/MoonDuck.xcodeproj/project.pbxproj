@@ -80,6 +80,7 @@
 		EAE017D12C01935700699145 /* BoardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D02C01935700699145 /* BoardService.swift */; };
 		EAE017D32C0193B800699145 /* BoardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D22C0193B800699145 /* BoardRequest.swift */; };
 		EAE017D52C0195D500699145 /* BoardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D42C0195D500699145 /* BoardResponse.swift */; };
+		EAE017D72C01AA3D00699145 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D62C01AA3D00699145 /* Sort.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,7 @@
 		EAE017D02C01935700699145 /* BoardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardService.swift; sourceTree = "<group>"; };
 		EAE017D22C0193B800699145 /* BoardRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardRequest.swift; sourceTree = "<group>"; };
 		EAE017D42C0195D500699145 /* BoardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardResponse.swift; sourceTree = "<group>"; };
+		EAE017D62C01AA3D00699145 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -484,6 +486,7 @@
 				EA81F4A82BFF716600FDC7A7 /* Category.swift */,
 				EAD957622C002982001FB6E1 /* User.swift */,
 				EAD957642C0029D3001FB6E1 /* Board.swift */,
+				EAE017D62C01AA3D00699145 /* Sort.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -857,6 +860,7 @@
 				EA6D9A742BFF67A0003B459A /* HomeCategoryCvCell.swift in Sources */,
 				EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */,
 				EA6379CF2BFF1C5400464A19 /* MoonDuckAPI.swift in Sources */,
+				EAE017D72C01AA3D00699145 /* Sort.swift in Sources */,
 				EA9A84292C00BF04004B7FDF /* UITextField+Extension.swift in Sources */,
 				EAE017CD2C012C1900699145 /* BoardImageCvCell.swift in Sources */,
 				EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */,

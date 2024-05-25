@@ -11,20 +11,26 @@ protocol HomePresenter: AnyObject {
     var view: HomeView? { get set }
     var service: AppServices { get }
     
+    var sortList: [Sort] { get }
+    
     var numberOfCategory: Int { get }
     var numberOfBoard: Int { get }
-    
-    var selectedCategoryIndex: Int { get }
+    var indexOfSelectedCategory: Int { get }
         
+    /// Life Cycle
     func viewDidLoad()
     
+    /// Data
     func category(at index: Int) -> Category
     func board(at index: Int) -> Board
     
-    func selectCategoryIndex(at index: Int)
+    /// Action
+    func selectCategory(at index: Int)
+    func selectSort(at index: Int)
 }
 
 class HomeViewPresenter: HomePresenter {
+    
     weak var view: HomeView?
     
     var numberOfCategory: Int {
@@ -37,19 +43,22 @@ class HomeViewPresenter: HomePresenter {
     private let category: [Category]
     private var boardList: [Board]
     private let user: User
+    private var indexOfSeletedSort: Int = 0
     
     let service: AppServices
-    var selectedCategoryIndex: Int = 0
+    var indexOfSelectedCategory: Int = 0
+    let sortList: [Sort]
     
     init(with service: AppServices, user: User) {
         self.service = service
         self.category = [.all, .movie, .book, .drama, .concert]
+        self.sortList = [.latestOrder, .oldestFirst, .ratingOrder]
         self.user = user
         self.boardList = []
     }
     
     func viewDidLoad() {
-        selectCategoryIndex(at: selectedCategoryIndex)
+        selectCategory(at: indexOfSelectedCategory)
     }
     
     func category(at index: Int) -> Category {
@@ -60,10 +69,15 @@ class HomeViewPresenter: HomePresenter {
         return boardList[index]
     }
     
-    func selectCategoryIndex(at index: Int) {
-        selectedCategoryIndex = index
+    func selectCategory(at index: Int) {
+        indexOfSelectedCategory = index
         view?.reloadCategory()
         boardPostsUser(at: category[index])
+    }
+    
+    func selectSort(at index: Int) {
+        // TODO: SORT API 연결
+        boardPostsUser(at: category[indexOfSelectedCategory])
     }
 }
 

@@ -17,6 +17,8 @@ internal enum L10n {
     internal static let alertCancelTitle = L10n.tr("Localizable", "alert_cancel_title", fallback: "취소하시겠어요?")
     /// 취소
     internal static let cancel = L10n.tr("Localizable", "cancel", fallback: "취소")
+    /// 닫기
+    internal static let close = L10n.tr("Localizable", "close", fallback: "닫기")
     /// Localizable.strings
     ///   MoonDuck
     /// 

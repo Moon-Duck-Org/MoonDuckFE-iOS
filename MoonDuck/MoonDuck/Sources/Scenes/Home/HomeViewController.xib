@@ -131,6 +131,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="64.666666666666671" height="24"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain"/>
+                                    <connections>
+                                        <action selector="sortButtonTap:" destination="-1" eventType="touchUpInside" id="rIB-Lz-gOh"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

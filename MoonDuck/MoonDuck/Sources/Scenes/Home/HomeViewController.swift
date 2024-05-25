@@ -23,6 +23,14 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
     @IBOutlet private weak var boardTableView: UITableView!
     @IBOutlet private weak var boardEmptyView: UIView!
     
+    @IBAction private func sortButtonTap(_ sender: Any) {
+        let titleList = presenter.sortList.map { String($0.title) }
+        Alert.showList(self,
+                       buttonTitleList: titleList) { index in
+            self.presenter.selectSort(at: index)
+        }
+    }
+    
     let presenter: HomePresenter
     var navigator: Navigator!
     let categoryDataSource: HomeCategoryCvDataSource
