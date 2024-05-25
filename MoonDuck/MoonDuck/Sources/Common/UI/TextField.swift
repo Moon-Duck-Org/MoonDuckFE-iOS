@@ -49,5 +49,8 @@ class TextField: UITextField {
         self.addRightAndLeftPadding(width: 15)
         self.font = FontFamily.NotoSansCJKKR.regular.font(size: 14)
         self.normal()
+        
+        self.autocorrectionType = .no
+        self.spellCheckingType = .no
     }
 }

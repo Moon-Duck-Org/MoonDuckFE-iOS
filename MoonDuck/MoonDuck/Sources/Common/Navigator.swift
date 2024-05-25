@@ -32,6 +32,7 @@ class Navigator {
         case nameSetting(presenter: NameSettingViewPresenter)
         case home(presenter: HomeViewPresenter)
         case boardDetail(presenter: BoardDetailViewPresenter)
+        case boardEdit(presenter: BoardEditViewPresenter)
     }
 
     enum Transition {
@@ -55,6 +56,8 @@ class Navigator {
             return HomeViewController(navigator: self, presenter: presenter)
         case .boardDetail(let presenter):
             return BoardDetailViewController(navigator: self, presenter: presenter)
+        case .boardEdit(let presenter):
+            return BoardEditViewController(navigator: self, presenter: presenter)
         }
     }
     
@@ -93,7 +96,9 @@ class Navigator {
         
         switch transition {
         case .navigation:
-            rootViewController.pushViewController(target, animated: true)
+            DispatchQueue.main.async {
+                self.rootViewController.pushViewController(target, animated: true)
+            }
         case .modal:
             DispatchQueue.main.async {
                 target.modalPresentationStyle = .overFullScreen

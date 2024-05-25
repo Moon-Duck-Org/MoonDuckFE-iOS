@@ -9,16 +9,22 @@ import Foundation
 import SwiftyJSON
 
 struct UserRseponse: Decodable {
-    let modifiedAt: String
+    let id: Int
     let deviceId: String
-    let userid: Int
     let nickname: String
-    let createdAt: String
+    let movie: Int
+    let book: Int
+    let drama: Int
+    let concert: Int
 }
 
 extension UserRseponse {
     var toDomain: User {
         return User(deviceId: deviceId,
-                    nickname: nickname)
+                    nickname: nickname,
+                    movie: movie,
+                    book: book,
+                    drama: drama,
+                    concert: concert)
     }
 }

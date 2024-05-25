@@ -10,4 +10,12 @@ import Foundation
 struct User {
     let deviceId: String
     var nickname: String
+    var movie: Int = 0
+    var book: Int = 0
+    var drama: Int = 0
+    var concert: Int = 0
+}
+
+final class UserModel {
+    
 }

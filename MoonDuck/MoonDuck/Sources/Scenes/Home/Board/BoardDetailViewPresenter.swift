@@ -40,6 +40,6 @@ class BoardDetailViewPresenter: BoardDetailPresenter {
     }
     
     func viewWillAppear() {
-        view?.reloadData(board: board)
+        view?.updateData(board: board)
     }
 }

@@ -19,3 +19,12 @@ struct Board {
     var link: String?
     var starRating: Int
 }
+//
+//protocol BoardModelDelegate {
+//    func boardModel(_ boardModel: BoardModel)
+//}
+//
+//final class BoardModel {
+//    weak var delegate: BoardModelDelegate?
+//    
+//}

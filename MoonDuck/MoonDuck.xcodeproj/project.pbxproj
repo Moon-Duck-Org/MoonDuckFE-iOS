@@ -84,6 +84,11 @@
 		EAE017D92C01C11B00699145 /* BoardDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D82C01C11B00699145 /* BoardDetailViewPresenter.swift */; };
 		EAE017DB2C01CA0500699145 /* CellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017DA2C01CA0500699145 /* CellButton.swift */; };
 		EAE017DD2C01CF2300699145 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017DC2C01CF2300699145 /* Utils.swift */; };
+		EAE017E72C01E6D100699145 /* BoardEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE017E62C01E6D100699145 /* BoardEditViewController.xib */; };
+		EAE017E82C01E6D100699145 /* BoardEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017E52C01E6D100699145 /* BoardEditViewController.swift */; };
+		EAE017EA2C01F01800699145 /* BoardEditViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017E92C01F01800699145 /* BoardEditViewPresenter.swift */; };
+		EAE017EC2C01FBD600699145 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017EB2C01FBD600699145 /* TextView.swift */; };
+		EAE017EE2C02015900699145 /* UIKeyboardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017ED2C02015900699145 /* UIKeyboardInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -193,6 +198,11 @@
 		EAE017D82C01C11B00699145 /* BoardDetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDetailViewPresenter.swift; sourceTree = "<group>"; };
 		EAE017DA2C01CA0500699145 /* CellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellButton.swift; sourceTree = "<group>"; };
 		EAE017DC2C01CF2300699145 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		EAE017E52C01E6D100699145 /* BoardEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardEditViewController.swift; sourceTree = "<group>"; };
+		EAE017E62C01E6D100699145 /* BoardEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardEditViewController.xib; sourceTree = "<group>"; };
+		EAE017E92C01F01800699145 /* BoardEditViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardEditViewPresenter.swift; sourceTree = "<group>"; };
+		EAE017EB2C01FBD600699145 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		EAE017ED2C02015900699145 /* UIKeyboardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKeyboardInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -353,7 +363,6 @@
 				EAD9576A2C008EB6001FB6E1 /* Onboard */,
 				EA9A84212C00BBAE004B7FDF /* NameSetting */,
 				EAC703A32BFECBC700E99378 /* Home */,
-				EA5EA0C02C0119650041A8B4 /* Board */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -407,6 +416,7 @@
 		EA5EA0C02C0119650041A8B4 /* Board */ = {
 			isa = PBXGroup;
 			children = (
+				EAE017E42C01E68700699145 /* Edit */,
 				EA5EA0C32C0119880041A8B4 /* BoardDetailViewController.swift */,
 				EA5EA0C42C0119880041A8B4 /* BoardDetailViewController.xib */,
 				EAE017D82C01C11B00699145 /* BoardDetailViewPresenter.swift */,
@@ -485,6 +495,8 @@
 				EA5EA0B92C00F6D70041A8B4 /* TextField.swift */,
 				EAE017CE2C012DF500699145 /* StarRatingButton.swift */,
 				EAE017DA2C01CA0500699145 /* CellButton.swift */,
+				EAE017EB2C01FBD600699145 /* TextView.swift */,
+				EAE017ED2C02015900699145 /* UIKeyboardInfo.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -513,6 +525,7 @@
 		EAC703A32BFECBC700E99378 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				EA5EA0C02C0119650041A8B4 /* Board */,
 				A07826A92BFFA91000D7BA63 /* DataSource */,
 				EA6D9A712BFF6026003B459A /* Cell */,
 				EA6379E32BFF33C500464A19 /* HomeViewController.xib */,
@@ -530,6 +543,16 @@
 				EAD9576F2C0094A1001FB6E1 /* OnboardViewPresenter.swift */,
 			);
 			path = Onboard;
+			sourceTree = "<group>";
+		};
+		EAE017E42C01E68700699145 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				EAE017E52C01E6D100699145 /* BoardEditViewController.swift */,
+				EAE017E62C01E6D100699145 /* BoardEditViewController.xib */,
+				EAE017E92C01F01800699145 /* BoardEditViewPresenter.swift */,
+			);
+			path = Edit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -661,6 +684,7 @@
 				EA6D9A752BFF67A0003B459A /* HomeCategoryCvCell.xib in Resources */,
 				EA9A84272C00BCAF004B7FDF /* NameSettingViewController.xib in Resources */,
 				EAE017CC2C012C1900699145 /* BoardImageCvCell.xib in Resources */,
+				EAE017E72C01E6D100699145 /* BoardEditViewController.xib in Resources */,
 				A0E658072BFE22B9001A8D54 /* Base in Resources */,
 				A0E658492BFE394F001A8D54 /* .swiftlint.yml in Resources */,
 				EA6379E42BFF33C500464A19 /* HomeViewController.xib in Resources */,
@@ -831,13 +855,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAE017E82C01E6D100699145 /* BoardEditViewController.swift in Sources */,
 				EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */,
 				EA6379D72BFF2B2D00464A19 /* TargetType.swift in Sources */,
 				EAD957652C0029D3001FB6E1 /* Board.swift in Sources */,
 				A0E6584D2BFE3C0B001A8D54 /* XCAssets+Generated.swift in Sources */,
 				EA6379E92BFF359100464A19 /* NSObjectProtocol+Extension.swift in Sources */,
+				EAE017EE2C02015900699145 /* UIKeyboardInfo.swift in Sources */,
 				A0E6584B2BFE3C03001A8D54 /* Fonts+Generated.swift in Sources */,
 				EAE017CF2C012DF500699145 /* StarRatingButton.swift in Sources */,
+				EAE017EA2C01F01800699145 /* BoardEditViewPresenter.swift in Sources */,
 				EA6379E12BFF2E5300464A19 /* UserResponse.swift in Sources */,
 				EA9A842B2C00C33E004B7FDF /* NameSettingViewPresenter.swift in Sources */,
 				EA9A84202C00AA93004B7FDF /* AppServices.swift in Sources */,
@@ -874,6 +901,7 @@
 				EAE017D72C01AA3D00699145 /* Sort.swift in Sources */,
 				EA9A84292C00BF04004B7FDF /* UITextField+Extension.swift in Sources */,
 				EAE017CD2C012C1900699145 /* BoardImageCvCell.swift in Sources */,
+				EAE017EC2C01FBD600699145 /* TextView.swift in Sources */,
 				EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */,
 				EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */,
 				A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */,
@@ -1073,7 +1101,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 3T5QFYSPG5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoonDuck/Resources/Info.plist;
@@ -1112,7 +1140,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3T5QFYSPG5;
 				GENERATE_INFOPLIST_FILE = YES;

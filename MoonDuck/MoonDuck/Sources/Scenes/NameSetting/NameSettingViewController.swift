@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol NameSettingView: AnyObject {
     func moveHome(with service: AppServices, user: User)

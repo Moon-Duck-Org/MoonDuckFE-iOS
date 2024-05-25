@@ -28,6 +28,7 @@ protocol HomePresenter: AnyObject {
     func selectCategory(at index: Int)
     func selectSort(at index: Int)
     func selectBoard(at index: Int)
+    func tappedCreaateReview()
     
     func tappedBoardMore(at index: Int)
     func deleteBoard(at index: Int)
@@ -107,6 +108,9 @@ class HomeViewPresenter: HomePresenter {
         if self.boardList.count < 1 {
             self.view?.updateEmptyView(isEmpty: true)
         }
+    }
+    func tappedCreaateReview() {
+        self.view?.moveBoardEdit(with: service, user: user, board: nil)
     }
 }
 

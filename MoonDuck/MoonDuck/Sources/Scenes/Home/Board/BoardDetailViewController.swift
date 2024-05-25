@@ -8,7 +8,7 @@
 import UIKit
 
 protocol BoardDetailView: NSObject {
-    func reloadData(board: Board)
+    func updateData(board: Board)
 }
 
 class BoardDetailViewController: UIViewController, BoardDetailView, Navigatable {
@@ -54,7 +54,7 @@ class BoardDetailViewController: UIViewController, BoardDetailView, Navigatable 
         fatalError("init(coder:) has not been implemented")
     }
     
-    func reloadData(board: Board) {
+    func updateData(board: Board) {
         categoryImageView.image = board.category.roundImage
         dateLabel.text = board.created
         contentLabel.text = board.content

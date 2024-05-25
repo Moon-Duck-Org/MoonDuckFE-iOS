@@ -13,7 +13,7 @@ struct BoardResponse: Decodable {
     let title: String
     let category: String
     let nickname: String
-    let userId: Int
+    let id: Int
     let createdAt: String
     let content: String
     let image1: String?
@@ -23,8 +23,6 @@ struct BoardResponse: Decodable {
     let image5: String?
     let url: String?
     let socre: Int
-    
-    
 }
 
 extension BoardResponse {
