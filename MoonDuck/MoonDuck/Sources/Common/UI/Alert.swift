@@ -156,4 +156,42 @@ class Alert {
             })
         }
     }
+    
+    func showDetailMore(_ viewController: UIViewController,
+                        writeHandler: (() -> Void)? = nil,
+                        shareHandler: (() -> Void)? = nil,
+                        deleteHandler: (() -> Void)? = nil
+    ) {
+        DispatchQueue.main.async {
+            self.dismissAlert()
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            let writeAction = UIAlertAction(title: "수정", style: .default) { _ in
+                alert.dismiss(animated: true)
+                writeHandler?()
+            }
+            alert.addAction(writeAction)
+            
+            let shareAction = UIAlertAction(title: "공유", style: .default) { _ in
+                alert.dismiss(animated: true)
+                shareHandler?()
+            }
+            alert.addAction(shareAction)
+            
+            let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+                alert.dismiss(animated: true)
+                deleteHandler?()
+            }
+            alert.addAction(deleteAction)
+            
+            let cancelAction = UIAlertAction(title: "닫기", style: .cancel) { _ in
+                alert.dismiss(animated: true)
+            }
+            alert.addAction(cancelAction)
+            
+            viewController.present(alert, animated: true, completion: {
+                self.currentAlert = alert
+            })
+        }
+    }
 }

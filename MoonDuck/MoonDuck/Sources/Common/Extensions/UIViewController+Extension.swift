@@ -24,11 +24,11 @@ extension UIViewController {
         view.addSubview(frameView)
         frameView.addSubview(toastLabel)
         frameView.snp.makeConstraints({
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-30)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-7)
             $0.centerX.equalTo(view.snp.centerX)
-            $0.leading.equalTo(view.snp.leading).offset(12)
-            $0.trailing.equalTo(view.snp.trailing).offset(-12)
-            $0.height.equalTo(52)
+            $0.leading.equalTo(view.snp.leading).offset(16)
+            $0.trailing.equalTo(view.snp.trailing).offset(-16)
+            $0.height.equalTo(37)
         })
         toastLabel.snp.makeConstraints({
             $0.center.equalTo(frameView.snp.center)

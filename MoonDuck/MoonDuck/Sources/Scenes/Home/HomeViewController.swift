@@ -104,12 +104,32 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
 // MARK: - Navigation
 extension HomeViewController {
     func moveBoardDetail(with service: AppServices, user: User, board: Review) {
-        let presenter = BoardDetailViewPresenter(with: service, user: user, board: board)
+        let presenter = BoardDetailViewPresenter(with: service, user: user, board: board, delegate: self)
         navigator.show(seque: .boardDetail(presenter: presenter), sender: self, transition: .navigation)
     }
     
     func moveBoardEdit(with service: AppServices, user: User, board: Review?) {
-        let presenter = BoardEditViewPresenter(with: service, user: user, board: board)
+        let presenter = BoardEditViewPresenter(with: service, user: user, board: board, delegate: self)
         navigator.show(seque: .boardEdit(presenter: presenter), sender: self, transition: .navigation)
+    }
+}
+
+extension HomeViewController: ReviewWriteDelegate {
+    func writeReview(_ review: Review, didChange boardId: Int) {
+        presenter.reloadReview()
+    }
+    
+    func writeReview(_ review: Review, didCreate boardId: Int) {
+        presenter.reloadReview()
+    }
+}
+
+extension HomeViewController: ReviewDetailDelegate {
+    func detailReview(_ review: Review, didChange boardId: Int) {
+        presenter.reloadReview()
+    }
+    
+    func detailReview(_ review: Review, didDelete boardId: Int) {
+        presenter.reloadReview()
     }
 }

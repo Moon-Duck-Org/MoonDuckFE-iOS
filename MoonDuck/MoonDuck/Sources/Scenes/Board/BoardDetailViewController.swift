@@ -9,6 +9,8 @@ import UIKit
 
 protocol BoardDetailView: NSObject {
     func updateData(review: Review)
+    func moveBoardEdit(with service: AppServices, user: User, board: Review)
+    func popView()
 }
 
 class BoardDetailViewController: UIViewController, BoardDetailView, Navigatable {
@@ -34,7 +36,16 @@ class BoardDetailViewController: UIViewController, BoardDetailView, Navigatable 
         self.navigator.pop(sender: self)
     }
     @IBAction private func moreButtonTap(_ sender: Any) {
-        
+        Alert.shared.showDetailMore(self, writeHandler: {
+            self.presenter.tapWriteReview()
+        }, shareHandler: {
+            let str = self.presenter.review.content
+            Alert.shared.showSystemShare(self, str: str)
+        }, deleteHandler: {
+            Alert.shared.showAlert(self, style: .deleteTwoButton, title: "삭제하시겠어요?", destructiveHandler: {
+                self.presenter.tapDeleteReview()
+            })
+        })
     }
     
     let presenter: BoardDetailPresenter
@@ -50,10 +61,6 @@ class BoardDetailViewController: UIViewController, BoardDetailView, Navigatable 
         super.viewDidLoad()
         presenter.view = self
         presenter.viewDidLoad()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        presenter.viewWillAppear()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -85,5 +92,28 @@ class BoardDetailViewController: UIViewController, BoardDetailView, Navigatable 
         rating3.isSelected = rating > 2
         rating4.isSelected = rating > 3
         rating5.isSelected = rating > 4
+    }
+    
+    func popView() {
+        navigator.pop(sender: self)
+    }
+}
+
+// MARK: - Navigation
+extension BoardDetailViewController {
+    
+    func moveBoardEdit(with service: AppServices, user: User, board: Review) {
+        let presenter = BoardEditViewPresenter(with: service, user: user, board: board, delegate: self)
+        navigator.show(seque: .boardEdit(presenter: presenter), sender: self, transition: .navigation)
+    }
+}
+
+extension BoardDetailViewController: ReviewWriteDelegate {
+    func writeReview(_ review: Review, didChange boardId: Int) {
+        presenter.reloadReview()
+    }
+    
+    func writeReview(_ review: Review, didCreate boardId: Int) {
+        
     }
 }

@@ -32,6 +32,8 @@ protocol HomePresenter: AnyObject {
     
     func tappedBoardMore(at index: Int)
     func deleteBoard(at index: Int)
+    
+    func reloadReview()
 }
 
 class HomeViewPresenter: HomePresenter {
@@ -114,6 +116,11 @@ class HomeViewPresenter: HomePresenter {
         }
         view?.updateCountLabel(boardList.count)
     }
+    
+    func reloadReview() {
+        loadReview(at: category[indexOfSelectedCategory], sort: sortList[indexOfSeletedSort])
+    }
+    
 }
 
 // MARK: - Netwroking

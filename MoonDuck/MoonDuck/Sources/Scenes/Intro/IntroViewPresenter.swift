@@ -27,8 +27,6 @@ class IntroViewPresenter: IntroPresenter {
     
     func viewDidLoad() {
         login()
-        // FIXME: - TEST CODE : 홈 진입
-//        self.view?.moveHome(with: self.service, user: User(deviceId: "123", nickname: "포덕이"))
     }
 }
 

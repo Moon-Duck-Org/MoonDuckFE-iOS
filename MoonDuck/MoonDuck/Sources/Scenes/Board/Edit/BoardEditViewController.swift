@@ -18,6 +18,7 @@ protocol BoardEditView: NSObject {
     func reloadCategory()
     func popView()
     func updateRating(at rating: Int)
+    func toast(_ text: String)
 }
 
 class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
@@ -141,7 +142,6 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
     
     func updateData(board: Review) {
         
-        
         titleTextField.text = board.title
         updateCountTitle(board.title.count)
         
@@ -176,6 +176,10 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
         ratingButton3.isSelected = rating > 2
         ratingButton4.isSelected = rating > 3
         ratingButton5.isSelected = rating > 4
+    }
+    
+    func toast(_ text: String) {
+        showToast(message: text)
     }
 }
 

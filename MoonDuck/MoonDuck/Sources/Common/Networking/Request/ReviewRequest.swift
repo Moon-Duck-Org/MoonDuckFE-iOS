@@ -31,3 +31,25 @@ struct PutReviewRequest: Encodable {
     var score: Int
     var boardId: Int
 }
+
+struct PostReviewRequest: Encodable {
+    var title: String
+    var category: String
+    var content: String
+    var image1: String?
+    var image2: String?
+    var image3: String?
+    var image4: String?
+    var image5: String?
+    var url: String?
+    var score: Int
+    var userId: Int
+}
+
+struct DeleteReviewRequest: Encodable {
+    var boardId: Int
+}
+
+struct ReviewDetailRequest: Encodable {
+    var boardId: Int
+}

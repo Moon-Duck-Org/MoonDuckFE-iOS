@@ -15,6 +15,9 @@ enum MoonDuckAPI {
     case reviewAll(ReviewAllRequest)
     case getReview(GetReviewRequest)
     case putReview(PutReviewRequest)
+    case postReview(PostReviewRequest)
+    case deleteReview(DeleteReviewRequest)
+    case reviewDetail(ReviewDetailRequest)
 }
 
 class API {
@@ -39,14 +42,16 @@ extension MoonDuckAPI: TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .user, .reviewAll, .getReview:
+        case .user, .reviewAll, .getReview, .reviewDetail:
             return .get
-        case .userLogin:
+        case .userLogin, .postReview:
             return .post
         case .userNickname:
             return .put
         case .putReview:
             return .put
+        case .deleteReview:
+            return HTTPMethod.delete
         }
     }
 
@@ -58,10 +63,12 @@ extension MoonDuckAPI: TargetType {
             return "/user/login"
         case .userNickname:
             return "/user/nickname"
-        case .getReview, .putReview:
+        case .getReview, .putReview, .postReview, .deleteReview:
             return "/api/review"
         case .reviewAll:
             return "/api/review/all"
+        case .reviewDetail:
+            return "/api/review/detail"
         }
     }
     
@@ -79,6 +86,12 @@ extension MoonDuckAPI: TargetType {
             return .query(request)
         case .putReview(let request):
             return .body(request)
+        case .postReview(let request):
+            return .body(request)
+        case .deleteReview(let request):
+            return .query(request)
+        case .reviewDetail(let request):
+            return .query(request)
         }
     }
     

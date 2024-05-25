@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 import Combine
 
+protocol ReviewWriteDelegate: AnyObject {
+    func writeReview(_ review: Review, didChange boardId: Int)
+    func writeReview(_ review: Review, didCreate boardId: Int)
+}
+
 protocol BoardEditPresenter: AnyObject {
     var view: BoardEditView? { get set }
     var service: AppServices { get }
@@ -43,6 +48,7 @@ class BoardEditViewPresenter: BoardEditPresenter {
     let service: AppServices
     var indexOfSelectedCategory: Int?
     
+    private let delegate: ReviewWriteDelegate
     private let category: [Category]
     private let user: User
     private var board: Review?
@@ -54,11 +60,12 @@ class BoardEditViewPresenter: BoardEditPresenter {
     private var linkText: String?
     private var rating: Int = 0
     
-    init(with service: AppServices, user: User, board: Review? = nil) {
+    init(with service: AppServices, user: User, board: Review? = nil, delegate: ReviewWriteDelegate) {
         self.service = service
         self.category = [.movie, .book, .drama, .concert]
         self.user = user
         self.board = board
+        self.delegate = delegate
     }
     
     func viewDidLoad() {
@@ -129,6 +136,7 @@ class BoardEditViewPresenter: BoardEditPresenter {
             categoryData = category[indexOfSelectedCategory]
         } else {
             // 카테고리 미입력
+            view?.toast("카테고리를 선택해주세요.")
             return
         }
         
@@ -136,6 +144,7 @@ class BoardEditViewPresenter: BoardEditPresenter {
             title = titleText
         } else {
             // 제목 미입력
+            view?.toast("제목을 입력해주세요.")
             return
         }
         
@@ -143,6 +152,7 @@ class BoardEditViewPresenter: BoardEditPresenter {
             content = contentText
         } else {
             // 내용 미입력
+            view?.toast("내용을 입력해주세요.")
             return
         }
         
@@ -150,6 +160,7 @@ class BoardEditViewPresenter: BoardEditPresenter {
             score = rating
         } else {
             // 별점 미입력
+            view?.toast("별점을 선택해주세요.")
             return
         }
         
@@ -163,7 +174,16 @@ class BoardEditViewPresenter: BoardEditPresenter {
                                  imageUrlList: [],
                                  rating: score))
         } else {
-            
+            postReview(at: Review(id: 0,
+                                  title: title,
+                                  created: "",
+                                  nickname: user.nickname,
+                                  category: categoryData,
+                                  content: content,
+                                  imageUrlList: [],
+                                  link: linkText,
+                                  rating: score),
+                       userId: user.id)
         }
     }
     
@@ -186,7 +206,24 @@ extension BoardEditViewPresenter {
         service.reviewService.putReview(request: request) { succeed, _ in
             if let succeed {
                 // 메인 이동
-                
+                self.delegate.writeReview(succeed, didChange: succeed.id)
+                self.view?.popView()
+            }
+        }
+    }
+    
+    private func postReview(at review: Review, userId: Int) {
+        let request = PostReviewRequest(title: review.title,
+                                        category: review.category.apiKey,
+                                        content: review.content,
+                                        url: review.link,
+                                        score: review.rating,
+                                        userId: userId)
+        service.reviewService.postReview(request: request) { succeed, _ in
+            if let succeed {
+                // 메인 이동
+                self.delegate.writeReview(succeed, didCreate: succeed.id)
+                self.view?.popView()
             }
         }
     }

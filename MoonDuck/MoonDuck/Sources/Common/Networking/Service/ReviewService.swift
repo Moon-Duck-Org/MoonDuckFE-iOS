@@ -44,4 +44,40 @@ class ReviewService {
                 }
             }
     }
+    
+    func postReview(request: PostReviewRequest, completion: @escaping (_ succeed: Review?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.postReview(request))
+            .responseDecodable(of: ReviewResponse.self) { response in
+                switch response.result {
+                case .success(let response):
+                    completion(response.toDomain, nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
+            }
+    }
+    
+    func deleteReview(request: DeleteReviewRequest, completion: @escaping (_ succeed: Bool?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.deleteReview(request))
+            .responseDecodable { (response: AFDataResponse<Bool>) in
+                switch response.result {
+                case .success(let response):
+                    completion(response, nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
+            }
+    }
+    
+    func reviewDetail(request: ReviewDetailRequest, completion: @escaping (_ succeed: Review?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.reviewDetail(request))
+            .responseDecodable(of: ReviewResponse.self) { response in
+                switch response.result {
+                case .success(let response):
+                    completion(response.toDomain, nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
+            }
+    }
 }
