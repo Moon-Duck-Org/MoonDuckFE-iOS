@@ -9,18 +9,25 @@ import Foundation
 
 struct ReviewAllRequest: Encodable {
     var userId: Int
+    var filter: String
 }
 
-struct BoardModifyRequest: Encodable {
-    var id: Int
+struct GetReviewRequest: Encodable {
+    var userId: Int
     var category: String
+    var filter: String
 }
 
-struct BoardDelegateRequest: Encodable {
-    var id: Int
-}
-
-struct BoardPosetUserRequest: Encodable {
-    var userId: String
+struct PutReviewRequest: Encodable {
+    var title: String
     var category: String
+    var content: String
+    var image1: String?
+    var image2: String?
+    var image3: String?
+    var image4: String?
+    var image5: String?
+    var url: String?
+    var score: Int
+    var boardId: Int
 }

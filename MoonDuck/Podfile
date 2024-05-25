@@ -10,10 +10,12 @@ target 'MoonDuck' do
 	pod 'Kingfisher', '~> 7.6.1'
 	pod 'SwiftLint'
 	pod 'SwiftGen'
+  pod 'SnapKit'
+  pod 'Then'
 
 	#Networking
 	pod 'SwiftyJSON'
-  	pod 'Alamofire'
+  pod 'Alamofire'
 
 
   target 'MoonDuckTests' do

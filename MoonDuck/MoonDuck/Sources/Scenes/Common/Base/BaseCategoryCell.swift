@@ -18,7 +18,25 @@ class BaseCategoryCell: UICollectionViewCell {
             case .home:
                 return isSelected ? Asset.Color.main.color.withAlphaComponent(0.5) : Asset.Color.white.color
             case .write:
-                return Asset.Color.white.color
+                return isSelected ? Asset.Color.white.color : Asset.Color.gray3.color
+            }
+        }
+        
+        func getBoderColor(isSelected: Bool) -> UIColor? {
+            switch self {
+            case .write:
+                return isSelected ? Asset.Color.black.color : .clear
+            default:
+                return nil
+            }
+        }
+        
+        func getBorderWidth(isSelected: Bool) -> CGFloat? {
+            switch self {
+            case .write:
+                return isSelected ? 1.0 : 0.0
+            default:
+                return nil
             }
         }
     }
@@ -39,5 +57,10 @@ class BaseCategoryCell: UICollectionViewCell {
     
     private func setSelect(_ isSelect: Bool) {
         vBack?.backgroundColor = cellMode.getBackColor(isSelected: isSelect)
+        
+        if let color = cellMode.getBoderColor(isSelected: isSelect),
+        let width = cellMode.getBorderWidth(isSelected: isSelect) {
+            vBack?.addBorder(color: color, width: width)
+        }
     }
 }

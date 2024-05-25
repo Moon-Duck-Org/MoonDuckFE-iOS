@@ -58,11 +58,3 @@ class UserService {
             }
     }
 }
-
-// TODO: API 사용
-//UserService.user(request: UserRequest(deviceId: "")) { succeed, failed in
-//    if let succeed {
-//        print(succeed)
-//    }
-//}
-

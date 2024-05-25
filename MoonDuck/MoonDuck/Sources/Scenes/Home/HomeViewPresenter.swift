@@ -77,7 +77,7 @@ class HomeViewPresenter: HomePresenter {
     func selectCategory(at index: Int) {
         indexOfSelectedCategory = index
         view?.reloadCategory()
-        loadReview(at: category[index])
+        loadReview(at: category[index], sort: sortList[indexOfSeletedSort])
     }
     
     func selectSort(at index: Int) {
@@ -85,7 +85,7 @@ class HomeViewPresenter: HomePresenter {
         // TODO: SORT API 연결
         indexOfSeletedSort = index
         view?.updateSortLabel(sortList[index].title)
-        loadReview(at: category[indexOfSelectedCategory])
+        loadReview(at: category[indexOfSelectedCategory], sort: sortList[index])
     }
     
     func selectBoard(at index: Int) {
@@ -103,6 +103,10 @@ class HomeViewPresenter: HomePresenter {
         reloadBoard()
     }
     
+    func tappedCreaateReview() {
+        view?.moveBoardEdit(with: service, user: user, board: nil)
+    }
+    
     private func reloadBoard() {
         view?.reloadBoard()
         if boardList.count < 1 {
@@ -110,39 +114,36 @@ class HomeViewPresenter: HomePresenter {
         }
         view?.updateCountLabel(boardList.count)
     }
-    func tappedCreaateReview() {
-        view?.moveBoardEdit(with: service, user: user, board: nil)
-    }
 }
 
 // MARK: - Netwroking
 extension HomeViewPresenter {
-    func boardPostsUser(at category: Category) {
-        // TODO: - API boardPostsUser
-        let request = BoardPosetUserRequest(userId: user.deviceId, category: category.apiKey)
-        service.reviewService.boardPostsUser(request: request) { succeed, _ in
-            if let succeed {
-                self.boardList = succeed
-            }
-            self.reloadBoard()
-        }
-    }
-    
-    private func loadReview(at category: Category) {
+    private func loadReview(at category: Category, sort: Sort) {
         if category == .all {
-            reviewAll()
+            reviewAll(sort: sort)
         } else {
-            
+            getReview(at: category, sort: sort)
         }
     }
     
-    private func reviewAll() {
-        let request = ReviewAllRequest(userId: user.id)
-        service.reviewService.reviewAll(request: request) { succeed, failed in
+    private func getReview(at category: Category, sort: Sort) {
+        let request = GetReviewRequest(userId: user.id, category: category.apiKey, filter: sort.apiKey)
+        service.reviewService.getReview(request: request) { succeed, _ in
             if let succeed {
                 self.boardList = succeed
             }
             self.reloadBoard()
         }
     }
+    
+    private func reviewAll(sort: Sort) {
+        let request = ReviewAllRequest(userId: user.id, filter: sort.apiKey)
+        service.reviewService.reviewAll(request: request) { succeed, _ in
+            if let succeed {
+                self.boardList = succeed
+            }
+            self.reloadBoard()
+        }
+    }
+    
 }

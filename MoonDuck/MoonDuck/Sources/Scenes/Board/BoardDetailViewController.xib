@@ -23,9 +23,14 @@
                 <outlet property="categoryImageView" destination="Q4J-BE-xt5" id="Ud6-70-VrS"/>
                 <outlet property="contentLabel" destination="Ihn-qQ-SRH" id="e5m-Ay-Hyl"/>
                 <outlet property="dateLabel" destination="3cB-KP-vkc" id="KKm-2B-7g8"/>
-                <outlet property="linkHieghtConstraint" destination="cyA-n0-pMW" id="hUu-7o-0gw"/>
+                <outlet property="linkHieghtConstraint" destination="cyA-n0-pMW" id="2Kf-Wv-fcE"/>
                 <outlet property="linkLabel" destination="Abu-fz-QWe" id="BEp-JP-e1k"/>
                 <outlet property="linkView" destination="zuQ-GD-hE8" id="bXZ-Qi-5jJ"/>
+                <outlet property="rating1" destination="r7X-Fp-WCC" id="XuX-5h-HQc"/>
+                <outlet property="rating2" destination="PgP-zc-ZaR" id="o49-AB-CxL"/>
+                <outlet property="rating3" destination="fK0-uV-HUI" id="Pgz-Gf-oRg"/>
+                <outlet property="rating4" destination="Srg-E0-IBn" id="405-aA-fLw"/>
+                <outlet property="rating5" destination="3Bc-BI-Ej6" id="kgz-9N-Hyk"/>
                 <outlet property="titleLabel" destination="YEB-Mq-NAW" id="myD-5O-w3u"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -135,12 +140,11 @@
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="SmP-yt-W25" firstAttribute="leading" secondItem="zuQ-GD-hE8" secondAttribute="leading" constant="22" id="9Ak-9M-Wfz"/>
-                                        <constraint firstItem="SmP-yt-W25" firstAttribute="top" secondItem="zuQ-GD-hE8" secondAttribute="top" constant="20" id="9YX-LN-K6w"/>
-                                        <constraint firstItem="SmP-yt-W25" firstAttribute="top" secondItem="zuQ-GD-hE8" secondAttribute="top" constant="20" id="FpG-Ir-yn5"/>
+                                        <constraint firstItem="SmP-yt-W25" firstAttribute="top" secondItem="zuQ-GD-hE8" secondAttribute="top" priority="750" constant="20" id="9YX-LN-K6w"/>
                                         <constraint firstAttribute="trailing" secondItem="Abu-fz-QWe" secondAttribute="trailing" constant="22" id="Qri-C0-67P"/>
                                         <constraint firstItem="Abu-fz-QWe" firstAttribute="leading" secondItem="zuQ-GD-hE8" secondAttribute="leading" constant="22" id="RQZ-am-Z2J"/>
                                         <constraint firstAttribute="height" constant="66" id="cyA-n0-pMW"/>
-                                        <constraint firstItem="Abu-fz-QWe" firstAttribute="top" secondItem="SmP-yt-W25" secondAttribute="bottom" constant="1" id="jpi-1c-0GU"/>
+                                        <constraint firstItem="Abu-fz-QWe" firstAttribute="top" secondItem="SmP-yt-W25" secondAttribute="bottom" priority="250" constant="1" id="jpi-1c-0GU"/>
                                         <constraint firstAttribute="trailing" secondItem="SmP-yt-W25" secondAttribute="trailing" constant="22" id="tee-S2-MWf"/>
                                         <constraint firstAttribute="bottom" secondItem="Abu-fz-QWe" secondAttribute="bottom" id="vxD-cY-hrv"/>
                                     </constraints>
@@ -155,7 +159,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="APZ-B6-z17">
                                     <rect key="frame" x="151.66666666666666" y="65" width="90" height="18"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r7X-Fp-WCC" userLabel="Button1">
+                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r7X-Fp-WCC" userLabel="Button1">
                                             <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="18" id="bpi-oS-VxG"/>
@@ -169,7 +173,7 @@
                                                 <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="StarSmall"/>
                                             </userDefinedRuntimeAttributes>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PgP-zc-ZaR" userLabel="Button2">
+                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PgP-zc-ZaR" userLabel="Button2">
                                             <rect key="frame" x="18" y="0.0" width="18" height="18"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="StarSmall"/>
@@ -179,7 +183,7 @@
                                                 <userDefinedRuntimeAttribute type="image" keyPath="fillImage" value="StarFillSmall"/>
                                             </userDefinedRuntimeAttributes>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fK0-uV-HUI" userLabel="Button3">
+                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fK0-uV-HUI" userLabel="Button3">
                                             <rect key="frame" x="36" y="0.0" width="18" height="18"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="StarSmall"/>
@@ -189,7 +193,7 @@
                                                 <userDefinedRuntimeAttribute type="image" keyPath="fillImage" value="StarFillSmall"/>
                                             </userDefinedRuntimeAttributes>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Srg-E0-IBn" userLabel="Button4">
+                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Srg-E0-IBn" userLabel="Button4">
                                             <rect key="frame" x="54" y="0.0" width="18" height="18"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="StarSmall"/>
@@ -199,7 +203,7 @@
                                                 <userDefinedRuntimeAttribute type="image" keyPath="fillImage" value="StarFillSmall"/>
                                             </userDefinedRuntimeAttributes>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Bc-BI-Ej6" userLabel="Button4">
+                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Bc-BI-Ej6" userLabel="Button4">
                                             <rect key="frame" x="72" y="0.0" width="18" height="18"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="StarSmall"/>

@@ -17,5 +17,5 @@ struct Review {
     var content: String
     var imageUrlList: [String]
     var link: String?
-    var starRating: Int
+    var rating: Int
 }

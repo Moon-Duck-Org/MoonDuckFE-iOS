@@ -35,7 +35,7 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
         }
     }
     
-    @IBAction func createReviewButtonTap(_ sender: Any) {
+    @IBAction private func createReviewButtonTap(_ sender: Any) {
         presenter.tappedCreaateReview()
     }
     
@@ -86,6 +86,7 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
     
     func reloadBoard() {
         boardTableView.reloadData()
+        boardTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
     
     func showBoardMoreAlert(at indexOfBoard: Int) {
@@ -93,7 +94,7 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
             let str = self.presenter.board(at: indexOfBoard).content
             Alert.shared.showSystemShare(self, str: str)
         }, destructiveHandler: {
-            Alert.shared.showAlert(self, style: .deleteTwoButton, title: "삭제하시겠어요?", destructiveHandler:  {
+            Alert.shared.showAlert(self, style: .deleteTwoButton, title: "삭제하시겠어요?", destructiveHandler: {
                 self.presenter.deleteBoard(at: indexOfBoard)
             })
         })

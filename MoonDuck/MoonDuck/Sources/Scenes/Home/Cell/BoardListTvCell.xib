@@ -20,11 +20,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" restorationIdentifier="BoardListTvCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="BoardListTvCell" id="KGk-i7-Jjw" customClass="BoardListTvCell" customModule="MoonDuck" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="363" height="432"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="BoardListTvCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="BoardListTvCell" rowHeight="453" id="KGk-i7-Jjw" customClass="BoardListTvCell" customModule="MoonDuck" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="363" height="453"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="363" height="432"/>
+                <rect key="frame" x="0.0" y="0.0" width="363" height="453"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgZ-wn-3vN">
@@ -93,13 +93,17 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ou8-ki-Jxo">
-                        <rect key="frame" x="0.0" y="276" width="363" height="156"/>
+                        <rect key="frame" x="0.0" y="276" width="363" height="177"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHe-CQ-gxa">
                                 <rect key="frame" x="16" y="0.0" width="90" height="18"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EKS-yz-Nsx" userLabel="Button1">
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EKS-yz-Nsx" userLabel="Button1">
                                         <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES" notEnabled="YES"/>
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="18" id="cIM-aD-haG"/>
                                             <constraint firstAttribute="height" constant="18" id="yM7-rv-fVi"/>
@@ -112,8 +116,11 @@
                                             <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="StarSmall"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TF6-8K-PP6" userLabel="Button2">
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TF6-8K-PP6" userLabel="Button2">
                                         <rect key="frame" x="18" y="0.0" width="18" height="18"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES" notEnabled="YES"/>
+                                        </accessibility>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="StarSmall"/>
                                         <state key="selected" image="StarFillSmall"/>
@@ -122,8 +129,11 @@
                                             <userDefinedRuntimeAttribute type="image" keyPath="fillImage" value="StarFillSmall"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdI-QQ-uek" userLabel="Button3">
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdI-QQ-uek" userLabel="Button3">
                                         <rect key="frame" x="36" y="0.0" width="18" height="18"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES" notEnabled="YES"/>
+                                        </accessibility>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="StarSmall"/>
                                         <state key="selected" image="StarFillSmall"/>
@@ -132,8 +142,11 @@
                                             <userDefinedRuntimeAttribute type="image" keyPath="fillImage" value="StarFillSmall"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOg-i5-tNF" userLabel="Button4">
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOg-i5-tNF" userLabel="Button4">
                                         <rect key="frame" x="54" y="0.0" width="18" height="18"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES" notEnabled="YES"/>
+                                        </accessibility>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="StarSmall"/>
                                         <state key="selected" image="StarFillSmall"/>
@@ -142,8 +155,11 @@
                                             <userDefinedRuntimeAttribute type="image" keyPath="fillImage" value="StarFillSmall"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nF9-5j-nxG" userLabel="Button4">
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nF9-5j-nxG" userLabel="Button4">
                                         <rect key="frame" x="72" y="0.0" width="18" height="18"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES" notEnabled="YES"/>
+                                        </accessibility>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="StarSmall"/>
                                         <state key="selected" image="StarFillSmall"/>
@@ -177,31 +193,37 @@
                                     <constraint firstItem="TF6-8K-PP6" firstAttribute="width" secondItem="EKS-yz-Nsx" secondAttribute="width" id="vBO-9l-g1L"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="범죄도시 대공개" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4V-Wq-U2o">
-                                <rect key="frame" x="16" y="22" width="121" height="26.666666666666671"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="범죄도시 대공개" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4V-Wq-U2o">
+                                <rect key="frame" x="16" y="22" width="121" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="1bP-z2-dgF"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="18"/>
                                 <color key="textColor" name="Black"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1M-f2-Xsv">
-                                <rect key="frame" x="16" y="55.666666666666686" width="331" height="62.333333333333343"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1M-f2-Xsv">
+                                <rect key="frame" x="16" y="56" width="331" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Zh6-rd-fUX"/>
+                                </constraints>
                                 <string key="text">범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개</string>
                                 <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
                                 <color key="textColor" name="Black"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e2Y-J6-uXy">
-                                <rect key="frame" x="16" y="113" width="331" height="24"/>
+                                <rect key="frame" x="0.0" y="134" width="363" height="24"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Link" translatesAutoresizingMaskIntoConstraints="NO" id="NfU-B2-hmn">
-                                        <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                        <rect key="frame" x="16" y="0.0" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="UJp-bc-3RR"/>
                                             <constraint firstAttribute="width" constant="24" id="tsv-t0-4xC"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="범죄도시범죄도시범죄도시범죄도시범죄도시범죄도시범죄도시범죄도시" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMb-NI-xRn">
-                                        <rect key="frame" x="27" y="1.6666666666666856" width="304" height="21"/>
+                                        <rect key="frame" x="43" y="1.6666666666666856" width="304" height="21"/>
                                         <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
                                         <color key="textColor" name="Blue"/>
                                         <nil key="highlightedColor"/>
@@ -211,10 +233,10 @@
                                 <constraints>
                                     <constraint firstItem="NfU-B2-hmn" firstAttribute="top" secondItem="e2Y-J6-uXy" secondAttribute="top" id="P6M-Qt-8VG"/>
                                     <constraint firstAttribute="bottom" secondItem="NfU-B2-hmn" secondAttribute="bottom" id="V0N-kC-WjE"/>
-                                    <constraint firstAttribute="trailing" secondItem="bMb-NI-xRn" secondAttribute="trailing" id="gB5-mh-6tk"/>
+                                    <constraint firstAttribute="trailing" secondItem="bMb-NI-xRn" secondAttribute="trailing" constant="16" id="gB5-mh-6tk"/>
                                     <constraint firstItem="bMb-NI-xRn" firstAttribute="centerY" secondItem="NfU-B2-hmn" secondAttribute="centerY" id="kgs-HA-LnM"/>
                                     <constraint firstItem="bMb-NI-xRn" firstAttribute="leading" secondItem="NfU-B2-hmn" secondAttribute="trailing" constant="3" id="o6G-Ua-2zE"/>
-                                    <constraint firstItem="NfU-B2-hmn" firstAttribute="leading" secondItem="e2Y-J6-uXy" secondAttribute="leading" id="wjV-Gj-Nik"/>
+                                    <constraint firstItem="NfU-B2-hmn" firstAttribute="leading" secondItem="e2Y-J6-uXy" secondAttribute="leading" constant="16" id="wjV-Gj-Nik"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -223,8 +245,8 @@
                             <constraint firstItem="C1M-f2-Xsv" firstAttribute="top" secondItem="O4V-Wq-U2o" secondAttribute="bottom" constant="7" id="4Jp-7k-V6k"/>
                             <constraint firstItem="O4V-Wq-U2o" firstAttribute="leading" secondItem="Ou8-ki-Jxo" secondAttribute="leading" constant="16" id="ACa-6T-cQf"/>
                             <constraint firstItem="BHe-CQ-gxa" firstAttribute="leading" secondItem="Ou8-ki-Jxo" secondAttribute="leading" constant="16" id="CFC-B5-RIt"/>
-                            <constraint firstItem="e2Y-J6-uXy" firstAttribute="leading" secondItem="Ou8-ki-Jxo" secondAttribute="leading" constant="16" id="F4G-70-ayd"/>
-                            <constraint firstAttribute="trailing" secondItem="e2Y-J6-uXy" secondAttribute="trailing" constant="16" id="OJ1-u3-LdK"/>
+                            <constraint firstItem="e2Y-J6-uXy" firstAttribute="leading" secondItem="Ou8-ki-Jxo" secondAttribute="leading" id="F4G-70-ayd"/>
+                            <constraint firstAttribute="trailing" secondItem="e2Y-J6-uXy" secondAttribute="trailing" id="OJ1-u3-LdK"/>
                             <constraint firstAttribute="bottom" secondItem="C1M-f2-Xsv" secondAttribute="bottom" constant="49" id="On9-lb-Akv"/>
                             <constraint firstItem="e2Y-J6-uXy" firstAttribute="top" secondItem="C1M-f2-Xsv" secondAttribute="bottom" constant="6" id="Qzv-II-Php"/>
                             <constraint firstItem="BHe-CQ-gxa" firstAttribute="top" secondItem="Ou8-ki-Jxo" secondAttribute="top" id="ZBM-9A-RMg"/>
@@ -260,8 +282,13 @@
                 <outlet property="lbUserNickname" destination="KXB-Mg-4qa" id="aJv-GR-WuW"/>
                 <outlet property="linkView" destination="e2Y-J6-uXy" id="bqc-G5-7kw"/>
                 <outlet property="moreButton" destination="Dig-9H-jHp" id="kq5-Sk-m4a"/>
+                <outlet property="rating1" destination="EKS-yz-Nsx" id="08t-4h-vkW"/>
+                <outlet property="rating2" destination="TF6-8K-PP6" id="ZjD-bH-p6n"/>
+                <outlet property="rating3" destination="QdI-QQ-uek" id="NdJ-fU-Z2a"/>
+                <outlet property="rating4" destination="XOg-i5-tNF" id="yFI-2D-Tgs"/>
+                <outlet property="rating5" destination="nF9-5j-nxG" id="Oag-lg-B2X"/>
             </connections>
-            <point key="canvasLocation" x="-12.977099236641221" y="19.718309859154932"/>
+            <point key="canvasLocation" x="-12.977099236641221" y="27.112676056338028"/>
         </tableViewCell>
     </objects>
     <resources>

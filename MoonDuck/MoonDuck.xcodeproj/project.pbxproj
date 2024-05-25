@@ -68,6 +68,11 @@
 		EA9A843F2C00DCDA004B7FDF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA9A843D2C00DCDA004B7FDF /* Localizable.strings */; };
 		EA9A84422C00DD08004B7FDF /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84412C00DD08004B7FDF /* Strings+Generated.swift */; };
 		EA9A84452C00E306004B7FDF /* APIEventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84442C00E306004B7FDF /* APIEventLogger.swift */; };
+		EAA914CE2C02274700A98950 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914CD2C02274700A98950 /* String+Extension.swift */; };
+		EAA914D02C022D7700A98950 /* ReviewEditCategoryCvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914CF2C022D7700A98950 /* ReviewEditCategoryCvDataSource.swift */; };
+		EAA914D42C022DF700A98950 /* ReviewEditCategoryCvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914D22C022DF700A98950 /* ReviewEditCategoryCvCell.swift */; };
+		EAA914D52C022DF700A98950 /* ReviewEditCategoryCvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA914D32C022DF700A98950 /* ReviewEditCategoryCvCell.xib */; };
+		EAA914D72C02382400A98950 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914D62C02382400A98950 /* UIViewController+Extension.swift */; };
 		EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */; };
 		EAD957632C002982001FB6E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957622C002982001FB6E1 /* User.swift */; };
 		EAD957652C0029D3001FB6E1 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957642C0029D3001FB6E1 /* Review.swift */; };
@@ -182,6 +187,11 @@
 		EA9A84402C00DCDD004B7FDF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EA9A84412C00DD08004B7FDF /* Strings+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
 		EA9A84442C00E306004B7FDF /* APIEventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEventLogger.swift; sourceTree = "<group>"; };
+		EAA914CD2C02274700A98950 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		EAA914CF2C022D7700A98950 /* ReviewEditCategoryCvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEditCategoryCvDataSource.swift; sourceTree = "<group>"; };
+		EAA914D22C022DF700A98950 /* ReviewEditCategoryCvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEditCategoryCvCell.swift; sourceTree = "<group>"; };
+		EAA914D32C022DF700A98950 /* ReviewEditCategoryCvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewEditCategoryCvCell.xib; sourceTree = "<group>"; };
+		EAA914D62C02382400A98950 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListTvDataSource.swift; sourceTree = "<group>"; };
 		EAD957622C002982001FB6E1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EAD957642C0029D3001FB6E1 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -362,6 +372,7 @@
 				A0E658302BFE2F18001A8D54 /* Intro */,
 				EAD9576A2C008EB6001FB6E1 /* Onboard */,
 				EA9A84212C00BBAE004B7FDF /* NameSetting */,
+				EA5EA0C02C0119650041A8B4 /* Board */,
 				EAC703A32BFECBC700E99378 /* Home */,
 			);
 			path = Scenes;
@@ -416,10 +427,12 @@
 		EA5EA0C02C0119650041A8B4 /* Board */ = {
 			isa = PBXGroup;
 			children = (
+				EAA914D12C022DAA00A98950 /* Cell */,
 				EAE017E42C01E68700699145 /* Edit */,
 				EA5EA0C32C0119880041A8B4 /* BoardDetailViewController.swift */,
 				EA5EA0C42C0119880041A8B4 /* BoardDetailViewController.xib */,
 				EAE017D82C01C11B00699145 /* BoardDetailViewPresenter.swift */,
+				EAA914CF2C022D7700A98950 /* ReviewEditCategoryCvDataSource.swift */,
 			);
 			path = Board;
 			sourceTree = "<group>";
@@ -440,6 +453,8 @@
 				EA6379E82BFF359100464A19 /* NSObjectProtocol+Extension.swift */,
 				EA6D9A762BFF6823003B459A /* UIView+Extension.swift */,
 				EA9A84282C00BF04004B7FDF /* UITextField+Extension.swift */,
+				EAA914CD2C02274700A98950 /* String+Extension.swift */,
+				EAA914D62C02382400A98950 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -522,10 +537,18 @@
 			path = NameSetting;
 			sourceTree = "<group>";
 		};
+		EAA914D12C022DAA00A98950 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				EAA914D22C022DF700A98950 /* ReviewEditCategoryCvCell.swift */,
+				EAA914D32C022DF700A98950 /* ReviewEditCategoryCvCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		EAC703A32BFECBC700E99378 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				EA5EA0C02C0119650041A8B4 /* Board */,
 				A07826A92BFFA91000D7BA63 /* DataSource */,
 				EA6D9A712BFF6026003B459A /* Cell */,
 				EA6379E32BFF33C500464A19 /* HomeViewController.xib */,
@@ -672,6 +695,7 @@
 				EA9A843F2C00DCDA004B7FDF /* Localizable.strings in Resources */,
 				A0E658442BFE36A5001A8D54 /* NotoSansCJKkr-Black.otf in Resources */,
 				EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */,
+				EAA914D52C022DF700A98950 /* ReviewEditCategoryCvCell.xib in Resources */,
 				A0E658402BFE36A5001A8D54 /* NotoSansCJKkr-Regular.otf in Resources */,
 				A0E6583E2BFE36A5001A8D54 /* NotoSansCJKkr-Thin.otf in Resources */,
 				EA5EA0C62C0119880041A8B4 /* BoardDetailViewController.xib in Resources */,
@@ -875,6 +899,7 @@
 				EA6D9A7A2BFF6884003B459A /* RadiusView.swift in Sources */,
 				EAE017DB2C01CA0500699145 /* CellButton.swift in Sources */,
 				EAE017D32C0193B800699145 /* ReviewRequest.swift in Sources */,
+				EAA914CE2C02274700A98950 /* String+Extension.swift in Sources */,
 				EAD9576D2C008ED5001FB6E1 /* OnboardViewController.swift in Sources */,
 				EA9A84452C00E306004B7FDF /* APIEventLogger.swift in Sources */,
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,
@@ -886,6 +911,7 @@
 				EA6379D22BFF295C00464A19 /* OSLog+Extension.swift in Sources */,
 				A07826AD2BFFAB6300D7BA63 /* BoardListTvCell.swift in Sources */,
 				EA9A84422C00DD08004B7FDF /* Strings+Generated.swift in Sources */,
+				EAA914D72C02382400A98950 /* UIViewController+Extension.swift in Sources */,
 				EA6379D52BFF2A4000464A19 /* UserRequest.swift in Sources */,
 				EA6379CA2BFEF73500464A19 /* IntroViewPresenter.swift in Sources */,
 				EA9A842F2C00D577004B7FDF /* Alert.swift in Sources */,
@@ -901,6 +927,8 @@
 				EAE017D72C01AA3D00699145 /* Sort.swift in Sources */,
 				EA9A84292C00BF04004B7FDF /* UITextField+Extension.swift in Sources */,
 				EAE017CD2C012C1900699145 /* BoardImageCvCell.swift in Sources */,
+				EAA914D42C022DF700A98950 /* ReviewEditCategoryCvCell.swift in Sources */,
+				EAA914D02C022D7700A98950 /* ReviewEditCategoryCvDataSource.swift in Sources */,
 				EAE017EC2C01FBD600699145 /* TextView.swift in Sources */,
 				EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */,
 				EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */,
@@ -1101,7 +1129,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 3T5QFYSPG5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoonDuck/Resources/Info.plist;
@@ -1140,7 +1168,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3T5QFYSPG5;
 				GENERATE_INFOPLIST_FILE = YES;

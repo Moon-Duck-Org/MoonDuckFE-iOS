@@ -1,0 +1,193 @@
+//
+//  BoardEditViewPresenter.swift
+//  MoonDuck
+//
+//  Created by suni on 5/25/24.
+//
+
+import Foundation
+import UIKit
+import Combine
+
+protocol BoardEditPresenter: AnyObject {
+    var view: BoardEditView? { get set }
+    var service: AppServices { get }
+    
+    var numberOfCategory: Int { get }
+    
+    /// Life Cycle
+    func viewDidLoad()
+    func viewWillAppear()
+    func viewWillDisappear()
+    
+    /// Data
+    func category(at index: Int) -> Category
+    var indexOfSelectedCategory: Int? { get }
+    
+    /// Action
+    func changeTitle(current: String, change: String) -> Bool
+    func changeContent(current: String, change: String) -> Bool
+    func selectCategory(at index: Int)
+    func saveData()
+    func tabRatingButton(at index: Int)
+}
+
+class BoardEditViewPresenter: BoardEditPresenter {
+    
+    weak var view: BoardEditView?
+    
+    var numberOfCategory: Int {
+        return category.count
+    }
+    
+    let service: AppServices
+    var indexOfSelectedCategory: Int?
+    
+    private let category: [Category]
+    private let user: User
+    private var board: Review?
+    private var isEdit: Bool = false
+    private var cancellables = Set<AnyCancellable>()
+    private let notificationCenter: NotificationCenter = .default // remove 처리
+    private var titleText: String = ""
+    private var contentText: String = ""
+    private var linkText: String?
+    private var rating: Int = 0
+    
+    init(with service: AppServices, user: User, board: Review? = nil) {
+        self.service = service
+        self.category = [.movie, .book, .drama, .concert]
+        self.user = user
+        self.board = board
+    }
+    
+    func viewDidLoad() {
+        if let board {
+            if let firstIndex = category.firstIndex(of: board.category) {
+                selectCategory(at: firstIndex)
+            }
+            titleText = board.title
+            contentText = board.content
+            linkText = board.link
+            rating = board.rating
+            
+            view?.updateData(board: board)
+        }
+    }
+    
+    func viewWillAppear() {
+        notificationCenter.publisher(for: UIResponder.keyboardWillShowNotification)
+            .sink { [weak self] notification in
+                guard let info = UIKeyboardInfo(notification: notification) else {
+                    return
+                }
+                self?.view?.keyboardWillShow(with: info)
+            }
+            .store(in: &cancellables)
+        
+        notificationCenter.publisher(for: UIResponder.keyboardWillHideNotification)
+            .sink { [weak self] notification in
+                guard let info = UIKeyboardInfo(notification: notification) else {
+                    return
+                }
+                self?.view?.keyboardWillHide(with: info)
+            }
+            .store(in: &cancellables)
+    }
+    func viewWillDisappear() {
+        cancellables.removeAll()
+    }
+    
+    func category(at index: Int) -> Category {
+        return category[index]
+    }
+    
+    func selectCategory(at index: Int) {
+        indexOfSelectedCategory = index
+        view?.reloadCategory()
+    }
+    
+    func changeTitle(current: String, change: String) -> Bool {
+        view?.updateCountTitle(change.count)
+        titleText = change
+        return change.count < 40
+    }
+    
+    func changeContent(current: String, change: String) -> Bool {
+        view?.updateCountContent(change.count)
+        contentText = change
+        return change.count < 500
+    }
+    
+    func saveData() {
+        var categoryData: Category = .movie
+        var title = ""
+        var content = ""
+        var score = 0
+        
+        if let indexOfSelectedCategory {
+            categoryData = category[indexOfSelectedCategory]
+        } else {
+            // 카테고리 미입력
+            return
+        }
+        
+        if titleText.count > 0 {
+            title = titleText
+        } else {
+            // 제목 미입력
+            return
+        }
+        
+        if contentText.count > 0 {
+            content = contentText
+        } else {
+            // 내용 미입력
+            return
+        }
+        
+        if rating > 0 {
+            score = rating
+        } else {
+            // 별점 미입력
+            return
+        }
+        
+        if let board {
+            putReview(at: Review(id: board.id,
+                                 title: title,
+                                 created: board.created,
+                                 nickname: board.nickname,
+                                 category: categoryData,
+                                 content: content,
+                                 imageUrlList: [],
+                                 rating: score))
+        } else {
+            
+        }
+    }
+    
+    func tabRatingButton(at index: Int) {
+        guard rating != index else { return }
+        rating = index
+        view?.updateRating(at: index)
+    }
+}
+
+// MARK: - Netwroking
+extension BoardEditViewPresenter {
+    private func putReview(at review: Review) {
+        let request = PutReviewRequest(title: review.title,
+                                       category: review.category.apiKey,
+                                       content: review.content,
+                                       url: review.link,
+                                       score: review.rating,
+                                       boardId: review.id)
+        service.reviewService.putReview(request: request) { succeed, _ in
+            if let succeed {
+                // 메인 이동
+                
+            }
+        }
+    }
+}

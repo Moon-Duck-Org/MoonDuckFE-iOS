@@ -8,11 +8,22 @@
 import Foundation
 
 enum Sort: String {
-    case latestOrder = "최신순"
-    case ratingOrder = "별점순"
-    case oldestFirst = "오래된 순"
+    case latestOrder = "LATEST"
+    case ratingOrder = "RATE"
+    case oldestFirst = "OLDEST"
+    
+    var apiKey: String {
+        return self.rawValue
+    }
     
     var title: String {
-        return self.rawValue
+        switch self {
+        case .latestOrder:
+            return "최신순"
+        case .ratingOrder:
+            return "별점순"
+        case .oldestFirst:
+            return "오래된 순"
+        }
     }
 }

@@ -27,12 +27,12 @@ class BoardDetailViewPresenter: BoardDetailPresenter {
     let service: AppServices
     
     private let user: User
-    private let board: Review
+    private let review: Review
     
     init(with service: AppServices, user: User, board: Review) {
         self.service = service
         self.user = user
-        self.board = board
+        self.review = board
     }
     
     func viewDidLoad() {
@@ -40,6 +40,6 @@ class BoardDetailViewPresenter: BoardDetailPresenter {
     }
     
     func viewWillAppear() {
-        view?.updateData(board: board)
+        view?.updateData(review: review)
     }
 }

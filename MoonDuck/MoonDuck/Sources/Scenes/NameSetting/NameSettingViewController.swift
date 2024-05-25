@@ -77,7 +77,7 @@ extension NameSettingViewController: UITextFieldDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changeText = currentText.replacingCharacters(in: stringRange, with: string)
         
-        return presenter.checkText(current: currentText, change: changeText)
+        return presenter.changeText(current: currentText, change: changeText)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -11,8 +11,13 @@ protocol BoardEditView: NSObject {
     func updateData(board: Review)
     func updateCountTitle(_ count: Int)
     func updateCountContent(_ count: Int)
+    
     func keyboardWillShow(with keyboardInfo: UIKeyboardInfo)
     func keyboardWillHide(with keyboardInfo: UIKeyboardInfo)
+    
+    func reloadCategory()
+    func popView()
+    func updateRating(at rating: Int)
 }
 
 class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
@@ -27,18 +32,30 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
     
     @IBOutlet weak private var titleCountLabel: UILabel!
     @IBOutlet weak private var contentCountLabel: UILabel!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak private var ratingButton1: UIButton!
+    @IBOutlet weak private var ratingButton2: UIButton!
+    @IBOutlet weak private var ratingButton3: UIButton!
+    @IBOutlet weak private var ratingButton4: UIButton!
+    @IBOutlet weak private var ratingButton5: UIButton!
     
     @IBAction private func cancelButtonTap(_ sender: Any) {
         navigator.pop(sender: self)
     }
-    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    
+    @IBAction private func saveButtonTap(_ sender: Any) {
+        presenter.saveData()
+    }
     
     let presenter: BoardEditPresenter
     var navigator: Navigator!
+    let categoryDataSource: ReviewEditCategoryCvDataSource
     
     init(navigator: Navigator, presenter: BoardEditPresenter) {
         self.navigator = navigator
         self.presenter = presenter
+        self.categoryDataSource = ReviewEditCategoryCvDataSource(presenter: presenter)
         super.init(nibName: BoardEditViewController.className, bundle: Bundle(for: BoardEditViewController.self))
     }
     
@@ -47,9 +64,29 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
         presenter.view = self
         presenter.viewDidLoad()
         
+        categoryDataSource.configure(with: categoryCollectionView)
+        
         titleTextField.delegate = self
         contentTextView.delegate = self
         linkTextField.delegate = self
+//        
+//        let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+//        view.addGestureRecognizer(gesture)
+        ratingButton1.addTarget(self, action: #selector(tabRatingButton(_:)), for: .touchUpInside)
+        ratingButton2.addTarget(self, action: #selector(tabRatingButton(_:)), for: .touchUpInside)
+        ratingButton3.addTarget(self, action: #selector(tabRatingButton(_:)), for: .touchUpInside)
+        ratingButton4.addTarget(self, action: #selector(tabRatingButton(_:)), for: .touchUpInside)
+        ratingButton5.addTarget(self, action: #selector(tabRatingButton(_:)), for: .touchUpInside)
+    }
+
+    @objc
+    private func tabRatingButton(_ sender: UIButton) {
+        presenter.tabRatingButton(at: sender.tag)
+    }
+    
+    @objc 
+    private func hideKeyboard() {
+        view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +108,7 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
             linkTextField.resignFirstResponder()
         }
         presenter.viewWillDisappear()
+         
     }
     
     required init?(coder: NSCoder) {
@@ -102,8 +140,15 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
     }
     
     func updateData(board: Review) {
+        
+        
         titleTextField.text = board.title
+        updateCountTitle(board.title.count)
+        
         contentTextView.text = board.content
+        updateCountContent(board.content.count)
+        
+        updateRating(at: board.rating)
         
         if let link = board.link {
             linkTextField.text = link
@@ -116,17 +161,37 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
     func updateCountContent(_ count: Int) {
         contentCountLabel.text = "\(count)/500"
     }
+    
+    func reloadCategory() {
+        categoryCollectionView.reloadData()
+    }
+    
+    func popView() {
+        navigator.pop(sender: self)
+    }
+    
+    func updateRating(at rating: Int) {
+        ratingButton1.isSelected = rating > 0
+        ratingButton2.isSelected = rating > 1
+        ratingButton3.isSelected = rating > 2
+        ratingButton4.isSelected = rating > 3
+        ratingButton5.isSelected = rating > 4
+    }
 }
 
 // MARK: - UITextFieldDelegate
 extension BoardEditViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     
-        let currentText = titleTextField.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let changeText = currentText.replacingCharacters(in: stringRange, with: string)
-        
-        return presenter.checkTitle(current: currentText, change: changeText)
+        if textField == titleTextField {
+            let currentText = titleTextField.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            let changeText = currentText.replacingCharacters(in: stringRange, with: string)
+            
+            return presenter.changeTitle(current: currentText, change: changeText)
+        } else {
+            return true
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -143,6 +208,6 @@ extension BoardEditViewController: UITextViewDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changeText = currentText.replacingCharacters(in: stringRange, with: text)
         
-        return presenter.checkTitle(current: currentText, change: changeText)
+        return presenter.changeContent(current: currentText, change: changeText)
     }
 }

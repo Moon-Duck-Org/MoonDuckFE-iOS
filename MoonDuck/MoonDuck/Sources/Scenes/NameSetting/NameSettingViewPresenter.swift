@@ -12,7 +12,7 @@ protocol NameSettingPresenter: AnyObject {
     var view: NameSettingView? { get set }
     var service: AppServices { get }
     
-    func checkText(current: String, change: String) -> Bool
+    func changeText(current: String, change: String) -> Bool
     func checkValid(_ text: String?)
     func completeButtonTap()
 }
@@ -43,13 +43,9 @@ class NameSettingViewPresenter: NameSettingPresenter {
         view?.completeButtonTap()
     }
     
-    func checkText(current: String, change: String) -> Bool {
+    func changeText(current: String, change: String) -> Bool {
         view?.updateCountText(change.count)
-        if change.count < 2 {
-            view?.updateCompleteButton(isEnabled: false)
-        } else {
-            view?.updateCompleteButton(isEnabled: true)
-        }
+        view?.updateCompleteButton(isEnabled: change.count < 2)
         return change.count < 10
     }
 }

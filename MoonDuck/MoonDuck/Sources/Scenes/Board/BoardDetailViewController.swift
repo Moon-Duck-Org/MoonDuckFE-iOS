@@ -8,7 +8,7 @@
 import UIKit
 
 protocol BoardDetailView: NSObject {
-    func updateData(board: Review)
+    func updateData(review: Review)
 }
 
 class BoardDetailViewController: UIViewController, BoardDetailView, Navigatable {
@@ -23,6 +23,12 @@ class BoardDetailViewController: UIViewController, BoardDetailView, Navigatable 
     @IBOutlet weak private var linkView: UIView!
     @IBOutlet weak private var linkLabel: UILabel!
     @IBOutlet weak private var linkHieghtConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak private var rating1: UIButton!
+    @IBOutlet weak private var rating2: UIButton!
+    @IBOutlet weak private var rating3: UIButton!
+    @IBOutlet weak private var rating4: UIButton!
+    @IBOutlet weak private var rating5: UIButton!
     
     @IBAction private func backButtonTap(_ sender: Any) {
         self.navigator.pop(sender: self)
@@ -54,18 +60,30 @@ class BoardDetailViewController: UIViewController, BoardDetailView, Navigatable 
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateData(board: Review) {
-        categoryImageView.image = board.category.roundImage
-        dateLabel.text = board.created
-        contentLabel.text = board.content
+    func updateData(review: Review) {
+        categoryImageView.image = review.category.roundImage
+        dateLabel.text = review.created.toDateString()
+        titleLabel.text = review.title
+        contentLabel.text = review.content
         
-        if let link = board.link, !link.isEmpty {
+        if let link = review.link, !link.isEmpty {
+            linkView.isHidden = false
             linkLabel.text = link
             linkHieghtConstraint.constant = 66.0
         } else {
+            linkView.isHidden = true
             linkLabel.text = ""
             linkHieghtConstraint.constant = 0.0
         }
+        
+        setRating(review.rating)
     }
-
+    
+    private func setRating(_ rating: Int) {
+        rating1.isSelected = rating > 0
+        rating2.isSelected = rating > 1
+        rating3.isSelected = rating > 2
+        rating4.isSelected = rating > 3
+        rating5.isSelected = rating > 4
+    }
 }

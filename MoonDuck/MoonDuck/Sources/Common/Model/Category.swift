@@ -34,6 +34,20 @@ enum Category: String {
         }
     }
     
+    var grayImage: UIImage {
+        switch self {
+        case .movie:
+            return Asset.Assets.categoryMovie.image
+        case .book:
+            return Asset.Assets.categoryBook.image
+        case .drama:
+            return Asset.Assets.categoryDrama.image
+        case .concert:
+            return Asset.Assets.categoryConcert.image
+        default: return Asset.Assets.imageEmpty.image
+        }
+    }
+    
     var roundImage: UIImage {
         switch self {
         case .movie:
@@ -44,7 +58,7 @@ enum Category: String {
             return Asset.Assets.categoryDramaRound.image
         case .concert:
             return Asset.Assets.categoryConcertRound.image
-        default: return Asset.Assets.categoryConcertRound.image
+        default: return Asset.Assets.imageEmpty.image
         }
     }
     

@@ -23,9 +23,15 @@ class BoardListTvCell: UITableViewCell {
     @IBOutlet private weak var imageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var moreButton: CellButton!
     
+    @IBOutlet weak private var rating1: UIButton!
+    @IBOutlet weak private var rating2: UIButton!
+    @IBOutlet weak private var rating3: UIButton!
+    @IBOutlet weak private var rating4: UIButton!
+    @IBOutlet weak private var rating5: UIButton!
+    
     func configure(with board: Review) {
         lbUserNickname?.text = board.nickname
-        lbCreatedData?.text = board.created
+        lbCreatedData?.text = board.created.toDateString()
         lbTitle?.text = board.title
         lbContent?.text = board.content
         
@@ -46,6 +52,16 @@ class BoardListTvCell: UITableViewCell {
             imageHeightConstraint.constant = 200
             imageCollectioinView.isHidden = false
         }
+        
+        setRating(board.rating)
+    }
+    
+    private func setRating(_ rating: Int) {
+        rating1.isSelected = rating > 0
+        rating2.isSelected = rating > 1
+        rating3.isSelected = rating > 2
+        rating4.isSelected = rating > 3
+        rating5.isSelected = rating > 4
     }
     
 }
