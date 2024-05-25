@@ -14,10 +14,14 @@ protocol HomePresenter: AnyObject {
     var numberOfCategory: Int { get }
     var numberOfBoard: Int { get }
     
-    var selectedCategoryIndex: Int { get set }
+    var selectedCategoryIndex: Int { get }
+        
+    func viewDidLoad()
     
     func category(at index: Int) -> Category
     func board(at index: Int) -> Board
+    
+    func selectCategoryIndex(at index: Int)
 }
 
 class HomeViewPresenter: HomePresenter {
@@ -40,15 +44,12 @@ class HomeViewPresenter: HomePresenter {
     init(with service: AppServices, user: User) {
         self.service = service
         self.category = [.all, .movie, .book, .drama, .concert]
-        self.boardList = [
-            Board(id: 0, created: "2024년 5월 24일", userNickname: "포덕이", title: "범죄도시", content: "재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 ㅍ 재밌다 재밌다 재밌다 ㅍ", category: .movie),
-            Board(id: 0, created: "2024년 5월 24일", userNickname: "포덕이", title: "범죄도시", content: "재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 ㅍ 재밌다 재밌다 재밌다 ㅍ", category: .movie),
-            Board(id: 0, created: "2024년 5월 24일", userNickname: "포덕이", title: "범죄도시", content: "재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 ㅍ 재밌다 재밌다 재밌다 ㅍ", category: .movie),
-            Board(id: 0, created: "2024년 5월 24일", userNickname: "포덕이", title: "범죄도시", content: "재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 ㅍ 재밌다 재밌다 재밌다 ㅍ", category: .movie),
-            Board(id: 0, created: "2024년 5월 24일", userNickname: "포덕이", title: "범죄도시", content: "재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 ㅍ 재밌다 재밌다 재밌다 ㅍ", category: .movie),
-            Board(id: 0, created: "2024년 5월 24일", userNickname: "포덕이", title: "범죄도시", content: "재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 재밌다 ㅍ 재밌다 재밌다 재밌다 ㅍ", category: .movie)
-        ]
         self.user = user
+        self.boardList = []
+    }
+    
+    func viewDidLoad() {
+        selectCategoryIndex(at: selectedCategoryIndex)
     }
     
     func category(at index: Int) -> Category {
@@ -57,5 +58,30 @@ class HomeViewPresenter: HomePresenter {
     
     func board(at index: Int) -> Board {
         return boardList[index]
+    }
+    
+    func selectCategoryIndex(at index: Int) {
+        selectedCategoryIndex = index
+        view?.reloadCategory()
+        boardPostsUser(at: category[index])
+    }
+}
+
+// MARK: - Netwroking
+extension HomeViewPresenter {
+    func boardPostsUser(at category: Category) {
+        // FIXME: - TEST CODE : 홈 진입
+        let request = BoardPosetUserRequest(userId: user.deviceId, category: category.apiString)
+        service.boardService.boardPostsUser(request: request) { succeed, _ in
+            if let succeed {
+                self.boardList = succeed
+                self.view?.reloadBoard()
+                if self.boardList.count < 1 {
+                    self.view?.updateEmptyView(isEmpty: true)
+                }
+            } else {
+                self.view?.updateEmptyView(isEmpty: true)
+            }
+        }
     }
 }

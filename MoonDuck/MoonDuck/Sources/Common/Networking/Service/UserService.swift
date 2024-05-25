@@ -30,6 +30,17 @@ class UserService {
                     completion(nil, error)
                 }
             }
+        
+//        AF.request(MoonDuckAPI.userLogin(request))
+//            .responseDecodable { (response: AFDataResponse<LoginResponse>) in
+//                            switch response.result {
+//                            case .success(let response):
+//                                completion(response.toDomain, nil)
+//                            case .failure(let error):
+//                                completion(nil, error)
+//                            }
+//                        }
+//                }
     }
     
     func nickname(request: UserNicknameRequest, completion: @escaping (_ succeed: User?, _ failed: Error?) -> Void) {

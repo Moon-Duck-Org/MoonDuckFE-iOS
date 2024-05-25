@@ -9,10 +9,12 @@ import Foundation
 
 struct Board {
     let id: Int
-    let created: String
-    let userNickname: String
     var title: String
+    let created: String
+    let nickname: String
+    
     var content: String
-    var category: Category
+    var imageUrlList: [String]
     var link: String?
+    var starRating: Int
 }

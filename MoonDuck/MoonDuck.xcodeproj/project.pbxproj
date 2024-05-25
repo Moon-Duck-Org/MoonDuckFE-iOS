@@ -77,6 +77,9 @@
 		EAE017CC2C012C1900699145 /* BoardImageCvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE017CB2C012C1900699145 /* BoardImageCvCell.xib */; };
 		EAE017CD2C012C1900699145 /* BoardImageCvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017CA2C012C1900699145 /* BoardImageCvCell.swift */; };
 		EAE017CF2C012DF500699145 /* StarRatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017CE2C012DF500699145 /* StarRatingButton.swift */; };
+		EAE017D12C01935700699145 /* BoardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D02C01935700699145 /* BoardService.swift */; };
+		EAE017D32C0193B800699145 /* BoardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D22C0193B800699145 /* BoardRequest.swift */; };
+		EAE017D52C0195D500699145 /* BoardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D42C0195D500699145 /* BoardResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +182,9 @@
 		EAE017CA2C012C1900699145 /* BoardImageCvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardImageCvCell.swift; sourceTree = "<group>"; };
 		EAE017CB2C012C1900699145 /* BoardImageCvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardImageCvCell.xib; sourceTree = "<group>"; };
 		EAE017CE2C012DF500699145 /* StarRatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingButton.swift; sourceTree = "<group>"; };
+		EAE017D02C01935700699145 /* BoardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardService.swift; sourceTree = "<group>"; };
+		EAE017D22C0193B800699145 /* BoardRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardRequest.swift; sourceTree = "<group>"; };
+		EAE017D42C0195D500699145 /* BoardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -402,6 +408,7 @@
 			isa = PBXGroup;
 			children = (
 				EA6379D42BFF2A4000464A19 /* UserRequest.swift */,
+				EAE017D22C0193B800699145 /* BoardRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -434,6 +441,7 @@
 			isa = PBXGroup;
 			children = (
 				EA6379E02BFF2E5300464A19 /* UserResponse.swift */,
+				EAE017D42C0195D500699145 /* BoardResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -443,6 +451,7 @@
 			children = (
 				EA9A841F2C00AA93004B7FDF /* AppServices.swift */,
 				EA6379DE2BFF2D6900464A19 /* UserService.swift */,
+				EAE017D02C01935700699145 /* BoardService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -825,11 +834,13 @@
 				EAD957632C002982001FB6E1 /* User.swift in Sources */,
 				EA6379E52BFF33C500464A19 /* HomeViewController.swift in Sources */,
 				EA6D9A7A2BFF6884003B459A /* RadiusView.swift in Sources */,
+				EAE017D32C0193B800699145 /* BoardRequest.swift in Sources */,
 				EAD9576D2C008ED5001FB6E1 /* OnboardViewController.swift in Sources */,
 				EA9A84452C00E306004B7FDF /* APIEventLogger.swift in Sources */,
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,
 				EAD957702C0094A1001FB6E1 /* OnboardViewPresenter.swift in Sources */,
 				EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */,
+				EAE017D12C01935700699145 /* BoardService.swift in Sources */,
 				EA5EA0C52C0119880041A8B4 /* BoardViewController.swift in Sources */,
 				EA6379D22BFF295C00464A19 /* OSLog+Extension.swift in Sources */,
 				A07826AD2BFFAB6300D7BA63 /* BoardListTvCell.swift in Sources */,
@@ -841,6 +852,7 @@
 				A0E658532BFE40F9001A8D54 /* LoadingView.swift in Sources */,
 				EA6379E72BFF342F00464A19 /* HomeViewPresenter.swift in Sources */,
 				EA6D9A772BFF6823003B459A /* UIView+Extension.swift in Sources */,
+				EAE017D52C0195D500699145 /* BoardResponse.swift in Sources */,
 				EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */,
 				EA6D9A742BFF67A0003B459A /* HomeCategoryCvCell.swift in Sources */,
 				EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */,
@@ -1045,7 +1057,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3T5QFYSPG5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoonDuck/Resources/Info.plist;
@@ -1084,7 +1096,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3T5QFYSPG5;
 				GENERATE_INFOPLIST_FILE = YES;

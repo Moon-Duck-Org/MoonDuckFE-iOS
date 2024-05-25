@@ -30,7 +30,8 @@ extension HomeCategoryCvDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell: HomeCategoryCvCell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCategoryCvCell.className, for: indexPath) as? HomeCategoryCvCell {
             let category = presenter.category(at: indexPath.row)
-            cell.configure(with: category)
+            let isSelect = presenter.selectedCategoryIndex == indexPath.row
+            cell.configure(with: category, isSelect: isSelect)
             return cell
         }
         return UICollectionViewCell()
@@ -47,11 +48,12 @@ extension HomeCategoryCvDataSource: UICollectionViewDelegate, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard presenter.selectedCategoryIndex != indexPath.row else { return }
     
-        if let currentcell = collectionView.cellForItem(at: indexPath) as? HomeCategoryCvCell,
-           let selectedCell = collectionView.cellForItem(at: IndexPath(row: presenter.selectedCategoryIndex, section: 0)) as? HomeCategoryCvCell {
-            presenter.selectedCategoryIndex = indexPath.row
-            currentcell.setSelect(true)
-            selectedCell.setSelect(false)
-        }
+        presenter.selectCategoryIndex(at: indexPath.row)
+//        if let currentcell = collectionView.cellForItem(at: indexPath) as? HomeCategoryCvCell,
+//           let selectedCell = collectionView.cellForItem(at: IndexPath(row: presenter.selectedCategoryIndex, section: 0)) as? HomeCategoryCvCell {
+//            presenter.selectedCategoryIndex = indexPath.row
+//            currentcell.setSelect(true)
+//            selectedCell.setSelect(false)
+//        }
     }
 }

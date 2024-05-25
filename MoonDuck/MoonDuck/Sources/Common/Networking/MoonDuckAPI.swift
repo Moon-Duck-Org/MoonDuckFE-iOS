@@ -12,6 +12,7 @@ enum MoonDuckAPI {
     case user(UserRequest)
     case userLogin(UserLoginRequest)
     case userNickname(UserNicknameRequest)
+    case boardModfiy(BoardModifyRequest)
 }
 
 class API {
@@ -24,7 +25,7 @@ class API {
 extension MoonDuckAPI: TargetType {
     
     static func baseUrl() -> String {
-        return "http://223.130.162.22:8080"
+        return "http://moonduck.o-r.kr"
     }
     
     var baseURL: URL {
@@ -40,7 +41,7 @@ extension MoonDuckAPI: TargetType {
             return .get
         case .userLogin:
             return .post
-        case .userNickname:
+        case .userNickname, .boardModfiy:
             return .put
         }
     }
@@ -53,6 +54,8 @@ extension MoonDuckAPI: TargetType {
             return "/user/login"
         case .userNickname:
             return "/user/nickname"
+        case .boardModfiy:
+            return "/api/post/modify"
         }
     }
     
@@ -63,6 +66,8 @@ extension MoonDuckAPI: TargetType {
         case .userLogin(let request):
             return .body(request)
         case .userNickname(let request):
+            return .body(request)
+        case .boardModfiy(let request):
             return .body(request)
         }
     }

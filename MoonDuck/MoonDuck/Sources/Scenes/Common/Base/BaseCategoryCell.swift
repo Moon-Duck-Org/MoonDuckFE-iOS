@@ -28,13 +28,16 @@ class BaseCategoryCell: UICollectionViewCell {
     @IBOutlet private weak var ivIcon: UIImageView?
     
     var cellMode: CellMode = .home
+    private var isSelect: Bool = false
     
-    func configure(with category: Category) {
+    func configure(with category: Category, isSelect: Bool = false) {
         lbTitle?.text = category.title
         ivIcon?.image = category.image
+        
+        setSelect(isSelect)
     }
     
-    func setSelect(_ isSelect: Bool) {
+    private func setSelect(_ isSelect: Bool) {
         vBack?.backgroundColor = cellMode.getBackColor(isSelected: isSelect)
     }
 }

@@ -33,4 +33,19 @@ enum Category: String {
             return Asset.Assets.categoryConcert.image
         }
     }
+    
+    var apiString: String {
+        switch self {
+        case .all:
+            return "ALL"
+        case .movie:
+            return "MOVIE"
+        case .book:
+            return "BOOK"
+        case .drama:
+            return "DRAMA"
+        case .concert:
+            return "CONCERT"
+        }
+    }
 }

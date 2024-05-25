@@ -10,6 +10,9 @@ import UIKit
 protocol HomeView: AnyObject {
     func updateEmptyView(isEmpty: Bool)
     func updateCountLabel(_ cnt: Int)
+    
+    func reloadCategory()
+    func reloadBoard()
 }
 
 class HomeViewController: UIViewController, HomeView, Navigatable {
@@ -46,7 +49,7 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
         categoryDataSource.configure(with: categoryCollectionView)
         boardDataSource.configure(with: boardTableView)
         
-        categoryCollectionView.selectItem(at: IndexPath(row: presenter.selectedCategoryIndex, section: 0), animated: false, scrollPosition: .top)
+        presenter.viewDidLoad()
     }
     
     func updateEmptyView(isEmpty: Bool) {
@@ -55,5 +58,13 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
     
     func updateCountLabel(_ cnt: Int) {
         historyCountLabel.text = "\(cnt)"
+    }
+    
+    func reloadCategory() {
+        categoryCollectionView.reloadData()
+    }
+    
+    func reloadBoard() {
+        boardTableView.reloadData()
     }
 }

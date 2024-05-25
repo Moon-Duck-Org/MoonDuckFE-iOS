@@ -52,3 +52,16 @@ extension Encodable {
         return dictionaryData
     }
 }
+
+extension String {
+    func toBool() -> Bool? {
+        if self == "true" {
+          return true
+        }
+        if self == "false" {
+          return false
+        }
+        return nil
+      
+    }
+}

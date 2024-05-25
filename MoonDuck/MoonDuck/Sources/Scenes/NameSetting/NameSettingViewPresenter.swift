@@ -58,7 +58,7 @@ class NameSettingViewPresenter: NameSettingPresenter {
 extension NameSettingViewPresenter {
     func nickName(_ name: String) {
         let request = UserNicknameRequest(deviceId: user.deviceId, nickname: name)
-        service.userService.nickname(request: request) { succeed, failed in
+        service.userService.nickname(request: request) { succeed, _ in
             if let succeed {
                 self.view?.moveHome(with: self.service, user: succeed)
             } else {

@@ -9,4 +9,5 @@ import Foundation
 
 struct AppServices {
     let userService: UserService
+    let boardService: BoardService
 }

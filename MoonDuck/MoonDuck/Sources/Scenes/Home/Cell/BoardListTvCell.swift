@@ -20,7 +20,7 @@ class BoardListTvCell: UITableViewCell {
     @IBOutlet private weak var bottomMarginConstraint: NSLayoutConstraint!
     
     func configure(with board: Board) {
-        lbUserNickname?.text = board.userNickname
+        lbUserNickname?.text = board.nickname
         lbCreatedData?.text = board.created
         lbTitle?.text = board.title
         lbContent?.text = board.content
