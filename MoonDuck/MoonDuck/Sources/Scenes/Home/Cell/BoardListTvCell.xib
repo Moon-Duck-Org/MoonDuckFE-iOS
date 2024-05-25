@@ -21,14 +21,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" restorationIdentifier="BoardListTvCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="BoardListTvCell" id="KGk-i7-Jjw" customClass="BoardListTvCell" customModule="MoonDuck" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="432"/>
+            <rect key="frame" x="0.0" y="0.0" width="363" height="432"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="432"/>
+                <rect key="frame" x="0.0" y="0.0" width="363" height="432"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgZ-wn-3vN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                        <rect key="frame" x="0.0" y="0.0" width="363" height="65"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Profile" translatesAutoresizingMaskIntoConstraints="NO" id="TAQ-hk-Sh5">
                                 <rect key="frame" x="16" y="15" width="24" height="24"/>
@@ -50,12 +50,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dig-9H-jHp" customClass="CellButton" customModule="MoonDuck" customModuleProvider="target">
-                                <rect key="frame" x="325" y="10.666666666666664" width="44" height="44"/>
+                                <rect key="frame" x="313" y="10.666666666666664" width="44" height="44"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="More" translatesAutoresizingMaskIntoConstraints="NO" id="EeD-gZ-ptx">
-                                <rect key="frame" x="335" y="20.666666666666671" width="24" height="24"/>
+                                <rect key="frame" x="323" y="20.666666666666671" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="ERZ-FY-g2W"/>
                                     <constraint firstAttribute="width" constant="24" id="Ovb-3p-2TA"/>
@@ -80,20 +80,20 @@
                         </constraints>
                     </view>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dO5-nr-ou4">
-                        <rect key="frame" x="0.0" y="73" width="375" height="181"/>
+                        <rect key="frame" x="0.0" y="65" width="363" height="200"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="181" id="NqN-rh-oz3"/>
+                            <constraint firstAttribute="height" constant="200" id="NqN-rh-oz3"/>
                         </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="geO-0g-0Bq">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="8" maxX="0.0" maxY="11"/>
                         </collectionViewFlowLayout>
                     </collectionView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ou8-ki-Jxo">
-                        <rect key="frame" x="0.0" y="265" width="375" height="167"/>
+                        <rect key="frame" x="0.0" y="276" width="363" height="156"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHe-CQ-gxa">
                                 <rect key="frame" x="16" y="0.0" width="90" height="18"/>
@@ -177,21 +177,21 @@
                                     <constraint firstItem="TF6-8K-PP6" firstAttribute="width" secondItem="EKS-yz-Nsx" secondAttribute="width" id="vBO-9l-g1L"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="범죄도시 대공개" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4V-Wq-U2o">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="범죄도시 대공개" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4V-Wq-U2o">
                                 <rect key="frame" x="16" y="22" width="121" height="26.666666666666671"/>
                                 <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="18"/>
                                 <color key="textColor" name="Black"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1M-f2-Xsv">
-                                <rect key="frame" x="16" y="55.666666666666686" width="343" height="62.333333333333343"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1M-f2-Xsv">
+                                <rect key="frame" x="16" y="55.666666666666686" width="331" height="62.333333333333343"/>
                                 <string key="text">범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개범죄도시 대공개</string>
                                 <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
                                 <color key="textColor" name="Black"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e2Y-J6-uXy">
-                                <rect key="frame" x="16" y="124" width="343" height="24"/>
+                                <rect key="frame" x="16" y="113" width="331" height="24"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Link" translatesAutoresizingMaskIntoConstraints="NO" id="NfU-B2-hmn">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
@@ -201,7 +201,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="범죄도시범죄도시범죄도시범죄도시범죄도시범죄도시범죄도시범죄도시" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMb-NI-xRn">
-                                        <rect key="frame" x="27" y="1.6666666666666856" width="316" height="21"/>
+                                        <rect key="frame" x="27" y="1.6666666666666856" width="304" height="21"/>
                                         <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
                                         <color key="textColor" name="Blue"/>
                                         <nil key="highlightedColor"/>
@@ -236,7 +236,7 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="dO5-nr-ou4" firstAttribute="top" secondItem="rgZ-wn-3vN" secondAttribute="bottom" constant="8" id="5KH-zp-Rou"/>
+                    <constraint firstItem="dO5-nr-ou4" firstAttribute="top" secondItem="rgZ-wn-3vN" secondAttribute="bottom" id="5KH-zp-Rou"/>
                     <constraint firstAttribute="bottom" secondItem="Ou8-ki-Jxo" secondAttribute="bottom" id="Btt-eD-HWJ"/>
                     <constraint firstItem="rgZ-wn-3vN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="aFG-yO-3mM"/>
                     <constraint firstAttribute="trailing" secondItem="dO5-nr-ou4" secondAttribute="trailing" id="cWl-Co-IBF"/>
@@ -251,6 +251,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="bottomMarginConstraint" destination="On9-lb-Akv" id="pL0-46-n3x"/>
+                <outlet property="imageCollectioinView" destination="dO5-nr-ou4" id="uk1-c7-i5S"/>
+                <outlet property="imageHeightConstraint" destination="NqN-rh-oz3" id="xA1-pa-vXx"/>
                 <outlet property="lbContent" destination="C1M-f2-Xsv" id="oyM-fH-UW0"/>
                 <outlet property="lbCreatedData" destination="ij2-f0-4qR" id="7I6-9a-h9Y"/>
                 <outlet property="lbLink" destination="bMb-NI-xRn" id="RIM-UB-BJU"/>
@@ -259,7 +261,7 @@
                 <outlet property="linkView" destination="e2Y-J6-uXy" id="bqc-G5-7kw"/>
                 <outlet property="moreButton" destination="Dig-9H-jHp" id="kq5-Sk-m4a"/>
             </connections>
-            <point key="canvasLocation" x="-3.8167938931297707" y="19.718309859154932"/>
+            <point key="canvasLocation" x="-12.977099236641221" y="19.718309859154932"/>
         </tableViewCell>
     </objects>
     <resources>

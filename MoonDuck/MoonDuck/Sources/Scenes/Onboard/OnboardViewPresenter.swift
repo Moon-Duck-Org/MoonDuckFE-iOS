@@ -19,9 +19,9 @@ class OnboardViewPresenter: OnboardPresenter {
     weak var view: OnboardView?
     
     let service: AppServices
-    private let user: User
+    private let user: JoinUser
     
-    init(with service: AppServices, user: User) {
+    init(with service: AppServices, user: JoinUser) {
         self.service = service
         self.user = user
     }

@@ -16,12 +16,14 @@ class BoardListTvCell: UITableViewCell {
     @IBOutlet private weak var lbContent: UILabel!
     @IBOutlet private weak var lbLink: UILabel!
     
+    @IBOutlet private weak var imageCollectioinView: UICollectionView!
     @IBOutlet private weak var linkView: UIView!
     @IBOutlet private weak var bottomMarginConstraint: NSLayoutConstraint!
 
+    @IBOutlet private weak var imageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var moreButton: CellButton!
     
-    func configure(with board: Board) {
+    func configure(with board: Review) {
         lbUserNickname?.text = board.nickname
         lbCreatedData?.text = board.created
         lbTitle?.text = board.title
@@ -36,5 +38,14 @@ class BoardListTvCell: UITableViewCell {
             linkView?.isHidden = true
             bottomMarginConstraint?.constant = 20
         }
+        
+        if board.imageUrlList.count < 1 {
+            imageHeightConstraint.constant = 0
+            imageCollectioinView.isHidden = true
+        } else {
+            imageHeightConstraint.constant = 200
+            imageCollectioinView.isHidden = false
+        }
     }
+    
 }

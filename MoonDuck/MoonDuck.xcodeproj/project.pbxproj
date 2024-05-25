@@ -70,16 +70,16 @@
 		EA9A84452C00E306004B7FDF /* APIEventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84442C00E306004B7FDF /* APIEventLogger.swift */; };
 		EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */; };
 		EAD957632C002982001FB6E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957622C002982001FB6E1 /* User.swift */; };
-		EAD957652C0029D3001FB6E1 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957642C0029D3001FB6E1 /* Board.swift */; };
+		EAD957652C0029D3001FB6E1 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957642C0029D3001FB6E1 /* Review.swift */; };
 		EAD9576D2C008ED5001FB6E1 /* OnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9576B2C008ED5001FB6E1 /* OnboardViewController.swift */; };
 		EAD9576E2C008ED5001FB6E1 /* OnboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD9576C2C008ED5001FB6E1 /* OnboardViewController.xib */; };
 		EAD957702C0094A1001FB6E1 /* OnboardViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9576F2C0094A1001FB6E1 /* OnboardViewPresenter.swift */; };
 		EAE017CC2C012C1900699145 /* BoardImageCvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE017CB2C012C1900699145 /* BoardImageCvCell.xib */; };
 		EAE017CD2C012C1900699145 /* BoardImageCvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017CA2C012C1900699145 /* BoardImageCvCell.swift */; };
 		EAE017CF2C012DF500699145 /* StarRatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017CE2C012DF500699145 /* StarRatingButton.swift */; };
-		EAE017D12C01935700699145 /* BoardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D02C01935700699145 /* BoardService.swift */; };
-		EAE017D32C0193B800699145 /* BoardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D22C0193B800699145 /* BoardRequest.swift */; };
-		EAE017D52C0195D500699145 /* BoardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D42C0195D500699145 /* BoardResponse.swift */; };
+		EAE017D12C01935700699145 /* ReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D02C01935700699145 /* ReviewService.swift */; };
+		EAE017D32C0193B800699145 /* ReviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D22C0193B800699145 /* ReviewRequest.swift */; };
+		EAE017D52C0195D500699145 /* ReviewResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D42C0195D500699145 /* ReviewResponse.swift */; };
 		EAE017D72C01AA3D00699145 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D62C01AA3D00699145 /* Sort.swift */; };
 		EAE017D92C01C11B00699145 /* BoardDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D82C01C11B00699145 /* BoardDetailViewPresenter.swift */; };
 		EAE017DB2C01CA0500699145 /* CellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017DA2C01CA0500699145 /* CellButton.swift */; };
@@ -184,16 +184,16 @@
 		EA9A84442C00E306004B7FDF /* APIEventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEventLogger.swift; sourceTree = "<group>"; };
 		EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListTvDataSource.swift; sourceTree = "<group>"; };
 		EAD957622C002982001FB6E1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		EAD957642C0029D3001FB6E1 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		EAD957642C0029D3001FB6E1 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		EAD9576B2C008ED5001FB6E1 /* OnboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewController.swift; sourceTree = "<group>"; };
 		EAD9576C2C008ED5001FB6E1 /* OnboardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardViewController.xib; sourceTree = "<group>"; };
 		EAD9576F2C0094A1001FB6E1 /* OnboardViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewPresenter.swift; sourceTree = "<group>"; };
 		EAE017CA2C012C1900699145 /* BoardImageCvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardImageCvCell.swift; sourceTree = "<group>"; };
 		EAE017CB2C012C1900699145 /* BoardImageCvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardImageCvCell.xib; sourceTree = "<group>"; };
 		EAE017CE2C012DF500699145 /* StarRatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingButton.swift; sourceTree = "<group>"; };
-		EAE017D02C01935700699145 /* BoardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardService.swift; sourceTree = "<group>"; };
-		EAE017D22C0193B800699145 /* BoardRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardRequest.swift; sourceTree = "<group>"; };
-		EAE017D42C0195D500699145 /* BoardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardResponse.swift; sourceTree = "<group>"; };
+		EAE017D02C01935700699145 /* ReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewService.swift; sourceTree = "<group>"; };
+		EAE017D22C0193B800699145 /* ReviewRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequest.swift; sourceTree = "<group>"; };
+		EAE017D42C0195D500699145 /* ReviewResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewResponse.swift; sourceTree = "<group>"; };
 		EAE017D62C01AA3D00699145 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		EAE017D82C01C11B00699145 /* BoardDetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDetailViewPresenter.swift; sourceTree = "<group>"; };
 		EAE017DA2C01CA0500699145 /* CellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellButton.swift; sourceTree = "<group>"; };
@@ -428,7 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				EA6379D42BFF2A4000464A19 /* UserRequest.swift */,
-				EAE017D22C0193B800699145 /* BoardRequest.swift */,
+				EAE017D22C0193B800699145 /* ReviewRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -461,7 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				EA6379E02BFF2E5300464A19 /* UserResponse.swift */,
-				EAE017D42C0195D500699145 /* BoardResponse.swift */,
+				EAE017D42C0195D500699145 /* ReviewResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -471,7 +471,7 @@
 			children = (
 				EA9A841F2C00AA93004B7FDF /* AppServices.swift */,
 				EA6379DE2BFF2D6900464A19 /* UserService.swift */,
-				EAE017D02C01935700699145 /* BoardService.swift */,
+				EAE017D02C01935700699145 /* ReviewService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -506,7 +506,7 @@
 			children = (
 				EA81F4A82BFF716600FDC7A7 /* Category.swift */,
 				EAD957622C002982001FB6E1 /* User.swift */,
-				EAD957642C0029D3001FB6E1 /* Board.swift */,
+				EAD957642C0029D3001FB6E1 /* Review.swift */,
 				EAE017D62C01AA3D00699145 /* Sort.swift */,
 			);
 			path = Model;
@@ -858,7 +858,7 @@
 				EAE017E82C01E6D100699145 /* BoardEditViewController.swift in Sources */,
 				EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */,
 				EA6379D72BFF2B2D00464A19 /* TargetType.swift in Sources */,
-				EAD957652C0029D3001FB6E1 /* Board.swift in Sources */,
+				EAD957652C0029D3001FB6E1 /* Review.swift in Sources */,
 				A0E6584D2BFE3C0B001A8D54 /* XCAssets+Generated.swift in Sources */,
 				EA6379E92BFF359100464A19 /* NSObjectProtocol+Extension.swift in Sources */,
 				EAE017EE2C02015900699145 /* UIKeyboardInfo.swift in Sources */,
@@ -874,14 +874,14 @@
 				EA6379E52BFF33C500464A19 /* HomeViewController.swift in Sources */,
 				EA6D9A7A2BFF6884003B459A /* RadiusView.swift in Sources */,
 				EAE017DB2C01CA0500699145 /* CellButton.swift in Sources */,
-				EAE017D32C0193B800699145 /* BoardRequest.swift in Sources */,
+				EAE017D32C0193B800699145 /* ReviewRequest.swift in Sources */,
 				EAD9576D2C008ED5001FB6E1 /* OnboardViewController.swift in Sources */,
 				EA9A84452C00E306004B7FDF /* APIEventLogger.swift in Sources */,
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,
 				EAD957702C0094A1001FB6E1 /* OnboardViewPresenter.swift in Sources */,
 				EAE017DD2C01CF2300699145 /* Utils.swift in Sources */,
 				EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */,
-				EAE017D12C01935700699145 /* BoardService.swift in Sources */,
+				EAE017D12C01935700699145 /* ReviewService.swift in Sources */,
 				EA5EA0C52C0119880041A8B4 /* BoardDetailViewController.swift in Sources */,
 				EA6379D22BFF295C00464A19 /* OSLog+Extension.swift in Sources */,
 				A07826AD2BFFAB6300D7BA63 /* BoardListTvCell.swift in Sources */,
@@ -893,7 +893,7 @@
 				A0E658532BFE40F9001A8D54 /* LoadingView.swift in Sources */,
 				EA6379E72BFF342F00464A19 /* HomeViewPresenter.swift in Sources */,
 				EA6D9A772BFF6823003B459A /* UIView+Extension.swift in Sources */,
-				EAE017D52C0195D500699145 /* BoardResponse.swift in Sources */,
+				EAE017D52C0195D500699145 /* ReviewResponse.swift in Sources */,
 				EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */,
 				EA6D9A742BFF67A0003B459A /* HomeCategoryCvCell.swift in Sources */,
 				EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */,

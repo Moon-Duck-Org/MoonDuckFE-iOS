@@ -27,9 +27,9 @@ class BoardDetailViewPresenter: BoardDetailPresenter {
     let service: AppServices
     
     private let user: User
-    private let board: Board
+    private let board: Review
     
-    init(with service: AppServices, user: User, board: Board) {
+    init(with service: AppServices, user: User, board: Review) {
         self.service = service
         self.user = user
         self.board = board

@@ -1,5 +1,5 @@
 //
-//  Board.swift
+//  Review.swift
 //  MoonDuck
 //
 //  Created by suni on 5/24/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Board {
+struct Review {
     let id: Int
     var title: String
     let created: String
@@ -19,12 +19,3 @@ struct Board {
     var link: String?
     var starRating: Int
 }
-//
-//protocol BoardModelDelegate {
-//    func boardModel(_ boardModel: BoardModel)
-//}
-//
-//final class BoardModel {
-//    weak var delegate: BoardModelDelegate?
-//    
-//}

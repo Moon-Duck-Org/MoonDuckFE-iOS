@@ -9,5 +9,5 @@ import Foundation
 
 struct AppServices {
     let userService: UserService
-    let boardService: BoardService
+    let reviewService: ReviewService
 }

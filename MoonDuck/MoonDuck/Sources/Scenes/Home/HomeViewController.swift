@@ -15,8 +15,8 @@ protocol HomeView: AnyObject {
     func reloadCategory()
     func reloadBoard()
     
-    func moveBoardDetail(with service: AppServices, user: User, board: Board)
-    func moveBoardEdit(with service: AppServices, user: User, board: Board?)
+    func moveBoardDetail(with service: AppServices, user: User, board: Review)
+    func moveBoardEdit(with service: AppServices, user: User, board: Review?)
     func showBoardMoreAlert(at indexOfBoard: Int)
 }
 
@@ -38,6 +38,7 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
     @IBAction func createReviewButtonTap(_ sender: Any) {
         presenter.tappedCreaateReview()
     }
+    
     let presenter: HomePresenter
     var navigator: Navigator!
     let categoryDataSource: HomeCategoryCvDataSource
@@ -101,12 +102,12 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
 
 // MARK: - Navigation
 extension HomeViewController {
-    func moveBoardDetail(with service: AppServices, user: User, board: Board) {
+    func moveBoardDetail(with service: AppServices, user: User, board: Review) {
         let presenter = BoardDetailViewPresenter(with: service, user: user, board: board)
         navigator.show(seque: .boardDetail(presenter: presenter), sender: self, transition: .navigation)
     }
     
-    func moveBoardEdit(with service: AppServices, user: User, board: Board?) {
+    func moveBoardEdit(with service: AppServices, user: User, board: Review?) {
         let presenter = BoardEditViewPresenter(with: service, user: user, board: board)
         navigator.show(seque: .boardEdit(presenter: presenter), sender: self, transition: .navigation)
     }

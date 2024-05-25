@@ -33,12 +33,12 @@ class BoardEditViewPresenter: BoardEditPresenter {
     let service: AppServices
     
     private let user: User
-    private var board: Board?
+    private var board: Review?
     private var isEdit: Bool = false
     private var cancellables = Set<AnyCancellable>()
     private let notificationCenter: NotificationCenter = .default // remove 처리
     
-    init(with service: AppServices, user: User, board: Board? = nil) {
+    init(with service: AppServices, user: User, board: Review? = nil) {
         self.service = service
         self.user = user
         self.board = board

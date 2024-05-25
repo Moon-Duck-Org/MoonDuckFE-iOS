@@ -8,20 +8,30 @@
 import Foundation
 import SwiftyJSON
 
-struct UserRseponse: Decodable {
+struct UserResponse: Decodable {
     let id: Int
     let deviceId: String
     let nickname: String
-    let movie: Int
-    let book: Int
-    let drama: Int
-    let concert: Int
+    let movie: Int?
+    let book: Int?
+    let drama: Int?
+    let concert: Int?
 }
 
-extension UserRseponse {
+extension UserResponse {
     var toDomain: User {
-        return User(deviceId: deviceId,
+        let movie = movie ?? 0
+        let book = book ?? 0
+        let drama = drama ?? 0
+        let concert = concert ?? 0
+        let all: Int = {
+            return movie + book + drama + concert
+        }()
+        
+        return User(id: id,
+                    deviceId: deviceId,
                     nickname: nickname,
+                    all: all,
                     movie: movie,
                     book: book,
                     drama: drama,

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol BoardEditView: NSObject {
-    func updateData(board: Board)
+    func updateData(board: Review)
     func updateCountTitle(_ count: Int)
     func updateCountContent(_ count: Int)
     func keyboardWillShow(with keyboardInfo: UIKeyboardInfo)
@@ -101,7 +101,7 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
                        completion: nil)
     }
     
-    func updateData(board: Board) {
+    func updateData(board: Review) {
         titleTextField.text = board.title
         contentTextView.text = board.content
         

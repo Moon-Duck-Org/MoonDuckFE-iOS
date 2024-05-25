@@ -22,7 +22,7 @@ protocol HomePresenter: AnyObject {
     
     /// Data
     func category(at index: Int) -> Category
-    func board(at index: Int) -> Board
+    func board(at index: Int) -> Review
     
     /// Action
     func selectCategory(at index: Int)
@@ -50,7 +50,7 @@ class HomeViewPresenter: HomePresenter {
     let sortList: [Sort]
     
     private let category: [Category]
-    private var boardList: [Board]
+    private var boardList: [Review]
     private let user: User
     private var indexOfSeletedSort: Int = 0
     
@@ -70,14 +70,14 @@ class HomeViewPresenter: HomePresenter {
         return category[index]
     }
     
-    func board(at index: Int) -> Board {
+    func board(at index: Int) -> Review {
         return boardList[index]
     }
     
     func selectCategory(at index: Int) {
         indexOfSelectedCategory = index
         view?.reloadCategory()
-        boardPostsUser(at: category[index])
+        loadReview(at: category[index])
     }
     
     func selectSort(at index: Int) {
@@ -85,7 +85,7 @@ class HomeViewPresenter: HomePresenter {
         // TODO: SORT API 연결
         indexOfSeletedSort = index
         view?.updateSortLabel(sortList[index].title)
-        boardPostsUser(at: category[indexOfSelectedCategory])
+        loadReview(at: category[indexOfSelectedCategory])
     }
     
     func selectBoard(at index: Int) {
@@ -104,13 +104,14 @@ class HomeViewPresenter: HomePresenter {
     }
     
     private func reloadBoard() {
-        self.view?.reloadBoard()
-        if self.boardList.count < 1 {
-            self.view?.updateEmptyView(isEmpty: true)
+        view?.reloadBoard()
+        if boardList.count < 1 {
+            view?.updateEmptyView(isEmpty: true)
         }
+        view?.updateCountLabel(boardList.count)
     }
     func tappedCreaateReview() {
-        self.view?.moveBoardEdit(with: service, user: user, board: nil)
+        view?.moveBoardEdit(with: service, user: user, board: nil)
     }
 }
 
@@ -119,7 +120,25 @@ extension HomeViewPresenter {
     func boardPostsUser(at category: Category) {
         // TODO: - API boardPostsUser
         let request = BoardPosetUserRequest(userId: user.deviceId, category: category.apiKey)
-        service.boardService.boardPostsUser(request: request) { succeed, _ in
+        service.reviewService.boardPostsUser(request: request) { succeed, _ in
+            if let succeed {
+                self.boardList = succeed
+            }
+            self.reloadBoard()
+        }
+    }
+    
+    private func loadReview(at category: Category) {
+        if category == .all {
+            reviewAll()
+        } else {
+            
+        }
+    }
+    
+    private func reviewAll() {
+        let request = ReviewAllRequest(userId: user.id)
+        service.reviewService.reviewAll(request: request) { succeed, failed in
             if let succeed {
                 self.boardList = succeed
             }

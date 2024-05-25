@@ -8,7 +8,7 @@
 import UIKit
 
 protocol IntroView: AnyObject {
-    func moveOnboard(with service: AppServices, user: User)
+    func moveOnboard(with service: AppServices, user: JoinUser)
     func moveHome(with service: AppServices, user: User)
 }
 
@@ -43,7 +43,7 @@ extension IntroViewController {
         navigator.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
     
-    func moveOnboard(with service: AppServices, user: User) {
+    func moveOnboard(with service: AppServices, user: JoinUser) {
         let presenter = OnboardViewPresenter(with: service, user: user)
         navigator.show(seque: .onboard(presenter: presenter), sender: nil, transition: .root)
     }

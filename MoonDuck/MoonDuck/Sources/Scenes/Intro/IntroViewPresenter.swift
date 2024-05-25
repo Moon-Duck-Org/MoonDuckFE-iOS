@@ -41,7 +41,7 @@ extension IntroViewPresenter {
                 if let succeed, succeed {
                     self.user(id: id)
                 } else {
-                    self.view?.moveOnboard(with: self.service, user: User(deviceId: id, nickname: ""))
+                    self.view?.moveOnboard(with: self.service, user: JoinUser(deviceId: id, nickname: ""))
                 }
             }
         }
@@ -52,7 +52,7 @@ extension IntroViewPresenter {
             if let succeed {
                 self.view?.moveHome(with: self.service, user: succeed)
             } else {
-                self.view?.moveOnboard(with: self.service, user: User(deviceId: id, nickname: ""))
+                self.view?.moveOnboard(with: self.service, user: JoinUser(deviceId: id, nickname: ""))
             }
         }
     }

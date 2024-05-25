@@ -8,7 +8,7 @@
 import UIKit
 
 protocol OnboardView: AnyObject {
-    func moveNameSetting(with service: AppServices, user: User)
+    func moveNameSetting(with service: AppServices, user: JoinUser)
 }
 
 class OnboardViewController: UIViewController, OnboardView, Navigatable {
@@ -39,7 +39,7 @@ class OnboardViewController: UIViewController, OnboardView, Navigatable {
 
 // MARK: - Navigation
 extension OnboardViewController {    
-    func moveNameSetting(with service: AppServices, user: User) {
+    func moveNameSetting(with service: AppServices, user: JoinUser) {
         let presenter = NameSettingViewPresenter(with: service, user: user)
         navigator.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
     }

@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct ReviewAllRequest: Encodable {
+    var userId: Int
+}
+
 struct BoardModifyRequest: Encodable {
     var id: Int
     var category: String

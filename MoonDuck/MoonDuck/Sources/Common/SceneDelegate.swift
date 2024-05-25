@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var appService = {
         return AppServices(userService: UserService(), 
-                           boardService: BoardService())
+                           reviewService: ReviewService())
     }()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
