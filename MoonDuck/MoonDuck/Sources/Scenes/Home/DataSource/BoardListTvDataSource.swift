@@ -31,12 +31,25 @@ extension BoardListTvDataSource: UITableViewDataSource {
         if let cell: BoardListTvCell = tableView.dequeueReusableCell(withIdentifier: BoardListTvCell.className, for: indexPath) as? BoardListTvCell {
             let board = presenter.board(at: indexPath.row)
             cell.configure(with: board)
+            
+            /// more butto action
+            cell.moreButton.index = indexPath.row
+            cell.moreButton.addTarget(self, action: #selector(moreButtonTapped(_ :)), for: .touchUpInside)
             return cell
         }
         return UITableViewCell()
     }
+    
+    @objc func moreButtonTapped(_ sender: CellButton) {
+        Log.debug("TAPPED MORE BUTTON")
+        if let index = sender.index {
+            presenter.tappedMoreButton(at: index)
+        }
+    }
 }
 
 extension BoardListTvDataSource: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.selectBoard(at: indexPath.row)
+    }
 }

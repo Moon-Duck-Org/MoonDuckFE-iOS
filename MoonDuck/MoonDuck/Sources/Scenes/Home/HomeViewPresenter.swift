@@ -27,6 +27,8 @@ protocol HomePresenter: AnyObject {
     /// Action
     func selectCategory(at index: Int)
     func selectSort(at index: Int)
+    func selectBoard(at index: Int)
+    func tappedMoreButton(at index: Int)
 }
 
 class HomeViewPresenter: HomePresenter {
@@ -40,14 +42,14 @@ class HomeViewPresenter: HomePresenter {
         return boardList.count
     }
     
+    let service: AppServices
+    var indexOfSelectedCategory: Int = 0
+    let sortList: [Sort]
+    
     private let category: [Category]
     private var boardList: [Board]
     private let user: User
     private var indexOfSeletedSort: Int = 0
-    
-    let service: AppServices
-    var indexOfSelectedCategory: Int = 0
-    let sortList: [Sort]
     
     init(with service: AppServices, user: User) {
         self.service = service
@@ -76,8 +78,23 @@ class HomeViewPresenter: HomePresenter {
     }
     
     func selectSort(at index: Int) {
+        guard indexOfSeletedSort != index else { return }
         // TODO: SORT API 연결
+        indexOfSeletedSort = index
+        view?.updateSortLabel(sortList[index].title)
         boardPostsUser(at: category[indexOfSelectedCategory])
+    }
+    
+    func selectBoard(at index: Int) {
+        let board = boardList[index]
+        view?.moveBoardDetail(with: service, user: user, board: board)
+    }
+    
+    func tappedMoreButton(at index: Int) {
+        let board = boardList[index]
+        view?.showBoardMoreAlert(sharedString: board.content, deleteHandler: {
+            Log.debug("tappedMoreButton \(board)")
+        })
     }
 }
 

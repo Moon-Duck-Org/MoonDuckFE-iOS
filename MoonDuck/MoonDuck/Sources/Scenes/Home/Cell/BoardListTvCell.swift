@@ -18,6 +18,8 @@ class BoardListTvCell: UITableViewCell {
     
     @IBOutlet private weak var linkView: UIView!
     @IBOutlet private weak var bottomMarginConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var moreButton: CellButton!
     
     func configure(with board: Board) {
         lbUserNickname?.text = board.nickname

@@ -8,6 +8,7 @@
 import UIKit
 
 class Alert {
+    static var shared = Alert()
     
     enum AlertStyle {
         case defualtTwoButton
@@ -18,16 +19,30 @@ class Alert {
         case deleteTwoButton
     }
     
-    static func showAlert(_ viewController: UIViewController,
-                          style: AlertStyle = .defualtTwoButton,
-                          title: String? = "",
-                          message: String? = "",
-                          cancelTitle: String = L10n.Localizable.cancel,
-                          completeTitle: String = L10n.Localizable.done,
-                          destructiveTitle: String = L10n.Localizable.done,
-                          cancelHandler: (() -> Void)? = nil,
-                          completeHandler: (() -> Void)? = nil,
-                          destructiveHandler: (() -> Void)? = nil) {
+    weak var currentAlert: UIViewController?
+    
+    private func dismissAlert() {
+        if let currentAlert {
+            currentAlert.dismiss(animated: true)
+            removeAlert()
+        }
+    }
+    
+    private func removeAlert() {
+        currentAlert = nil
+    }
+    
+    func showAlert(_ viewController: UIViewController,
+                   style: AlertStyle = .defualtTwoButton,
+                   title: String? = "",
+                   message: String? = "",
+                   cancelTitle: String = L10n.Localizable.cancel,
+                   completeTitle: String = L10n.Localizable.done,
+                   destructiveTitle: String = L10n.Localizable.done,
+                   cancelHandler: (() -> Void)? = nil,
+                   completeHandler: (() -> Void)? = nil,
+                   destructiveHandler: (() -> Void)? = nil) {
+        dismissAlert()
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             
@@ -53,46 +68,60 @@ class Alert {
                 alert.addAction(cancelAction)
                 alert.addAction(completeAction)
             }
-            viewController.present(alert, animated: true, completion: nil)
+            viewController.present(alert, animated: true, completion: {
+                self.currentAlert = alert
+            })
         }
     }
     
-    static func showActionSheet(_ viewController: UIViewController,
-                                style: ActionSheetStyle = .deleteTwoButton,
-                                title: String? = nil,
-                                message: String? = nil,
-                                cancelTitle: String = L10n.Localizable.cancel,
-                                completeTitle: String = L10n.Localizable.done,
-                                destructiveTitle: String = L10n.Localizable.done,
-                                cancelHandler: (() -> Void)? = nil,
-                                completeHandler: (() -> Void)? = nil,
-                                destructiveHandler: (() -> Void)? = nil) {
+    func showActionSheet(_ viewController: UIViewController,
+                         style: ActionSheetStyle = .deleteTwoButton,
+                         title: String? = nil,
+                         message: String? = nil,
+                         defaultTitle: String = L10n.Localizable.cancel,
+                         destructiveTitle: String = L10n.Localizable.done,
+                         defaultHandler: (() -> Void)? = nil,
+                         destructiveHandler: (() -> Void)? = nil,
+                         cancelTitle: String = L10n.Localizable.close,
+                         cancelHandler: (() -> Void)? = nil) {
+        dismissAlert()
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             
             if style == .deleteTwoButton {
-                let cancelAction = UIAlertAction(title: cancelTitle, style: .default) { _ in
+                let defaultAction = UIAlertAction(title: defaultTitle, style: .default) { _ in
                     alert.dismiss(animated: true)
-                    cancelHandler?()
+                    defaultHandler?()
                 }
                 let destructiveAction = UIAlertAction(title: destructiveTitle, style: .destructive) { _ in
                     destructiveHandler?()
                 }
-                alert.addAction(cancelAction)
+                alert.addAction(defaultAction)
                 alert.addAction(destructiveAction)
+                
+                let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel) { _ in
+                    alert.dismiss(animated: true)
+                    cancelHandler?()
+                }
+                alert.addAction(cancelAction)
             }
             
-            viewController.present(alert, animated: true, completion: nil)
+            
+            viewController.present(alert, animated: true, completion: {
+                self.currentAlert = alert
+            })
         }
     }
-    static func showList(_ viewController: UIViewController,
-                         title: String? = nil,
-                         message: String? = nil,
-                         buttonTitleList: [String],
-                         buttonHandlerIndex: ((Int) -> Void)?,
-                         cancelTitle: String = L10n.Localizable.close,
-                         cancelHandler: (() -> Void)? = nil
+    
+    func showList(_ viewController: UIViewController,
+                  title: String? = nil,
+                  message: String? = nil,
+                  buttonTitleList: [String],
+                  buttonHandlerIndex: ((Int) -> Void)?,
+                  cancelTitle: String = L10n.Localizable.close,
+                  cancelHandler: (() -> Void)? = nil
     ) {
+        dismissAlert()
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             
@@ -110,7 +139,20 @@ class Alert {
             }
             alert.addAction(cancelAction)
             
-            viewController.present(alert, animated: true, completion: nil)
+            viewController.present(alert, animated: true, completion: {
+                self.currentAlert = alert
+            })
         }
+    }
+    
+    func showSystemShare(_ viewController: UIViewController, str: String? = nil) {
+        guard let str else { return }
+        dismissAlert()
+        let shareContent = [str]
+        let activityController = UIActivityViewController(activityItems: shareContent,
+                                                          applicationActivities: nil)
+        viewController.present(activityController, animated: true, completion: {
+            self.currentAlert = activityController
+        })
     }
 }

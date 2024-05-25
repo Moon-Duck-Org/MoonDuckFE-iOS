@@ -9,11 +9,11 @@ import Foundation
 import SwiftyJSON
 
 struct UserRseponse: Decodable {
-    let createdAt: String
     let modifiedAt: String
-    let id: Int
     let deviceId: String
+    let userid: Int
     let nickname: String
+    let createdAt: String
 }
 
 extension UserRseponse {

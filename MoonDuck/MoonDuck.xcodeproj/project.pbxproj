@@ -36,8 +36,8 @@
 		A0E658532BFE40F9001A8D54 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E658522BFE40F9001A8D54 /* LoadingView.swift */; };
 		B1172CFFFCCD4092EAB9B177 /* Pods_MoonDuck_MoonDuckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */; };
 		EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0B92C00F6D70041A8B4 /* TextField.swift */; };
-		EA5EA0C52C0119880041A8B4 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0C32C0119880041A8B4 /* BoardViewController.swift */; };
-		EA5EA0C62C0119880041A8B4 /* BoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5EA0C42C0119880041A8B4 /* BoardViewController.xib */; };
+		EA5EA0C52C0119880041A8B4 /* BoardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0C32C0119880041A8B4 /* BoardDetailViewController.swift */; };
+		EA5EA0C62C0119880041A8B4 /* BoardDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5EA0C42C0119880041A8B4 /* BoardDetailViewController.xib */; };
 		EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379C42BFEF3FA00464A19 /* Navigator.swift */; };
 		EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379C72BFEF49800464A19 /* BaseNavigationController.swift */; };
 		EA6379CA2BFEF73500464A19 /* IntroViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379C92BFEF73500464A19 /* IntroViewPresenter.swift */; };
@@ -81,6 +81,9 @@
 		EAE017D32C0193B800699145 /* BoardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D22C0193B800699145 /* BoardRequest.swift */; };
 		EAE017D52C0195D500699145 /* BoardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D42C0195D500699145 /* BoardResponse.swift */; };
 		EAE017D72C01AA3D00699145 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D62C01AA3D00699145 /* Sort.swift */; };
+		EAE017D92C01C11B00699145 /* BoardDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D82C01C11B00699145 /* BoardDetailViewPresenter.swift */; };
+		EAE017DB2C01CA0500699145 /* CellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017DA2C01CA0500699145 /* CellButton.swift */; };
+		EAE017DD2C01CF2300699145 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017DC2C01CF2300699145 /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,8 +143,8 @@
 		DBD2F616893EF44F45B03BA4 /* Pods-MoonDuck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck/Pods-MoonDuck.debug.xcconfig"; sourceTree = "<group>"; };
 		DFBEA84FB81504AE187A5E07 /* Pods-MoonDuck-MoonDuckUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck-MoonDuckUITests/Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EA5EA0B92C00F6D70041A8B4 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
-		EA5EA0C32C0119880041A8B4 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
-		EA5EA0C42C0119880041A8B4 /* BoardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardViewController.xib; sourceTree = "<group>"; };
+		EA5EA0C32C0119880041A8B4 /* BoardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDetailViewController.swift; sourceTree = "<group>"; };
+		EA5EA0C42C0119880041A8B4 /* BoardDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardDetailViewController.xib; sourceTree = "<group>"; };
 		EA6379C42BFEF3FA00464A19 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		EA6379C72BFEF49800464A19 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		EA6379C92BFEF73500464A19 /* IntroViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewPresenter.swift; sourceTree = "<group>"; };
@@ -187,6 +190,9 @@
 		EAE017D22C0193B800699145 /* BoardRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardRequest.swift; sourceTree = "<group>"; };
 		EAE017D42C0195D500699145 /* BoardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardResponse.swift; sourceTree = "<group>"; };
 		EAE017D62C01AA3D00699145 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
+		EAE017D82C01C11B00699145 /* BoardDetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDetailViewPresenter.swift; sourceTree = "<group>"; };
+		EAE017DA2C01CA0500699145 /* CellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellButton.swift; sourceTree = "<group>"; };
+		EAE017DC2C01CF2300699145 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +340,7 @@
 				A0E657FC2BFE22B7001A8D54 /* SceneDelegate.swift */,
 				A0E657FA2BFE22B7001A8D54 /* AppDelegate.swift */,
 				EA6379C42BFEF3FA00464A19 /* Navigator.swift */,
+				EAE017DC2C01CF2300699145 /* Utils.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -400,8 +407,9 @@
 		EA5EA0C02C0119650041A8B4 /* Board */ = {
 			isa = PBXGroup;
 			children = (
-				EA5EA0C32C0119880041A8B4 /* BoardViewController.swift */,
-				EA5EA0C42C0119880041A8B4 /* BoardViewController.xib */,
+				EA5EA0C32C0119880041A8B4 /* BoardDetailViewController.swift */,
+				EA5EA0C42C0119880041A8B4 /* BoardDetailViewController.xib */,
+				EAE017D82C01C11B00699145 /* BoardDetailViewPresenter.swift */,
 			);
 			path = Board;
 			sourceTree = "<group>";
@@ -476,6 +484,7 @@
 				EA9A842E2C00D577004B7FDF /* Alert.swift */,
 				EA5EA0B92C00F6D70041A8B4 /* TextField.swift */,
 				EAE017CE2C012DF500699145 /* StarRatingButton.swift */,
+				EAE017DA2C01CA0500699145 /* CellButton.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -642,7 +651,7 @@
 				EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */,
 				A0E658402BFE36A5001A8D54 /* NotoSansCJKkr-Regular.otf in Resources */,
 				A0E6583E2BFE36A5001A8D54 /* NotoSansCJKkr-Thin.otf in Resources */,
-				EA5EA0C62C0119880041A8B4 /* BoardViewController.xib in Resources */,
+				EA5EA0C62C0119880041A8B4 /* BoardDetailViewController.xib in Resources */,
 				EAD9576E2C008ED5001FB6E1 /* OnboardViewController.xib in Resources */,
 				A0E658452BFE36A5001A8D54 /* NotoSansCJKkr-Bold.otf in Resources */,
 				A0E658042BFE22B9001A8D54 /* Assets.xcassets in Resources */,
@@ -837,14 +846,16 @@
 				EAD957632C002982001FB6E1 /* User.swift in Sources */,
 				EA6379E52BFF33C500464A19 /* HomeViewController.swift in Sources */,
 				EA6D9A7A2BFF6884003B459A /* RadiusView.swift in Sources */,
+				EAE017DB2C01CA0500699145 /* CellButton.swift in Sources */,
 				EAE017D32C0193B800699145 /* BoardRequest.swift in Sources */,
 				EAD9576D2C008ED5001FB6E1 /* OnboardViewController.swift in Sources */,
 				EA9A84452C00E306004B7FDF /* APIEventLogger.swift in Sources */,
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,
 				EAD957702C0094A1001FB6E1 /* OnboardViewPresenter.swift in Sources */,
+				EAE017DD2C01CF2300699145 /* Utils.swift in Sources */,
 				EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */,
 				EAE017D12C01935700699145 /* BoardService.swift in Sources */,
-				EA5EA0C52C0119880041A8B4 /* BoardViewController.swift in Sources */,
+				EA5EA0C52C0119880041A8B4 /* BoardDetailViewController.swift in Sources */,
 				EA6379D22BFF295C00464A19 /* OSLog+Extension.swift in Sources */,
 				A07826AD2BFFAB6300D7BA63 /* BoardListTvCell.swift in Sources */,
 				EA9A84422C00DD08004B7FDF /* Strings+Generated.swift in Sources */,
@@ -867,6 +878,7 @@
 				EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */,
 				A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */,
 				EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */,
+				EAE017D92C01C11B00699145 /* BoardDetailViewPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1061,7 +1073,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 3T5QFYSPG5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoonDuck/Resources/Info.plist;
@@ -1100,7 +1112,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3T5QFYSPG5;
 				GENERATE_INFOPLIST_FILE = YES;

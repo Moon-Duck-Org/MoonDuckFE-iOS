@@ -31,6 +31,7 @@ class Navigator {
         case onboard(presenter: OnboardViewPresenter)
         case nameSetting(presenter: NameSettingViewPresenter)
         case home(presenter: HomeViewPresenter)
+        case boardDetail(presenter: BoardDetailViewPresenter)
     }
 
     enum Transition {
@@ -52,6 +53,8 @@ class Navigator {
             return NameSettingViewController(navigator: self, presenter: presenter)
         case .home(let presenter):
             return HomeViewController(navigator: self, presenter: presenter)
+        case .boardDetail(let presenter):
+            return BoardDetailViewController(navigator: self, presenter: presenter)
         }
     }
     
