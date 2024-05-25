@@ -19,6 +19,7 @@ protocol BoardEditPresenter: AnyObject {
     var service: AppServices { get }
     
     var numberOfCategory: Int { get }
+    var numberOfImage: Int { get }
     
     /// Life Cycle
     func viewDidLoad()
@@ -28,6 +29,9 @@ protocol BoardEditPresenter: AnyObject {
     /// Data
     func category(at index: Int) -> Category
     var indexOfSelectedCategory: Int? { get }
+    
+    func image(at index: Int) -> UIImage?
+    func selectImage(image: UIImage?)
     
     /// Action
     func changeTitle(current: String, change: String) -> Bool
@@ -39,7 +43,19 @@ protocol BoardEditPresenter: AnyObject {
 
 class BoardEditViewPresenter: BoardEditPresenter {
     
+    func image(at index: Int) -> UIImage? {
+        if imageList.count > index {
+            return imageList[index]
+        } else {
+            return Asset.Assets.imageEmpty.image
+        }
+    }    
+    
     weak var view: BoardEditView?
+    
+    var numberOfImage: Int {
+        return imageList.count
+    }
     
     var numberOfCategory: Int {
         return category.count
@@ -59,6 +75,7 @@ class BoardEditViewPresenter: BoardEditPresenter {
     private var contentText: String = ""
     private var linkText: String?
     private var rating: Int = 0
+    private var imageList: [UIImage?] = [UIImage?]()
     
     init(with service: AppServices, user: User, board: Review? = nil, delegate: ReviewWriteDelegate) {
         self.service = service
@@ -191,6 +208,10 @@ class BoardEditViewPresenter: BoardEditPresenter {
         guard rating != index else { return }
         rating = index
         view?.updateRating(at: index)
+    }
+    
+    func selectImage(image: UIImage?) {
+        imageList.append(image)
     }
 }
 

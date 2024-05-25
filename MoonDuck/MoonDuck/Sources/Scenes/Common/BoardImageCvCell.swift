@@ -13,11 +13,10 @@ class BoardImageCvCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        imageView.roundCornersAndAddBorder(radius: 12)
     }
     
-    func configure(with image: UIImage) {
+    func configure(with image: UIImage) {        
+        contentView.roundCornersAndAddBorder(radius: 12)
         imageView.image = image
     }
 }

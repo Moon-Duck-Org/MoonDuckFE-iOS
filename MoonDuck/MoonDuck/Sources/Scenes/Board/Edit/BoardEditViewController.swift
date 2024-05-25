@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import UIKit
+import MobileCoreServices
+import Photos
 
 protocol BoardEditView: NSObject {
     func updateData(board: Review)
@@ -53,6 +56,9 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
     var navigator: Navigator!
     let categoryDataSource: ReviewEditCategoryCvDataSource
     
+    /// - image
+    let imgPickerController = UIImagePickerController()
+    
     init(navigator: Navigator, presenter: BoardEditPresenter) {
         self.navigator = navigator
         self.presenter = presenter
@@ -78,6 +84,13 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
         ratingButton3.addTarget(self, action: #selector(tabRatingButton(_:)), for: .touchUpInside)
         ratingButton4.addTarget(self, action: #selector(tabRatingButton(_:)), for: .touchUpInside)
         ratingButton5.addTarget(self, action: #selector(tabRatingButton(_:)), for: .touchUpInside)
+        
+        
+        /// - image
+        imgPickerController.delegate = self
+        imageCollectionView.register(UINib(nibName: BoardImageCvCell.className, bundle: nil), forCellWithReuseIdentifier: BoardImageCvCell.className)
+        imageCollectionView.delegate = self
+        imageCollectionView.dataSource = self
     }
 
     @objc
@@ -213,5 +226,59 @@ extension BoardEditViewController: UITextViewDelegate {
         let changeText = currentText.replacingCharacters(in: stringRange, with: text)
         
         return presenter.changeContent(current: currentText, change: changeText)
+    }
+}
+
+extension BoardEditViewController: UICollectionViewDataSource ,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter.numberOfImage + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell: BoardImageCvCell = collectionView.dequeueReusableCell(withReuseIdentifier: BoardImageCvCell.className, for: indexPath) as? BoardImageCvCell {
+            if let image = presenter.image(at: indexPath.row) {
+                cell.configure(with: image)
+            } else {
+                cell.configure(with: Asset.Assets.imageEmpty.image)
+            }
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 83.0, height: 83.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        showImagePicker()
+    }
+}
+extension BoardEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func showImagePicker() {
+        // 이미지 소스로 사진 라이브러리 선택
+        imgPickerController.sourceType = .photoLibrary
+        imgPickerController.mediaTypes = [kUTTypeImage as String]
+        imgPickerController.allowsEditing = true
+        // 이미지 피커 컨트롤러 실행
+        self.present(imgPickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? NSString {
+            if mediaType.isEqual(to: kUTTypeImage as NSString as String) {
+                let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+                //            self.filterAsset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset
+                self.presenter.selectImage(image: image)
+                self.imageCollectionView.reloadData()
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @available(iOS 2.0, *)
+    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+        self.dismiss(animated: true, completion: nil)
     }
 }
