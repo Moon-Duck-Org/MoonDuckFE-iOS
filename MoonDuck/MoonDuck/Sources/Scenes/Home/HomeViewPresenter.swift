@@ -84,7 +84,6 @@ class HomeViewPresenter: HomePresenter {
     
     func selectSort(at index: Int) {
         guard indexOfSeletedSort != index else { return }
-        // TODO: SORT API 연결
         indexOfSeletedSort = index
         view?.updateSortLabel(sortList[index].title)
         loadReview(at: category[indexOfSelectedCategory], sort: sortList[index])
@@ -100,7 +99,8 @@ class HomeViewPresenter: HomePresenter {
     }
     
     func deleteBoard(at index: Int) {
-        // TODO: API board delete
+        let review = boardList[index]
+        delete(at: review)
         boardList.remove(at: index)
         reloadBoard()
     }
@@ -113,6 +113,9 @@ class HomeViewPresenter: HomePresenter {
         view?.reloadBoard()
         if boardList.count < 1 {
             view?.updateEmptyView(isEmpty: true)
+        } else {
+            view?.updateEmptyView(isEmpty: false)
+            view?.srollToTop()
         }
         view?.updateCountLabel(boardList.count)
     }
@@ -153,4 +156,12 @@ extension HomeViewPresenter {
         }
     }
     
+    private func delete(at review: Review) {
+        let request = DeleteReviewRequest(boardId: review.id)
+        service.reviewService.deleteReview(request: request) { succeed, _ in
+            if let succeed, succeed {
+                // 성공                
+            }
+        }
+    }
 }

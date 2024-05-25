@@ -14,6 +14,7 @@ protocol HomeView: AnyObject {
     
     func reloadCategory()
     func reloadBoard()
+    func srollToTop()
     
     func moveBoardDetail(with service: AppServices, user: User, board: Review)
     func moveBoardEdit(with service: AppServices, user: User, board: Review?)
@@ -68,6 +69,10 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
         presenter.viewDidLoad()
     }
     
+    func srollToTop() {
+        boardTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+    }
+    
     func updateSortLabel(_ text: String) {
         sortLabel.text = text
     }
@@ -86,7 +91,6 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
     
     func reloadBoard() {
         boardTableView.reloadData()
-        boardTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
     
     func showBoardMoreAlert(at indexOfBoard: Int) {

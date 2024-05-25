@@ -11,8 +11,8 @@ class UserService {
     func user(request: UserRequest, completion: @escaping (_ succeed: User?, _ failed: Error?) -> Void) {
         
         // FIXME: - TEST CODE
-        API.session.request(MoonDuckAPI.user(UserRequest(deviceId: "test")))
-//        API.session.request(MoonDuckAPI.user(request))
+//        API.session.request(MoonDuckAPI.user(UserRequest(deviceId: "test")))
+        API.session.request(MoonDuckAPI.user(request))
             .responseDecodable { (response: AFDataResponse<UserResponse>) in
                 switch response.result {
                 case .success(let response):
