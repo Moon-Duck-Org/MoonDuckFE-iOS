@@ -73,6 +73,9 @@
 		EAA914D42C022DF700A98950 /* ReviewEditCategoryCvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914D22C022DF700A98950 /* ReviewEditCategoryCvCell.swift */; };
 		EAA914D52C022DF700A98950 /* ReviewEditCategoryCvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA914D32C022DF700A98950 /* ReviewEditCategoryCvCell.xib */; };
 		EAA914D72C02382400A98950 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914D62C02382400A98950 /* UIViewController+Extension.swift */; };
+		EAA914EB2C02C73000A98950 /* HomeBoardImageCvDataSrouce.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914EA2C02C73000A98950 /* HomeBoardImageCvDataSrouce.swift */; };
+		EAA914F22C02D63100A98950 /* ReviewImageCvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914F02C02D63100A98950 /* ReviewImageCvCell.swift */; };
+		EAA914F32C02D63100A98950 /* ReviewImageCvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA914F12C02D63100A98950 /* ReviewImageCvCell.xib */; };
 		EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */; };
 		EAD957632C002982001FB6E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957622C002982001FB6E1 /* User.swift */; };
 		EAD957652C0029D3001FB6E1 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957642C0029D3001FB6E1 /* Review.swift */; };
@@ -192,6 +195,9 @@
 		EAA914D22C022DF700A98950 /* ReviewEditCategoryCvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEditCategoryCvCell.swift; sourceTree = "<group>"; };
 		EAA914D32C022DF700A98950 /* ReviewEditCategoryCvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewEditCategoryCvCell.xib; sourceTree = "<group>"; };
 		EAA914D62C02382400A98950 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		EAA914EA2C02C73000A98950 /* HomeBoardImageCvDataSrouce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBoardImageCvDataSrouce.swift; sourceTree = "<group>"; };
+		EAA914F02C02D63100A98950 /* ReviewImageCvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewImageCvCell.swift; sourceTree = "<group>"; };
+		EAA914F12C02D63100A98950 /* ReviewImageCvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewImageCvCell.xib; sourceTree = "<group>"; };
 		EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListTvDataSource.swift; sourceTree = "<group>"; };
 		EAD957622C002982001FB6E1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EAD957642C0029D3001FB6E1 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -271,6 +277,7 @@
 			children = (
 				EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */,
 				EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */,
+				EAA914EA2C02C73000A98950 /* HomeBoardImageCvDataSrouce.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -385,6 +392,8 @@
 				EAE017CA2C012C1900699145 /* BoardImageCvCell.swift */,
 				EAE017CB2C012C1900699145 /* BoardImageCvCell.xib */,
 				A0E658522BFE40F9001A8D54 /* LoadingView.swift */,
+				EAA914F02C02D63100A98950 /* ReviewImageCvCell.swift */,
+				EAA914F12C02D63100A98950 /* ReviewImageCvCell.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -704,6 +713,7 @@
 				A0E658042BFE22B9001A8D54 /* Assets.xcassets in Resources */,
 				A0E658322BFE300D001A8D54 /* Color.xcassets in Resources */,
 				A0E658432BFE36A5001A8D54 /* NotoSansMonoCJKkr-Bold.otf in Resources */,
+				EAA914F32C02D63100A98950 /* ReviewImageCvCell.xib in Resources */,
 				A07826AC2BFFAB6300D7BA63 /* BoardListTvCell.xib in Resources */,
 				EA6D9A752BFF67A0003B459A /* HomeCategoryCvCell.xib in Resources */,
 				EA9A84272C00BCAF004B7FDF /* NameSettingViewController.xib in Resources */,
@@ -896,6 +906,8 @@
 				EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */,
 				EAD957632C002982001FB6E1 /* User.swift in Sources */,
 				EA6379E52BFF33C500464A19 /* HomeViewController.swift in Sources */,
+				EAA914EB2C02C73000A98950 /* HomeBoardImageCvDataSrouce.swift in Sources */,
+				EAA914F22C02D63100A98950 /* ReviewImageCvCell.swift in Sources */,
 				EA6D9A7A2BFF6884003B459A /* RadiusView.swift in Sources */,
 				EAE017DB2C01CA0500699145 /* CellButton.swift in Sources */,
 				EAE017D32C0193B800699145 /* ReviewRequest.swift in Sources */,

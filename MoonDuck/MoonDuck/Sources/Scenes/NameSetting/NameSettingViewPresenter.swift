@@ -45,7 +45,7 @@ class NameSettingViewPresenter: NameSettingPresenter {
     
     func changeText(current: String, change: String) -> Bool {
         view?.updateCountText(change.count)
-        view?.updateCompleteButton(isEnabled: change.count < 2)
+        view?.updateCompleteButton(isEnabled: change.count > 2)
         return change.count < 10
     }
 }

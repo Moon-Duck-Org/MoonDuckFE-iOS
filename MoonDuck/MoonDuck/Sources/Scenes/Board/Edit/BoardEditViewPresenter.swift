@@ -39,6 +39,7 @@ protocol BoardEditPresenter: AnyObject {
     func selectCategory(at index: Int)
     func saveData()
     func tabRatingButton(at index: Int)
+    func tapDeleteButton(at index: Int)
 }
 
 class BoardEditViewPresenter: BoardEditPresenter {
@@ -47,7 +48,7 @@ class BoardEditViewPresenter: BoardEditPresenter {
         if imageList.count > index {
             return imageList[index]
         } else {
-            return Asset.Assets.imageEmpty.image
+            return nil
         }
     }    
     
@@ -212,6 +213,13 @@ class BoardEditViewPresenter: BoardEditPresenter {
     
     func selectImage(image: UIImage?) {
         imageList.append(image)
+    }
+    
+    func tapDeleteButton(at index: Int) {
+        if imageList.count > index {
+            imageList.remove(at: index)
+            view?.reloadImage()
+        }
     }
 }
 

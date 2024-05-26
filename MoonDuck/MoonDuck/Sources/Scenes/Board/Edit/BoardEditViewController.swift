@@ -22,6 +22,8 @@ protocol BoardEditView: NSObject {
     func popView()
     func updateRating(at rating: Int)
     func toast(_ text: String)
+    
+    func reloadImage()
 }
 
 class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
@@ -85,9 +87,9 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
         ratingButton4.addTarget(self, action: #selector(tabRatingButton(_:)), for: .touchUpInside)
         ratingButton5.addTarget(self, action: #selector(tabRatingButton(_:)), for: .touchUpInside)
         
-        
         /// - image
         imgPickerController.delegate = self
+        
         imageCollectionView.register(UINib(nibName: BoardImageCvCell.className, bundle: nil), forCellWithReuseIdentifier: BoardImageCvCell.className)
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
@@ -194,6 +196,10 @@ class BoardEditViewController: UIViewController, BoardEditView, Navigatable {
     func toast(_ text: String) {
         showToast(message: text)
     }
+    
+    func reloadImage() {
+        imageCollectionView.reloadData()
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -229,7 +235,7 @@ extension BoardEditViewController: UITextViewDelegate {
     }
 }
 
-extension BoardEditViewController: UICollectionViewDataSource ,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension BoardEditViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.numberOfImage + 1
     }
@@ -237,13 +243,23 @@ extension BoardEditViewController: UICollectionViewDataSource ,UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell: BoardImageCvCell = collectionView.dequeueReusableCell(withReuseIdentifier: BoardImageCvCell.className, for: indexPath) as? BoardImageCvCell {
             if let image = presenter.image(at: indexPath.row) {
-                cell.configure(with: image)
+                cell.configure(with: image, isDelete: true)
+                
+                cell.deleteButton.index = indexPath.row
+                cell.deleteButton.addTarget(self, action: #selector(deleteButtonTapped(_ :)), for: .touchUpInside)
             } else {
-                cell.configure(with: Asset.Assets.imageEmpty.image)
+                cell.configure(with: Asset.Assets.imageAdd.image, isDelete: false)
             }
             return cell
         }
         return UICollectionViewCell()
+    }
+    
+    @objc 
+    func deleteButtonTapped(_ sender: CellButton) {
+        if let index = sender.index {
+            presenter.tapDeleteButton(at: index)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -265,7 +281,7 @@ extension BoardEditViewController: UIImagePickerControllerDelegate, UINavigation
         self.present(imgPickerController, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? NSString {
             if mediaType.isEqual(to: kUTTypeImage as NSString as String) {
                 let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage

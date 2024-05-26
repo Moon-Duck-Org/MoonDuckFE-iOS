@@ -9,14 +9,18 @@ import UIKit
 
 class BoardImageCvCell: UICollectionViewCell {
     
+    @IBOutlet weak var deleteButton: CellButton!
     @IBOutlet private weak var imageView: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    func configure(with image: UIImage,
+                   isDelete: Bool = false) {
+        
+        imageView.image = image
+        deleteButton.isHidden = !isDelete
     }
     
-    func configure(with image: UIImage) {        
-        contentView.roundCornersAndAddBorder(radius: 12)
-        imageView.image = image
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageView.roundCornersAndAddBorder(radius: 8)
     }
 }

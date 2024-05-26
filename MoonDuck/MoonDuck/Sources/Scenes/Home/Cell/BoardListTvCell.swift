@@ -16,7 +16,7 @@ class BoardListTvCell: UITableViewCell {
     @IBOutlet private weak var lbContent: UILabel!
     @IBOutlet private weak var lbLink: UILabel!
     
-    @IBOutlet private weak var imageCollectioinView: UICollectionView!
+    @IBOutlet weak var imageCollectioinView: UICollectionView!
     @IBOutlet private weak var linkView: UIView!
     @IBOutlet private weak var bottomMarginConstraint: NSLayoutConstraint!
 
@@ -29,7 +29,18 @@ class BoardListTvCell: UITableViewCell {
     @IBOutlet weak private var rating4: UIButton!
     @IBOutlet weak private var rating5: UIButton!
     
+    var review: Review?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        imageCollectioinView.delegate = self
+        imageCollectioinView.dataSource = self
+        imageCollectioinView.register(UINib(nibName: ReviewImageCvCell.className, bundle: nil), forCellWithReuseIdentifier: ReviewImageCvCell.className)
+        
+    }
     func configure(with board: Review) {
+        review = board
         lbUserNickname?.text = board.nickname
         lbCreatedData?.text = board.created.toDateString()
         lbTitle?.text = board.title
@@ -45,7 +56,7 @@ class BoardListTvCell: UITableViewCell {
             bottomMarginConstraint?.constant = 20
         }
         
-        if board.imageUrlList.count < 1 {
+        if board.getImageList().count < 1 {
             imageHeightConstraint.constant = 0
             imageCollectioinView.isHidden = true
         } else {
@@ -54,6 +65,8 @@ class BoardListTvCell: UITableViewCell {
         }
         
         setRating(board.rating)
+        
+        imageCollectioinView.reloadData()
     }
     
     private func setRating(_ rating: Int) {
@@ -64,4 +77,29 @@ class BoardListTvCell: UITableViewCell {
         rating5.isSelected = rating > 4
     }
     
+}
+// MARK: - UICollectionViewDataSource
+extension BoardListTvCell: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return review?.getImageList().count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell: ReviewImageCvCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewImageCvCell.className, for: indexPath) as? ReviewImageCvCell {
+            if let image = review?.getImage(at: indexPath.row) {
+                cell.configure(with: image)
+            } else {
+                cell.configure(with: Asset.Assets.imageEmptyHome.image)
+            }
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+}
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+extension BoardListTvCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 181, height: 181)
+    }
 }

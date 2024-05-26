@@ -32,7 +32,7 @@ extension BoardListTvDataSource: UITableViewDataSource {
             let board = presenter.board(at: indexPath.row)
             cell.configure(with: board)
             
-            /// more butto action
+            /// more button action
             cell.moreButton.index = indexPath.row
             cell.moreButton.addTarget(self, action: #selector(moreButtonTapped(_ :)), for: .touchUpInside)
             return cell
