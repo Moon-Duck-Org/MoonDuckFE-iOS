@@ -2,7 +2,7 @@
 
 <br>
 
-## 🐥 B-Side 405 포텐데이 문덕 iOS 개발자
+## 🐥 B-Side 포텐데이 405 포덕팀 iOS 개발자
 |박현선|
 |:---:|
 |[@SuniDev](https://github.com/SuniDev)|
