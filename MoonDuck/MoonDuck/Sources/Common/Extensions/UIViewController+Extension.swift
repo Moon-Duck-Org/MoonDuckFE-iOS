@@ -33,7 +33,12 @@ extension UIViewController {
         toastLabel.snp.makeConstraints({
             $0.center.equalTo(frameView.snp.center)
         })
-        UIView.animate(withDuration: 1.5, delay: 1.5, options: .curveEaseOut, animations: { frameView.alpha = 0.0 }, completion: { isCompleted in
+        UIView.animate(withDuration: 1.5,
+                       delay: 1.5,
+                       options: .curveEaseOut,
+                       animations: {
+            frameView.alpha = 0.0
+        }, completion: { _ in
             frameView.removeFromSuperview()
         })
     }

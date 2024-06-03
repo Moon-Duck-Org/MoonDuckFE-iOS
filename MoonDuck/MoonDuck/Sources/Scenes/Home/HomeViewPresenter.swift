@@ -9,7 +9,6 @@ import Foundation
 
 protocol HomePresenter: AnyObject {
     var view: HomeView? { get set }
-    var service: AppServices { get }
     
     var sortList: [Sort] { get }
     
@@ -36,7 +35,7 @@ protocol HomePresenter: AnyObject {
     func reloadReview()
 }
 
-class HomeViewPresenter: HomePresenter {
+class HomeViewPresenter: Presenter, HomePresenter {
     
     weak var view: HomeView?
     
@@ -47,7 +46,6 @@ class HomeViewPresenter: HomePresenter {
         return boardList.count
     }
     
-    let service: AppServices
     var indexOfSelectedCategory: Int = 0
     let sortList: [Sort]
     
@@ -56,12 +54,13 @@ class HomeViewPresenter: HomePresenter {
     private let user: User
     private var indexOfSeletedSort: Int = 0
     
-    init(with service: AppServices, user: User) {
-        self.service = service
+    init(with provider: AppServices, user: User) {
         self.category = [.all, .movie, .book, .drama, .concert]
         self.sortList = [.latestOrder, .oldestFirst, .ratingOrder]
         self.user = user
         self.boardList = []
+        
+        super.init(with: provider)
     }
     
     func viewDidLoad() {
@@ -91,7 +90,8 @@ class HomeViewPresenter: HomePresenter {
     
     func selectBoard(at index: Int) {
         let board = boardList[index]
-        view?.moveBoardDetail(with: service, user: user, board: board)
+        let presenter = BoardDetailViewPresenter(with: provider, user: user, board: board, delegate: view)
+        view?.moveBoardDetail(with: presenter)
     }
     
     func tappedBoardMore(at index: Int) {
@@ -106,7 +106,8 @@ class HomeViewPresenter: HomePresenter {
     }
     
     func tappedCreaateReview() {
-        view?.moveBoardEdit(with: service, user: user, board: nil)
+        let presenter = BoardEditViewPresenter(with: provider, user: user, delegate: view)
+        view?.moveBoardEdit(with: presenter)
     }
     
     private func reloadBoard() {
@@ -138,7 +139,7 @@ extension HomeViewPresenter {
     
     private func getReview(at category: Category, sort: Sort) {
         let request = GetReviewRequest(userId: user.id, category: category.apiKey, filter: sort.apiKey)
-        service.reviewService.getReview(request: request) { succeed, _ in
+        provider.reviewService.getReview(request: request) { succeed, _ in
             if let succeed {
                 self.boardList = succeed
             }
@@ -148,7 +149,7 @@ extension HomeViewPresenter {
     
     private func reviewAll(sort: Sort) {
         let request = ReviewAllRequest(userId: user.id, filter: sort.apiKey)
-        service.reviewService.reviewAll(request: request) { succeed, _ in
+        provider.reviewService.reviewAll(request: request) { succeed, _ in
             if let succeed {
                 self.boardList = succeed
             }
@@ -158,7 +159,7 @@ extension HomeViewPresenter {
     
     private func delete(at review: Review) {
         let request = DeleteReviewRequest(boardId: review.id)
-        service.reviewService.deleteReview(request: request) { succeed, _ in
+        provider.reviewService.deleteReview(request: request) { succeed, _ in
             if let succeed, succeed {
                 // 성공                
             }

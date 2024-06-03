@@ -7,7 +7,11 @@
 
 import UIKit
 
-protocol HomeView: AnyObject {
+protocol HomeView: AnyObject, ReviewDetailDelegate, ReviewWriteDelegate {
+    func moveBoardDetail(with presenter: BoardDetailViewPresenter)
+    func moveBoardEdit(with presenter: BoardEditViewPresenter)
+    func showBoardMoreAlert(at indexOfBoard: Int)
+    
     func updateEmptyView(isEmpty: Bool)
     func updateCountLabel(_ cnt: Int)
     func updateSortLabel(_ text: String)
@@ -15,10 +19,6 @@ protocol HomeView: AnyObject {
     func reloadCategory()
     func reloadBoard()
     func srollToTop()
-    
-    func moveBoardDetail(with service: AppServices, user: User, board: Review)
-    func moveBoardEdit(with service: AppServices, user: User, board: Review?)
-    func showBoardMoreAlert(at indexOfBoard: Int)
 }
 
 class HomeViewController: UIViewController, HomeView, Navigatable {
@@ -40,8 +40,8 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
         presenter.tappedCreaateReview()
     }
     
-    let presenter: HomePresenter
     var navigator: Navigator!
+    let presenter: HomePresenter
     let categoryDataSource: HomeCategoryCvDataSource
     let boardDataSource: BoardListTvDataSource
     
@@ -107,18 +107,17 @@ class HomeViewController: UIViewController, HomeView, Navigatable {
 
 // MARK: - Navigation
 extension HomeViewController {
-    func moveBoardDetail(with service: AppServices, user: User, board: Review) {
-        let presenter = BoardDetailViewPresenter(with: service, user: user, board: board, delegate: self)
+    func moveBoardDetail(with presenter: BoardDetailViewPresenter) {
         navigator.show(seque: .boardDetail(presenter: presenter), sender: self, transition: .navigation)
     }
     
-    func moveBoardEdit(with service: AppServices, user: User, board: Review?) {
-        let presenter = BoardEditViewPresenter(with: service, user: user, board: board, delegate: self)
+    func moveBoardEdit(with presenter: BoardEditViewPresenter) {
         navigator.show(seque: .boardEdit(presenter: presenter), sender: self, transition: .navigation)
     }
 }
 
-extension HomeViewController: ReviewWriteDelegate {
+// MARK: - ReviewWriteDelegate
+extension HomeViewController {
     func writeReview(_ review: Review, didChange boardId: Int) {
         presenter.reloadReview()
     }
@@ -128,7 +127,8 @@ extension HomeViewController: ReviewWriteDelegate {
     }
 }
 
-extension HomeViewController: ReviewDetailDelegate {
+// MARK: - ReviewDetailDelegate
+extension HomeViewController {
     func detailReview(_ review: Review, didChange boardId: Int) {
         presenter.reloadReview()
     }

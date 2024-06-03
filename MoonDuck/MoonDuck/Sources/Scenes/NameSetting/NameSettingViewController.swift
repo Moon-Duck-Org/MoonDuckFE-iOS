@@ -9,7 +9,8 @@ import UIKit
 import Combine
 
 protocol NameSettingView: AnyObject {
-    func moveHome(with service: AppServices, user: User)
+    func moveHome(with presenter: HomeViewPresenter)
+    
     func completeButtonTap()
     func showErrorText(_ hint: String)
     func updateCountText(_ cnt: Int)
@@ -27,8 +28,8 @@ class NameSettingViewController: UIViewController, NameSettingView, Navigatable 
         presenter.completeButtonTap()
     }
     
-    let presenter: NameSettingPresenter
     var navigator: Navigator!
+    let presenter: NameSettingPresenter
     
     init(navigator: Navigator,
          presenter: NameSettingPresenter) {
@@ -99,8 +100,7 @@ extension NameSettingViewController: UITextFieldDelegate {
 
 // MARK: - Navigation
 extension NameSettingViewController {
-    func moveHome(with service: AppServices, user: User) {
-        let presenter = HomeViewPresenter(with: service, user: user)
+    func moveHome(with presenter: HomeViewPresenter) {
         navigator.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
 }

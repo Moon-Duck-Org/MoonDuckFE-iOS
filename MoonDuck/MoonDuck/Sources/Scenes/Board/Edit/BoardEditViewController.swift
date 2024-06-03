@@ -6,11 +6,12 @@
 //
 
 import UIKit
-import UIKit
 import MobileCoreServices
 import Photos
 
 protocol BoardEditView: NSObject {
+    func popView()
+    
     func updateData(board: Review)
     func updateCountTitle(_ count: Int)
     func updateCountContent(_ count: Int)
@@ -19,7 +20,6 @@ protocol BoardEditView: NSObject {
     func keyboardWillHide(with keyboardInfo: UIKeyboardInfo)
     
     func reloadCategory()
-    func popView()
     func updateRating(at rating: Int)
     func toast(_ text: String)
     

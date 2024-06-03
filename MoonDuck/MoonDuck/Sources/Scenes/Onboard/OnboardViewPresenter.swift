@@ -9,25 +9,23 @@ import Foundation
 
 protocol OnboardPresenter: AnyObject {
     var view: OnboardView? { get set }
-    var service: AppServices { get }
     
     func startButtonTap()
 }
 
-class OnboardViewPresenter: OnboardPresenter {
+class OnboardViewPresenter: Presenter, OnboardPresenter {
     
     weak var view: OnboardView?
     
-    let service: AppServices
-    private let user: JoinUser
+    private let joinUser: JoinUser
     
-    init(with service: AppServices, user: JoinUser) {
-        self.service = service
-        self.user = user
+    init(with provider: AppServices, joinUser: JoinUser) {
+        self.joinUser = joinUser
+        super.init(with: provider)
     }
     
     func startButtonTap() {
-        view?.moveNameSetting(with: service, user: user)
+        let presenter = NameSettingViewPresenter(with: provider, joinUser: joinUser)
+        view?.moveNameSetting(with: presenter)
     }
-
 }

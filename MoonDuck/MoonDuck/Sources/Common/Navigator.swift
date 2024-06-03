@@ -91,7 +91,7 @@ class Navigator {
         }
         
         guard let sender = sender else {
-            fatalError()
+            fatalError("sender is nil")
         }
         
         switch transition {

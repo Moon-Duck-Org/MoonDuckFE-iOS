@@ -7,10 +7,11 @@
 
 import UIKit
 
-protocol BoardDetailView: NSObject {
-    func updateData(review: Review)
-    func moveBoardEdit(with service: AppServices, user: User, board: Review)
+protocol BoardDetailView: NSObject, ReviewWriteDelegate {
+    func moveBoardEdit(with provider: BoardEditViewPresenter)
     func popView()
+    
+    func updateData(review: Review)
 }
 
 class BoardDetailViewController: UIViewController, BoardDetailView, Navigatable {
@@ -101,14 +102,13 @@ class BoardDetailViewController: UIViewController, BoardDetailView, Navigatable 
 
 // MARK: - Navigation
 extension BoardDetailViewController {
-    
-    func moveBoardEdit(with service: AppServices, user: User, board: Review) {
-        let presenter = BoardEditViewPresenter(with: service, user: user, board: board, delegate: self)
+    func moveBoardEdit(with presenter: BoardEditViewPresenter) {
         navigator.show(seque: .boardEdit(presenter: presenter), sender: self, transition: .navigation)
     }
 }
 
-extension BoardDetailViewController: ReviewWriteDelegate {
+// MARK: - ReviewWriteDelegate
+extension BoardDetailViewController {
     func writeReview(_ review: Review, didChange boardId: Int) {
         presenter.reloadReview()
     }

@@ -10,23 +10,21 @@ import UIKit
 
 protocol NameSettingPresenter: AnyObject {
     var view: NameSettingView? { get set }
-    var service: AppServices { get }
     
     func changeText(current: String, change: String) -> Bool
     func checkValid(_ text: String?)
     func completeButtonTap()
 }
 
-class NameSettingViewPresenter: NameSettingPresenter {
+class NameSettingViewPresenter: Presenter, NameSettingPresenter {
     
     weak var view: NameSettingView?
     
-    let service: AppServices
-    private let user: JoinUser
+    private let joinUser: JoinUser
     
-    init(with service: AppServices, user: JoinUser) {
-        self.service = service
-        self.user = user
+    init(with provider: AppServices, joinUser: JoinUser) {
+        self.joinUser = joinUser
+        super.init(with: provider)
     }
     
     func checkValid(_ text: String?) {
@@ -53,10 +51,11 @@ class NameSettingViewPresenter: NameSettingPresenter {
 // MARK: - Networking
 extension NameSettingViewPresenter {
     func nickName(_ name: String) {
-        let request = UserNicknameRequest(deviceId: user.deviceId, nickname: name)
-        service.userService.nickname(request: request) { succeed, _ in
+        let request = UserNicknameRequest(deviceId: joinUser.deviceId, nickname: name)
+        provider.userService.nickname(request: request) { succeed, _ in
             if let succeed {
-                self.view?.moveHome(with: self.service, user: succeed)
+                let presenter = HomeViewPresenter(with: self.provider, user: succeed)
+                self.view?.moveHome(with: presenter)
             } else {
                 self.view?.showErrorText("중복된 닉네임입니다.")
             }

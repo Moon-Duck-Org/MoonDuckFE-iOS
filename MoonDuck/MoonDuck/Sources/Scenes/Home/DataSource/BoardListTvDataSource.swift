@@ -40,7 +40,8 @@ extension BoardListTvDataSource: UITableViewDataSource {
         return UITableViewCell()
     }
     
-    @objc func moreButtonTapped(_ sender: CellButton) {
+    @objc 
+    func moreButtonTapped(_ sender: CellButton) {
         if let index = sender.index {
             presenter.tappedBoardMore(at: index)
         }

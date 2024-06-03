@@ -32,7 +32,9 @@ extension IntroViewPresenter {
                 if let succeed, succeed {
                     self.user(id: id)
                 } else {
-                    self.view?.moveOnboard(with: self.provider, user: JoinUser(deviceId: id, nickname: ""))
+                    let joinUser = JoinUser(deviceId: id, nickname: "")
+                    let presenter = OnboardViewPresenter(with: self.provider, joinUser: joinUser)
+                    self.view?.moveOnboard(with: presenter)
                 }
             }
         }
@@ -41,9 +43,12 @@ extension IntroViewPresenter {
     func user(id: String) {
         provider.userService.user(request: UserRequest(deviceId: id)) { succeed, _ in
             if let succeed {
-                self.view?.moveHome(with: self.provider, user: succeed)
+                let presenter = HomeViewPresenter(with: self.provider, user: succeed)
+                self.view?.moveHome(with: presenter)
             } else {
-                self.view?.moveOnboard(with: self.provider, user: JoinUser(deviceId: id, nickname: ""))
+                let joinUser = JoinUser(deviceId: id, nickname: "")
+                let presenter = OnboardViewPresenter(with: self.provider, joinUser: joinUser)
+                self.view?.moveOnboard(with: presenter)
             }
         }
     }

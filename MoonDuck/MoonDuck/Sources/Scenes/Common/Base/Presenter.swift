@@ -13,7 +13,7 @@ class Presenter: NSObject {
     let isLoading = PassthroughSubject<Bool, Never>()
     
     typealias DisposeBag = Set<AnyCancellable>
-    private var bag = DisposeBag()
+    var bag = DisposeBag()
     
     init(with provider: AppServices) {
         self.provider = provider

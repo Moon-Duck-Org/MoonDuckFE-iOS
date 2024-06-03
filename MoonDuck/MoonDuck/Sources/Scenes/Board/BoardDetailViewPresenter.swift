@@ -14,7 +14,6 @@ protocol ReviewDetailDelegate: AnyObject {
 
 protocol BoardDetailPresenter: AnyObject {
     var view: BoardDetailView? { get set }
-    var service: AppServices { get }
     
     /// Life Cycle
     func viewDidLoad()
@@ -29,21 +28,19 @@ protocol BoardDetailPresenter: AnyObject {
     func tapDeleteReview()
 }
 
-class BoardDetailViewPresenter: BoardDetailPresenter {
+class BoardDetailViewPresenter: Presenter, BoardDetailPresenter {
     
     weak var view: BoardDetailView?
+    private weak var delegate: ReviewDetailDelegate?
     
-    let service: AppServices
-    
-    private let user: User
     var review: Review
-    private let delegate: ReviewDetailDelegate
+    private let user: User
     
-    init(with service: AppServices, user: User, board: Review, delegate: ReviewDetailDelegate) {
-        self.service = service
+    init(with provider: AppServices, user: User, board: Review, delegate: ReviewDetailDelegate?) {
         self.user = user
         self.review = board
         self.delegate = delegate
+        super.init(with: provider)
     }
     
     func viewDidLoad() {
@@ -51,7 +48,8 @@ class BoardDetailViewPresenter: BoardDetailPresenter {
     }
     
     func tapWriteReview() {
-        view?.moveBoardEdit(with: service, user: user, board: review)
+        let presenter = BoardEditViewPresenter(with: provider, user: user, board: review)
+        view?.moveBoardEdit(with: presenter)
     }
     
     func tapDeleteReview() {
@@ -63,10 +61,10 @@ extension BoardDetailViewPresenter {
     func deleteReview() {
         let review = self.review
         let request = DeleteReviewRequest(boardId: review.id)
-        service.reviewService.deleteReview(request: request) { succeed, _ in
+        provider.reviewService.deleteReview(request: request) { succeed, _ in
             if let succeed, succeed {
                 // 성공
-                self.delegate.detailReview(review, didDelete: review.id)
+                self.delegate?.detailReview(review, didDelete: review.id)
                 self.view?.popView()
             }
         }
@@ -74,10 +72,10 @@ extension BoardDetailViewPresenter {
     
     func reloadReview() {
         let request = ReviewDetailRequest(boardId: review.id)
-        service.reviewService.reviewDetail(request: request) { succeed, _ in
+        provider.reviewService.reviewDetail(request: request) { succeed, _ in
             if let succeed {
                 self.review = succeed
-                self.delegate.detailReview(succeed, didChange: succeed.id)
+                self.delegate?.detailReview(succeed, didChange: succeed.id)
                 self.view?.updateData(review: succeed)
             }
         }

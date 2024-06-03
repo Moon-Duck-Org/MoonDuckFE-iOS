@@ -8,13 +8,13 @@
 import UIKit
 
 protocol OnboardView: AnyObject {
-    func moveNameSetting(with service: AppServices, user: JoinUser)
+    func moveNameSetting(with presenter: NameSettingViewPresenter)
 }
 
 class OnboardViewController: UIViewController, OnboardView, Navigatable {
-        
-    let presenter: OnboardPresenter
+    
     var navigator: Navigator!
+    let presenter: OnboardPresenter
     
     @IBAction private func startButtonTap(_ sender: Any) {
         presenter.startButtonTap()
@@ -39,8 +39,7 @@ class OnboardViewController: UIViewController, OnboardView, Navigatable {
 
 // MARK: - Navigation
 extension OnboardViewController {    
-    func moveNameSetting(with service: AppServices, user: JoinUser) {
-        let presenter = NameSettingViewPresenter(with: service, user: user)
+    func moveNameSetting(with presenter: NameSettingViewPresenter) {
         navigator.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
     }
 }

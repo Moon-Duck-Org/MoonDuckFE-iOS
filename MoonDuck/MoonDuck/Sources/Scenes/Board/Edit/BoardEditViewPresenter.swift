@@ -16,7 +16,6 @@ protocol ReviewWriteDelegate: AnyObject {
 
 protocol BoardEditPresenter: AnyObject {
     var view: BoardEditView? { get set }
-    var service: AppServices { get }
     
     var numberOfCategory: Int { get }
     var numberOfImage: Int { get }
@@ -42,7 +41,7 @@ protocol BoardEditPresenter: AnyObject {
     func tapDeleteButton(at index: Int)
 }
 
-class BoardEditViewPresenter: BoardEditPresenter {
+class BoardEditViewPresenter: Presenter, BoardEditPresenter {
     
     func image(at index: Int) -> UIImage? {
         if imageList.count > index {
@@ -62,10 +61,9 @@ class BoardEditViewPresenter: BoardEditPresenter {
         return category.count
     }
     
-    let service: AppServices
     var indexOfSelectedCategory: Int?
     
-    private let delegate: ReviewWriteDelegate
+    private weak var delegate: ReviewWriteDelegate?
     private let category: [Category]
     private let user: User
     private var board: Review?
@@ -78,12 +76,16 @@ class BoardEditViewPresenter: BoardEditPresenter {
     private var rating: Int = 0
     private var imageList: [UIImage?] = [UIImage?]()
     
-    init(with service: AppServices, user: User, board: Review? = nil, delegate: ReviewWriteDelegate) {
-        self.service = service
+    init(with provider: AppServices,
+         user: User,
+         board: Review? = nil,
+         delegate: ReviewWriteDelegate? = nil) {
         self.category = [.movie, .book, .drama, .concert]
         self.user = user
         self.board = board
         self.delegate = delegate
+        
+        super.init(with: provider)
     }
     
     func viewDidLoad() {
@@ -232,10 +234,10 @@ extension BoardEditViewPresenter {
                                        url: review.link,
                                        score: review.rating,
                                        boardId: review.id)
-        service.reviewService.putReview(request: request) { succeed, _ in
+        provider.reviewService.putReview(request: request) { succeed, _ in
             if let succeed {
                 // 메인 이동
-                self.delegate.writeReview(succeed, didChange: succeed.id)
+                self.delegate?.writeReview(succeed, didChange: succeed.id)
                 self.view?.popView()
             }
         }
@@ -248,10 +250,10 @@ extension BoardEditViewPresenter {
                                         url: review.link,
                                         score: review.rating,
                                         userId: userId)
-        service.reviewService.postReview(request: request) { succeed, _ in
+        provider.reviewService.postReview(request: request) { succeed, _ in
             if let succeed {
                 // 메인 이동
-                self.delegate.writeReview(succeed, didCreate: succeed.id)
+                self.delegate?.writeReview(succeed, didCreate: succeed.id)
                 self.view?.popView()
             }
         }
