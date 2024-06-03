@@ -35,6 +35,8 @@
 		A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E6584E2BFE3F6C001A8D54 /* IntroViewController.swift */; };
 		A0E658532BFE40F9001A8D54 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E658522BFE40F9001A8D54 /* LoadingView.swift */; };
 		B1172CFFFCCD4092EAB9B177 /* Pods_MoonDuck_MoonDuckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */; };
+		EA33F7592C0D7CFF00893C35 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA33F7582C0D7CFF00893C35 /* BaseViewController.swift */; };
+		EA33F75B2C0D7D0C00893C35 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA33F75A2C0D7D0C00893C35 /* Presenter.swift */; };
 		EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0B92C00F6D70041A8B4 /* TextField.swift */; };
 		EA5EA0C52C0119880041A8B4 /* BoardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0C32C0119880041A8B4 /* BoardDetailViewController.swift */; };
 		EA5EA0C62C0119880041A8B4 /* BoardDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5EA0C42C0119880041A8B4 /* BoardDetailViewController.xib */; };
@@ -155,6 +157,8 @@
 		B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoonDuck_MoonDuckUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD2F616893EF44F45B03BA4 /* Pods-MoonDuck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck/Pods-MoonDuck.debug.xcconfig"; sourceTree = "<group>"; };
 		DFBEA84FB81504AE187A5E07 /* Pods-MoonDuck-MoonDuckUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck-MoonDuckUITests/Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		EA33F7582C0D7CFF00893C35 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		EA33F75A2C0D7D0C00893C35 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		EA5EA0B92C00F6D70041A8B4 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		EA5EA0C32C0119880041A8B4 /* BoardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDetailViewController.swift; sourceTree = "<group>"; };
 		EA5EA0C42C0119880041A8B4 /* BoardDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardDetailViewController.xib; sourceTree = "<group>"; };
@@ -429,6 +433,8 @@
 			children = (
 				EA6379C72BFEF49800464A19 /* BaseNavigationController.swift */,
 				EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */,
+				EA33F7582C0D7CFF00893C35 /* BaseViewController.swift */,
+				EA33F75A2C0D7D0C00893C35 /* Presenter.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -931,6 +937,7 @@
 				A0E658532BFE40F9001A8D54 /* LoadingView.swift in Sources */,
 				EA6379E72BFF342F00464A19 /* HomeViewPresenter.swift in Sources */,
 				EA6D9A772BFF6823003B459A /* UIView+Extension.swift in Sources */,
+				EA33F7592C0D7CFF00893C35 /* BaseViewController.swift in Sources */,
 				EAE017D52C0195D500699145 /* ReviewResponse.swift in Sources */,
 				EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */,
 				EA6D9A742BFF67A0003B459A /* HomeCategoryCvCell.swift in Sources */,
@@ -944,6 +951,7 @@
 				EAE017EC2C01FBD600699145 /* TextView.swift in Sources */,
 				EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */,
 				EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */,
+				EA33F75B2C0D7D0C00893C35 /* Presenter.swift in Sources */,
 				A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */,
 				EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */,
 				EAE017D92C01C11B00699145 /* BoardDetailViewPresenter.swift in Sources */,

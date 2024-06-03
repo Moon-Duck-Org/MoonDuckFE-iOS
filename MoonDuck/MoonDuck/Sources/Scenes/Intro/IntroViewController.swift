@@ -12,10 +12,10 @@ protocol IntroView: AnyObject {
     func moveHome(with service: AppServices, user: User)
 }
 
-class IntroViewController: UIViewController, IntroView, Navigatable {
+class IntroViewController: BaseViewController, IntroView, Navigatable {
     
-    let presenter: IntroPresenter
     var navigator: Navigator!
+    let presenter: IntroPresenter
     
     init(navigator: Navigator,
          presenter: IntroPresenter) {
