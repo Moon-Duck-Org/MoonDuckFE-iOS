@@ -7,11 +7,11 @@
 
 import Alamofire
 
+// FIXME: - TEST CODE API
 class UserService {
     func user(request: UserRequest, completion: @escaping (_ succeed: User?, _ failed: Error?) -> Void) {
+        completion(User(id: 0, deviceId: "test", nickname: "포덕이"), nil)
         
-        // FIXME: - TEST CODE
-//        API.session.request(MoonDuckAPI.user(UserRequest(deviceId: "test")))
         API.session.request(MoonDuckAPI.user(request))
             .responseDecodable { (response: AFDataResponse<UserResponse>) in
                 switch response.result {
@@ -24,6 +24,8 @@ class UserService {
     }
     
     func login(request: UserLoginRequest, completion: @escaping (_ succeed: Bool?, _ failed: Error?) -> Void) {
+        completion(true, nil)
+        
         API.session.request(MoonDuckAPI.userLogin(request))
             .responseDecodable { (response: AFDataResponse<Bool>) in
                 switch response.result {
@@ -36,6 +38,8 @@ class UserService {
     }
     
     func nickname(request: UserNicknameRequest, completion: @escaping (_ succeed: User?, _ failed: Error?) -> Void) {
+        completion(User(id: 0, deviceId: "test", nickname: "포덕이"), nil)
+        
         API.session.request(MoonDuckAPI.userNickname(request))
             .responseDecodable { (response: AFDataResponse<UserResponse>) in
                 switch response.result {
