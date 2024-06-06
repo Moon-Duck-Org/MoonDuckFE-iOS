@@ -17,7 +17,20 @@ target 'MoonDuck' do
 	pod 'SwiftyJSON'
   pod 'Alamofire'
 
+  #Firebase
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/AppDistribution'
+  pod 'Firebase/RemoteConfig'
+  
+  #Google
+  pod 'GoogleSignIn'
 
+  #Kakao
+  pod 'RxKakaoSDKAuth'
+  pod 'RxKakaoSDKUser'
+  
   target 'MoonDuckTests' do
     inherit! :search_paths
     # Pods for testing
