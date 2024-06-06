@@ -33,8 +33,8 @@ extension IntroViewPresenter {
                     self.user(id: id)
                 } else {
                     let joinUser = JoinUser(deviceId: id, nickname: "")
-                    let presenter = OnboardViewPresenter(with: self.provider, joinUser: joinUser)
-                    self.view?.moveOnboard(with: presenter)
+                    let presenter = LoginViewPresenter(with: self.provider, joinUser: joinUser)
+                    self.view?.moveLogin(with: presenter)
                 }
             }
         }
@@ -47,8 +47,8 @@ extension IntroViewPresenter {
                 self.view?.moveHome(with: presenter)
             } else {
                 let joinUser = JoinUser(deviceId: id, nickname: "")
-                let presenter = OnboardViewPresenter(with: self.provider, joinUser: joinUser)
-                self.view?.moveOnboard(with: presenter)
+                let presenter = LoginViewPresenter(with: self.provider, joinUser: joinUser)
+                self.view?.moveLogin(with: presenter)
             }
         }
     }

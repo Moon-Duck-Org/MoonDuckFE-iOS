@@ -1,5 +1,5 @@
 //
-//  OnboardViewController.swift
+//  LoginViewController.swift
 //  MoonDuck
 //
 //  Created by suni on 5/24/24.
@@ -7,24 +7,24 @@
 
 import UIKit
 
-protocol OnboardView: AnyObject {
+protocol LoginView: AnyObject {
     func moveNameSetting(with presenter: NameSettingViewPresenter)
 }
 
-class OnboardViewController: UIViewController, OnboardView, Navigatable {
+class LoginViewController: UIViewController, LoginView, Navigatable {
     
     var navigator: Navigator!
-    let presenter: OnboardPresenter
+    let presenter: LoginPresenter
     
-    @IBAction private func startButtonTap(_ sender: Any) {
-        presenter.startButtonTap()
+    @IBAction private func kakaoLoginButtonTap(_ sender: Any) {
+        presenter.kakaoLoginButtonTap()
     }
     
     init(navigator: Navigator,
-         presenter: OnboardPresenter) {
+         presenter: LoginPresenter) {
         self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: OnboardViewController.className, bundle: Bundle(for: OnboardViewController.self))
+        super.init(nibName: LoginViewController.className, bundle: Bundle(for: LoginViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,7 +38,7 @@ class OnboardViewController: UIViewController, OnboardView, Navigatable {
 }
 
 // MARK: - Navigation
-extension OnboardViewController {    
+extension LoginViewController {
     func moveNameSetting(with presenter: NameSettingViewPresenter) {
         navigator.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
     }

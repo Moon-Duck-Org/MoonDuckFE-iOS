@@ -43,7 +43,7 @@
                         <constraint firstItem="ION-GE-8DY" firstAttribute="top" secondItem="CPa-BN-XaT" secondAttribute="bottom" constant="15" id="y5h-lI-9cY"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright 2024. Moonduck2. All Right Reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpz-qn-ss5">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright 2024. Poduck. All Right Reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpz-qn-ss5">
                     <rect key="frame" x="16" y="777" width="361" height="25"/>
                     <fontDescription key="fontDescription" name="NotoNastaliqUrdu" family="Noto Nastaliq Urdu" pointSize="10"/>
                     <color key="textColor" name="Black"/>

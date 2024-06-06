@@ -8,7 +8,7 @@
 import UIKit
 
 protocol IntroView: AnyObject {
-    func moveOnboard(with presenter: OnboardViewPresenter)
+    func moveLogin(with presenter: LoginViewPresenter)
     func moveHome(with presenter: HomeViewPresenter)
 }
 
@@ -38,8 +38,8 @@ class IntroViewController: UIViewController, IntroView, Navigatable {
 
 // MARK: - Navigation
 extension IntroViewController {
-    func moveOnboard(with presenter: OnboardViewPresenter) {
-        navigator.show(seque: .onboard(presenter: presenter), sender: nil, transition: .root)
+    func moveLogin(with presenter: LoginViewPresenter) {
+        navigator.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
     
     func moveHome(with presenter: HomeViewPresenter) {

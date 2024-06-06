@@ -41,11 +41,20 @@
                                     <constraint firstItem="U09-1m-S0E" firstAttribute="top" secondItem="GgW-As-1lX" secondAttribute="top" id="yGs-kG-4Ga"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright 2024. Poduck. All Right Reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9u-pi-Oww">
+                                <rect key="frame" x="16" y="777" width="361" height="25"/>
+                                <fontDescription key="fontDescription" name="NotoNastaliqUrdu" family="Noto Nastaliq Urdu" pointSize="10"/>
+                                <color key="textColor" name="Black"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="Main"/>
                         <constraints>
                             <constraint firstItem="GgW-As-1lX" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="1Ek-8z-vOd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="r9u-pi-Oww" secondAttribute="trailing" constant="16" id="9Hw-fY-6Mq"/>
+                            <constraint firstItem="r9u-pi-Oww" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Cc7-MG-gJF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="r9u-pi-Oww" secondAttribute="bottom" constant="16" id="e60-CA-pq3"/>
                             <constraint firstItem="GgW-As-1lX" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="kkE-tS-fTt"/>
                         </constraints>
                     </view>
@@ -58,6 +67,9 @@
     <resources>
         <image name="Logo" width="71" height="70.666664123535156"/>
         <image name="LogoTitle" width="87.333335876464844" height="41.333332061767578"/>
+        <namedColor name="Black">
+            <color red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Main">
             <color red="1" green="0.8666666666666667" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
