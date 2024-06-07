@@ -31,6 +31,9 @@ target 'MoonDuck' do
   pod 'RxKakaoSDKAuth'
   pod 'RxKakaoSDKUser'
   
+  #Keychain
+  pod 'SwiftKeychainWrapper'
+  
   target 'MoonDuckTests' do
     inherit! :search_paths
     # Pods for testing

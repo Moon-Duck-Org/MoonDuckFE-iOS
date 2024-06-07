@@ -22,7 +22,3 @@ struct User {
     var drama: Int = 0
     var concert: Int = 0
 }
-
-final class UserModel {
-    
-}

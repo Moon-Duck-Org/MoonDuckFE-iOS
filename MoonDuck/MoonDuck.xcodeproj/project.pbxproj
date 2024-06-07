@@ -57,6 +57,14 @@
 		EA6D9A752BFF67A0003B459A /* HomeCategoryCvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA6D9A732BFF67A0003B459A /* HomeCategoryCvCell.xib */; };
 		EA6D9A772BFF6823003B459A /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6D9A762BFF6823003B459A /* UIView+Extension.swift */; };
 		EA6D9A7A2BFF6884003B459A /* RadiusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6D9A792BFF6884003B459A /* RadiusView.swift */; };
+		EA7208412C1272A500E96212 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208402C1272A500E96212 /* AuthRequest.swift */; };
+		EA7208432C12735A00E96212 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208422C12735A00E96212 /* AuthService.swift */; };
+		EA7208492C12787400E96212 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208482C12787400E96212 /* Config.swift */; };
+		EA72084D2C12869B00E96212 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72084C2C12869B00E96212 /* AuthResponse.swift */; };
+		EA72084F2C1287EF00E96212 /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72084E2C1287EF00E96212 /* AppUserDefaults.swift */; };
+		EA7208512C128CE800E96212 /* AppKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208502C128CE800E96212 /* AppKeychain.swift */; };
+		EA7208532C1290C700E96212 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208522C1290C700E96212 /* AuthManager.swift */; };
+		EA7208552C12929700E96212 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208542C12929700E96212 /* Auth.swift */; };
 		EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */; };
 		EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A82BFF716600FDC7A7 /* Category.swift */; };
 		EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */; };
@@ -178,6 +186,14 @@
 		EA6D9A732BFF67A0003B459A /* HomeCategoryCvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCategoryCvCell.xib; sourceTree = "<group>"; };
 		EA6D9A762BFF6823003B459A /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		EA6D9A792BFF6884003B459A /* RadiusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusView.swift; sourceTree = "<group>"; };
+		EA7208402C1272A500E96212 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
+		EA7208422C12735A00E96212 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		EA7208482C12787400E96212 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		EA72084C2C12869B00E96212 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		EA72084E2C1287EF00E96212 /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
+		EA7208502C128CE800E96212 /* AppKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeychain.swift; sourceTree = "<group>"; };
+		EA7208522C1290C700E96212 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		EA7208542C12929700E96212 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCategoryCell.swift; sourceTree = "<group>"; };
 		EA81F4A82BFF716600FDC7A7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCvDataSource.swift; sourceTree = "<group>"; };
@@ -362,14 +378,17 @@
 		A0E6582D2BFE2832001A8D54 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				EA6379D32BFF2A2000464A19 /* Networking */,
 				EA81F4A72BFF714000FDC7A7 /* Model */,
 				EA6D9A782BFF6875003B459A /* UI */,
-				EA6379D32BFF2A2000464A19 /* Networking */,
 				EA6379D02BFF295400464A19 /* Extensions */,
 				A0E657FC2BFE22B7001A8D54 /* SceneDelegate.swift */,
 				A0E657FA2BFE22B7001A8D54 /* AppDelegate.swift */,
 				EA6379C42BFEF3FA00464A19 /* Navigator.swift */,
 				EAE017DC2C01CF2300699145 /* Utils.swift */,
+				EA72084E2C1287EF00E96212 /* AppUserDefaults.swift */,
+				EA7208502C128CE800E96212 /* AppKeychain.swift */,
+				EA7208522C1290C700E96212 /* AuthManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -452,6 +471,7 @@
 		EA6379CD2BFF1C4000464A19 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				EA7208402C1272A500E96212 /* AuthRequest.swift */,
 				EA6379D42BFF2A4000464A19 /* UserRequest.swift */,
 				EAE017D22C0193B800699145 /* ReviewRequest.swift */,
 			);
@@ -487,6 +507,7 @@
 		EA6379D82BFF2BA300464A19 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				EA72084C2C12869B00E96212 /* AuthResponse.swift */,
 				EA6379E02BFF2E5300464A19 /* UserResponse.swift */,
 				EAE017D42C0195D500699145 /* ReviewResponse.swift */,
 			);
@@ -499,6 +520,7 @@
 				EA9A841F2C00AA93004B7FDF /* AppServices.swift */,
 				EA6379DE2BFF2D6900464A19 /* UserService.swift */,
 				EAE017D02C01935700699145 /* ReviewService.swift */,
+				EA7208422C12735A00E96212 /* AuthService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -530,10 +552,12 @@
 		EA81F4A72BFF714000FDC7A7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EA7208482C12787400E96212 /* Config.swift */,
 				EA81F4A82BFF716600FDC7A7 /* Category.swift */,
 				EAD957622C002982001FB6E1 /* User.swift */,
 				EAD957642C0029D3001FB6E1 /* Review.swift */,
 				EAE017D62C01AA3D00699145 /* Sort.swift */,
+				EA7208542C12929700E96212 /* Auth.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -892,11 +916,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA7208552C12929700E96212 /* Auth.swift in Sources */,
 				EAE017E82C01E6D100699145 /* BoardEditViewController.swift in Sources */,
 				EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */,
 				EA6379D72BFF2B2D00464A19 /* TargetType.swift in Sources */,
 				EAD957652C0029D3001FB6E1 /* Review.swift in Sources */,
+				EA72084F2C1287EF00E96212 /* AppUserDefaults.swift in Sources */,
 				A0E6584D2BFE3C0B001A8D54 /* XCAssets+Generated.swift in Sources */,
+				EA7208532C1290C700E96212 /* AuthManager.swift in Sources */,
+				EA7208492C12787400E96212 /* Config.swift in Sources */,
 				EA6379E92BFF359100464A19 /* NSObjectProtocol+Extension.swift in Sources */,
 				EAE017EE2C02015900699145 /* UIKeyboardInfo.swift in Sources */,
 				A0E6584B2BFE3C03001A8D54 /* Fonts+Generated.swift in Sources */,
@@ -905,10 +933,12 @@
 				EA9A842B2C00C33E004B7FDF /* NameSettingViewPresenter.swift in Sources */,
 				EA9A84202C00AA93004B7FDF /* AppServices.swift in Sources */,
 				EA9A84262C00BCAF004B7FDF /* NameSettingViewController.swift in Sources */,
+				EA7208432C12735A00E96212 /* AuthService.swift in Sources */,
 				EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */,
 				EAD957632C002982001FB6E1 /* User.swift in Sources */,
 				EA6379E52BFF33C500464A19 /* HomeViewController.swift in Sources */,
 				EAA914F22C02D63100A98950 /* ReviewImageCvCell.swift in Sources */,
+				EA7208412C1272A500E96212 /* AuthRequest.swift in Sources */,
 				EA6D9A7A2BFF6884003B459A /* RadiusView.swift in Sources */,
 				EAE017DB2C01CA0500699145 /* CellButton.swift in Sources */,
 				EAE017D32C0193B800699145 /* ReviewRequest.swift in Sources */,
@@ -949,6 +979,8 @@
 				A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */,
 				EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */,
 				EAE017D92C01C11B00699145 /* BoardDetailViewPresenter.swift in Sources */,
+				EA72084D2C12869B00E96212 /* AuthResponse.swift in Sources */,
+				EA7208512C128CE800E96212 /* AppKeychain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

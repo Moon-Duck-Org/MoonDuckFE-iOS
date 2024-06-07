@@ -14,7 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     var appService = {
-        return AppServices(userService: UserService(),
+        return AppServices(authService: AuthService(),
+                           userService: UserService(),
                            reviewService: ReviewService())
     }()
     

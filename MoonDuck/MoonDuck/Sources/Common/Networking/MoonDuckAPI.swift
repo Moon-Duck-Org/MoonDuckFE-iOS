@@ -9,8 +9,8 @@ import Foundation
 import Alamofire
 
 enum MoonDuckAPI {
+    case authLogin(AuthLoginRequest)
     case user(UserRequest)
-    case userLogin(UserLoginRequest)
     case userNickname(UserNicknameRequest)
     case reviewAll(ReviewAllRequest)
     case getReview(GetReviewRequest)
@@ -44,7 +44,7 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .user, .reviewAll, .getReview, .reviewDetail:
             return .get
-        case .userLogin, .postReview:
+        case .authLogin, .postReview:
             return .post
         case .userNickname:
             return .put
@@ -57,10 +57,11 @@ extension MoonDuckAPI: TargetType {
 
     var path: String {
         switch self {
+        // 로그인
+        case .authLogin:
+            return "/auth/login"
         case .user:
             return "/user"
-        case .userLogin:
-            return "/user/login"
         case .userNickname:
             return "/user/nickname"
         case .getReview, .putReview, .postReview, .deleteReview:
@@ -74,10 +75,10 @@ extension MoonDuckAPI: TargetType {
     
     var parameters: RequestParams {
         switch self {
+        case .authLogin(let request):
+            return .body(request)
         case .user(let request):
             return .query(request)
-        case .userLogin(let request):
-            return .body(request)
         case .userNickname(let request):
             return .body(request)
         case .getReview(let request):

@@ -23,8 +23,8 @@ class UserService {
 //            }
     }
     
-    func login(request: UserLoginRequest, completion: @escaping (_ succeed: Bool?, _ failed: Error?) -> Void) {
-        completion(true, nil)
+//    func login(request: UserLoginRequest, completion: @escaping (_ succeed: Bool?, _ failed: Error?) -> Void) {
+//        completion(true, nil)
         
 //        API.session.request(MoonDuckAPI.userLogin(request))
 //            .responseDecodable { (response: AFDataResponse<Bool>) in
@@ -35,7 +35,7 @@ class UserService {
 //                    completion(nil, error)
 //                }
 //            }
-    }
+//    }
     
     func nickname(request: UserNicknameRequest, completion: @escaping (_ succeed: User?, _ failed: Error?) -> Void) {
         completion(User(id: 0, deviceId: "test", nickname: "포덕이"), nil)

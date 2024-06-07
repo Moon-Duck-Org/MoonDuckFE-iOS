@@ -8,6 +8,7 @@
 import Foundation
 
 struct AppServices {
+    let authService: AuthService
     let userService: UserService
     let reviewService: ReviewService
 }

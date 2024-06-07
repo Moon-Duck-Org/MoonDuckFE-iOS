@@ -210,6 +210,7 @@ PODS:
   - RxSwift (6.7.1)
   - SnapKit (5.7.1)
   - SwiftGen (6.6.3)
+  - SwiftKeychainWrapper (4.0.1)
   - SwiftLint (0.55.1)
   - SwiftyJSON (5.0.2)
   - Then (3.0.0)
@@ -227,6 +228,7 @@ DEPENDENCIES:
   - RxKakaoSDKUser
   - SnapKit
   - SwiftGen
+  - SwiftKeychainWrapper
   - SwiftLint
   - SwiftyJSON
   - Then
@@ -271,6 +273,7 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
     - SwiftGen
+    - SwiftKeychainWrapper
     - SwiftLint
     - SwiftyJSON
     - Then
@@ -314,10 +317,11 @@ SPEC CHECKSUMS:
   RxSwift: b9a93a26031785159e11abd40d1a55bcb8057e52
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SwiftGen: 4993cbf71cbc4886f775e26f8d5c3a1188ec9f99
+  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   SwiftLint: 3fe909719babe5537c552ee8181c0031392be933
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: 4a59326c600cf73933de33752d42f25adcbed152
+PODFILE CHECKSUM: aa0a81ed981b179d71290ad08831dbcc0a0150eb
 
 COCOAPODS: 1.15.2

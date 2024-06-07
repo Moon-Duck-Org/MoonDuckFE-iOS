@@ -9,6 +9,8 @@ import UIKit
 
 protocol LoginView: AnyObject {
     func moveNameSetting(with presenter: NameSettingViewPresenter)
+    
+    func showToast(_ message: String)
 }
 
 class LoginViewController: UIViewController, LoginView, Navigatable {
@@ -18,6 +20,12 @@ class LoginViewController: UIViewController, LoginView, Navigatable {
     
     @IBAction private func kakaoLoginButtonTap(_ sender: Any) {
         presenter.kakaoLoginButtonTap()
+    }
+    @IBAction private func googleLoginButtonTap(_ sender: Any) {
+        presenter.googleLoginButtonTap()
+    }
+    @IBAction private func appleLoginButtonTap(_ sender: Any) {
+        presenter.appleLoginButtonTap()
     }
     
     init(navigator: Navigator,
@@ -34,6 +42,13 @@ class LoginViewController: UIViewController, LoginView, Navigatable {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.view = self
+    }
+}
+
+// MARK: - UI Logic
+extension LoginViewController {
+    func showToast(_ message: String) {
+        showToast(message: message)
     }
 }
 

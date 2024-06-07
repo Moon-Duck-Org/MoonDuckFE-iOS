@@ -20,16 +20,9 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
     
     weak var view: NameSettingView?
     
-    private let joinUser: JoinUser
-    
-    init(with provider: AppServices, joinUser: JoinUser) {
-        self.joinUser = joinUser
-        super.init(with: provider)
-    }
-    
     func checkValid(_ text: String?) {
         let pattern = "^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]{1,10}$"
-        if let text, text.range(of: pattern, options: .regularExpression) != nil {
+        if let text, text .range(of: pattern, options: .regularExpression) != nil {
             // TODO: 중복 확인 API
             nickName(text)
         } else {
@@ -51,14 +44,14 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
 // MARK: - Networking
 extension NameSettingViewPresenter {
     func nickName(_ name: String) {
-        let request = UserNicknameRequest(deviceId: joinUser.deviceId, nickname: name)
-        provider.userService.nickname(request: request) { succeed, _ in
-            if let succeed {
-                let presenter = HomeViewPresenter(with: self.provider, user: succeed)
-                self.view?.moveHome(with: presenter)
-            } else {
-                self.view?.showErrorText("중복된 닉네임입니다.")
-            }
-        }
+//        let request = UserNicknameRequest(deviceId: joinUser.deviceId, nickname: name)
+//        provider.userService.nickname(request: request) { succeed, _ in
+//            if let succeed {
+//                let presenter = HomeViewPresenter(with: self.provider, user: succeed)
+//                self.view?.moveHome(with: presenter)
+//            } else {
+//                self.view?.showErrorText("중복된 닉네임입니다.")
+//            }
+//        }
     }
 }

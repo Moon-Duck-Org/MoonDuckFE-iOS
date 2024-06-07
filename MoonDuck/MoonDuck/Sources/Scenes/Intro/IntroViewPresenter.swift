@@ -19,6 +19,12 @@ class IntroViewPresenter: Presenter, IntroPresenter {
     weak var view: IntroView?
     
     func viewDidLoad() {
+        autoLogin()
+    }
+}
+extension IntroViewPresenter {
+    func autoLogin() {
+        // TODO: 자동 로그인 체크
         login()
     }
 }
@@ -26,17 +32,17 @@ class IntroViewPresenter: Presenter, IntroPresenter {
 // MARK: - Networking
 extension IntroViewPresenter {
     func login() {
-        // FIXME: - UUID로 설정
+        // TODO: 로그인 API 수정
         if let id = UIDevice.current.identifierForVendor?.uuidString {
-            provider.userService.login(request: UserLoginRequest(deviceId: id)) { succeed, _ in
-                if let succeed, succeed {
-                    self.user(id: id)
-                } else {
+//            provider.userService.login(request: UserLoginRequest(deviceId: id)) { succeed, _ in
+//                if let succeed, succeed {
+//                    self.user(id: id)
+//                } else {
                     let joinUser = JoinUser(deviceId: id, nickname: "")
-                    let presenter = LoginViewPresenter(with: self.provider, joinUser: joinUser)
+                    let presenter = LoginViewPresenter(with: self.provider)
                     self.view?.moveLogin(with: presenter)
-                }
-            }
+//                }
+//            }
         }
     }
     
@@ -47,7 +53,7 @@ extension IntroViewPresenter {
                 self.view?.moveHome(with: presenter)
             } else {
                 let joinUser = JoinUser(deviceId: id, nickname: "")
-                let presenter = LoginViewPresenter(with: self.provider, joinUser: joinUser)
+                let presenter = LoginViewPresenter(with: self.provider)
                 self.view?.moveLogin(with: presenter)
             }
         }

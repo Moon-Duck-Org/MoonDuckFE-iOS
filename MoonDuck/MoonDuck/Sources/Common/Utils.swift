@@ -8,4 +8,5 @@
 import UIKit
 
 class Utils {
+    static var shared = Utils()
 }

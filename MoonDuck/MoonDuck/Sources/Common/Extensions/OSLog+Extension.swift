@@ -14,6 +14,7 @@ extension OSLog {
     static let debug = OSLog(subsystem: subsystem, category: "Debug")
     static let info = OSLog(subsystem: subsystem, category: "Info")
     static let error = OSLog(subsystem: subsystem, category: "Error")
+    static let todo = OSLog(subsystem: subsystem, category: "Todo")
 }
 
 struct Log {
@@ -35,6 +36,8 @@ struct Log {
         case network
         /// 오류 로그
         case error
+        /// TODO 로그
+        case todo
         case custom(category: String)
         
         fileprivate var category: String {
@@ -47,6 +50,8 @@ struct Log {
                 return "🔵 NETWORK"
             case .error:
                 return "🔴 ERROR"
+            case .todo:
+                return "💡 TODO"
             case .custom(let category):
                 return "🟢 \(category)"
             }
@@ -62,6 +67,8 @@ struct Log {
                 return OSLog.network
             case .error:
                 return OSLog.error
+            case .todo:
+                return OSLog.todo
             case .custom:
                 return OSLog.debug
             }
@@ -69,7 +76,7 @@ struct Log {
         
         fileprivate var osLogType: OSLogType {
             switch self {
-            case .debug:
+            case .debug, .todo:
                 return .debug
             case .info:
                 return .info
@@ -95,15 +102,17 @@ struct Log {
             print("\(level.category) \(logMessage)")
             switch level {
             case .debug:
-                logger.debug("\(logMessage, privacy: .public)")
+                logger.debug("\(logMessage, privacy: .private)")
             case .custom:
-                logger.debug("\(logMessage, privacy: .public)")
+                logger.debug("\(logMessage, privacy: .private)")
             case .info:
                 logger.info("\(logMessage, privacy: .public)")
             case .network:
                 logger.log("\(logMessage, privacy: .public)")
             case .error:
                 logger.error("\(logMessage, privacy: .public)")
+            case .todo:
+                logger.error("\(logMessage, privacy: .private)")
             }
         } else {
             let extraMessage: String = arguments.map({ String(describing: $0) }).joined(separator: " ")
@@ -158,5 +167,14 @@ extension Log {
      */
     static func custom(category: String, _ message: Any, _ arguments: Any...) {
         log(message, arguments, level: .custom(category: category))
+    }
+    
+    /**
+     # todo
+     - Authors : suni
+     - Note : ToDo 표시를 위한 로그
+     */
+    static func todo(_ message: Any, _ arguments: Any...) {
+        log(message, arguments, level: .todo)
     }
 }

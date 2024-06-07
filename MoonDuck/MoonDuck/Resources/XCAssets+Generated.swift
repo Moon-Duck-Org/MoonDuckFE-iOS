@@ -62,7 +62,7 @@ internal enum Asset {
     internal static let onboardBack = ImageAsset(name: "OnboardBack")
     internal static let appleLogin = ImageAsset(name: "AppleLogin")
     internal static let googleLogin = ImageAsset(name: "GoogleLogin")
-    internal static let kakaoLogin = ImageAsset(name: "KakaoLogin")
+    internal static let kakaoLogin = ImageAsset(name: "kakaoLogin")
   }
   internal enum Color {
     internal static let black = ColorAsset(name: "Black")
