@@ -8,7 +8,8 @@
 import UIKit
 
 protocol IntroView: AnyObject {
-    // Output
+    func showToast(_ message: String)
+    
     func moveLogin(with presenter: LoginViewPresenter)
     func moveHome(with presenter: HomeViewPresenter)
 }
@@ -39,7 +40,9 @@ class IntroViewController: UIViewController, IntroView, Navigatable {
 
 // MARK: - UI Logic
 extension IntroViewController {
-    
+    func showToast(_ message: String) {
+        showToast(message: message)
+    }
 }
 
 // MARK: - Navigation

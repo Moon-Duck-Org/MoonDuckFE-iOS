@@ -17,7 +17,17 @@ class AuthService {
                 case .success(let response):
                     completion(response, nil)
                 case .failure(let error):
-                    completion(nil, error)
+                    if let errorData = response.data {
+                        do {
+                            let decodeError = try JSONDecoder().decode(ErrorEntity.self, from: errorData)
+                            let apiError = APIError(error: decodeError)
+                            completion(nil, apiError)
+                        } catch {
+                            completion(nil, APIError.decodingError)
+                        }
+                    } else {
+                        completion(nil, error)
+                    }
                 }
             }
     }
@@ -29,7 +39,17 @@ class AuthService {
                 case .success(let response):
                     completion(response, nil)
                 case .failure(let error):
-                    completion(nil, error)
+                    if let errorData = response.data {
+                        do {
+                            let decodeError = try JSONDecoder().decode(ErrorEntity.self, from: errorData)
+                            let apiError = APIError(error: decodeError)
+                            completion(nil, apiError)
+                        } catch {
+                            completion(nil, APIError.decodingError)
+                        }
+                    } else {
+                        completion(nil, error)
+                    }
                 }
             }
     }

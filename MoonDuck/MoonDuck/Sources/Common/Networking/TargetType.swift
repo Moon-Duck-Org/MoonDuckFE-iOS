@@ -23,8 +23,7 @@ extension TargetType {
         let url = try baseURL.asURL()
         var urlRequest = try URLRequest(url: url.appendingPathComponent(path), method: method)
         urlRequest.headers = headers
-//        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         if let parameters {
             switch parameters {
             case .query(let request):

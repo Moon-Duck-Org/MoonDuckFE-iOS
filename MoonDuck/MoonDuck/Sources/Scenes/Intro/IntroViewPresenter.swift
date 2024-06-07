@@ -23,42 +23,53 @@ class IntroViewPresenter: Presenter, IntroPresenter {
 // MARK: - Input
 extension IntroViewPresenter {
     func viewDidLoad() {
-        autoLogin()
+        checkAutoLogin()
     }
     
-    private func autoLogin() {
-        // TODO: 자동 로그인 체크
-        login()
+    private func checkAutoLogin() {
+        if AuthManager.current.autoLogin() {
+            getUser()
+        } else {
+            moveLogin()
+        }
     }
 }
 
 // MARK: - Networking
 extension IntroViewPresenter {
-    func login() {
-        // TODO: 로그인 API 수정
-        if let id = UIDevice.current.identifierForVendor?.uuidString {
-//            provider.userService.login(request: UserLoginRequest(deviceId: id)) { succeed, _ in
-//                if let succeed, succeed {
-//                    self.user(id: id)
-//                } else {
-                    let presenter = LoginViewPresenter(with: self.provider)
-                    self.view?.moveLogin(with: presenter)
-//                }
-//            }
+    
+    private func moveLogin() {
+        let presenter = LoginViewPresenter(with: self.provider)
+        self.view?.moveLogin(with: presenter)
+    }
+    
+    private func getUser() {
+        provider.userService.user { [weak self] code, succeed, failed in
+            if let succeed {
+                // User 정보 조회 성공
+                AuthManager.current.login(succeed)
+                self?.view?.showToast("자동 로그인 성공.")
+            } else {
+                if code == .tokenExpiryDate {
+                    self?.refreshToken()
+                } else {
+                    Log.error(failed?.localizedDescription ?? "User Error")
+                    AuthManager.current.removeToken()
+                    self?.moveLogin()
+                }
+            }
         }
     }
     
-    func user(id: String) {
-        let presenter = LoginViewPresenter(with: self.provider)
-        self.view?.moveLogin(with: presenter)
-//        provider.userService.user(request: UserRequest(deviceId: id)) { succeed, _ in
-//            if let succeed {
-//                let presenter = HomeViewPresenter(with: self.provider, user: succeed)
-//                self.view?.moveHome(with: presenter)
-//            } else {
-//                let presenter = LoginViewPresenter(with: self.provider)
-//                self.view?.moveLogin(with: presenter)
-//            }
-//        }
+    private func refreshToken() {
+        AuthManager.current.refreshToken(provider.authService) { [weak self] code in
+            if code == .success {
+                self?.getUser()
+            } else {
+                Log.error("토큰 갱신 오류 \(code)")
+                self?.view?.showToast("토큰 갱신 실패")
+                self?.moveLogin()
+            }
+        }
     }
 }

@@ -7,7 +7,6 @@
 
 import Alamofire
 
-// FIXME: - TEST CODE API
 class UserService {
     enum ResultCode: Int {
         case success = 200              // 성공

@@ -65,6 +65,7 @@
 		EA7208532C1290C700E96212 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208522C1290C700E96212 /* AuthManager.swift */; };
 		EA7208552C12929700E96212 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208542C12929700E96212 /* Auth.swift */; };
 		EA7208572C129F2100E96212 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA7208562C129F2100E96212 /* GoogleService-Info.plist */; };
+		EA72085B2C12E3C900E96212 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72085A2C12E3C900E96212 /* APIError.swift */; };
 		EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */; };
 		EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A82BFF716600FDC7A7 /* Category.swift */; };
 		EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */; };
@@ -194,6 +195,7 @@
 		EA7208522C1290C700E96212 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		EA7208542C12929700E96212 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		EA7208562C129F2100E96212 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EA72085A2C12E3C900E96212 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCategoryCell.swift; sourceTree = "<group>"; };
 		EA81F4A82BFF716600FDC7A7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCvDataSource.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				EA6379CE2BFF1C5400464A19 /* MoonDuckAPI.swift */,
 				EA6379D62BFF2B2D00464A19 /* TargetType.swift */,
 				EA9A84442C00E306004B7FDF /* APIEventLogger.swift */,
+				EA72085A2C12E3C900E96212 /* APIError.swift */,
 				EA6379CD2BFF1C4000464A19 /* Request */,
 				EA6379D82BFF2BA300464A19 /* Response */,
 				EA6379DD2BFF2D3900464A19 /* Service */,
@@ -981,6 +984,7 @@
 				EAE017D92C01C11B00699145 /* BoardDetailViewPresenter.swift in Sources */,
 				EA72084D2C12869B00E96212 /* AuthResponse.swift in Sources */,
 				EA7208512C128CE800E96212 /* AppKeychain.swift in Sources */,
+				EA72085B2C12E3C900E96212 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
