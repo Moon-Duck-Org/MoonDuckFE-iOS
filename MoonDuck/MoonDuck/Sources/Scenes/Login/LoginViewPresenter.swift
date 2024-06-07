@@ -12,6 +12,7 @@ import KakaoSDKUser
 import Firebase
 import FirebaseAuth
 import GoogleSignIn
+import AuthenticationServices
 
 protocol LoginPresenter: AnyObject {
     var view: LoginView? { get set }
@@ -20,6 +21,7 @@ protocol LoginPresenter: AnyObject {
     func appleLoginButtonTap()
     
     func googleLogin(result: GIDSignInResult?, error: Error?)
+    func appleLogin(id: String)
     func loginError()
 }
 
@@ -32,20 +34,8 @@ final class LoginViewPresenter: Presenter, LoginPresenter {
         kakaoLogin()
     }
     
-    func googleLoginButtonTap() {
-        
-    }
-    
     func appleLoginButtonTap() {
         
-    }
-}
-
-// MARK: - Logic
-extension LoginViewPresenter {
-    func loginError() {
-        Log.todo("로그인 오류 알럿 노출")
-        view?.showToast("로그인에 실패하였습니다.")
     }
     
     func googleLogin(result: GIDSignInResult?, error: Error?) {
@@ -60,8 +50,24 @@ extension LoginViewPresenter {
             return
         }
         
-        let auth = Auth(loginType: .apple, id: String(id))
+        let auth = Auth(loginType: .google, id: String(id))
         self.login(auth)
+    }
+    
+    func appleLogin(id: String) {
+        let auth = Auth(loginType: .apple, id: id)
+        self.login(auth)
+    }
+    
+    func loginError() {
+        Log.todo("로그인 오류 알럿 노출")
+        view?.showToast("로그인에 실패하였습니다.")
+    }
+}
+
+// MARK: - Logic
+extension LoginViewPresenter: ASAuthorizationControllerDelegate {
+    private func appleLogin() {
     }
 }
 

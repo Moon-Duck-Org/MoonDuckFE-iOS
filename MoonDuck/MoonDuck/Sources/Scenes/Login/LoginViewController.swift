@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import GoogleSignIn
+import AuthenticationServices
 
 protocol LoginView: AnyObject {
     func moveNameSetting(with presenter: NameSettingViewPresenter)
@@ -29,7 +30,7 @@ class LoginViewController: UIViewController, LoginView, Navigatable {
         googleLogin()
     }
     @IBAction private func appleLoginButtonTap(_ sender: Any) {
-        presenter.appleLoginButtonTap()
+        appleLogin()
     }
     
     init(navigator: Navigator,
@@ -55,7 +56,7 @@ extension LoginViewController {
         showToast(message: message)
     }
     
-    func googleLogin() {
+    private func googleLogin() {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
             self.showToast("구글 클라이언트 아이디가 없습니다.")
             return
@@ -66,6 +67,48 @@ extension LoginViewController {
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
             self.presenter.googleLogin(result: result, error: error)
         }
+    }
+    
+    private func appleLogin() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+               
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+}
+
+// MARK: - ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding
+extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window ?? UIWindow()
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+
+            // Create an account in your system .
+            let id = appleIDCredential.user
+            presenter.appleLogin(id: id)
+
+        case let passwordCredential as ASPasswordCredential:
+
+            // Sign in using an existing iCloud Keychain credential.
+            let id = passwordCredential.user
+            presenter.appleLogin(id: id)
+
+        default:
+            break
+        }
+    }
+    
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // 로그인 실패(유저의 취소도 포함)
+        presenter.loginError()
     }
 }
 
