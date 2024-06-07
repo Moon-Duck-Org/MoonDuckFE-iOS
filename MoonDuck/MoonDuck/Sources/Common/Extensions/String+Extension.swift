@@ -14,4 +14,15 @@ extension String {
         let (year, month, day) = (str[0], str[1], str[2])
         return "\(year)년 \(month)월 \(day)일"
     }
+    
+    func toBool() -> Bool? {
+        if self == "true" {
+          return true
+        }
+        if self == "false" {
+          return false
+        }
+        return nil
+      
+    }
 }

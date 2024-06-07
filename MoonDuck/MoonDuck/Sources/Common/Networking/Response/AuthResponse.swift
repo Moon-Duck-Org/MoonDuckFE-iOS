@@ -14,3 +14,8 @@ struct AuthLoginResponse: Decodable {
     let refreshToken: String
     let isHaveNickname: Bool
 }
+
+struct AuthReissueResponse: Decodable {
+    let accessToken: String
+    let refreshToken: String
+}

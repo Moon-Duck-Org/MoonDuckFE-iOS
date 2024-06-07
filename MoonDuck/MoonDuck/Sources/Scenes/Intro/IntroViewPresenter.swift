@@ -18,12 +18,15 @@ class IntroViewPresenter: Presenter, IntroPresenter {
     
     weak var view: IntroView?
     
+}
+
+// MARK: - Input
+extension IntroViewPresenter {
     func viewDidLoad() {
         autoLogin()
     }
-}
-extension IntroViewPresenter {
-    func autoLogin() {
+    
+    private func autoLogin() {
         // TODO: 자동 로그인 체크
         login()
     }
@@ -38,7 +41,6 @@ extension IntroViewPresenter {
 //                if let succeed, succeed {
 //                    self.user(id: id)
 //                } else {
-                    let joinUser = JoinUser(deviceId: id, nickname: "")
                     let presenter = LoginViewPresenter(with: self.provider)
                     self.view?.moveLogin(with: presenter)
 //                }
@@ -47,15 +49,16 @@ extension IntroViewPresenter {
     }
     
     func user(id: String) {
-        provider.userService.user(request: UserRequest(deviceId: id)) { succeed, _ in
-            if let succeed {
-                let presenter = HomeViewPresenter(with: self.provider, user: succeed)
-                self.view?.moveHome(with: presenter)
-            } else {
-                let joinUser = JoinUser(deviceId: id, nickname: "")
-                let presenter = LoginViewPresenter(with: self.provider)
-                self.view?.moveLogin(with: presenter)
-            }
-        }
+        let presenter = LoginViewPresenter(with: self.provider)
+        self.view?.moveLogin(with: presenter)
+//        provider.userService.user(request: UserRequest(deviceId: id)) { succeed, _ in
+//            if let succeed {
+//                let presenter = HomeViewPresenter(with: self.provider, user: succeed)
+//                self.view?.moveHome(with: presenter)
+//            } else {
+//                let presenter = LoginViewPresenter(with: self.provider)
+//                self.view?.moveLogin(with: presenter)
+//            }
+//        }
     }
 }

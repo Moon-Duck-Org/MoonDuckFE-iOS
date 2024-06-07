@@ -24,6 +24,10 @@ internal enum L10n {
     /// 
     ///   Created by suni on 5/24/24.
     internal static let done = L10n.tr("Localizable", "done", fallback: "확인")
+    /// 중복된 닉네임입니다.
+    internal static let duplicateNickname = L10n.tr("Localizable", "Duplicate nickname.", fallback: "중복된 닉네임입니다.")
+    /// 특수문자는 사용 불가해요.
+    internal static let specialCharactersAreNotAllowed = L10n.tr("Localizable", "Special_characters are not allowed.", fallback: "특수문자는 사용 불가해요.")
   }
   internal enum Main {
     }

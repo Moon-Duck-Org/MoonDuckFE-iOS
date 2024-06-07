@@ -34,7 +34,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5A-KT-w7R">
                     <rect key="frame" x="0.0" y="59" width="393" height="47"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XAw-RU-SFO">
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XAw-RU-SFO">
                             <rect key="frame" x="343" y="4" width="34" height="39"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="18"/>
                             <color key="tintColor" name="Blue"/>
@@ -84,6 +84,9 @@
                             </constraints>
                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                             <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="nickname"/>
+                            <connections>
+                                <action selector="nameTextFieldDidChanges:" destination="-1" eventType="editingChanged" id="rxo-sL-7vK"/>
+                            </connections>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXV-vI-GaM">
                             <rect key="frame" x="350.33333333333331" y="148.66666666666666" width="21.666666666666686" height="15"/>

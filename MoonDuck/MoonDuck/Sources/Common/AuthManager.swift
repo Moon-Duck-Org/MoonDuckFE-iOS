@@ -11,7 +11,7 @@ class AuthManager {
     static let current = AuthManager()
     
     private var token: String?
-    private var user: User?
+    private var user: UserV2?
     
     func getToken() -> String? {
         return token
@@ -24,11 +24,11 @@ class AuthManager {
         self.token = token
     }
     
-    func loginUser() {
-        
+    func login(_ user: UserV2) {
+        self.user = user
     }
     
-    func logOut() {
+    func logout() {
         token = nil
         user = nil
     }

@@ -10,7 +10,8 @@ import Alamofire
 
 enum MoonDuckAPI {
     case authLogin(AuthLoginRequest)
-    case user(UserRequest)
+    case authReissue(AuthReissueRequest)
+    case user
     case userNickname(UserNicknameRequest)
     case reviewAll(ReviewAllRequest)
     case getReview(GetReviewRequest)
@@ -18,14 +19,6 @@ enum MoonDuckAPI {
     case postReview(PostReviewRequest)
     case deleteReview(DeleteReviewRequest)
     case reviewDetail(ReviewDetailRequest)
-}
-
-class API {
-    static let session: Session = {
-        let configuration = URLSessionConfiguration.af.default
-        let apiLogger = APIEventLogger()
-        return Session(configuration: configuration, eventMonitors: [apiLogger])
-    }()
 }
 extension MoonDuckAPI: TargetType {
     
@@ -44,7 +37,7 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .user, .reviewAll, .getReview, .reviewDetail:
             return .get
-        case .authLogin, .postReview:
+        case .authLogin, .authReissue, .postReview:
             return .post
         case .userNickname:
             return .put
@@ -60,6 +53,9 @@ extension MoonDuckAPI: TargetType {
         // 로그인
         case .authLogin:
             return "/auth/login"
+        // access 토큰 재발급
+        case .authReissue:
+            return "/auth/reissue"
         case .user:
             return "/user"
         case .userNickname:
@@ -73,12 +69,14 @@ extension MoonDuckAPI: TargetType {
         }
     }
     
-    var parameters: RequestParams {
+    var parameters: RequestParams? {
         switch self {
         case .authLogin(let request):
             return .body(request)
-        case .user(let request):
-            return .query(request)
+        case .authReissue(let request):
+            return .body(request)
+        case .user:
+            return nil
         case .userNickname(let request):
             return .body(request)
         case .getReview(let request):
@@ -106,4 +104,27 @@ extension MoonDuckAPI: TargetType {
             return URLEncoding.default
         }
     }
+    
+    var headers: HTTPHeaders {
+        switch self {
+        case .authLogin, .authReissue:
+            return ["Content-Type": "application/json"]
+        case .user, .userNickname:
+            if let token: String = AuthManager.current.getToken() {
+                return ["Content-Type": "application/json", "Authorization": "Bearer \(token)"]
+            } else {
+                return ["Content-Type": "application/json"]
+            }
+        default:
+            return ["Content-Type": "application/json"]
+        }
+    }
+}
+
+class API {
+    static let session: Session = {
+        let configuration = URLSessionConfiguration.af.default
+        let apiLogger = APIEventLogger()
+        return Session(configuration: configuration, eventMonitors: [apiLogger])
+    }()
 }

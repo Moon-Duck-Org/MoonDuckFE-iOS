@@ -13,9 +13,9 @@ import GoogleSignIn
 import AuthenticationServices
 
 protocol LoginView: AnyObject {
-    func moveNameSetting(with presenter: NameSettingViewPresenter)
-    
     func showToast(_ message: String)
+    
+    func moveNameSetting(with presenter: NameSettingViewPresenter)
 }
 
 class LoginViewController: UIViewController, LoginView, Navigatable {
@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, LoginView, Navigatable {
     var navigator: Navigator!
     let presenter: LoginPresenter
     
+    // IBAction
     @IBAction private func kakaoLoginButtonTap(_ sender: Any) {
         presenter.kakaoLoginButtonTap()
     }
@@ -104,7 +105,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             break
         }
     }
-    
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         // 로그인 실패(유저의 취소도 포함)

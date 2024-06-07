@@ -9,8 +9,7 @@ import Foundation
 import SwiftyJSON
 
 struct UserResponse: Decodable {
-    let id: Int
-    let deviceId: String
+    let userId: Int
     let nickname: String
     let movie: Int?
     let book: Int?
@@ -18,8 +17,13 @@ struct UserResponse: Decodable {
     let concert: Int?
 }
 
+struct UserNicknameResponse: Decodable {
+    let userId: Int
+    let nickname: String
+}
+
 extension UserResponse {
-    var toDomain: User {
+    var toDomain: UserV2 {
         let movie = movie ?? 0
         let book = book ?? 0
         let drama = drama ?? 0
@@ -28,8 +32,7 @@ extension UserResponse {
             return movie + book + drama + concert
         }()
         
-        return User(id: id,
-                    deviceId: deviceId,
+        return UserV2(userId: userId,
                     nickname: nickname,
                     all: all,
                     movie: movie,

@@ -29,7 +29,10 @@ final class LoginViewPresenter: Presenter, LoginPresenter {
     
     weak var view: LoginView?
     
-    // MARK: - Input
+}
+
+// MARK: - Input
+extension LoginViewPresenter {
     func kakaoLoginButtonTap() {
         kakaoLogin()
     }
@@ -65,75 +68,71 @@ final class LoginViewPresenter: Presenter, LoginPresenter {
     }
 }
 
-// MARK: - Logic
-extension LoginViewPresenter: ASAuthorizationControllerDelegate {
-    private func appleLogin() {
-    }
-}
-
 // MARK: - Netwoking
 extension LoginViewPresenter {
     private func kakaoLogin() {
         if UserApi.isKakaoTalkLoginAvailable() {
-            UserApi.shared.loginWithKakaoTalk { oauthToken, error in
+            UserApi.shared.loginWithKakaoTalk { [weak self] oauthToken, error in
                 if let error {
                     Log.error(error.localizedDescription)
-                    self.loginError()
+                    self?.loginError()
                     return
                 }
                 
                 guard let oauthToken else {
                     Log.error("oauthToken is nil.")
-                    self.loginError()
+                    self?.loginError()
                     return
                 }
-                self.kakaoUser(oauthToken.accessToken)
+                self?.kakaoUser(oauthToken.accessToken)
             }
         } else {
-            UserApi.shared.loginWithKakaoAccount { oauthToken, error in
+            UserApi.shared.loginWithKakaoAccount { [weak self] oauthToken, error in
                 if let error {
                     Log.error(error.localizedDescription)
-                    self.loginError()
+                    self?.loginError()
                     return
                 }
                 
                 guard let oauthToken else {
                     Log.error("oauthToken is nil.")
-                    self.loginError()
+                    self?.loginError()
                     return
                 }
                 
-                self.kakaoUser(oauthToken.accessToken)
+                self?.kakaoUser(oauthToken.accessToken)
             }
         }
     }
     
     private func kakaoUser(_ token: String) {
-        UserApi.shared.me { user, error in
+        UserApi.shared.me { [weak self] user, error in
             if let error {
                 Log.error(error.localizedDescription)
-                self.loginError()
+                self?.loginError()
                 return
             } 
             
             guard let id = user?.id else {
-                self.view?.showToast("카카오 아이디가 없습니다.")
+                self?.view?.showToast("카카오 아이디가 없습니다.")
                 return
             }
             
             let auth = Auth(loginType: .kakao, id: String(id))
-            self.login(auth)
+            self?.login(auth)
         }
     }
     
     private func login(_ auth: Auth) {
         let request = AuthLoginRequest(dvsnCd: auth.loginType.rawValue, id: auth.id)
-        provider.authService.login(request: request) { succeed, failed in
+        provider.authService.login(request: request) { [weak self] succeed, failed in
+            guard let self else { return }
+            
             if let succeed {
                 // 로그인 성공 자동 로그인 / token 저장
                 AuthManager.current.saveToken(succeed.accessToken, succeed.refreshToken)
                 if succeed.isHaveNickname {
-                    self.user(auth)
+                    self.getUser()
                 } else {
                     let presenter = NameSettingViewPresenter(with: self.provider)
                     self.view?.moveNameSetting(with: presenter)
@@ -145,8 +144,20 @@ extension LoginViewPresenter {
         }
     }
     
-    private func user(_ auth: Auth) {
-        // TODO: User API 연결 -> 홈 이동
-        
+    private func getUser() {
+        provider.userService.user { [weak self] code, succeed, failed in
+            if let succeed {
+                // User 정보 조회 성공
+                AuthManager.current.login(succeed)
+                self?.view?.showToast("로그인 성공.")
+            } else {
+                if code == .tokenExpiryDate {
+                    // TODO: 토큰 갱신
+                } else {
+                    Log.error(failed?.localizedDescription ?? "User Error")
+                    self?.loginError()
+                }
+            }
+        }
     }
 }

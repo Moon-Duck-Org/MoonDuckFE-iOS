@@ -9,45 +9,33 @@ import Alamofire
 
 // FIXME: - TEST CODE API
 class UserService {
-    func user(request: UserRequest, completion: @escaping (_ succeed: User?, _ failed: Error?) -> Void) {
-        completion(User(id: 0, deviceId: "test", nickname: "포덕이"), nil)
-        
-//        API.session.request(MoonDuckAPI.user(request))
-//            .responseDecodable { (response: AFDataResponse<UserResponse>) in
-//                switch response.result {
-//                case .success(let response):
-//                    completion(response.toDomain, nil)
-//                case .failure(let error):
-//                    completion(nil, error)
-//                }
-//            }
+    enum ResultCode: Int {
+        case success = 200              // 성공
+        case duplicateNickname = 400    // 중복된 닉네임
+        case tokenExpiryDate = 403      // 토큰 만료
     }
     
-//    func login(request: UserLoginRequest, completion: @escaping (_ succeed: Bool?, _ failed: Error?) -> Void) {
-//        completion(true, nil)
-        
-//        API.session.request(MoonDuckAPI.userLogin(request))
-//            .responseDecodable { (response: AFDataResponse<Bool>) in
-//                switch response.result {
-//                case .success(let response):
-//                    completion(response, nil)
-//                case .failure(let error):
-//                    completion(nil, error)
-//                }
-//            }
-//    }
+    func user(completion: @escaping (_ code: ResultCode?, _ succeed: UserV2?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.user)
+            .responseDecodable { (response: AFDataResponse<UserResponse>) in
+                switch response.result {
+                case .success(let response):
+                    completion(.success, response.toDomain, nil)
+                case .failure(let error):
+                    completion(ResultCode(rawValue: response.response?.statusCode ?? 0), nil, error)
+                }
+            }
+    }
     
-    func nickname(request: UserNicknameRequest, completion: @escaping (_ succeed: User?, _ failed: Error?) -> Void) {
-        completion(User(id: 0, deviceId: "test", nickname: "포덕이"), nil)
-        
-//        API.session.request(MoonDuckAPI.userNickname(request))
-//            .responseDecodable { (response: AFDataResponse<UserResponse>) in
-//                switch response.result {
-//                case .success(let response):
-//                    completion(response.toDomain, nil)
-//                case .failure(let error):
-//                    completion(nil, error)
-//                }
-//            }
+    func nickname(request: UserNicknameRequest, completion: @escaping (_ code: ResultCode?, _ succeed: UserNicknameResponse?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.userNickname(request))
+            .responseDecodable { (response: AFDataResponse<UserNicknameResponse>) in
+                switch response.result {
+                case .success(let response):
+                    completion(.success, response, nil)
+                case .failure(let error):
+                    completion(ResultCode(rawValue: response.response?.statusCode ?? 0), nil, error)
+                }
+            }
     }
 }

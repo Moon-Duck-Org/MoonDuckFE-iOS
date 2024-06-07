@@ -21,4 +21,16 @@ class AuthService {
                 }
             }
     }
+
+    func reissue(request: AuthReissueRequest, completion: @escaping (_ succeed: AuthReissueResponse?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.authReissue(request))
+            .responseDecodable { (response: AFDataResponse<AuthReissueResponse> ) in
+                switch response.result {
+                case .success(let response):
+                    completion(response, nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
+            }
+    }
 }

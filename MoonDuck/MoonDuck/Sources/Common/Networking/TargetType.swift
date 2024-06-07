@@ -12,7 +12,8 @@ protocol TargetType: URLRequestConvertible {
     var baseURL: URL { get }
     var method: HTTPMethod { get }
     var path: String { get }
-    var parameters: RequestParams { get }
+    var parameters: RequestParams? { get }
+    var headers: HTTPHeaders { get }
 }
 
 extension TargetType {
@@ -21,20 +22,23 @@ extension TargetType {
     func asURLRequest() throws -> URLRequest {
         let url = try baseURL.asURL()
         var urlRequest = try URLRequest(url: url.appendingPathComponent(path), method: method)
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.headers = headers
+//        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        switch parameters {
-        case .query(let request):
-            let params = request?.toDictionary() ?? [:]
-            let queryParams = params.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
-            var components = URLComponents(string: url.appendingPathComponent(path).absoluteString)
-            components?.queryItems = queryParams
-            urlRequest.url = components?.url
-        case .body(let request):
-            let params = request?.toDictionary() ?? [:]
-            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+        if let parameters {
+            switch parameters {
+            case .query(let request):
+                let params = request?.toDictionary() ?? [:]
+                let queryParams = params.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+                var components = URLComponents(string: url.appendingPathComponent(path).absoluteString)
+                components?.queryItems = queryParams
+                urlRequest.url = components?.url
+            case .body(let request):
+                let params = request?.toDictionary() ?? [:]
+                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+            }
         }
-
+        
         return urlRequest
     }
 }
@@ -50,18 +54,5 @@ extension Encodable {
               let jsonData = try? JSONSerialization.jsonObject(with: data),
               let dictionaryData = jsonData as? [String: Any] else { return [:] }
         return dictionaryData
-    }
-}
-
-extension String {
-    func toBool() -> Bool? {
-        if self == "true" {
-          return true
-        }
-        if self == "false" {
-          return false
-        }
-        return nil
-      
     }
 }

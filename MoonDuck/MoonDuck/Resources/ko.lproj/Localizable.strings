@@ -10,3 +10,7 @@
 "cancel" = "취소";
 "close" = "닫기";
 "alert_cancel_title" = "취소하시겠어요?";
+
+// 닉네임 설정
+"Special_characters are not allowed." = "특수문자는 사용 불가해요.";
+"Duplicate nickname." = "중복된 닉네임입니다.";

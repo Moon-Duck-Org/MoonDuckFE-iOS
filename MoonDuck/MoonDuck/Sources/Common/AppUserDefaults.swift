@@ -33,7 +33,6 @@ class AppUserDefaults {
         }
     }
     
-    
     /**
      # set
      - parameters:
@@ -46,5 +45,4 @@ class AppUserDefaults {
         let defaults = UserDefaults.standard
         defaults.set(value, forKey: key.rawValue)
     }
-    
 }
