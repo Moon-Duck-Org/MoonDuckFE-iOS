@@ -23,6 +23,7 @@ target 'MoonDuck' do
   pod 'Firebase/Messaging'
   pod 'Firebase/AppDistribution'
   pod 'Firebase/RemoteConfig'
+  pod 'Firebase/Auth'
   
   #Google
   pod 'GoogleSignIn'

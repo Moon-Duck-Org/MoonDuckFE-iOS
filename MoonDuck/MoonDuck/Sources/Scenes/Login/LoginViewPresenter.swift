@@ -9,13 +9,18 @@ import Foundation
 import UIKit
 
 import KakaoSDKUser
+import Firebase
+import FirebaseAuth
+import GoogleSignIn
 
 protocol LoginPresenter: AnyObject {
     var view: LoginView? { get set }
     
     func kakaoLoginButtonTap()
-    func googleLoginButtonTap()
     func appleLoginButtonTap()
+    
+    func googleLogin(result: GIDSignInResult?, error: Error?)
+    func loginError()
 }
 
 final class LoginViewPresenter: Presenter, LoginPresenter {
@@ -38,9 +43,25 @@ final class LoginViewPresenter: Presenter, LoginPresenter {
 
 // MARK: - Logic
 extension LoginViewPresenter {
-    private func loginError() {
+    func loginError() {
         Log.todo("로그인 오류 알럿 노출")
         view?.showToast("로그인에 실패하였습니다.")
+    }
+    
+    func googleLogin(result: GIDSignInResult?, error: Error?) {
+        if let error = error {
+            Log.error(error.localizedDescription)
+            loginError()
+            return
+        }
+        guard let id = result?.user.userID else {
+            self.view?.showToast("구글 아이디가 없습니다.")
+            loginError()
+            return
+        }
+        
+        let auth = Auth(loginType: .apple, id: String(id))
+        self.login(auth)
     }
 }
 
@@ -52,29 +73,31 @@ extension LoginViewPresenter {
                 if let error {
                     Log.error(error.localizedDescription)
                     self.loginError()
-                } else {
-                    if let oauthToken {
-                        self.kakaoUser(oauthToken.accessToken)
-                    } else {
-                        Log.error("oauthToken is nil.")
-                        self.loginError()
-                    }
+                    return
                 }
+                
+                guard let oauthToken else {
+                    Log.error("oauthToken is nil.")
+                    self.loginError()
+                    return
+                }
+                self.kakaoUser(oauthToken.accessToken)
             }
         } else {
             UserApi.shared.loginWithKakaoAccount { oauthToken, error in
                 if let error {
                     Log.error(error.localizedDescription)
                     self.loginError()
-                } else {
-                    Log.debug("loginWithKakaoTalk() success.")
-                    if let oauthToken {
-                        self.kakaoUser(oauthToken.accessToken)
-                    } else {
-                        Log.error("oauthToken is nil.")
-                        self.loginError()
-                    }
+                    return
                 }
+                
+                guard let oauthToken else {
+                    Log.error("oauthToken is nil.")
+                    self.loginError()
+                    return
+                }
+                
+                self.kakaoUser(oauthToken.accessToken)
             }
         }
     }
@@ -84,15 +107,16 @@ extension LoginViewPresenter {
             if let error {
                 Log.error(error.localizedDescription)
                 self.loginError()
-            } else {
-                Log.debug("UserApi.shared.me success.")
-                if let id = user?.id {
-                    let auth = Auth(loginType: .kakao, id: String(id))
-                    self.login(auth)
-                } else {
-                    self.view?.showToast("카카오 아이디가 없습니다.")
-                }
+                return
+            } 
+            
+            guard let id = user?.id else {
+                self.view?.showToast("카카오 아이디가 없습니다.")
+                return
             }
+            
+            let auth = Auth(loginType: .kakao, id: String(id))
+            self.login(auth)
         }
     }
     
@@ -109,6 +133,7 @@ extension LoginViewPresenter {
                     self.view?.moveNameSetting(with: presenter)
                 }
             } else {
+                Log.error(failed?.localizedDescription ?? "Login Error")
                 self.loginError()
             }
         }

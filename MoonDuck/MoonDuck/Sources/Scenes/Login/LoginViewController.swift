@@ -7,6 +7,10 @@
 
 import UIKit
 
+import Firebase
+import FirebaseAuth
+import GoogleSignIn
+
 protocol LoginView: AnyObject {
     func moveNameSetting(with presenter: NameSettingViewPresenter)
     
@@ -22,7 +26,7 @@ class LoginViewController: UIViewController, LoginView, Navigatable {
         presenter.kakaoLoginButtonTap()
     }
     @IBAction private func googleLoginButtonTap(_ sender: Any) {
-        presenter.googleLoginButtonTap()
+        googleLogin()
     }
     @IBAction private func appleLoginButtonTap(_ sender: Any) {
         presenter.appleLoginButtonTap()
@@ -49,6 +53,19 @@ class LoginViewController: UIViewController, LoginView, Navigatable {
 extension LoginViewController {
     func showToast(_ message: String) {
         showToast(message: message)
+    }
+    
+    func googleLogin() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else {
+            self.showToast("구글 클라이언트 아이디가 없습니다.")
+            return
+        }
+        
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
+            self.presenter.googleLogin(result: result, error: error)
+        }
     }
 }
 

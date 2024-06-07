@@ -34,7 +34,6 @@
 		A0E6584D2BFE3C0B001A8D54 /* XCAssets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E6584C2BFE3C0A001A8D54 /* XCAssets+Generated.swift */; };
 		A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E6584E2BFE3F6C001A8D54 /* IntroViewController.swift */; };
 		A0E658532BFE40F9001A8D54 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E658522BFE40F9001A8D54 /* LoadingView.swift */; };
-		A0F5B1EE2C0DEC9C00A4215A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0F5B1ED2C0DEC9C00A4215A /* GoogleService-Info.plist */; };
 		B1172CFFFCCD4092EAB9B177 /* Pods_MoonDuck_MoonDuckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */; };
 		EA33F75B2C0D7D0C00893C35 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA33F75A2C0D7D0C00893C35 /* Presenter.swift */; };
 		EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0B92C00F6D70041A8B4 /* TextField.swift */; };
@@ -65,6 +64,7 @@
 		EA7208512C128CE800E96212 /* AppKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208502C128CE800E96212 /* AppKeychain.swift */; };
 		EA7208532C1290C700E96212 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208522C1290C700E96212 /* AuthManager.swift */; };
 		EA7208552C12929700E96212 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208542C12929700E96212 /* Auth.swift */; };
+		EA7208572C129F2100E96212 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA7208562C129F2100E96212 /* GoogleService-Info.plist */; };
 		EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */; };
 		EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A82BFF716600FDC7A7 /* Category.swift */; };
 		EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */; };
@@ -161,7 +161,6 @@
 		A0E6584E2BFE3F6C001A8D54 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		A0E658522BFE40F9001A8D54 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A0F5B1EC2C0DEBC900A4215A /* MoonDuckDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoonDuckDebug.entitlements; sourceTree = "<group>"; };
-		A0F5B1ED2C0DEC9C00A4215A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoonDuck_MoonDuckUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD2F616893EF44F45B03BA4 /* Pods-MoonDuck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck/Pods-MoonDuck.debug.xcconfig"; sourceTree = "<group>"; };
 		DFBEA84FB81504AE187A5E07 /* Pods-MoonDuck-MoonDuckUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck-MoonDuckUITests/Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -194,6 +193,7 @@
 		EA7208502C128CE800E96212 /* AppKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeychain.swift; sourceTree = "<group>"; };
 		EA7208522C1290C700E96212 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		EA7208542C12929700E96212 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		EA7208562C129F2100E96212 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCategoryCell.swift; sourceTree = "<group>"; };
 		EA81F4A82BFF716600FDC7A7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCvDataSource.swift; sourceTree = "<group>"; };
@@ -351,9 +351,9 @@
 		A0E6582A2BFE240F001A8D54 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A0F5B1ED2C0DEC9C00A4215A /* GoogleService-Info.plist */,
-				A0E658342BFE35DD001A8D54 /* Font */,
 				A0E658082BFE22B9001A8D54 /* Info.plist */,
+				EA7208562C129F2100E96212 /* GoogleService-Info.plist */,
+				A0E658342BFE35DD001A8D54 /* Font */,
 				A0E658032BFE22B9001A8D54 /* Assets.xcassets */,
 				A0E658312BFE300D001A8D54 /* Color.xcassets */,
 				A0E6584A2BFE3C03001A8D54 /* Fonts+Generated.swift */,
@@ -736,7 +736,7 @@
 				EA5EA0C62C0119880041A8B4 /* BoardDetailViewController.xib in Resources */,
 				EAD9576E2C008ED5001FB6E1 /* LoginViewController.xib in Resources */,
 				A0E658452BFE36A5001A8D54 /* NotoSansCJKkr-Bold.otf in Resources */,
-				A0F5B1EE2C0DEC9C00A4215A /* GoogleService-Info.plist in Resources */,
+				EA7208572C129F2100E96212 /* GoogleService-Info.plist in Resources */,
 				A0E658042BFE22B9001A8D54 /* Assets.xcassets in Resources */,
 				A0E658322BFE300D001A8D54 /* Color.xcassets in Resources */,
 				A0E658432BFE36A5001A8D54 /* NotoSansMonoCJKkr-Bold.otf in Resources */,

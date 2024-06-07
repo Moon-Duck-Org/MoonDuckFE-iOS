@@ -42,7 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     func application(
         _ app: UIApplication,
-        open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+        open url: URL, 
+        options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     ) -> Bool {
         var handled: Bool
         
@@ -51,7 +52,6 @@ extension AppDelegate {
             // Handle other custom URL types.
             return true
         }
-        
         
         // If not handled by this app, return false.
         return false
