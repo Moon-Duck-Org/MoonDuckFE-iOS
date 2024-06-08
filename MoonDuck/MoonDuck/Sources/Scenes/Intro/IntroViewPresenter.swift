@@ -28,8 +28,9 @@ extension IntroViewPresenter {
     }
     
     private func checkAutoLogin() {
-        if AuthManager.current.autoLogin() {
-            getUser()
+        if let auth = AuthManager.current.getAutoLoginData() {
+            // 자동 로그인 가능 시, 로그인 시도
+            login(auth)
         } else {
             moveLogin()
         }
@@ -44,36 +45,41 @@ extension IntroViewPresenter {
 // MARK: - Networking
 extension IntroViewPresenter {
     
-    private func getUser() {
-        provider.userService.user { [weak self] code, succeed, failed in
+    private func login(_ auth: Auth) {
+        let request = AuthLoginRequest(dvsnCd: auth.loginType.rawValue, id: auth.id)
+        provider.authService.login(request: request) { [weak self] succeed, failed in
             guard let self else { return }
-            if let succeed {
-                // User 정보 조회 성공
-                AuthManager.current.login(succeed)
-                self.view?.showToast("자동 로그인 성공.")
-                
-                let presenter = V2HomeViewPresenter(with: self.provider)
-                self.view?.moveHome(with: presenter)
+            
+            if let succeed, succeed.isHaveNickname {
+                // 앱에 토큰 및 로그인 정보 저장
+                AuthManager.current.saveAuth(auth)
+                AuthManager.current.saveToken(
+                    Token(accessToken: succeed.accessToken,
+                          refreshToken: succeed.refreshToken)
+                )
+                self.getUser()
             } else {
-                if code == .tokenExpiryDate {
-                    self.refreshToken()
-                } else {
-                    Log.error(failed?.localizedDescription ?? "User Error")
-                    AuthManager.current.removeToken()
-                    self.moveLogin()
-                }
+                Log.error(failed?.localizedDescription ?? "Login Error")
+                self.moveLogin()
             }
         }
     }
     
-    private func refreshToken() {
-        AuthManager.current.refreshToken(provider.authService) { [weak self] code in
-            if code == .success {
-                self?.getUser()
+    private func getUser() {
+        provider.userService.user { [weak self] succeed, failed in
+            guard let self else { return }
+            if let succeed {
+                // User 정보 조회 성공
+                AuthManager.current.saveUser(succeed)
+                
+                let presenter = V2HomeViewPresenter(with: self.provider)
+                self.view?.moveHome(with: presenter)
             } else {
-                Log.error("토큰 갱신 오류 \(code)")
-                self?.view?.showToast("토큰 갱신 실패")
-                self?.moveLogin()
+                // User 정보 조회 실패
+                Log.error(failed?.localizedDescription ?? "User Error")
+                AuthManager.current.removeToken()
+                AuthManager.current.removeAuth()
+                self.moveLogin()
             }
         }
     }

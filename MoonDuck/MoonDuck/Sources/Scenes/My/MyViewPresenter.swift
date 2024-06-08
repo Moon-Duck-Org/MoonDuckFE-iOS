@@ -30,25 +30,47 @@ extension MyViewPresenter {
     func viewDidLoad() {
         getUser()
     }
+    
+    private func moveLogin() {
+        let presenter = LoginViewPresenter(with: self.provider)
+        self.view?.moveLogin(with: presenter)
+    }
 }
 
 // MARK: - Networking
 extension MyViewPresenter {
     private func getUser() {
-        provider.userService.user { [weak self] code, succeed, failed in
+        provider.userService.user { [weak self] succeed, failed in
             guard let self else { return }
             if let succeed {
                 // User 정보 조회 성공
-                AuthManager.current.update(succeed)
+                AuthManager.current.saveUser(succeed)
                 
                 self.view?.updateCountLabel(movie: succeed.movie, book: succeed.book, drama: succeed.drama, concert: succeed.concert)
             } else {
-                if code == .tokenExpiryDate {
-                    // TODO: 토큰 갱신
-                } else {
-                    Log.error(failed?.localizedDescription ?? "User Error")
-                    self.networkError()
+                // 오류 발생
+                if let code = failed as? APIError {
+                    if code.isAuthError {
+                        Log.error("Auth Error \(code)")
+                        self.moveLogin()
+                        return
+                    }
+                    
+                    if code.neededRefreshToken {
+                        AuthManager.current.refreshToken(self.provider.authService) { [weak self] code in
+                            if code == .success {
+                                self?.getUser()
+                            } else {
+                                Log.error("토큰 갱신 오류 \(code)")
+                                self?.moveLogin()
+                            }
+                        }
+                        return
+                    }
+                    
                 }
+                Log.error(failed?.localizedDescription ?? "Nickname Error")
+                self.networkError()
             }
         }
     }

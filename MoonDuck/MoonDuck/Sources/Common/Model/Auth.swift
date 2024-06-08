@@ -17,3 +17,8 @@ struct Auth {
     let loginType: SnsLoginType
     let id: String
 }
+
+struct Token {
+    let accessToken: String
+    let refreshToken: String
+}

@@ -10,6 +10,8 @@ import UIKit
 protocol MyView: AnyObject {
     func showToast(_ message: String)
     func updateCountLabel(movie: Int, book: Int, drama: Int, concert: Int)
+    
+    func moveLogin(with presenter: LoginViewPresenter)
 }
 
 class MyViewController: UIViewController, MyView, Navigatable {
@@ -76,5 +78,9 @@ extension MyViewController {
 extension MyViewController {
     private func back() {
         navigator.pop(sender: self)
+    }
+    
+    func moveLogin(with presenter: LoginViewPresenter) {
+        navigator.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
 }

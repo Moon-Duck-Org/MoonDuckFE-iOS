@@ -50,12 +50,12 @@ extension LoginViewPresenter {
         }
         
         let auth = Auth(loginType: .google, id: String(id))
-        self.login(auth)
+        login(auth)
     }
     
     func appleLogin(id: String) {
         let auth = Auth(loginType: .apple, id: id)
-        self.login(auth)
+        login(auth)
     }
     
     func loginError() {
@@ -126,8 +126,12 @@ extension LoginViewPresenter {
             guard let self else { return }
             
             if let succeed {
-                // 로그인 성공 자동 로그인 / token 저장
-                AuthManager.current.saveToken(succeed.accessToken, succeed.refreshToken)
+                // 앱에 토큰 및 로그인 정보 저장
+                AuthManager.current.saveAuth(auth)
+                AuthManager.current.saveToken(
+                    Token(accessToken: succeed.accessToken,
+                          refreshToken: succeed.refreshToken)
+                )
                 if succeed.isHaveNickname {
                     self.getUser()
                 } else {
@@ -142,22 +146,20 @@ extension LoginViewPresenter {
     }
     
     private func getUser() {
-        provider.userService.user { [weak self] code, succeed, failed in
+        provider.userService.user { [weak self] succeed, failed in
             guard let self else { return }
             if let succeed {
                 // User 정보 조회 성공
-                AuthManager.current.login(succeed)
-                self.view?.showToast("로그인 성공.")
+                AuthManager.current.saveUser(succeed)
                 
                 let presenter = V2HomeViewPresenter(with: self.provider)
                 self.view?.moveHome(with: presenter)
             } else {
-                if code == .tokenExpiryDate {
-                    // TODO: 토큰 갱신
-                } else {
-                    Log.error(failed?.localizedDescription ?? "User Error")
-                    self.loginError()
-                }
+                // User 정보 조회 실패
+                Log.error(failed?.localizedDescription ?? "User Error")
+                AuthManager.current.removeToken()
+                AuthManager.current.removeAuth()
+                self.loginError()
             }
         }
     }

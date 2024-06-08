@@ -110,7 +110,7 @@ extension MoonDuckAPI: TargetType {
         case .authLogin, .authReissue:
             return ["Content-Type": "application/json"]
         case .user, .userNickname:
-            if let token: String = AuthManager.current.getToken() {
+            if let token: String = AuthManager.current.getAccessToken() {
                 return ["Content-Type": "application/json", "Authorization": "Bearer \(token)"]
             } else {
                 return ["Content-Type": "application/json"]

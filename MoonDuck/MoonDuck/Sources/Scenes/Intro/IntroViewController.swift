@@ -11,6 +11,7 @@ protocol IntroView: AnyObject {
     func showToast(_ message: String)
     
     func moveLogin(with presenter: LoginViewPresenter)
+    func moveNameSetting(with presenter: NameSettingViewPresenter)
     func moveHome(with presenter: V2HomeViewPresenter)
 }
 
@@ -49,6 +50,10 @@ extension IntroViewController {
 extension IntroViewController {
     func moveLogin(with presenter: LoginViewPresenter) {
         navigator.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
+    }
+    
+    func moveNameSetting(with presenter: NameSettingViewPresenter) {
+        navigator.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
     }
     
     func moveHome(with presenter: V2HomeViewPresenter) {

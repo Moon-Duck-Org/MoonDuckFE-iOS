@@ -18,4 +18,9 @@ struct AuthLoginResponse: Decodable {
 struct AuthReissueResponse: Decodable {
     let accessToken: String
     let refreshToken: String
+    
+    var toDomain: Token {
+        return Token(accessToken: accessToken,
+                     refreshToken: refreshToken)
+    }
 }

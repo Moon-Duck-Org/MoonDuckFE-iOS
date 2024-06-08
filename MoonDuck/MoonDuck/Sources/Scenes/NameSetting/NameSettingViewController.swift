@@ -14,6 +14,7 @@ protocol NameSettingView: AnyObject {
     func updateCountLabel(_ cnt: Int)
     func updateCompleteButton(_ isEnabled: Bool)
     
+    func moveLogin(with presenter: LoginViewPresenter)
     func moveHome(with presenter: V2HomeViewPresenter)
 }
 
@@ -113,6 +114,10 @@ extension NameSettingViewController: UITextFieldDelegate {
 
 // MARK: - Navigation
 extension NameSettingViewController {
+    func moveLogin(with presenter: LoginViewPresenter) {
+        navigator.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
+    }
+    
     func moveHome(with presenter: V2HomeViewPresenter) {
         navigator.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }

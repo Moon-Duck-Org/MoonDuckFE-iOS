@@ -47,6 +47,5 @@ class AppKeychain {
 }
 
 extension KeychainWrapper.Key {
-    static let accessToken: KeychainWrapper.Key = "accessToken"
-    static let refreshToken: KeychainWrapper.Key = "refreshToken"
+    static let snsId: KeychainWrapper.Key = "snsId"
 }

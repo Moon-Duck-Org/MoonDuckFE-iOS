@@ -8,32 +8,46 @@
 import Alamofire
 
 class UserService {
-    enum ResultCode: Int {
-        case success = 200              // 성공
-        case duplicateNickname = 400    // 중복된 닉네임
-        case tokenExpiryDate = 403      // 토큰 만료
-    }
-    
-    func user(completion: @escaping (_ code: ResultCode?, _ succeed: UserV2?, _ failed: Error?) -> Void) {
+    func user(completion: @escaping (_ succeed: UserV2?, _ failed: Error?) -> Void) {
         API.session.request(MoonDuckAPI.user)
             .responseDecodable { (response: AFDataResponse<UserResponse>) in
                 switch response.result {
                 case .success(let response):
-                    completion(.success, response.toDomain, nil)
+                    completion(response.toDomain, nil)
                 case .failure(let error):
-                    completion(ResultCode(rawValue: response.response?.statusCode ?? 0), nil, error)
+                    if let errorData = response.data {
+                        do {
+                            let decodeError = try JSONDecoder().decode(ErrorEntity.self, from: errorData)
+                            let apiError = APIError(error: decodeError)
+                            completion(nil, apiError)
+                        } catch {
+                            completion(nil, APIError.decodingError)
+                        }
+                    } else {
+                        completion(nil, error)
+                    }
                 }
             }
     }
     
-    func nickname(request: UserNicknameRequest, completion: @escaping (_ code: ResultCode?, _ succeed: UserNicknameResponse?, _ failed: Error?) -> Void) {
+    func nickname(request: UserNicknameRequest, completion: @escaping (_ succeed: UserNicknameResponse?, _ failed: Error?) -> Void) {
         API.session.request(MoonDuckAPI.userNickname(request))
             .responseDecodable { (response: AFDataResponse<UserNicknameResponse>) in
                 switch response.result {
                 case .success(let response):
-                    completion(.success, response, nil)
+                    completion(response, nil)
                 case .failure(let error):
-                    completion(ResultCode(rawValue: response.response?.statusCode ?? 0), nil, error)
+                    if let errorData = response.data {
+                        do {
+                            let decodeError = try JSONDecoder().decode(ErrorEntity.self, from: errorData)
+                            let apiError = APIError(error: decodeError)
+                            completion(nil, apiError)
+                        } catch {
+                            completion(nil, APIError.decodingError)
+                        }
+                    } else {
+                        completion(nil, error)
+                    }
                 }
             }
     }
