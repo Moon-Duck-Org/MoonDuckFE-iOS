@@ -21,13 +21,8 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="MoonDuck" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="V2HomeViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
-                <outlet property="boardEmptyView" destination="lZO-AC-av6" id="7i0-lP-hHB"/>
-                <outlet property="boardTableView" destination="IeJ-hE-v5h" id="8lO-2k-p4E"/>
-                <outlet property="categoryCollectionView" destination="dTc-CL-Im9" id="zLR-gA-kzu"/>
-                <outlet property="historyCountLabel" destination="YBa-HC-796" id="aFC-Kz-RAg"/>
-                <outlet property="sortLabel" destination="uzQ-cp-Rmk" id="8CF-AB-zaJ"/>
                 <outlet property="view" destination="EKg-iH-Kx3" id="CWf-yP-9un"/>
             </connections>
         </placeholder>
@@ -63,6 +58,9 @@
                             <buttonConfiguration key="configuration" style="plain" image="My">
                                 <backgroundConfiguration key="background"/>
                             </buttonConfiguration>
+                            <connections>
+                                <action selector="myButtonTap:" destination="-1" eventType="touchUpInside" id="k3s-wQ-PcP"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" name="White"/>
@@ -131,9 +129,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="64.666666666666671" height="24"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain"/>
-                                    <connections>
-                                        <action selector="sortButtonTap:" destination="-1" eventType="touchUpInside" id="rIB-Lz-gOh"/>
-                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -173,7 +168,7 @@
                     <rect key="frame" x="0.0" y="264" width="393" height="588"/>
                     <color key="backgroundColor" name="White"/>
                 </tableView>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZO-AC-av6">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZO-AC-av6">
                     <rect key="frame" x="0.0" y="264" width="393" height="588"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7l1-gn-ugz">
@@ -230,9 +225,6 @@
                     </constraints>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="FloatingButton"/>
-                    <connections>
-                        <action selector="createReviewButtonTap:" destination="-1" eventType="touchUpInside" id="jLM-Ao-5Cy"/>
-                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="LeH-dl-Ksy"/>

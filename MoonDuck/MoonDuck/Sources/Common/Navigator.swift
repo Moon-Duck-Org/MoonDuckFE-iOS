@@ -30,7 +30,7 @@ class Navigator {
         case intro(presenter: IntroViewPresenter)
         case login(presenter: LoginViewPresenter)
         case nameSetting(presenter: NameSettingViewPresenter)
-        case home(presenter: HomeViewPresenter)
+        case home(presenter: V2HomeViewPresenter)
         case boardDetail(presenter: BoardDetailViewPresenter)
         case boardEdit(presenter: BoardEditViewPresenter)
     }
@@ -53,7 +53,7 @@ class Navigator {
         case .nameSetting(let presenter):
             return NameSettingViewController(navigator: self, presenter: presenter)
         case .home(let presenter):
-            return HomeViewController(navigator: self, presenter: presenter)
+            return V2HomeViewController(navigator: self, presenter: presenter)
         case .boardDetail(let presenter):
             return BoardDetailViewController(navigator: self, presenter: presenter)
         case .boardEdit(let presenter):

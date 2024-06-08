@@ -10,12 +10,12 @@ import Combine
 
 protocol NameSettingView: AnyObject {
     func showToast(_ message: String)
-    func showErrorText(_ hint: String)
-    func clearErrorText()
-    func updateCountText(_ cnt: Int)
-    func updateCompleteButton(isEnabled: Bool)
+    func showHintLabel(_ hint: String)
+    func clearHintLabel()
+    func updateCountLabel(_ cnt: Int)
+    func updateCompleteButton(_ isEnabled: Bool)
     
-    func moveHome(with presenter: HomeViewPresenter)
+    func moveHome(with presenter: V2HomeViewPresenter)
 }
 
 class NameSettingViewController: UIViewController, NameSettingView, Navigatable {
@@ -27,15 +27,16 @@ class NameSettingViewController: UIViewController, NameSettingView, Navigatable 
     @IBOutlet weak private var completeButton: UIButton!
     @IBOutlet weak private var nameTextField: TextField!
     @IBOutlet weak private var hintLabel: UILabel!
-    @IBOutlet weak private var cntLabel: UILabel!
+    @IBOutlet weak private var countLabel: UILabel!
     
     // IBAction
     @IBAction private func completeButtonTap(_ sender: Any) {
-        completeButtonTap()
+        view.endEditing(true)
+        presenter.completeButtonTap()
     }
     
     @IBAction private func nameTextFieldDidChanges(_ sender: Any) {
-        presenter.changeNameText(nameTextField.text)
+        presenter.nameTextFieldDidChanges(nameTextField.text)
     }
     
     init(navigator: Navigator,
@@ -58,7 +59,6 @@ class NameSettingViewController: UIViewController, NameSettingView, Navigatable 
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
-        presenter.checkValidName()
     }
 }
 
@@ -68,27 +68,22 @@ extension NameSettingViewController {
         showToast(message: message)
     }
     
-    func showErrorText(_ hint: String) {
+    func showHintLabel(_ hint: String) {
         nameTextField.error()
         hintLabel.text = hint
     }
     
-    func clearErrorText() {
+    func clearHintLabel() {
         nameTextField.normal()
         hintLabel.text = ""
     }
     
-    func updateCountText(_ cnt: Int) {
-        cntLabel.text = "\(cnt)/10"
+    func updateCountLabel(_ count: Int) {
+        countLabel.text = "\(count)/10"
     }
     
-    func updateCompleteButton(isEnabled: Bool) {
+    func updateCompleteButton(_ isEnabled: Bool) {
         completeButton.isEnabled = isEnabled
-    }
-    
-    private func completeButtonTap() {
-        view.endEditing(true)
-        presenter.completeNameSetting()
     }
 }
 
@@ -108,18 +103,18 @@ extension NameSettingViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        presenter.checkValidName()
+        presenter.textFieldDidEndEditing()
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        clearErrorText()
+        clearHintLabel()
         return true
     }
 }
 
 // MARK: - Navigation
 extension NameSettingViewController {
-    func moveHome(with presenter: HomeViewPresenter) {
+    func moveHome(with presenter: V2HomeViewPresenter) {
         navigator.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
 }

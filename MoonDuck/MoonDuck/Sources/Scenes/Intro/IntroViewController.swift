@@ -11,7 +11,7 @@ protocol IntroView: AnyObject {
     func showToast(_ message: String)
     
     func moveLogin(with presenter: LoginViewPresenter)
-    func moveHome(with presenter: HomeViewPresenter)
+    func moveHome(with presenter: V2HomeViewPresenter)
 }
 
 class IntroViewController: UIViewController, IntroView, Navigatable {
@@ -51,7 +51,7 @@ extension IntroViewController {
         navigator.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
     
-    func moveHome(with presenter: HomeViewPresenter) {
+    func moveHome(with presenter: V2HomeViewPresenter) {
         navigator.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
 }

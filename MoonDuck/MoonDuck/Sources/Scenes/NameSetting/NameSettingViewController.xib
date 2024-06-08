@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -19,8 +18,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NameSettingViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
-                <outlet property="cntLabel" destination="cXV-vI-GaM" id="ekA-3H-dyj"/>
                 <outlet property="completeButton" destination="XAw-RU-SFO" id="yix-AL-Sc5"/>
+                <outlet property="countLabel" destination="cXV-vI-GaM" id="ekA-3H-dyj"/>
                 <outlet property="hintLabel" destination="1L8-sQ-oPx" id="nO4-Qo-jc3"/>
                 <outlet property="nameTextField" destination="QT4-G2-tM2" id="G7e-Wt-ISj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -35,7 +34,7 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="47"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XAw-RU-SFO">
-                            <rect key="frame" x="343" y="4" width="34" height="39"/>
+                            <rect key="frame" x="345" y="7" width="32" height="33"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="18"/>
                             <color key="tintColor" name="Blue"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -50,7 +49,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임 설정" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gve-qC-cq7">
-                            <rect key="frame" x="152.66666666666666" y="10.33333333333333" width="88" height="26.666666666666671"/>
+                            <rect key="frame" x="155" y="13" width="83" height="21"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="18"/>
                             <color key="textColor" name="Black"/>
                             <nil key="highlightedColor"/>
@@ -71,13 +70,13 @@
                     <rect key="frame" x="0.0" y="106" width="393" height="712"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="어떻게 불러드릴까요?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqk-Sl-kR6">
-                            <rect key="frame" x="22" y="50.999999999999993" width="163.33333333333334" height="26.666666666666664"/>
+                            <rect key="frame" x="22" y="51" width="155.33333333333334" height="21"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="18"/>
                             <color key="textColor" name="Black"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="닉네임을 입력해주세요." minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QT4-G2-tM2" customClass="TextField" customModule="MoonDuck" customModuleProvider="target">
-                            <rect key="frame" x="16" y="87.666666666666657" width="361" height="57"/>
+                            <rect key="frame" x="16" y="82" width="361" height="57"/>
                             <color key="backgroundColor" name="Gray3"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="57" id="PUr-H4-c6Q"/>
@@ -89,13 +88,13 @@
                             </connections>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXV-vI-GaM">
-                            <rect key="frame" x="350.33333333333331" y="148.66666666666666" width="21.666666666666686" height="15"/>
+                            <rect key="frame" x="351.66666666666669" y="143" width="20.333333333333314" height="11.666666666666657"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="10"/>
                             <color key="textColor" name="Black"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1L8-sQ-oPx">
-                            <rect key="frame" x="31" y="145.66666666666666" width="4" height="21"/>
+                            <rect key="frame" x="31" y="140" width="4" height="16.333333333333343"/>
                             <attributedString key="attributedText">
                                 <fragment content=" ">
                                     <attributes>

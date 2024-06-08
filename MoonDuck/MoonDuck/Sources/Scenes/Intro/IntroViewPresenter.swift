@@ -11,6 +11,7 @@ import UIKit
 protocol IntroPresenter: AnyObject {
     var view: IntroView? { get set }
     
+    /// Life Cycle
     func viewDidLoad()
 }
 
@@ -33,29 +34,33 @@ extension IntroViewPresenter {
             moveLogin()
         }
     }
-}
-
-// MARK: - Networking
-extension IntroViewPresenter {
     
     private func moveLogin() {
         let presenter = LoginViewPresenter(with: self.provider)
         self.view?.moveLogin(with: presenter)
     }
+}
+
+// MARK: - Networking
+extension IntroViewPresenter {
     
     private func getUser() {
         provider.userService.user { [weak self] code, succeed, failed in
+            guard let self else { return }
             if let succeed {
                 // User 정보 조회 성공
                 AuthManager.current.login(succeed)
-                self?.view?.showToast("자동 로그인 성공.")
+                self.view?.showToast("자동 로그인 성공.")
+                
+                let presenter = V2HomeViewPresenter(with: self.provider)
+                self.view?.moveHome(with: presenter)
             } else {
                 if code == .tokenExpiryDate {
-                    self?.refreshToken()
+                    self.refreshToken()
                 } else {
                     Log.error(failed?.localizedDescription ?? "User Error")
                     AuthManager.current.removeToken()
-                    self?.moveLogin()
+                    self.moveLogin()
                 }
             }
         }

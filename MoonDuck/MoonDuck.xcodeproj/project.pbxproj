@@ -39,6 +39,7 @@
 		EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0B92C00F6D70041A8B4 /* TextField.swift */; };
 		EA5EA0C52C0119880041A8B4 /* BoardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0C32C0119880041A8B4 /* BoardDetailViewController.swift */; };
 		EA5EA0C62C0119880041A8B4 /* BoardDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5EA0C42C0119880041A8B4 /* BoardDetailViewController.xib */; };
+		EA61048D2C14756F00CAC460 /* V2HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA61048C2C14756F00CAC460 /* V2HomeViewController.swift */; };
 		EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379C42BFEF3FA00464A19 /* Navigator.swift */; };
 		EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379C72BFEF49800464A19 /* BaseNavigationController.swift */; };
 		EA6379CA2BFEF73500464A19 /* IntroViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379C92BFEF73500464A19 /* IntroViewPresenter.swift */; };
@@ -48,7 +49,7 @@
 		EA6379D72BFF2B2D00464A19 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379D62BFF2B2D00464A19 /* TargetType.swift */; };
 		EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379DE2BFF2D6900464A19 /* UserService.swift */; };
 		EA6379E12BFF2E5300464A19 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379E02BFF2E5300464A19 /* UserResponse.swift */; };
-		EA6379E42BFF33C500464A19 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA6379E32BFF33C500464A19 /* HomeViewController.xib */; };
+		EA6379E42BFF33C500464A19 /* V2HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA6379E32BFF33C500464A19 /* V2HomeViewController.xib */; };
 		EA6379E52BFF33C500464A19 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379E22BFF33C500464A19 /* HomeViewController.swift */; };
 		EA6379E72BFF342F00464A19 /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379E62BFF342F00464A19 /* HomeViewPresenter.swift */; };
 		EA6379E92BFF359100464A19 /* NSObjectProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6379E82BFF359100464A19 /* NSObjectProtocol+Extension.swift */; };
@@ -106,6 +107,7 @@
 		EAE017EA2C01F01800699145 /* BoardEditViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017E92C01F01800699145 /* BoardEditViewPresenter.swift */; };
 		EAE017EC2C01FBD600699145 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017EB2C01FBD600699145 /* TextView.swift */; };
 		EAE017EE2C02015900699145 /* UIKeyboardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017ED2C02015900699145 /* UIKeyboardInfo.swift */; };
+		EAF78EFB2C14762400EFBCB0 /* V2HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF78EFA2C14762400EFBCB0 /* V2HomeViewPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +171,7 @@
 		EA5EA0B92C00F6D70041A8B4 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		EA5EA0C32C0119880041A8B4 /* BoardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDetailViewController.swift; sourceTree = "<group>"; };
 		EA5EA0C42C0119880041A8B4 /* BoardDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardDetailViewController.xib; sourceTree = "<group>"; };
+		EA61048C2C14756F00CAC460 /* V2HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2HomeViewController.swift; sourceTree = "<group>"; };
 		EA6379C42BFEF3FA00464A19 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		EA6379C72BFEF49800464A19 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		EA6379C92BFEF73500464A19 /* IntroViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewPresenter.swift; sourceTree = "<group>"; };
@@ -179,7 +182,7 @@
 		EA6379DE2BFF2D6900464A19 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		EA6379E02BFF2E5300464A19 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		EA6379E22BFF33C500464A19 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		EA6379E32BFF33C500464A19 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		EA6379E32BFF33C500464A19 /* V2HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V2HomeViewController.xib; sourceTree = "<group>"; };
 		EA6379E62BFF342F00464A19 /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
 		EA6379E82BFF359100464A19 /* NSObjectProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObjectProtocol+Extension.swift"; sourceTree = "<group>"; };
 		EA6D9A722BFF67A0003B459A /* HomeCategoryCvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCvCell.swift; sourceTree = "<group>"; };
@@ -238,6 +241,7 @@
 		EAE017E92C01F01800699145 /* BoardEditViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardEditViewPresenter.swift; sourceTree = "<group>"; };
 		EAE017EB2C01FBD600699145 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		EAE017ED2C02015900699145 /* UIKeyboardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKeyboardInfo.swift; sourceTree = "<group>"; };
+		EAF78EFA2C14762400EFBCB0 /* V2HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2HomeViewPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -402,8 +406,10 @@
 				A0E658302BFE2F18001A8D54 /* Intro */,
 				EAD9576A2C008EB6001FB6E1 /* Login */,
 				EA9A84212C00BBAE004B7FDF /* NameSetting */,
+				EA61048B2C14755C00CAC460 /* HomeV2 */,
 				EAC703A32BFECBC700E99378 /* Home */,
 				EA5EA0C02C0119650041A8B4 /* Board */,
+				EAF78EFD2C14806A00EFBCB0 /* My */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -468,6 +474,16 @@
 				EAA914CF2C022D7700A98950 /* ReviewEditCategoryCvDataSource.swift */,
 			);
 			path = Board;
+			sourceTree = "<group>";
+		};
+		EA61048B2C14755C00CAC460 /* HomeV2 */ = {
+			isa = PBXGroup;
+			children = (
+				EAF78EFC2C147CD100EFBCB0 /* DataSource */,
+				EA61048C2C14756F00CAC460 /* V2HomeViewController.swift */,
+				EAF78EFA2C14762400EFBCB0 /* V2HomeViewPresenter.swift */,
+			);
+			path = HomeV2;
 			sourceTree = "<group>";
 		};
 		EA6379CD2BFF1C4000464A19 /* Request */ = {
@@ -589,7 +605,7 @@
 			children = (
 				A07826A92BFFA91000D7BA63 /* DataSource */,
 				EA6D9A712BFF6026003B459A /* Cell */,
-				EA6379E32BFF33C500464A19 /* HomeViewController.xib */,
+				EA6379E32BFF33C500464A19 /* V2HomeViewController.xib */,
 				EA6379E22BFF33C500464A19 /* HomeViewController.swift */,
 				EA6379E62BFF342F00464A19 /* HomeViewPresenter.swift */,
 			);
@@ -614,6 +630,20 @@
 				EAE017E92C01F01800699145 /* BoardEditViewPresenter.swift */,
 			);
 			path = Edit;
+			sourceTree = "<group>";
+		};
+		EAF78EFC2C147CD100EFBCB0 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		EAF78EFD2C14806A00EFBCB0 /* My */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = My;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -751,7 +781,7 @@
 				EAE017E72C01E6D100699145 /* BoardEditViewController.xib in Resources */,
 				A0E658072BFE22B9001A8D54 /* Base in Resources */,
 				A0E658492BFE394F001A8D54 /* .swiftlint.yml in Resources */,
-				EA6379E42BFF33C500464A19 /* HomeViewController.xib in Resources */,
+				EA6379E42BFF33C500464A19 /* V2HomeViewController.xib in Resources */,
 				A0E658462BFE36A5001A8D54 /* NotoSansCJKkr-Medium.otf in Resources */,
 				A0E658422BFE36A5001A8D54 /* NotoSansCJKkr-Light.otf in Resources */,
 				A0E658022BFE22B7001A8D54 /* Base in Resources */,
@@ -955,6 +985,7 @@
 				EAE017D12C01935700699145 /* ReviewService.swift in Sources */,
 				EA5EA0C52C0119880041A8B4 /* BoardDetailViewController.swift in Sources */,
 				EA6379D22BFF295C00464A19 /* OSLog+Extension.swift in Sources */,
+				EAF78EFB2C14762400EFBCB0 /* V2HomeViewPresenter.swift in Sources */,
 				A07826AD2BFFAB6300D7BA63 /* BoardListTvCell.swift in Sources */,
 				EA9A84422C00DD08004B7FDF /* Strings+Generated.swift in Sources */,
 				EAA914D72C02382400A98950 /* UIViewController+Extension.swift in Sources */,
@@ -979,6 +1010,7 @@
 				EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */,
 				EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */,
 				EA33F75B2C0D7D0C00893C35 /* Presenter.swift in Sources */,
+				EA61048D2C14756F00CAC460 /* V2HomeViewController.swift in Sources */,
 				A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */,
 				EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */,
 				EAE017D92C01C11B00699145 /* BoardDetailViewPresenter.swift in Sources */,

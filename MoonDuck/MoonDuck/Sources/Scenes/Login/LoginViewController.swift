@@ -16,6 +16,7 @@ protocol LoginView: AnyObject {
     func showToast(_ message: String)
     
     func moveNameSetting(with presenter: NameSettingViewPresenter)
+    func moveHome(with presenter: V2HomeViewPresenter)
 }
 
 class LoginViewController: UIViewController, LoginView, Navigatable {
@@ -116,5 +117,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
 extension LoginViewController {
     func moveNameSetting(with presenter: NameSettingViewPresenter) {
         navigator.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
+    }
+    
+    func moveHome(with presenter: V2HomeViewPresenter) {
+        navigator.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
 }

@@ -17,9 +17,8 @@ import AuthenticationServices
 protocol LoginPresenter: AnyObject {
     var view: LoginView? { get set }
     
+    /// Action
     func kakaoLoginButtonTap()
-    func appleLoginButtonTap()
-    
     func googleLogin(result: GIDSignInResult?, error: Error?)
     func appleLogin(id: String)
     func loginError()
@@ -37,10 +36,6 @@ extension LoginViewPresenter {
         kakaoLogin()
     }
     
-    func appleLoginButtonTap() {
-        
-    }
-    
     func googleLogin(result: GIDSignInResult?, error: Error?) {
         if let error = error {
             Log.error(error.localizedDescription)
@@ -48,6 +43,7 @@ extension LoginViewPresenter {
             return
         }
         guard let id = result?.user.userID else {
+            Log.error("userID is nil.")
             self.view?.showToast("구글 아이디가 없습니다.")
             loginError()
             return
@@ -114,6 +110,7 @@ extension LoginViewPresenter {
             } 
             
             guard let id = user?.id else {
+                Log.error("user.id is nil.")
                 self?.view?.showToast("카카오 아이디가 없습니다.")
                 return
             }
@@ -146,16 +143,20 @@ extension LoginViewPresenter {
     
     private func getUser() {
         provider.userService.user { [weak self] code, succeed, failed in
+            guard let self else { return }
             if let succeed {
                 // User 정보 조회 성공
                 AuthManager.current.login(succeed)
-                self?.view?.showToast("로그인 성공.")
+                self.view?.showToast("로그인 성공.")
+                
+                let presenter = V2HomeViewPresenter(with: self.provider)
+                self.view?.moveHome(with: presenter)
             } else {
                 if code == .tokenExpiryDate {
                     // TODO: 토큰 갱신
                 } else {
                     Log.error(failed?.localizedDescription ?? "User Error")
-                    self?.loginError()
+                    self.loginError()
                 }
             }
         }
