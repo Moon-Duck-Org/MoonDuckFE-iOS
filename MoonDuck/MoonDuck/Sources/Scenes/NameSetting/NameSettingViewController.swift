@@ -11,9 +11,12 @@ protocol NameSettingView: AnyObject {
     func showToast(_ message: String)
     func showHintLabel(_ hint: String)
     func clearHintLabel()
+    
+    func updateNameTextfield(_ text: String)
     func updateCountLabel(_ cnt: Int)
     func updateCompleteButton(_ isEnabled: Bool)
     
+    func dismiss()
     func moveLogin(with presenter: LoginViewPresenter)
     func moveHome(with presenter: V2HomeViewPresenter)
 }
@@ -78,6 +81,10 @@ extension NameSettingViewController {
         hintLabel.text = ""
     }
     
+    func updateNameTextfield(_ text: String) {
+        nameTextField.text = text
+    }
+    
     func updateCountLabel(_ count: Int) {
         countLabel.text = "\(count)/10"
     }
@@ -114,6 +121,10 @@ extension NameSettingViewController: UITextFieldDelegate {
 
 // MARK: - Navigation
 extension NameSettingViewController {
+    func dismiss() {
+        dismiss(animated: true)
+    }
+    
     func moveLogin(with presenter: LoginViewPresenter) {
         navigator.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }

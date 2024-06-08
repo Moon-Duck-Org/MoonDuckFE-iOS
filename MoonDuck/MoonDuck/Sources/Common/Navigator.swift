@@ -98,8 +98,7 @@ class Navigator {
             }
         case .modal:
             DispatchQueue.main.async {
-                target.modalPresentationStyle = .overFullScreen
-                target.modalTransitionStyle = .crossDissolve
+                target.modalPresentationStyle = .pageSheet
                 sender.present(target, animated: true)
             }
         case .popup:

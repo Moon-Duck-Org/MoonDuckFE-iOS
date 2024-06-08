@@ -27,8 +27,10 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
     weak var view: NameSettingView?
     
     private var nameText: String?
+    private var isInit: Bool
     
-    override init(with provider: AppServices, model: UserModelType) {
+    init(with provider: AppServices, model: UserModelType, isInit: Bool = false) {
+        self.isInit = isInit
         super.init(with: provider, model: model)
         model.delegate = self
     }
@@ -38,15 +40,30 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
 extension NameSettingViewPresenter {
     func viewDidLoad() {
         // 초기화
+        if !isInit {
+            guard let nickname = model.user?.nickname else { return }
+            view?.updateNameTextfield(nickname)
+            view?.updateCountLabel(nickname.count)
+            view?.updateCompleteButton(false)
+            nameText = nickname
+        }
     }
     
     func completeButtonTap() {
         guard let nameText else { return }
-        if isValidName(nameText) {
-            model.nickname(nameText)
+        
+        if let userNickname = model.user?.nickname, 
+            !userNickname.isEmpty,
+           nameText == userNickname {
+            view?.dismiss()
         } else {
-            view?.showHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
+            if isValidName(nameText) {
+                model.nickname(nameText)
+            } else {
+                view?.showHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
+            }
         }
+        
     }
     
     func textFieldDidEndEditing() {
@@ -88,14 +105,21 @@ extension NameSettingViewPresenter {
 // MARK: - UserModelDelegate
 extension NameSettingViewPresenter: UserModelDelegate {
     func userModel(_ userModel: UserModel, didChange user: UserV2) {
-        // User 정보 조회 성공
-        let presenter = V2HomeViewPresenter(with: provider, model: model)
-        self.view?.moveHome(with: presenter)
+        if !isInit {
+            view?.dismiss()
+        } else {
+            // User 정보 조회 성공 -> 홈으로 이동
+            let presenter = V2HomeViewPresenter(with: provider, model: model)
+            view?.moveHome(with: presenter)
+        }
         
     }
     func userModel(_ userModel: UserModel, didChange nickname: String) {
-        // 닉네임 변경 성공
-        model.getUser()
+        if !isInit {
+            
+        } else {
+            model.getUser()
+        }
     }
     
     func userModel(_ userModel: UserModel, didRecieve error: UserModelError) {

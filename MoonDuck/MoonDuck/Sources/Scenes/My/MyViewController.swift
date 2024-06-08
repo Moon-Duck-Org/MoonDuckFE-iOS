@@ -12,6 +12,7 @@ protocol MyView: AnyObject {
     func updateNameLabel(_ text: String)
     func updateCountLabel(movie: Int, book: Int, drama: Int, concert: Int)
     
+    func showNameSetting(with presenter: NameSettingViewPresenter)
     func moveLogin(with presenter: LoginViewPresenter)
 }
 
@@ -37,7 +38,7 @@ class MyViewController: UIViewController, MyView, Navigatable {
     }
     
     @IBAction private func settingNameButtonTap(_ sender: Any) {
-        showToast("닉네임 설정 화면 이동 예정")
+        presenter.settingNameButtonTap()
     }
     
     @IBAction private func logoutButtonTap(_ sender: Any) {
@@ -84,6 +85,10 @@ extension MyViewController {
 extension MyViewController {
     private func back() {
         navigator.pop(sender: self)
+    }
+    
+    func showNameSetting(with presenter: NameSettingViewPresenter) {
+        navigator.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .modal)
     }
     
     func moveLogin(with presenter: LoginViewPresenter) {

@@ -16,6 +16,7 @@ protocol MyPresenter: AnyObject {
     
     /// Action
     func logoutButtonTap()
+    func settingNameButtonTap()
     
     /// Data
 }
@@ -36,9 +37,14 @@ extension MyViewPresenter {
         if let user = model.user {
             view?.updateNameLabel(user.nickname)
             view?.updateCountLabel(movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
+        } else {
+            model.getUser()
         }
-        
-        model.getUser()
+    }
+    
+    func settingNameButtonTap() {
+        let presenter = NameSettingViewPresenter(with: provider, model: model, isInit: false)
+        view?.showNameSetting(with: presenter)
     }
     
     func logoutButtonTap() {
