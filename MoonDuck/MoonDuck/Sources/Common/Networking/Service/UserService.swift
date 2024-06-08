@@ -13,6 +13,7 @@ class UserService {
             .responseDecodable { (response: AFDataResponse<UserResponse>) in
                 switch response.result {
                 case .success(let response):
+                    Log.debug("rseponse \(response)")
                     completion(response.toDomain, nil)
                 case .failure(let error):
                     if let errorData = response.data {
@@ -26,6 +27,26 @@ class UserService {
                     } else {
                         completion(nil, error)
                     }
+                }
+            }
+
+    }
+    
+    func userTest(completion: @escaping (_ succeed: UserV2?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.user)
+            .responseDecodable(of: TestUserResponse.self) { response in
+                Log.debug(response)
+                switch response.result {
+                case .success(let response):
+                    if let code = response.code {
+                        let error = ErrorEntity(code: code, message: response.message)
+                        let apiError = APIError(error: error)
+                        completion(nil, apiError)
+                    } else {
+                        completion(response.toDomain, nil)
+                    }
+                case .failure(let error):
+                    completion(nil, error)
                 }
             }
     }

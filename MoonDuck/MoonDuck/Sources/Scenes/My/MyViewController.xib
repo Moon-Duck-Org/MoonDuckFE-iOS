@@ -27,6 +27,7 @@
                 <outlet property="concertCountLabel" destination="813-Oe-X72" id="gow-Gd-2G2"/>
                 <outlet property="dramaCountLabel" destination="51e-55-7I2" id="pIw-0B-YV0"/>
                 <outlet property="movieCountLabel" destination="uDf-yt-2OL" id="Nsz-mc-sV2"/>
+                <outlet property="nameLabel" destination="GGZ-fE-rCh" id="ELi-7Q-JSm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

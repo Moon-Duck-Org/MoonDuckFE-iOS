@@ -8,19 +8,19 @@
 import Foundation
 
 enum APIError: Error, Equatable, LocalizedError {
-    case network(code: String, message: String)
-    case expiredToken(_ message: String)
-    case invalidToken(_ message: String)
-    case missingToken(_ message: String)
-    case missingUser(_ message: String)
-    case duplicateNickname(_ message: String)
+    case network(code: String, message: String?)
+    case expiredToken(_ message: String?)
+    case invalidToken(_ message: String?)
+    case missingToken(_ message: String?)
+    case missingUser(_ message: String?)
+    case duplicateNickname(_ message: String?)
     case decodingError
     case unowned
         
-    var errorDescription: String {
+    var errorDescription: String? {
         switch self {
         case let .network(statusCode, message):
-            return "ErrorCode: \(statusCode)\n Message: \(message)"
+            return "ErrorCode: \(statusCode)\n Message: \(message ?? "error")"
         case let .expiredToken(message):
             return message
         case let .invalidToken(message):
@@ -71,7 +71,7 @@ enum APIError: Error, Equatable, LocalizedError {
     }
 }
 
-struct ErrorEntity: Codable {
+struct ErrorEntity: Decodable {
     let code: String
-    let message: String
+    let message: String?
 }

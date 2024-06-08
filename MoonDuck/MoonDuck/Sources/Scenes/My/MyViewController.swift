@@ -9,6 +9,7 @@ import UIKit
 
 protocol MyView: AnyObject {
     func showToast(_ message: String)
+    func updateNameLabel(_ text: String)
     func updateCountLabel(movie: Int, book: Int, drama: Int, concert: Int)
     
     func moveLogin(with presenter: LoginViewPresenter)
@@ -20,6 +21,7 @@ class MyViewController: UIViewController, MyView, Navigatable {
     let presenter: MyPresenter
     
     // @IBOutlet
+    @IBOutlet weak private var nameLabel: UILabel!
     @IBOutlet weak private var movieCountLabel: UILabel!
     @IBOutlet weak private var bookCountLabel: UILabel!
     @IBOutlet weak private var dramaCountLabel: UILabel!
@@ -38,7 +40,7 @@ class MyViewController: UIViewController, MyView, Navigatable {
         showToast("닉네임 설정 화면 이동 예정")
     }
     
-    @IBAction func logoutButtonTap(_ sender: Any) {
+    @IBAction private func logoutButtonTap(_ sender: Any) {
         showToast("로그아웃 개발 예정")
     }
         
@@ -64,6 +66,10 @@ class MyViewController: UIViewController, MyView, Navigatable {
 extension MyViewController {
     func showToast(_ message: String) {
         showToast(message: message)
+    }
+    
+    func updateNameLabel(_ text: String) {
+        nameLabel.text = text
     }
     
     func updateCountLabel(movie: Int, book: Int, drama: Int, concert: Int) {

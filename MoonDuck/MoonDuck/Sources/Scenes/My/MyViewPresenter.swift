@@ -40,34 +40,34 @@ extension MyViewPresenter {
 // MARK: - Networking
 extension MyViewPresenter {
     private func getUser() {
-        provider.userService.user { [weak self] succeed, failed in
+        provider.userService.userTest { [weak self] succeed, failed in
             guard let self else { return }
             if let succeed {
                 // User 정보 조회 성공
                 AuthManager.current.saveUser(succeed)
                 
+                self.view?.updateNameLabel(succeed.nickname)
                 self.view?.updateCountLabel(movie: succeed.movie, book: succeed.book, drama: succeed.drama, concert: succeed.concert)
             } else {
                 // 오류 발생
                 if let code = failed as? APIError {
                     if code.isAuthError {
                         Log.error("Auth Error \(code)")
+                        AuthManager.current.logout()
                         self.moveLogin()
                         return
-                    }
-                    
-                    if code.neededRefreshToken {
+                    } else if code.neededRefreshToken {
                         AuthManager.current.refreshToken(self.provider.authService) { [weak self] code in
                             if code == .success {
                                 self?.getUser()
                             } else {
                                 Log.error("토큰 갱신 오류 \(code)")
+                                AuthManager.current.logout()
                                 self?.moveLogin()
                             }
                         }
                         return
                     }
-                    
                 }
                 Log.error(failed?.localizedDescription ?? "Nickname Error")
                 self.networkError()

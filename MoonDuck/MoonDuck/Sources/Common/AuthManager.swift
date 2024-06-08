@@ -11,8 +11,6 @@ import UIKit
 class AuthManager {
     static let current = AuthManager()
     
-    //    private var token: String?
-    //    private var refreshToken: String?
     private var token: Token?
     private var auth: Auth?
     private var user: UserV2?
@@ -72,18 +70,6 @@ class AuthManager {
             return nil
         }
     }
-    
-//    func login(_ user: UserV2) {
-//        if let token {
-//            AppKeychain.set(token, forKey: .accessToken)
-//        }
-//        if let refreshToken {
-//            AppKeychain.set(refreshToken, forKey: .refreshToken)
-//        }
-//        AppUserDefaults.set(true, forKey: .isAutoLogin)
-//        
-//        self.user = user
-//    }
     
     func logout() {
         removeAuth()

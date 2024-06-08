@@ -94,23 +94,21 @@ extension NameSettingViewPresenter {
                 if let code = failed as? APIError {
                     if code.isAuthError {
                         Log.error("Auth Error \(code)")
+                        AuthManager.current.logout()
                         self?.moveLogin()
                         return
-                    }
-                    
-                    if code.neededRefreshToken {
+                    } else if code.neededRefreshToken {
                         AuthManager.current.refreshToken(self?.provider.authService) { [weak self] code in
                             if code == .success {
                                 self?.nickName(name)
                             } else {
                                 Log.error("토큰 갱신 오류 \(code)")
+                                AuthManager.current.logout()
                                 self?.moveLogin()
                             }
                         }
                         return
-                    }
-                    
-                    if code == .duplicateNickname(code.errorDescription) {
+                    } else if code == .duplicateNickname(code.errorDescription) {
                         // 중복된 닉네임
                         self?.view?.showHintLabel(L10n.Localizable.duplicateNickname)
                         return
@@ -132,7 +130,27 @@ extension NameSettingViewPresenter {
                 let presenter = V2HomeViewPresenter(with: self.provider)
                 self.view?.moveHome(with: presenter)
             } else {
-                Log.error(failed?.localizedDescription ?? "User Error")
+                // 오류 발생
+                if let code = failed as? APIError {
+                    if code.isAuthError {
+                        Log.error("Auth Error \(code)")
+                        AuthManager.current.logout()
+                        self.moveLogin()
+                        return
+                    } else if code.neededRefreshToken {
+                        AuthManager.current.refreshToken(self.provider.authService) { [weak self] code in
+                            if code == .success {
+                                self?.getUser()
+                            } else {
+                                Log.error("토큰 갱신 오류 \(code)")
+                                AuthManager.current.logout()
+                                self?.moveLogin()
+                            }
+                        }
+                        return
+                    }
+                }
+                Log.error(failed?.localizedDescription ?? "Nickname Error")
                 self.networkError()
             }
         }

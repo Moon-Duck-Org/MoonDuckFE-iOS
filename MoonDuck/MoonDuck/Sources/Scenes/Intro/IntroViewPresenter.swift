@@ -77,8 +77,7 @@ extension IntroViewPresenter {
             } else {
                 // User 정보 조회 실패
                 Log.error(failed?.localizedDescription ?? "User Error")
-                AuthManager.current.removeToken()
-                AuthManager.current.removeAuth()
+                AuthManager.current.logout()
                 self.moveLogin()
             }
         }
