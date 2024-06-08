@@ -33,6 +33,7 @@ class Navigator {
         case home(presenter: V2HomeViewPresenter)
         case boardDetail(presenter: BoardDetailViewPresenter)
         case boardEdit(presenter: BoardEditViewPresenter)
+        case my(presenter: MyViewPresenter)
     }
 
     enum Transition {
@@ -58,6 +59,8 @@ class Navigator {
             return BoardDetailViewController(navigator: self, presenter: presenter)
         case .boardEdit(let presenter):
             return BoardEditViewController(navigator: self, presenter: presenter)
+        case .my(let presenter):
+            return MyViewController(navigator: self, presenter: presenter)
         }
     }
     

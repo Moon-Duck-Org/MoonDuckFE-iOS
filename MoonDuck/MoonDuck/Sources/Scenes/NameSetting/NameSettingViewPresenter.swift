@@ -74,16 +74,11 @@ extension NameSettingViewPresenter {
             return false
         }
     }
-    
-    private func networkError() {
-        Log.todo("네트워크 오류 알럿 노출")
-        view?.showToast("네트워크 오류 발생")
-    }
 }
 
 // MARK: - Networking
 extension NameSettingViewPresenter {
-    func nickName(_ name: String) {
+    private func nickName(_ name: String) {
         let request = UserNicknameRequest(nickname: name)
         provider.userService.nickname(request: request) { [weak self] code, succeed, failed in
             if let succeed {
@@ -103,7 +98,7 @@ extension NameSettingViewPresenter {
         }
     }
     
-    func getUser() {
+    private func getUser() {
         provider.userService.user { [weak self] code, succeed, failed in
             guard let self else { return }
             if let succeed {
@@ -122,5 +117,10 @@ extension NameSettingViewPresenter {
                 }
             }
         }
+    }
+    
+    private func networkError() {
+        Log.todo("네트워크 오류 알럿 노출")
+        view?.showToast("네트워크 오류 발생")
     }
 }

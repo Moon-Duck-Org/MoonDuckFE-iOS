@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "LogoLogin.png",
+      "filename" : "CateogryConcertSmall.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "LogoLogin@2x.png",
+      "filename" : "CateogryConcertSmall@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "LogoLogin@3x.png",
+      "filename" : "CateogryConcertSmall@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

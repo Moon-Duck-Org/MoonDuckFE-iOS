@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 
 protocol NameSettingView: AnyObject {
     func showToast(_ message: String)

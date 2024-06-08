@@ -10,6 +10,7 @@ import UIKit
 protocol V2HomeView: AnyObject {
     func showToast(_ message: String)
     
+    func moveMy(with presenter: MyViewPresenter)
 }
 
 class V2HomeViewController: UIViewController, V2HomeView, Navigatable {
@@ -53,5 +54,7 @@ extension V2HomeViewController {
 
 // MARK: - Navigation
 extension V2HomeViewController {
-    
+    func moveMy(with presenter: MyViewPresenter) {
+        navigator.show(seque: .my(presenter: presenter), sender: self, transition: .navigation)
+    }
 }

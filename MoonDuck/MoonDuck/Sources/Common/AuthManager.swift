@@ -22,6 +22,10 @@ class AuthManager {
         return refreshToken
     }
     
+    func getUser() -> UserV2? {
+        return user
+    }
+    
     func saveToken(_ token: String, _ refreshToken: String) {
         self.token = token
         self.refreshToken = refreshToken
@@ -52,6 +56,10 @@ class AuthManager {
         }
         AppUserDefaults.set(true, forKey: .isAutoLogin)
         
+        self.user = user
+    }
+    
+    func update(_ user: UserV2) {
         self.user = user
     }
     
