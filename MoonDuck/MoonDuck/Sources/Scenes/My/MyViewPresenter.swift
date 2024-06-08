@@ -15,6 +15,7 @@ protocol MyPresenter: AnyObject {
     func viewDidLoad()
     
     /// Action
+    func logoutButtonTap()
     
     /// Data
 }
@@ -29,6 +30,11 @@ extension MyViewPresenter {
     
     func viewDidLoad() {
         getUser()
+    }
+    
+    func logoutButtonTap() {
+        AuthManager.current.logout()
+        moveLogin()
     }
     
     private func moveLogin() {

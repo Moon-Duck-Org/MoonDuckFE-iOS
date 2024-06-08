@@ -41,7 +41,7 @@ class MyViewController: UIViewController, MyView, Navigatable {
     }
     
     @IBAction private func logoutButtonTap(_ sender: Any) {
-        showToast("로그아웃 개발 예정")
+        presenter.logoutButtonTap()
     }
         
     init(navigator: Navigator,
