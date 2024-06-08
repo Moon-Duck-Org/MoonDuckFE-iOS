@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 protocol IntroPresenter: AnyObject {
     var view: IntroView? { get set }
@@ -19,6 +18,10 @@ class IntroViewPresenter: Presenter, IntroPresenter {
     
     weak var view: IntroView?
     
+    override init(with provider: AppServices, model: UserModelType) {
+        super.init(with: provider, model: model)
+        model.delegate = self
+    }
 }
 
 // MARK: - Input
@@ -26,9 +29,11 @@ extension IntroViewPresenter {
     func viewDidLoad() {
         checkAutoLogin()
     }
-    
+}
+// MARK: - Logic
+extension IntroViewPresenter {
     private func checkAutoLogin() {
-        if let auth = AuthManager.current.getAutoLoginData() {
+        if let auth = AuthManager.default.getAutoLoginAuth() {
             // 자동 로그인 가능 시, 로그인 시도
             login(auth)
         } else {
@@ -36,50 +41,31 @@ extension IntroViewPresenter {
         }
     }
     
+    private func login(_ auth: Auth) {
+        AuthManager.default.login(auth: auth) { [weak self] result in
+            if result == .success {
+                self?.model.getUser()
+            } else {
+                self?.moveLogin()
+            }
+        }
+    }
+    
     private func moveLogin() {
-        let presenter = LoginViewPresenter(with: self.provider)
-        self.view?.moveLogin(with: presenter)
+        let presenter = LoginViewPresenter(with: provider, model: model)
+        view?.moveLogin(with: presenter)
     }
 }
 
-// MARK: - Networking
-extension IntroViewPresenter {
-    
-    private func login(_ auth: Auth) {
-        let request = AuthLoginRequest(dvsnCd: auth.loginType.rawValue, id: auth.id)
-        provider.authService.login(request: request) { [weak self] succeed, failed in
-            guard let self else { return }
-            
-            if let succeed, succeed.isHaveNickname {
-                // 앱에 토큰 및 로그인 정보 저장
-                AuthManager.current.saveAuth(auth)
-                AuthManager.current.saveToken(
-                    Token(accessToken: succeed.accessToken,
-                          refreshToken: succeed.refreshToken)
-                )
-                self.getUser()
-            } else {
-                Log.error(failed?.localizedDescription ?? "Login Error")
-                self.moveLogin()
-            }
-        }
+// MARK: - UserModelDelegate
+extension IntroViewPresenter: UserModelDelegate {
+    func userModel(_ userModel: UserModel, didChange user: UserV2) {
+        let presenter = V2HomeViewPresenter(with: provider, model: model)
+        view?.moveHome(with: presenter)
     }
     
-    private func getUser() {
-        provider.userService.user { [weak self] succeed, failed in
-            guard let self else { return }
-            if let succeed {
-                // User 정보 조회 성공
-                AuthManager.current.saveUser(succeed)
-                
-                let presenter = V2HomeViewPresenter(with: self.provider)
-                self.view?.moveHome(with: presenter)
-            } else {
-                // User 정보 조회 실패
-                Log.error(failed?.localizedDescription ?? "User Error")
-                AuthManager.current.logout()
-                self.moveLogin()
-            }
-        }
+    func userModel(_ userModel: UserModel, didRecieve errorMessage: Error?) {
+        AuthManager.default.logout()
+        moveLogin()
     }
 }

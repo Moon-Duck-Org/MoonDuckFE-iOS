@@ -20,7 +20,7 @@ struct User {
 
 struct UserV2 {
     let userId: Int
-    let nickname: String
+    var nickname: String
     var all: Int = 0
     var movie: Int = 0
     var book: Int = 0

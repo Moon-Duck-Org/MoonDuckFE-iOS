@@ -1,55 +1,55 @@
+////
+////  HomeListTvDataSource.swift
+////  MoonDuck
+////
+////  Created by suni on 5/24/24.
+////
 //
-//  HomeListTvDataSource.swift
-//  MoonDuck
+//import Foundation
+//import UIKit
 //
-//  Created by suni on 5/24/24.
+//final class BoardListTvDataSource: NSObject {
+//    fileprivate let presenter: HomePresenter
+//    
+//    init(presenter: HomePresenter) {
+//        self.presenter = presenter
+//    }
+//    
+//    func configure(with tableView: UITableView) {
+//        tableView.dataSource = self
+//        tableView.delegate = self
+//        tableView.register(UINib(nibName: BoardListTvCell.className, bundle: nil), forCellReuseIdentifier: BoardListTvCell.className)
+//    }
+//}
 //
-
-import Foundation
-import UIKit
-
-final class BoardListTvDataSource: NSObject {
-    fileprivate let presenter: HomePresenter
-    
-    init(presenter: HomePresenter) {
-        self.presenter = presenter
-    }
-    
-    func configure(with tableView: UITableView) {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(UINib(nibName: BoardListTvCell.className, bundle: nil), forCellReuseIdentifier: BoardListTvCell.className)
-    }
-}
-
-extension BoardListTvDataSource: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfBoard
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell: BoardListTvCell = tableView.dequeueReusableCell(withIdentifier: BoardListTvCell.className, for: indexPath) as? BoardListTvCell {
-            let board = presenter.board(at: indexPath.row)
-            cell.configure(with: board)
-            
-            /// more button action
-            cell.moreButton.index = indexPath.row
-            cell.moreButton.addTarget(self, action: #selector(moreButtonTapped(_ :)), for: .touchUpInside)
-            return cell
-        }
-        return UITableViewCell()
-    }
-    
-    @objc 
-    func moreButtonTapped(_ sender: CellButton) {
-        if let index = sender.index {
-            presenter.tappedBoardMore(at: index)
-        }
-    }
-}
-
-extension BoardListTvDataSource: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.selectBoard(at: indexPath.row)
-    }
-}
+//extension BoardListTvDataSource: UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return presenter.numberOfBoard
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        if let cell: BoardListTvCell = tableView.dequeueReusableCell(withIdentifier: BoardListTvCell.className, for: indexPath) as? BoardListTvCell {
+//            let board = presenter.board(at: indexPath.row)
+//            cell.configure(with: board)
+//            
+//            /// more button action
+//            cell.moreButton.index = indexPath.row
+//            cell.moreButton.addTarget(self, action: #selector(moreButtonTapped(_ :)), for: .touchUpInside)
+//            return cell
+//        }
+//        return UITableViewCell()
+//    }
+//    
+//    @objc 
+//    func moreButtonTapped(_ sender: CellButton) {
+//        if let index = sender.index {
+//            presenter.tappedBoardMore(at: index)
+//        }
+//    }
+//}
+//
+//extension BoardListTvDataSource: UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        presenter.selectBoard(at: indexPath.row)
+//    }
+//}

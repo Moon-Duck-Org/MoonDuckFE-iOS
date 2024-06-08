@@ -392,9 +392,9 @@
 		A0E6582D2BFE2832001A8D54 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				EAF78F062C14C98500EFBCB0 /* Entity */,
 				EA6379D32BFF2A2000464A19 /* Networking */,
 				EA81F4A72BFF714000FDC7A7 /* Model */,
+				EAF78F062C14C98500EFBCB0 /* Entity */,
 				EA6D9A782BFF6875003B459A /* UI */,
 				EA6379D02BFF295400464A19 /* Extensions */,
 				A0E657FC2BFE22B7001A8D54 /* SceneDelegate.swift */,
@@ -402,7 +402,6 @@
 				EA6379C42BFEF3FA00464A19 /* Navigator.swift */,
 				EA72084E2C1287EF00E96212 /* AppUserDefaults.swift */,
 				EA7208502C128CE800E96212 /* AppKeychain.swift */,
-				EA7208522C1290C700E96212 /* AuthManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -581,6 +580,7 @@
 		EA81F4A72BFF714000FDC7A7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EA7208522C1290C700E96212 /* AuthManager.swift */,
 				EAF78F072C14CAAE00EFBCB0 /* UserModel.swift */,
 			);
 			path = Model;

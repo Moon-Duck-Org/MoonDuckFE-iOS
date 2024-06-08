@@ -27,6 +27,11 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
     weak var view: NameSettingView?
     
     private var nameText: String?
+    
+    override init(with provider: AppServices, model: UserModelType) {
+        super.init(with: provider, model: model)
+        model.delegate = self
+    }
 }
 
 // MARK: - Input
@@ -38,7 +43,7 @@ extension NameSettingViewPresenter {
     func completeButtonTap() {
         guard let nameText else { return }
         if isValidName(nameText) {
-            nickName(nameText)
+            model.nickname(nameText)
         } else {
             view?.showHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
         }
@@ -76,84 +81,35 @@ extension NameSettingViewPresenter {
     }
     
     private func moveLogin() {
-        let presenter = LoginViewPresenter(with: self.provider)
+        let presenter = LoginViewPresenter(with: provider, model: model)
         self.view?.moveLogin(with: presenter)
     }
 }
-
-// MARK: - Networking
-extension NameSettingViewPresenter {
-    private func nickName(_ name: String) {
-        let request = UserNicknameRequest(nickname: name)
-        provider.userService.nickname(request: request) { [weak self] succeed, failed in
-            if let succeed {
-                // 닉네임 변경 성공
-                self?.getUser()
-            } else {
-                // 오류 발생
-                if let code = failed as? APIError {
-                    if code.isAuthError {
-                        Log.error("Auth Error \(code)")
-                        AuthManager.current.logout()
-                        self?.moveLogin()
-                        return
-                    } else if code.neededRefreshToken {
-                        AuthManager.current.refreshToken(self?.provider.authService) { [weak self] code in
-                            if code == .success {
-                                self?.nickName(name)
-                            } else {
-                                Log.error("토큰 갱신 오류 \(code)")
-                                AuthManager.current.logout()
-                                self?.moveLogin()
-                            }
-                        }
-                        return
-                    } else if code == .duplicateNickname(code.errorDescription) {
-                        // 중복된 닉네임
-                        self?.view?.showHintLabel(L10n.Localizable.duplicateNickname)
-                        return
-                    }
-                }
-                Log.error(failed?.localizedDescription ?? "Nickname Error")
-                self?.networkError()
-            }
+// MARK: - UserModelDelegate
+extension NameSettingViewPresenter: UserModelDelegate {
+    func userModel(_ userModel: UserModel, didChange user: UserV2) {
+        // User 정보 조회 성공
+        let presenter = V2HomeViewPresenter(with: provider, model: model)
+        self.view?.moveHome(with: presenter)
+        
+    }
+    func userModel(_ userModel: UserModel, didChange nickname: String) {
+        // 닉네임 변경 성공
+        model.getUser()
+    }
+    
+    func userModel(_ userModel: UserModel, didRecieve error: UserModelError) {
+        switch error {
+        case .authError:
+            AuthManager.default.logout()
+            moveLogin()
+        case .duplicateNickname:
+            view?.showHintLabel(L10n.Localizable.duplicateNickname)
         }
     }
     
-    private func getUser() {
-        provider.userService.user { [weak self] succeed, failed in
-            guard let self else { return }
-            if let succeed {
-                // User 정보 조회 성공
-                AuthManager.current.saveUser(succeed)
-                
-                let presenter = V2HomeViewPresenter(with: self.provider)
-                self.view?.moveHome(with: presenter)
-            } else {
-                // 오류 발생
-                if let code = failed as? APIError {
-                    if code.isAuthError {
-                        Log.error("Auth Error \(code)")
-                        AuthManager.current.logout()
-                        self.moveLogin()
-                        return
-                    } else if code.neededRefreshToken {
-                        AuthManager.current.refreshToken(self.provider.authService) { [weak self] code in
-                            if code == .success {
-                                self?.getUser()
-                            } else {
-                                Log.error("토큰 갱신 오류 \(code)")
-                                AuthManager.current.logout()
-                                self?.moveLogin()
-                            }
-                        }
-                        return
-                    }
-                }
-                Log.error(failed?.localizedDescription ?? "Nickname Error")
-                self.networkError()
-            }
-        }
+    func userModel(_ userModel: UserModel, didRecieve error: Error?) {
+        networkError()
     }
     
     private func networkError() {

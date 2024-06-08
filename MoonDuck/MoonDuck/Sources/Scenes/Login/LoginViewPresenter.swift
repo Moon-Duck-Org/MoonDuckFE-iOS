@@ -121,46 +121,35 @@ extension LoginViewPresenter {
     }
     
     private func login(_ auth: Auth) {
-        let request = AuthLoginRequest(dvsnCd: auth.loginType.rawValue, id: auth.id)
-        provider.authService.login(request: request) { [weak self] succeed, failed in
+        AuthManager.default.login(auth: auth) { [weak self] result in
             guard let self else { return }
             
-            if let succeed {
-                // 앱에 토큰 및 로그인 정보 저장
-                AuthManager.current.saveAuth(auth)
-                AuthManager.current.saveToken(
-                    Token(accessToken: succeed.accessToken,
-                          refreshToken: succeed.refreshToken)
-                )
-                if succeed.isHaveNickname {
-                    self.getUser()
-                } else {
-                    let presenter = NameSettingViewPresenter(with: self.provider)
-                    self.view?.moveNameSetting(with: presenter)
-                }
-            } else {
-                Log.error(failed?.localizedDescription ?? "Login Error")
+            switch result {
+            case .success: 
+                self.getUser()
+            case .donthaveNickname:
+                let presenter = NameSettingViewPresenter(with: self.provider, model: model)
+                self.view?.moveNameSetting(with: presenter)
+            case .error:
                 self.loginError()
             }
         }
     }
     
     private func getUser() {
-        provider.userService.user { [weak self] succeed, failed in
-            guard let self else { return }
-            if let succeed {
-                // User 정보 조회 성공
-                AuthManager.current.saveUser(succeed)
-                
-                let presenter = V2HomeViewPresenter(with: self.provider)
-                self.view?.moveHome(with: presenter)
-            } else {
-                // User 정보 조회 실패
-                Log.error(failed?.localizedDescription ?? "User Error")
-                AuthManager.current.removeToken()
-                AuthManager.current.removeAuth()
-                self.loginError()
-            }
-        }
+        model.getUser()
+    }
+}
+
+// MARK: - UserModelDelegate
+extension LoginViewPresenter: UserModelDelegate {
+    func userModel(_ userModel: UserModel, didChange user: UserV2) {
+        let presenter = V2HomeViewPresenter(with: provider, model: model)
+        view?.moveHome(with: presenter)
+    }
+    
+    func userModel(_ userModel: UserModel, didRecieve errorMessage: (any Error)?) {
+        AuthManager.default.logout()
+        loginError()
     }
 }

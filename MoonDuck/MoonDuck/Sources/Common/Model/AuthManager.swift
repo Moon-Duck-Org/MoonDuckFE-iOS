@@ -9,12 +9,16 @@ import Foundation
 import UIKit
 
 class AuthManager {
-    static let current = AuthManager()
+    static let `default` = AuthManager()
     
     private var token: Token?
     private var auth: Auth?
-    private var user: UserV2?
+    private var provider: AppServices?
     
+    func initProvider(_ provider: AppServices) {
+        self.provider = provider
+    }
+        
     func saveAuth(_ auth: Auth) {
         self.auth = auth
         
@@ -47,19 +51,7 @@ class AuthManager {
         return token?.refreshToken
     }
     
-    func saveUser(_ user: UserV2) {
-        self.user = user
-    }
-    
-    func removeUser() {
-        self.user = nil
-    }
-    
-    func getUser() -> UserV2? {
-        return user
-    }
-    
-    func getAutoLoginData() -> Auth? {
+    func getAutoLoginAuth() -> Auth? {
         if let isAutoLogin = AppUserDefaults.getObject(forKey: .isAutoLogin) as? Bool, isAutoLogin {
             guard let id = AppKeychain.getValue(forKey: .snsId),
                   let snsLoginType = AppUserDefaults.getObject(forKey: .snsLoginType) as? String,
@@ -74,34 +66,53 @@ class AuthManager {
     func logout() {
         removeAuth()
         removeToken()
-        removeUser()
     }
     
-    enum RefreshtTokenCode {
+    enum LoginResultCode {
+        case success
+        case error
+        case donthaveNickname
+    }
+    
+    func login(auth: Auth, completion: @escaping (LoginResultCode) -> Void) {
+        let request = AuthLoginRequest(dvsnCd: auth.loginType.rawValue, id: auth.id)
+        provider?.authService.login(request: request) { [weak self] succeed, failed in
+            guard let self else { return }
+            
+            if let succeed, succeed.isHaveNickname {
+                // 앱에 토큰 및 로그인 정보 저장
+                AuthManager.default.saveAuth(auth)
+                AuthManager.default.saveToken(
+                    Token(accessToken: succeed.accessToken,
+                          refreshToken: succeed.refreshToken)
+                )
+                if succeed.isHaveNickname {
+                    completion(.success)
+                } else {
+                    completion(.donthaveNickname)
+                }
+            } else {
+                Log.error(failed?.localizedDescription ?? "Login Error")
+                completion(.error)
+            }
+        }
+    }
+    
+    enum RefreshtTokenResultCode {
         case success
         case emptyToken
         case error
     }
     
-    func refreshToken(_ provider: AuthService?, completion: @escaping (_ code: RefreshtTokenCode) -> Void) {
+    func refreshToken(completion: @escaping (_ code: RefreshtTokenResultCode) -> Void) {
         guard let accessToken = token?.accessToken,
               let refreshToken = token?.refreshToken else {
             completion(.emptyToken)
             return
         }
         
-        var provider = provider
-        if provider == nil {
-            if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-                provider = sceneDelegate.appService.authService
-            } else {
-                completion(.error)
-                return
-            }
-        }
-        
         let request = AuthReissueRequest(accessToken: accessToken, refreshToken: refreshToken)
-        provider?.reissue(request: request) { succeed, failed in
+        provider?.authService.reissue(request: request) { succeed, failed in
             if let succeed {
                 self.saveToken(succeed)
                 completion(.success)

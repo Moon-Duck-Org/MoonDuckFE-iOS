@@ -27,8 +27,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
+        AuthManager.default.initProvider(appService)
+        
         let navigator = Navigator.default
-        let presenter = IntroViewPresenter(with: appService)
+        let model = UserModel(appService)
+        let presenter = IntroViewPresenter(with: appService, model: model)
         navigator.show(seque: .intro(presenter: presenter), sender: nil, transition: .root)
         window?.windowScene = windowScene
         window?.rootViewController = navigator.root

@@ -26,7 +26,7 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
 // MARK: - Input
 extension V2HomeViewPresenter {
     func myButtonTap() {
-        let presenter = MyViewPresenter(with: provider)
+        let presenter = MyViewPresenter(with: provider, model: model)
         view?.moveMy(with: presenter)
     }
 }
