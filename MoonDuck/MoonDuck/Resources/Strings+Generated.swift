@@ -13,8 +13,6 @@ internal enum L10n {
   internal enum LaunchScreen {
     }
   internal enum Localizable {
-    /// 취소하시겠어요?
-    internal static let alertCancelTitle = L10n.tr("Localizable", "alert_cancel_title", fallback: "취소하시겠어요?")
     /// 취소
     internal static let cancel = L10n.tr("Localizable", "cancel", fallback: "취소")
     /// 닫기
@@ -26,8 +24,16 @@ internal enum L10n {
     internal static let done = L10n.tr("Localizable", "done", fallback: "확인")
     /// 중복된 닉네임입니다.
     internal static let duplicateNickname = L10n.tr("Localizable", "Duplicate nickname.", fallback: "중복된 닉네임입니다.")
+    /// 로그아웃
+    internal static let logout = L10n.tr("Localizable", "logout", fallback: "로그아웃")
+    /// 닉네임 설정 완료!
+    internal static let nicknameSetupComplete = L10n.tr("Localizable", "Nickname setup complete!", fallback: "닉네임 설정 완료!")
     /// 특수문자는 사용 불가해요.
-    internal static let specialCharactersAreNotAllowed = L10n.tr("Localizable", "Special_characters are not allowed.", fallback: "특수문자는 사용 불가해요.")
+    internal static let specialCharactersAreNotAllowed = L10n.tr("Localizable", "Special characters are not allowed.", fallback: "특수문자는 사용 불가해요.")
+    /// 취소하시겠어요?
+    internal static let wouldYouLikeToCancel = L10n.tr("Localizable", "Would you like to cancel?", fallback: "취소하시겠어요?")
+    /// 로그아웃 하시겠어요?
+    internal static let wouldYouLikeToLogOut = L10n.tr("Localizable", "Would you like to log out?", fallback: "로그아웃 하시겠어요?")
   }
   internal enum Main {
     }

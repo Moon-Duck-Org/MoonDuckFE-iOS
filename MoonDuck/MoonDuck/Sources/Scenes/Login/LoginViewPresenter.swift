@@ -131,18 +131,14 @@ extension LoginViewPresenter {
             
             switch result {
             case .success: 
-                self.getUser()
+                self.model.getUser()
             case .donthaveNickname:
-                let presenter = NameSettingViewPresenter(with: self.provider, model: model, isInit: true)
+                let presenter = NameSettingViewPresenter(with: self.provider, model: model, delegate: self)
                 self.view?.moveNameSetting(with: presenter)
             case .error:
                 self.loginError()
             }
         }
-    }
-    
-    private func getUser() {
-        model.getUser()
     }
 }
 
@@ -156,5 +152,16 @@ extension LoginViewPresenter: UserModelDelegate {
     func userModel(_ userModel: UserModel, didRecieve errorMessage: (any Error)?) {
         AuthManager.default.logout()
         loginError()
+    }
+}
+
+// MARK: - NameSettingPresenterDelegate
+extension LoginViewPresenter: NameSettingPresenterDelegate {
+    func nameSetting(_ presenter: NameSettingPresenter, didSuccess nickname: String) {
+        model.getUser()
+    }
+    
+    func nameSetting(didCancel presenter: NameSettingPresenter) {
+        
     }
 }

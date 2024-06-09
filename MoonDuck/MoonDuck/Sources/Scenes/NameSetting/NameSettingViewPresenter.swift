@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
+protocol NameSettingPresenterDelegate: AnyObject {
+    func nameSetting(_ presenter: NameSettingPresenter, didSuccess nickname: String)
+    func nameSetting(didCancel presenter: NameSettingPresenter)
+}
+
 protocol NameSettingPresenter: AnyObject {
     var view: NameSettingView? { get set }
     
@@ -25,12 +30,13 @@ protocol NameSettingPresenter: AnyObject {
 
 class NameSettingViewPresenter: Presenter, NameSettingPresenter {
     weak var view: NameSettingView?
+    weak var delegate: NameSettingPresenterDelegate?
     
     private var nameText: String?
-    private var isInit: Bool
     
-    init(with provider: AppServices, model: UserModelType, isInit: Bool = false) {
-        self.isInit = isInit
+    init(with provider: AppServices, model: UserModelType,
+         delegate: NameSettingPresenterDelegate?) {
+        self.delegate = delegate
         super.init(with: provider, model: model)
         model.delegate = self
     }
@@ -40,8 +46,7 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
 extension NameSettingViewPresenter {
     func viewDidLoad() {
         // 초기화
-        if !isInit {
-            guard let nickname = model.user?.nickname else { return }
+        if let nickname = model.user?.nickname {
             view?.updateNameTextfield(nickname)
             view?.updateCountLabel(nickname.count)
             view?.updateCompleteButton(false)
@@ -55,7 +60,7 @@ extension NameSettingViewPresenter {
         if let userNickname = model.user?.nickname, 
             !userNickname.isEmpty,
            nameText == userNickname {
-            view?.dismiss()
+            delegate?.nameSetting(didCancel: self)
         } else {
             if isValidName(nameText) {
                 model.nickname(nameText)
@@ -105,21 +110,10 @@ extension NameSettingViewPresenter {
 // MARK: - UserModelDelegate
 extension NameSettingViewPresenter: UserModelDelegate {
     func userModel(_ userModel: UserModel, didChange user: UserV2) {
-        if !isInit {
-            view?.dismiss()
-        } else {
-            // User 정보 조회 성공 -> 홈으로 이동
-            let presenter = V2HomeViewPresenter(with: provider, model: model)
-            view?.moveHome(with: presenter)
-        }
-        
+        delegate?.nameSetting(self, didSuccess: user.nickname)
     }
     func userModel(_ userModel: UserModel, didChange nickname: String) {
-        if !isInit {
-            
-        } else {
-            model.getUser()
-        }
+        delegate?.nameSetting(self, didSuccess: nickname)
     }
     
     func userModel(_ userModel: UserModel, didRecieve error: UserModelError) {

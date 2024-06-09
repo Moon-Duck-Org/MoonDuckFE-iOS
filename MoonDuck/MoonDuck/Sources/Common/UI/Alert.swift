@@ -8,16 +8,7 @@
 import UIKit
 
 class Alert {
-    static var shared = Alert()
-    
-    enum AlertStyle {
-        case defualtTwoButton
-        case deleteTwoButton
-    }
-    
-    enum ActionSheetStyle {
-        case deleteTwoButton
-    }
+    static var `default` = Alert()
     
     weak var currentAlert: UIViewController?
     
@@ -32,85 +23,105 @@ class Alert {
         currentAlert = nil
     }
     
-    func showAlert(_ viewController: UIViewController,
-                   style: AlertStyle = .defualtTwoButton,
-                   title: String? = "",
-                   message: String? = "",
-                   cancelTitle: String = L10n.Localizable.cancel,
-                   completeTitle: String = L10n.Localizable.done,
-                   destructiveTitle: String = "삭제",
-                   cancelHandler: (() -> Void)? = nil,
-                   completeHandler: (() -> Void)? = nil,
-                   destructiveHandler: (() -> Void)? = nil) {
+    func logout(_ viewController: UIViewController,
+                cancelHandler: (() -> Void)? = nil,
+                logoutHandler: (() -> Void)? = nil) {
         DispatchQueue.main.async {
-            self.dismissAlert()
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let alert = UIAlertController(title: L10n.Localizable.wouldYouLikeToLogOut, message: "", preferredStyle: .alert)
             
-            if style == .deleteTwoButton {
-                let cancelAction = UIAlertAction(title: cancelTitle, style: .default) { _ in
-                    alert.dismiss(animated: true)
-                    cancelHandler?()
-                }
-                let destructiveAction = UIAlertAction(title: destructiveTitle, style: .destructive) { _ in
-                    destructiveHandler?()
-                }
-                alert.addAction(cancelAction)
-                alert.addAction(destructiveAction)
-            } else {
-                let cancelAction = UIAlertAction(title: cancelTitle, style: .default) { _ in
-                    alert.dismiss(animated: true)
-                    cancelHandler?()
-                }
-                let completeAction = UIAlertAction(title: completeTitle, style: .default) { _ in
-                    alert.dismiss(animated: true)
-                    cancelHandler?()
-                }
-                alert.addAction(cancelAction)
-                alert.addAction(completeAction)
+            let cancelAction = UIAlertAction(title: L10n.Localizable.cancel, style: .default) { _ in
+                alert.dismiss(animated: true)
+                cancelHandler?()
             }
-            viewController.present(alert, animated: true, completion: {
-                self.currentAlert = alert
-            })
+            let logoutAction = UIAlertAction(title: L10n.Localizable.logout, style: .destructive) { _ in
+                logoutHandler?()
+            }
+            alert.addAction(cancelAction)
+            alert.addAction(logoutAction)
+            
+            viewController.present(alert, animated: true)
         }
     }
-    
-    func showActionSheet(_ viewController: UIViewController,
-                         style: ActionSheetStyle = .deleteTwoButton,
-                         title: String? = nil,
-                         message: String? = nil,
-                         defaultTitle: String = L10n.Localizable.cancel,
-                         destructiveTitle: String = L10n.Localizable.done,
-                         defaultHandler: (() -> Void)? = nil,
-                         destructiveHandler: (() -> Void)? = nil,
-                         cancelTitle: String = L10n.Localizable.close,
-                         cancelHandler: (() -> Void)? = nil) {
-        DispatchQueue.main.async {
-            self.dismissAlert()
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-            
-            if style == .deleteTwoButton {
-                let defaultAction = UIAlertAction(title: defaultTitle, style: .default) { _ in
-                    alert.dismiss(animated: true)
-                    defaultHandler?()
-                }
-                let destructiveAction = UIAlertAction(title: destructiveTitle, style: .destructive) { _ in
-                    destructiveHandler?()
-                }
-                alert.addAction(defaultAction)
-                alert.addAction(destructiveAction)
-                
-                let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel) { _ in
-                    alert.dismiss(animated: true)
-                    cancelHandler?()
-                }
-                alert.addAction(cancelAction)
-            }
-            
-            viewController.present(alert, animated: true, completion: {
-                self.currentAlert = alert
-            })
-        }
-    }
+//    
+//    func showAlert(_ viewController: UIViewController,
+//                   style: AlertStyle = .defualtTwoButton,
+//                   title: String? = "",
+//                   message: String? = "",
+//                   cancelTitle: String = L10n.Localizable.cancel,
+//                   completeTitle: String = L10n.Localizable.done,
+//                   destructiveTitle: String = "삭제",
+//                   cancelHandler: (() -> Void)? = nil,
+//                   completeHandler: (() -> Void)? = nil,
+//                   destructiveHandler: (() -> Void)? = nil) {
+//        DispatchQueue.main.async {
+//            self.dismissAlert()
+//            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//            
+//            if style == .deleteTwoButton {
+//                let cancelAction = UIAlertAction(title: cancelTitle, style: .default) { _ in
+//                    alert.dismiss(animated: true)
+//                    cancelHandler?()
+//                }
+//                let destructiveAction = UIAlertAction(title: destructiveTitle, style: .destructive) { _ in
+//                    destructiveHandler?()
+//                }
+//                alert.addAction(cancelAction)
+//                alert.addAction(destructiveAction)
+//            } else {
+//                let cancelAction = UIAlertAction(title: cancelTitle, style: .default) { _ in
+//                    alert.dismiss(animated: true)
+//                    cancelHandler?()
+//                }
+//                let completeAction = UIAlertAction(title: completeTitle, style: .default) { _ in
+//                    alert.dismiss(animated: true)
+//                    cancelHandler?()
+//                }
+//                alert.addAction(cancelAction)
+//                alert.addAction(completeAction)
+//            }
+//            viewController.present(alert, animated: true, completion: {
+//                self.currentAlert = alert
+//            })
+//        }
+//    }
+//    
+//    func showActionSheet(_ viewController: UIViewController,
+//                         style: ActionSheetStyle = .deleteTwoButton,
+//                         title: String? = nil,
+//                         message: String? = nil,
+//                         defaultTitle: String = L10n.Localizable.cancel,
+//                         destructiveTitle: String = L10n.Localizable.done,
+//                         defaultHandler: (() -> Void)? = nil,
+//                         destructiveHandler: (() -> Void)? = nil,
+//                         cancelTitle: String = L10n.Localizable.close,
+//                         cancelHandler: (() -> Void)? = nil) {
+//        DispatchQueue.main.async {
+//            self.dismissAlert()
+//            let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+//            
+//            if style == .deleteTwoButton {
+//                let defaultAction = UIAlertAction(title: defaultTitle, style: .default) { _ in
+//                    alert.dismiss(animated: true)
+//                    defaultHandler?()
+//                }
+//                let destructiveAction = UIAlertAction(title: destructiveTitle, style: .destructive) { _ in
+//                    destructiveHandler?()
+//                }
+//                alert.addAction(defaultAction)
+//                alert.addAction(destructiveAction)
+//                
+//                let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel) { _ in
+//                    alert.dismiss(animated: true)
+//                    cancelHandler?()
+//                }
+//                alert.addAction(cancelAction)
+//            }
+//            
+//            viewController.present(alert, animated: true, completion: {
+//                self.currentAlert = alert
+//            })
+//        }
+//    }
     
     func showList(_ viewController: UIViewController,
                   title: String? = nil,

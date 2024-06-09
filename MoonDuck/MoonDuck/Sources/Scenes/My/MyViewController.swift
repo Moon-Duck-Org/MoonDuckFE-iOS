@@ -9,10 +9,12 @@ import UIKit
 
 protocol MyView: AnyObject {
     func showToast(_ message: String)
+    
     func updateNameLabel(_ text: String)
     func updateCountLabel(movie: Int, book: Int, drama: Int, concert: Int)
     
-    func showNameSetting(with presenter: NameSettingViewPresenter)
+    func dismiss()
+    func presentNameSetting(with presenter: NameSettingViewPresenter)
     func moveLogin(with presenter: LoginViewPresenter)
 }
 
@@ -42,7 +44,7 @@ class MyViewController: UIViewController, MyView, Navigatable {
     }
     
     @IBAction private func logoutButtonTap(_ sender: Any) {
-        presenter.logoutButtonTap()
+        showLogoutAlert()
     }
         
     init(navigator: Navigator,
@@ -79,6 +81,12 @@ extension MyViewController {
         self.dramaCountLabel.text = "\(movie)"
         self.concertCountLabel.text = "\(concert)"
     }
+    
+    private func showLogoutAlert() {
+        Alert.default.logout(self, logoutHandler: {
+            self.presenter.logoutButtonTap()
+        })
+    }
 }
 
 // MARK: - Navigation
@@ -86,8 +94,12 @@ extension MyViewController {
     private func back() {
         navigator.pop(sender: self)
     }
+
+    func dismiss() {
+        navigator.dismiss(sender: self)
+    }
     
-    func showNameSetting(with presenter: NameSettingViewPresenter) {
+    func presentNameSetting(with presenter: NameSettingViewPresenter) {
         navigator.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .modal)
     }
     

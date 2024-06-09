@@ -30,7 +30,7 @@ protocol UserModelType: AnyObject {
     
     var user: UserV2? { get }
     
-    func saveUser(_ user: UserV2)
+    func updateNickname(_ nickname: String)
     func getUser()
     func nickname(_ name: String)
 }
@@ -39,13 +39,7 @@ class UserModel: UserModelType {
     
     weak var delegate: UserModelDelegate?
     
-    var user: UserV2? {
-        didSet {
-            if let user {
-                delegate?.userModel(self, didChange: user)
-            }
-        }
-    }
+    var user: UserV2?
     
     private let provider: AppServices
     
@@ -53,24 +47,25 @@ class UserModel: UserModelType {
         self.provider = provider
     }
     
-    func saveUser(_ user: UserV2) {
+    private func saveUser(_ user: UserV2) {
         self.user = user
-    }
-    
-    private func updateNickname(_ nickname: String) {
-        if let user {
-            var updateUser = user
-            updateUser.nickname = nickname
-            self.user = updateUser
-        } else {
-            delegate?.userModel(self, didChange: nickname)
-        }
+        delegate?.userModel(self, didChange: user)
     }
     
     private func removeUser() {
         self.user = nil
     }
     
+    func updateNickname(_ nickname: String) {
+        if let user {
+            var updateUser = user
+            updateUser.nickname = nickname
+            saveUser(updateUser)
+        } else {
+            delegate?.userModel(self, didChange: nickname)
+        }
+    }
+
     func getUser() {
         provider.userService.user { [weak self] succeed, failed in
             guard let self else { return }

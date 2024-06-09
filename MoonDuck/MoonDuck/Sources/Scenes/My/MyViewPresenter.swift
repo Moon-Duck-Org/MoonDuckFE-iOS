@@ -43,8 +43,8 @@ extension MyViewPresenter {
     }
     
     func settingNameButtonTap() {
-        let presenter = NameSettingViewPresenter(with: provider, model: model, isInit: false)
-        view?.showNameSetting(with: presenter)
+        let presenter = NameSettingViewPresenter(with: provider, model: model, delegate: self)
+        view?.presentNameSetting(with: presenter)
     }
     
     func logoutButtonTap() {
@@ -64,7 +64,10 @@ extension MyViewPresenter: UserModelDelegate {
         guard let user = userModel.user else { return }
         view?.updateNameLabel(user.nickname)
         view?.updateCountLabel(movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
-        
+    }
+    
+    func userModel(_ userModel: UserModel, didChange nickname: String) {
+        view?.updateNameLabel(nickname)
     }
     
     func userModel(_ userModel: UserModel, didRecieve error: UserModelError) {
@@ -84,5 +87,18 @@ extension MyViewPresenter: UserModelDelegate {
     private func networkError() {
         Log.todo("네트워크 오류 알럿 노출")
         view?.showToast("네트워크 오류 발생")
+    }
+}
+
+// MARK: - NameSettingPresenterDelegate
+extension MyViewPresenter: NameSettingPresenterDelegate {
+    func nameSetting(_ presenter: NameSettingPresenter, didSuccess nickname: String) {
+        view?.dismiss()
+        view?.updateNameLabel(nickname)
+        view?.showToast(L10n.Localizable.nicknameSetupComplete)
+    }
+    
+    func nameSetting(didCancel presenter: NameSettingPresenter) {
+        view?.dismiss()
     }
 }

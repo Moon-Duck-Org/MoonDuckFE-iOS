@@ -9,8 +9,13 @@
 "done" = "확인";
 "cancel" = "취소";
 "close" = "닫기";
-"alert_cancel_title" = "취소하시겠어요?";
+"Would you like to cancel?" = "취소하시겠어요?";
 
 // 닉네임 설정
-"Special_characters are not allowed." = "특수문자는 사용 불가해요.";
+"Special characters are not allowed." = "특수문자는 사용 불가해요.";
 "Duplicate nickname." = "중복된 닉네임입니다.";
+"Nickname setup complete!" = "닉네임 설정 완료!";
+
+// 마이
+"Would you like to log out?" = "로그아웃 하시겠어요?";
+"logout" = "로그아웃";
