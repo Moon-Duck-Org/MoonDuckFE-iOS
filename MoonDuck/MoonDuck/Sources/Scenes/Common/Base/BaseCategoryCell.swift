@@ -20,35 +20,17 @@ class BaseCategoryCell: UICollectionViewCell {
             case .write:
                 return isSelected ? Asset.Color.white.color : Asset.Color.gray3.color
             }
-        }
-        
-        func getBoderColor(isSelected: Bool) -> UIColor? {
-            switch self {
-            case .write:
-                return isSelected ? Asset.Color.black.color : .clear
-            default:
-                return nil
-            }
-        }
-        
-        func getBorderWidth(isSelected: Bool) -> CGFloat? {
-            switch self {
-            case .write:
-                return isSelected ? 1.0 : 0.0
-            default:
-                return nil
-            }
-        }
+        }        
     }
     
-    @IBOutlet private weak var vBack: UIView?
-    @IBOutlet private weak var lbTitle: UILabel?
-    @IBOutlet private weak var ivIcon: UIImageView?
+    @IBOutlet weak var vBack: UIView?
+    @IBOutlet weak var lbTitle: UILabel?
+    @IBOutlet weak var ivIcon: UIImageView?
     
     var cellMode: CellMode = .home
     private var isSelect: Bool = false
     
-    func configure(with category: Category, isSelect: Bool = false) {
+    func configure(with category: ReviewCategory, isSelect: Bool = false) {
         lbTitle?.text = category.title
         ivIcon?.image = category.image
         
@@ -57,10 +39,5 @@ class BaseCategoryCell: UICollectionViewCell {
     
     private func setSelect(_ isSelect: Bool) {
         vBack?.backgroundColor = cellMode.getBackColor(isSelected: isSelect)
-        
-        if let color = cellMode.getBoderColor(isSelected: isSelect),
-        let width = cellMode.getBorderWidth(isSelected: isSelect) {
-            vBack?.addBorder(color: color, width: width)
-        }
     }
 }

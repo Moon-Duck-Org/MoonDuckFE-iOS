@@ -225,6 +225,9 @@
                     </constraints>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="FloatingButton"/>
+                    <connections>
+                        <action selector="writeNewReviewButtonTap:" destination="-1" eventType="touchUpInside" id="VYW-1A-GiU"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="LeH-dl-Ksy"/>

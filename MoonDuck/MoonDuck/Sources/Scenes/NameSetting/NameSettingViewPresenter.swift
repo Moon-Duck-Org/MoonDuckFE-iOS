@@ -16,6 +16,9 @@ protocol NameSettingPresenterDelegate: AnyObject {
 protocol NameSettingPresenter: AnyObject {
     var view: NameSettingView? { get set }
     
+    /// Data
+    func isShouldChangeName(_ text: String) -> Bool
+    
     /// Life Cycle
     func viewDidLoad()
     
@@ -23,27 +26,35 @@ protocol NameSettingPresenter: AnyObject {
     func completeButtonTap()
     func textFieldDidEndEditing()
     func nameTextFieldDidChanges(_ text: String?)
-    
-    /// Data
-    func isShouldChangeName(_ text: String) -> Bool
 }
 
 class NameSettingViewPresenter: Presenter, NameSettingPresenter {
     weak var view: NameSettingView?
     weak var delegate: NameSettingPresenterDelegate?
+    let model: UserModelType
     
     private var nameText: String?
     
     init(with provider: AppServices, model: UserModelType,
          delegate: NameSettingPresenterDelegate?) {
+        self.model = model
         self.delegate = delegate
-        super.init(with: provider, model: model)
-        model.delegate = self
+        super.init(with: provider)
+        self.model.delegate = self
+    }
+    
+    // MARK: - Data
+    func isShouldChangeName(_ text: String) -> Bool {
+        if text.count > 10 || text.contains(" ") {
+            return false
+        } else {
+            return true
+        }
     }
 }
 
-// MARK: - Input
 extension NameSettingViewPresenter {
+    // MARK: - Life Cycle
     func viewDidLoad() {
         // 초기화
         if let nickname = model.user?.nickname {
@@ -54,6 +65,7 @@ extension NameSettingViewPresenter {
         }
     }
     
+    // MARK: - Action
     func completeButtonTap() {
         guard let nameText else { return }
         
@@ -85,14 +97,7 @@ extension NameSettingViewPresenter {
         nameText = text
     }
     
-    func isShouldChangeName(_ text: String) -> Bool {
-        if text.count > 10 || text.contains(" ") {
-            return false
-        } else {
-            return true
-        }
-    }
-    
+    // MARK: - Logic
     private func isValidName(_ text: String?) -> Bool {
         let pattern = "^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]{1,10}$"
         if let text, text .range(of: pattern, options: .regularExpression) != nil {
@@ -107,6 +112,7 @@ extension NameSettingViewPresenter {
         self.view?.moveLogin(with: presenter)
     }
 }
+
 // MARK: - UserModelDelegate
 extension NameSettingViewPresenter: UserModelDelegate {
     func userModel(_ userModel: UserModel, didChange user: UserV2) {

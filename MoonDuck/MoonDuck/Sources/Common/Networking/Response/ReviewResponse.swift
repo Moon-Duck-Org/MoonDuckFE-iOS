@@ -56,7 +56,7 @@ extension ReviewResponse {
                       title: title,
                       created: createdAt,
                       nickname: user.nickname,
-                      category: Category(rawValue: category) ?? .all,
+                      category: ReviewCategory(rawValue: category) ?? .all,
                       content: content,
                       imageUrlList: imageUrlList,
                       rating: score)

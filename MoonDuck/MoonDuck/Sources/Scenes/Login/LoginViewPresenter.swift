@@ -27,12 +27,13 @@ protocol LoginPresenter: AnyObject {
 final class LoginViewPresenter: Presenter, LoginPresenter {
     
     weak var view: LoginView?
+    let model: UserModelType
     
-    override init(with provider: AppServices, model: UserModelType) {
-        super.init(with: provider, model: model)
-        model.delegate = self
+    init(with provider: AppServices, model: UserModelType) {
+        self.model = model
+        super.init(with: provider)
+        self.model.delegate = self
     }
-    
 }
 
 // MARK: - Input
@@ -147,6 +148,11 @@ extension LoginViewPresenter: UserModelDelegate {
     func userModel(_ userModel: UserModel, didChange user: UserV2) {
         let presenter = V2HomeViewPresenter(with: provider, model: model)
         view?.moveHome(with: presenter)
+    }
+    
+    func userModel(_ userModel: UserModel, didRecieve error: UserModelError) {
+        AuthManager.default.logout()
+        loginError()
     }
     
     func userModel(_ userModel: UserModel, didRecieve errorMessage: (any Error)?) {

@@ -11,6 +11,7 @@ protocol V2HomeView: AnyObject {
     func showToast(_ message: String)
     
     func moveMy(with presenter: MyViewPresenter)
+    func moveWriteReviewCategory(with presenter: WriteReviewCategoryViewPresenter)
 }
 
 class V2HomeViewController: UIViewController, V2HomeView, Navigatable {
@@ -22,6 +23,9 @@ class V2HomeViewController: UIViewController, V2HomeView, Navigatable {
     // @IBAction
     @IBAction private func myButtonTap(_ sender: Any) {
         presenter.myButtonTap()
+    }
+    @IBAction private func writeNewReviewButtonTap(_ sender: Any) {
+        presenter.writeNewReviewButtonTap()
     }
     
     // datasource
@@ -56,5 +60,8 @@ extension V2HomeViewController {
 extension V2HomeViewController {
     func moveMy(with presenter: MyViewPresenter) {
         navigator.show(seque: .my(presenter: presenter), sender: self, transition: .navigation)
+    }
+    func moveWriteReviewCategory(with presenter: WriteReviewCategoryViewPresenter) {
+        navigator.show(seque: .writeReviewCateogry(presenter: presenter), sender: self, transition: .navigation)
     }
 }

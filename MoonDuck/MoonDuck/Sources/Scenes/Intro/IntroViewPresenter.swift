@@ -17,10 +17,12 @@ protocol IntroPresenter: AnyObject {
 class IntroViewPresenter: Presenter, IntroPresenter {
     
     weak var view: IntroView?
+    let model: UserModelType
     
-    override init(with provider: AppServices, model: UserModelType) {
-        super.init(with: provider, model: model)
-        model.delegate = self
+    init(with provider: AppServices, model: UserModelType) {
+        self.model = model
+        super.init(with: provider)
+        self.model.delegate = self
     }
 }
 

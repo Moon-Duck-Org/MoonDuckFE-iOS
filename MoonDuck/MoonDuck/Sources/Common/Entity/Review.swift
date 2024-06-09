@@ -13,7 +13,7 @@ struct Review {
     let created: String
     let nickname: String
     
-    var category: Category
+    var category: ReviewCategory
     var content: String
     var imageUrlList: [String]
     var link: String?

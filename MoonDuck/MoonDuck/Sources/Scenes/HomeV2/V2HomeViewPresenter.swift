@@ -10,24 +10,36 @@ import Foundation
 protocol V2HomePresenter: AnyObject {
     var view: V2HomeView? { get set }
     
+    /// Data
+    
     /// Life Cycle
     
     /// Action
     func myButtonTap()
-    
-    /// Data
+    func writeNewReviewButtonTap()
 }
 
 class V2HomeViewPresenter: Presenter, V2HomePresenter {
     
     weak var view: V2HomeView?
+    let userModel: UserModelType
+    
+    init(with provider: AppServices, model: UserModelType) {
+        self.userModel = model
+        super.init(with: provider)
+    }
 }
 
-// MARK: - Input
 extension V2HomeViewPresenter {
+    // MARK: - Action
     func myButtonTap() {
-        let presenter = MyViewPresenter(with: provider, model: model)
+        let presenter = MyViewPresenter(with: provider, model: userModel)
         view?.moveMy(with: presenter)
+    }
+    func writeNewReviewButtonTap() {
+        let model = ReviewCategoryModel()
+        let presenter = WriteReviewCategoryViewPresenter(with: provider, model: model)
+        view?.moveWriteReviewCategory(with: presenter)
     }
 }
 

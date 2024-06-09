@@ -32,6 +32,7 @@ class Navigator {
         case nameSetting(presenter: NameSettingViewPresenter)
         case home(presenter: V2HomeViewPresenter)
         case my(presenter: MyViewPresenter)
+        case writeReviewCateogry(presenter: WriteReviewCategoryPresenter)
     }
 
     enum Transition {
@@ -55,6 +56,8 @@ class Navigator {
             return V2HomeViewController(navigator: self, presenter: presenter)
         case .my(let presenter):
             return MyViewController(navigator: self, presenter: presenter)
+        case .writeReviewCateogry(let presenter):
+            return WriteReviewCategoryViewController(navigator: self, presenter: presenter)
         }
     }
     

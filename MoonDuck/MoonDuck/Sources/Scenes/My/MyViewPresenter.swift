@@ -11,28 +11,30 @@ import UIKit
 protocol MyPresenter: AnyObject {
     var view: MyView? { get set }
     
+    /// Data
+    
     /// Life Cycle
     func viewDidLoad()
     
     /// Action
     func logoutButtonTap()
     func settingNameButtonTap()
-    
-    /// Data
 }
 
 class MyViewPresenter: Presenter, MyPresenter {
     weak var view: MyView?
+    let model: UserModelType
     
-    override init(with provider: AppServices, model: UserModelType) {
-        super.init(with: provider, model: model)
-        model.delegate = self
+    init(with provider: AppServices, model: UserModelType) {
+        self.model = model
+        super.init(with: provider)
+        self.model.delegate = self
     }
 }
 
-// MARK: - Input
 extension MyViewPresenter {
     
+    // MARK: - Life Cycle
     func viewDidLoad() {
         if let user = model.user {
             view?.updateNameLabel(user.nickname)
@@ -42,6 +44,7 @@ extension MyViewPresenter {
         }
     }
     
+    // MARK: - Action
     func settingNameButtonTap() {
         let presenter = NameSettingViewPresenter(with: provider, model: model, delegate: self)
         view?.presentNameSetting(with: presenter)
@@ -52,6 +55,7 @@ extension MyViewPresenter {
         moveLogin()
     }
     
+    // MARK: - Logic
     private func moveLogin() {
         let presenter = LoginViewPresenter(with: provider, model: model)
         self.view?.moveLogin(with: presenter)

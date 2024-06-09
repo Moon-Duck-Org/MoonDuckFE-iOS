@@ -10,15 +10,13 @@ import Combine
 
 class Presenter: NSObject {
     let provider: AppServices
-    let model: UserModelType
     let isLoading = PassthroughSubject<Bool, Never>()
     
     typealias DisposeBag = Set<AnyCancellable>
     var bag = DisposeBag()
     
-    init(with provider: AppServices, model: UserModelType) {
+    init(with provider: AppServices) {
         self.provider = provider
-        self.model = model
         super.init()
         
         isLoading
