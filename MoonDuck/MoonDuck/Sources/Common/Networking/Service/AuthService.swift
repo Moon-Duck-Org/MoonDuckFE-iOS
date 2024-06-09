@@ -10,7 +10,7 @@ import Alamofire
 class AuthService {
     func login(request: AuthLoginRequest, completion: @escaping (_ succeed: AuthLoginResponse?, _ failed: Error?) -> Void) {
         API.session.request(MoonDuckAPI.authLogin(request))
-            .responseDecodable { (response: AFDataResponse<AuthLoginResponse> ) in
+            .responseDecodable { (response: AFDataResponse<AuthLoginResponse>) in
                 switch response.result {
                 case .success(let response):
                     completion(response, nil)

@@ -25,7 +25,7 @@ struct UserResponse: Decodable {
             return movie + book + drama + concert
         }()
         
-        return UserV2(userId: userId ??  0,
+        return UserV2(userId: userId ?? 0,
                       nickname: nickname ?? "",
                       all: all,
                       movie: movie,
@@ -60,6 +60,7 @@ struct TestUserResponse: Codable {
         drama = try? values.decode(Int.self, forKey: .drama)
         concert = try? values.decode(Int.self, forKey: .concert)
     }
+    
     var toDomain: UserV2 {
         let movie = movie ?? 0
         let book = book ?? 0

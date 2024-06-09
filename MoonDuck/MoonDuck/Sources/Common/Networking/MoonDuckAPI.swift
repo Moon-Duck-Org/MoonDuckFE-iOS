@@ -13,6 +13,9 @@ enum MoonDuckAPI {
     case authReissue(AuthReissueRequest)
     case user
     case userNickname(UserNicknameRequest)
+    
+    case searchMovie(SearchMovieRequest)
+    // TODO: - API 수정
     case reviewAll(ReviewAllRequest)
     case getReview(GetReviewRequest)
     case putReview(PutReviewRequest)
@@ -28,6 +31,8 @@ extension MoonDuckAPI: TargetType {
     
     var baseURL: URL {
         switch self {
+        case .searchMovie:
+            return URL(string: "http://www.kobis.or.kr")!
         default:
             return URL(string: MoonDuckAPI.baseUrl())!
         }
@@ -35,7 +40,7 @@ extension MoonDuckAPI: TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .user, .reviewAll, .getReview, .reviewDetail:
+        case .user, .searchMovie, .reviewAll, .getReview, .reviewDetail:
             return .get
         case .authLogin, .authReissue, .postReview:
             return .post
@@ -60,6 +65,8 @@ extension MoonDuckAPI: TargetType {
             return "/user"
         case .userNickname:
             return "/user/nickname"
+        case .searchMovie:
+            return "/kobisopenapi/webservice/rest/movie/searchMovieList.json"
         case .getReview, .putReview, .postReview, .deleteReview:
             return "/api/review"
         case .reviewAll:
@@ -79,6 +86,9 @@ extension MoonDuckAPI: TargetType {
             return nil
         case .userNickname(let request):
             return .body(request)
+        case .searchMovie(let request):
+            return .query(request)
+            
         case .getReview(let request):
             return .query(request)
         case .reviewAll(let request):
