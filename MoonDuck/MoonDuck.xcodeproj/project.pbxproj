@@ -71,6 +71,9 @@
 		EA7208552C12929700E96212 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208542C12929700E96212 /* Auth.swift */; };
 		EA7208572C129F2100E96212 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA7208562C129F2100E96212 /* GoogleService-Info.plist */; };
 		EA72085B2C12E3C900E96212 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72085A2C12E3C900E96212 /* APIError.swift */; };
+		EA810A362C17253F00DF6C72 /* CategorySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA810A342C17253F00DF6C72 /* CategorySearchViewController.swift */; };
+		EA810A372C17253F00DF6C72 /* CategorySearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA810A352C17253F00DF6C72 /* CategorySearchViewController.xib */; };
+		EA810A392C17269800DF6C72 /* CategorySearchViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA810A382C17269800DF6C72 /* CategorySearchViewPresenter.swift */; };
 		EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */; };
 		EA81F4A92BFF716600FDC7A7 /* ReviewCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A82BFF716600FDC7A7 /* ReviewCategory.swift */; };
 		EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */; };
@@ -218,6 +221,9 @@
 		EA7208542C12929700E96212 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		EA7208562C129F2100E96212 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EA72085A2C12E3C900E96212 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		EA810A342C17253F00DF6C72 /* CategorySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySearchViewController.swift; sourceTree = "<group>"; };
+		EA810A352C17253F00DF6C72 /* CategorySearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategorySearchViewController.xib; sourceTree = "<group>"; };
+		EA810A382C17269800DF6C72 /* CategorySearchViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySearchViewPresenter.swift; sourceTree = "<group>"; };
 		EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCategoryCell.swift; sourceTree = "<group>"; };
 		EA81F4A82BFF716600FDC7A7 /* ReviewCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCategory.swift; sourceTree = "<group>"; };
 		EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCvDataSource.swift; sourceTree = "<group>"; };
@@ -676,6 +682,9 @@
 		EAC93F3B2C1568F5008FDFF2 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				EA810A342C17253F00DF6C72 /* CategorySearchViewController.swift */,
+				EA810A352C17253F00DF6C72 /* CategorySearchViewController.xib */,
+				EA810A382C17269800DF6C72 /* CategorySearchViewPresenter.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -865,6 +874,7 @@
 				EA6D9A752BFF67A0003B459A /* HomeCategoryCvCell.xib in Resources */,
 				EA9A84272C00BCAF004B7FDF /* NameSettingViewController.xib in Resources */,
 				EAE017CC2C012C1900699145 /* BoardImageCvCell.xib in Resources */,
+				EA810A372C17253F00DF6C72 /* CategorySearchViewController.xib in Resources */,
 				EAE017E72C01E6D100699145 /* BoardEditViewController.xib in Resources */,
 				A0E658072BFE22B9001A8D54 /* Base in Resources */,
 				A0E658492BFE394F001A8D54 /* .swiftlint.yml in Resources */,
@@ -1076,6 +1086,7 @@
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,
 				EA946D5A2C16960E00F44BB5 /* LoadingView.swift in Sources */,
 				EA5758F72C1559C300E80050 /* WriteReviewCategoryDataSource.swift in Sources */,
+				EA810A362C17253F00DF6C72 /* CategorySearchViewController.swift in Sources */,
 				EAD957702C0094A1001FB6E1 /* LoginViewPresenter.swift in Sources */,
 				EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */,
 				EAE017D12C01935700699145 /* ReviewService.swift in Sources */,
@@ -1115,6 +1126,7 @@
 				EAF78F002C14813800EFBCB0 /* MyViewController.swift in Sources */,
 				EAE017D92C01C11B00699145 /* BoardDetailViewPresenter.swift in Sources */,
 				EA72084D2C12869B00E96212 /* AuthResponse.swift in Sources */,
+				EA810A392C17269800DF6C72 /* CategorySearchViewPresenter.swift in Sources */,
 				EA7208512C128CE800E96212 /* AppKeychain.swift in Sources */,
 				EA72085B2C12E3C900E96212 /* APIError.swift in Sources */,
 			);
@@ -1312,7 +1324,7 @@
 				CODE_SIGN_ENTITLEMENTS = MoonDuck/MoonDuckDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 3T5QFYSPG5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoonDuck/Resources/Info.plist;
@@ -1354,7 +1366,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3T5QFYSPG5;
 				GENERATE_INFOPLIST_FILE = YES;

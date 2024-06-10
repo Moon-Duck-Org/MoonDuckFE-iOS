@@ -79,6 +79,7 @@ extension NameSettingViewPresenter {
             delegate?.nameSetting(didCancel: self)
         } else {
             if isValidName(nameText) {
+                view?.updateLoadingView(true)
                 model.nickname(nameText)
             } else {
                 view?.showHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
@@ -120,13 +121,16 @@ extension NameSettingViewPresenter {
 // MARK: - UserModelDelegate
 extension NameSettingViewPresenter: UserModelDelegate {
     func userModel(_ userModel: UserModel, didChange user: UserV2) {
+        view?.updateLoadingView(false)
         delegate?.nameSetting(self, didSuccess: user.nickname)
     }
     func userModel(_ userModel: UserModel, didChange nickname: String) {
+        view?.updateLoadingView(false)
         delegate?.nameSetting(self, didSuccess: nickname)
     }
     
     func userModel(_ userModel: UserModel, didRecieve error: UserModelError) {
+        view?.updateLoadingView(false)
         switch error {
         case .authError:
             AuthManager.default.logout()
@@ -141,6 +145,7 @@ extension NameSettingViewPresenter: UserModelDelegate {
     }
     
     private func networkError() {
+        view?.updateLoadingView(false)
         Log.todo("네트워크 오류 알럿 노출")
         view?.showToast("네트워크 오류 발생")
     }

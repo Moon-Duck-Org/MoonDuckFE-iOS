@@ -66,7 +66,7 @@ extension WriteReviewCategoryViewController {
 
 // MARK: - Navigation
 extension WriteReviewCategoryViewController {
-    func back() {
+    private func back() {
         navigator?.pop(sender: self)
     }
 }

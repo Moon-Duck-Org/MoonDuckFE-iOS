@@ -40,6 +40,7 @@ extension MyViewPresenter {
             view?.updateNameLabel(user.nickname)
             view?.updateCountLabel(movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
         } else {
+            view?.updateLoadingView(true)
             model.getUser()
         }
     }
@@ -65,16 +66,19 @@ extension MyViewPresenter {
 // MARK: - UserModelDelegate
 extension MyViewPresenter: UserModelDelegate {
     func userModel(_ userModel: UserModel, didChange user: UserV2) {
+        view?.updateLoadingView(false)
         guard let user = userModel.user else { return }
         view?.updateNameLabel(user.nickname)
         view?.updateCountLabel(movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
     }
     
     func userModel(_ userModel: UserModel, didChange nickname: String) {
+        view?.updateLoadingView(false)
         view?.updateNameLabel(nickname)
     }
     
     func userModel(_ userModel: UserModel, didRecieve error: UserModelError) {
+        view?.updateLoadingView(false)
         switch error {
         case .authError:
             AuthManager.default.logout()
@@ -89,6 +93,7 @@ extension MyViewPresenter: UserModelDelegate {
     }
     
     private func networkError() {
+        view?.updateLoadingView(false)
         Log.todo("네트워크 오류 알럿 노출")
         view?.showToast("네트워크 오류 발생")
     }

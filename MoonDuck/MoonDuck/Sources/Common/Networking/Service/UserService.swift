@@ -32,25 +32,6 @@ class UserService {
 
     }
     
-    func userTest(completion: @escaping (_ succeed: UserV2?, _ failed: Error?) -> Void) {
-        API.session.request(MoonDuckAPI.user)
-            .responseDecodable(of: TestUserResponse.self) { response in
-                Log.debug(response)
-                switch response.result {
-                case .success(let response):
-                    if let code = response.code {
-                        let error = ErrorEntity(code: code, message: response.message)
-                        let apiError = APIError(error: error)
-                        completion(nil, apiError)
-                    } else {
-                        completion(response.toDomain, nil)
-                    }
-                case .failure(let error):
-                    completion(nil, error)
-                }
-            }
-    }
-    
     func nickname(request: UserNicknameRequest, completion: @escaping (_ succeed: UserNicknameResponse?, _ failed: Error?) -> Void) {
         API.session.request(MoonDuckAPI.userNickname(request))
             .responseDecodable { (response: AFDataResponse<UserNicknameResponse>) in

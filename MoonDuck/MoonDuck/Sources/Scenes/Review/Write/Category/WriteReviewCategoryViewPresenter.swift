@@ -71,6 +71,3 @@ extension WriteReviewCategoryViewPresenter {
     }
     
 }
-
-// MARK: - UserModelDelegate
-extension WriteReviewCategoryViewPresenter: UserModelDelegate { }

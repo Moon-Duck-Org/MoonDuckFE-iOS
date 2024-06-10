@@ -65,6 +65,7 @@ extension LoginViewPresenter {
     }
     
     func loginError() {
+        view?.updateLoadingView(false)
         Log.todo("로그인 오류 알럿 노출")
         view?.showToast("로그인에 실패하였습니다.")
     }
@@ -133,12 +134,12 @@ extension LoginViewPresenter {
                 self?.view?.updateLoadingView(false)
                 return
             }
-            self.view?.updateLoadingView(false)
             
             switch result {
             case .success: 
                 self.model.getUser()
             case .donthaveNickname:
+                self.view?.updateLoadingView(false)
                 let presenter = NameSettingViewPresenter(with: self.provider, user: model.user, delegate: self)
                 self.view?.moveNameSetting(with: presenter)
             case .error:
@@ -151,6 +152,7 @@ extension LoginViewPresenter {
 // MARK: - UserModelDelegate
 extension LoginViewPresenter: UserModelDelegate {
     func userModel(_ userModel: UserModel, didChange user: UserV2) {
+        view?.updateLoadingView(false)
         let presenter = V2HomeViewPresenter(with: provider, model: model)
         view?.moveHome(with: presenter)
     }
@@ -169,6 +171,7 @@ extension LoginViewPresenter: UserModelDelegate {
 // MARK: - NameSettingPresenterDelegate
 extension LoginViewPresenter: NameSettingPresenterDelegate {
     func nameSetting(_ presenter: NameSettingPresenter, didSuccess nickname: String) {
+        view?.updateLoadingView(false)
         model.getUser()
     }
     

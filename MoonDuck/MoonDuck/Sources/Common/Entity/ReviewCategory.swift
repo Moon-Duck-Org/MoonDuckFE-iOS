@@ -37,13 +37,13 @@ enum ReviewCategory: String {
     var grayImage: UIImage {
         switch self {
         case .movie:
-            return Asset.Assets.categoryMovie.image
+            return Asset.Assets.categoryMovieGray.image
         case .book:
-            return Asset.Assets.categoryBook.image
+            return Asset.Assets.categoryBookGray.image
         case .drama:
-            return Asset.Assets.categoryDrama.image
+            return Asset.Assets.categoryDramaGray.image
         case .concert:
-            return Asset.Assets.categoryConcert.image
+            return Asset.Assets.categoryConcertGray.image
         default: return Asset.Assets.imageEmptyHome.image
         }
     }

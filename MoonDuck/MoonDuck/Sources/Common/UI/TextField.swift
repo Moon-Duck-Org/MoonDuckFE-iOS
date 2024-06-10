@@ -9,6 +9,25 @@ import UIKit
 
 class TextField: UITextField {
     
+    let padding = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+    
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+    
+    override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
+        let originalRect = super.clearButtonRect(forBounds: bounds)
+        return originalRect.offsetBy(dx: -5, dy: 0)
+    }
+    
     override var placeholder: String? {
         didSet {
             if let placeholder = placeholder {
@@ -46,7 +65,6 @@ class TextField: UITextField {
     private func initview() {
         self.textColor = Asset.Color.black.color
         self.layer.cornerRadius = 8
-        self.addRightAndLeftPadding(width: 15)
         self.font = FontFamily.NotoSansCJKKR.regular.font(size: 14)
         self.normal()
         

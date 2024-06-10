@@ -23,21 +23,21 @@ class BaseCategoryCell: UICollectionViewCell {
         }        
     }
     
-    @IBOutlet weak var vBack: UIView?
-    @IBOutlet weak var lbTitle: UILabel?
-    @IBOutlet weak var ivIcon: UIImageView?
+    @IBOutlet weak var backView: UIView?
+    @IBOutlet weak var titlaLabel: UILabel?
+    @IBOutlet weak var iconImageView: UIImageView?
     
     var cellMode: CellMode = .home
     private var isSelect: Bool = false
     
     func configure(with category: ReviewCategory, isSelect: Bool = false) {
-        lbTitle?.text = category.title
-        ivIcon?.image = category.image
+        titlaLabel?.text = category.title
+        iconImageView?.image = category.image
         
         setSelect(isSelect)
     }
     
     private func setSelect(_ isSelect: Bool) {
-        vBack?.backgroundColor = cellMode.getBackColor(isSelected: isSelect)
+        backView?.backgroundColor = cellMode.getBackColor(isSelected: isSelect)
     }
 }
