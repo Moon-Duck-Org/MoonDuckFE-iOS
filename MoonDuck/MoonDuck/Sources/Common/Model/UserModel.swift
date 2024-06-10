@@ -28,9 +28,13 @@ enum UserModelError {
 protocol UserModelType: AnyObject {
     var delegate: UserModelDelegate? { get set }
     
-    var user: UserV2? { get }
+    /// Data
+    var user: UserV2? { get set }
     
     func updateNickname(_ nickname: String)
+    func logout()
+    
+    /// Network
     func getUser()
     func nickname(_ name: String)
 }
@@ -56,14 +60,17 @@ class UserModel: UserModelType {
         self.user = nil
     }
     
+    func logout() {
+        removeUser()
+    }
+    
     func updateNickname(_ nickname: String) {
         if let user {
             var updateUser = user
             updateUser.nickname = nickname
             saveUser(updateUser)
-        } else {
-            delegate?.userModel(self, didChange: nickname)
         }
+        delegate?.userModel(self, didChange: nickname)
     }
 
     func getUser() {

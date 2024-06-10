@@ -12,9 +12,11 @@ import FirebaseAuth
 import GoogleSignIn
 import AuthenticationServices
 
-protocol LoginView: BaseView {   
+protocol LoginView: BaseView {
     func moveNameSetting(with presenter: NameSettingViewPresenter)
     func moveHome(with presenter: V2HomeViewPresenter)
+    
+    func dismiss()
 }
 
 class LoginViewController: BaseViewController, LoginView, Navigatable {
@@ -111,8 +113,12 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
 
 // MARK: - Navigation
 extension LoginViewController {
+    func dismiss() {
+        navigator.dismiss(sender: self)
+    }
+    
     func moveNameSetting(with presenter: NameSettingViewPresenter) {
-        navigator.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
+        navigator.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .navigation)
     }
     
     func moveHome(with presenter: V2HomeViewPresenter) {

@@ -54,7 +54,7 @@ extension IntroViewPresenter {
     }
     
     private func moveLogin() {
-        let presenter = LoginViewPresenter(with: provider, model: model)
+        let presenter = LoginViewPresenter(with: provider)
         view?.moveLogin(with: presenter)
     }
 }

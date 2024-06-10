@@ -46,7 +46,7 @@ extension MyViewPresenter {
     
     // MARK: - Action
     func settingNameButtonTap() {
-        let presenter = NameSettingViewPresenter(with: provider, model: model, delegate: self)
+        let presenter = NameSettingViewPresenter(with: provider, user: model.user, delegate: self)
         view?.presentNameSetting(with: presenter)
     }
     
@@ -57,7 +57,7 @@ extension MyViewPresenter {
     
     // MARK: - Logic
     private func moveLogin() {
-        let presenter = LoginViewPresenter(with: provider, model: model)
+        let presenter = LoginViewPresenter(with: provider)
         self.view?.moveLogin(with: presenter)
     }
 }
@@ -98,8 +98,7 @@ extension MyViewPresenter: UserModelDelegate {
 extension MyViewPresenter: NameSettingPresenterDelegate {
     func nameSetting(_ presenter: NameSettingPresenter, didSuccess nickname: String) {
         view?.dismiss()
-        view?.updateNameLabel(nickname)
-        view?.showToast(L10n.Localizable.nicknameSetupComplete)
+        model.updateNickname(nickname)
     }
     
     func nameSetting(didCancel presenter: NameSettingPresenter) {

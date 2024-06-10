@@ -29,8 +29,8 @@ final class LoginViewPresenter: Presenter, LoginPresenter {
     weak var view: LoginView?
     let model: UserModelType
     
-    init(with provider: AppServices, model: UserModelType) {
-        self.model = model
+    override init(with provider: AppServices) {
+        self.model = UserModel(provider)
         super.init(with: provider)
         self.model.delegate = self
     }
@@ -139,7 +139,7 @@ extension LoginViewPresenter {
             case .success: 
                 self.model.getUser()
             case .donthaveNickname:
-                let presenter = NameSettingViewPresenter(with: self.provider, model: model, delegate: self)
+                let presenter = NameSettingViewPresenter(with: self.provider, user: model.user, delegate: self)
                 self.view?.moveNameSetting(with: presenter)
             case .error:
                 self.loginError()

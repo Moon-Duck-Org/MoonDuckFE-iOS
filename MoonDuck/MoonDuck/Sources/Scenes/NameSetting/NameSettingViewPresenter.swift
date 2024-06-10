@@ -35,11 +35,15 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
     
     private var nameText: String?
     
-    init(with provider: AppServices, model: UserModelType,
+    init(with provider: AppServices, user: UserV2?,
          delegate: NameSettingPresenterDelegate?) {
-        self.model = model
+        self.model = UserModel(provider)
         self.delegate = delegate
         super.init(with: provider)
+        
+        if let user = user {
+            self.model.user = user
+        }
         self.model.delegate = self
     }
     
@@ -108,7 +112,7 @@ extension NameSettingViewPresenter {
     }
     
     private func moveLogin() {
-        let presenter = LoginViewPresenter(with: provider, model: model)
+        let presenter = LoginViewPresenter(with: provider)
         self.view?.moveLogin(with: presenter)
     }
 }
