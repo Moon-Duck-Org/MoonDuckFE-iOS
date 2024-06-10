@@ -12,14 +12,12 @@ import FirebaseAuth
 import GoogleSignIn
 import AuthenticationServices
 
-protocol LoginView: AnyObject {
-    func showToast(_ message: String)
-    
+protocol LoginView: BaseView {   
     func moveNameSetting(with presenter: NameSettingViewPresenter)
     func moveHome(with presenter: V2HomeViewPresenter)
 }
 
-class LoginViewController: UIViewController, LoginView, Navigatable {
+class LoginViewController: BaseViewController, LoginView, Navigatable {
     
     var navigator: Navigator!
     let presenter: LoginPresenter
@@ -50,13 +48,11 @@ class LoginViewController: UIViewController, LoginView, Navigatable {
         super.viewDidLoad()
         presenter.view = self
     }
+    
 }
 
 // MARK: - UI Logic
 extension LoginViewController {
-    func showToast(_ message: String) {
-        showToast(message: message)
-    }
     
     private func googleLogin() {
         guard let clientID = FirebaseApp.app()?.options.clientID else {

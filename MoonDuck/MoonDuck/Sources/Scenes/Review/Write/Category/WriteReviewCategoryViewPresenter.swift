@@ -21,6 +21,7 @@ protocol WriteReviewCategoryPresenter: AnyObject {
     
     /// Action
     func selectCategory(at index: Int)
+    func tapNextButton()
 }
 
 class WriteReviewCategoryViewPresenter: Presenter, WriteReviewCategoryPresenter {
@@ -34,14 +35,18 @@ class WriteReviewCategoryViewPresenter: Presenter, WriteReviewCategoryPresenter 
     
     // MARK: - Data
     var numberOfCategories: Int {
-        return model.categories.count
+        return model.getNumberOfCategories(haveAll: false)
     }
     
-    var indexOfSelectedCategory: Int?
+    var indexOfSelectedCategory: Int? {
+        didSet {
+            view?.updateNextButton(indexOfSelectedCategory != nil)
+        }
+    }
     
     func category(at index: Int) -> ReviewCategory? {
-        if index < model.categories.count {
-            return model.categories[index]
+        if index < model.getNumberOfCategories(haveAll: false) {
+            return model.getCategories(haveAll: false)[index]
         } else {
             return nil
         }
@@ -59,6 +64,10 @@ extension WriteReviewCategoryViewPresenter {
     func selectCategory(at index: Int) {
         indexOfSelectedCategory = index
         view?.reloadCategories()
+    }
+    
+    func tapNextButton() {
+        // TODO: - 다음 버튼 탭
     }
     
 }

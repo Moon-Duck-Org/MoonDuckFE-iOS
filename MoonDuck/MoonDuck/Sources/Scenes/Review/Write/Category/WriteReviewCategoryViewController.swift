@@ -9,9 +9,10 @@ import UIKit
 
 protocol WriteReviewCategoryView: AnyObject {
     func reloadCategories()
+    func updateNextButton(_ isEnabled: Bool)
 }
 
-class WriteReviewCategoryViewController: UIViewController, WriteReviewCategoryView, Navigatable {
+class WriteReviewCategoryViewController: BaseViewController, WriteReviewCategoryView, Navigatable {
     
     var navigator: Navigator!
     let presenter: WriteReviewCategoryPresenter
@@ -19,10 +20,15 @@ class WriteReviewCategoryViewController: UIViewController, WriteReviewCategoryVi
     
     // @IBOutlet
     @IBOutlet weak private var categoryCollectioinView: UICollectionView!
+    @IBOutlet weak private var nextButton: RadiusButton!
     
     // @IBAction
     @IBAction private func cancelButtonTap(_ sender: Any) {
         back()
+    }
+    
+    @IBAction private func nextButtonTap(_ sender: Any) {
+        
     }
     
     init(navigator: Navigator,
@@ -48,12 +54,12 @@ class WriteReviewCategoryViewController: UIViewController, WriteReviewCategoryVi
 
 // MARK: - UI Logic
 extension WriteReviewCategoryViewController {
-    func showToast(_ message: String) {
-        showToast(message: message)
-    }
-    
     func reloadCategories() {
         categoryCollectioinView.reloadData()
+    }
+    
+    func updateNextButton(_ isEnabled: Bool) {
+        nextButton.isEnabled = isEnabled
     }
     
 }

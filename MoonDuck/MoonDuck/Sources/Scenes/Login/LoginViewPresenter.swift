@@ -127,8 +127,13 @@ extension LoginViewPresenter {
     }
     
     private func login(_ auth: Auth) {
+        view?.updateLoadingView(true)
         AuthManager.default.login(auth: auth) { [weak self] result in
-            guard let self else { return }
+            guard let self else {
+                self?.view?.updateLoadingView(false)
+                return
+            }
+            self.view?.updateLoadingView(false)
             
             switch result {
             case .success: 

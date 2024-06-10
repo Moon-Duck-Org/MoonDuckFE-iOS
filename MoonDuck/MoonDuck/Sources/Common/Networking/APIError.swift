@@ -52,9 +52,16 @@ enum APIError: Error, Equatable, LocalizedError {
         }
     }
     
-    var neededRefreshToken: Bool {
+    var needsTokenRefresh: Bool {
         switch self {
         case .expiredToken: return true
+        default: return false
+        }
+    }
+    
+    var duplicateNickname: Bool {
+        switch self {
+        case .duplicateNickname: return true
         default: return false
         }
     }

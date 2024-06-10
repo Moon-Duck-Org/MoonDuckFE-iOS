@@ -7,15 +7,13 @@
 
 import UIKit
 
-protocol IntroView: AnyObject {
-    func showToast(_ message: String)
-    
+protocol IntroView: BaseView {
     func moveLogin(with presenter: LoginViewPresenter)
     func moveNameSetting(with presenter: NameSettingViewPresenter)
     func moveHome(with presenter: V2HomeViewPresenter)
 }
 
-class IntroViewController: UIViewController, IntroView, Navigatable {
+class IntroViewController: BaseViewController, IntroView, Navigatable {
     
     var navigator: Navigator!
     let presenter: IntroPresenter
@@ -41,9 +39,7 @@ class IntroViewController: UIViewController, IntroView, Navigatable {
 
 // MARK: - UI Logic
 extension IntroViewController {
-    func showToast(_ message: String) {
-        showToast(message: message)
-    }
+    
 }
 
 // MARK: - Navigation

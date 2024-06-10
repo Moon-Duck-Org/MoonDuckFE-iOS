@@ -7,9 +7,7 @@
 
 import UIKit
 
-protocol MyView: AnyObject {
-    func showToast(_ message: String)
-    
+protocol MyView: BaseView {
     func updateNameLabel(_ text: String)
     func updateCountLabel(movie: Int, book: Int, drama: Int, concert: Int)
     
@@ -18,7 +16,7 @@ protocol MyView: AnyObject {
     func moveLogin(with presenter: LoginViewPresenter)
 }
 
-class MyViewController: UIViewController, MyView, Navigatable {
+class MyViewController: BaseViewController, MyView, Navigatable {
     
     var navigator: Navigator!
     let presenter: MyPresenter
@@ -67,10 +65,6 @@ class MyViewController: UIViewController, MyView, Navigatable {
 
 // MARK: - UI Logic
 extension MyViewController {
-    func showToast(_ message: String) {
-        showToast(message: message)
-    }
-    
     func updateNameLabel(_ text: String) {
         nameLabel.text = text
     }

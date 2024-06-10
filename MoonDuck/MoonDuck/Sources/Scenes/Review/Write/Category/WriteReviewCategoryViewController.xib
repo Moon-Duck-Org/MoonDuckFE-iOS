@@ -24,6 +24,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WriteReviewCategoryViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
                 <outlet property="categoryCollectioinView" destination="Hbh-xx-4fe" id="UW9-F0-kSA"/>
+                <outlet property="nextButton" destination="9ju-WF-i3v" id="Zs0-mr-Ow3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -94,12 +95,13 @@
                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </collectionViewFlowLayout>
                         </collectionView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ju-WF-i3v" customClass="RadiusButton" customModule="MoonDuck" customModuleProvider="target">
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ju-WF-i3v" customClass="RadiusButton" customModule="MoonDuck" customModuleProvider="target">
                             <rect key="frame" x="16" y="620" width="361" height="56"/>
                             <color key="backgroundColor" name="Gray3"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="iX3-3k-jQl"/>
                             </constraints>
+                            <color key="tintColor" name="Gray2"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="filled" title="다음">
                                 <fontDescription key="titleFontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="16"/>
@@ -111,6 +113,9 @@
                                     <real key="value" value="10"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="nextButtonTap:" destination="-1" eventType="touchUpInside" id="l4t-Jn-cTP"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>

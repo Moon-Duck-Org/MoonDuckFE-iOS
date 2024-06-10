@@ -7,8 +7,7 @@
 
 import UIKit
 
-protocol NameSettingView: AnyObject {
-    func showToast(_ message: String)
+protocol NameSettingView: BaseView {
     func showHintLabel(_ hint: String)
     func clearHintLabel()
     
@@ -21,7 +20,7 @@ protocol NameSettingView: AnyObject {
     func moveHome(with presenter: V2HomeViewPresenter)
 }
 
-class NameSettingViewController: UIViewController, NameSettingView, Navigatable {
+class NameSettingViewController: BaseViewController, NameSettingView, Navigatable {
     
     var navigator: Navigator!
     let presenter: NameSettingPresenter
@@ -67,10 +66,6 @@ class NameSettingViewController: UIViewController, NameSettingView, Navigatable 
 
 // MARK: - UI Logic
 extension NameSettingViewController {
-    func showToast(_ message: String) {
-        showToast(message: message)
-    }
-    
     func showHintLabel(_ hint: String) {
         nameTextField.error()
         hintLabel.text = hint

@@ -7,14 +7,12 @@
 
 import UIKit
 
-protocol V2HomeView: AnyObject {
-    func showToast(_ message: String)
-    
+protocol V2HomeView: BaseView {
     func moveMy(with presenter: MyViewPresenter)
     func moveWriteReviewCategory(with presenter: WriteReviewCategoryViewPresenter)
 }
 
-class V2HomeViewController: UIViewController, V2HomeView, Navigatable {
+class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
     var navigator: Navigator!
     let presenter: V2HomePresenter
     
@@ -50,9 +48,6 @@ class V2HomeViewController: UIViewController, V2HomeView, Navigatable {
 
 // MARK: - UI Logic
 extension V2HomeViewController {
-    func showToast(_ message: String) {
-        showToast(message: message)
-    }
     
 }
 

@@ -94,8 +94,8 @@ class UserModel: UserModelType {
                         Log.error("Auth Error \(code)")
                         delegate?.userModel(self, didRecieve: .authError)
                         return
-                    } else if code.neededRefreshToken {
-                        AuthManager.default.refreshToken() { [weak self] code in
+                    } else if code.needsTokenRefresh {
+                        AuthManager.default.refreshToken { [weak self] code in
                             guard let self else { return }
                             if code == .success {
                                 self.nickname(name)
@@ -105,7 +105,7 @@ class UserModel: UserModelType {
                             }
                         }
                         return
-                    } else if code == .duplicateNickname(code.errorDescription) {
+                    } else if code.duplicateNickname {
                         // 중복된 닉네임
                         delegate?.userModel(self, didRecieve: .duplicateNickname)
                         return

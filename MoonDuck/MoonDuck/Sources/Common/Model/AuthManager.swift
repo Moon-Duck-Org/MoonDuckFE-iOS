@@ -52,11 +52,10 @@ class AuthManager {
     }
     
     func getAutoLoginAuth() -> Auth? {
-        if let isAutoLogin = AppUserDefaults.getObject(forKey: .isAutoLogin) as? Bool, isAutoLogin {
-            guard let id = AppKeychain.getValue(forKey: .snsId),
-                  let snsLoginType = AppUserDefaults.getObject(forKey: .snsLoginType) as? String,
-                  let loginType = SnsLoginType(rawValue: snsLoginType) else { return nil }
-            
+        if let isAutoLogin = AppUserDefaults.getObject(forKey: .isAutoLogin) as? Bool, isAutoLogin,
+           let id = AppKeychain.getValue(forKey: .snsId),
+           let snsLoginType = AppUserDefaults.getObject(forKey: .snsLoginType) as? String,
+           let loginType = SnsLoginType(rawValue: snsLoginType) {
             return Auth(loginType: loginType, id: id)
         } else {
             return nil
@@ -76,10 +75,8 @@ class AuthManager {
     
     func login(auth: Auth, completion: @escaping (LoginResultCode) -> Void) {
         let request = AuthLoginRequest(dvsnCd: auth.loginType.rawValue, id: auth.id)
-        provider?.authService.login(request: request) { [weak self] succeed, failed in
-            guard let self else { return }
-            
-            if let succeed, succeed.isHaveNickname {
+        provider?.authService.login(request: request) { succeed, failed in
+            if let succeed {
                 // 앱에 토큰 및 로그인 정보 저장
                 AuthManager.default.saveAuth(auth)
                 AuthManager.default.saveToken(
