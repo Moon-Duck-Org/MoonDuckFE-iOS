@@ -17,6 +17,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategorySearchViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
+                <outlet property="resultTableView" destination="FT2-64-fqh" id="P7c-IO-4AF"/>
+                <outlet property="searchTextField" destination="UFN-fx-L4E" id="Cna-Ge-0GU"/>
+                <outlet property="tableViewBottomConstraint" destination="s5K-5C-1Uz" id="nHZ-7A-vWM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

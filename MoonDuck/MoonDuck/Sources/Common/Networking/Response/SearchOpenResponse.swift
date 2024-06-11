@@ -22,8 +22,8 @@ struct SearchMovieResponse: Decodable {
     let directors: [Directors]
     let companys: [Companys]
     
-    func toDomain() -> ReviewMovie {
-        return ReviewMovie(name: movieNm,
+    func toDomain() -> CategorySearchMovie {
+        return CategorySearchMovie(name: movieNm,
                            openDate: openDt,
                            genres: genreAlt,
                            director: directors[0].peopleNm)

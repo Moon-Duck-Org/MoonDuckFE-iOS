@@ -70,4 +70,9 @@ extension IntroViewPresenter: UserModelDelegate {
         AuthManager.default.logout()
         moveLogin()
     }
+    
+    func userModel(_ userModel: UserModel, didRecieve error: UserModelError) {
+        AuthManager.default.logout()
+        moveLogin()
+    }
 }

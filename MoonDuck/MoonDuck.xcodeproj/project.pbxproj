@@ -97,10 +97,11 @@
 		EAA914D72C02382400A98950 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914D62C02382400A98950 /* UIViewController+Extension.swift */; };
 		EAA914F22C02D63100A98950 /* ReviewImageCvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914F02C02D63100A98950 /* ReviewImageCvCell.swift */; };
 		EAA914F32C02D63100A98950 /* ReviewImageCvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA914F12C02D63100A98950 /* ReviewImageCvCell.xib */; };
-		EAC93F3D2C156DA1008FDFF2 /* SearchOpenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3C2C156DA1008FDFF2 /* SearchOpenService.swift */; };
+		EAB6E65D2C17DC2500A9E191 /* CategoryhSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6E65C2C17DC2500A9E191 /* CategoryhSearchModel.swift */; };
+		EAC93F3D2C156DA1008FDFF2 /* CategorySearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3C2C156DA1008FDFF2 /* CategorySearchService.swift */; };
 		EAC93F3F2C156E09008FDFF2 /* SearchOpenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */; };
 		EAC93F412C156F35008FDFF2 /* SearchOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F402C156F35008FDFF2 /* SearchOpenResponse.swift */; };
-		EAC93F432C157006008FDFF2 /* ReviewMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F422C157006008FDFF2 /* ReviewMovie.swift */; };
+		EAC93F432C157006008FDFF2 /* CategorySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F422C157006008FDFF2 /* CategorySearch.swift */; };
 		EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */; };
 		EAD957632C002982001FB6E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957622C002982001FB6E1 /* User.swift */; };
 		EAD957652C0029D3001FB6E1 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957642C0029D3001FB6E1 /* Review.swift */; };
@@ -249,10 +250,11 @@
 		EAA914D62C02382400A98950 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		EAA914F02C02D63100A98950 /* ReviewImageCvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewImageCvCell.swift; sourceTree = "<group>"; };
 		EAA914F12C02D63100A98950 /* ReviewImageCvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewImageCvCell.xib; sourceTree = "<group>"; };
-		EAC93F3C2C156DA1008FDFF2 /* SearchOpenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOpenService.swift; sourceTree = "<group>"; };
+		EAB6E65C2C17DC2500A9E191 /* CategoryhSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryhSearchModel.swift; sourceTree = "<group>"; };
+		EAC93F3C2C156DA1008FDFF2 /* CategorySearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySearchService.swift; sourceTree = "<group>"; };
 		EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOpenRequest.swift; sourceTree = "<group>"; };
 		EAC93F402C156F35008FDFF2 /* SearchOpenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOpenResponse.swift; sourceTree = "<group>"; };
-		EAC93F422C157006008FDFF2 /* ReviewMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewMovie.swift; sourceTree = "<group>"; };
+		EAC93F422C157006008FDFF2 /* CategorySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySearch.swift; sourceTree = "<group>"; };
 		EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListTvDataSource.swift; sourceTree = "<group>"; };
 		EAD957622C002982001FB6E1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EAD957642C0029D3001FB6E1 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -608,7 +610,7 @@
 				EA7208422C12735A00E96212 /* AuthService.swift */,
 				EA6379DE2BFF2D6900464A19 /* UserService.swift */,
 				EAE017D02C01935700699145 /* ReviewService.swift */,
-				EAC93F3C2C156DA1008FDFF2 /* SearchOpenService.swift */,
+				EAC93F3C2C156DA1008FDFF2 /* CategorySearchService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -645,6 +647,7 @@
 				EA7208522C1290C700E96212 /* AuthManager.swift */,
 				EAF78F072C14CAAE00EFBCB0 /* UserModel.swift */,
 				EA5758F82C155AF800E80050 /* ReviewCategoryModel.swift */,
+				EAB6E65C2C17DC2500A9E191 /* CategoryhSearchModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -735,7 +738,7 @@
 				EA81F4A82BFF716600FDC7A7 /* ReviewCategory.swift */,
 				EAD957642C0029D3001FB6E1 /* Review.swift */,
 				EAE017D62C01AA3D00699145 /* Sort.swift */,
-				EAC93F422C157006008FDFF2 /* ReviewMovie.swift */,
+				EAC93F422C157006008FDFF2 /* CategorySearch.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1064,6 +1067,7 @@
 				EAE017EA2C01F01800699145 /* BoardEditViewPresenter.swift in Sources */,
 				EA6379E12BFF2E5300464A19 /* UserResponse.swift in Sources */,
 				EAC93F3F2C156E09008FDFF2 /* SearchOpenRequest.swift in Sources */,
+				EAB6E65D2C17DC2500A9E191 /* CategoryhSearchModel.swift in Sources */,
 				EA9A842B2C00C33E004B7FDF /* NameSettingViewPresenter.swift in Sources */,
 				EA9A84202C00AA93004B7FDF /* AppServices.swift in Sources */,
 				EA9A84262C00BCAF004B7FDF /* NameSettingViewController.swift in Sources */,
@@ -1098,7 +1102,7 @@
 				EAA914D72C02382400A98950 /* UIViewController+Extension.swift in Sources */,
 				EA6379D52BFF2A4000464A19 /* UserRequest.swift in Sources */,
 				EA6379CA2BFEF73500464A19 /* IntroViewPresenter.swift in Sources */,
-				EAC93F3D2C156DA1008FDFF2 /* SearchOpenService.swift in Sources */,
+				EAC93F3D2C156DA1008FDFF2 /* CategorySearchService.swift in Sources */,
 				EA9A842F2C00D577004B7FDF /* Alert.swift in Sources */,
 				A0E657FB2BFE22B7001A8D54 /* AppDelegate.swift in Sources */,
 				EA946D582C16956800F44BB5 /* UIButton+Extension.swift in Sources */,
@@ -1109,7 +1113,7 @@
 				EA6D9A742BFF67A0003B459A /* HomeCategoryCvCell.swift in Sources */,
 				EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */,
 				EA6379CF2BFF1C5400464A19 /* MoonDuckAPI.swift in Sources */,
-				EAC93F432C157006008FDFF2 /* ReviewMovie.swift in Sources */,
+				EAC93F432C157006008FDFF2 /* CategorySearch.swift in Sources */,
 				EAE017D72C01AA3D00699145 /* Sort.swift in Sources */,
 				EA9A84292C00BF04004B7FDF /* UITextField+Extension.swift in Sources */,
 				EAE017CD2C012C1900699145 /* BoardImageCvCell.swift in Sources */,

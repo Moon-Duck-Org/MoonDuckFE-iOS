@@ -120,10 +120,6 @@ extension NameSettingViewPresenter {
 
 // MARK: - UserModelDelegate
 extension NameSettingViewPresenter: UserModelDelegate {
-    func userModel(_ userModel: UserModel, didChange user: UserV2) {
-        view?.updateLoadingView(false)
-        delegate?.nameSetting(self, didSuccess: user.nickname)
-    }
     func userModel(_ userModel: UserModel, didChange nickname: String) {
         view?.updateLoadingView(false)
         delegate?.nameSetting(self, didSuccess: nickname)

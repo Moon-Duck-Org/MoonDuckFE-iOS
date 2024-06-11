@@ -16,8 +16,6 @@ protocol UserModelDelegate: AnyObject {
 extension UserModelDelegate {
     func userModel(_ userModel: UserModel, didChange user: UserV2) { }
     func userModel(_ userModel: UserModel, didChange nickname: String) { }
-    func userModel(_ userModel: UserModel, didRecieve error: UserModelError) { }
-    func userModel(_ userModel: UserModel, didRecieve error: Error?) { }
 }
 
 enum UserModelError {
@@ -26,12 +24,11 @@ enum UserModelError {
 }
 
 protocol UserModelType: AnyObject {
-    var delegate: UserModelDelegate? { get set }
-    
     /// Data
+    var delegate: UserModelDelegate? { get set }
     var user: UserV2? { get set }
     
-    func updateNickname(_ nickname: String)
+    func save(nickname: String)
     func logout()
     
     /// Network
@@ -41,44 +38,44 @@ protocol UserModelType: AnyObject {
 
 class UserModel: UserModelType {
     
-    weak var delegate: UserModelDelegate?
-    
-    var user: UserV2?
-    
     private let provider: AppServices
     
     init(_ provider: AppServices) {
         self.provider = provider
     }
     
-    private func saveUser(_ user: UserV2) {
+    weak var delegate: UserModelDelegate?
+    var user: UserV2?
+    
+    func logout() {
+        self.user = nil
+    }
+    
+    func save(nickname: String) {
+        updateUser(for: nickname)
+        delegate?.userModel(self, didChange: nickname)
+    }
+    
+    private func save(user: UserV2) {
         self.user = user
         delegate?.userModel(self, didChange: user)
     }
     
-    private func removeUser() {
-        self.user = nil
-    }
-    
-    func logout() {
-        removeUser()
-    }
-    
-    func updateNickname(_ nickname: String) {
+    private func updateUser(for nickname: String) {
         if let user {
             var updateUser = user
             updateUser.nickname = nickname
-            saveUser(updateUser)
+            save(user: updateUser)
         }
-        delegate?.userModel(self, didChange: nickname)
     }
 
+    // MARK: - Networking
     func getUser() {
         provider.userService.user { [weak self] succeed, failed in
             guard let self else { return }
             if let succeed {
                 // User 정보 조회 성공
-                self.saveUser(succeed)
+                self.save(user: succeed)
             } else {
                 // User 정보 조회 실패
                 Log.error(failed?.localizedDescription ?? "User Error")
@@ -93,7 +90,7 @@ class UserModel: UserModelType {
             guard let self else { return }
             if let succeed {
                 // 닉네임 변경 성공
-                self.updateNickname(succeed.nickname)
+                self.save(nickname: succeed.nickname)
             } else {
                 // 오류 발생
                 if let code = failed as? APIError {

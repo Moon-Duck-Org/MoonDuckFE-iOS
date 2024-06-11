@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CategorySearchView: BaseView {
-    
+     
 }
 
 class CategorySearchViewController: BaseViewController, CategorySearchView, Navigatable {
@@ -17,9 +17,12 @@ class CategorySearchViewController: BaseViewController, CategorySearchView, Navi
     let presenter: CategorySearchPresenter
     
     // @IBOutlet
+    @IBOutlet weak private var tableViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak private var searchTextField: TextField!
+    @IBOutlet weak private var resultTableView: UITableView!
     
     // @IBAction
-    @IBAction func backButtonTap(_ sender: Any) {
+    @IBAction private func backButtonTap(_ sender: Any) {
         back()
     }
     
@@ -36,15 +39,59 @@ class CategorySearchViewController: BaseViewController, CategorySearchView, Navi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerNotifications()
         presenter.view = self
         presenter.viewDidLoad()
     }
-
+    
+    deinit {
+        unregisterNotifications()
+    }
 }
 
 // MARK: - UI Logic
 extension CategorySearchViewController {
     
+    // 노티피케이션 등록
+    private func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    //노티피케이션 등록 해제
+    private func unregisterNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc
+    func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardInfo = UIKeyboardInfo(notification: notification) else {
+            return
+        }
+        view.layoutIfNeeded()
+        tableViewBottomConstraint.constant = keyboardInfo.frame.size.height + 10
+        UIView.animate(withDuration: keyboardInfo.animationDuration,
+                       delay: 0,
+                       options: keyboardInfo.animationCurve,
+                       animations: { self.view.layoutIfNeeded() },
+                       completion: nil)
+    }
+    
+    @objc
+    func keyboardWillHide(_ notification: Notification) {
+        guard let keyboardInfo = UIKeyboardInfo(notification: notification) else {
+            return
+        }
+        view.layoutIfNeeded()
+        tableViewBottomConstraint.constant = 0
+        UIView.animate(withDuration: keyboardInfo.animationDuration,
+                       delay: 0,
+                       options: keyboardInfo.animationCurve,
+                       animations: { self.view.layoutIfNeeded() },
+                       completion: nil)
+    }
 }
 
 // MARK: - Navigation

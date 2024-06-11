@@ -103,7 +103,7 @@ extension MyViewPresenter: UserModelDelegate {
 extension MyViewPresenter: NameSettingPresenterDelegate {
     func nameSetting(_ presenter: NameSettingPresenter, didSuccess nickname: String) {
         view?.dismiss()
-        model.updateNickname(nickname)
+        model.save(nickname: nickname)
     }
     
     func nameSetting(didCancel presenter: NameSettingPresenter) {
