@@ -98,10 +98,6 @@ extension NameSettingViewController {
 // MARK: - UITextFieldDelegate
 extension NameSettingViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let currentText = nameTextField.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let changeText = currentText.replacingCharacters(in: stringRange, with: string)
-        
         return presenter.textField(textField.text, shouldChangeCharactersIn: range, replacementString: string)
     }
     

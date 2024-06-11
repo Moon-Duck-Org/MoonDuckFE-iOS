@@ -11,6 +11,9 @@ protocol CategorySearchPresenter: AnyObject {
     var view: CategorySearchView? { get set }
     
     /// Data
+    var numberOfCategories: Int { get }
+    
+    func category(at index: Int) -> CategorySearchMovie?
     
     /// Life Cycle
     func viewDidLoad()
@@ -36,6 +39,17 @@ class CategorySearchViewPresenter: Presenter, CategorySearchPresenter {
     }
     
     // MARK: - Data
+    var numberOfCategories: Int {
+        return model.numberOfCategories
+    }
+    
+    func category(at index: Int) -> CategorySearchMovie? {
+        if index < model.numberOfCategories {
+            return model.categories[index]
+        } else {
+            return nil
+        }
+    }
 }
 
 extension CategorySearchViewPresenter {

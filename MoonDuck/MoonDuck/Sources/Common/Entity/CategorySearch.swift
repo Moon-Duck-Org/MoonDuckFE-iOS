@@ -13,3 +13,4 @@ struct CategorySearchMovie {
     let genres: String?
     let director: String?
 }
+

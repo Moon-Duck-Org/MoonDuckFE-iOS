@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSansCJKkr-Medium.otf">
+            <string>NotoSansCJKkr-Medium</string>
+        </array>
+        <array key="NotoSansCJKkr-Regular.otf">
+            <string>NotoSansCJKkr-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="52" id="KGk-i7-Jjw" customClass="CategorySearchTableViewCell" customModule="MoonDuck" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="영화 제목 없음" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3eT-SS-8f0">
+                        <rect key="frame" x="16" y="6" width="288" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="27" id="Ban-ra-aWU"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="16"/>
+                        <color key="textColor" name="Black"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="개봉년도" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhL-ax-QAr">
+                        <rect key="frame" x="16" y="33" width="288" height="13"/>
+                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="11"/>
+                        <color key="textColor" name="Gray1"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jhL-ax-QAr" firstAttribute="top" secondItem="3eT-SS-8f0" secondAttribute="bottom" id="CO1-2Y-bmc"/>
+                    <constraint firstAttribute="bottom" secondItem="jhL-ax-QAr" secondAttribute="bottom" constant="6" id="F1j-zs-GTs"/>
+                    <constraint firstItem="3eT-SS-8f0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="J51-xQ-t3V"/>
+                    <constraint firstItem="3eT-SS-8f0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="c2c-RU-lqU"/>
+                    <constraint firstAttribute="trailing" secondItem="3eT-SS-8f0" secondAttribute="trailing" constant="16" id="i1l-DO-BTS"/>
+                    <constraint firstItem="jhL-ax-QAr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="iX7-8L-SBw"/>
+                    <constraint firstAttribute="trailing" secondItem="jhL-ax-QAr" secondAttribute="trailing" constant="16" id="rbc-Ze-fII"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="subTitleLabel" destination="jhL-ax-QAr" id="f8K-o6-Ag5"/>
+                <outlet property="titleLabel" destination="3eT-SS-8f0" id="PLy-qM-J16"/>
+            </connections>
+            <point key="canvasLocation" x="-21.374045801526716" y="59.859154929577471"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="Black">
+            <color red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Gray1">
+            <color red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

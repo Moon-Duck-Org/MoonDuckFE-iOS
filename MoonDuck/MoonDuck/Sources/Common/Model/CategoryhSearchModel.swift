@@ -17,6 +17,9 @@ extension CategoryhSearchModelDelegate {
 }
 
 protocol CategoryhSearchModelType: AnyObject {
+    var numberOfCategories: Int { get }
+    var categories: [CategorySearchMovie] { get }
+    
     func searchMovie(_ movie: String)
 }
 
@@ -35,6 +38,14 @@ class CategoryhSearchModel: CategoryhSearchModelType {
     }
     
     // MARK: - Data
+    var numberOfCategories: Int {
+        return searchList.count
+    }
+    
+    var categories: [CategorySearchMovie] {
+        return searchList
+    }
+    
     private func save(list: [CategorySearchMovie]) {
         searchList.append(contentsOf: list)
         delegate?.categorySearchModel(self, didChange: searchList)
