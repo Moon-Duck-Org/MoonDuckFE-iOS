@@ -61,12 +61,17 @@ extension MoonDuckAPI: TargetType {
         // access 토큰 재발급
         case .authReissue:
             return "/auth/reissue"
+        // User 정보 조회
         case .user:
             return "/user"
+        // User Nickname 수정
         case .userNickname:
             return "/user/nickname"
+            
+        // Movie Open API
         case .searchMovie:
             return "/kobisopenapi/webservice/rest/movie/searchMovieList.json"
+            
         case .getReview, .putReview, .postReview, .deleteReview:
             return "/api/review"
         case .reviewAll:

@@ -8,32 +8,48 @@
 import Foundation
 
 struct SearchMovieResponse: Decodable {
-    let movieCd: String
-    let movieNm: String
-    let movieNmEn: String
-    let prdtYear: String
-    let openDt: String
-    let typeNm: String
-    let prdtStatNm: String
-    let nationAlt: String
-    let genreAlt: String
-    let repNationNm: String
-    let repGenreNm: String
-    let directors: [Directors]
-    let companys: [Companys]
+    let totCnt: Int
+    let source: String
+    let movieList: [Movie]
     
-    func toDomain() -> CategorySearchMovie {
-        return CategorySearchMovie(name: movieNm,
-                           openDate: openDt,
-                           genres: genreAlt,
-                           director: directors[0].peopleNm)
+    struct Movie: Decodable {
+        let movieCd: String?
+        let movieNm: String?
+        let movieNmEn: String?
+        let prdtYear: String?
+        let openDt: String?
+        let typeNm: String?
+        let prdtStatNm: String?
+        let nationAlt: String?
+        let genreAlt: String?
+        let repNationNm: String?
+        let repGenreNm: String?
+        let directors: [Director]?
+        let companys: [Company?]?
+        
+        func toDomain() -> CategorySearchMovie {
+            let name = movieNm ?? "영화 제목 없음"
+            var director: String {
+                var str = ""
+                if let directors {
+                    let list = directors.map{ $0.peopleNm }
+                    str = list.toSlashString(max: 2)
+                }
+                return str
+            }
+            
+            return CategorySearchMovie(name: name,
+                                       openDate: openDt,
+                                       genres: genreAlt,
+                                       director: director)
+        }
     }
     
-    struct Directors: Decodable {
+    struct Director: Decodable {
         let peopleNm: String
     }
     
-    struct Companys: Decodable {
+    struct Company: Decodable {
         let companyCd: String
         let companyNm: String
     }

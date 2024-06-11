@@ -17,15 +17,19 @@ protocol NameSettingPresenter: AnyObject {
     var view: NameSettingView? { get set }
     
     /// Data
-    func isShouldChangeName(_ text: String) -> Bool
     
     /// Life Cycle
     func viewDidLoad()
     
     /// Action
     func completeButtonTap()
-    func textFieldDidEndEditing()
+    
+    /// TextField Delegate
     func nameTextFieldDidChanges(_ text: String?)
+    func textField(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    func textFieldShouldReturn(_ text: String?) -> Bool
+    func textFieldDidEndEditing(_ text: String?)
+    func textFieldShouldBeginEditing(_ text: String?) -> Bool
 }
 
 class NameSettingViewPresenter: Presenter, NameSettingPresenter {
@@ -48,13 +52,6 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
     }
     
     // MARK: - Data
-    func isShouldChangeName(_ text: String) -> Bool {
-        if text.count > 10 || text.contains(" ") {
-            return false
-        } else {
-            return true
-        }
-    }
 }
 
 extension NameSettingViewPresenter {
@@ -87,21 +84,7 @@ extension NameSettingViewPresenter {
         }
         
     }
-    
-    func textFieldDidEndEditing() {
-        if isValidName(nameText) {
-            view?.clearHintLabel()
-        } else {
-            view?.showHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
-        }
-    }
-    
-    func nameTextFieldDidChanges(_ text: String?) {
-        view?.updateCountLabel(text?.count ?? 0)
-        view?.updateCompleteButton(text?.count ?? 0 > 1)
-        nameText = text
-    }
-    
+
     // MARK: - Logic
     private func isValidName(_ text: String?) -> Bool {
         let pattern = "^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]{1,10}$"
@@ -115,6 +98,45 @@ extension NameSettingViewPresenter {
     private func moveLogin() {
         let presenter = LoginViewPresenter(with: provider)
         self.view?.moveLogin(with: presenter)
+    }
+}
+// MARK: - UITextFieldDelegate
+extension NameSettingViewPresenter {
+    func nameTextFieldDidChanges(_ text: String?) {
+        view?.updateCountLabel(text?.count ?? 0)
+        view?.updateCompleteButton(text?.count ?? 0 > 1)
+        nameText = text
+    }
+    
+    func textField(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let changeText = currentText.replacingCharacters(in: stringRange, with: string)
+        
+        if changeText.count > 10 || changeText.contains(" ") {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func textFieldShouldReturn(_ text: String?) -> Bool {
+        view?.endEditing()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ text: String?) {
+        guard let text else { return }
+        if isValidName(text) {
+            view?.clearHintLabel()
+        } else {
+            view?.showHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
+        }
+    }
+    
+    func textFieldShouldBeginEditing(_ text: String?) -> Bool {
+        view?.clearHintLabel()
+        return true
     }
 }
 

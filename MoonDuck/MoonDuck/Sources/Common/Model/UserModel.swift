@@ -44,6 +44,7 @@ class UserModel: UserModelType {
         self.provider = provider
     }
     
+    // MARK: - Data
     weak var delegate: UserModelDelegate?
     var user: UserV2?
     

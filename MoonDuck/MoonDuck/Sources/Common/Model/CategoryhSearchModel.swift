@@ -28,12 +28,29 @@ class CategoryhSearchModel: CategoryhSearchModelType {
     
     var currentPage: Int = 0
     var itemPerPage: Int = 30
+    var searchList: [CategorySearchMovie] = []
     
     init(_ provider: AppServices) {
         self.provider = provider
     }
     
+    // MARK: - Data
+    private func save(list: [CategorySearchMovie]) {
+        searchList.append(contentsOf: list)
+        delegate?.categorySearchModel(self, didChange: searchList)
+    }
+    
+    // MARK: - Networking
     func searchMovie(_ movie: String) {
-        
+        let request = SearchMovieRequest(curPage: "\(currentPage)", itemPerPage: "\(itemPerPage)", movieNm: movie)
+        provider.categorySearchService.movie(request: request) { [weak self]  succeed, failed in
+            guard let self else { return }
+            if let succeed {
+                // 검색 성공
+                self.save(list: succeed)
+            } else {
+                // 오류 발생
+            }
+        }
     }
 }

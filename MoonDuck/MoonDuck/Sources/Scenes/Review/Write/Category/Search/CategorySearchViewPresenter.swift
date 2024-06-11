@@ -15,16 +15,23 @@ protocol CategorySearchPresenter: AnyObject {
     /// Life Cycle
     func viewDidLoad()
     
-    /// Action
+    /// Action  
+    
+    /// TextField Delegate
+    func textFieldShouldReturn(_ text: String?) -> Bool
+    func textFieldDidEndEditing(_ text: String?)
+    func textFieldShouldBeginEditing(_ text: String?) -> Bool
 }
 
 class CategorySearchViewPresenter: Presenter, CategorySearchPresenter {
     weak var view: CategorySearchView?
     
-    let category: ReviewCategory?
+    let category: ReviewCategory
+    let model: CategoryhSearchModelType
     
     init(with provider: AppServices, category: ReviewCategory) {
         self.category = category
+        self.model = CategoryhSearchModel(provider)
         super.init(with: provider)
     }
     
@@ -40,4 +47,19 @@ extension CategorySearchViewPresenter {
     
     // MARK: - Action
     
+}
+
+// MARK: - UITextFieldDelegate
+extension CategorySearchViewPresenter {
+    func textFieldShouldReturn(_ text: String?) -> Bool {
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ text: String?) {
+        
+    }
+    
+    func textFieldShouldBeginEditing(_ text: String?) -> Bool {
+        return true
+    }
 }

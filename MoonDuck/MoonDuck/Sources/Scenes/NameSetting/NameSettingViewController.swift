@@ -15,6 +15,8 @@ protocol NameSettingView: BaseView {
     func updateCountLabel(_ cnt: Int)
     func updateCompleteButton(_ isEnabled: Bool)
     
+    func endEditing()
+    
     func dismiss()
     func moveLogin(with presenter: LoginViewPresenter)
     func moveHome(with presenter: V2HomeViewPresenter)
@@ -87,6 +89,10 @@ extension NameSettingViewController {
     func updateCompleteButton(_ isEnabled: Bool) {
         completeButton.isEnabled = isEnabled
     }
+    
+    func endEditing() {
+        view.endEditing(true)
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -96,21 +102,19 @@ extension NameSettingViewController: UITextFieldDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changeText = currentText.replacingCharacters(in: stringRange, with: string)
         
-        return presenter.isShouldChangeName(changeText)
+        return presenter.textField(textField.text, shouldChangeCharactersIn: range, replacementString: string)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
-        return true
+        return presenter.textFieldShouldReturn(textField.text)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        presenter.textFieldDidEndEditing()
+        presenter.textFieldDidEndEditing(textField.text)
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        clearHintLabel()
-        return true
+        return presenter.textFieldShouldBeginEditing(textField.text)
     }
 }
 

@@ -9,7 +9,7 @@ import Foundation
 
 struct CategorySearchMovie {
     let name: String
-    let openDate: String
-    let genres: String
-    let director: String
+    let openDate: String?
+    let genres: String?
+    let director: String?
 }

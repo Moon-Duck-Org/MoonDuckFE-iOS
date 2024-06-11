@@ -98,6 +98,7 @@
 		EAA914F22C02D63100A98950 /* ReviewImageCvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914F02C02D63100A98950 /* ReviewImageCvCell.swift */; };
 		EAA914F32C02D63100A98950 /* ReviewImageCvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA914F12C02D63100A98950 /* ReviewImageCvCell.xib */; };
 		EAB6E65D2C17DC2500A9E191 /* CategoryhSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6E65C2C17DC2500A9E191 /* CategoryhSearchModel.swift */; };
+		EAB6E65F2C17F9B000A9E191 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6E65E2C17F9B000A9E191 /* Array+Extension.swift */; };
 		EAC93F3D2C156DA1008FDFF2 /* CategorySearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3C2C156DA1008FDFF2 /* CategorySearchService.swift */; };
 		EAC93F3F2C156E09008FDFF2 /* SearchOpenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */; };
 		EAC93F412C156F35008FDFF2 /* SearchOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F402C156F35008FDFF2 /* SearchOpenResponse.swift */; };
@@ -251,6 +252,7 @@
 		EAA914F02C02D63100A98950 /* ReviewImageCvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewImageCvCell.swift; sourceTree = "<group>"; };
 		EAA914F12C02D63100A98950 /* ReviewImageCvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewImageCvCell.xib; sourceTree = "<group>"; };
 		EAB6E65C2C17DC2500A9E191 /* CategoryhSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryhSearchModel.swift; sourceTree = "<group>"; };
+		EAB6E65E2C17F9B000A9E191 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		EAC93F3C2C156DA1008FDFF2 /* CategorySearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySearchService.swift; sourceTree = "<group>"; };
 		EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOpenRequest.swift; sourceTree = "<group>"; };
 		EAC93F402C156F35008FDFF2 /* SearchOpenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOpenResponse.swift; sourceTree = "<group>"; };
@@ -574,6 +576,7 @@
 				EAA914CD2C02274700A98950 /* String+Extension.swift */,
 				EAA914D62C02382400A98950 /* UIViewController+Extension.swift */,
 				EA946D572C16956800F44BB5 /* UIButton+Extension.swift */,
+				EAB6E65E2C17F9B000A9E191 /* Array+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1125,6 +1128,7 @@
 				EA33F75B2C0D7D0C00893C35 /* Presenter.swift in Sources */,
 				EA61048D2C14756F00CAC460 /* V2HomeViewController.swift in Sources */,
 				A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */,
+				EAB6E65F2C17F9B000A9E191 /* Array+Extension.swift in Sources */,
 				EA81F4A92BFF716600FDC7A7 /* ReviewCategory.swift in Sources */,
 				EAF78F052C148BE700EFBCB0 /* RadiusButton.swift in Sources */,
 				EAF78F002C14813800EFBCB0 /* MyViewController.swift in Sources */,
