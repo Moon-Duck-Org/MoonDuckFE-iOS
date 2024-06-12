@@ -13,10 +13,10 @@ protocol CategoryhSearchModelDelegate: AnyObject {
 }
 
 extension CategoryhSearchModelDelegate {
-    func categorySearchModel(_ searchModel: CategoryhSearchModel, didRecieve error: Error?) { }
 }
 
 protocol CategoryhSearchModelType: AnyObject {
+    var delegate: CategoryhSearchModelDelegate? { get set }
     var numberOfCategories: Int { get }
     var categories: [CategorySearchMovie] { get }
     

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CategorySearchView: BaseView {
-     
+     func reloadTableView()
 }
 
 class CategorySearchViewController: BaseViewController, CategorySearchView, Navigatable {
@@ -51,6 +51,9 @@ class CategorySearchViewController: BaseViewController, CategorySearchView, Navi
 
 // MARK: - UI Logic
 extension CategorySearchViewController {
+    func reloadTableView() {
+        resultTableView.reloadData()
+    }
     
     // 노티피케이션 등록
     private func registerNotifications() {

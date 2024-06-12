@@ -36,6 +36,7 @@ class CategorySearchViewPresenter: Presenter, CategorySearchPresenter {
         self.category = category
         self.model = CategoryhSearchModel(provider)
         super.init(with: provider)
+        self.model.delegate = self
     }
     
     // MARK: - Data
@@ -66,6 +67,8 @@ extension CategorySearchViewPresenter {
 // MARK: - UITextFieldDelegate
 extension CategorySearchViewPresenter {
     func textFieldShouldReturn(_ text: String?) -> Bool {
+        guard let text else { return true }
+        model.searchMovie(text)
         return true
     }
     
@@ -75,5 +78,16 @@ extension CategorySearchViewPresenter {
     
     func textFieldShouldBeginEditing(_ text: String?) -> Bool {
         return true
+    }
+}
+
+// MARK: - CategoryhSearchModelDelegate
+extension CategorySearchViewPresenter: CategoryhSearchModelDelegate {
+    func categorySearchModel(_ searchModel: CategoryhSearchModel, didChange movieList: [CategorySearchMovie]) {
+        view?.reloadTableView()
+    }
+    
+    func categorySearchModel(_ searchModel: CategoryhSearchModel, didRecieve error: Error?) {
+        
     }
 }
