@@ -31,7 +31,7 @@ protocol UserModelType: AnyObject {
     func save(nickname: String)
     func logout()
     
-    /// Network
+    /// Networking
     func getUser()
     func nickname(_ name: String)
 }

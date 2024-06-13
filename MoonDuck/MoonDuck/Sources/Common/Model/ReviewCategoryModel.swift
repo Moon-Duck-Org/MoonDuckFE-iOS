@@ -8,26 +8,65 @@
 import Foundation
 
 protocol ReviewCategoryModelDelegate: AnyObject {
-    
+    func reviewCategoryModel(_ reviewCategoryModel: ReviewCategoryModel, didChange categories: [ReviewCategory])
+    func reviewCategoryModel(_ reviewCategoryModel: ReviewCategoryModel, didSelect index: Int?)
 }
 
 protocol ReviewCategoryModelType: AnyObject {
-    func getNumberOfCategories(haveAll: Bool) -> Int
-    func getCategories(haveAll: Bool) -> [ReviewCategory]
+    /// Data
+    var delegate: ReviewCategoryModelDelegate? { get set }
+    var categories: [ReviewCategory] { get }
+    var numberOfCategories: Int { get }
+    var indexOfSelectedCategory: Int? { get }
+    
+    func category(at index: Int) -> ReviewCategory?
+    
+    /// Action
+    func selectCategory(_ index: Int)
+    
+    /// Netwok
+    func getCategories(isHaveAll: Bool)
 }
 
 class ReviewCategoryModel: ReviewCategoryModelType {
-    var categories: [ReviewCategory] = [.all, .movie, .book, .drama, .concert]
+    // MARK: - Data
+    weak var delegate: ReviewCategoryModelDelegate?
     
-    func getNumberOfCategories(haveAll: Bool) -> Int {
-        return getCategories(haveAll: haveAll).count
+    var categories: [ReviewCategory] = [] {
+        didSet {
+            delegate?.reviewCategoryModel(self, didChange: categories)
+        }
     }
     
-    func getCategories(haveAll: Bool) -> [ReviewCategory] {
-        if haveAll {
-            return categories
+    var numberOfCategories: Int {
+        return categories.count
+    }
+    
+    var indexOfSelectedCategory: Int? {
+        didSet {
+            delegate?.reviewCategoryModel(self, didSelect: indexOfSelectedCategory)
+        }
+    }
+    
+    func category(at index: Int) -> ReviewCategory? {
+        if index < categories.count {
+            return categories[index]
+        }
+        return nil
+    }
+    
+    // MARK: - Action
+    func selectCategory(_ index: Int) {
+        indexOfSelectedCategory = index
+    }
+    
+    
+    // MARK: - Networking
+    func getCategories(isHaveAll: Bool) {
+        if isHaveAll {
+            categories = [.all, .movie, .book, .drama, .concert]
         } else {
-            return Array(categories.dropFirst())
+            categories = [.movie, .book, .drama, .concert]
         }
     }
 }

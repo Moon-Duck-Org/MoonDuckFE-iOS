@@ -31,25 +31,20 @@ class WriteReviewCategoryViewPresenter: Presenter, WriteReviewCategoryPresenter 
     init(with provider: AppServices, model: ReviewCategoryModelType) {
         self.model = model
         super.init(with: provider)
+        self.model.delegate = self
     }
     
     // MARK: - Data
     var numberOfCategories: Int {
-        return model.getNumberOfCategories(haveAll: false)
+        return model.numberOfCategories
     }
     
     var indexOfSelectedCategory: Int? {
-        didSet {
-            view?.updateNextButton(indexOfSelectedCategory != nil)
-        }
+        return model.indexOfSelectedCategory
     }
     
     func category(at index: Int) -> ReviewCategory? {
-        if index < model.getNumberOfCategories(haveAll: false) {
-            return model.getCategories(haveAll: false)[index]
-        } else {
-            return nil
-        }
+        return model.category(at: index)
     }
 }
 
@@ -57,17 +52,28 @@ extension WriteReviewCategoryViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        
+        model.getCategories(isHaveAll: false)
     }
     
     // MARK: - Action
     func selectCategory(at index: Int) {
-        indexOfSelectedCategory = index
-        view?.reloadCategories()
+        model.selectCategory(index)
     }
     
     func tapNextButton() {
         // TODO: - 다음 버튼 탭
+        
     }
     
+}
+
+extension WriteReviewCategoryViewPresenter: ReviewCategoryModelDelegate {
+    func reviewCategoryModel(_ reviewCategoryModel: ReviewCategoryModel, didChange categories: [ReviewCategory]) {
+        view?.reloadCategories()
+    }
+    
+    func reviewCategoryModel(_ reviewCategoryModel: ReviewCategoryModel, didSelect index: Int?) {
+        view?.updateNextButton(index != nil)
+        view?.reloadCategories()
+    }
 }
