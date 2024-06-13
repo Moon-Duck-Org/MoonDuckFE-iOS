@@ -152,6 +152,7 @@ extension LoginViewPresenter {
 // MARK: - UserModelDelegate
 extension LoginViewPresenter: UserModelDelegate {
     func userModel(_ userModel: UserModel, didChange user: UserV2) {
+        // User 정보 조회 성공
         view?.updateLoadingView(false)
         let presenter = V2HomeViewPresenter(with: provider, model: model)
         view?.moveHome(with: presenter)
@@ -172,7 +173,7 @@ extension LoginViewPresenter: UserModelDelegate {
 extension LoginViewPresenter: NameSettingPresenterDelegate {
     func nameSetting(_ presenter: NameSettingPresenter, didSuccess nickname: String) {
         view?.updateLoadingView(false)
-        model.getUser()
+        model.save(nickname: nickname)
     }
     
     func nameSetting(didCancel presenter: NameSettingPresenter) {

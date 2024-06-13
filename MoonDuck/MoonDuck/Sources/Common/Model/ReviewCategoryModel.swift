@@ -8,8 +8,8 @@
 import Foundation
 
 protocol ReviewCategoryModelDelegate: AnyObject {
-    func reviewCategoryModel(_ reviewCategoryModel: ReviewCategoryModel, didChange categories: [ReviewCategory])
-    func reviewCategoryModel(_ reviewCategoryModel: ReviewCategoryModel, didSelect index: Int?)
+    func reviewCategoryModel(_ model: ReviewCategoryModel, didChange categories: [ReviewCategory])
+    func reviewCategoryModel(_ model: ReviewCategoryModel, didSelect index: Int?)
 }
 
 protocol ReviewCategoryModelType: AnyObject {
@@ -59,7 +59,6 @@ class ReviewCategoryModel: ReviewCategoryModelType {
     func selectCategory(_ index: Int) {
         indexOfSelectedCategory = index
     }
-    
     
     // MARK: - Networking
     func getCategories(isHaveAll: Bool) {

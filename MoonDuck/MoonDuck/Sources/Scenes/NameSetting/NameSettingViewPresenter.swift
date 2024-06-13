@@ -41,13 +41,9 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
     
     init(with provider: AppServices, user: UserV2?,
          delegate: NameSettingPresenterDelegate?) {
-        self.model = UserModel(provider)
+        self.model = UserModel(provider, user: user) // 닉네임 설정은 독립적으로 User Model 사용
         self.delegate = delegate
         super.init(with: provider)
-        
-        if let user = user {
-            self.model.user = user
-        }
         self.model.delegate = self
     }
     
@@ -57,13 +53,13 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
 extension NameSettingViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
-        // 초기화
+        // 닉네임이 세팅
         if let nickname = model.user?.nickname {
             view?.updateNameTextfield(nickname)
             view?.updateCountLabel(nickname.count)
-            view?.updateCompleteButton(false)
             nameText = nickname
         }
+        view?.updateCompleteButton(false)
     }
     
     // MARK: - Action
@@ -97,7 +93,7 @@ extension NameSettingViewPresenter {
     
     private func moveLogin() {
         let presenter = LoginViewPresenter(with: provider)
-        self.view?.moveLogin(with: presenter)
+        view?.moveLogin(with: presenter)
     }
 }
 // MARK: - UITextFieldDelegate
@@ -142,12 +138,13 @@ extension NameSettingViewPresenter {
 
 // MARK: - UserModelDelegate
 extension NameSettingViewPresenter: UserModelDelegate {
-    func userModel(_ userModel: UserModel, didChange nickname: String) {
+    func userModel(_ model: UserModel, didChange user: UserV2) {
+        // 닉네임 변경 성공
         view?.updateLoadingView(false)
-        delegate?.nameSetting(self, didSuccess: nickname)
+        delegate?.nameSetting(self, didSuccess: user.nickname)
     }
     
-    func userModel(_ userModel: UserModel, didRecieve error: UserModelError) {
+    func userModel(_ model: UserModel, didRecieve error: UserModelError) {
         view?.updateLoadingView(false)
         switch error {
         case .authError:
@@ -158,7 +155,7 @@ extension NameSettingViewPresenter: UserModelDelegate {
         }
     }
     
-    func userModel(_ userModel: UserModel, didRecieve error: Error?) {
+    func userModel(_ model: UserModel, didRecieve error: Error?) {
         networkError()
     }
     

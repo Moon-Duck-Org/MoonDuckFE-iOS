@@ -65,19 +65,13 @@ extension MyInfoViewPresenter {
 
 // MARK: - UserModelDelegate
 extension MyInfoViewPresenter: UserModelDelegate {
-    func userModel(_ userModel: UserModel, didChange user: UserV2) {
+    func userModel(_ model: UserModel, didChange user: UserV2) {
         view?.updateLoadingView(false)
-        guard let user = userModel.user else { return }
         view?.updateNameLabel(user.nickname)
         view?.updateCountLabel(movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
     }
     
-    func userModel(_ userModel: UserModel, didChange nickname: String) {
-        view?.updateLoadingView(false)
-        view?.updateNameLabel(nickname)
-    }
-    
-    func userModel(_ userModel: UserModel, didRecieve error: UserModelError) {
+    func userModel(_ model: UserModel, didRecieve error: UserModelError) {
         view?.updateLoadingView(false)
         switch error {
         case .authError:
@@ -88,7 +82,7 @@ extension MyInfoViewPresenter: UserModelDelegate {
         }
     }
     
-    func userModel(_ userModel: UserModel, didRecieve error: Error?) {
+    func userModel(_ model: UserModel, didRecieve error: Error?) {
         networkError()
     }
     
