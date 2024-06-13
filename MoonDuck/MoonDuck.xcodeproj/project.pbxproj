@@ -126,9 +126,9 @@
 		EAE017EC2C01FBD600699145 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017EB2C01FBD600699145 /* TextView.swift */; };
 		EAE017EE2C02015900699145 /* UIKeyboardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017ED2C02015900699145 /* UIKeyboardInfo.swift */; };
 		EAF78EFB2C14762400EFBCB0 /* V2HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF78EFA2C14762400EFBCB0 /* V2HomeViewPresenter.swift */; };
-		EAF78F002C14813800EFBCB0 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF78EFE2C14813800EFBCB0 /* MyViewController.swift */; };
-		EAF78F012C14813800EFBCB0 /* MyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF78EFF2C14813800EFBCB0 /* MyViewController.xib */; };
-		EAF78F032C14814400EFBCB0 /* MyViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF78F022C14814400EFBCB0 /* MyViewPresenter.swift */; };
+		EAF78F002C14813800EFBCB0 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF78EFE2C14813800EFBCB0 /* MyInfoViewController.swift */; };
+		EAF78F012C14813800EFBCB0 /* MyInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF78EFF2C14813800EFBCB0 /* MyInfoViewController.xib */; };
+		EAF78F032C14814400EFBCB0 /* MyInfoViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF78F022C14814400EFBCB0 /* MyInfoViewPresenter.swift */; };
 		EAF78F052C148BE700EFBCB0 /* RadiusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF78F042C148BE700EFBCB0 /* RadiusButton.swift */; };
 		EAF78F082C14CAAE00EFBCB0 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF78F072C14CAAE00EFBCB0 /* UserModel.swift */; };
 /* End PBXBuildFile section */
@@ -283,9 +283,9 @@
 		EAE017EB2C01FBD600699145 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		EAE017ED2C02015900699145 /* UIKeyboardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKeyboardInfo.swift; sourceTree = "<group>"; };
 		EAF78EFA2C14762400EFBCB0 /* V2HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2HomeViewPresenter.swift; sourceTree = "<group>"; };
-		EAF78EFE2C14813800EFBCB0 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
-		EAF78EFF2C14813800EFBCB0 /* MyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyViewController.xib; sourceTree = "<group>"; };
-		EAF78F022C14814400EFBCB0 /* MyViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewPresenter.swift; sourceTree = "<group>"; };
+		EAF78EFE2C14813800EFBCB0 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
+		EAF78EFF2C14813800EFBCB0 /* MyInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyInfoViewController.xib; sourceTree = "<group>"; };
+		EAF78F022C14814400EFBCB0 /* MyInfoViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewPresenter.swift; sourceTree = "<group>"; };
 		EAF78F042C148BE700EFBCB0 /* RadiusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusButton.swift; sourceTree = "<group>"; };
 		EAF78F072C14CAAE00EFBCB0 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -742,9 +742,9 @@
 		EAF78EFD2C14806A00EFBCB0 /* My */ = {
 			isa = PBXGroup;
 			children = (
-				EAF78EFE2C14813800EFBCB0 /* MyViewController.swift */,
-				EAF78EFF2C14813800EFBCB0 /* MyViewController.xib */,
-				EAF78F022C14814400EFBCB0 /* MyViewPresenter.swift */,
+				EAF78EFE2C14813800EFBCB0 /* MyInfoViewController.swift */,
+				EAF78EFF2C14813800EFBCB0 /* MyInfoViewController.xib */,
+				EAF78F022C14814400EFBCB0 /* MyInfoViewPresenter.swift */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -889,7 +889,7 @@
 				EA7208572C129F2100E96212 /* GoogleService-Info.plist in Resources */,
 				A0E658042BFE22B9001A8D54 /* Assets.xcassets in Resources */,
 				A0E658322BFE300D001A8D54 /* Color.xcassets in Resources */,
-				EAF78F012C14813800EFBCB0 /* MyViewController.xib in Resources */,
+				EAF78F012C14813800EFBCB0 /* MyInfoViewController.xib in Resources */,
 				A0E658432BFE36A5001A8D54 /* NotoSansMonoCJKkr-Bold.otf in Resources */,
 				EAA914F32C02D63100A98950 /* ReviewImageCvCell.xib in Resources */,
 				EA5758EE2C154E5400E80050 /* WriteReviewCategoryViewController.xib in Resources */,
@@ -1073,7 +1073,7 @@
 				EA7208552C12929700E96212 /* Auth.swift in Sources */,
 				EAE017E82C01E6D100699145 /* BoardEditViewController.swift in Sources */,
 				EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */,
-				EAF78F032C14814400EFBCB0 /* MyViewPresenter.swift in Sources */,
+				EAF78F032C14814400EFBCB0 /* MyInfoViewPresenter.swift in Sources */,
 				EA6379D72BFF2B2D00464A19 /* TargetType.swift in Sources */,
 				EAD957652C0029D3001FB6E1 /* Review.swift in Sources */,
 				EA72084F2C1287EF00E96212 /* AppUserDefaults.swift in Sources */,
@@ -1151,7 +1151,7 @@
 				EAB6E65F2C17F9B000A9E191 /* Array+Extension.swift in Sources */,
 				EA81F4A92BFF716600FDC7A7 /* ReviewCategory.swift in Sources */,
 				EAF78F052C148BE700EFBCB0 /* RadiusButton.swift in Sources */,
-				EAF78F002C14813800EFBCB0 /* MyViewController.swift in Sources */,
+				EAF78F002C14813800EFBCB0 /* MyInfoViewController.swift in Sources */,
 				EAE017D92C01C11B00699145 /* BoardDetailViewPresenter.swift in Sources */,
 				EA72084D2C12869B00E96212 /* AuthResponse.swift in Sources */,
 				EA810A392C17269800DF6C72 /* CategorySearchViewPresenter.swift in Sources */,

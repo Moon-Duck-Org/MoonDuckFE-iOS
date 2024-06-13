@@ -18,8 +18,8 @@ protocol NameSettingView: BaseView {
     func endEditing()
     
     func dismiss()
-    func moveLogin(with presenter: LoginViewPresenter)
-    func moveHome(with presenter: V2HomeViewPresenter)
+    func moveLogin(with presenter: LoginPresenter)
+    func moveHome(with presenter: V2HomePresenter)
 }
 
 class NameSettingViewController: BaseViewController, NameSettingView, Navigatable {
@@ -120,11 +120,11 @@ extension NameSettingViewController {
         dismiss(animated: true)
     }
     
-    func moveLogin(with presenter: LoginViewPresenter) {
+    func moveLogin(with presenter: LoginPresenter) {
         navigator.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
     
-    func moveHome(with presenter: V2HomeViewPresenter) {
+    func moveHome(with presenter: V2HomePresenter) {
         navigator.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
 }

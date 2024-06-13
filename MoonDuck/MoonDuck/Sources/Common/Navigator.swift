@@ -27,12 +27,13 @@ class Navigator {
     
     // MARK: - all app scenes
     enum Scene {
-        case intro(presenter: IntroViewPresenter)
-        case login(presenter: LoginViewPresenter)
-        case nameSetting(presenter: NameSettingViewPresenter)
-        case home(presenter: V2HomeViewPresenter)
-        case my(presenter: MyViewPresenter)
+        case intro(presenter: IntroPresenter)
+        case login(presenter: LoginPresenter)
+        case nameSetting(presenter: NameSettingPresenter)
+        case home(presenter: V2HomePresenter)
+        case myInfo(presenter: MyInfoPresenter)
         case writeReviewCateogry(presenter: WriteReviewCategoryPresenter)
+        case categorySearch(presenter: CategorySearchPresenter)
     }
 
     enum Transition {
@@ -54,10 +55,12 @@ class Navigator {
             return NameSettingViewController(navigator: self, presenter: presenter)
         case .home(let presenter):
             return V2HomeViewController(navigator: self, presenter: presenter)
-        case .my(let presenter):
-            return MyViewController(navigator: self, presenter: presenter)
+        case .myInfo(let presenter):
+            return MyInfoViewController(navigator: self, presenter: presenter)
         case .writeReviewCateogry(let presenter):
             return WriteReviewCategoryViewController(navigator: self, presenter: presenter)
+        case .categorySearch(presenter: let presenter):
+            return CategorySearchViewController(navigator: self, presenter: presenter)
         }
     }
     

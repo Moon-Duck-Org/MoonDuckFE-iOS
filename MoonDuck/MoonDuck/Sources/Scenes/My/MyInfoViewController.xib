@@ -21,7 +21,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyViewController" customModule="MoonDuck" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyInfoViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
                 <outlet property="bookCountLabel" destination="PgR-Pw-3AZ" id="oE7-Jh-ksK"/>
                 <outlet property="concertCountLabel" destination="813-Oe-X72" id="gow-Gd-2G2"/>
@@ -66,7 +66,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="마이페이지" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnA-so-dvV">
-                            <rect key="frame" x="146" y="10" width="83" height="27"/>
+                            <rect key="frame" x="146" y="10.333333333333337" width="83" height="26.666666666666671"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="18"/>
                             <color key="textColor" name="Black"/>
                             <nil key="highlightedColor"/>
@@ -96,7 +96,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="포덕이" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGZ-fE-rCh">
-                            <rect key="frame" x="70" y="43.666666666666657" width="198" height="27"/>
+                            <rect key="frame" x="70" y="43.666666666666657" width="198" height="26.666666666666671"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="18"/>
                             <color key="textColor" name="Black"/>
                             <nil key="highlightedColor"/>
@@ -113,7 +113,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임 설정" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSx-ue-mdw">
-                                    <rect key="frame" x="9" y="4.3333333333333428" width="59" height="18"/>
+                                    <rect key="frame" x="9.3333333333333108" y="4.3333333333333428" width="58.666666666666657" height="18"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="12"/>
                                     <color key="textColor" name="Gray1"/>
                                     <nil key="highlightedColor"/>
@@ -161,16 +161,16 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o99-iY-X2q">
-                    <rect key="frame" x="0.0" y="214" width="375" height="371"/>
+                    <rect key="frame" x="0.0" y="214.00000000000003" width="375" height="370.66666666666674"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 기록" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpx-sn-f9h">
-                            <rect key="frame" x="22" y="30" width="71.666666666666671" height="27"/>
+                            <rect key="frame" x="22" y="30" width="71.333333333333329" height="26.666666666666671"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="18"/>
                             <color key="textColor" name="Black"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ghx-Gh-0ym" customClass="RadiusView" customModule="MoonDuck" customModuleProvider="target">
-                            <rect key="frame" x="16" y="67" width="343" height="66"/>
+                            <rect key="frame" x="16" y="66.666666666666686" width="343" height="66"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CategoryMovieSmall" translatesAutoresizingMaskIntoConstraints="NO" id="ENb-YM-JcC">
                                     <rect key="frame" x="25" y="21" width="24" height="24"/>
@@ -180,13 +180,13 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="영화" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSZ-1w-jYp">
-                                    <rect key="frame" x="54" y="22.666666666666686" width="26" height="21"/>
+                                    <rect key="frame" x="54" y="22.666666666666629" width="26" height="21"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
                                     <color key="textColor" name="Black"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uDf-yt-2OL">
-                                    <rect key="frame" x="307.66666666666669" y="19.666666666666686" width="10.333333333333314" height="27"/>
+                                    <rect key="frame" x="307.66666666666669" y="19.666666666666629" width="10.333333333333314" height="26.666666666666671"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="18"/>
                                     <color key="textColor" name="Black"/>
                                     <nil key="highlightedColor"/>
@@ -216,7 +216,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ekf-pj-K8r" customClass="RadiusView" customModule="MoonDuck" customModuleProvider="target">
-                            <rect key="frame" x="16" y="143" width="343" height="66"/>
+                            <rect key="frame" x="16" y="142.66666666666669" width="343" height="66"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CategoryBookSmall" translatesAutoresizingMaskIntoConstraints="NO" id="zIe-3J-2PO">
                                     <rect key="frame" x="25" y="21" width="24" height="24"/>
@@ -226,13 +226,13 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="책" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hT3-ur-xL2">
-                                    <rect key="frame" x="54" y="22.666666666666686" width="13" height="21"/>
+                                    <rect key="frame" x="54" y="22.666666666666629" width="13" height="21"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
                                     <color key="textColor" name="Black"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PgR-Pw-3AZ">
-                                    <rect key="frame" x="307.66666666666669" y="19.666666666666686" width="10.333333333333314" height="27"/>
+                                    <rect key="frame" x="307.66666666666669" y="19.666666666666629" width="10.333333333333314" height="26.666666666666671"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="18"/>
                                     <color key="textColor" name="Black"/>
                                     <nil key="highlightedColor"/>
@@ -262,7 +262,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xs2-uL-7St" customClass="RadiusView" customModule="MoonDuck" customModuleProvider="target">
-                            <rect key="frame" x="16" y="219" width="343" height="66"/>
+                            <rect key="frame" x="16" y="218.66666666666669" width="343" height="66"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CategoryDramaSmall" translatesAutoresizingMaskIntoConstraints="NO" id="kyn-qZ-6Sm">
                                     <rect key="frame" x="25" y="21" width="24" height="24"/>
@@ -272,13 +272,13 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="드라마" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Fj-Jh-S5A">
-                                    <rect key="frame" x="54" y="22.666666666666686" width="39" height="21"/>
+                                    <rect key="frame" x="54" y="22.666666666666629" width="38.666666666666657" height="21"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
                                     <color key="textColor" name="Black"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51e-55-7I2">
-                                    <rect key="frame" x="307.66666666666669" y="19.666666666666686" width="10.333333333333314" height="27"/>
+                                    <rect key="frame" x="307.66666666666669" y="19.666666666666629" width="10.333333333333314" height="26.666666666666671"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="18"/>
                                     <color key="textColor" name="Black"/>
                                     <nil key="highlightedColor"/>
@@ -308,23 +308,23 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xwm-La-cyW" customClass="RadiusView" customModule="MoonDuck" customModuleProvider="target">
-                            <rect key="frame" x="16" y="295" width="343" height="66"/>
+                            <rect key="frame" x="16" y="294.66666666666669" width="343" height="66"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CategoryConcertSmall" translatesAutoresizingMaskIntoConstraints="NO" id="1NN-a6-liy">
-                                    <rect key="frame" x="25" y="21" width="24" height="24"/>
+                                    <rect key="frame" x="25" y="20.999999999999943" width="24" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="cbO-ho-tjc"/>
                                         <constraint firstAttribute="width" constant="24" id="fHO-xh-EWe"/>
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공연" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSA-Dh-uli">
-                                    <rect key="frame" x="54" y="22.666666666666629" width="26" height="21"/>
+                                    <rect key="frame" x="54" y="22.666666666666686" width="26" height="21"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
                                     <color key="textColor" name="Black"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="813-Oe-X72">
-                                    <rect key="frame" x="307.66666666666669" y="19.666666666666629" width="10.333333333333314" height="27"/>
+                                    <rect key="frame" x="307.66666666666669" y="19.666666666666686" width="10.333333333333314" height="26.666666666666671"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="18"/>
                                     <color key="textColor" name="Black"/>
                                     <nil key="highlightedColor"/>

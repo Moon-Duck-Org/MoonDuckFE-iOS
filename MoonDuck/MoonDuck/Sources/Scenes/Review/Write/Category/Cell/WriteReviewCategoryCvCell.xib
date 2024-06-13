@@ -62,9 +62,9 @@
             </constraints>
             <size key="customSize" width="58" height="93"/>
             <connections>
-                <outlet property="ivIcon" destination="vdd-dt-uj6" id="EL3-e3-OeI"/>
-                <outlet property="lbTitle" destination="N2V-Fv-r9K" id="thW-nY-tKD"/>
-                <outlet property="vBack" destination="0IV-SW-QIk" id="YwG-t7-pf2"/>
+                <outlet property="backView" destination="0IV-SW-QIk" id="xWM-e8-NW0"/>
+                <outlet property="iconImageView" destination="vdd-dt-uj6" id="GxX-9a-JQO"/>
+                <outlet property="titlaLabel" destination="N2V-Fv-r9K" id="HI4-ms-YGG"/>
             </connections>
             <point key="canvasLocation" x="25.954198473282442" y="29.929577464788736"/>
         </collectionViewCell>

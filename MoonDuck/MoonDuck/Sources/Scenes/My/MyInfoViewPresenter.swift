@@ -1,5 +1,5 @@
 //
-//  MyViewPresenter.swift
+//  MyInfoViewPresenter.swift
 //  MoonDuck
 //
 //  Created by suni on 6/8/24.
@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-protocol MyPresenter: AnyObject {
-    var view: MyView? { get set }
+protocol MyInfoPresenter: AnyObject {
+    var view: MyInfoView? { get set }
     
     /// Data
     
@@ -21,8 +21,8 @@ protocol MyPresenter: AnyObject {
     func settingNameButtonTap()
 }
 
-class MyViewPresenter: Presenter, MyPresenter {
-    weak var view: MyView?
+class MyInfoViewPresenter: Presenter, MyInfoPresenter {
+    weak var view: MyInfoView?
     let model: UserModelType
     
     init(with provider: AppServices, model: UserModelType) {
@@ -32,7 +32,7 @@ class MyViewPresenter: Presenter, MyPresenter {
     }
 }
 
-extension MyViewPresenter {
+extension MyInfoViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
@@ -64,7 +64,7 @@ extension MyViewPresenter {
 }
 
 // MARK: - UserModelDelegate
-extension MyViewPresenter: UserModelDelegate {
+extension MyInfoViewPresenter: UserModelDelegate {
     func userModel(_ userModel: UserModel, didChange user: UserV2) {
         view?.updateLoadingView(false)
         guard let user = userModel.user else { return }
@@ -100,7 +100,7 @@ extension MyViewPresenter: UserModelDelegate {
 }
 
 // MARK: - NameSettingPresenterDelegate
-extension MyViewPresenter: NameSettingPresenterDelegate {
+extension MyInfoViewPresenter: NameSettingPresenterDelegate {
     func nameSetting(_ presenter: NameSettingPresenter, didSuccess nickname: String) {
         view?.dismiss()
         model.save(nickname: nickname)

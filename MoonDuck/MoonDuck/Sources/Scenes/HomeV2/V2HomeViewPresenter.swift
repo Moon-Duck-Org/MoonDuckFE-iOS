@@ -33,7 +33,7 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
 extension V2HomeViewPresenter {
     // MARK: - Action
     func myButtonTap() {
-        let presenter = MyViewPresenter(with: provider, model: userModel)
+        let presenter = MyInfoViewPresenter(with: provider, model: userModel)
         view?.moveMy(with: presenter)
     }
     func writeNewReviewButtonTap() {

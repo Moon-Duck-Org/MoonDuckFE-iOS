@@ -8,8 +8,8 @@
 import UIKit
 
 protocol V2HomeView: BaseView {
-    func moveMy(with presenter: MyViewPresenter)
-    func moveWriteReviewCategory(with presenter: WriteReviewCategoryViewPresenter)
+    func moveMy(with presenter: MyInfoPresenter)
+    func moveWriteReviewCategory(with presenter: WriteReviewCategoryPresenter)
 }
 
 class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
@@ -53,10 +53,10 @@ extension V2HomeViewController {
 
 // MARK: - Navigation
 extension V2HomeViewController {
-    func moveMy(with presenter: MyViewPresenter) {
-        navigator.show(seque: .my(presenter: presenter), sender: self, transition: .navigation)
+    func moveMy(with presenter: MyInfoPresenter) {
+        navigator.show(seque: .myInfo(presenter: presenter), sender: self, transition: .navigation)
     }
-    func moveWriteReviewCategory(with presenter: WriteReviewCategoryViewPresenter) {
+    func moveWriteReviewCategory(with presenter: WriteReviewCategoryPresenter) {
         navigator.show(seque: .writeReviewCateogry(presenter: presenter), sender: self, transition: .navigation)
     }
 }

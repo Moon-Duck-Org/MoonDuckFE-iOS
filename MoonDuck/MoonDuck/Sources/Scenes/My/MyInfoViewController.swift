@@ -1,5 +1,5 @@
 //
-//  MyViewController.swift
+//  MyInfoViewController.swift
 //  MoonDuck
 //
 //  Created by suni on 6/8/24.
@@ -7,19 +7,19 @@
 
 import UIKit
 
-protocol MyView: BaseView {
+protocol MyInfoView: BaseView {
     func updateNameLabel(_ text: String)
     func updateCountLabel(movie: Int, book: Int, drama: Int, concert: Int)
     
     func dismiss()
-    func presentNameSetting(with presenter: NameSettingViewPresenter)
-    func moveLogin(with presenter: LoginViewPresenter)
+    func presentNameSetting(with presenter: NameSettingPresenter)
+    func moveLogin(with presenter: LoginPresenter)
 }
 
-class MyViewController: BaseViewController, MyView, Navigatable {
+class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
     
     var navigator: Navigator!
-    let presenter: MyPresenter
+    let presenter: MyInfoPresenter
     
     // @IBOutlet
     @IBOutlet weak private var nameLabel: UILabel!
@@ -46,10 +46,10 @@ class MyViewController: BaseViewController, MyView, Navigatable {
     }
         
     init(navigator: Navigator,
-         presenter: MyPresenter) {
+         presenter: MyInfoPresenter) {
         self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: MyViewController.className, bundle: Bundle(for: MyViewController.self))
+        super.init(nibName: MyInfoViewController.className, bundle: Bundle(for: MyInfoViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,7 +64,7 @@ class MyViewController: BaseViewController, MyView, Navigatable {
 }
 
 // MARK: - UI Logic
-extension MyViewController {
+extension MyInfoViewController {
     func updateNameLabel(_ text: String) {
         nameLabel.text = text
     }
@@ -84,7 +84,7 @@ extension MyViewController {
 }
 
 // MARK: - Navigation
-extension MyViewController {
+extension MyInfoViewController {
     private func back() {
         navigator.pop(sender: self)
     }
@@ -93,11 +93,11 @@ extension MyViewController {
         navigator.dismiss(sender: self)
     }
     
-    func presentNameSetting(with presenter: NameSettingViewPresenter) {
+    func presentNameSetting(with presenter: NameSettingPresenter) {
         navigator.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .modal)
     }
     
-    func moveLogin(with presenter: LoginViewPresenter) {
+    func moveLogin(with presenter: LoginPresenter) {
         navigator.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
 }

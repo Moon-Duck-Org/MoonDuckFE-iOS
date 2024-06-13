@@ -10,6 +10,8 @@ import UIKit
 protocol WriteReviewCategoryView: AnyObject {
     func reloadCategories()
     func updateNextButton(_ isEnabled: Bool)
+    
+//    func moveCategorySearch(with presenter: CategorySearchViewPresenter)
 }
 
 class WriteReviewCategoryViewController: BaseViewController, WriteReviewCategoryView, Navigatable {
@@ -28,7 +30,7 @@ class WriteReviewCategoryViewController: BaseViewController, WriteReviewCategory
     }
     
     @IBAction private func nextButtonTap(_ sender: Any) {
-        
+        presenter.tapNextButton()
     }
     
     init(navigator: Navigator,
