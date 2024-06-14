@@ -24,6 +24,7 @@ protocol CategorySearchPresenter: AnyObject {
     func textFieldShouldReturn(_ text: String?) -> Bool
     func textFieldDidEndEditing(_ text: String?)
     func textFieldShouldBeginEditing(_ text: String?) -> Bool
+    func scrollViewWillBeginDragging()
 }
 
 class CategorySearchViewPresenter: Presenter, CategorySearchPresenter {
@@ -31,7 +32,7 @@ class CategorySearchViewPresenter: Presenter, CategorySearchPresenter {
     
     let category: ReviewCategory
     let model: CategoryhSearchModelType
-    
+        
     init(with provider: AppServices, category: ReviewCategory) {
         self.category = category
         self.model = CategoryhSearchModel(provider)
@@ -57,7 +58,7 @@ extension CategorySearchViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        
+        view?.createTouchEvent()
     }
     
     // MARK: - Action
@@ -77,7 +78,15 @@ extension CategorySearchViewPresenter {
     }
     
     func textFieldShouldBeginEditing(_ text: String?) -> Bool {
+        view?.isEditingText = true
         return true
+    }
+}
+
+// MARK: UITableViewDataSource
+extension CategorySearchViewPresenter {
+    func scrollViewWillBeginDragging() {
+        view?.endEditing()
     }
 }
 
@@ -88,6 +97,6 @@ extension CategorySearchViewPresenter: CategoryhSearchModelDelegate {
     }
     
     func categorySearchModel(_ searchModel: CategoryhSearchModel, didRecieve error: Error?) {
-        
+        // TODO: 오류 처리
     }
 }

@@ -60,6 +60,7 @@ extension NameSettingViewPresenter {
             nameText = nickname
         }
         view?.updateCompleteButton(false)
+        view?.createTouchEvent()
     }
     
     // MARK: - Action
@@ -131,6 +132,7 @@ extension NameSettingViewPresenter {
     }
     
     func textFieldShouldBeginEditing(_ text: String?) -> Bool {
+        view?.isEditingText = true
         view?.clearHintLabel()
         return true
     }

@@ -38,6 +38,9 @@
                             <state key="normal" image="Back">
                                 <color key="titleColor" name="Black"/>
                             </state>
+                            <connections>
+                                <action selector="backButtonTap:" destination="-1" eventType="touchUpInside" id="GUN-gU-Q1u"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리 검색" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0A3-BP-FdD">
                             <rect key="frame" x="144.33333333333334" y="10.33333333333333" width="104.66666666666666" height="26.666666666666671"/>
@@ -65,9 +68,6 @@
                     </constraints>
                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                     <textInputTraits key="textInputTraits" returnKeyType="search"/>
-                    <connections>
-                        <action selector="backButtonTap:" destination="-1" eventType="editingDidEnd" id="fhW-Dy-nKt"/>
-                    </connections>
                 </textField>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FT2-64-fqh">
                     <rect key="frame" x="16" y="190" width="361" height="618"/>

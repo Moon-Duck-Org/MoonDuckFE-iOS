@@ -13,7 +13,7 @@ class CategorySearchService {
             .responseDecodable { (response: AFDataResponse<SearchMovieResponse>) in
                 switch response.result {
                 case .success(let response):
-                    let movieList = response.movieList.map { $0.toDomain() }
+                    let movieList = response.movieListResult.movieList.map { $0.toDomain() }
                     completion(movieList, nil)
                 case .failure(let error):
                     completion(nil, error)

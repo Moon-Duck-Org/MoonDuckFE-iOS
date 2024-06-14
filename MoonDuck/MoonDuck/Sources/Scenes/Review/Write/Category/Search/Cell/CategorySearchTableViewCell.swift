@@ -11,12 +11,7 @@ class CategorySearchTableViewCell: UITableViewCell {
     
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private weak var subTitleLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
+        
     func configure(with category: CategorySearchMovie) {
         titleLabel.text = category.name
         
@@ -32,5 +27,4 @@ class CategorySearchTableViewCell: UITableViewCell {
         }
         subTitleLabel.text = subTitle
     }
-    
 }

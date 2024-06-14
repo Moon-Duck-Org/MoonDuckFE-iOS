@@ -29,9 +29,10 @@ class CategoryhSearchModel: CategoryhSearchModelType {
     
     private let provider: AppServices
     
-    var currentPage: Int = 0
-    var itemPerPage: Int = 30
-    var searchList: [CategorySearchMovie] = []
+    private var currentPage: Int = 1
+    private var itemPerPage: Int = 30
+    private var searchList: [CategorySearchMovie] = []
+    private var lastSearchText: String = ""
     
     init(_ provider: AppServices) {
         self.provider = provider
@@ -47,12 +48,14 @@ class CategoryhSearchModel: CategoryhSearchModelType {
     }
     
     private func save(list: [CategorySearchMovie]) {
-        searchList.append(contentsOf: list)
+        searchList = list
         delegate?.categorySearchModel(self, didChange: searchList)
     }
     
     // MARK: - Networking
     func searchMovie(_ movie: String) {
+        if lastSearchText == movie { return }
+        lastSearchText = movie
         let request = SearchMovieRequest(curPage: "\(currentPage)", itemPerPage: "\(itemPerPage)", movieNm: movie)
         provider.categorySearchService.movie(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
@@ -61,6 +64,7 @@ class CategoryhSearchModel: CategoryhSearchModelType {
                 self.save(list: succeed)
             } else {
                 // 오류 발생
+                self.delegate?.categorySearchModel(self, didRecieve: failed)
             }
         }
     }

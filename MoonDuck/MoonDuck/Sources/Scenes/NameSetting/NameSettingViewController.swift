@@ -15,7 +15,7 @@ protocol NameSettingView: BaseView {
     func updateCountLabel(_ cnt: Int)
     func updateCompleteButton(_ isEnabled: Bool)
     
-    func endEditing()
+    
     
     func dismiss()
     func moveLogin(with presenter: LoginPresenter)
@@ -60,10 +60,6 @@ class NameSettingViewController: BaseViewController, NameSettingView, Navigatabl
         nameTextField.delegate = self
         presenter.viewDidLoad()
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
 }
 
 // MARK: - UI Logic
@@ -88,10 +84,6 @@ extension NameSettingViewController {
     
     func updateCompleteButton(_ isEnabled: Bool) {
         completeButton.isEnabled = isEnabled
-    }
-    
-    func endEditing() {
-        view.endEditing(true)
     }
 }
 

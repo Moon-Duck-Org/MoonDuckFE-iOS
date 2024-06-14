@@ -43,4 +43,8 @@ extension CategorySearchDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        presenter.selectBoard(at: indexPath.row)
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        presenter.scrollViewWillBeginDragging()
+    }
 }

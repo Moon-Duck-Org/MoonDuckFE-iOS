@@ -18,6 +18,7 @@ protocol ReviewCategoryModelType: AnyObject {
     var categories: [ReviewCategory] { get }
     var numberOfCategories: Int { get }
     var indexOfSelectedCategory: Int? { get }
+    var selectedCategory: ReviewCategory? { get }
     
     func category(at index: Int) -> ReviewCategory?
     
@@ -46,6 +47,13 @@ class ReviewCategoryModel: ReviewCategoryModelType {
         didSet {
             delegate?.reviewCategoryModel(self, didSelect: indexOfSelectedCategory)
         }
+    }
+    
+    var selectedCategory: ReviewCategory?  {
+        if let indexOfSelectedCategory{
+            return category(at: indexOfSelectedCategory)
+        }
+        return nil;
     }
     
     func category(at index: Int) -> ReviewCategory? {

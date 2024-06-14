@@ -8,9 +8,14 @@
 import Foundation
 
 struct SearchMovieResponse: Decodable {
-    let totCnt: Int
-    let source: String
-    let movieList: [Movie]
+    let movieListResult: MovieListResult
+    
+    struct MovieListResult: Decodable {
+        let totCnt: Int
+        let source: String
+        let movieList: [Movie]
+        
+    }
     
     struct Movie: Decodable {
         let movieCd: String?
@@ -32,7 +37,7 @@ struct SearchMovieResponse: Decodable {
             var director: String {
                 var str = ""
                 if let directors {
-                    let list = directors.map{ $0.peopleNm }
+                    let list = directors.map { $0.peopleNm }
                     str = list.toSlashString(max: 2)
                 }
                 return str
@@ -44,7 +49,6 @@ struct SearchMovieResponse: Decodable {
                                        director: director)
         }
     }
-    
     struct Director: Decodable {
         let peopleNm: String
     }

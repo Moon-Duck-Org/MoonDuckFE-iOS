@@ -15,6 +15,7 @@ class CategorySearchViewController: BaseViewController, CategorySearchView, Navi
     
     var navigator: Navigator!
     let presenter: CategorySearchPresenter
+    private let searchDataSource: CategorySearchDataSource
     
     // @IBOutlet
     @IBOutlet weak private var tableViewBottomConstraint: NSLayoutConstraint!
@@ -30,6 +31,7 @@ class CategorySearchViewController: BaseViewController, CategorySearchView, Navi
          presenter: CategorySearchPresenter) {
         self.navigator = navigator
         self.presenter = presenter
+        self.searchDataSource = CategorySearchDataSource(presenter: self.presenter)
         super.init(nibName: CategorySearchViewController.className, bundle: Bundle(for: CategorySearchViewController.self))
     }
     
@@ -42,6 +44,9 @@ class CategorySearchViewController: BaseViewController, CategorySearchView, Navi
         registerNotifications()
         presenter.view = self
         presenter.viewDidLoad()
+        
+        searchTextField.delegate = self
+        searchDataSource.configure(with: resultTableView)
     }
     
     deinit {
@@ -74,7 +79,7 @@ extension CategorySearchViewController {
             return
         }
         view.layoutIfNeeded()
-        tableViewBottomConstraint.constant = keyboardInfo.frame.size.height + 10
+        tableViewBottomConstraint.constant = keyboardInfo.frame.size.height
         UIView.animate(withDuration: keyboardInfo.animationDuration,
                        delay: 0,
                        options: keyboardInfo.animationCurve,
@@ -88,7 +93,7 @@ extension CategorySearchViewController {
             return
         }
         view.layoutIfNeeded()
-        tableViewBottomConstraint.constant = 0
+        tableViewBottomConstraint.constant = 10
         UIView.animate(withDuration: keyboardInfo.animationDuration,
                        delay: 0,
                        options: keyboardInfo.animationCurve,
@@ -101,5 +106,20 @@ extension CategorySearchViewController {
 extension CategorySearchViewController {
     private func back() {
         navigator?.pop(sender: self)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension CategorySearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return presenter.textFieldShouldReturn(textField.text)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        presenter.textFieldDidEndEditing(textField.text)
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        presenter.textFieldShouldBeginEditing(textField.text)
     }
 }
