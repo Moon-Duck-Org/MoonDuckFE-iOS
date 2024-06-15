@@ -34,7 +34,7 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
     }
     
     deinit {

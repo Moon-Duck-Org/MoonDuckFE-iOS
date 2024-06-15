@@ -36,7 +36,7 @@ struct Log {
         case network
         /// 오류 로그
         case error
-        /// TODO 로그
+        /// todo 로그
         case todo
         case custom(category: String)
         

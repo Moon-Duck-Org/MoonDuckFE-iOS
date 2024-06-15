@@ -43,7 +43,7 @@ class ProgramSearchTableViewCell: UITableViewCell {
     private func configureBook(with program: ReviewProgram) {
         
         var subTitle: String = ""
-        if let director = program.director, director.isNotEmpty  {
+        if let director = program.director, director.isNotEmpty {
             subTitle += director
         }
         if let date = program.date, date.isNotEmpty {

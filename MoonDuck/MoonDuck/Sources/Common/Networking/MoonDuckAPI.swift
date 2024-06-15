@@ -13,11 +13,9 @@ enum MoonDuckAPI {
     case authReissue(AuthReissueRequest)
     case user
     case userNickname(UserNicknameRequest)
-    
     case searchMovie(SearchMovieRequest)
     case searchBook(SearchBookRequest)
     case searchDrama(SearchDramaRequest)
-    
     // TODO: - API 수정
     case reviewAll(ReviewAllRequest)
     case getReview(GetReviewRequest)
@@ -27,7 +25,6 @@ enum MoonDuckAPI {
     case reviewDetail(ReviewDetailRequest)
 }
 extension MoonDuckAPI: TargetType {
-    
     static func baseUrl() -> String {
         return "http://moonduck.o-r.kr"
     }
@@ -47,7 +44,7 @@ extension MoonDuckAPI: TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .user, .searchMovie, .searchBook, .searchDrama .reviewAll, .getReview, .reviewDetail:
+        case .user, .searchMovie, .searchBook, .searchDrama, .reviewAll, .getReview, .reviewDetail:
             return .get
         case .authLogin, .authReissue, .postReview:
             return .post
@@ -74,7 +71,7 @@ extension MoonDuckAPI: TargetType {
             // User Nickname 수정
         case .userNickname:
             return "/user/nickname"
-            
+    
             // Movie Open API
         case .searchMovie:
             return "/kobisopenapi/webservice/rest/movie/searchMovieList.json"

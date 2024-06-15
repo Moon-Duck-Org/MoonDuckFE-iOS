@@ -49,7 +49,7 @@ class ReviewCategoryModel: ReviewCategoryModelType {
         }
     }
     
-    var selectedCategory: ReviewCategory?  {
+    var selectedCategory: ReviewCategory? {
         if let indexOfSelectedCategory {
             return category(at: indexOfSelectedCategory)
         }

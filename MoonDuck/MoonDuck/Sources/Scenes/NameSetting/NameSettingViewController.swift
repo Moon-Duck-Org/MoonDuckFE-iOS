@@ -8,15 +8,14 @@
 import UIKit
 
 protocol NameSettingView: BaseView {
+    /// UI Logic
     func showHintLabel(_ hint: String)
     func clearHintLabel()
-    
     func updateNameTextfield(_ text: String)
     func updateCountLabel(_ cnt: Int)
     func updateCompleteButton(_ isEnabled: Bool)
     
-    
-    
+    /// Navigation
     func dismiss()
     func moveLogin(with presenter: LoginPresenter)
     func moveHome(with presenter: V2HomePresenter)

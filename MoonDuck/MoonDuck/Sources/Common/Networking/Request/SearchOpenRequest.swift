@@ -23,7 +23,7 @@ struct SearchBookRequest: Encodable {
 
 struct SearchDramaRequest: Encodable {
     let language: String = "ko_KR"
-    let include_adult: Bool = true
+//    let include_adult: Bool = true
     var query: String
     var page: Int?
 }

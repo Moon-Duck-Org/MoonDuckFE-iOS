@@ -61,7 +61,6 @@ extension WriteReviewCategoryViewPresenter {
     
     func tapNextButton() {
         guard let selectedCategory = model.selectedCategory else { return }
-        // TODO: - 다음 버튼 탭
         let presenter = ProgramSearchViewPresenter(with: provider, category: selectedCategory)
         view?.moveCategorySearch(with: presenter)
     }    

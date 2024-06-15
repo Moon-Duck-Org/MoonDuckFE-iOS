@@ -26,12 +26,12 @@ struct UserResponse: Decodable {
         }()
         
         return User(userId: userId ?? 0,
-                      nickname: nickname ?? "",
-                      all: all,
-                      movie: movie,
-                      book: book,
-                      drama: drama,
-                      concert: concert)
+                    nickname: nickname ?? "",
+                    all: all,
+                    movie: movie,
+                    book: book,
+                    drama: drama,
+                    concert: concert)
     }
 }
 
