@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct ReviewAllRequest: Encodable {
+struct ReviewAllRequest: Codable {
     var userId: Int
     var filter: String
 }
 
-struct GetReviewRequest: Encodable {
+struct GetReviewRequest: Codable {
     var userId: Int
     var category: String
     var filter: String
 }
 
-struct PutReviewRequest: Encodable {
+struct PutReviewRequest: Codable {
     var title: String
     var category: String
     var content: String
@@ -32,7 +32,7 @@ struct PutReviewRequest: Encodable {
     var boardId: Int
 }
 
-struct PostReviewRequest: Encodable {
+struct PostReviewRequest: Codable {
     var title: String
     var category: String
     var content: String
@@ -46,10 +46,10 @@ struct PostReviewRequest: Encodable {
     var userId: Int
 }
 
-struct DeleteReviewRequest: Encodable {
+struct DeleteReviewRequest: Codable {
     var boardId: Int
 }
 
-struct ReviewDetailRequest: Encodable {
+struct ReviewDetailRequest: Codable {
     var boardId: Int
 }

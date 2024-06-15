@@ -43,8 +43,8 @@ extension TargetType {
 }
 
 enum RequestParams {
-    case query(_ parameter: Encodable?)
-    case body(_ parameter: Encodable?)
+    case query(_ parameter: Codable?)
+    case body(_ parameter: Codable?)
 }
 
 extension Encodable {

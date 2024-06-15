@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct UserNicknameRequest: Encodable {
+struct UserNicknameRequest: Codable {
     var nickname: String
 }
