@@ -16,6 +16,8 @@ enum MoonDuckAPI {
     
     case searchMovie(SearchMovieRequest)
     case searchBook(SearchBookRequest)
+    case searchDrama(SearchDramaRequest)
+    
     // TODO: - API 수정
     case reviewAll(ReviewAllRequest)
     case getReview(GetReviewRequest)
@@ -36,6 +38,8 @@ extension MoonDuckAPI: TargetType {
             return URL(string: "http://www.kobis.or.kr")!
         case .searchBook:
             return URL(string: "https://openapi.naver.com")!
+        case .searchDrama:
+            return URL(string: "https://api.themoviedb.org")!
         default:
             return URL(string: MoonDuckAPI.baseUrl())!
         }
@@ -43,7 +47,7 @@ extension MoonDuckAPI: TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .user, .searchMovie, .searchBook, .reviewAll, .getReview, .reviewDetail:
+        case .user, .searchMovie, .searchBook, .searchDrama .reviewAll, .getReview, .reviewDetail:
             return .get
         case .authLogin, .authReissue, .postReview:
             return .post
@@ -58,25 +62,28 @@ extension MoonDuckAPI: TargetType {
 
     var path: String {
         switch self {
-        // 로그인
+            // 로그인
         case .authLogin:
             return "/auth/login"
-        // access 토큰 재발급
+            // access 토큰 재발급
         case .authReissue:
             return "/auth/reissue"
-        // User 정보 조회
+            // User 정보 조회
         case .user:
             return "/user"
-        // User Nickname 수정
+            // User Nickname 수정
         case .userNickname:
             return "/user/nickname"
             
-        // Movie Open API
+            // Movie Open API
         case .searchMovie:
             return "/kobisopenapi/webservice/rest/movie/searchMovieList.json"
-        // Book Open API
+            // Book Open API
         case .searchBook:
             return "/v1/search/book.json"
+            // Drama Open API
+        case .searchDrama:
+            return "/3/search/tv"
             
         case .getReview, .putReview, .postReview, .deleteReview:
             return "/api/review"
@@ -100,6 +107,8 @@ extension MoonDuckAPI: TargetType {
         case .searchMovie(let request):
             return .query(request)
         case .searchBook(let request):
+            return .query(request)
+        case .searchDrama(let request):
             return .query(request)
             
         case .getReview(let request):
@@ -142,6 +151,9 @@ extension MoonDuckAPI: TargetType {
         case .searchBook:
             return ["X-Naver-Client-Id": "FfwMKOMRcT5KZmhvJxYj",
                     "X-Naver-Client-Secret": "JPu7G800Rh"]
+        case .searchDrama:
+            return ["accept": "application/json",
+                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNjRmZjk2OGEzYTdkMWQ2NjVhNDI2NmIyNzhmMzI0ZiIsInN1YiI6IjY2NmQ0MjA2NmIzYTk0MmQyOGVjMWMwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uvFajFOjUVv57Xb8onVa0kLT2ZLXtTdYRHkOgalHMmA"]
         default:
             return ["Content-Type": "application/json"]
         }

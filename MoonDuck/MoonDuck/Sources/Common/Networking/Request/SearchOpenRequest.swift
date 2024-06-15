@@ -20,3 +20,10 @@ struct SearchBookRequest: Encodable {
     var start: Int?
     var sort: String?
 }
+
+struct SearchDramaRequest: Encodable {
+    let language: String = "ko_KR"
+    let include_adult: Bool = true
+    var query: String
+    var page: Int?
+}
