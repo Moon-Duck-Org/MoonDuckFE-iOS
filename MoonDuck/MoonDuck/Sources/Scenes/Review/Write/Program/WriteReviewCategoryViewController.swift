@@ -11,7 +11,7 @@ protocol WriteReviewCategoryView: AnyObject {
     func reloadCategories()
     func updateNextButton(_ isEnabled: Bool)
     
-    func moveCategorySearch(with presenter: CategorySearchPresenter)
+    func moveCategorySearch(with presenter: ProgramSearchPresenter)
 }
 
 class WriteReviewCategoryViewController: BaseViewController, WriteReviewCategoryView, Navigatable {
@@ -72,7 +72,7 @@ extension WriteReviewCategoryViewController {
         navigator?.pop(sender: self)
     }
     
-    func moveCategorySearch(with presenter: CategorySearchPresenter) {
+    func moveCategorySearch(with presenter: ProgramSearchPresenter) {
         navigator.show(seque: .categorySearch(presenter: presenter), sender: self, transition: .navigation)
     }
 }

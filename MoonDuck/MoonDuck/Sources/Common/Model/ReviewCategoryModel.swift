@@ -50,10 +50,10 @@ class ReviewCategoryModel: ReviewCategoryModelType {
     }
     
     var selectedCategory: ReviewCategory?  {
-        if let indexOfSelectedCategory{
+        if let indexOfSelectedCategory {
             return category(at: indexOfSelectedCategory)
         }
-        return nil;
+        return nil
     }
     
     func category(at index: Int) -> ReviewCategory? {

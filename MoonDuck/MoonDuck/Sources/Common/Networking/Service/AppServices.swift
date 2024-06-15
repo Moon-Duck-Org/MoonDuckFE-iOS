@@ -11,5 +11,5 @@ struct AppServices {
     let authService: AuthService
     let userService: UserService
     let reviewService: ReviewService
-    let categorySearchService: CategorySearchService
+    let programSearchService: ProgramSearchService
 }

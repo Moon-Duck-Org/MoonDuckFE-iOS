@@ -32,7 +32,7 @@ struct SearchMovieResponse: Decodable {
         let directors: [Director]?
         let companys: [Company?]?
         
-        func toDomain() -> CategorySearchMovie {
+        func toDomain() -> ReviewProgramMovie {
             let name = movieNm ?? "영화 제목 없음"
             var director: String {
                 var str = ""
@@ -43,7 +43,7 @@ struct SearchMovieResponse: Decodable {
                 return str
             }
             
-            return CategorySearchMovie(name: name,
+            return ReviewProgramMovie(name: name,
                                        openDate: openDt,
                                        genres: genreAlt,
                                        director: director)

@@ -7,8 +7,8 @@
 
 import Alamofire
 
-class CategorySearchService {
-    func movie(request: SearchMovieRequest, completion: @escaping (_ succeed: [CategorySearchMovie]?, _ failed: Error?) -> Void) {
+class ProgramSearchService {
+    func movie(request: SearchMovieRequest, completion: @escaping (_ succeed: [ReviewProgramMovie]?, _ failed: Error?) -> Void) {
         API.session.request(MoonDuckAPI.searchMovie(request))
             .responseDecodable { (response: AFDataResponse<SearchMovieResponse>) in
                 switch response.result {

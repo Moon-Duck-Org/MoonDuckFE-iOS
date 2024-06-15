@@ -1,5 +1,5 @@
 //
-//  CategorySearchTableViewCell.swift
+//  ProgramSearchTableViewCell.swift
 //  MoonDuck
 //
 //  Created by suni on 6/11/24.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-class CategorySearchTableViewCell: UITableViewCell {
+class ProgramSearchTableViewCell: UITableViewCell {
     
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private weak var subTitleLabel: UILabel!
         
-    func configure(with category: CategorySearchMovie) {
+    func configure(with category: ReviewProgramMovie) {
         titleLabel.text = category.name
         
         var subTitle: String = ""

@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategorySearchViewController" customModule="MoonDuck" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProgramSearchViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
                 <outlet property="resultTableView" destination="FT2-64-fqh" id="P7c-IO-4AF"/>
                 <outlet property="searchTextField" destination="UFN-fx-L4E" id="Cna-Ge-0GU"/>

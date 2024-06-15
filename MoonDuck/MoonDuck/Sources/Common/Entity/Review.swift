@@ -10,14 +10,14 @@ import UIKit
 struct Review {
     let id: Int
     var title: String
-    let created: String
-    let nickname: String
-    
     var category: ReviewCategory
+    let user: User
+    var program: Program?
     var content: String
     var imageUrlList: [String]
-    var link: String?
-    var rating: Int
+    var url: String?
+    var score: Int
+    let createdAt: String
     
     func getImageList() -> [UIImage] {
         return [Asset.Assets.imageEmptyHome.image,
@@ -34,5 +34,16 @@ struct Review {
         } else {
             return nil
         }
+    }
+    
+    struct User {
+        let userId: Int
+        let nickname: String
+    }
+    
+    struct Program {
+        let id: Int
+        let title: String
+        let date: String
     }
 }

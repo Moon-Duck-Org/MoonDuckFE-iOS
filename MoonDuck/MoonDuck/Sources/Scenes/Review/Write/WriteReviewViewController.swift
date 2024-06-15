@@ -1,38 +1,31 @@
 //
-//  CategorySearchViewController.swift
+//  WriteReviewViewController.swift
 //  MoonDuck
 //
-//  Created by suni on 6/10/24.
+//  Created by suni on 6/15/24.
 //
 
 import UIKit
 
-protocol CategorySearchView: BaseView {
-     func reloadTableView()
+protocol WriteReviewView: BaseView {
+    
 }
 
-class CategorySearchViewController: BaseViewController, CategorySearchView, Navigatable {
+class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatable {
     
     var navigator: Navigator!
-    let presenter: CategorySearchPresenter
-    private let searchDataSource: CategorySearchDataSource
+    let presenter: WriteReviewPresenter
     
     // @IBOutlet
-    @IBOutlet weak private var tableViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak private var searchTextField: TextField!
-    @IBOutlet weak private var resultTableView: UITableView!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
     // @IBAction
-    @IBAction private func backButtonTap(_ sender: Any) {
-        back()
-    }
     
     init(navigator: Navigator,
-         presenter: CategorySearchPresenter) {
+         presenter: WriteReviewPresenter) {
         self.navigator = navigator
         self.presenter = presenter
-        self.searchDataSource = CategorySearchDataSource(presenter: self.presenter)
-        super.init(nibName: CategorySearchViewController.className, bundle: Bundle(for: CategorySearchViewController.self))
+        super.init(nibName: WriteReviewViewController.className, bundle: Bundle(for: WriteReviewViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,24 +34,17 @@ class CategorySearchViewController: BaseViewController, CategorySearchView, Navi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerNotifications()
-        presenter.view = self
-        presenter.viewDidLoad()
-        
-        searchTextField.delegate = self
-        searchDataSource.configure(with: resultTableView)
+
     }
     
     deinit {
         unregisterNotifications()
     }
+    
 }
 
 // MARK: - UI Logic
-extension CategorySearchViewController {
-    func reloadTableView() {
-        resultTableView.reloadData()
-    }
+extension WriteReviewViewController {
     
     // 노티피케이션 등록
     private func registerNotifications() {
@@ -79,7 +65,7 @@ extension CategorySearchViewController {
             return
         }
         view.layoutIfNeeded()
-        tableViewBottomConstraint.constant = keyboardInfo.frame.size.height
+        scrollViewBottomConstraint.constant = keyboardInfo.frame.size.height
         UIView.animate(withDuration: keyboardInfo.animationDuration,
                        delay: 0,
                        options: keyboardInfo.animationCurve,
@@ -93,7 +79,7 @@ extension CategorySearchViewController {
             return
         }
         view.layoutIfNeeded()
-        tableViewBottomConstraint.constant = 10
+        scrollViewBottomConstraint.constant = 10
         UIView.animate(withDuration: keyboardInfo.animationDuration,
                        delay: 0,
                        options: keyboardInfo.animationCurve,
@@ -103,14 +89,12 @@ extension CategorySearchViewController {
 }
 
 // MARK: - Navigation
-extension CategorySearchViewController {
-    private func back() {
-        navigator?.pop(sender: self)
-    }
+extension WriteReviewViewController {
+    
 }
 
 // MARK: - UITextFieldDelegate
-extension CategorySearchViewController: UITextFieldDelegate {
+extension WriteReviewViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return presenter.textFieldShouldReturn(textField.text)
     }

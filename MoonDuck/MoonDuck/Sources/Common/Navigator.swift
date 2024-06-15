@@ -33,7 +33,7 @@ class Navigator {
         case home(presenter: V2HomePresenter)
         case myInfo(presenter: MyInfoPresenter)
         case writeReviewCateogry(presenter: WriteReviewCategoryPresenter)
-        case categorySearch(presenter: CategorySearchPresenter)
+        case categorySearch(presenter: ProgramSearchPresenter)
     }
 
     enum Transition {
@@ -60,7 +60,7 @@ class Navigator {
         case .writeReviewCateogry(let presenter):
             return WriteReviewCategoryViewController(navigator: self, presenter: presenter)
         case .categorySearch(presenter: let presenter):
-            return CategorySearchViewController(navigator: self, presenter: presenter)
+            return ProgramSearchViewController(navigator: self, presenter: presenter)
         }
     }
     

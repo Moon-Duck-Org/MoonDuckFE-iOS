@@ -1,5 +1,5 @@
 //
-//  CategorySearchViewPresenter.swift
+//  ProgramSearchViewPresenter.swift
 //  MoonDuck
 //
 //  Created by suni on 6/10/24.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol CategorySearchPresenter: AnyObject {
-    var view: CategorySearchView? { get set }
+protocol ProgramSearchPresenter: AnyObject {
+    var view: ProgramSearchView? { get set }
     
     /// Data
-    var numberOfCategories: Int { get }
+    var numberOfPrograms: Int { get }
     
-    func category(at index: Int) -> CategorySearchMovie?
+    func program(at index: Int) -> ReviewProgramMovie?
     
     /// Life Cycle
     func viewDidLoad()
@@ -27,34 +27,34 @@ protocol CategorySearchPresenter: AnyObject {
     func scrollViewWillBeginDragging()
 }
 
-class CategorySearchViewPresenter: Presenter, CategorySearchPresenter {
-    weak var view: CategorySearchView?
+class ProgramSearchViewPresenter: Presenter, ProgramSearchPresenter {
+    weak var view: ProgramSearchView?
     
     let category: ReviewCategory
-    let model: CategoryhSearchModelType
+    let model: ProgramSearchModelType
         
     init(with provider: AppServices, category: ReviewCategory) {
         self.category = category
-        self.model = CategoryhSearchModel(provider)
+        self.model = ProgramSearchModel(provider)
         super.init(with: provider)
         self.model.delegate = self
     }
     
     // MARK: - Data
-    var numberOfCategories: Int {
-        return model.numberOfCategories
+    var numberOfPrograms: Int {
+        return model.numberOfPrograms
     }
     
-    func category(at index: Int) -> CategorySearchMovie? {
-        if index < model.numberOfCategories {
-            return model.categories[index]
+    func program(at index: Int) -> ReviewProgramMovie? {
+        if index < model.numberOfPrograms {
+            return model.programs[index]
         } else {
             return nil
         }
     }
 }
 
-extension CategorySearchViewPresenter {
+extension ProgramSearchViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
@@ -66,7 +66,7 @@ extension CategorySearchViewPresenter {
 }
 
 // MARK: - UITextFieldDelegate
-extension CategorySearchViewPresenter {
+extension ProgramSearchViewPresenter {
     func textFieldShouldReturn(_ text: String?) -> Bool {
         guard let text else { return true }
         model.searchMovie(text)
@@ -84,19 +84,19 @@ extension CategorySearchViewPresenter {
 }
 
 // MARK: UITableViewDataSource
-extension CategorySearchViewPresenter {
+extension ProgramSearchViewPresenter {
     func scrollViewWillBeginDragging() {
         view?.endEditing()
     }
 }
 
-// MARK: - CategoryhSearchModelDelegate
-extension CategorySearchViewPresenter: CategoryhSearchModelDelegate {
-    func categorySearchModel(_ searchModel: CategoryhSearchModel, didChange movieList: [CategorySearchMovie]) {
+// MARK: - ProgramSearchModelDelegate
+extension ProgramSearchViewPresenter: ProgramSearchModelDelegate {
+    func programSearchModel(_ searchModel: ProgramSearchModel, didChange movieList: [ReviewProgramMovie]) {
         view?.reloadTableView()
     }
     
-    func categorySearchModel(_ searchModel: CategoryhSearchModel, didRecieve error: Error?) {
+    func programSearchModel(_ searchModel: ProgramSearchModel, didRecieve error: Error?) {
         // TODO: 오류 처리
     }
 }
