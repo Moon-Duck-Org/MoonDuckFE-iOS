@@ -13,7 +13,7 @@ protocol ProgramSearchPresenter: AnyObject {
     /// Data
     var numberOfPrograms: Int { get }
     
-    func program(at index: Int) -> ReviewProgramMovie?
+    func program(at index: Int) -> ReviewProgram?
     
     /// Life Cycle
     func viewDidLoad()
@@ -45,7 +45,7 @@ class ProgramSearchViewPresenter: Presenter, ProgramSearchPresenter {
         return model.numberOfPrograms
     }
     
-    func program(at index: Int) -> ReviewProgramMovie? {
+    func program(at index: Int) -> ReviewProgram? {
         if index < model.numberOfPrograms {
             return model.programs[index]
         } else {
@@ -69,7 +69,7 @@ extension ProgramSearchViewPresenter {
 extension ProgramSearchViewPresenter {
     func textFieldShouldReturn(_ text: String?) -> Bool {
         guard let text else { return true }
-        model.searchMovie(text)
+        model.search(with: category, title: text)
         return true
     }
     
@@ -92,7 +92,7 @@ extension ProgramSearchViewPresenter {
 
 // MARK: - ProgramSearchModelDelegate
 extension ProgramSearchViewPresenter: ProgramSearchModelDelegate {
-    func programSearchModel(_ searchModel: ProgramSearchModel, didChange movieList: [ReviewProgramMovie]) {
+    func programSearchModel(_ searchModel: ProgramSearchModel, didChange programs: [ReviewProgram]) {
         view?.reloadTableView()
     }
     

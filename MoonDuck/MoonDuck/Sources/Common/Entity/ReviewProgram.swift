@@ -7,9 +7,14 @@
 
 import Foundation
 
-struct ReviewProgramMovie {
-    let name: String
-    let openDate: String?
-    let genres: String?
-    let director: String?
+struct ReviewProgram {
+    let programType: ReviewCategory
+    let title: String
+    var date: String? = nil
+    var genre: String? = nil
+    var director: String? = nil
+    var actor: String? = nil
+    var publisher: String? = nil
+    var place: String? = nil
+    var price: String? = nil
 }

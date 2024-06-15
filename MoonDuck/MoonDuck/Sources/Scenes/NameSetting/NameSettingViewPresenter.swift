@@ -39,7 +39,7 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
     
     private var nameText: String?
     
-    init(with provider: AppServices, user: UserV2?,
+    init(with provider: AppServices, user: User?,
          delegate: NameSettingPresenterDelegate?) {
         self.model = UserModel(provider, user: user) // 닉네임 설정은 독립적으로 User Model 사용
         self.delegate = delegate
@@ -140,7 +140,7 @@ extension NameSettingViewPresenter {
 
 // MARK: - UserModelDelegate
 extension NameSettingViewPresenter: UserModelDelegate {
-    func userModel(_ model: UserModel, didChange user: UserV2) {
+    func userModel(_ model: UserModel, didChange user: User) {
         // 닉네임 변경 성공
         view?.updateLoadingView(false)
         delegate?.nameSetting(self, didSuccess: user.nickname)

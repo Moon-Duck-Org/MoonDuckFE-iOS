@@ -25,4 +25,8 @@ extension String {
         return nil
       
     }
+    
+    var isNotEmpty: Bool {
+        return !self.isEmpty
+    }
 }

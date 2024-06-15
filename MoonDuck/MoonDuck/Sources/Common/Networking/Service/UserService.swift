@@ -8,7 +8,7 @@
 import Alamofire
 
 class UserService {
-    func user(completion: @escaping (_ succeed: UserV2?, _ failed: Error?) -> Void) {
+    func user(completion: @escaping (_ succeed: User?, _ failed: Error?) -> Void) {
         API.session.request(MoonDuckAPI.user)
             .responseDecodable { (response: AFDataResponse<UserResponse>) in
                 switch response.result {

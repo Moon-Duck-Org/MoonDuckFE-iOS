@@ -15,6 +15,7 @@ enum MoonDuckAPI {
     case userNickname(UserNicknameRequest)
     
     case searchMovie(SearchMovieRequest)
+    case searchBook(SearchBookRequest)
     // TODO: - API 수정
     case reviewAll(ReviewAllRequest)
     case getReview(GetReviewRequest)
@@ -33,6 +34,8 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .searchMovie:
             return URL(string: "http://www.kobis.or.kr")!
+        case .searchBook:
+            return URL(string: "https://openapi.naver.com")!
         default:
             return URL(string: MoonDuckAPI.baseUrl())!
         }
@@ -40,7 +43,7 @@ extension MoonDuckAPI: TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .user, .searchMovie, .reviewAll, .getReview, .reviewDetail:
+        case .user, .searchMovie, .searchBook, .reviewAll, .getReview, .reviewDetail:
             return .get
         case .authLogin, .authReissue, .postReview:
             return .post
@@ -71,6 +74,9 @@ extension MoonDuckAPI: TargetType {
         // Movie Open API
         case .searchMovie:
             return "/kobisopenapi/webservice/rest/movie/searchMovieList.json"
+        // Book Open API
+        case .searchBook:
+            return "/v1/search/book.json"
             
         case .getReview, .putReview, .postReview, .deleteReview:
             return "/api/review"
@@ -92,6 +98,8 @@ extension MoonDuckAPI: TargetType {
         case .userNickname(let request):
             return .body(request)
         case .searchMovie(let request):
+            return .query(request)
+        case .searchBook(let request):
             return .query(request)
             
         case .getReview(let request):
@@ -126,10 +134,14 @@ extension MoonDuckAPI: TargetType {
             return ["Content-Type": "application/json"]
         case .user, .userNickname:
             if let token: String = AuthManager.default.getAccessToken() {
-                return ["Content-Type": "application/json", "Authorization": "Bearer \(token)"]
+                return ["Content-Type": "application/json",
+                        "Authorization": "Bearer \(token)"]
             } else {
                 return ["Content-Type": "application/json"]
             }
+        case .searchBook:
+            return ["X-Naver-Client-Id": "FfwMKOMRcT5KZmhvJxYj",
+                    "X-Naver-Client-Secret": "JPu7G800Rh"]
         default:
             return ["Content-Type": "application/json"]
         }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ProgramSearchModelDelegate: AnyObject {
-    func programSearchModel(_ searchModel: ProgramSearchModel, didChange movieList: [ReviewProgramMovie])
+    func programSearchModel(_ searchModel: ProgramSearchModel, didChange programs: [ReviewProgram])
     func programSearchModel(_ searchModel: ProgramSearchModel, didRecieve error: Error?)
 }
 
@@ -18,9 +18,9 @@ extension ProgramSearchModelDelegate {
 protocol ProgramSearchModelType: AnyObject {
     var delegate: ProgramSearchModelDelegate? { get set }
     var numberOfPrograms: Int { get }
-    var programs: [ReviewProgramMovie] { get }
+    var programs: [ReviewProgram] { get }
     
-    func searchMovie(_ movie: String)
+    func search(with category: ReviewCategory, title: String)
 }
 
 class ProgramSearchModel: ProgramSearchModelType {
@@ -31,7 +31,6 @@ class ProgramSearchModel: ProgramSearchModelType {
     
     private var currentPage: Int = 1
     private var itemPerPage: Int = 30
-    private var searchList: [ReviewProgramMovie] = []
     private var lastSearchText: String = ""
     
     init(_ provider: AppServices) {
@@ -40,19 +39,46 @@ class ProgramSearchModel: ProgramSearchModelType {
     
     // MARK: - Data
     var numberOfPrograms: Int {
-        return searchList.count
+        return programs.count
     }
     
-    var programs: [ReviewProgramMovie] {
-        return searchList
+    var programs: [ReviewProgram] = [] {
+        didSet {
+            delegate?.programSearchModel(self, didChange: programs)
+        }
     }
     
-    private func save(list: [ReviewProgramMovie]) {
-        searchList = list
-        delegate?.programSearchModel(self, didChange: searchList)
+    private func save(_ programs: [ReviewProgram]) {
+        self.programs = programs
     }
     
     // MARK: - Networking
+    func search(with category: ReviewCategory, title: String) {
+        switch category {
+        case .movie:
+            searchMovie(title)
+        case .book:
+            searchBook(title)
+        default: break
+        }
+    }
+    
+    func searchBook(_ book: String) {
+        if lastSearchText == book { return }
+        lastSearchText = book
+        let request = SearchBookRequest(query: book, display: itemPerPage, start: currentPage)
+        provider.programSearchService.book(request: request) { [weak self]  succeed, failed in
+            guard let self else { return }
+            if let succeed {
+                // 검색 성공
+                self.save(succeed)
+            } else {
+                // 오류 발생
+                self.delegate?.programSearchModel(self, didRecieve: failed)
+            }
+        }
+    }
+    
     func searchMovie(_ movie: String) {
         if lastSearchText == movie { return }
         lastSearchText = movie
@@ -61,7 +87,7 @@ class ProgramSearchModel: ProgramSearchModelType {
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-                self.save(list: succeed)
+                self.save(succeed)
             } else {
                 // 오류 발생
                 self.delegate?.programSearchModel(self, didRecieve: failed)

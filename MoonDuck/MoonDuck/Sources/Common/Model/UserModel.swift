@@ -8,12 +8,12 @@
 import Foundation
 
 protocol UserModelDelegate: AnyObject {
-    func userModel(_ model: UserModel, didChange user: UserV2)
+    func userModel(_ model: UserModel, didChange user: User)
     func userModel(_ model: UserModel, didRecieve error: UserModelError)
     func userModel(_ model: UserModel, didRecieve error: Error?)
 }
 extension UserModelDelegate {
-    func userModel(_ model: UserModel, didChange user: UserV2) { }
+    func userModel(_ model: UserModel, didChange user: User) { }
 }
 
 enum UserModelError {
@@ -24,7 +24,7 @@ enum UserModelError {
 protocol UserModelType: AnyObject {
     /// Data
     var delegate: UserModelDelegate? { get set }
-    var user: UserV2? { get }
+    var user: User? { get }
     
     /// Action
     func save(nickname: String)
@@ -39,14 +39,14 @@ class UserModel: UserModelType {
     
     private let provider: AppServices
     
-    init(_ provider: AppServices, user: UserV2? = nil) {
+    init(_ provider: AppServices, user: User? = nil) {
         self.provider = provider
         self.user = user
     }
     
     // MARK: - Data
     weak var delegate: UserModelDelegate?
-    var user: UserV2? {
+    var user: User? {
         didSet {
             if let user {
                 delegate?.userModel(self, didChange: user)
@@ -70,7 +70,7 @@ class UserModel: UserModelType {
     }
 
     // MARK: - Networking
-    private func save(user: UserV2) {
+    private func save(user: User) {
         self.user = user
     }
     

@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>327617347186-m3p85offe3rk5ud613h148mtde6qsd1m.apps.googleusercontent.com</string>
+	<string>696736038970-a9f5iou77c31lnisphaaodals3op665t.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.327617347186-m3p85offe3rk5ud613h148mtde6qsd1m</string>
+	<string>com.googleusercontent.apps.696736038970-a9f5iou77c31lnisphaaodals3op665t</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBtUyqtXNFnyHTrmsFZm5IaJTRgmR7QJDo</string>
+	<string>AIzaSyDfO0BuTAVsfQhhVlhr6Jj4JIRYkcWbPLI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>327617347186</string>
+	<string>696736038970</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.poduck.moonduck</string>
 	<key>PROJECT_ID</key>
-	<string>moonduck-8a42a</string>
+	<string>moonduck-83dfd</string>
 	<key>STORAGE_BUCKET</key>
-	<string>moonduck-8a42a.appspot.com</string>
+	<string>moonduck-83dfd.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:327617347186:ios:5fe10febda722241038ceb</string>
+	<string>1:696736038970:ios:351b58f44f345a10e3f503</string>
 </dict>
 </plist>

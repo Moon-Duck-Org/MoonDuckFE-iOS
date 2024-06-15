@@ -65,7 +65,7 @@ extension MyInfoViewPresenter {
 
 // MARK: - UserModelDelegate
 extension MyInfoViewPresenter: UserModelDelegate {
-    func userModel(_ model: UserModel, didChange user: UserV2) {
+    func userModel(_ model: UserModel, didChange user: User) {
         view?.updateLoadingView(false)
         view?.updateNameLabel(user.nickname)
         view?.updateCountLabel(movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)

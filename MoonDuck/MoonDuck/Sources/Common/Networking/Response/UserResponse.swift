@@ -16,7 +16,7 @@ struct UserResponse: Decodable {
     let drama: Int?
     let concert: Int?
     
-    var toDomain: UserV2 {
+    var toDomain: User {
         let movie = movie ?? 0
         let book = book ?? 0
         let drama = drama ?? 0
@@ -25,7 +25,7 @@ struct UserResponse: Decodable {
             return movie + book + drama + concert
         }()
         
-        return UserV2(userId: userId ?? 0,
+        return User(userId: userId ?? 0,
                       nickname: nickname ?? "",
                       all: all,
                       movie: movie,
