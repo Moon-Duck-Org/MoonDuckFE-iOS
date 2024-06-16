@@ -25,7 +25,7 @@ protocol NameSettingPresenter: AnyObject {
     func completeButtonTap()
     
     /// TextField Delegate
-    func nameTextFieldDidChanges(_ text: String?)
+    func nameTextFieldEditingChanged(_ text: String?)
     func textField(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     func textFieldShouldReturn(_ text: String?) -> Bool
     func textFieldDidEndEditing(_ text: String?)
@@ -99,7 +99,7 @@ extension NameSettingViewPresenter {
 }
 // MARK: - UITextFieldDelegate
 extension NameSettingViewPresenter {
-    func nameTextFieldDidChanges(_ text: String?) {
+    func nameTextFieldEditingChanged(_ text: String?) {
         view?.updateCountLabel(text?.count ?? 0)
         view?.updateCompleteButton(text?.count ?? 0 > 1)
         nameText = text

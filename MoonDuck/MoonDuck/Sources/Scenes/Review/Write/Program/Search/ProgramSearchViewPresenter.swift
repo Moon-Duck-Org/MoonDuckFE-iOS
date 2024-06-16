@@ -19,6 +19,8 @@ protocol ProgramSearchPresenter: AnyObject {
     func viewDidLoad()
     
     /// Action  
+    func searchTextFieldEditingChanged(_ text: String?)
+    func userInputButtonTap()
     
     /// TextField Delegate
     func textFieldShouldReturn(_ text: String?) -> Bool
@@ -32,6 +34,11 @@ class ProgramSearchViewPresenter: Presenter, ProgramSearchPresenter {
     
     let category: ReviewCategory
     let model: ProgramSearchModelType
+    private var searchText: String? {
+        didSet {
+            view?.updateUserInputButton(searchText?.isNotEmpty ?? false)
+        }
+    }
         
     init(with provider: AppServices, category: ReviewCategory) {
         self.category = category
@@ -59,14 +66,32 @@ extension ProgramSearchViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         view?.createTouchEvent()
+        view?.updateUserInputButton(false)
     }
     
     // MARK: - Action
+    func userInputButtonTap() {
+        view?.endEditing()
+        if let searchText, searchText.isNotEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                // TODO: 기록 작성 이동
+                self.view?.showToast("기록 작성 이동 예정")
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.view?.showToast("제목을 입력하세요.")
+            }
+        }
+    }
     
 }
 
 // MARK: - UITextFieldDelegate
 extension ProgramSearchViewPresenter {
+    func searchTextFieldEditingChanged(_ text: String?) {
+        searchText = text
+    }
+    
     func textFieldShouldReturn(_ text: String?) -> Bool {
         guard let text else { return true }
         model.search(with: category, title: text)
@@ -94,6 +119,7 @@ extension ProgramSearchViewPresenter {
 extension ProgramSearchViewPresenter: ProgramSearchModelDelegate {
     func programSearchModel(_ searchModel: ProgramSearchModel, didChange programs: [ReviewProgram]) {
         view?.reloadTableView()
+        view?.updateEmptyResultView(programs.isEmpty)
     }
     
     func programSearchModel(_ searchModel: ProgramSearchModel, didRecieve error: Error?) {

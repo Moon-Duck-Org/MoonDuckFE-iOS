@@ -7,17 +7,18 @@
 
 import Foundation
 
-struct SearchMovieResponse: Decodable {
+// MARK: - SearchMovieResponse
+struct SearchMovieResponse: Codable {
     let movieListResult: MovieListResult
     
-    struct MovieListResult: Decodable {
+    struct MovieListResult: Codable {
         let totCnt: Int
         let source: String
         let movieList: [Movie]
         
     }
     
-    struct Movie: Decodable {
+    struct Movie: Codable {
         let movieCd: String?
         let movieNm: String
         let movieNmEn: String?
@@ -72,24 +73,25 @@ struct SearchMovieResponse: Decodable {
                                  director: director)
         }
     }
-    struct Director: Decodable {
+    struct Director: Codable {
         let peopleNm: String
     }
     
-    struct Company: Decodable {
+    struct Company: Codable {
         let companyCd: String
         let companyNm: String
     }
 }
 
-struct SearchBookResponse: Decodable {
+// MARK: - SearchBookResponse
+struct SearchBookResponse: Codable {
     let lastBuildDate: String
     let total: Int
     let start: Int
     let display: Int
     let items: [Item]
     
-    struct Item: Decodable {
+    struct Item: Codable {
         let title: String
         let link: String?
         let image: String?

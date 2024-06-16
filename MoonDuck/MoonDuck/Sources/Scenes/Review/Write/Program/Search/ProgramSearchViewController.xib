@@ -13,13 +13,18 @@
         <array key="NotoSansCJKkr-Bold.otf">
             <string>NotoSansCJKkr-Bold</string>
         </array>
+        <array key="NotoSansCJKkr-Regular.otf">
+            <string>NotoSansCJKkr-Regular</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProgramSearchViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
+                <outlet property="buttonBottomConstraint" destination="4GX-KP-SpR" id="RJW-DN-GQb"/>
+                <outlet property="emptyResultView" destination="xaA-LU-UVt" id="Lcg-JK-J4G"/>
                 <outlet property="resultTableView" destination="FT2-64-fqh" id="P7c-IO-4AF"/>
                 <outlet property="searchTextField" destination="UFN-fx-L4E" id="Cna-Ge-0GU"/>
-                <outlet property="tableViewBottomConstraint" destination="s5K-5C-1Uz" id="nHZ-7A-vWM"/>
+                <outlet property="userInputButton" destination="5Xd-7P-ukX" id="NLL-k7-MBy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -43,7 +48,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리 검색" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0A3-BP-FdD">
-                            <rect key="frame" x="144.33333333333334" y="10.33333333333333" width="104.66666666666666" height="26.666666666666671"/>
+                            <rect key="frame" x="147.33333333333334" y="13" width="98.666666666666657" height="21"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="18"/>
                             <color key="textColor" name="Black"/>
                             <nil key="highlightedColor"/>
@@ -68,27 +73,81 @@
                     </constraints>
                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                     <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                    <connections>
+                        <action selector="searchTextFieldEditingChanged:" destination="-1" eventType="editingChanged" id="d5j-8Z-m5P"/>
+                    </connections>
                 </textField>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FT2-64-fqh">
-                    <rect key="frame" x="16" y="190" width="361" height="618"/>
+                    <rect key="frame" x="16" y="190" width="361" height="555"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xaA-LU-UVt">
+                    <rect key="frame" x="16" y="190" width="361" height="555"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="검색된 결과가 없어요." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2r2-Yy-kZ9">
+                            <rect key="frame" x="0.0" y="14.999999999999998" width="361" height="16.333333333333329"/>
+                            <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
+                            <color key="textColor" name="Black"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="2r2-Yy-kZ9" secondAttribute="trailing" id="AoG-RG-7tS"/>
+                        <constraint firstItem="2r2-Yy-kZ9" firstAttribute="top" secondItem="xaA-LU-UVt" secondAttribute="top" constant="15" id="RZj-Xn-Vka"/>
+                        <constraint firstItem="2r2-Yy-kZ9" firstAttribute="leading" secondItem="xaA-LU-UVt" secondAttribute="leading" id="b90-Bh-czq"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Xd-7P-ukX" customClass="RadiusButton" customModule="MoonDuck" customModuleProvider="target">
+                    <rect key="frame" x="16" y="757" width="361" height="56"/>
+                    <color key="backgroundColor" name="White"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="vCT-tp-T8r"/>
+                    </constraints>
+                    <color key="tintColor" name="Black"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="직접 입력">
+                        <fontDescription key="titleFontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="16"/>
+                        <color key="baseForegroundColor" name="Black"/>
+                    </buttonConfiguration>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" name="Black"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="userInputButtonTap:" destination="-1" eventType="touchUpInside" id="jHW-6Y-eO6"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="UFN-fx-L4E" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="0WY-oO-Gms"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="5Xd-7P-ukX" secondAttribute="bottom" constant="5" id="4GX-KP-SpR"/>
                 <constraint firstItem="FT2-64-fqh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="5I1-bZ-fM5"/>
                 <constraint firstItem="UFN-fx-L4E" firstAttribute="top" secondItem="bgG-hj-lDd" secondAttribute="bottom" constant="17" id="98f-wM-i40"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bgG-hj-lDd" secondAttribute="trailing" id="Bln-5n-T0G"/>
+                <constraint firstItem="xaA-LU-UVt" firstAttribute="top" secondItem="FT2-64-fqh" secondAttribute="top" id="Iv5-SY-rgV"/>
+                <constraint firstItem="xaA-LU-UVt" firstAttribute="leading" secondItem="FT2-64-fqh" secondAttribute="leading" id="OYP-21-P4g"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="FT2-64-fqh" secondAttribute="trailing" constant="16" id="Xut-N7-t4A"/>
+                <constraint firstItem="xaA-LU-UVt" firstAttribute="trailing" secondItem="FT2-64-fqh" secondAttribute="trailing" id="Zyk-qG-085"/>
                 <constraint firstItem="bgG-hj-lDd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="b1q-Wy-PPl"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UFN-fx-L4E" secondAttribute="trailing" constant="16" id="e7f-DS-4L7"/>
                 <constraint firstItem="bgG-hj-lDd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="gJh-GL-yhb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5Xd-7P-ukX" secondAttribute="trailing" constant="16" id="iHC-1D-5uj"/>
                 <constraint firstItem="FT2-64-fqh" firstAttribute="top" secondItem="UFN-fx-L4E" secondAttribute="bottom" constant="10" id="knj-5o-13D"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="FT2-64-fqh" secondAttribute="bottom" constant="10" id="s5K-5C-1Uz"/>
+                <constraint firstItem="xaA-LU-UVt" firstAttribute="bottom" secondItem="FT2-64-fqh" secondAttribute="bottom" id="lvK-Af-36M"/>
+                <constraint firstItem="5Xd-7P-ukX" firstAttribute="top" secondItem="FT2-64-fqh" secondAttribute="bottom" constant="12" id="mch-3o-vL3"/>
+                <constraint firstItem="5Xd-7P-ukX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="y7R-LP-JmH"/>
             </constraints>
-            <point key="canvasLocation" x="-19" y="21"/>
+            <point key="canvasLocation" x="-19.083969465648853" y="20.422535211267608"/>
         </view>
     </objects>
     <resources>

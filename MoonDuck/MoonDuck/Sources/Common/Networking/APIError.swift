@@ -78,7 +78,7 @@ enum APIError: Error, Equatable, LocalizedError {
     }
 }
 
-struct ErrorEntity: Decodable {
+struct ErrorEntity: Codable {
     let code: String
     let message: String?
 }

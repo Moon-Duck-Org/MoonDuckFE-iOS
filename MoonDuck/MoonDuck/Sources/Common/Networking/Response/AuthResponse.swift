@@ -9,13 +9,13 @@ import Foundation
 
 import SwiftyJSON
 
-struct AuthLoginResponse: Decodable {
+struct AuthLoginResponse: Codable {
     let accessToken: String
     let refreshToken: String
     let isHaveNickname: Bool
 }
 
-struct AuthReissueResponse: Decodable {
+struct AuthReissueResponse: Codable {
     let accessToken: String
     let refreshToken: String
     

@@ -38,8 +38,8 @@ class NameSettingViewController: BaseViewController, NameSettingView, Navigatabl
         presenter.completeButtonTap()
     }
     
-    @IBAction private func nameTextFieldDidChanges(_ sender: Any) {
-        presenter.nameTextFieldDidChanges(nameTextField.text)
+    @IBAction private func nameTextFieldEditingChanged(_ sender: Any) {
+        presenter.nameTextFieldEditingChanged(nameTextField.text)
     }
     
     init(navigator: Navigator,

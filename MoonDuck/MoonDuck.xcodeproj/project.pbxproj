@@ -517,6 +517,13 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		EA4E1DA12C1E7D7E00125239 /* SearchProgram */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SearchProgram;
+			sourceTree = "<group>";
+		};
 		EA5758E82C154DBE00E80050 /* Review */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,8 +584,8 @@
 			children = (
 				EA7208402C1272A500E96212 /* AuthRequest.swift */,
 				EA6379D42BFF2A4000464A19 /* UserRequest.swift */,
-				EAE017D22C0193B800699145 /* ReviewRequest.swift */,
 				EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */,
+				EAE017D22C0193B800699145 /* ReviewRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -615,6 +622,7 @@
 		EA6379D82BFF2BA300464A19 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				EA4E1DA12C1E7D7E00125239 /* SearchProgram */,
 				EA72084C2C12869B00E96212 /* AuthResponse.swift */,
 				EA6379E02BFF2E5300464A19 /* UserResponse.swift */,
 				EAC93F402C156F35008FDFF2 /* SearchOpenResponse.swift */,

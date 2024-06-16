@@ -8,7 +8,7 @@
 import Foundation
 import SwiftyJSON
 
-struct UserResponse: Decodable {
+struct UserResponse: Codable {
     let userId: Int?
     let nickname: String?
     let movie: Int?
@@ -35,7 +35,7 @@ struct UserResponse: Decodable {
     }
 }
 
-struct UserNicknameResponse: Decodable {
+struct UserNicknameResponse: Codable {
     let userId: Int
     let nickname: String
 }

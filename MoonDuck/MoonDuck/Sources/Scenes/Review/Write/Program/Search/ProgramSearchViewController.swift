@@ -8,7 +8,9 @@
 import UIKit
 
 protocol ProgramSearchView: BaseView {
-     func reloadTableView()
+    func reloadTableView()
+    func updateEmptyResultView(_ isEmpty: Bool)
+    func updateUserInputButton(_ isEnabled: Bool)
 }
 
 class ProgramSearchViewController: BaseViewController, ProgramSearchView, Navigatable {
@@ -18,13 +20,27 @@ class ProgramSearchViewController: BaseViewController, ProgramSearchView, Naviga
     private let searchDataSource: ProgramSearchDataSource
     
     // @IBOutlet
-    @IBOutlet weak private var tableViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak private var buttonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak private var searchTextField: TextField!
     @IBOutlet weak private var resultTableView: UITableView!
+    @IBOutlet weak private var emptyResultView: UIView!
+    @IBOutlet weak private var userInputButton: RadiusButton! {
+        didSet {
+            userInputButton.setTitleColor(.gray2, for: .disabled)
+        }
+    }
     
     // @IBAction
     @IBAction private func backButtonTap(_ sender: Any) {
         back()
+    }
+    
+    @IBAction private func searchTextFieldEditingChanged(_ sender: Any) {
+        presenter.searchTextFieldEditingChanged(searchTextField.text)
+    }
+    
+    @IBAction private func userInputButtonTap(_ sender: Any) {
+        presenter.userInputButtonTap()
     }
     
     init(navigator: Navigator,
@@ -60,6 +76,15 @@ extension ProgramSearchViewController {
         resultTableView.reloadData()
     }
     
+    func updateEmptyResultView(_ isEmpty: Bool) {
+        emptyResultView.isHidden = !isEmpty
+    }
+    
+    func updateUserInputButton(_ isEnabled: Bool) {
+        userInputButton.isEnabled = isEnabled
+        userInputButton.borderColor = isEnabled ? .black : .gray2
+    }
+    
     // 노티피케이션 등록
     private func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -79,7 +104,8 @@ extension ProgramSearchViewController {
             return
         }
         view.layoutIfNeeded()
-        tableViewBottomConstraint.constant = keyboardInfo.frame.size.height
+        let bottomSafeAreaInset = view.safeAreaInsets.bottom
+        buttonBottomConstraint.constant = keyboardInfo.frame.size.height - bottomSafeAreaInset + 13.0
         UIView.animate(withDuration: keyboardInfo.animationDuration,
                        delay: 0,
                        options: keyboardInfo.animationCurve,
@@ -93,7 +119,7 @@ extension ProgramSearchViewController {
             return
         }
         view.layoutIfNeeded()
-        tableViewBottomConstraint.constant = 10
+        buttonBottomConstraint.constant = 5
         UIView.animate(withDuration: keyboardInfo.animationDuration,
                        delay: 0,
                        options: keyboardInfo.animationCurve,
