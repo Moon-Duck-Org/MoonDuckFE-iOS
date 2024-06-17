@@ -15,7 +15,7 @@ protocol IntroView: BaseView {
 
 class IntroViewController: BaseViewController, IntroView, Navigatable {
     
-    var navigator: Navigator!
+    var navigator: Navigator?
     let presenter: IntroPresenter
     
     init(navigator: Navigator,
@@ -45,14 +45,14 @@ extension IntroViewController {
 // MARK: - Navigation
 extension IntroViewController {
     func moveLogin(with presenter: LoginPresenter) {
-        navigator.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
+        navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
     
     func moveNameSetting(with presenter: NameSettingPresenter) {
-        navigator.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
+        navigator?.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
     }
     
     func moveHome(with presenter: V2HomePresenter) {
-        navigator.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
+        navigator?.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
 }

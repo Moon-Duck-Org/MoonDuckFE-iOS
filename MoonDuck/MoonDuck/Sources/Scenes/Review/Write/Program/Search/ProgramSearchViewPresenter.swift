@@ -73,7 +73,9 @@ extension ProgramSearchViewPresenter {
     // MARK: - Action
     func userInputButtonTap() {
         if let searchText, searchText.isNotEmpty {
-            showToastWithEndEditing("기록 작성 이동 예정")
+            let program = ReviewProgram(programType: category, title: searchText)
+            let presenter = WriteReviewViewPresenter(with: provider, category: category, program: program)
+            view?.moveWriteReview(with: presenter)
         } else {
             showToastWithEndEditing("제목을 입력하세요.")
         }
@@ -81,7 +83,8 @@ extension ProgramSearchViewPresenter {
     
     func selectProgram(at index: Int) {
         if let program = program(at: index) {
-            showToastWithEndEditing("기록 작성 이동 예정")
+            let presenter = WriteReviewViewPresenter(with: provider, category: category, program: program)
+            view?.moveWriteReview(with: presenter)
         }
     }
     

@@ -23,6 +23,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WriteReviewViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
+                <outlet property="categoryImageView" destination="PAJ-pE-fuI" id="NUh-75-UbF"/>
+                <outlet property="programSubTitleLabel" destination="O81-rq-1Yi" id="zcV-WR-ecB"/>
+                <outlet property="programTitleLabel" destination="CM1-Jk-Not" id="5aw-Jo-5Jc"/>
                 <outlet property="scrollViewBottomConstraint" destination="eTM-hN-3cM" id="et6-Pb-9Mo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -55,6 +58,9 @@
                             <state key="normal" title="취소">
                                 <color key="titleColor" name="Black"/>
                             </state>
+                            <connections>
+                                <action selector="cancelButtonTap:" destination="-1" eventType="touchUpInside" id="AKJ-LZ-nor"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기록 작성" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IwV-Rp-AhF">
                             <rect key="frame" x="161" y="10.33333333333333" width="71.333333333333314" height="26.666666666666671"/>
@@ -104,6 +110,13 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HWQ-za-RoU">
                                     <rect key="frame" x="0.0" y="130.33333333333334" width="393" height="454.66666666666663"/>
                                     <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DoteRed" translatesAutoresizingMaskIntoConstraints="NO" id="7Ws-hQ-HMi">
+                                            <rect key="frame" x="58.333333333333336" y="44.999999999999972" width="10.000000000000007" height="10"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="10" id="3N2-Py-1rz"/>
+                                                <constraint firstAttribute="width" constant="10" id="gdB-hI-ADM"/>
+                                            </constraints>
+                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYK-E4-Gz8">
                                             <rect key="frame" x="22.000000000000004" y="39.999999999999972" width="33.333333333333343" height="26.666666666666671"/>
                                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="18"/>
@@ -230,24 +243,35 @@
                                                 <constraint firstItem="bEX-1W-NUI" firstAttribute="leading" secondItem="J00-4L-ZVn" secondAttribute="trailing" id="upN-Mk-Z8R"/>
                                             </constraints>
                                         </view>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DoteRed" translatesAutoresizingMaskIntoConstraints="NO" id="YMZ-i9-ZOd">
+                                            <rect key="frame" x="58.333333333333336" y="378.33333333333326" width="10.000000000000007" height="10"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="10" id="N2F-To-4o8"/>
+                                                <constraint firstAttribute="width" constant="10" id="mhE-xn-J4e"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
+                                        <constraint firstItem="7Ws-hQ-HMi" firstAttribute="leading" secondItem="NYK-E4-Gz8" secondAttribute="trailing" constant="3" id="1VB-VI-68F"/>
                                         <constraint firstItem="kjt-v8-l7W" firstAttribute="trailing" secondItem="lKm-Mc-73q" secondAttribute="trailing" constant="-5" id="3DY-Fm-41G"/>
                                         <constraint firstItem="lKm-Mc-73q" firstAttribute="top" secondItem="U7o-KS-xnG" secondAttribute="bottom" constant="33" id="3X5-Qc-dJD"/>
                                         <constraint firstItem="kjt-v8-l7W" firstAttribute="top" secondItem="lKm-Mc-73q" secondAttribute="bottom" constant="5" id="6ez-Pq-uo9"/>
                                         <constraint firstItem="yaL-OI-VgO" firstAttribute="top" secondItem="lKm-Mc-73q" secondAttribute="bottom" constant="46" id="ADF-D5-bfJ"/>
+                                        <constraint firstItem="YMZ-i9-ZOd" firstAttribute="top" secondItem="be0-AT-I7a" secondAttribute="top" constant="5" id="ByC-fT-R9H"/>
                                         <constraint firstItem="U7o-KS-xnG" firstAttribute="top" secondItem="NYK-E4-Gz8" secondAttribute="bottom" constant="10" id="GrJ-uX-o6j"/>
                                         <constraint firstItem="be0-AT-I7a" firstAttribute="centerY" secondItem="yaL-OI-VgO" secondAttribute="centerY" id="HhM-QF-sXS"/>
                                         <constraint firstItem="HGg-U1-cNo" firstAttribute="top" secondItem="U7o-KS-xnG" secondAttribute="bottom" constant="5" id="KgU-4Y-YiO"/>
                                         <constraint firstItem="be0-AT-I7a" firstAttribute="leading" secondItem="HWQ-za-RoU" secondAttribute="leading" constant="22" id="L0u-Qm-KIp"/>
                                         <constraint firstAttribute="trailing" secondItem="lKm-Mc-73q" secondAttribute="trailing" constant="16" id="WFz-Rn-gTW"/>
                                         <constraint firstItem="lKm-Mc-73q" firstAttribute="leading" secondItem="HWQ-za-RoU" secondAttribute="leading" constant="16" id="bLF-YS-6d5"/>
+                                        <constraint firstItem="7Ws-hQ-HMi" firstAttribute="top" secondItem="NYK-E4-Gz8" secondAttribute="top" constant="5" id="bkR-DI-MX3"/>
                                         <constraint firstAttribute="trailing" secondItem="U7o-KS-xnG" secondAttribute="trailing" constant="16" id="e0d-am-Muu"/>
                                         <constraint firstItem="U7o-KS-xnG" firstAttribute="leading" secondItem="HWQ-za-RoU" secondAttribute="leading" constant="16" id="eQI-3R-7fl"/>
                                         <constraint firstItem="NYK-E4-Gz8" firstAttribute="leading" secondItem="HWQ-za-RoU" secondAttribute="leading" constant="22" id="fR0-zc-z2S"/>
                                         <constraint firstItem="HGg-U1-cNo" firstAttribute="trailing" secondItem="U7o-KS-xnG" secondAttribute="trailing" constant="-5" id="glR-SP-oLJ"/>
                                         <constraint firstItem="NYK-E4-Gz8" firstAttribute="top" secondItem="HWQ-za-RoU" secondAttribute="top" constant="40" id="kFk-io-b71"/>
+                                        <constraint firstItem="YMZ-i9-ZOd" firstAttribute="leading" secondItem="be0-AT-I7a" secondAttribute="trailing" constant="3" id="qW3-bq-kA4"/>
                                         <constraint firstAttribute="bottom" secondItem="yaL-OI-VgO" secondAttribute="bottom" constant="50" id="r8h-Mi-hQu"/>
                                         <constraint firstItem="yaL-OI-VgO" firstAttribute="centerX" secondItem="HWQ-za-RoU" secondAttribute="centerX" id="sEH-s5-6SH"/>
                                     </constraints>
@@ -379,6 +403,7 @@
     </objects>
     <resources>
         <image name="CategoryMovieRound" width="72" height="30"/>
+        <image name="DoteRed" width="10" height="10"/>
         <image name="StarFillLarge" width="36" height="36"/>
         <image name="StarFillSmall" width="18.666666030883789" height="18"/>
         <image name="StarLarge" width="36" height="36"/>

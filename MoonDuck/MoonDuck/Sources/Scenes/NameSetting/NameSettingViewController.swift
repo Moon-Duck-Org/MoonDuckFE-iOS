@@ -23,7 +23,7 @@ protocol NameSettingView: BaseView {
 
 class NameSettingViewController: BaseViewController, NameSettingView, Navigatable {
     
-    var navigator: Navigator!
+    var navigator: Navigator?
     let presenter: NameSettingPresenter
     
     // @IBOutlet
@@ -112,10 +112,10 @@ extension NameSettingViewController {
     }
     
     func moveLogin(with presenter: LoginPresenter) {
-        navigator.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
+        navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
     
     func moveHome(with presenter: V2HomePresenter) {
-        navigator.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
+        navigator?.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
 }

@@ -13,6 +13,7 @@ protocol WriteReviewPresenter: AnyObject {
     /// Data
     
     /// Life Cycle
+    func viewDidLoad()
     
     /// Action
     
@@ -25,6 +26,18 @@ protocol WriteReviewPresenter: AnyObject {
 class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     
     weak var view: WriteReviewView?
+    private var category: ReviewCategory
+    private var program: ReviewProgram
+    
+    init(with provider: AppServices,
+         category: ReviewCategory,
+         program: ReviewProgram) {
+
+        self.category = category
+        self.program = program
+        
+        super.init(with: provider)
+    }
 }
 
 extension WriteReviewViewPresenter {
@@ -32,6 +45,9 @@ extension WriteReviewViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         view?.createTouchEvent()
+        
+        view?.updateCategory(category)
+        view?.updateProgramInfo(title: program.title, subTitle: program.getSubInfo())
     }
     
     // MARK: - Action

@@ -8,18 +8,26 @@
 import UIKit
 
 protocol WriteReviewView: BaseView {
-    
+    func updateCategory(_ category: ReviewCategory)
+    func updateProgramInfo(title: String, subTitle: String)
 }
 
 class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatable {
     
-    var navigator: Navigator!
+    var navigator: Navigator?
     let presenter: WriteReviewPresenter
     
     // @IBOutlet
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var categoryImageView: UIImageView!
+    @IBOutlet weak var programTitleLabel: UILabel!
+    @IBOutlet weak var programSubTitleLabel: UILabel!
+    
     // @IBAction
+    @IBAction func cancelButtonTap(_ sender: Any) {
+        back()
+    }
     
     init(navigator: Navigator,
          presenter: WriteReviewPresenter) {
@@ -35,6 +43,8 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        presenter.view = self
+        presenter.viewDidLoad()
     }
     
     deinit {
@@ -45,6 +55,15 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
 
 // MARK: - UI Logic
 extension WriteReviewViewController {
+    
+    func updateCategory(_ category: ReviewCategory) {
+        categoryImageView.image = category.roundImage
+    }
+    
+    func updateProgramInfo(title: String, subTitle: String) {
+        programTitleLabel.text = title
+        programSubTitleLabel.text = subTitle
+    }
     
     // 노티피케이션 등록
     private func registerNotifications() {
@@ -90,6 +109,9 @@ extension WriteReviewViewController {
 
 // MARK: - Navigation
 extension WriteReviewViewController {
+    private func back() {
+        navigator?.pop(sender: self)
+    }
     
 }
 

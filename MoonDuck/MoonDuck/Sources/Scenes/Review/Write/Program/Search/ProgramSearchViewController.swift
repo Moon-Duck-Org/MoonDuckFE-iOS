@@ -11,11 +11,13 @@ protocol ProgramSearchView: BaseView {
     func reloadTableView()
     func updateEmptyResultView(_ isEmpty: Bool)
     func updateUserInputButton(_ isEnabled: Bool)
+    
+    func moveWriteReview(with presenter: WriteReviewPresenter)
 }
 
 class ProgramSearchViewController: BaseViewController, ProgramSearchView, Navigatable {
     
-    var navigator: Navigator!
+    var navigator: Navigator?
     let presenter: ProgramSearchPresenter
     private let searchDataSource: ProgramSearchDataSource
     
@@ -132,6 +134,10 @@ extension ProgramSearchViewController {
 extension ProgramSearchViewController {
     private func back() {
         navigator?.pop(sender: self)
+    }
+    
+    func moveWriteReview(with presenter: WriteReviewPresenter) {
+        navigator?.show(seque: .writeReview(presenter: presenter), sender: self, transition: .navigation)
     }
 }
 

@@ -13,7 +13,7 @@ protocol V2HomeView: BaseView {
 }
 
 class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
-    var navigator: Navigator!
+    var navigator: Navigator?
     let presenter: V2HomePresenter
     
     // @IBOutlet
@@ -54,9 +54,9 @@ extension V2HomeViewController {
 // MARK: - Navigation
 extension V2HomeViewController {
     func moveMy(with presenter: MyInfoPresenter) {
-        navigator.show(seque: .myInfo(presenter: presenter), sender: self, transition: .navigation)
+        navigator?.show(seque: .myInfo(presenter: presenter), sender: self, transition: .navigation)
     }
     func moveWriteReviewCategory(with presenter: WriteReviewCategoryPresenter) {
-        navigator.show(seque: .writeReviewCateogry(presenter: presenter), sender: self, transition: .navigation)
+        navigator?.show(seque: .writeReviewCateogry(presenter: presenter), sender: self, transition: .navigation)
     }
 }

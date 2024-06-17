@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol Navigatable {
-    var navigator: Navigator! { get set }
+    var navigator: Navigator? { get set }
 }
 
 class Navigator {
@@ -34,6 +34,7 @@ class Navigator {
         case myInfo(presenter: MyInfoPresenter)
         case writeReviewCateogry(presenter: WriteReviewCategoryPresenter)
         case categorySearch(presenter: ProgramSearchPresenter)
+        case writeReview(presenter: WriteReviewPresenter)
     }
 
     enum Transition {
@@ -59,8 +60,10 @@ class Navigator {
             return MyInfoViewController(navigator: self, presenter: presenter)
         case .writeReviewCateogry(let presenter):
             return WriteReviewCategoryViewController(navigator: self, presenter: presenter)
-        case .categorySearch(presenter: let presenter):
+        case .categorySearch(let presenter):
             return ProgramSearchViewController(navigator: self, presenter: presenter)
+        case .writeReview(let presenter):
+            return WriteReviewViewController(navigator: self, presenter: presenter)
         }
     }
     

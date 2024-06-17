@@ -21,7 +21,7 @@ protocol LoginView: BaseView {
 
 class LoginViewController: BaseViewController, LoginView, Navigatable {
     
-    var navigator: Navigator!
+    var navigator: Navigator?
     let presenter: LoginPresenter
     
     // IBAction
@@ -114,14 +114,14 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
 // MARK: - Navigation
 extension LoginViewController {
     func dismiss() {
-        navigator.dismiss(sender: self)
+        navigator?.dismiss(sender: self)
     }
     
     func moveNameSetting(with presenter: NameSettingPresenter) {
-        navigator.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .navigation)
+        navigator?.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .navigation)
     }
     
     func moveHome(with presenter: V2HomePresenter) {
-        navigator.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
+        navigator?.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
 }

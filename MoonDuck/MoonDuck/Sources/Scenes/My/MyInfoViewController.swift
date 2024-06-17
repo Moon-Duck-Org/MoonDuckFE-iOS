@@ -18,7 +18,7 @@ protocol MyInfoView: BaseView {
 
 class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
     
-    var navigator: Navigator!
+    var navigator: Navigator?
     let presenter: MyInfoPresenter
     
     // @IBOutlet
@@ -86,18 +86,18 @@ extension MyInfoViewController {
 // MARK: - Navigation
 extension MyInfoViewController {
     private func back() {
-        navigator.pop(sender: self)
+        navigator?.pop(sender: self)
     }
 
     func dismiss() {
-        navigator.dismiss(sender: self)
+        navigator?.dismiss(sender: self)
     }
     
     func presentNameSetting(with presenter: NameSettingPresenter) {
-        navigator.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .modal)
+        navigator?.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .modal)
     }
     
     func moveLogin(with presenter: LoginPresenter) {
-        navigator.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
+        navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
 }

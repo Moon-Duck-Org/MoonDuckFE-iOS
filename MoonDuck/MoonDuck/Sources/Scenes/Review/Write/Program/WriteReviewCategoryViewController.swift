@@ -16,7 +16,7 @@ protocol WriteReviewCategoryView: AnyObject {
 
 class WriteReviewCategoryViewController: BaseViewController, WriteReviewCategoryView, Navigatable {
     
-    var navigator: Navigator!
+    var navigator: Navigator?
     let presenter: WriteReviewCategoryPresenter
     private let categoryDataSource: WriteReviewCategoryDataSource
     
@@ -73,6 +73,6 @@ extension WriteReviewCategoryViewController {
     }
     
     func moveCategorySearch(with presenter: ProgramSearchPresenter) {
-        navigator.show(seque: .categorySearch(presenter: presenter), sender: self, transition: .navigation)
+        navigator?.show(seque: .categorySearch(presenter: presenter), sender: self, transition: .navigation)
     }
 }
