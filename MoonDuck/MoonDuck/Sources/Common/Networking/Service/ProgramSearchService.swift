@@ -36,10 +36,10 @@ class ProgramSearchService {
     
     func drama(request: SearchDramaRequest, completion: @escaping (_ succeed: [ReviewProgram]?, _ failed: Error?) -> Void) {
         API.session.request(MoonDuckAPI.searchDrama(request))
-            .responseDecodable { (response: AFDataResponse<SearchBookResponse>) in
+            .responseDecodable { (response: AFDataResponse<SearchDramaResponse>) in
                 switch response.result {
                 case .success(let response):
-                    let bookList = response.items.map { $0.toDomain() }
+                    let bookList = response.results.map { $0.toDomain() }
                     completion(bookList, nil)
                 case .failure(let error):
                     completion(nil, error)

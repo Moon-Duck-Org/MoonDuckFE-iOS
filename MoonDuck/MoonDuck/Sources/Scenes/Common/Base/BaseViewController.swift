@@ -54,6 +54,7 @@ class BaseViewController: UIViewController {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(endEditing))
         recognizer.numberOfTapsRequired = 1
         recognizer.numberOfTouchesRequired = 1
+        recognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(recognizer)
     }
     

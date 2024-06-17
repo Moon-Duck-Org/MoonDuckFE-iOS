@@ -41,7 +41,7 @@ extension ProgramSearchDataSource: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension ProgramSearchDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        presenter.selectBoard(at: indexPath.row)
+        presenter.selectProgram(at: indexPath.row)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

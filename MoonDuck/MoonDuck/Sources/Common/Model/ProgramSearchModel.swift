@@ -17,10 +17,11 @@ extension ProgramSearchModelDelegate {
 
 protocol ProgramSearchModelType: AnyObject {
     var delegate: ProgramSearchModelDelegate? { get set }
+    var lastSearchText: String { get }
     var numberOfPrograms: Int { get }
     var programs: [ReviewProgram] { get }
     
-    func search(with category: ReviewCategory, title: String)
+    func search(with category: ReviewCategory, text: String)
 }
 
 class ProgramSearchModel: ProgramSearchModelType {
@@ -31,7 +32,8 @@ class ProgramSearchModel: ProgramSearchModelType {
     
     private var currentPage: Int = 1
     private var itemPerPage: Int = 30
-    private var lastSearchText: String = ""
+    
+    var lastSearchText: String = ""
     
     init(_ provider: AppServices) {
         self.provider = provider
@@ -53,18 +55,35 @@ class ProgramSearchModel: ProgramSearchModelType {
     }
     
     // MARK: - Networking
-    func search(with category: ReviewCategory, title: String) {
+    func search(with category: ReviewCategory, text: String) {
         switch category {
         case .movie:
-            searchMovie(title)
+            searchMovie(text)
         case .book:
-            searchBook(title)
-        default: break
+            searchBook(text)
+        case .drama:
+            searchDrama(text)
+        default: 
+            delegate?.programSearchModel(self, didRecieve: nil)
+        }
+    }
+    
+    func searchDrama(_ drama: String) {
+        lastSearchText = drama
+        let request = SearchDramaRequest(query: drama, page: currentPage)
+        provider.programSearchService.drama(request: request) { [weak self]  succeed, failed in
+            guard let self else { return }
+            if let succeed {
+                // 검색 성공
+                self.save(succeed)
+            } else {
+                // 오류 발생
+                self.delegate?.programSearchModel(self, didRecieve: failed)
+            }
         }
     }
     
     func searchBook(_ book: String) {
-        if lastSearchText == book { return }
         lastSearchText = book
         let request = SearchBookRequest(query: book, display: itemPerPage, start: currentPage)
         provider.programSearchService.book(request: request) { [weak self]  succeed, failed in
@@ -80,7 +99,6 @@ class ProgramSearchModel: ProgramSearchModelType {
     }
     
     func searchMovie(_ movie: String) {
-        if lastSearchText == movie { return }
         lastSearchText = movie
         let request = SearchMovieRequest(curPage: "\(currentPage)", itemPerPage: "\(itemPerPage)", movieNm: movie)
         provider.programSearchService.movie(request: request) { [weak self]  succeed, failed in

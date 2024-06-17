@@ -70,6 +70,8 @@
 		EA7208532C1290C700E96212 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208522C1290C700E96212 /* AuthManager.swift */; };
 		EA7208552C12929700E96212 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208542C12929700E96212 /* Auth.swift */; };
 		EA72085B2C12E3C900E96212 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72085A2C12E3C900E96212 /* APIError.swift */; };
+		EA7C07322C20153700563264 /* SearchBookResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7C07312C20153700563264 /* SearchBookResponse.swift */; };
+		EA7C07342C20155300563264 /* SearchDramaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7C07332C20155300563264 /* SearchDramaResponse.swift */; };
 		EA810A362C17253F00DF6C72 /* ProgramSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA810A342C17253F00DF6C72 /* ProgramSearchViewController.swift */; };
 		EA810A372C17253F00DF6C72 /* ProgramSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA810A352C17253F00DF6C72 /* ProgramSearchViewController.xib */; };
 		EA810A392C17269800DF6C72 /* ProgramSearchViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA810A382C17269800DF6C72 /* ProgramSearchViewPresenter.swift */; };
@@ -108,7 +110,7 @@
 		EAB6E6682C1846C900A9E191 /* ProgramSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAB6E6662C1846C900A9E191 /* ProgramSearchTableViewCell.xib */; };
 		EAC93F3D2C156DA1008FDFF2 /* ProgramSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3C2C156DA1008FDFF2 /* ProgramSearchService.swift */; };
 		EAC93F3F2C156E09008FDFF2 /* SearchOpenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */; };
-		EAC93F412C156F35008FDFF2 /* SearchOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F402C156F35008FDFF2 /* SearchOpenResponse.swift */; };
+		EAC93F412C156F35008FDFF2 /* SearchMovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F402C156F35008FDFF2 /* SearchMovieResponse.swift */; };
 		EAC93F432C157006008FDFF2 /* ReviewProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F422C157006008FDFF2 /* ReviewProgram.swift */; };
 		EAD9575F2C002384001FB6E1 /* BoardListTvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */; };
 		EAD957632C002982001FB6E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957622C002982001FB6E1 /* User.swift */; };
@@ -229,6 +231,8 @@
 		EA7208522C1290C700E96212 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		EA7208542C12929700E96212 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		EA72085A2C12E3C900E96212 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		EA7C07312C20153700563264 /* SearchBookResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBookResponse.swift; sourceTree = "<group>"; };
+		EA7C07332C20155300563264 /* SearchDramaResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDramaResponse.swift; sourceTree = "<group>"; };
 		EA810A342C17253F00DF6C72 /* ProgramSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchViewController.swift; sourceTree = "<group>"; };
 		EA810A352C17253F00DF6C72 /* ProgramSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgramSearchViewController.xib; sourceTree = "<group>"; };
 		EA810A382C17269800DF6C72 /* ProgramSearchViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchViewPresenter.swift; sourceTree = "<group>"; };
@@ -269,7 +273,7 @@
 		EAB6E6662C1846C900A9E191 /* ProgramSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgramSearchTableViewCell.xib; sourceTree = "<group>"; };
 		EAC93F3C2C156DA1008FDFF2 /* ProgramSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchService.swift; sourceTree = "<group>"; };
 		EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOpenRequest.swift; sourceTree = "<group>"; };
-		EAC93F402C156F35008FDFF2 /* SearchOpenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOpenResponse.swift; sourceTree = "<group>"; };
+		EAC93F402C156F35008FDFF2 /* SearchMovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieResponse.swift; sourceTree = "<group>"; };
 		EAC93F422C157006008FDFF2 /* ReviewProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewProgram.swift; sourceTree = "<group>"; };
 		EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListTvDataSource.swift; sourceTree = "<group>"; };
 		EAD957622C002982001FB6E1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -520,6 +524,9 @@
 		EA4E1DA12C1E7D7E00125239 /* SearchProgram */ = {
 			isa = PBXGroup;
 			children = (
+				EAC93F402C156F35008FDFF2 /* SearchMovieResponse.swift */,
+				EA7C07312C20153700563264 /* SearchBookResponse.swift */,
+				EA7C07332C20155300563264 /* SearchDramaResponse.swift */,
 			);
 			path = SearchProgram;
 			sourceTree = "<group>";
@@ -625,7 +632,6 @@
 				EA4E1DA12C1E7D7E00125239 /* SearchProgram */,
 				EA72084C2C12869B00E96212 /* AuthResponse.swift */,
 				EA6379E02BFF2E5300464A19 /* UserResponse.swift */,
-				EAC93F402C156F35008FDFF2 /* SearchOpenResponse.swift */,
 				EAE017D42C0195D500699145 /* ReviewResponse.swift */,
 			);
 			path = Response;
@@ -1101,6 +1107,7 @@
 				A0E6584D2BFE3C0B001A8D54 /* XCAssets+Generated.swift in Sources */,
 				EA7208532C1290C700E96212 /* AuthManager.swift in Sources */,
 				EA946D5C2C16EBA200F44BB5 /* BaseViewController.swift in Sources */,
+				EA7C07342C20155300563264 /* SearchDramaResponse.swift in Sources */,
 				EA7208492C12787400E96212 /* Config.swift in Sources */,
 				EA6379E92BFF359100464A19 /* NSObjectProtocol+Extension.swift in Sources */,
 				EAE017EE2C02015900699145 /* UIKeyboardInfo.swift in Sources */,
@@ -1114,7 +1121,8 @@
 				EA9A842B2C00C33E004B7FDF /* NameSettingViewPresenter.swift in Sources */,
 				EA9A84202C00AA93004B7FDF /* AppServices.swift in Sources */,
 				EA9A84262C00BCAF004B7FDF /* NameSettingViewController.swift in Sources */,
-				EAC93F412C156F35008FDFF2 /* SearchOpenResponse.swift in Sources */,
+				EA7C07322C20153700563264 /* SearchBookResponse.swift in Sources */,
+				EAC93F412C156F35008FDFF2 /* SearchMovieResponse.swift in Sources */,
 				EAF78F082C14CAAE00EFBCB0 /* UserModel.swift in Sources */,
 				EA7208432C12735A00E96212 /* AuthService.swift in Sources */,
 				EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  SearchOpenResponse.swift
+//  SearchMovieResponse.swift
 //  MoonDuck
 //
 //  Created by suni on 6/9/24.
@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: - SearchMovieResponse
 struct SearchMovieResponse: Codable {
     let movieListResult: MovieListResult
     
@@ -34,10 +33,12 @@ struct SearchMovieResponse: Codable {
         let companys: [Company?]?
         
         func toDomain() -> ReviewProgram {
-            var date: String {
+            
+            var director: String {
                 var str = ""
-                if let openDt, openDt.count > 3 {
-                    str = String(openDt.prefix(4))
+                if let directors {
+                    let list = directors.map { $0.peopleNm }
+                    str = list.toSlashString(max: 2)
                 }
                 return str
             }
@@ -57,11 +58,10 @@ struct SearchMovieResponse: Codable {
                 return str
             }
             
-            var director: String {
+            var date: String {
                 var str = ""
-                if let directors {
-                    let list = directors.map { $0.peopleNm }
-                    str = list.toSlashString(max: 2)
+                if let openDt, openDt.count > 3 {
+                    str = String(openDt.prefix(4))
                 }
                 return str
             }
@@ -80,50 +80,5 @@ struct SearchMovieResponse: Codable {
     struct Company: Codable {
         let companyCd: String
         let companyNm: String
-    }
-}
-
-// MARK: - SearchBookResponse
-struct SearchBookResponse: Codable {
-    let lastBuildDate: String
-    let total: Int
-    let start: Int
-    let display: Int
-    let items: [Item]
-    
-    struct Item: Codable {
-        let title: String
-        let link: String?
-        let image: String?
-        let author: String?
-        let discount: String?
-        let publisher: String?
-        let isbn: String?
-        let description: String?
-        let pubdate: String?
-        
-        func toDomain() -> ReviewProgram {
-            var date: String {
-                var str = ""
-                if let pubdate, pubdate.count > 3 {
-                    str = String(pubdate.prefix(4))
-                }
-                return str
-            }
-            
-            var director: String {
-                var str = ""
-                if let author {
-                    let list = author.split(separator: "^").map { String($0) }
-                    str = list.toSlashString(max: 2)
-                }
-                return str
-            }
-            
-            return ReviewProgram(programType: .book,
-                                 title: title,
-                                 date: date,
-                                 director: director)
-        }
     }
 }

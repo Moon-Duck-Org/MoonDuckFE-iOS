@@ -21,6 +21,7 @@ protocol ProgramSearchPresenter: AnyObject {
     /// Action  
     func searchTextFieldEditingChanged(_ text: String?)
     func userInputButtonTap()
+    func selectProgram(at index: Int)
     
     /// TextField Delegate
     func textFieldShouldReturn(_ text: String?) -> Bool
@@ -71,16 +72,24 @@ extension ProgramSearchViewPresenter {
     
     // MARK: - Action
     func userInputButtonTap() {
-        view?.endEditing()
         if let searchText, searchText.isNotEmpty {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                // TODO: 기록 작성 이동
-                self.view?.showToast("기록 작성 이동 예정")
-            }
+            showToastWithEndEditing("기록 작성 이동 예정")
         } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.view?.showToast("제목을 입력하세요.")
-            }
+            showToastWithEndEditing("제목을 입력하세요.")
+        }
+    }
+    
+    func selectProgram(at index: Int) {
+        if let program = program(at: index) {
+            showToastWithEndEditing("기록 작성 이동 예정")
+        }
+    }
+    
+    // MARK: Logic
+    private func showToastWithEndEditing(_ text: String) {
+        view?.endEditing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.view?.showToast(text)
         }
     }
     
@@ -93,8 +102,10 @@ extension ProgramSearchViewPresenter {
     }
     
     func textFieldShouldReturn(_ text: String?) -> Bool {
-        guard let text else { return true }
-        model.search(with: category, title: text)
+        guard let text,
+              text != model.lastSearchText else { return true }
+        view?.updateLoadingView(true)
+        model.search(with: category, text: text)
         return true
     }
     
@@ -118,11 +129,14 @@ extension ProgramSearchViewPresenter {
 // MARK: - ProgramSearchModelDelegate
 extension ProgramSearchViewPresenter: ProgramSearchModelDelegate {
     func programSearchModel(_ searchModel: ProgramSearchModel, didChange programs: [ReviewProgram]) {
+        view?.updateLoadingView(false)
         view?.reloadTableView()
+        view?.endEditing()
         view?.updateEmptyResultView(programs.isEmpty)
     }
     
     func programSearchModel(_ searchModel: ProgramSearchModel, didRecieve error: Error?) {
-        // TODO: 오류 처리
+        view?.updateLoadingView(false)
+        showToastWithEndEditing("검색 중 오류가 발생하였습니다.")
     }
 }
