@@ -16,6 +16,7 @@ enum MoonDuckAPI {
     case searchMovie(SearchMovieRequest)
     case searchBook(SearchBookRequest)
     case searchDrama(SearchDramaRequest)
+    case searchConcert(SearchConcertRequest)
     // TODO: - API 수정
     case reviewAll(ReviewAllRequest)
     case getReview(GetReviewRequest)
@@ -37,6 +38,8 @@ extension MoonDuckAPI: TargetType {
             return URL(string: "https://openapi.naver.com")!
         case .searchDrama:
             return URL(string: "https://api.themoviedb.org")!
+        case .searchConcert:
+            return URL(string: "http://www.kopis.or.kr")!
         default:
             return URL(string: MoonDuckAPI.baseUrl())!
         }
@@ -44,7 +47,7 @@ extension MoonDuckAPI: TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .user, .searchMovie, .searchBook, .searchDrama, .reviewAll, .getReview, .reviewDetail:
+        case .user, .searchMovie, .searchBook, .searchDrama, .searchConcert, .reviewAll, .getReview, .reviewDetail:
             return .get
         case .authLogin, .authReissue, .postReview:
             return .post
@@ -81,6 +84,9 @@ extension MoonDuckAPI: TargetType {
             // Drama Open API
         case .searchDrama:
             return "/3/search/tv"
+            // Concert Open API
+        case .searchConcert:
+            return "/openApi/restful/pblprfr"
             
         case .getReview, .putReview, .postReview, .deleteReview:
             return "/api/review"
@@ -106,6 +112,8 @@ extension MoonDuckAPI: TargetType {
         case .searchBook(let request):
             return .query(request)
         case .searchDrama(let request):
+            return .query(request)
+        case .searchConcert(let request):
             return .query(request)
             
         case .getReview(let request):

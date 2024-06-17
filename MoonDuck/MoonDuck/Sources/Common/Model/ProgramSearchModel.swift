@@ -63,9 +63,29 @@ class ProgramSearchModel: ProgramSearchModelType {
             searchBook(text)
         case .drama:
             searchDrama(text)
-        default: 
+        case .concert:
+            searchConcert(text)
+        default:
             delegate?.programSearchModel(self, didRecieve: nil)
         }
+    }
+    
+    func searchConcert(_ concert: String) {
+        lastSearchText = concert
+        // TODO: 날짜 정책 적용
+        let request = SearchConcertRequest(stdate: "20240301", eddate: "20240617", cpage: "\(currentPage)", rows: "\(itemPerPage)", shprfnmfct: concert)
+        provider.programSearchService.concert(request: request, completion: { [weak self] succeed, failed in
+            guard let self else { return }
+            if let succeed {
+                // 검색 성공
+                let parser = SearchConcertXMLParser()
+                parser.delegate = self
+                parser.parse(string: succeed)
+            } else {
+                // 오류 발생
+                self.delegate?.programSearchModel(self, didRecieve: failed)
+            }
+        })
     }
     
     func searchDrama(_ drama: String) {
@@ -111,5 +131,12 @@ class ProgramSearchModel: ProgramSearchModelType {
                 self.delegate?.programSearchModel(self, didRecieve: failed)
             }
         }
+    }
+}
+
+extension ProgramSearchModel: SearchConcertXMLParserDelegate {
+    func xmlParser(_ parser: SearchConcertXMLParser, didSuccess resList: [SearchConcertResponse]) {
+        let list = resList.map { $0.toDomain() }
+        save(list)
     }
 }

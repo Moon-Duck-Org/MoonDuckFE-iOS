@@ -104,6 +104,7 @@ extension ProgramSearchViewPresenter {
     func textFieldShouldReturn(_ text: String?) -> Bool {
         guard let text,
               text != model.lastSearchText else { return true }
+        view?.endEditing()
         view?.updateLoadingView(true)
         model.search(with: category, text: text)
         return true

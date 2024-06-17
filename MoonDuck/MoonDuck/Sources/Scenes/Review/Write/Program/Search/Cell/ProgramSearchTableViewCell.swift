@@ -22,6 +22,8 @@ class ProgramSearchTableViewCell: UITableViewCell {
             configureBook(with: program)
         case .drama:
             configureDrama(with: program)
+        case .concert:
+            configureConcert(with: program)
         default:
             subTitleLabel.text = ""
         }
@@ -62,6 +64,19 @@ class ProgramSearchTableViewCell: UITableViewCell {
         var subTitle: String = ""
         if let date = program.date, date.isNotEmpty {
             subTitle += subTitle.isEmpty ? date : " · \(date)"
+        }
+        
+        subTitleLabel.text = subTitle
+    }
+    
+    private func configureConcert(with program: ReviewProgram) {
+        
+        var subTitle: String = ""
+        if let genre = program.genre, genre.isNotEmpty {
+            subTitle += subTitle.isEmpty ? genre : " · \(genre)"
+        }
+        if let place = program.place, place.isNotEmpty {
+            subTitle += subTitle.isEmpty ? place : " · \(place)"
         }
         
         subTitleLabel.text = subTitle

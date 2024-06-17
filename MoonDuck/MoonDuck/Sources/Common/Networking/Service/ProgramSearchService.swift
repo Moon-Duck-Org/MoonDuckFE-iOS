@@ -46,4 +46,16 @@ class ProgramSearchService {
                 }
             }
     }
+    
+    func concert(request: SearchConcertRequest, completion: @escaping (_ succeed: String?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.searchConcert(request))
+            .responseString { response in
+                switch response.result {
+                case .success(let response):
+                    completion(response, nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
+            }
+    }
 }

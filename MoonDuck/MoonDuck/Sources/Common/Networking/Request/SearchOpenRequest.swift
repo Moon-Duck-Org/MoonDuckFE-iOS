@@ -32,3 +32,13 @@ struct SearchDramaRequest: Codable {
         case includeAdult = "include_adult"
     }
 }
+
+struct SearchConcertRequest: Codable {
+    var service: String = "3f81b8ccf86145f5bbf954924eeb15bf"
+    var stdate: String
+    var eddate: String
+    var cpage: String
+    var rows: String
+    var newsql: String = "Y"
+    var shprfnmfct: String
+}
