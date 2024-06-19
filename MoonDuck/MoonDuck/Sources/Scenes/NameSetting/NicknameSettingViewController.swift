@@ -1,5 +1,5 @@
 //
-//  NameSettingViewController.swift
+//  NicknameSettingViewController.swift
 //  MoonDuck
 //
 //  Created by suni on 5/24/24.
@@ -7,28 +7,28 @@
 
 import UIKit
 
-protocol NameSettingView: BaseView {
-    /// UI Logic
+protocol NicknameSettingView: BaseView {
+    // UI Logic
     func showHintLabel(_ hint: String)
     func clearHintLabel()
     func updateNameTextfield(_ text: String)
-    func updateCountLabel(_ cnt: Int)
+    func updateCountLabel(_ text: String)
     func updateCompleteButton(_ isEnabled: Bool)
     
-    /// Navigation
+    // Navigation
     func dismiss()
     func moveLogin(with presenter: LoginPresenter)
     func moveHome(with presenter: V2HomePresenter)
 }
 
-class NameSettingViewController: BaseViewController, NameSettingView, Navigatable {
+class NicknameSettingViewController: BaseViewController, NicknameSettingView, Navigatable {
     
     var navigator: Navigator?
-    let presenter: NameSettingPresenter
+    let presenter: NicknameSettingPresenter
     
     // @IBOutlet
     @IBOutlet weak private var completeButton: UIButton!
-    @IBOutlet weak private var nameTextField: TextField!
+    @IBOutlet weak private var nicknameTextField: TextField!
     @IBOutlet weak private var hintLabel: UILabel!
     @IBOutlet weak private var countLabel: UILabel!
     
@@ -39,14 +39,14 @@ class NameSettingViewController: BaseViewController, NameSettingView, Navigatabl
     }
     
     @IBAction private func nameTextFieldEditingChanged(_ sender: Any) {
-        presenter.nameTextFieldEditingChanged(nameTextField.text)
+        presenter.nicknameTextFieldEditingChanged(nicknameTextField.text)
     }
     
     init(navigator: Navigator,
-         presenter: NameSettingPresenter) {
+         presenter: NicknameSettingPresenter) {
         self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: NameSettingViewController.className, bundle: Bundle(for: NameSettingViewController.self))
+        super.init(nibName: NicknameSettingViewController.className, bundle: Bundle(for: NicknameSettingViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,29 +56,29 @@ class NameSettingViewController: BaseViewController, NameSettingView, Navigatabl
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.view = self
-        nameTextField.delegate = self
+        nicknameTextField.delegate = self
         presenter.viewDidLoad()
     }
 }
 
 // MARK: - UI Logic
-extension NameSettingViewController {
+extension NicknameSettingViewController {
     func showHintLabel(_ hint: String) {
-        nameTextField.error()
+        nicknameTextField.error()
         hintLabel.text = hint
     }
     
     func clearHintLabel() {
-        nameTextField.normal()
+        nicknameTextField.normal()
         hintLabel.text = ""
     }
     
     func updateNameTextfield(_ text: String) {
-        nameTextField.text = text
+        nicknameTextField.text = text
     }
     
-    func updateCountLabel(_ count: Int) {
-        countLabel.text = "\(count)/10"
+    func updateCountLabel(_ text: String) {
+        countLabel.text = text
     }
     
     func updateCompleteButton(_ isEnabled: Bool) {
@@ -87,9 +87,13 @@ extension NameSettingViewController {
 }
 
 // MARK: - UITextFieldDelegate
-extension NameSettingViewController: UITextFieldDelegate {
+extension NicknameSettingViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return presenter.textField(textField.text, shouldChangeCharactersIn: range, replacementString: string)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        presenter.textFieldDidBeginEditing(textField.text)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -99,14 +103,10 @@ extension NameSettingViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         presenter.textFieldDidEndEditing(textField.text)
     }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return presenter.textFieldShouldBeginEditing(textField.text)
-    }
 }
 
 // MARK: - Navigation
-extension NameSettingViewController {
+extension NicknameSettingViewController {
     func dismiss() {
         dismiss(animated: true)
     }

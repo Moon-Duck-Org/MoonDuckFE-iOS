@@ -10,37 +10,34 @@ import Foundation
 protocol ProgramSearchPresenter: AnyObject {
     var view: ProgramSearchView? { get set }
     
-    /// Data
+    // Data
     var numberOfPrograms: Int { get }
     
     func program(at index: Int) -> ReviewProgram?
     
-    /// Life Cycle
+    // Life Cycle
     func viewDidLoad()
     
-    /// Action  
-    func searchTextFieldEditingChanged(_ text: String?)
+    // Action
     func userInputButtonTap()
     func selectProgram(at index: Int)
     
-    /// TextField Delegate
+    // TextField Delegate
+    func searchTextFieldEditingChanged(_ text: String?)
+    func textFieldDidBeginEditing(_ text: String?)
     func textFieldShouldReturn(_ text: String?) -> Bool
-    func textFieldDidEndEditing(_ text: String?)
-    func textFieldShouldBeginEditing(_ text: String?) -> Bool
+    
+    // TableView Delegate
     func scrollViewWillBeginDragging()
 }
 
 class ProgramSearchViewPresenter: Presenter, ProgramSearchPresenter {
     weak var view: ProgramSearchView?
     
-    let category: ReviewCategory
-    let model: ProgramSearchModelType
-    private var searchText: String? {
-        didSet {
-            view?.updateUserInputButton(searchText?.isNotEmpty ?? false)
-        }
-    }
-        
+    private let category: ReviewCategory
+    private let model: ProgramSearchModelType
+    private var searchText: String?
+    
     init(with provider: AppServices, category: ReviewCategory) {
         self.category = category
         self.model = ProgramSearchModel(provider)
@@ -101,7 +98,12 @@ extension ProgramSearchViewPresenter {
 // MARK: - UITextFieldDelegate
 extension ProgramSearchViewPresenter {
     func searchTextFieldEditingChanged(_ text: String?) {
+        view?.updateUserInputButton(text?.isNotEmpty ?? false)
         searchText = text
+    }
+    
+    func textFieldDidBeginEditing(_ text: String?) {
+        view?.isEditingText = true
     }
     
     func textFieldShouldReturn(_ text: String?) -> Bool {
@@ -110,15 +112,6 @@ extension ProgramSearchViewPresenter {
         view?.endEditing()
         view?.updateLoadingView(true)
         model.search(with: category, text: text)
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ text: String?) {
-        
-    }
-    
-    func textFieldShouldBeginEditing(_ text: String?) -> Bool {
-        view?.isEditingText = true
         return true
     }
 }

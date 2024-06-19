@@ -1,5 +1,5 @@
 //
-//  NameSettingViewPresenter.swift
+//  NicknameSettingViewPresenter.swift
 //  MoonDuck
 //
 //  Created by suni on 5/24/24.
@@ -8,39 +8,41 @@
 import Foundation
 import UIKit
 
-protocol NameSettingPresenterDelegate: AnyObject {
-    func nameSetting(_ presenter: NameSettingPresenter, didSuccess nickname: String)
-    func nameSetting(didCancel presenter: NameSettingPresenter)
+protocol NicknameSettingPresenterDelegate: AnyObject {
+    func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String)
+    func nicknameSetting(didCancel presenter: NicknameSettingPresenter)
 }
 
-protocol NameSettingPresenter: AnyObject {
-    var view: NameSettingView? { get set }
+protocol NicknameSettingPresenter: AnyObject {
+    var view: NicknameSettingView? { get set }
     
-    /// Data
+    // Data
     
-    /// Life Cycle
+    // Life Cycle
     func viewDidLoad()
     
-    /// Action
+    // Action
     func completeButtonTap()
     
-    /// TextField Delegate
-    func nameTextFieldEditingChanged(_ text: String?)
+    // TextField Delegate
+    func nicknameTextFieldEditingChanged(_ text: String?)
     func textField(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    func textFieldDidBeginEditing(_ text: String?)
     func textFieldShouldReturn(_ text: String?) -> Bool
     func textFieldDidEndEditing(_ text: String?)
-    func textFieldShouldBeginEditing(_ text: String?) -> Bool
 }
 
-class NameSettingViewPresenter: Presenter, NameSettingPresenter {
-    weak var view: NameSettingView?
-    weak var delegate: NameSettingPresenterDelegate?
-    let model: UserModelType
+class NicknameSettingViewPresenter: Presenter, NicknameSettingPresenter {
+    weak var view: NicknameSettingView?
     
-    private var nameText: String?
+    private weak var delegate: NicknameSettingPresenterDelegate?
+    private let model: UserModelType
+    
+    private let maxNicknameCount: Int = 10
+    private var nicknameText: String?
     
     init(with provider: AppServices, user: User?,
-         delegate: NameSettingPresenterDelegate?) {
+         delegate: NicknameSettingPresenterDelegate?) {
         self.model = UserModel(provider, user: user) // 닉네임 설정은 독립적으로 User Model 사용
         self.delegate = delegate
         super.init(with: provider)
@@ -50,14 +52,14 @@ class NameSettingViewPresenter: Presenter, NameSettingPresenter {
     // MARK: - Data
 }
 
-extension NameSettingViewPresenter {
+extension NicknameSettingViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         // 닉네임이 세팅
         if let nickname = model.user?.nickname {
             view?.updateNameTextfield(nickname)
-            view?.updateCountLabel(nickname.count)
-            nameText = nickname
+            view?.updateCountLabel("\(nickname.count)/\(maxNicknameCount)")
+            nicknameText = nickname
         }
         view?.updateCompleteButton(false)
         view?.createTouchEvent()
@@ -65,25 +67,24 @@ extension NameSettingViewPresenter {
     
     // MARK: - Action
     func completeButtonTap() {
-        guard let nameText else { return }
+        guard let nicknameText else { return }
         
         if let userNickname = model.user?.nickname, 
             !userNickname.isEmpty,
-           nameText == userNickname {
-            delegate?.nameSetting(didCancel: self)
+           nicknameText == userNickname {
+            delegate?.nicknameSetting(didCancel: self)
         } else {
-            if isValidName(nameText) {
+            if isValidNickname(nicknameText) {
                 view?.updateLoadingView(true)
-                model.nickname(nameText)
+                model.nickname(nicknameText)
             } else {
                 view?.showHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
             }
         }
-        
     }
 
     // MARK: - Logic
-    private func isValidName(_ text: String?) -> Bool {
+    private func isValidNickname(_ text: String?) -> Bool {
         let pattern = "^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]{1,10}$"
         if let text, text .range(of: pattern, options: .regularExpression) != nil {
             return true
@@ -98,11 +99,11 @@ extension NameSettingViewPresenter {
     }
 }
 // MARK: - UITextFieldDelegate
-extension NameSettingViewPresenter {
-    func nameTextFieldEditingChanged(_ text: String?) {
-        view?.updateCountLabel(text?.count ?? 0)
+extension NicknameSettingViewPresenter {
+    func nicknameTextFieldEditingChanged(_ text: String?) {
+        view?.updateCountLabel("\(text?.count ?? 0)/\(maxNicknameCount)")
         view?.updateCompleteButton(text?.count ?? 0 > 1)
-        nameText = text
+        nicknameText = text
     }
     
     func textField(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -110,11 +111,16 @@ extension NameSettingViewPresenter {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changeText = currentText.replacingCharacters(in: stringRange, with: string)
         
-        if changeText.count > 10 || changeText.contains(" ") {
+        if changeText.count > maxNicknameCount || changeText.contains(" ") {
             return false
         } else {
             return true
         }
+    }
+    
+    func textFieldDidBeginEditing(_ text: String?) {
+        view?.isEditingText = true
+        view?.clearHintLabel()
     }
     
     func textFieldShouldReturn(_ text: String?) -> Bool {
@@ -124,26 +130,20 @@ extension NameSettingViewPresenter {
     
     func textFieldDidEndEditing(_ text: String?) {
         guard let text else { return }
-        if isValidName(text) {
+        if isValidNickname(text) {
             view?.clearHintLabel()
         } else {
             view?.showHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
         }
     }
-    
-    func textFieldShouldBeginEditing(_ text: String?) -> Bool {
-        view?.isEditingText = true
-        view?.clearHintLabel()
-        return true
-    }
 }
 
 // MARK: - UserModelDelegate
-extension NameSettingViewPresenter: UserModelDelegate {
+extension NicknameSettingViewPresenter: UserModelDelegate {
     func userModel(_ model: UserModel, didChange user: User) {
         // 닉네임 변경 성공
         view?.updateLoadingView(false)
-        delegate?.nameSetting(self, didSuccess: user.nickname)
+        delegate?.nicknameSetting(self, didSuccess: user.nickname)
     }
     
     func userModel(_ model: UserModel, didRecieve error: UserModelError) {

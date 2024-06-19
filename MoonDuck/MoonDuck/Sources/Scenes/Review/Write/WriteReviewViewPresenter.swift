@@ -10,17 +10,23 @@ import Foundation
 protocol WriteReviewPresenter: AnyObject {
     var view: WriteReviewView? { get set }
     
-    /// Data
+    // Data
     
-    /// Life Cycle
+    // Life Cycle
     func viewDidLoad()
     
-    /// Action
+    // Action
     
-    /// TextField Delegate
-    func textFieldShouldReturn(_ text: String?) -> Bool
-    func textFieldDidEndEditing(_ text: String?)
-    func textFieldShouldBeginEditing(_ text: String?) -> Bool
+    // TextField Delegate
+    func titleTextFieldEditingChanged(_ text: String?)
+    func linkTextFieldEditingChanged(_ text: String?)
+    func textField(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String, isTitle: Bool) -> Bool
+    func textFieldDidBeginEditing(_ text: String?, isTitle: Bool)
+    
+    // TextView Delegate
+    func textViewDidChange(_ text: String?)
+    func textView(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    func textViewDidBeginEditing(_ text: String?)
 }
 
 class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
@@ -28,6 +34,15 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     weak var view: WriteReviewView?
     private var category: ReviewCategory
     private var program: ReviewProgram
+    
+    private struct Config {
+        let maxTitleCount = 40
+        let maxContentCount = 500
+    }
+    private let config: Config = Config()
+    private var titleText: String?
+    private var contentText: String?
+    private var linkText: String?
     
     init(with provider: AppServices,
          category: ReviewCategory,
@@ -51,28 +66,60 @@ extension WriteReviewViewPresenter {
     }
     
     // MARK: - Action
-    
 }
 
 // MARK: - UITextFieldDelegate
 extension WriteReviewViewPresenter {
-    func textFieldShouldReturn(_ text: String?) -> Bool {
-        guard let text else { return true }
-        
-        return true
+    func titleTextFieldEditingChanged(_ text: String?) {
+        view?.updateTitleCountLabel("\(text?.count ?? 0)/\(config.maxTitleCount)")
+        titleText = text
     }
     
-    func textFieldDidEndEditing(_ text: String?) {
-        
+    func linkTextFieldEditingChanged(_ text: String?) {
+        guard let text else { return }
     }
     
-    func textFieldShouldBeginEditing(_ text: String?) -> Bool {
+    func textField(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String, isTitle: Bool) -> Bool {
+        let currentText = text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let changeText = currentText.replacingCharacters(in: stringRange, with: string)
+        let maxCount = isTitle ? config.maxTitleCount : config.maxContentCount
+        if changeText.count > maxCount {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ text: String?, isTitle: Bool) {
         view?.isEditingText = true
-        return true
     }
 }
 
-// MARK: UITableViewDataSource
+// MARK: - UITextViewDelegate
+extension WriteReviewViewPresenter {
+    func textViewDidChange(_ text: String?) {
+        view?.updateContentCountLabel("\(text?.count ?? 0)/\(config.maxContentCount)")
+        contentText = text
+    }
+    
+    func textView(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let changeText = currentText.replacingCharacters(in: stringRange, with: string)
+        if changeText.count > config.maxContentCount {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func textViewDidBeginEditing(_ text: String?) {
+        view?.isEditingText = true
+    }
+}
+
+// MARK: - UITableViewDataSource
 extension ProgramSearchViewPresenter {
     
 }

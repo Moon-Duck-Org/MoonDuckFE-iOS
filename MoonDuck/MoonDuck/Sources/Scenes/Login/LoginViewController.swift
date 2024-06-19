@@ -13,7 +13,7 @@ import GoogleSignIn
 import AuthenticationServices
 
 protocol LoginView: BaseView {
-    func moveNameSetting(with presenter: NameSettingPresenter)
+    func moveNameSetting(with presenter: NicknameSettingPresenter)
     func moveHome(with presenter: V2HomePresenter)
     
     func dismiss()
@@ -117,7 +117,7 @@ extension LoginViewController {
         navigator?.dismiss(sender: self)
     }
     
-    func moveNameSetting(with presenter: NameSettingPresenter) {
+    func moveNameSetting(with presenter: NicknameSettingPresenter) {
         navigator?.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .navigation)
     }
     

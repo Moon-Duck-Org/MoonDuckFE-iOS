@@ -8,8 +8,15 @@
 import UIKit
 
 protocol WriteReviewView: BaseView {
+    // UI Logic
     func updateCategory(_ category: ReviewCategory)
     func updateProgramInfo(title: String, subTitle: String)
+    func updateTitleCountLabel(_ text: String)
+    func updateContentCountLabel(_ text: String)
+    func updateSaveButton(_ isEnabled: Bool)
+    
+    // Navigation
+    func moveHome(with presenter: V2HomePresenter)
 }
 
 class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatable {
@@ -18,15 +25,44 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     let presenter: WriteReviewPresenter
     
     // @IBOutlet
-    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var categoryImageView: UIImageView!
-    @IBOutlet weak var programTitleLabel: UILabel!
-    @IBOutlet weak var programSubTitleLabel: UILabel!
+    @IBOutlet private weak var categoryImageView: UIImageView!
+    @IBOutlet private weak var programTitleLabel: UILabel!
+    @IBOutlet private weak var programSubTitleLabel: UILabel!
+    
+    @IBOutlet private weak var titleTextField: TextField! {
+        didSet {
+            titleTextField.delegate = self
+        }
+    }
+    @IBOutlet private weak var contentTextView: TextView! {
+        didSet {
+            contentTextView.delegate = self
+        }
+    }
+    @IBOutlet private weak var linkTextField: TextField! {
+        didSet {
+            linkTextField.delegate = self
+        }
+    }
+    
+    @IBOutlet private weak var titleCountLabel: UILabel!
+    @IBOutlet private weak var contentCountLabel: UILabel!
+    
+    @IBOutlet private weak var saveButton: UIButton!
     
     // @IBAction
-    @IBAction func cancelButtonTap(_ sender: Any) {
+    @IBAction private func cancelButtonTap(_ sender: Any) {
         back()
+    }
+    
+    @IBAction private func titleTextFieldEditingChanged(_ sender: Any) {
+        presenter.titleTextFieldEditingChanged(titleTextField.text)
+    }
+    
+    @IBAction private func linkTextFieldEditingChanged(_ sender: Any) {
+        presenter.linkTextFieldEditingChanged(linkTextField.text)
     }
     
     init(navigator: Navigator,
@@ -63,6 +99,18 @@ extension WriteReviewViewController {
     func updateProgramInfo(title: String, subTitle: String) {
         programTitleLabel.text = title
         programSubTitleLabel.text = subTitle
+    }
+    
+    func updateTitleCountLabel(_ text: String) {
+        titleCountLabel.text = text
+    }
+    
+    func updateContentCountLabel(_ text: String) {
+        contentCountLabel.text = text
+    }
+    
+    func updateSaveButton(_ isEnabled: Bool) {
+        saveButton.isEnabled = isEnabled
     }
     
     // 노티피케이션 등록
@@ -113,19 +161,36 @@ extension WriteReviewViewController {
         navigator?.pop(sender: self)
     }
     
+    func moveHome(with presenter: V2HomePresenter) {
+        navigator?.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
+    }
+    
 }
 
 // MARK: - UITextFieldDelegate
 extension WriteReviewViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return presenter.textFieldShouldReturn(textField.text)
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let isTitle = textField == titleTextField
+        return presenter.textField(textField.text, shouldChangeCharactersIn: range, replacementString: string, isTitle: isTitle)
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        presenter.textFieldDidEndEditing(textField.text)
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        let isTitle = textField == titleTextField
+        presenter.textFieldDidBeginEditing(textField.text, isTitle: isTitle)
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension WriteReviewViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        presenter.textViewDidChange(textView.text)
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        presenter.textFieldShouldBeginEditing(textField.text)
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return presenter.textView(textView.text, shouldChangeCharactersIn: range, replacementString: text)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        presenter.textViewDidBeginEditing(textView.text)
     }
 }

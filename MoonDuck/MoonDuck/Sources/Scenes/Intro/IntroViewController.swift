@@ -9,7 +9,7 @@ import UIKit
 
 protocol IntroView: BaseView {
     func moveLogin(with presenter: LoginPresenter)
-    func moveNameSetting(with presenter: NameSettingPresenter)
+    func moveNameSetting(with presenter: NicknameSettingPresenter)
     func moveHome(with presenter: V2HomePresenter)
 }
 
@@ -48,7 +48,7 @@ extension IntroViewController {
         navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
     
-    func moveNameSetting(with presenter: NameSettingPresenter) {
+    func moveNameSetting(with presenter: NicknameSettingPresenter) {
         navigator?.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
     }
     

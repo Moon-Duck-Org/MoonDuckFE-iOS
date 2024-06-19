@@ -29,7 +29,7 @@ class Navigator {
     enum Scene {
         case intro(presenter: IntroPresenter)
         case login(presenter: LoginPresenter)
-        case nameSetting(presenter: NameSettingPresenter)
+        case nameSetting(presenter: NicknameSettingPresenter)
         case home(presenter: V2HomePresenter)
         case myInfo(presenter: MyInfoPresenter)
         case writeReviewCateogry(presenter: WriteReviewCategoryPresenter)
@@ -53,7 +53,7 @@ class Navigator {
         case .login(let presenter):
             return LoginViewController(navigator: self, presenter: presenter)
         case .nameSetting(let presenter):
-            return NameSettingViewController(navigator: self, presenter: presenter)
+            return NicknameSettingViewController(navigator: self, presenter: presenter)
         case .home(let presenter):
             return V2HomeViewController(navigator: self, presenter: presenter)
         case .myInfo(let presenter):

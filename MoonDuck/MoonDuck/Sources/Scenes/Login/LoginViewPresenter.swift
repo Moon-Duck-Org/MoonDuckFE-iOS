@@ -140,7 +140,7 @@ extension LoginViewPresenter {
                 self.model.getUser()
             case .donthaveNickname:
                 self.view?.updateLoadingView(false)
-                let presenter = NameSettingViewPresenter(with: self.provider, user: model.user, delegate: self)
+                let presenter = NicknameSettingViewPresenter(with: self.provider, user: model.user, delegate: self)
                 self.view?.moveNameSetting(with: presenter)
             case .error:
                 self.loginError()
@@ -169,14 +169,14 @@ extension LoginViewPresenter: UserModelDelegate {
     }
 }
 
-// MARK: - NameSettingPresenterDelegate
-extension LoginViewPresenter: NameSettingPresenterDelegate {
-    func nameSetting(_ presenter: NameSettingPresenter, didSuccess nickname: String) {
+// MARK: - NicknameSettingPresenterDelegate
+extension LoginViewPresenter: NicknameSettingPresenterDelegate {
+    func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {
         view?.updateLoadingView(false)
         model.save(nickname: nickname)
     }
     
-    func nameSetting(didCancel presenter: NameSettingPresenter) {
+    func nicknameSetting(didCancel presenter: NicknameSettingPresenter) {
         
     }
 }

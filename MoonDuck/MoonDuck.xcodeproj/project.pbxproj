@@ -89,10 +89,10 @@
 		EA96A9642C1D58980010AB60 /* ReviewWriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA96A9632C1D58980010AB60 /* ReviewWriteModel.swift */; };
 		EA96A9662C1D635C0010AB60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA96A9652C1D635C0010AB60 /* GoogleService-Info.plist */; };
 		EA9A84202C00AA93004B7FDF /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A841F2C00AA93004B7FDF /* AppServices.swift */; };
-		EA9A84262C00BCAF004B7FDF /* NameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84242C00BCAF004B7FDF /* NameSettingViewController.swift */; };
-		EA9A84272C00BCAF004B7FDF /* NameSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA9A84252C00BCAF004B7FDF /* NameSettingViewController.xib */; };
+		EA9A84262C00BCAF004B7FDF /* NicknameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84242C00BCAF004B7FDF /* NicknameSettingViewController.swift */; };
+		EA9A84272C00BCAF004B7FDF /* NicknameSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA9A84252C00BCAF004B7FDF /* NicknameSettingViewController.xib */; };
 		EA9A84292C00BF04004B7FDF /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84282C00BF04004B7FDF /* UITextField+Extension.swift */; };
-		EA9A842B2C00C33E004B7FDF /* NameSettingViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A842A2C00C33E004B7FDF /* NameSettingViewPresenter.swift */; };
+		EA9A842B2C00C33E004B7FDF /* NicknameSettingViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A842A2C00C33E004B7FDF /* NicknameSettingViewPresenter.swift */; };
 		EA9A842F2C00D577004B7FDF /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A842E2C00D577004B7FDF /* Alert.swift */; };
 		EA9A843F2C00DCDA004B7FDF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA9A843D2C00DCDA004B7FDF /* Localizable.strings */; };
 		EA9A84422C00DD08004B7FDF /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A84412C00DD08004B7FDF /* Strings+Generated.swift */; };
@@ -251,10 +251,10 @@
 		EA96A9632C1D58980010AB60 /* ReviewWriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWriteModel.swift; sourceTree = "<group>"; };
 		EA96A9652C1D635C0010AB60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EA9A841F2C00AA93004B7FDF /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
-		EA9A84242C00BCAF004B7FDF /* NameSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSettingViewController.swift; sourceTree = "<group>"; };
-		EA9A84252C00BCAF004B7FDF /* NameSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NameSettingViewController.xib; sourceTree = "<group>"; };
+		EA9A84242C00BCAF004B7FDF /* NicknameSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingViewController.swift; sourceTree = "<group>"; };
+		EA9A84252C00BCAF004B7FDF /* NicknameSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NicknameSettingViewController.xib; sourceTree = "<group>"; };
 		EA9A84282C00BF04004B7FDF /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
-		EA9A842A2C00C33E004B7FDF /* NameSettingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSettingViewPresenter.swift; sourceTree = "<group>"; };
+		EA9A842A2C00C33E004B7FDF /* NicknameSettingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingViewPresenter.swift; sourceTree = "<group>"; };
 		EA9A842E2C00D577004B7FDF /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		EA9A84362C00DBC4004B7FDF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		EA9A84372C00DBC4004B7FDF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -693,9 +693,9 @@
 		EA9A84212C00BBAE004B7FDF /* NameSetting */ = {
 			isa = PBXGroup;
 			children = (
-				EA9A84242C00BCAF004B7FDF /* NameSettingViewController.swift */,
-				EA9A84252C00BCAF004B7FDF /* NameSettingViewController.xib */,
-				EA9A842A2C00C33E004B7FDF /* NameSettingViewPresenter.swift */,
+				EA9A84242C00BCAF004B7FDF /* NicknameSettingViewController.swift */,
+				EA9A84252C00BCAF004B7FDF /* NicknameSettingViewController.xib */,
+				EA9A842A2C00C33E004B7FDF /* NicknameSettingViewPresenter.swift */,
 			);
 			path = NameSetting;
 			sourceTree = "<group>";
@@ -925,7 +925,7 @@
 				A07826AC2BFFAB6300D7BA63 /* BoardListTvCell.xib in Resources */,
 				EAB6E6682C1846C900A9E191 /* ProgramSearchTableViewCell.xib in Resources */,
 				EA6D9A752BFF67A0003B459A /* HomeCategoryCvCell.xib in Resources */,
-				EA9A84272C00BCAF004B7FDF /* NameSettingViewController.xib in Resources */,
+				EA9A84272C00BCAF004B7FDF /* NicknameSettingViewController.xib in Resources */,
 				EAE017CC2C012C1900699145 /* BoardImageCvCell.xib in Resources */,
 				EA810A372C17253F00DF6C72 /* ProgramSearchViewController.xib in Resources */,
 				EAE017E72C01E6D100699145 /* BoardEditViewController.xib in Resources */,
@@ -1121,9 +1121,9 @@
 				EA6379E12BFF2E5300464A19 /* UserResponse.swift in Sources */,
 				EAC93F3F2C156E09008FDFF2 /* SearchOpenRequest.swift in Sources */,
 				EAB6E65D2C17DC2500A9E191 /* ProgramSearchModel.swift in Sources */,
-				EA9A842B2C00C33E004B7FDF /* NameSettingViewPresenter.swift in Sources */,
+				EA9A842B2C00C33E004B7FDF /* NicknameSettingViewPresenter.swift in Sources */,
 				EA9A84202C00AA93004B7FDF /* AppServices.swift in Sources */,
-				EA9A84262C00BCAF004B7FDF /* NameSettingViewController.swift in Sources */,
+				EA9A84262C00BCAF004B7FDF /* NicknameSettingViewController.swift in Sources */,
 				EA7C07322C20153700563264 /* SearchBookResponse.swift in Sources */,
 				EAC93F412C156F35008FDFF2 /* SearchMovieResponse.swift in Sources */,
 				EAF78F082C14CAAE00EFBCB0 /* UserModel.swift in Sources */,

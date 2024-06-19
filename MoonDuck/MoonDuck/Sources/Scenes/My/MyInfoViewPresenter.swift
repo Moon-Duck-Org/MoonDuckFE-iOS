@@ -47,7 +47,7 @@ extension MyInfoViewPresenter {
     
     // MARK: - Action
     func settingNameButtonTap() {
-        let presenter = NameSettingViewPresenter(with: provider, user: model.user, delegate: self)
+        let presenter = NicknameSettingViewPresenter(with: provider, user: model.user, delegate: self)
         view?.presentNameSetting(with: presenter)
     }
     
@@ -93,14 +93,14 @@ extension MyInfoViewPresenter: UserModelDelegate {
     }
 }
 
-// MARK: - NameSettingPresenterDelegate
-extension MyInfoViewPresenter: NameSettingPresenterDelegate {
-    func nameSetting(_ presenter: NameSettingPresenter, didSuccess nickname: String) {
+// MARK: - NicknameSettingPresenterDelegate
+extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
+    func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {
         view?.dismiss()
         model.save(nickname: nickname)
     }
     
-    func nameSetting(didCancel presenter: NameSettingPresenter) {
+    func nicknameSetting(didCancel presenter: NicknameSettingPresenter) {
         view?.dismiss()
     }
 }

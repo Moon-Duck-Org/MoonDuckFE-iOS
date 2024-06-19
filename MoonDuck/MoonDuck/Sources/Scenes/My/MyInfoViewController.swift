@@ -12,7 +12,7 @@ protocol MyInfoView: BaseView {
     func updateCountLabel(movie: Int, book: Int, drama: Int, concert: Int)
     
     func dismiss()
-    func presentNameSetting(with presenter: NameSettingPresenter)
+    func presentNameSetting(with presenter: NicknameSettingPresenter)
     func moveLogin(with presenter: LoginPresenter)
 }
 
@@ -93,7 +93,7 @@ extension MyInfoViewController {
         navigator?.dismiss(sender: self)
     }
     
-    func presentNameSetting(with presenter: NameSettingPresenter) {
+    func presentNameSetting(with presenter: NicknameSettingPresenter) {
         navigator?.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .modal)
     }
     

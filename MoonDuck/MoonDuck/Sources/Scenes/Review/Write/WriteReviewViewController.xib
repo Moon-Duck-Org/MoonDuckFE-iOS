@@ -24,9 +24,15 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WriteReviewViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
                 <outlet property="categoryImageView" destination="PAJ-pE-fuI" id="NUh-75-UbF"/>
+                <outlet property="contentCountLabel" destination="kjt-v8-l7W" id="gUr-6N-eoE"/>
+                <outlet property="contentTextView" destination="lKm-Mc-73q" id="u32-RJ-nz6"/>
+                <outlet property="linkTextField" destination="JY6-xW-LBJ" id="bPW-ZK-rP9"/>
                 <outlet property="programSubTitleLabel" destination="O81-rq-1Yi" id="zcV-WR-ecB"/>
                 <outlet property="programTitleLabel" destination="CM1-Jk-Not" id="5aw-Jo-5Jc"/>
+                <outlet property="saveButton" destination="w3W-rT-tX5" id="Jxk-85-U0Y"/>
                 <outlet property="scrollViewBottomConstraint" destination="eTM-hN-3cM" id="et6-Pb-9Mo"/>
+                <outlet property="titleCountLabel" destination="HGg-U1-cNo" id="aQ3-3A-ztc"/>
+                <outlet property="titleTextField" destination="U7o-KS-xnG" id="THi-vE-qzP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -131,6 +137,9 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="titleTextFieldEditingChanged:" destination="-1" eventType="editingChanged" id="YpH-OM-TpE"/>
+                                            </connections>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/40" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGg-U1-cNo">
                                             <rect key="frame" x="350.33333333333331" y="138.66666666666666" width="21.666666666666686" height="15"/>
@@ -301,6 +310,9 @@
                                             <color key="textColor" name="Black"/>
                                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="url"/>
+                                            <connections>
+                                                <action selector="linkTextFieldEditingChanged:" destination="-1" eventType="editingChanged" id="Duz-WU-P0C"/>
+                                            </connections>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Et5-R6-MLN">
                                             <rect key="frame" x="22" y="162.66666666666663" width="71.333333333333329" height="26.666666666666657"/>

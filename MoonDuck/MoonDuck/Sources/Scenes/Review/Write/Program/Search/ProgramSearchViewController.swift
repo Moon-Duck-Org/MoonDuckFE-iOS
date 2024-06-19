@@ -18,12 +18,16 @@ protocol ProgramSearchView: BaseView {
 class ProgramSearchViewController: BaseViewController, ProgramSearchView, Navigatable {
     
     var navigator: Navigator?
-    let presenter: ProgramSearchPresenter
+    private let presenter: ProgramSearchPresenter
     private let searchDataSource: ProgramSearchDataSource
     
     // @IBOutlet
     @IBOutlet weak private var buttonBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak private var searchTextField: TextField!
+    @IBOutlet weak private var searchTextField: TextField! {
+        didSet {
+            searchTextField.delegate = self
+        }
+    }
     @IBOutlet weak private var resultTableView: UITableView!
     @IBOutlet weak private var emptyResultView: UIView!
     @IBOutlet weak private var userInputButton: RadiusButton! {
@@ -63,7 +67,6 @@ class ProgramSearchViewController: BaseViewController, ProgramSearchView, Naviga
         presenter.view = self
         presenter.viewDidLoad()
         
-        searchTextField.delegate = self
         searchDataSource.configure(with: resultTableView)
     }
     
@@ -143,15 +146,11 @@ extension ProgramSearchViewController {
 
 // MARK: - UITextFieldDelegate
 extension ProgramSearchViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        presenter.textFieldDidBeginEditing(textField.text)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return presenter.textFieldShouldReturn(textField.text)
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        presenter.textFieldDidEndEditing(textField.text)
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        presenter.textFieldShouldBeginEditing(textField.text)
     }
 }
