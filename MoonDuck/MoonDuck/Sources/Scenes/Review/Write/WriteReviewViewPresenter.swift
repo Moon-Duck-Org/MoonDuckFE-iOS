@@ -51,11 +51,6 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     private var contentText: String?
     private var linkText: String?
     
-    init(with provider: AppServices, program: Program?) {
-        self.program = program
-        super.init(with: provider)
-    }
-    
 }
 
 extension WriteReviewViewPresenter {
@@ -134,6 +129,6 @@ extension WriteReviewViewPresenter: SelectProgramPresenterDelegate {
     }
     
     func selectProgamDidCancel(_ presenter: SelectProgramPresenter) {
-//        view?.backToHome()
+        view?.backToHome()
     }
 }

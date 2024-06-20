@@ -39,8 +39,8 @@ extension V2HomeViewPresenter {
     }
     
     func tapWriteNewReviewButton() {
-//        let presenter = WriteReviewViewPresenter(with: provider)
-//        view?.moveWriteReview(with: presenter)
+        let presenter = WriteReviewViewPresenter(with: provider)
+        view?.moveWriteReview(with: presenter)
     }
 }
 
