@@ -8,9 +8,9 @@
 import UIKit
 
 final class SelectCategoryDataSource: NSObject {
-    fileprivate let presenter: SelectCategoryPresenter
+    fileprivate let presenter: SelectProgramPresenter
 
-    init(presenter: SelectCategoryPresenter) {
+    init(presenter: SelectProgramPresenter) {
         self.presenter = presenter
     }
 

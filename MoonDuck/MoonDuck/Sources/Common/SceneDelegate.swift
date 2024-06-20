@@ -34,6 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let model = UserModel(appService)
         let presenter = IntroViewPresenter(with: appService, model: model)
         navigator.show(seque: .intro(presenter: presenter), sender: nil, transition: .root)
+        
         window?.windowScene = windowScene
         window?.rootViewController = navigator.root
         window?.makeKeyAndVisible()

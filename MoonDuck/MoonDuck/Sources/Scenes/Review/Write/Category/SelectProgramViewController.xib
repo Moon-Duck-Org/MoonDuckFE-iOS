@@ -21,7 +21,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectCategoryViewController" customModule="MoonDuck" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectProgramViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
                 <outlet property="categoryCollectioinView" destination="Hbh-xx-4fe" id="UW9-F0-kSA"/>
                 <outlet property="nextButton" destination="9ju-WF-i3v" id="Zs0-mr-Ow3"/>

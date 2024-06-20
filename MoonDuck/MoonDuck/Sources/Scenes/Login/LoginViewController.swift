@@ -114,7 +114,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
 // MARK: - Navigation
 extension LoginViewController {
     func dismiss() {
-        navigator?.dismiss(sender: self)
+        navigator?.dismiss(sender: self, animated: false)
     }
     
     func moveNameSetting(with presenter: NicknameSettingPresenter) {

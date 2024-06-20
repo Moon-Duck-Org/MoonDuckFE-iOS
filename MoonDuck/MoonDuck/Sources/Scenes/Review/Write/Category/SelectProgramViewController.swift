@@ -1,5 +1,5 @@
 //
-//  SelectCategoryViewController.swift
+//  SelectProgramViewController.swift
 //  MoonDuck
 //
 //  Created by suni on 6/9/24.
@@ -7,17 +7,17 @@
 
 import UIKit
 
-protocol SelectCategoryView: AnyObject {
+protocol SelectProgramView: AnyObject {
     func reloadCategories()
     func updateNextButton(_ isEnabled: Bool)
     
     func moveCategorySearch(with presenter: ProgramSearchPresenter)
 }
 
-class SelectCategoryViewController: BaseViewController, SelectCategoryView, Navigatable {
+class SelectProgramViewController: BaseViewController, SelectProgramView, Navigatable {
     
     var navigator: Navigator?
-    let presenter: SelectCategoryPresenter
+    let presenter: SelectProgramPresenter
     private let categoryDataSource: SelectCategoryDataSource
     
     // @IBOutlet
@@ -26,7 +26,7 @@ class SelectCategoryViewController: BaseViewController, SelectCategoryView, Navi
     
     // @IBAction
     @IBAction private func tapCancelButton(_ sender: Any) {
-        back()
+        presenter.tapCancelButton()
     }
     
     @IBAction private func tapNextButton(_ sender: Any) {
@@ -34,11 +34,11 @@ class SelectCategoryViewController: BaseViewController, SelectCategoryView, Navi
     }
     
     init(navigator: Navigator,
-         presenter: SelectCategoryPresenter) {
+         presenter: SelectProgramPresenter) {
         self.navigator = navigator
         self.presenter = presenter
         self.categoryDataSource = SelectCategoryDataSource(presenter: self.presenter)
-        super.init(nibName: SelectCategoryViewController.className, bundle: Bundle(for: SelectCategoryViewController.self))
+        super.init(nibName: SelectProgramViewController.className, bundle: Bundle(for: SelectProgramViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,7 +55,7 @@ class SelectCategoryViewController: BaseViewController, SelectCategoryView, Navi
 }
 
 // MARK: - UI Logic
-extension SelectCategoryViewController {
+extension SelectProgramViewController {
     func reloadCategories() {
         categoryCollectioinView.reloadData()
     }
@@ -67,11 +67,7 @@ extension SelectCategoryViewController {
 }
 
 // MARK: - Navigation
-extension SelectCategoryViewController {
-    private func back() {
-        navigator?.pop(sender: self)
-    }
-    
+extension SelectProgramViewController {
     func moveCategorySearch(with presenter: ProgramSearchPresenter) {
         navigator?.show(seque: .programSearch(presenter: presenter), sender: self, transition: .navigation)
     }

@@ -16,8 +16,9 @@ protocol WriteReviewView: BaseView {
     func updateSaveButton(_ isEnabled: Bool)
     
     // Navigation
-    func showSelectCategory(with presenter: SelectCategoryPresenter)
-    func moveHome(with presenter: V2HomePresenter)
+    func backToHome()
+    func popToSelf()
+    func moveSelectCategory(with presenter: SelectProgramPresenter)
 }
 
 class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatable {
@@ -55,7 +56,7 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     
     // @IBAction
     @IBAction private func tapCancelButton(_ sender: Any) {
-        back()
+        backToHome()
     }
     
     @IBAction private func titleTextFieldEditingChanged(_ sender: Any) {
@@ -158,18 +159,17 @@ extension WriteReviewViewController {
 
 // MARK: - Navigation
 extension WriteReviewViewController {
-    private func back() {
-        navigator?.pop(sender: self)
+    func backToHome() {
+        navigator?.pop(sender: self, popType: .popToRoot, animated: true)
     }
     
-    func showSelectCategory(with presenter: SelectCategoryPresenter) {
-        navigator?.show(seque: .selectCateogry(presenter: presenter), sender: self, transition: .modal)
+    func popToSelf() {
+        navigator?.pop(sender: self, popType: .popToSelf, animated: true)
     }
     
-    func moveHome(with presenter: V2HomePresenter) {
-        navigator?.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
+    func moveSelectCategory(with presenter: SelectProgramPresenter) {
+        navigator?.show(seque: .selectProgram(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
-    
 }
 
 // MARK: - UITextFieldDelegate

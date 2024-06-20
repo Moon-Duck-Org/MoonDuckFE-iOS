@@ -12,16 +12,14 @@ protocol ProgramSearchModelDelegate: AnyObject {
     func programSearchModel(_ searchModel: ProgramSearchModel, didRecieve error: Error?)
 }
 
-extension ProgramSearchModelDelegate {
-}
-
 protocol ProgramSearchModelType: AnyObject {
     var delegate: ProgramSearchModelDelegate? { get set }
+    var category: Category { get }
     var lastSearchText: String { get }
     var numberOfPrograms: Int { get }
     var programs: [Program] { get }
     
-    func search(with category: Category, text: String)
+    func search(_ text: String)
 }
 
 class ProgramSearchModel: ProgramSearchModelType {
@@ -29,14 +27,17 @@ class ProgramSearchModel: ProgramSearchModelType {
     weak var delegate: ProgramSearchModelDelegate?
     
     private let provider: AppServices
+    var category: Category
     
     private var currentPage: Int = 1
     private var itemPerPage: Int = 30
     
     var lastSearchText: String = ""
     
-    init(_ provider: AppServices) {
+    init(_ provider: AppServices,
+         category: Category) {
         self.provider = provider
+        self.category = category
     }
     
     // MARK: - Data
@@ -55,7 +56,7 @@ class ProgramSearchModel: ProgramSearchModelType {
     }
     
     // MARK: - Networking
-    func search(with category: Category, text: String) {
+    func search(_ text: String) {
         switch category {
         case .movie:
             searchMovie(text)

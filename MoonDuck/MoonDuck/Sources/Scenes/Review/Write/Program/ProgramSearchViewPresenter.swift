@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol ProgramSearchPresenterDelegate: AnyObject {
+    func programSearch(_ presenter: ProgramSearchPresenter, didSuccess program: Program)
+}
+
 protocol ProgramSearchPresenter: AnyObject {
     var view: ProgramSearchView? { get set }
     
@@ -34,13 +38,16 @@ protocol ProgramSearchPresenter: AnyObject {
 class ProgramSearchViewPresenter: Presenter, ProgramSearchPresenter {
     weak var view: ProgramSearchView?
     
-    private let category: Category
     private let model: ProgramSearchModelType
+    private let delegate: ProgramSearchPresenterDelegate?
+    
     private var searchText: String?
     
-    init(with provider: AppServices, category: Category) {
-        self.category = category
-        self.model = ProgramSearchModel(provider)
+    init(with provider: AppServices,
+         model: ProgramSearchModel,
+         delegate: ProgramSearchPresenterDelegate?) {
+        self.model = model
+        self.delegate = delegate
         super.init(with: provider)
         self.model.delegate = self
     }
@@ -70,9 +77,8 @@ extension ProgramSearchViewPresenter {
     // MARK: - Action
     func tapUserInputButton() {
         if let searchText, searchText.isNotEmpty {
-            let program = Program(category: category, title: searchText)
-            let presenter = WriteReviewViewPresenter(with: provider, program: program)
-            view?.moveWriteReview(with: presenter)
+            let program = Program(category: model.category, title: searchText)
+            delegate?.programSearch(self, didSuccess: program)
         } else {
             showToastWithEndEditing("제목을 입력하세요.")
         }
@@ -80,8 +86,7 @@ extension ProgramSearchViewPresenter {
     
     func selectProgram(at index: Int) {
         if let program = program(at: index) {
-            let presenter = WriteReviewViewPresenter(with: provider, program: program)
-            view?.moveWriteReview(with: presenter)
+            delegate?.programSearch(self, didSuccess: program)
         }
     }
     
@@ -111,7 +116,7 @@ extension ProgramSearchViewPresenter {
               text != model.lastSearchText else { return true }
         view?.endEditing()
         view?.updateLoadingView(true)
-        model.search(with: category, text: text)
+        model.search(text)
         return true
     }
 }

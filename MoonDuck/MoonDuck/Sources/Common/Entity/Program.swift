@@ -8,8 +8,8 @@
 import Foundation
 
 struct Program {
-    let category: Category
-    let title: String
+    var category: Category
+    var title: String
     var date: String? = nil
     var genre: String? = nil
     var director: String? = nil

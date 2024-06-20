@@ -32,7 +32,7 @@ class Navigator {
         case nameSetting(presenter: NicknameSettingPresenter)
         case home(presenter: V2HomePresenter)
         case myInfo(presenter: MyInfoPresenter)
-        case selectCateogry(presenter: SelectCategoryPresenter)
+        case selectProgram(presenter: SelectProgramPresenter)
         case programSearch(presenter: ProgramSearchPresenter)
         case writeReview(presenter: WriteReviewPresenter)
     }
@@ -43,7 +43,13 @@ class Navigator {
         case modal
         case popup
         case alert
-        case custom
+        case customNavigation
+    }
+    
+    enum PopType {
+        case pop
+        case popToRoot
+        case popToSelf
     }
     
     func get(seque: Scene) -> UIViewController? {
@@ -58,8 +64,8 @@ class Navigator {
             return V2HomeViewController(navigator: self, presenter: presenter)
         case .myInfo(let presenter):
             return MyInfoViewController(navigator: self, presenter: presenter)
-        case .selectCateogry(let presenter):
-            return SelectCategoryViewController(navigator: self, presenter: presenter)
+        case .selectProgram(let presenter):
+            return SelectProgramViewController(navigator: self, presenter: presenter)
         case .programSearch(let presenter):
             return ProgramSearchViewController(navigator: self, presenter: presenter)
         case .writeReview(let presenter):
@@ -67,31 +73,36 @@ class Navigator {
         }
     }
     
-    func pop(sender: UIViewController?, toRoot: Bool = false) {
-        if toRoot {
-            sender?.navigationController?.popToRootViewController(animated: true)
-        } else {
-            sender?.navigationController?.popViewController(animated: true)
+    func pop(sender: UIViewController?, popType: PopType = .pop, animated: Bool = false) {
+        switch popType {
+        case .pop:
+            sender?.navigationController?.popViewController(animated: animated)
+        case .popToRoot:
+            sender?.navigationController?.popToRootViewController(animated: animated)
+        case .popToSelf:
+            if let sender {
+                sender.navigationController?.popToViewController(sender, animated: animated)
+            }
         }
     }
 
-    func dismiss(sender: UIViewController?) {
-        sender?.navigationController?.dismiss(animated: true, completion: nil)
+    func dismiss(sender: UIViewController?, animated: Bool = false) {
+        sender?.navigationController?.dismiss(animated: animated, completion: nil)
     }
     
     // MARK: - invoke a single segue
-    func show(seque: Scene, sender: UIViewController?, transition: Transition = .navigation) {
+    func show(seque: Scene, sender: UIViewController?, transition: Transition = .navigation, animated: Bool = true) {
         if let target = get(seque: seque) {
-            show(target: target, sender: sender, transition: transition)
+            show(target: target, sender: sender, transition: transition, animated: animated)
         }
     }
     
-    private func show(target: UIViewController, sender: UIViewController?, transition: Transition) {
+    private func show(target: UIViewController, sender: UIViewController?, transition: Transition, animated: Bool) {
         switch transition {
         case .root:
-            rootViewController.setViewControllers([target], animated: false)
+            rootViewController.setViewControllers([target], animated: animated)
             return
-        case .custom:
+        case .customNavigation:
             return
         default: break
         }
@@ -103,18 +114,18 @@ class Navigator {
         switch transition {
         case .navigation:
             DispatchQueue.main.async {
-                self.rootViewController.pushViewController(target, animated: true)
+                self.rootViewController.pushViewController(target, animated: animated)
             }
         case .modal:
             DispatchQueue.main.async {
                 target.modalPresentationStyle = .fullScreen
-                sender.present(target, animated: true)
+                sender.present(target, animated: animated)
             }
         case .popup:
             return
         case .alert:
             DispatchQueue.main.async {
-                sender.present(target, animated: true, completion: nil)
+                sender.present(target, animated: animated, completion: nil)
             }
             return
         default: break

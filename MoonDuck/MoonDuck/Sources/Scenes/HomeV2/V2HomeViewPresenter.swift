@@ -39,9 +39,8 @@ extension V2HomeViewPresenter {
     }
     
     func tapWriteNewReviewButton() {
-        let model = CategoryModel()
-        let presenter = SelectCategoryViewPresenter(with: provider, categoryModel: model)
-        view?.moveWriteReviewCategory(with: presenter)
+//        let presenter = WriteReviewViewPresenter(with: provider)
+//        view?.moveWriteReview(with: presenter)
     }
 }
 

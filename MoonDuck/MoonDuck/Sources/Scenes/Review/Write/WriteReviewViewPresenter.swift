@@ -32,7 +32,6 @@ protocol WriteReviewPresenter: AnyObject {
 class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     
     weak var view: WriteReviewView?
-    private var program: Program?
     
     private struct Config {
         let maxTitleCount = 40
@@ -40,41 +39,40 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     }
     private let config: Config = Config()
     
+    private var program: Program? {
+        didSet {
+            if let program {
+                view?.updateCategory(program.category)
+                view?.updateProgramInfo(title: program.title, subTitle: program.getSubInfo())
+            }
+        }
+    }
     private var titleText: String?
     private var contentText: String?
     private var linkText: String?
     
-    init(with provider: AppServices,
-         program: Program?) {
-
+    init(with provider: AppServices, program: Program?) {
         self.program = program
-        
         super.init(with: provider)
     }
+    
 }
 
 extension WriteReviewViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        if let program {
-            view?.createTouchEvent()
-            setupProgramInfo(program)
-        } else {
-            
-        }
+        view?.createTouchEvent()
+        showSelectProgram()
     }
     
     // MARK: - Action
     
     // MARK: - Logic
-    private func setupProgramInfo(_ program: Program) {
-        view?.updateCategory(program.category)
-        view?.updateProgramInfo(title: program.title, subTitle: program.getSubInfo())
-    }
-    
-    private func showSelectCategory() {
-        
+    private func showSelectProgram() {
+        let model = CategoryModel()
+        let presenter = SelectProgramViewPresenter(with: provider, categoryModel: model, delegate: self)
+        view?.moveSelectCategory(with: presenter)
     }
 }
 
@@ -129,7 +127,13 @@ extension WriteReviewViewPresenter {
     }
 }
 
-// MARK: - UITableViewDataSource
-extension ProgramSearchViewPresenter {
+extension WriteReviewViewPresenter: SelectProgramPresenterDelegate {
+    func selectProgam(_ presenter: SelectProgramPresenter, didSuccess program: Program) {
+        self.program = program
+        view?.popToSelf()
+    }
     
+    func selectProgamDidCancel(_ presenter: SelectProgramPresenter) {
+//        view?.backToHome()
+    }
 }
