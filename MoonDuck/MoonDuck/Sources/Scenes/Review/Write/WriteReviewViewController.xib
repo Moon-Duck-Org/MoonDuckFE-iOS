@@ -29,7 +29,11 @@
                 <outlet property="linkTextField" destination="JY6-xW-LBJ" id="bPW-ZK-rP9"/>
                 <outlet property="programSubTitleLabel" destination="O81-rq-1Yi" id="zcV-WR-ecB"/>
                 <outlet property="programTitleLabel" destination="CM1-Jk-Not" id="5aw-Jo-5Jc"/>
-                <outlet property="saveButton" destination="w3W-rT-tX5" id="Jxk-85-U0Y"/>
+                <outlet property="ratingButton1" destination="J00-4L-ZVn" id="IuN-cw-Mar"/>
+                <outlet property="ratingButton2" destination="bEX-1W-NUI" id="kEG-oQ-89Y"/>
+                <outlet property="ratingButton3" destination="gPO-7y-sOQ" id="cww-9d-FUB"/>
+                <outlet property="ratingButton4" destination="gL6-LQ-D9Z" id="t5w-uT-DOt"/>
+                <outlet property="ratingButton5" destination="6P5-OG-oFO" id="4yQ-H0-png"/>
                 <outlet property="scrollViewBottomConstraint" destination="eTM-hN-3cM" id="et6-Pb-9Mo"/>
                 <outlet property="titleCountLabel" destination="HGg-U1-cNo" id="aQ3-3A-ztc"/>
                 <outlet property="titleTextField" destination="U7o-KS-xnG" id="THi-vE-qzP"/>
@@ -55,6 +59,9 @@
                             <state key="disabled" title="저장">
                                 <color key="titleColor" name="Gray2"/>
                             </state>
+                            <connections>
+                                <action selector="tapSaveButton:" destination="-1" eventType="touchUpInside" id="nTj-pG-HKx"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bI1-If-eKw">
                             <rect key="frame" x="16" y="4" width="34" height="39"/>
@@ -216,7 +223,7 @@
                                                         <userDefinedRuntimeAttribute type="image" keyPath="fillImage" value="StarFillSmall"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
-                                                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6P5-OG-oFO" userLabel="Button4">
+                                                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6P5-OG-oFO" userLabel="Button5">
                                                     <rect key="frame" x="144" y="0.0" width="36" height="36"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="StarLarge"/>

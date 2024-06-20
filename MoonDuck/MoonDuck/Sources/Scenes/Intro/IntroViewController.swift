@@ -41,14 +41,14 @@ class IntroViewController: BaseViewController, IntroView, Navigatable {
 // MARK: - Navigation
 extension IntroViewController {
     func moveLogin(with presenter: LoginPresenter) {
-        navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
+        navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root, animated: false)
     }
     
     func moveNameSetting(with presenter: NicknameSettingPresenter) {
-        navigator?.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
+        navigator?.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root, animated: false)
     }
     
     func moveHome(with presenter: V2HomePresenter) {
-        navigator?.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
+        navigator?.show(seque: .home(presenter: presenter), sender: nil, transition: .root, animated: false)
     }
 }

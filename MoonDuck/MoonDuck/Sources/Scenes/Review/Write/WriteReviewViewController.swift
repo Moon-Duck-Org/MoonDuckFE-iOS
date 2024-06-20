@@ -13,7 +13,7 @@ protocol WriteReviewView: BaseView {
     func updateProgramInfo(title: String, subTitle: String)
     func updateTitleCountLabel(_ text: String)
     func updateContentCountLabel(_ text: String)
-    func updateSaveButton(_ isEnabled: Bool)
+    func updateRating(_ rating: Int)
     
     // Navigation
     func backToHome()
@@ -38,26 +38,35 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
             titleTextField.delegate = self
         }
     }
+    @IBOutlet private weak var titleCountLabel: UILabel!
+    
     @IBOutlet private weak var contentTextView: TextView! {
         didSet {
             contentTextView.delegate = self
         }
     }
+    @IBOutlet private weak var contentCountLabel: UILabel!
+        
+    @IBOutlet weak private var ratingButton1: UIButton!
+    @IBOutlet weak private var ratingButton2: UIButton!
+    @IBOutlet weak private var ratingButton3: UIButton!
+    @IBOutlet weak private var ratingButton4: UIButton!
+    @IBOutlet weak private var ratingButton5: UIButton!
+    
     @IBOutlet private weak var linkTextField: TextField! {
         didSet {
             linkTextField.delegate = self
         }
     }
     
-    @IBOutlet private weak var titleCountLabel: UILabel!
-    @IBOutlet private weak var contentCountLabel: UILabel!
-    
-    @IBOutlet private weak var saveButton: UIButton!
-    
     // @IBAction
     @IBAction private func tapCancelButton(_ sender: Any) {
         backToHome()
     }
+    
+    @IBAction private func tapSaveButton(_ sender: Any) {
+        presenter.tapSaveButton()
+    }    
     
     @IBAction private func titleTextFieldEditingChanged(_ sender: Any) {
         presenter.titleTextFieldEditingChanged(titleTextField.text)
@@ -80,9 +89,11 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        registerNotifications()
         presenter.view = self
         presenter.viewDidLoad()
+        
+        registeRatingButtonAction()
     }
     
     deinit {
@@ -111,8 +122,12 @@ extension WriteReviewViewController {
         contentCountLabel.text = text
     }
     
-    func updateSaveButton(_ isEnabled: Bool) {
-        saveButton.isEnabled = isEnabled
+    func updateRating(_ rating: Int) {
+        ratingButton1.isSelected = rating > 0
+        ratingButton2.isSelected = rating > 1
+        ratingButton3.isSelected = rating > 2
+        ratingButton4.isSelected = rating > 3
+        ratingButton5.isSelected = rating > 4
     }
     
     // 노티피케이션 등록
@@ -154,6 +169,19 @@ extension WriteReviewViewController {
                        options: keyboardInfo.animationCurve,
                        animations: { self.view.layoutIfNeeded() },
                        completion: nil)
+    }
+    
+    private func registeRatingButtonAction() {
+        ratingButton1.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
+        ratingButton2.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
+        ratingButton3.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
+        ratingButton4.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
+        ratingButton5.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
+    }
+    
+    @objc
+    private func tapRatingButton(_ sender: UIButton) {
+        presenter.tapRatingButton(at: sender.tag)
     }
 }
 

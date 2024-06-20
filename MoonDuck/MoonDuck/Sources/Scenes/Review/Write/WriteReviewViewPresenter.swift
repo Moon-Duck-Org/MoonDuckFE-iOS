@@ -16,6 +16,8 @@ protocol WriteReviewPresenter: AnyObject {
     func viewDidLoad()
     
     // Action
+    func tapSaveButton()
+    func tapRatingButton(at tag: Int)
     
     // TextField Delegate
     func titleTextFieldEditingChanged(_ text: String?)
@@ -49,8 +51,12 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     }
     private var titleText: String?
     private var contentText: String?
+    private var rating: Int = 0 {
+        didSet {
+            view?.updateRating(rating)
+        }
+    }
     private var linkText: String?
-    
 }
 
 extension WriteReviewViewPresenter {
@@ -62,6 +68,43 @@ extension WriteReviewViewPresenter {
     }
     
     // MARK: - Action
+    func tapSaveButton() {
+        if let program {
+            
+        } else {
+            view?.showToast("카테고리를 선택해주세요.")
+            return
+        }
+        
+        if let titleText, titleText.isNotEmpty {
+           
+        } else {
+            view?.showToast("제목을 입력해주세요.")
+            return
+        }
+        
+        if let contentText, contentText.isNotEmpty {
+           
+        } else {
+            view?.showToast("내용을 입력해주세요.")
+            return
+        }
+        
+        if rating > 0 {
+            
+        } else {
+            view?.showToast("별점을 입력해주세요.")
+            return
+        }
+        
+        // TODO: 기록 작성 API 연결
+        view?.backToHome()
+    }
+    
+    func tapRatingButton(at tag: Int) {
+        guard rating != tag else { return }
+        rating = tag
+    }
     
     // MARK: - Logic
     private func showSelectProgram() {
