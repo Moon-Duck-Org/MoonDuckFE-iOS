@@ -54,25 +54,26 @@ extension IntroViewPresenter {
     }
     
     private func moveLogin() {
-        let presenter = LoginViewPresenter(with: provider)
+        let model = UserModel(provider)
+        let presenter = LoginViewPresenter(with: provider, model: model)
         view?.moveLogin(with: presenter)
     }
 }
 
 // MARK: - UserModelDelegate
 extension IntroViewPresenter: UserModelDelegate {
-    func userModel(_ userModel: UserModel, didChange user: User) {
+    func user(_ model: UserModel, didChange user: User) {
         // User 정보 조회 성공
-        let presenter = V2HomeViewPresenter(with: provider, model: model)
+        let presenter = V2HomeViewPresenter(with: provider, userModel: model)
         view?.moveHome(with: presenter)
     }
     
-    func userModel(_ userModel: UserModel, didRecieve errorMessage: Error?) {
+    func user(_ model: UserModel, didRecieve errorMessage: Error?) {
         AuthManager.default.logout()
         moveLogin()
     }
     
-    func userModel(_ userModel: UserModel, didRecieve error: UserModelError) {
+    func user(_ model: UserModel, didRecieve error: UserModelError) {
         AuthManager.default.logout()
         moveLogin()
     }

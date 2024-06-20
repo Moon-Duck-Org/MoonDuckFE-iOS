@@ -59,14 +59,23 @@ extension WriteReviewViewPresenter {
     func viewDidLoad() {
         if let program {
             view?.createTouchEvent()
-            view?.updateCategory(program.category)
-            view?.updateProgramInfo(title: program.title, subTitle: program.getSubInfo())
+            setupProgramInfo(program)
         } else {
             
         }
     }
     
     // MARK: - Action
+    
+    // MARK: - Logic
+    private func setupProgramInfo(_ program: Program) {
+        view?.updateCategory(program.category)
+        view?.updateProgramInfo(title: program.title, subTitle: program.getSubInfo())
+    }
+    
+    private func showSelectCategory() {
+        
+    }
 }
 
 // MARK: - UITextFieldDelegate

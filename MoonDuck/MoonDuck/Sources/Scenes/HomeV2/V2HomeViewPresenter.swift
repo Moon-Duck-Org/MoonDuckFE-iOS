@@ -22,11 +22,12 @@ protocol V2HomePresenter: AnyObject {
 class V2HomeViewPresenter: Presenter, V2HomePresenter {
     
     weak var view: V2HomeView?
-    let userModel: UserModelType
+    private let userModel: UserModelType
     
-    init(with provider: AppServices, model: UserModelType) {
-        self.userModel = model
+    init(with provider: AppServices, userModel: UserModelType) {
+        self.userModel = userModel
         super.init(with: provider)
+        self.userModel.delegate = self
     }
 }
 
@@ -36,14 +37,25 @@ extension V2HomeViewPresenter {
         let presenter = MyInfoViewPresenter(with: provider, model: userModel)
         view?.moveMy(with: presenter)
     }
+    
     func tapWriteNewReviewButton() {
-        let model = ReviewCategoryModel()
-        let presenter = SelectCategoryViewPresenter(with: provider, model: model)
+        let model = CategoryModel()
+        let presenter = SelectCategoryViewPresenter(with: provider, categoryModel: model)
         view?.moveWriteReviewCategory(with: presenter)
     }
 }
 
-// MARK: - Networking
-extension V2HomeViewPresenter {
+// MARK: - UserModelDelegate
+extension V2HomeViewPresenter: UserModelDelegate {
+    func user(_ model: UserModel, didChange user: User) {
+        
+    }
     
+    func user(_ model: UserModel, didRecieve error: Error?) {
+        
+    }
+    
+    func user(_ model: UserModel, didRecieve error: UserModelError) {
+        
+    }
 }

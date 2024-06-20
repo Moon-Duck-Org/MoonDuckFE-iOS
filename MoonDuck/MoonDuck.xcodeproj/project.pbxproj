@@ -39,7 +39,7 @@
 		EA5758EE2C154E5400E80050 /* SelectCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5758EC2C154E5400E80050 /* SelectCategoryViewController.xib */; };
 		EA5758F02C154E9C00E80050 /* SelectCategoryViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5758EF2C154E9C00E80050 /* SelectCategoryViewPresenter.swift */; };
 		EA5758F72C1559C300E80050 /* SelectCategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5758F62C1559C300E80050 /* SelectCategoryDataSource.swift */; };
-		EA5758F92C155AF800E80050 /* ReviewCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5758F82C155AF800E80050 /* ReviewCategoryModel.swift */; };
+		EA5758F92C155AF800E80050 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5758F82C155AF800E80050 /* CategoryModel.swift */; };
 		EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0B92C00F6D70041A8B4 /* TextField.swift */; };
 		EA5EA0C52C0119880041A8B4 /* BoardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5EA0C32C0119880041A8B4 /* BoardDetailViewController.swift */; };
 		EA5EA0C62C0119880041A8B4 /* BoardDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5EA0C42C0119880041A8B4 /* BoardDetailViewController.xib */; };
@@ -201,7 +201,7 @@
 		EA5758EC2C154E5400E80050 /* SelectCategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectCategoryViewController.xib; sourceTree = "<group>"; };
 		EA5758EF2C154E9C00E80050 /* SelectCategoryViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewPresenter.swift; sourceTree = "<group>"; };
 		EA5758F62C1559C300E80050 /* SelectCategoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryDataSource.swift; sourceTree = "<group>"; };
-		EA5758F82C155AF800E80050 /* ReviewCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCategoryModel.swift; sourceTree = "<group>"; };
+		EA5758F82C155AF800E80050 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		EA5EA0B92C00F6D70041A8B4 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		EA5EA0C32C0119880041A8B4 /* BoardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDetailViewController.swift; sourceTree = "<group>"; };
 		EA5EA0C42C0119880041A8B4 /* BoardDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardDetailViewController.xib; sourceTree = "<group>"; };
@@ -695,7 +695,7 @@
 			children = (
 				EA7208522C1290C700E96212 /* AuthManager.swift */,
 				EAF78F072C14CAAE00EFBCB0 /* UserModel.swift */,
-				EA5758F82C155AF800E80050 /* ReviewCategoryModel.swift */,
+				EA5758F82C155AF800E80050 /* CategoryModel.swift */,
 				EAB6E65C2C17DC2500A9E191 /* ProgramSearchModel.swift */,
 				EA96A9632C1D58980010AB60 /* ReviewWriteModel.swift */,
 			);
@@ -1116,7 +1116,7 @@
 				EAE017EE2C02015900699145 /* UIKeyboardInfo.swift in Sources */,
 				A0E6584B2BFE3C03001A8D54 /* Fonts+Generated.swift in Sources */,
 				EA96A9602C1D47890010AB60 /* WriteReviewViewController.swift in Sources */,
-				EA5758F92C155AF800E80050 /* ReviewCategoryModel.swift in Sources */,
+				EA5758F92C155AF800E80050 /* CategoryModel.swift in Sources */,
 				EAE017EA2C01F01800699145 /* BoardEditViewPresenter.swift in Sources */,
 				EA6379E12BFF2E5300464A19 /* UserResponse.swift in Sources */,
 				EAC93F3F2C156E09008FDFF2 /* SearchOpenRequest.swift in Sources */,

@@ -21,12 +21,11 @@ protocol MyInfoPresenter: AnyObject {
 
 class MyInfoViewPresenter: Presenter, MyInfoPresenter {
     weak var view: MyInfoView?
-    let model: UserModelType
+    private let model: UserModelType
     
     init(with provider: AppServices, model: UserModelType) {
         self.model = model
         super.init(with: provider)
-        self.model.delegate = self
     }
 }
 
@@ -38,14 +37,16 @@ extension MyInfoViewPresenter {
             view?.updateNameLabel(user.nickname)
             view?.updateCountLabel(movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
         } else {
-            view?.updateLoadingView(true)
-            model.getUser()
+            AuthManager.default.logout()
+            moveLogin()
         }
     }
     
     // MARK: - Action
     func tapNicknameSettingButton() {
-        let presenter = NicknameSettingViewPresenter(with: provider, user: model.user, delegate: self)
+        let model = UserModel(provider)
+        model.user = self.model.user
+        let presenter = NicknameSettingViewPresenter(with: provider, model: model, delegate: self)
         view?.presentNameSetting(with: presenter)
     }
     
@@ -56,38 +57,9 @@ extension MyInfoViewPresenter {
     
     // MARK: - Logic
     private func moveLogin() {
-        let presenter = LoginViewPresenter(with: provider)
+        let model = UserModel(provider)
+        let presenter = LoginViewPresenter(with: provider, model: model)
         self.view?.moveLogin(with: presenter)
-    }
-}
-
-// MARK: - UserModelDelegate
-extension MyInfoViewPresenter: UserModelDelegate {
-    func userModel(_ model: UserModel, didChange user: User) {
-        view?.updateLoadingView(false)
-        view?.updateNameLabel(user.nickname)
-        view?.updateCountLabel(movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
-    }
-    
-    func userModel(_ model: UserModel, didRecieve error: UserModelError) {
-        view?.updateLoadingView(false)
-        switch error {
-        case .authError:
-            AuthManager.default.logout()
-            moveLogin()
-        default:
-            break
-        }
-    }
-    
-    func userModel(_ model: UserModel, didRecieve error: Error?) {
-        networkError()
-    }
-    
-    private func networkError() {
-        view?.updateLoadingView(false)
-        Log.todo("네트워크 오류 알럿 노출")
-        view?.showToast("네트워크 오류 발생")
     }
 }
 
@@ -95,6 +67,7 @@ extension MyInfoViewPresenter: UserModelDelegate {
 extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
     func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {
         view?.dismiss()
+        view?.updateNameLabel(nickname)
         model.save(nickname: nickname)
     }
     

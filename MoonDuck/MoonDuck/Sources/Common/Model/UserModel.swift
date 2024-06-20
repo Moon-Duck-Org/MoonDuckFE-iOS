@@ -8,12 +8,12 @@
 import Foundation
 
 protocol UserModelDelegate: AnyObject {
-    func userModel(_ model: UserModel, didChange user: User)
-    func userModel(_ model: UserModel, didRecieve error: UserModelError)
-    func userModel(_ model: UserModel, didRecieve error: Error?)
+    func user(_ model: UserModel, didChange user: User)
+    func user(_ model: UserModel, didRecieve error: UserModelError)
+    func user(_ model: UserModel, didRecieve error: Error?)
 }
 extension UserModelDelegate {
-    func userModel(_ model: UserModel, didChange user: User) { }
+    func user(_ model: UserModel, didChange user: User) { }
 }
 
 enum UserModelError {
@@ -22,15 +22,16 @@ enum UserModelError {
 }
 
 protocol UserModelType: AnyObject {
-    /// Data
+    // Data
     var delegate: UserModelDelegate? { get set }
-    var user: User? { get }
+    var user: User? { get set }
     
-    /// Action
+    // Logic
     func save(nickname: String)
+    func save(user: User)
     func logout()
     
-    /// Networking
+    // Networking
     func getUser()
     func nickname(_ name: String)
 }
@@ -39,9 +40,8 @@ class UserModel: UserModelType {
     
     private let provider: AppServices
     
-    init(_ provider: AppServices, user: User? = nil) {
+    init(_ provider: AppServices) {
         self.provider = provider
-        self.user = user
     }
     
     // MARK: - Data
@@ -49,12 +49,12 @@ class UserModel: UserModelType {
     var user: User? {
         didSet {
             if let user {
-                delegate?.userModel(self, didChange: user)
+                delegate?.user(self, didChange: user)
             }
         }
     }
     
-    // MARK: - Action
+    // MARK: - Logic
     func logout() {
         self.user = nil
     }
@@ -68,11 +68,12 @@ class UserModel: UserModelType {
             getUser()
         }
     }
-
-    // MARK: - Networking
-    private func save(user: User) {
+    
+    func save(user: User) {
         self.user = user
     }
+
+    // MARK: - Networking
     
     func getUser() {
         provider.userService.user { [weak self] succeed, failed in
@@ -83,7 +84,7 @@ class UserModel: UserModelType {
             } else {
                 // User 정보 조회 실패
                 Log.error(failed?.localizedDescription ?? "User Error")
-                self.delegate?.userModel(self, didRecieve: .authError)
+                self.delegate?.user(self, didRecieve: .authError)
             }
         }
     }
@@ -100,7 +101,7 @@ class UserModel: UserModelType {
                 if let code = failed as? APIError {
                     if code.isAuthError {
                         Log.error("Auth Error \(code)")
-                        self.delegate?.userModel(self, didRecieve: .authError)
+                        self.delegate?.user(self, didRecieve: .authError)
                         return
                     } else if code.needsTokenRefresh {
                         AuthManager.default.refreshToken { [weak self] code in
@@ -109,18 +110,18 @@ class UserModel: UserModelType {
                                 self.nickname(name)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
-                                self.delegate?.userModel(self, didRecieve: .authError)
+                                self.delegate?.user(self, didRecieve: .authError)
                             }
                         }
                         return
                     } else if code.duplicateNickname {
                         // 중복된 닉네임
-                        self.delegate?.userModel(self, didRecieve: .duplicateNickname)
+                        self.delegate?.user(self, didRecieve: .duplicateNickname)
                         return
                     }
                 }
                 Log.error(failed?.localizedDescription ?? "Nickname Error")
-                self.delegate?.userModel(self, didRecieve: failed)
+                self.delegate?.user(self, didRecieve: failed)
             }
         }
     }

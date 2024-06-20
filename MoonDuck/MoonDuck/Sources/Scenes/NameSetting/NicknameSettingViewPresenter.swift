@@ -39,9 +39,10 @@ class NicknameSettingViewPresenter: Presenter, NicknameSettingPresenter {
     private let maxNicknameCount: Int = 10
     private var nicknameText: String?
     
-    init(with provider: AppServices, user: User?,
+    init(with provider: AppServices,
+         model: UserModelType,
          delegate: NicknameSettingPresenterDelegate?) {
-        self.model = UserModel(provider, user: user) // 닉네임 설정은 독립적으로 User Model 사용
+        self.model = model
         self.delegate = delegate
         super.init(with: provider)
         self.model.delegate = self
@@ -68,7 +69,7 @@ extension NicknameSettingViewPresenter {
     func tapCompleteButton() {
         guard let nicknameText else { return }
         
-        if let userNickname = model.user?.nickname, 
+        if let userNickname = model.user?.nickname,
             !userNickname.isEmpty,
            nicknameText == userNickname {
             delegate?.nicknameSetting(didCancel: self)
@@ -93,7 +94,8 @@ extension NicknameSettingViewPresenter {
     }
     
     private func moveLogin() {
-        let presenter = LoginViewPresenter(with: provider)
+        let model = UserModel(provider)
+        let presenter = LoginViewPresenter(with: provider, model: model)
         view?.moveLogin(with: presenter)
     }
 }
@@ -139,13 +141,13 @@ extension NicknameSettingViewPresenter {
 
 // MARK: - UserModelDelegate
 extension NicknameSettingViewPresenter: UserModelDelegate {
-    func userModel(_ model: UserModel, didChange user: User) {
+    func user(_ model: UserModel, didChange user: User) {
         // 닉네임 변경 성공
         view?.updateLoadingView(false)
         delegate?.nicknameSetting(self, didSuccess: user.nickname)
     }
     
-    func userModel(_ model: UserModel, didRecieve error: UserModelError) {
+    func user(_ model: UserModel, didRecieve error: UserModelError) {
         view?.updateLoadingView(false)
         switch error {
         case .authError:
@@ -156,7 +158,7 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
         }
     }
     
-    func userModel(_ model: UserModel, didRecieve error: Error?) {
+    func user(_ model: UserModel, didRecieve error: Error?) {
         networkError()
     }
     

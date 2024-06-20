@@ -26,52 +26,52 @@ protocol SelectCategoryPresenter: AnyObject {
 
 class SelectCategoryViewPresenter: Presenter, SelectCategoryPresenter {
     weak var view: SelectCategoryView?
-    let model: ReviewCategoryModelType
+    let categoryModel: CategoryModelType
     
-    init(with provider: AppServices, model: ReviewCategoryModelType) {
-        self.model = model
+    init(with provider: AppServices, categoryModel: CategoryModelType) {
+        self.categoryModel = categoryModel
         super.init(with: provider)
-        self.model.delegate = self
+        self.categoryModel.delegate = self
     }
     
     // MARK: - Data
     var numberOfCategories: Int {
-        return model.numberOfCategories
+        return categoryModel.numberOfCategories
     }
     
     var indexOfSelectedCategory: Int? {
-        return model.indexOfSelectedCategory
+        return categoryModel.indexOfSelectedCategory
     }
     
     func category(at index: Int) -> Category? {
-        return model.category(at: index)
+        return categoryModel.category(at: index)
     }
 }
 
 extension SelectCategoryViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
-        model.getCategories(isHaveAll: false)
+        categoryModel.getCategories(isHaveAll: false)
     }
     
     // MARK: - Action
     func selectCategory(at index: Int) {
-        model.selectCategory(index)
+        categoryModel.selectCategory(index)
     }
     
     func tapNextButton() {
-        guard let selectedCategory = model.selectedCategory else { return }
+        guard let selectedCategory = categoryModel.selectedCategory else { return }
         let presenter = ProgramSearchViewPresenter(with: provider, category: selectedCategory)
         view?.moveCategorySearch(with: presenter)
     }    
 }
 
-extension SelectCategoryViewPresenter: ReviewCategoryModelDelegate {
-    func reviewCategoryModel(_ reviewCategoryModel: ReviewCategoryModel, didChange categories: [Category]) {
+extension SelectCategoryViewPresenter: CategoryModelDelegate {
+    func category(_ reviewCategoryModel: CategoryModel, didChange categories: [Category]) {
         view?.reloadCategories()
     }
     
-    func reviewCategoryModel(_ reviewCategoryModel: ReviewCategoryModel, didSelect index: Int?) {
+    func category(_ reviewCategoryModel: CategoryModel, didSelect index: Int?) {
         view?.updateNextButton(index != nil)
         view?.reloadCategories()
     }

@@ -1,5 +1,5 @@
 //
-//  ReviewCategoryModel.swift
+//  CategoryModel.swift
 //  MoonDuck
 //
 //  Created by suni on 6/9/24.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol ReviewCategoryModelDelegate: AnyObject {
-    func reviewCategoryModel(_ model: ReviewCategoryModel, didChange categories: [Category])
-    func reviewCategoryModel(_ model: ReviewCategoryModel, didSelect index: Int?)
+protocol CategoryModelDelegate: AnyObject {
+    func category(_ model: CategoryModel, didChange categories: [Category])
+    func category(_ model: CategoryModel, didSelect index: Int?)
 }
 
-protocol ReviewCategoryModelType: AnyObject {
+protocol CategoryModelType: AnyObject {
     /// Data
-    var delegate: ReviewCategoryModelDelegate? { get set }
+    var delegate: CategoryModelDelegate? { get set }
     var categories: [Category] { get }
     var numberOfCategories: Int { get }
     var indexOfSelectedCategory: Int? { get }
@@ -29,13 +29,13 @@ protocol ReviewCategoryModelType: AnyObject {
     func getCategories(isHaveAll: Bool)
 }
 
-class ReviewCategoryModel: ReviewCategoryModelType {
+class CategoryModel: CategoryModelType {
     // MARK: - Data
-    weak var delegate: ReviewCategoryModelDelegate?
+    weak var delegate: CategoryModelDelegate?
     
     var categories: [Category] = [] {
         didSet {
-            delegate?.reviewCategoryModel(self, didChange: categories)
+            delegate?.category(self, didChange: categories)
         }
     }
     
@@ -45,7 +45,7 @@ class ReviewCategoryModel: ReviewCategoryModelType {
     
     var indexOfSelectedCategory: Int? {
         didSet {
-            delegate?.reviewCategoryModel(self, didSelect: indexOfSelectedCategory)
+            delegate?.category(self, didSelect: indexOfSelectedCategory)
         }
     }
     
