@@ -46,7 +46,7 @@
 //    @IBOutlet weak private var ratingButton4: UIButton!
 //    @IBOutlet weak private var ratingButton5: UIButton!
 //    
-//    @IBAction private func cancelButtonTap(_ sender: Any) {
+//    @IBAction private func tapCancelButton(_ sender: Any) {
 //        navigator.pop(sender: self)
 //    }
 //    

@@ -15,8 +15,8 @@ protocol V2HomePresenter: AnyObject {
     /// Life Cycle
     
     /// Action
-    func myButtonTap()
-    func writeNewReviewButtonTap()
+    func tapMyButton()
+    func tapWriteNewReviewButton()
 }
 
 class V2HomeViewPresenter: Presenter, V2HomePresenter {
@@ -32,13 +32,13 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
 
 extension V2HomeViewPresenter {
     // MARK: - Action
-    func myButtonTap() {
+    func tapMyButton() {
         let presenter = MyInfoViewPresenter(with: provider, model: userModel)
         view?.moveMy(with: presenter)
     }
-    func writeNewReviewButtonTap() {
+    func tapWriteNewReviewButton() {
         let model = ReviewCategoryModel()
-        let presenter = WriteReviewCategoryViewPresenter(with: provider, model: model)
+        let presenter = SelectCategoryViewPresenter(with: provider, model: model)
         view?.moveWriteReviewCategory(with: presenter)
     }
 }

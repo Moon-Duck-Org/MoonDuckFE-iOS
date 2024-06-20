@@ -32,8 +32,8 @@ class Navigator {
         case nameSetting(presenter: NicknameSettingPresenter)
         case home(presenter: V2HomePresenter)
         case myInfo(presenter: MyInfoPresenter)
-        case writeReviewCateogry(presenter: WriteReviewCategoryPresenter)
-        case categorySearch(presenter: ProgramSearchPresenter)
+        case selectCateogry(presenter: SelectCategoryPresenter)
+        case programSearch(presenter: ProgramSearchPresenter)
         case writeReview(presenter: WriteReviewPresenter)
     }
 
@@ -58,9 +58,9 @@ class Navigator {
             return V2HomeViewController(navigator: self, presenter: presenter)
         case .myInfo(let presenter):
             return MyInfoViewController(navigator: self, presenter: presenter)
-        case .writeReviewCateogry(let presenter):
-            return WriteReviewCategoryViewController(navigator: self, presenter: presenter)
-        case .categorySearch(let presenter):
+        case .selectCateogry(let presenter):
+            return SelectCategoryViewController(navigator: self, presenter: presenter)
+        case .programSearch(let presenter):
             return ProgramSearchViewController(navigator: self, presenter: presenter)
         case .writeReview(let presenter):
             return WriteReviewViewController(navigator: self, presenter: presenter)
@@ -107,7 +107,7 @@ class Navigator {
             }
         case .modal:
             DispatchQueue.main.async {
-                target.modalPresentationStyle = .pageSheet
+                target.modalPresentationStyle = .fullScreen
                 sender.present(target, animated: true)
             }
         case .popup:

@@ -8,19 +8,19 @@
 import Foundation
 
 protocol ReviewCategoryModelDelegate: AnyObject {
-    func reviewCategoryModel(_ model: ReviewCategoryModel, didChange categories: [ReviewCategory])
+    func reviewCategoryModel(_ model: ReviewCategoryModel, didChange categories: [Category])
     func reviewCategoryModel(_ model: ReviewCategoryModel, didSelect index: Int?)
 }
 
 protocol ReviewCategoryModelType: AnyObject {
     /// Data
     var delegate: ReviewCategoryModelDelegate? { get set }
-    var categories: [ReviewCategory] { get }
+    var categories: [Category] { get }
     var numberOfCategories: Int { get }
     var indexOfSelectedCategory: Int? { get }
-    var selectedCategory: ReviewCategory? { get }
+    var selectedCategory: Category? { get }
     
-    func category(at index: Int) -> ReviewCategory?
+    func category(at index: Int) -> Category?
     
     /// Action
     func selectCategory(_ index: Int)
@@ -33,7 +33,7 @@ class ReviewCategoryModel: ReviewCategoryModelType {
     // MARK: - Data
     weak var delegate: ReviewCategoryModelDelegate?
     
-    var categories: [ReviewCategory] = [] {
+    var categories: [Category] = [] {
         didSet {
             delegate?.reviewCategoryModel(self, didChange: categories)
         }
@@ -49,14 +49,14 @@ class ReviewCategoryModel: ReviewCategoryModelType {
         }
     }
     
-    var selectedCategory: ReviewCategory? {
+    var selectedCategory: Category? {
         if let indexOfSelectedCategory {
             return category(at: indexOfSelectedCategory)
         }
         return nil
     }
     
-    func category(at index: Int) -> ReviewCategory? {
+    func category(at index: Int) -> Category? {
         if index < categories.count {
             return categories[index]
         }

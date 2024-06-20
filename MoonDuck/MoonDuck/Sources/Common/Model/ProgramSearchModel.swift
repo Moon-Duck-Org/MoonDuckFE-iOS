@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ProgramSearchModelDelegate: AnyObject {
-    func programSearchModel(_ searchModel: ProgramSearchModel, didChange programs: [ReviewProgram])
+    func programSearchModel(_ searchModel: ProgramSearchModel, didChange programs: [Program])
     func programSearchModel(_ searchModel: ProgramSearchModel, didRecieve error: Error?)
 }
 
@@ -19,9 +19,9 @@ protocol ProgramSearchModelType: AnyObject {
     var delegate: ProgramSearchModelDelegate? { get set }
     var lastSearchText: String { get }
     var numberOfPrograms: Int { get }
-    var programs: [ReviewProgram] { get }
+    var programs: [Program] { get }
     
-    func search(with category: ReviewCategory, text: String)
+    func search(with category: Category, text: String)
 }
 
 class ProgramSearchModel: ProgramSearchModelType {
@@ -44,18 +44,18 @@ class ProgramSearchModel: ProgramSearchModelType {
         return programs.count
     }
     
-    var programs: [ReviewProgram] = [] {
+    var programs: [Program] = [] {
         didSet {
             delegate?.programSearchModel(self, didChange: programs)
         }
     }
     
-    private func save(_ programs: [ReviewProgram]) {
+    private func save(_ programs: [Program]) {
         self.programs = programs
     }
     
     // MARK: - Networking
-    func search(with category: ReviewCategory, text: String) {
+    func search(with category: Category, text: String) {
         switch category {
         case .movie:
             searchMovie(text)

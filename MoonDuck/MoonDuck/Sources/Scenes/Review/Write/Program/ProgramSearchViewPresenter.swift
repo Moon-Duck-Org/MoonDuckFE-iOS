@@ -13,13 +13,13 @@ protocol ProgramSearchPresenter: AnyObject {
     // Data
     var numberOfPrograms: Int { get }
     
-    func program(at index: Int) -> ReviewProgram?
+    func program(at index: Int) -> Program?
     
     // Life Cycle
     func viewDidLoad()
     
     // Action
-    func userInputButtonTap()
+    func tapUserInputButton()
     func selectProgram(at index: Int)
     
     // TextField Delegate
@@ -34,11 +34,11 @@ protocol ProgramSearchPresenter: AnyObject {
 class ProgramSearchViewPresenter: Presenter, ProgramSearchPresenter {
     weak var view: ProgramSearchView?
     
-    private let category: ReviewCategory
+    private let category: Category
     private let model: ProgramSearchModelType
     private var searchText: String?
     
-    init(with provider: AppServices, category: ReviewCategory) {
+    init(with provider: AppServices, category: Category) {
         self.category = category
         self.model = ProgramSearchModel(provider)
         super.init(with: provider)
@@ -50,7 +50,7 @@ class ProgramSearchViewPresenter: Presenter, ProgramSearchPresenter {
         return model.numberOfPrograms
     }
     
-    func program(at index: Int) -> ReviewProgram? {
+    func program(at index: Int) -> Program? {
         if index < model.numberOfPrograms {
             return model.programs[index]
         } else {
@@ -68,10 +68,10 @@ extension ProgramSearchViewPresenter {
     }
     
     // MARK: - Action
-    func userInputButtonTap() {
+    func tapUserInputButton() {
         if let searchText, searchText.isNotEmpty {
-            let program = ReviewProgram(programType: category, title: searchText)
-            let presenter = WriteReviewViewPresenter(with: provider, category: category, program: program)
+            let program = Program(category: category, title: searchText)
+            let presenter = WriteReviewViewPresenter(with: provider, program: program)
             view?.moveWriteReview(with: presenter)
         } else {
             showToastWithEndEditing("제목을 입력하세요.")
@@ -80,7 +80,7 @@ extension ProgramSearchViewPresenter {
     
     func selectProgram(at index: Int) {
         if let program = program(at: index) {
-            let presenter = WriteReviewViewPresenter(with: provider, category: category, program: program)
+            let presenter = WriteReviewViewPresenter(with: provider, program: program)
             view?.moveWriteReview(with: presenter)
         }
     }
@@ -125,7 +125,7 @@ extension ProgramSearchViewPresenter {
 
 // MARK: - ProgramSearchModelDelegate
 extension ProgramSearchViewPresenter: ProgramSearchModelDelegate {
-    func programSearchModel(_ searchModel: ProgramSearchModel, didChange programs: [ReviewProgram]) {
+    func programSearchModel(_ searchModel: ProgramSearchModel, didChange programs: [Program]) {
         view?.updateLoadingView(false)
         view?.reloadTableView()
         view?.endEditing()

@@ -8,6 +8,7 @@
 import UIKit
 
 protocol IntroView: BaseView {
+    // Navigation
     func moveLogin(with presenter: LoginPresenter)
     func moveNameSetting(with presenter: NicknameSettingPresenter)
     func moveHome(with presenter: V2HomePresenter)
@@ -35,11 +36,6 @@ class IntroViewController: BaseViewController, IntroView, Navigatable {
         presenter.view = self
         presenter.viewDidLoad()
     }
-}
-
-// MARK: - UI Logic
-extension IntroViewController {
-    
 }
 
 // MARK: - Navigation

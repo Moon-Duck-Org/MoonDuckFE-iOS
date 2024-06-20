@@ -25,7 +25,7 @@ struct SearchBookResponse: Codable {
         let description: String?
         let pubdate: String?
         
-        func toDomain() -> ReviewProgram {
+        func toDomain() -> Program {
             
             var director: String {
                 var str = ""
@@ -44,11 +44,11 @@ struct SearchBookResponse: Codable {
                 return str
             }
             
-            return ReviewProgram(programType: .book,
-                                 title: title,
-                                 date: date,
-                                 director: director,
-                                 publisher: publisher)
+            return Program(category: .book,
+                           title: title,
+                           date: date,
+                           director: director,
+                           publisher: publisher)
         }
     }
 }

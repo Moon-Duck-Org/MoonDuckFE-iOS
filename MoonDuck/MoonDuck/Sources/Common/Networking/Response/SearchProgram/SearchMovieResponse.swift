@@ -32,7 +32,7 @@ struct SearchMovieResponse: Codable {
         let directors: [Director]?
         let companys: [Company?]?
         
-        func toDomain() -> ReviewProgram {
+        func toDomain() -> Program {
             
             var director: String {
                 var str = ""
@@ -66,11 +66,11 @@ struct SearchMovieResponse: Codable {
                 return str
             }
             
-            return ReviewProgram(programType: .movie,
-                                 title: movieNm,
-                                 date: date,
-                                 genre: genre,
-                                 director: director)
+            return Program(category: .movie,
+                           title: movieNm,
+                           date: date,
+                           genre: genre,
+                           director: director)
         }
     }
     struct Director: Codable {

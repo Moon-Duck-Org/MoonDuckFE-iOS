@@ -10,7 +10,7 @@ import UIKit
 struct Review {
     let id: Int
     var title: String
-    var category: ReviewCategory
+    var category: Category
     let user: User
     var program: Program?
     var content: String

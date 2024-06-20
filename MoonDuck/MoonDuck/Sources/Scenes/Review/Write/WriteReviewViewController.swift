@@ -9,13 +9,14 @@ import UIKit
 
 protocol WriteReviewView: BaseView {
     // UI Logic
-    func updateCategory(_ category: ReviewCategory)
+    func updateCategory(_ category: Category)
     func updateProgramInfo(title: String, subTitle: String)
     func updateTitleCountLabel(_ text: String)
     func updateContentCountLabel(_ text: String)
     func updateSaveButton(_ isEnabled: Bool)
     
     // Navigation
+    func showSelectCategory(with presenter: SelectCategoryPresenter)
     func moveHome(with presenter: V2HomePresenter)
 }
 
@@ -53,7 +54,7 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     @IBOutlet private weak var saveButton: UIButton!
     
     // @IBAction
-    @IBAction private func cancelButtonTap(_ sender: Any) {
+    @IBAction private func tapCancelButton(_ sender: Any) {
         back()
     }
     
@@ -92,7 +93,7 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
 // MARK: - UI Logic
 extension WriteReviewViewController {
     
-    func updateCategory(_ category: ReviewCategory) {
+    func updateCategory(_ category: Category) {
         categoryImageView.image = category.roundImage
     }
     
@@ -159,6 +160,10 @@ extension WriteReviewViewController {
 extension WriteReviewViewController {
     private func back() {
         navigator?.pop(sender: self)
+    }
+    
+    func showSelectCategory(with presenter: SelectCategoryPresenter) {
+        navigator?.show(seque: .selectCateogry(presenter: presenter), sender: self, transition: .modal)
     }
     
     func moveHome(with presenter: V2HomePresenter) {

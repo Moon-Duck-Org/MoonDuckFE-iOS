@@ -40,7 +40,7 @@ struct SearchDramaResponse: Codable {
             case voteCount = "vote_count"
         }
         
-        func toDomain() -> ReviewProgram {
+        func toDomain() -> Program {
             
             let title: String = originalName ?? ""
             
@@ -52,9 +52,9 @@ struct SearchDramaResponse: Codable {
                 return str
             }
             
-            return ReviewProgram(programType: .drama,
-                                 title: title,
-                                 date: date)
+            return Program(category: .drama,
+                           title: title,
+                           date: date)
         }
     }
 }

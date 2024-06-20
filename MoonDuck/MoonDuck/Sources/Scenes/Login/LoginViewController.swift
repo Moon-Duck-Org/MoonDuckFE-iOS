@@ -13,10 +13,10 @@ import GoogleSignIn
 import AuthenticationServices
 
 protocol LoginView: BaseView {
+    // Navigation
+    func dismiss()
     func moveNameSetting(with presenter: NicknameSettingPresenter)
     func moveHome(with presenter: V2HomePresenter)
-    
-    func dismiss()
 }
 
 class LoginViewController: BaseViewController, LoginView, Navigatable {
@@ -25,13 +25,13 @@ class LoginViewController: BaseViewController, LoginView, Navigatable {
     let presenter: LoginPresenter
     
     // IBAction
-    @IBAction private func kakaoLoginButtonTap(_ sender: Any) {
-        presenter.kakaoLoginButtonTap()
+    @IBAction private func tapKakaoLoginButton(_ sender: Any) {
+        presenter.tapKakaoLoginButton()
     }
-    @IBAction private func googleLoginButtonTap(_ sender: Any) {
+    @IBAction private func tapGoogleLoginButton(_ sender: Any) {
         googleLogin()
     }
-    @IBAction private func appleLoginButtonTap(_ sender: Any) {
+    @IBAction private func tapAppleLoginButton(_ sender: Any) {
         appleLogin()
     }
     

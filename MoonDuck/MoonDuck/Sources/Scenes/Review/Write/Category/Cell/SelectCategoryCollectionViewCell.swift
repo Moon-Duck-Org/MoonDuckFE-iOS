@@ -1,5 +1,5 @@
 //
-//  WriteReviewCategoryCvCell.swift
+//  SelectCategoryCollectionViewCell.swift
 //  MoonDuck
 //
 //  Created by suni on 5/25/24.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class WriteReviewCategoryCvCell: BaseCategoryCell {
+class SelectCategoryCollectionViewCell: BaseCategoryCell {
     
-    override func configure(with category: ReviewCategory, isSelect: Bool = false) {
+    override func configure(with category: Category, isSelect: Bool = false) {
         super.configure(with: category, isSelect: isSelect)
         
         if isSelect {

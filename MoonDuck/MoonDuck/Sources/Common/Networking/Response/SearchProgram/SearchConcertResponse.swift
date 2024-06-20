@@ -20,13 +20,13 @@ struct SearchConcertResponse {
     var genrenm: String? = nil
     var prfstate: String? = nil
     
-    func toDomain() -> ReviewProgram {
+    func toDomain() -> Program {
         let title = prfnm ?? ""
         
-        return ReviewProgram(programType: .concert,
-                             title: title,
-                             genre: genrenm,
-                             place: fcltynm)
+        return Program(category: .concert,
+                       title: title,
+                       genre: genrenm,
+                       place: fcltynm)
     }
 }
 

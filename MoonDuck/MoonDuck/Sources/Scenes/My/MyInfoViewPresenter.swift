@@ -10,15 +10,13 @@ import UIKit
 
 protocol MyInfoPresenter: AnyObject {
     var view: MyInfoView? { get set }
-    
-    /// Data
-    
-    /// Life Cycle
+        
+    // Life Cycle
     func viewDidLoad()
     
-    /// Action
-    func logoutButtonTap()
-    func settingNameButtonTap()
+    // Action
+    func tapLogoutButton()
+    func tapNicknameSettingButton()
 }
 
 class MyInfoViewPresenter: Presenter, MyInfoPresenter {
@@ -46,12 +44,12 @@ extension MyInfoViewPresenter {
     }
     
     // MARK: - Action
-    func settingNameButtonTap() {
+    func tapNicknameSettingButton() {
         let presenter = NicknameSettingViewPresenter(with: provider, user: model.user, delegate: self)
         view?.presentNameSetting(with: presenter)
     }
     
-    func logoutButtonTap() {
+    func tapLogoutButton() {
         AuthManager.default.logout()
         moveLogin()
     }

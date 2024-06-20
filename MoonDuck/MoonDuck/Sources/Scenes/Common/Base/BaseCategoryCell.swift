@@ -30,7 +30,7 @@ class BaseCategoryCell: UICollectionViewCell {
     var cellMode: CellMode = .home
     private var isSelect: Bool = false
     
-    func configure(with category: ReviewCategory, isSelect: Bool = false) {
+    func configure(with category: Category, isSelect: Bool = false) {
         titlaLabel?.text = category.title
         iconImageView?.image = category.image
         

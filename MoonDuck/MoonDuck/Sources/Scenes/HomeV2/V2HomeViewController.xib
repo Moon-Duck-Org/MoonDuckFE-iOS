@@ -59,7 +59,7 @@
                                 <backgroundConfiguration key="background"/>
                             </buttonConfiguration>
                             <connections>
-                                <action selector="myButtonTap:" destination="-1" eventType="touchUpInside" id="k3s-wQ-PcP"/>
+                                <action selector="tapMyButton:" destination="-1" eventType="touchUpInside" id="k3s-wQ-PcP"/>
                             </connections>
                         </button>
                     </subviews>
@@ -226,7 +226,7 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="FloatingButton"/>
                     <connections>
-                        <action selector="writeNewReviewButtonTap:" destination="-1" eventType="touchUpInside" id="VYW-1A-GiU"/>
+                        <action selector="tapWriteNewReviewButton:" destination="-1" eventType="touchUpInside" id="VYW-1A-GiU"/>
                     </connections>
                 </button>
             </subviews>

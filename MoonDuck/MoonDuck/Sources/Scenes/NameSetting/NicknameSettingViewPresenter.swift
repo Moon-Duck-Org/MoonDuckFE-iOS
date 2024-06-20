@@ -16,13 +16,11 @@ protocol NicknameSettingPresenterDelegate: AnyObject {
 protocol NicknameSettingPresenter: AnyObject {
     var view: NicknameSettingView? { get set }
     
-    // Data
-    
     // Life Cycle
     func viewDidLoad()
     
     // Action
-    func completeButtonTap()
+    func tapCompleteButton()
     
     // TextField Delegate
     func nicknameTextFieldEditingChanged(_ text: String?)
@@ -48,8 +46,6 @@ class NicknameSettingViewPresenter: Presenter, NicknameSettingPresenter {
         super.init(with: provider)
         self.model.delegate = self
     }
-    
-    // MARK: - Data
 }
 
 extension NicknameSettingViewPresenter {
@@ -57,16 +53,19 @@ extension NicknameSettingViewPresenter {
     func viewDidLoad() {
         // 닉네임이 세팅
         if let nickname = model.user?.nickname {
+            view?.updateCancelButton(false)
             view?.updateNameTextfield(nickname)
             view?.updateCountLabel("\(nickname.count)/\(maxNicknameCount)")
             nicknameText = nickname
+        } else {
+            view?.updateCancelButton(false)
         }
         view?.updateCompleteButton(false)
         view?.createTouchEvent()
     }
     
     // MARK: - Action
-    func completeButtonTap() {
+    func tapCompleteButton() {
         guard let nicknameText else { return }
         
         if let userNickname = model.user?.nickname, 
@@ -78,7 +77,7 @@ extension NicknameSettingViewPresenter {
                 view?.updateLoadingView(true)
                 model.nickname(nicknameText)
             } else {
-                view?.showHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
+                view?.updateHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
             }
         }
     }
@@ -120,7 +119,7 @@ extension NicknameSettingViewPresenter {
     
     func textFieldDidBeginEditing(_ text: String?) {
         view?.isEditingText = true
-        view?.clearHintLabel()
+        view?.updateHintLabel("")
     }
     
     func textFieldShouldReturn(_ text: String?) -> Bool {
@@ -131,9 +130,9 @@ extension NicknameSettingViewPresenter {
     func textFieldDidEndEditing(_ text: String?) {
         guard let text else { return }
         if isValidNickname(text) {
-            view?.clearHintLabel()
+            view?.updateHintLabel("")
         } else {
-            view?.showHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
+            view?.updateHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
         }
     }
 }
@@ -153,7 +152,7 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
             AuthManager.default.logout()
             moveLogin()
         case .duplicateNickname:
-            view?.showHintLabel(L10n.Localizable.duplicateNickname)
+            view?.updateHintLabel(L10n.Localizable.duplicateNickname)
         }
     }
     

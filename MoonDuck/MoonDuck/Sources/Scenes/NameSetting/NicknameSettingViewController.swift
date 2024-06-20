@@ -9,8 +9,8 @@ import UIKit
 
 protocol NicknameSettingView: BaseView {
     // UI Logic
-    func showHintLabel(_ hint: String)
-    func clearHintLabel()
+    func updateCancelButton(_ isHidden: Bool)
+    func updateHintLabel(_ text: String?)
     func updateNameTextfield(_ text: String)
     func updateCountLabel(_ text: String)
     func updateCompleteButton(_ isEnabled: Bool)
@@ -27,15 +27,19 @@ class NicknameSettingViewController: BaseViewController, NicknameSettingView, Na
     let presenter: NicknameSettingPresenter
     
     // @IBOutlet
+    @IBOutlet weak private var cancelButton: UIButton!
     @IBOutlet weak private var completeButton: UIButton!
     @IBOutlet weak private var nicknameTextField: TextField!
     @IBOutlet weak private var hintLabel: UILabel!
     @IBOutlet weak private var countLabel: UILabel!
     
     // IBAction
-    @IBAction private func completeButtonTap(_ sender: Any) {
+    @IBAction private func tapCancelButton(_ sender: Any) {
+        dismiss()
+    }
+    @IBAction private func tapCompleteButton(_ sender: Any) {
         view.endEditing(true)
-        presenter.completeButtonTap()
+        presenter.tapCompleteButton()
     }
     
     @IBAction private func nameTextFieldEditingChanged(_ sender: Any) {
@@ -63,14 +67,18 @@ class NicknameSettingViewController: BaseViewController, NicknameSettingView, Na
 
 // MARK: - UI Logic
 extension NicknameSettingViewController {
-    func showHintLabel(_ hint: String) {
-        nicknameTextField.error()
-        hintLabel.text = hint
+    func updateCancelButton(_ isHidden: Bool) {
+        cancelButton.isHidden = isHidden
     }
     
-    func clearHintLabel() {
-        nicknameTextField.normal()
-        hintLabel.text = ""
+    func updateHintLabel(_ text: String?) {
+        if let text, text.isEmpty {
+            nicknameTextField.normal()
+            hintLabel.text = ""
+        } else {
+            nicknameTextField.error()
+            hintLabel.text = text
+        }
     }
     
     func updateNameTextfield(_ text: String) {

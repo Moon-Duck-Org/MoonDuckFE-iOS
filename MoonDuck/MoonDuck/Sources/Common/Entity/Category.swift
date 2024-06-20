@@ -1,5 +1,5 @@
 //
-//  ReviewCategory.swift
+//  Category.swift
 //  MoonDuck
 //
 //  Created by suni on 5/23/24.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum ReviewCategory: String {
+enum Category: String {
     case all = "ALL"
     case movie = "MOVIE"
     case book = "BOOK"

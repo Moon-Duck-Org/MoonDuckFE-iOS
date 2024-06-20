@@ -33,7 +33,7 @@
 //    @IBOutlet weak private var rating4: UIButton!
 //    @IBOutlet weak private var rating5: UIButton!
 //    
-//    @IBAction private func backButtonTap(_ sender: Any) {
+//    @IBAction private func tapBackButton(_ sender: Any) {
 //        self.navigator.pop(sender: self)
 //    }
 //    @IBAction private func moreButtonTap(_ sender: Any) {

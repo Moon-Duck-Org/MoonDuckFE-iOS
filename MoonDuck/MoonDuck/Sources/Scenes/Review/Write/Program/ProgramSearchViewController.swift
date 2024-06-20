@@ -37,7 +37,7 @@ class ProgramSearchViewController: BaseViewController, ProgramSearchView, Naviga
     }
     
     // @IBAction
-    @IBAction private func backButtonTap(_ sender: Any) {
+    @IBAction private func tapBackButton(_ sender: Any) {
         back()
     }
     
@@ -45,8 +45,8 @@ class ProgramSearchViewController: BaseViewController, ProgramSearchView, Naviga
         presenter.searchTextFieldEditingChanged(searchTextField.text)
     }
     
-    @IBAction private func userInputButtonTap(_ sender: Any) {
-        presenter.userInputButtonTap()
+    @IBAction private func tapUserInputButton(_ sender: Any) {
+        presenter.tapUserInputButton()
     }
     
     init(navigator: Navigator,

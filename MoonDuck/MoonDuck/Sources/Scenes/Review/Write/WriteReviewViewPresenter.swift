@@ -32,23 +32,21 @@ protocol WriteReviewPresenter: AnyObject {
 class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     
     weak var view: WriteReviewView?
-    private var category: ReviewCategory
-    private var program: ReviewProgram
+    private var program: Program?
     
     private struct Config {
         let maxTitleCount = 40
         let maxContentCount = 500
     }
     private let config: Config = Config()
+    
     private var titleText: String?
     private var contentText: String?
     private var linkText: String?
     
     init(with provider: AppServices,
-         category: ReviewCategory,
-         program: ReviewProgram) {
+         program: Program?) {
 
-        self.category = category
         self.program = program
         
         super.init(with: provider)
@@ -59,10 +57,13 @@ extension WriteReviewViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        view?.createTouchEvent()
-        
-        view?.updateCategory(category)
-        view?.updateProgramInfo(title: program.title, subTitle: program.getSubInfo())
+        if let program {
+            view?.createTouchEvent()
+            view?.updateCategory(program.category)
+            view?.updateProgramInfo(title: program.title, subTitle: program.getSubInfo())
+        } else {
+            
+        }
     }
     
     // MARK: - Action

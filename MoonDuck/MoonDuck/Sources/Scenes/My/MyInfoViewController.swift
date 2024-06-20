@@ -8,9 +8,11 @@
 import UIKit
 
 protocol MyInfoView: BaseView {
+    // UI Logic
     func updateNameLabel(_ text: String)
     func updateCountLabel(movie: Int, book: Int, drama: Int, concert: Int)
     
+    // Navigation
     func dismiss()
     func presentNameSetting(with presenter: NicknameSettingPresenter)
     func moveLogin(with presenter: LoginPresenter)
@@ -29,20 +31,22 @@ class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
     @IBOutlet weak private var concertCountLabel: UILabel!
     
     // @IBAction
-    @IBAction private func backButtonTap(_ sender: Any) {
+    @IBAction private func tapBackButton(_ sender: Any) {
         back()
     }
     
-    @IBAction private func settingButtonTap(_ sender: Any) {
+    @IBAction private func tapSettingButton(_ sender: Any) {
         showToast("설정 화면 이동 예정")
     }
     
-    @IBAction private func settingNameButtonTap(_ sender: Any) {
-        presenter.settingNameButtonTap()
+    @IBAction private func tapNicknameSettingButton(_ sender: Any) {
+        presenter.tapNicknameSettingButton()
     }
     
-    @IBAction private func logoutButtonTap(_ sender: Any) {
-        showLogoutAlert()
+    @IBAction private func tapLogoutButton(_ sender: Any) {
+        Alert.default.logout(self, logoutHandler: {
+            self.presenter.tapLogoutButton()
+        })
     }
         
     init(navigator: Navigator,
@@ -74,12 +78,6 @@ extension MyInfoViewController {
         self.bookCountLabel.text = "\(movie)"
         self.dramaCountLabel.text = "\(movie)"
         self.concertCountLabel.text = "\(concert)"
-    }
-    
-    private func showLogoutAlert() {
-        Alert.default.logout(self, logoutHandler: {
-            self.presenter.logoutButtonTap()
-        })
     }
 }
 

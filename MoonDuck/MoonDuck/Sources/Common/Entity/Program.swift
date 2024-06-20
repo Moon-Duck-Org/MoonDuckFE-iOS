@@ -1,5 +1,5 @@
 //
-//  ReviewProgram.swift
+//  Program.swift
 //  MoonDuck
 //
 //  Created by suni on 6/9/24.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ReviewProgram {
-    let programType: ReviewCategory
+struct Program {
+    let category: Category
     let title: String
     var date: String? = nil
     var genre: String? = nil
@@ -19,7 +19,7 @@ struct ReviewProgram {
     var price: String? = nil
     
     func getSubInfo() -> String {
-        switch self.programType {
+        switch self.category {
         case .movie:
             return getMovieInfo(with: self)
         case .book:
@@ -33,7 +33,7 @@ struct ReviewProgram {
         }
     }
     
-    private func getMovieInfo(with program: ReviewProgram) -> String {
+    private func getMovieInfo(with program: Program) -> String {
        
         var subInfo: String = ""
         if let director = program.director, director.isNotEmpty {
@@ -49,7 +49,7 @@ struct ReviewProgram {
         return subInfo
     }
     
-    private func getBookInfo(with program: ReviewProgram) -> String {
+    private func getBookInfo(with program: Program) -> String {
         
         var subInfo: String = ""
         if let director = program.director, director.isNotEmpty {
@@ -65,7 +65,7 @@ struct ReviewProgram {
         return subInfo
     }
     
-    private func getDramaInfo(with program: ReviewProgram) -> String {
+    private func getDramaInfo(with program: Program) -> String {
         
         var subInfo: String = ""
         if let date = program.date, date.isNotEmpty {
@@ -74,7 +74,7 @@ struct ReviewProgram {
         return subInfo
     }
     
-    private func getConcertInfo(with program: ReviewProgram) -> String {
+    private func getConcertInfo(with program: Program) -> String {
         
         var subInfo: String = ""
         if let genre = program.genre, genre.isNotEmpty {

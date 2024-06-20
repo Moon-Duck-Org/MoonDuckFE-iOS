@@ -19,6 +19,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NicknameSettingViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
+                <outlet property="cancelButton" destination="paX-hb-5Hb" id="6hK-42-O7O"/>
                 <outlet property="completeButton" destination="XAw-RU-SFO" id="yix-AL-Sc5"/>
                 <outlet property="countLabel" destination="cXV-vI-GaM" id="ekA-3H-dyj"/>
                 <outlet property="hintLabel" destination="1L8-sQ-oPx" id="nO4-Qo-jc3"/>
@@ -34,6 +35,18 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5A-KT-w7R">
                     <rect key="frame" x="0.0" y="59" width="393" height="47"/>
                     <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="paX-hb-5Hb">
+                            <rect key="frame" x="16" y="4" width="34" height="39"/>
+                            <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="18"/>
+                            <color key="tintColor" name="Black"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="취소">
+                                <color key="titleColor" name="Black"/>
+                            </state>
+                            <connections>
+                                <action selector="tapCancelButton:" destination="-1" eventType="touchUpInside" id="zNS-Of-UEs"/>
+                            </connections>
+                        </button>
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XAw-RU-SFO">
                             <rect key="frame" x="343" y="4" width="34" height="39"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="18"/>
@@ -46,7 +59,7 @@
                                 <color key="titleColor" name="Gray2"/>
                             </state>
                             <connections>
-                                <action selector="completeButtonTap:" destination="-1" eventType="touchUpInside" id="pyo-vc-qjm"/>
+                                <action selector="tapCompleteButton:" destination="-1" eventType="touchUpInside" id="pyo-vc-qjm"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임 설정" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gve-qC-cq7">
@@ -59,11 +72,11 @@
                     <color key="backgroundColor" name="White"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="47" id="8Sb-pc-owK"/>
+                        <constraint firstItem="paX-hb-5Hb" firstAttribute="centerY" secondItem="S5A-KT-w7R" secondAttribute="centerY" id="Ebi-oq-P5x"/>
                         <constraint firstItem="gve-qC-cq7" firstAttribute="centerX" secondItem="S5A-KT-w7R" secondAttribute="centerX" id="Em7-ln-7d1"/>
-                        <constraint firstItem="XAw-RU-SFO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gve-qC-cq7" secondAttribute="trailing" id="Umh-xB-oCO"/>
+                        <constraint firstItem="paX-hb-5Hb" firstAttribute="leading" secondItem="S5A-KT-w7R" secondAttribute="leading" constant="16" id="LTd-KU-XAP"/>
                         <constraint firstAttribute="trailing" secondItem="XAw-RU-SFO" secondAttribute="trailing" constant="16" id="aka-4U-5cH"/>
                         <constraint firstItem="gve-qC-cq7" firstAttribute="centerY" secondItem="S5A-KT-w7R" secondAttribute="centerY" id="gZJ-cg-FIq"/>
-                        <constraint firstItem="gve-qC-cq7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S5A-KT-w7R" secondAttribute="leading" id="mBv-IM-Qr5"/>
                         <constraint firstItem="XAw-RU-SFO" firstAttribute="centerY" secondItem="S5A-KT-w7R" secondAttribute="centerY" id="nFg-XA-9yJ"/>
                     </constraints>
                 </view>

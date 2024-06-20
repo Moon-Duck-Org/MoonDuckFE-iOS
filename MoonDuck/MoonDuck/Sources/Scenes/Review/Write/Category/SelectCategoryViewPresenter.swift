@@ -1,5 +1,5 @@
 //
-//  WriteReviewCategoryViewPresenter.swift
+//  SelectCategoryViewPresenter.swift
 //  MoonDuck
 //
 //  Created by suni on 6/9/24.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol WriteReviewCategoryPresenter: AnyObject {
-    var view: WriteReviewCategoryView? { get set }
+protocol SelectCategoryPresenter: AnyObject {
+    var view: SelectCategoryView? { get set }
     
     /// Data
     var numberOfCategories: Int { get }
     var indexOfSelectedCategory: Int? { get }
     
-    func category(at index: Int) -> ReviewCategory?
+    func category(at index: Int) -> Category?
     
     /// Life Cycle
     func viewDidLoad()
@@ -24,8 +24,8 @@ protocol WriteReviewCategoryPresenter: AnyObject {
     func tapNextButton()
 }
 
-class WriteReviewCategoryViewPresenter: Presenter, WriteReviewCategoryPresenter {
-    weak var view: WriteReviewCategoryView?
+class SelectCategoryViewPresenter: Presenter, SelectCategoryPresenter {
+    weak var view: SelectCategoryView?
     let model: ReviewCategoryModelType
     
     init(with provider: AppServices, model: ReviewCategoryModelType) {
@@ -43,12 +43,12 @@ class WriteReviewCategoryViewPresenter: Presenter, WriteReviewCategoryPresenter 
         return model.indexOfSelectedCategory
     }
     
-    func category(at index: Int) -> ReviewCategory? {
+    func category(at index: Int) -> Category? {
         return model.category(at: index)
     }
 }
 
-extension WriteReviewCategoryViewPresenter {
+extension SelectCategoryViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         model.getCategories(isHaveAll: false)
@@ -66,8 +66,8 @@ extension WriteReviewCategoryViewPresenter {
     }    
 }
 
-extension WriteReviewCategoryViewPresenter: ReviewCategoryModelDelegate {
-    func reviewCategoryModel(_ reviewCategoryModel: ReviewCategoryModel, didChange categories: [ReviewCategory]) {
+extension SelectCategoryViewPresenter: ReviewCategoryModelDelegate {
+    func reviewCategoryModel(_ reviewCategoryModel: ReviewCategoryModel, didChange categories: [Category]) {
         view?.reloadCategories()
     }
     

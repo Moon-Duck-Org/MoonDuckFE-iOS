@@ -1,5 +1,5 @@
 //
-//  WriteReviewCategoryViewController.swift
+//  SelectCategoryViewController.swift
 //  MoonDuck
 //
 //  Created by suni on 6/9/24.
@@ -7,38 +7,38 @@
 
 import UIKit
 
-protocol WriteReviewCategoryView: AnyObject {
+protocol SelectCategoryView: AnyObject {
     func reloadCategories()
     func updateNextButton(_ isEnabled: Bool)
     
     func moveCategorySearch(with presenter: ProgramSearchPresenter)
 }
 
-class WriteReviewCategoryViewController: BaseViewController, WriteReviewCategoryView, Navigatable {
+class SelectCategoryViewController: BaseViewController, SelectCategoryView, Navigatable {
     
     var navigator: Navigator?
-    let presenter: WriteReviewCategoryPresenter
-    private let categoryDataSource: WriteReviewCategoryDataSource
+    let presenter: SelectCategoryPresenter
+    private let categoryDataSource: SelectCategoryDataSource
     
     // @IBOutlet
     @IBOutlet weak private var categoryCollectioinView: UICollectionView!
     @IBOutlet weak private var nextButton: RadiusButton!
     
     // @IBAction
-    @IBAction private func cancelButtonTap(_ sender: Any) {
+    @IBAction private func tapCancelButton(_ sender: Any) {
         back()
     }
     
-    @IBAction private func nextButtonTap(_ sender: Any) {
+    @IBAction private func tapNextButton(_ sender: Any) {
         presenter.tapNextButton()
     }
     
     init(navigator: Navigator,
-         presenter: WriteReviewCategoryPresenter) {
+         presenter: SelectCategoryPresenter) {
         self.navigator = navigator
         self.presenter = presenter
-        self.categoryDataSource = WriteReviewCategoryDataSource(presenter: self.presenter)
-        super.init(nibName: WriteReviewCategoryViewController.className, bundle: Bundle(for: WriteReviewCategoryViewController.self))
+        self.categoryDataSource = SelectCategoryDataSource(presenter: self.presenter)
+        super.init(nibName: SelectCategoryViewController.className, bundle: Bundle(for: SelectCategoryViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,7 +55,7 @@ class WriteReviewCategoryViewController: BaseViewController, WriteReviewCategory
 }
 
 // MARK: - UI Logic
-extension WriteReviewCategoryViewController {
+extension SelectCategoryViewController {
     func reloadCategories() {
         categoryCollectioinView.reloadData()
     }
@@ -67,12 +67,12 @@ extension WriteReviewCategoryViewController {
 }
 
 // MARK: - Navigation
-extension WriteReviewCategoryViewController {
+extension SelectCategoryViewController {
     private func back() {
         navigator?.pop(sender: self)
     }
     
     func moveCategorySearch(with presenter: ProgramSearchPresenter) {
-        navigator?.show(seque: .categorySearch(presenter: presenter), sender: self, transition: .navigation)
+        navigator?.show(seque: .programSearch(presenter: presenter), sender: self, transition: .navigation)
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 protocol V2HomeView: BaseView {
     func moveMy(with presenter: MyInfoPresenter)
-    func moveWriteReviewCategory(with presenter: WriteReviewCategoryPresenter)
+    func moveWriteReviewCategory(with presenter: SelectCategoryPresenter)
 }
 
 class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
@@ -19,11 +19,11 @@ class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
     // @IBOutlet
     
     // @IBAction
-    @IBAction private func myButtonTap(_ sender: Any) {
-        presenter.myButtonTap()
+    @IBAction private func tapMyButton(_ sender: Any) {
+        presenter.tapMyButton()
     }
-    @IBAction private func writeNewReviewButtonTap(_ sender: Any) {
-        presenter.writeNewReviewButtonTap()
+    @IBAction private func tapWriteNewReviewButton(_ sender: Any) {
+        presenter.tapWriteNewReviewButton()
     }
     
     // datasource
@@ -56,7 +56,7 @@ extension V2HomeViewController {
     func moveMy(with presenter: MyInfoPresenter) {
         navigator?.show(seque: .myInfo(presenter: presenter), sender: self, transition: .navigation)
     }
-    func moveWriteReviewCategory(with presenter: WriteReviewCategoryPresenter) {
-        navigator?.show(seque: .writeReviewCateogry(presenter: presenter), sender: self, transition: .navigation)
+    func moveWriteReviewCategory(with presenter: SelectCategoryPresenter) {
+        navigator?.show(seque: .selectCateogry(presenter: presenter), sender: self, transition: .navigation)
     }
 }

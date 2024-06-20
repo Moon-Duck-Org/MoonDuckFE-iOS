@@ -18,7 +18,7 @@ protocol LoginPresenter: AnyObject {
     var view: LoginView? { get set }
     
     /// Action
-    func kakaoLoginButtonTap()
+    func tapKakaoLoginButton()
     func googleLogin(result: GIDSignInResult?, error: Error?)
     func appleLogin(id: String)
     func loginError()
@@ -38,7 +38,7 @@ final class LoginViewPresenter: Presenter, LoginPresenter {
 
 // MARK: - Input
 extension LoginViewPresenter {
-    func kakaoLoginButtonTap() {
+    func tapKakaoLoginButton() {
         kakaoLogin()
     }
     
