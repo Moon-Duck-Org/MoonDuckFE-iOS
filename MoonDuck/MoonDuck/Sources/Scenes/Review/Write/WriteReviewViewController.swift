@@ -17,8 +17,6 @@ protocol WriteReviewView: BaseView {
     
     // Navigation
     func backToHome()
-    func popToSelf()
-    func moveSelectCategory(with presenter: SelectProgramPresenter)
 }
 
 class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatable {
@@ -189,14 +187,6 @@ extension WriteReviewViewController {
 extension WriteReviewViewController {
     func backToHome() {
         navigator?.pop(sender: self, popType: .popToRoot, animated: true)
-    }
-    
-    func popToSelf() {
-        navigator?.pop(sender: self, popType: .popToSelf, animated: true)
-    }
-    
-    func moveSelectCategory(with presenter: SelectProgramPresenter) {
-        navigator?.show(seque: .selectProgram(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
 }
 

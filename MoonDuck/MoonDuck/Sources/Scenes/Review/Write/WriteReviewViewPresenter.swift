@@ -57,6 +57,12 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
         }
     }
     private var linkText: String?
+    
+    init(with provider: AppServices, program: Program) {
+        self.program = program
+        super.init(with: provider)
+    }
+
 }
 
 extension WriteReviewViewPresenter {
@@ -64,7 +70,6 @@ extension WriteReviewViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         view?.createTouchEvent()
-        showSelectProgram()
     }
     
     // MARK: - Action
@@ -107,11 +112,7 @@ extension WriteReviewViewPresenter {
     }
     
     // MARK: - Logic
-    private func showSelectProgram() {
-        let model = CategoryModel()
-        let presenter = SelectProgramViewPresenter(with: provider, categoryModel: model, delegate: self)
-        view?.moveSelectCategory(with: presenter)
-    }
+    
 }
 
 // MARK: - UITextFieldDelegate
@@ -162,16 +163,5 @@ extension WriteReviewViewPresenter {
     
     func textViewDidBeginEditing(_ text: String?) {
         view?.isEditingText = true
-    }
-}
-
-extension WriteReviewViewPresenter: SelectProgramPresenterDelegate {
-    func selectProgam(_ presenter: SelectProgramPresenter, didSuccess program: Program) {
-        self.program = program
-        view?.popToSelf()
-    }
-    
-    func selectProgamDidCancel(_ presenter: SelectProgramPresenter) {
-        view?.backToHome()
     }
 }
