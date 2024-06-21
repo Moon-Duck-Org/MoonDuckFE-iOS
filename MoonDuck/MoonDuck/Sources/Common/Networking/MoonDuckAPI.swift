@@ -159,6 +159,8 @@ extension MoonDuckAPI: TargetType {
         case .searchDrama:
             return ["accept": "application/json",
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNjRmZjk2OGEzYTdkMWQ2NjVhNDI2NmIyNzhmMzI0ZiIsInN1YiI6IjY2NmQ0MjA2NmIzYTk0MmQyOGVjMWMwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uvFajFOjUVv57Xb8onVa0kLT2ZLXtTdYRHkOgalHMmA"]
+        case .postReview:
+            return ["Content-Type" : "multipart/form-data"]
         default:
             return ["Content-Type": "application/json"]
         }

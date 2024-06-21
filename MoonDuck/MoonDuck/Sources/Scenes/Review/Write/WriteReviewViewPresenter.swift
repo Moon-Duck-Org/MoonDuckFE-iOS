@@ -39,6 +39,7 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
         let maxTitleCount = 40
         let maxContentCount = 500
     }
+    
     private let config: Config = Config()
     
     private var program: Program? {

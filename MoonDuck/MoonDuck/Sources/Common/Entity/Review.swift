@@ -15,8 +15,8 @@ struct Review {
     var program: Program?
     var content: String
     var imageUrlList: [String]
-    var url: String?
-    var score: Int
+    var link: String?
+    var rating: Int
     let createdAt: String
     
     func getImageList() -> [UIImage] {
@@ -39,11 +39,5 @@ struct Review {
     struct User {
         let userId: Int
         let nickname: String
-    }
-    
-    struct Program {
-        let id: Int
-        let title: String
-        let date: String
     }
 }
