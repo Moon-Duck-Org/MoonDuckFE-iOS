@@ -34,11 +34,12 @@ struct SearchDramaRequest: Codable {
 }
 
 struct SearchConcertRequest: Codable {
-    var service: String = "3f81b8ccf86145f5bbf954924eeb15bf"
-    var stdate: String
-    var eddate: String
-    var cpage: String
-    var rows: String
-    var newsql: String = "Y"
-    var shprfnmfct: String
+    var key: String = "4e6e495762687975313031746b705741"
+    var type: String = "json"
+    var service: String = "culturalEventInfo"
+    var startIndex: Int
+    var endIndex: Int
+    var codename: String = " "
+    var title: String
+    var date: String = " "
 }

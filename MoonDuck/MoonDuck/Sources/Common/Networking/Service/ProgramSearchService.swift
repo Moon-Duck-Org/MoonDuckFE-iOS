@@ -47,12 +47,13 @@ class ProgramSearchService {
             }
     }
     
-    func concert(request: SearchConcertRequest, completion: @escaping (_ succeed: String?, _ failed: Error?) -> Void) {
+    func concert(request: SearchConcertRequest, completion: @escaping (_ succeed: [Program]?, _ failed: Error?) -> Void) {
         API.session.request(MoonDuckAPI.searchConcert(request))
-            .responseString { response in
+            .responseDecodable { (response: AFDataResponse<SearchConcertResponse>) in
                 switch response.result {
                 case .success(let response):
-                    completion(response, nil)
+                    let concertList = response.culturalEventInfo.row.map { $0.toDomain() }
+                    completion(concertList, nil)
                 case .failure(let error):
                     completion(nil, error)
                 }

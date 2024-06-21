@@ -39,7 +39,7 @@ extension MoonDuckAPI: TargetType {
         case .searchDrama:
             return URL(string: "https://api.themoviedb.org")!
         case .searchConcert:
-            return URL(string: "http://www.kopis.or.kr")!
+            return URL(string: "http://openapi.seoul.go.kr:8088")!
         default:
             return URL(string: MoonDuckAPI.baseUrl())!
         }
@@ -85,8 +85,8 @@ extension MoonDuckAPI: TargetType {
         case .searchDrama:
             return "/3/search/tv"
             // Concert Open API
-        case .searchConcert:
-            return "/openApi/restful/pblprfr"
+        case .searchConcert(let request):
+            return "/\(request.key)/\(request.type)/\(request.service)/\(request.startIndex)/\(request.endIndex)/\(request.codename)/\(request.title)/\(request.date)"
             
         case .getReview, .putReview, .postReview, .deleteReview:
             return "/api/review"
@@ -113,8 +113,8 @@ extension MoonDuckAPI: TargetType {
             return .query(request)
         case .searchDrama(let request):
             return .query(request)
-        case .searchConcert(let request):
-            return .query(request)
+        case .searchConcert:
+            return nil
             
         case .getReview(let request):
             return .query(request)
