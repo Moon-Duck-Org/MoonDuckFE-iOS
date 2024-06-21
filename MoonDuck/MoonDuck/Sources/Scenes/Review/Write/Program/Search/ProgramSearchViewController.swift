@@ -8,9 +8,13 @@
 import UIKit
 
 protocol ProgramSearchView: BaseView {
+    // UI Logic
     func reloadTableView()
     func updateEmptyResultView(_ isEmpty: Bool)
     func updateUserInputButton(_ isEnabled: Bool)
+    
+    // Navigation
+    func moveWriteReview(with presenter: WriteReviewViewPresenter)
 }
 
 class ProgramSearchViewController: BaseViewController, ProgramSearchView, Navigatable {
@@ -135,6 +139,10 @@ extension ProgramSearchViewController {
 extension ProgramSearchViewController {
     private func back() {
         navigator?.pop(sender: self, animated: true)
+    }
+    
+    func moveWriteReview(with presenter: WriteReviewViewPresenter) {
+        navigator?.show(seque: .writeReview(presenter: presenter), sender: self, transition: .navigation, animated: false)
     }
 }
 

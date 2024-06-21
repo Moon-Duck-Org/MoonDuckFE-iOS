@@ -549,7 +549,6 @@
 		EA5758F32C1555B100E80050 /* Write */ = {
 			isa = PBXGroup;
 			children = (
-				EA6B01D32C23BF12001A3DE8 /* Category */,
 				EA5758F42C1555B900E80050 /* Program */,
 				EA96A95D2C1D47890010AB60 /* WriteReviewViewController.swift */,
 				EA96A95E2C1D47890010AB60 /* WriteReviewViewController.xib */,
@@ -561,11 +560,12 @@
 		EA5758F42C1555B900E80050 /* Program */ = {
 			isa = PBXGroup;
 			children = (
-				EAB6E6642C18469A00A9E191 /* Cell */,
-				EA810A342C17253F00DF6C72 /* ProgramSearchViewController.swift */,
-				EA810A352C17253F00DF6C72 /* ProgramSearchViewController.xib */,
-				EA810A382C17269800DF6C72 /* ProgramSearchViewPresenter.swift */,
-				EAB6E6622C1845F700A9E191 /* ProgramSearchDataSource.swift */,
+				EAA914D12C022DAA00A98950 /* Cell */,
+				EA5758EB2C154E5400E80050 /* SelectProgramViewController.swift */,
+				EA5758EC2C154E5400E80050 /* SelectProgramViewController.xib */,
+				EA5758EF2C154E9C00E80050 /* SelectProgramViewPresenter.swift */,
+				EA5758F62C1559C300E80050 /* SelectCategoryDataSource.swift */,
+				EA8933932C25072100EDCBD5 /* Search */,
 			);
 			path = Program;
 			sourceTree = "<group>";
@@ -656,18 +656,6 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		EA6B01D32C23BF12001A3DE8 /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				EAA914D12C022DAA00A98950 /* Cell */,
-				EA5758EB2C154E5400E80050 /* SelectProgramViewController.swift */,
-				EA5758EC2C154E5400E80050 /* SelectProgramViewController.xib */,
-				EA5758EF2C154E9C00E80050 /* SelectProgramViewPresenter.swift */,
-				EA5758F62C1559C300E80050 /* SelectCategoryDataSource.swift */,
-			);
-			path = Category;
-			sourceTree = "<group>";
-		};
 		EA6D9A712BFF6026003B459A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,6 +694,18 @@
 				EADD89052C23F7B700CA2B43 /* WriteReviewModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		EA8933932C25072100EDCBD5 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				EAB6E6642C18469A00A9E191 /* Cell */,
+				EA810A342C17253F00DF6C72 /* ProgramSearchViewController.swift */,
+				EA810A352C17253F00DF6C72 /* ProgramSearchViewController.xib */,
+				EA810A382C17269800DF6C72 /* ProgramSearchViewPresenter.swift */,
+				EAB6E6622C1845F700A9E191 /* ProgramSearchDataSource.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		EA9A84212C00BBAE004B7FDF /* NameSetting */ = {

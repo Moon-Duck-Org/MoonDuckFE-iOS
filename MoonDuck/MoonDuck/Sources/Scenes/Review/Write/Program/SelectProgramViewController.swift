@@ -8,10 +8,12 @@
 import UIKit
 
 protocol SelectProgramView: AnyObject {
+    // UI Logic
     func reloadCategories()
     func updateNextButton(_ isEnabled: Bool)
     
-    func moveCategorySearch(with presenter: ProgramSearchPresenter)
+    // Navigation
+    func moveProgramSearch(with presenter: ProgramSearchPresenter)
 }
 
 class SelectProgramViewController: BaseViewController, SelectProgramView, Navigatable {
@@ -26,7 +28,7 @@ class SelectProgramViewController: BaseViewController, SelectProgramView, Naviga
     
     // @IBAction
     @IBAction private func tapCancelButton(_ sender: Any) {
-        presenter.tapCancelButton()
+        back()
     }
     
     @IBAction private func tapNextButton(_ sender: Any) {
@@ -68,7 +70,11 @@ extension SelectProgramViewController {
 
 // MARK: - Navigation
 extension SelectProgramViewController {
-    func moveCategorySearch(with presenter: ProgramSearchPresenter) {
+    private func back() {
+        navigator?.pop(sender: self, popType: .pop, animated: true)
+    }
+    
+    func moveProgramSearch(with presenter: ProgramSearchPresenter) {
         navigator?.show(seque: .programSearch(presenter: presenter), sender: self, transition: .navigation)
     }
 }

@@ -7,11 +7,6 @@
 
 import Foundation
 
-protocol SelectProgramPresenterDelegate: AnyObject {
-    func selectProgam(_ presenter: SelectProgramPresenter, didSuccess program: Program)
-    func selectProgamDidCancel(_ presenter: SelectProgramPresenter)
-}
-
 protocol SelectProgramPresenter: AnyObject {
     var view: SelectProgramView? { get set }
     
@@ -27,19 +22,15 @@ protocol SelectProgramPresenter: AnyObject {
     /// Action
     func selectCategory(at index: Int)
     func tapNextButton()
-    func tapCancelButton()
 }
 
 class SelectProgramViewPresenter: Presenter, SelectProgramPresenter {
     weak var view: SelectProgramView?
-    private weak var delegate: SelectProgramPresenterDelegate?
     private let categoryModel: CategoryModelType
     
     init(with provider: AppServices,
-         categoryModel: CategoryModelType,
-         delegate: SelectProgramPresenterDelegate?) {
+         categoryModel: CategoryModelType) {
         self.categoryModel = categoryModel
-        self.delegate = delegate
         super.init(with: provider)
         self.categoryModel.delegate = self
     }
@@ -72,12 +63,8 @@ extension SelectProgramViewPresenter {
     func tapNextButton() {
         guard let selectedCategory = categoryModel.selectedCategory else { return }
         let model = ProgramSearchModel(provider, category: selectedCategory)
-        let presenter = ProgramSearchViewPresenter(with: provider, model: model, delegate: self)
-        view?.moveCategorySearch(with: presenter)
-    }    
-    
-    func tapCancelButton() {
-        delegate?.selectProgamDidCancel(self)
+        let presenter = ProgramSearchViewPresenter(with: provider, model: model)
+        view?.moveProgramSearch(with: presenter)
     }
 }
 
@@ -90,12 +77,5 @@ extension SelectProgramViewPresenter: CategoryModelDelegate {
     func category(_ reviewCategoryModel: CategoryModel, didSelect index: Int?) {
         view?.updateNextButton(index != nil)
         view?.reloadCategories()
-    }
-}
-
-// MARK: - ProgramSearchPresenterDelegate
-extension SelectProgramViewPresenter: ProgramSearchPresenterDelegate {
-    func programSearch(_ presenter: ProgramSearchPresenter, didSuccess program: Program) {
-        delegate?.selectProgam(self, didSuccess: program)
     }
 }
