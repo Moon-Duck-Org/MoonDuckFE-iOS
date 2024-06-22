@@ -17,11 +17,11 @@ enum MoonDuckAPI {
     case searchBook(SearchBookRequest)
     case searchDrama(SearchDramaRequest)
     case searchConcert(SearchConcertRequest)
+    case postReview(PostReviewRequest, [UIImage]?)
     // TODO: - API 수정
     case reviewAll(ReviewAllRequest)
     case getReview(GetReviewRequest)
     case putReview(PutReviewRequest)
-    case postReview(PostReviewRequest)
     case deleteReview(DeleteReviewRequest)
     case reviewDetail(ReviewDetailRequest)
 }
@@ -113,7 +113,9 @@ extension MoonDuckAPI: TargetType {
             return .query(request)
         case .searchDrama(let request):
             return .query(request)
-        case .searchConcert:
+        case .searchConcert(let request):
+            return .query(request)
+        case let .postReview(request, images):
             return nil
             
         case .getReview(let request):
@@ -121,8 +123,6 @@ extension MoonDuckAPI: TargetType {
         case .reviewAll(let request):
             return .query(request)
         case .putReview(let request):
-            return .body(request)
-        case .postReview(let request):
             return .body(request)
         case .deleteReview(let request):
             return .query(request)
@@ -164,6 +164,34 @@ extension MoonDuckAPI: TargetType {
         default:
             return ["Content-Type": "application/json"]
         }
+    }
+    
+    // 멀티파트 폼 데이터 구성
+    func asMultipartFormData() throws -> MultipartFormData {
+        let multipartFormData = MultipartFormData()
+        
+        switch self {
+        case .postReview(let request, let images):
+            // 이미지를 멀티파트 폼 데이터에 추가
+            if let images {
+                for (index, image) in images.enumerated() {
+                    if let imageData = image.jpegData(compressionQuality: 0.8) {
+                        multipartFormData.append(imageData, withName: "images", fileName: "image\(index).jpg", mimeType: "image/jpeg")
+                    }
+                }
+            }
+            
+            // JSON 문자열을 멀티파트 폼 데이터에 추가
+            let jsonObject = request.toDictionary()
+            if let json = try? JSONSerialization.data(withJSONObject: jsonObject, options: []) {
+                if let jsonString = String(data: json, encoding: .utf8) {
+                    multipartFormData.append(jsonString.data(using: .unicode)!, withName: "boardDto", mimeType: "application/json")
+                }
+            }
+        default: break
+        }
+        
+        return multipartFormData
     }
 }
 
