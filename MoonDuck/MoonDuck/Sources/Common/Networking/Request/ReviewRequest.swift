@@ -37,20 +37,9 @@ struct PostReviewRequest: Codable {
     var category: String
     var program: ProgramRequest?
     var content: String
-    var url: String?
     var score: Int
+    var url: String?
 //    var boardId: Int
-    
-    init(review: Review) {
-        self.title = review.title
-        self.category = review.category.apiKey
-        if let program = review.program {
-            self.program = ProgramRequest(program: program)
-        }
-        self.content = review.content
-        self.url = review.link
-        self.score = review.rating
-    }
 }
 
 struct ProgramRequest: Codable {

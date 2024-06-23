@@ -24,12 +24,13 @@ class ReviewService {
         
     }
     
-    func postReview(request: PostReviewRequest, images: [UIImage]?, completion: @escaping (_ succeed: Review?, _ failed: Error?) -> Void) {
+    func postReview(request: PostReviewRequest, images: [UIImage]?, completion: @escaping (_ succeed: Review?, _ failed: APIError?) -> Void) {
         uploadImagesAndDTO(.postReview(request, images), responseType: ReviewResponse.self) { result in
             switch result {
             case .success(let response):
                 Log.debug("rseponse \(response)")
-                completion(nil, nil)
+                let review = response.toDomain()
+                completion(review, nil)
             case .failure(let error):
                 completion(nil, error)
             }
@@ -47,18 +48,29 @@ class ReviewService {
     
     }
     
-    func uploadImagesAndDTO<T: Decodable>(_ api: MoonDuckAPI, responseType: T.Type, completion: @escaping (Result<T, AFError>) -> Void) {
+    func uploadImagesAndDTO<T: Decodable>(_ api: MoonDuckAPI, responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
         do {
             let multipartFormData = try api.asMultipartFormData()
             let urlRequest = try api.asURLRequest()
             
             API.session.upload(multipartFormData: { multipartFormData }(), with: urlRequest)
                 .responseDecodable(of: responseType) { response in
-                    completion(response.result)
+                    switch response.result {
+                    case .success(let decodedResponse):
+                        completion(.success(decodedResponse))
+                    case .failure(let error):
+                        if let data = response.data, let errorResponse = try? JSONDecoder().decode(ErrorEntity.self, from: data) {
+                            let apiError = APIError(error: errorResponse)
+                            completion(.failure(apiError))
+                        } else {
+                            completion(.failure(.unowned))
+                        }
+                    }
                 }
+        } catch let error as APIError {
+            completion(.failure(error))
         } catch {
-            print("Error creating uploadable: \(error)")
-            completion(.failure(AFError.explicitlyCancelled))
+            completion(.failure(.unowned))
         }
     }
 }

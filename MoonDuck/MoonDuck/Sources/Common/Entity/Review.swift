@@ -8,7 +8,7 @@
 import UIKit
 
 struct Review {
-    let id: Int
+    let id: Int?
     var title: String
     var category: Category
     let user: User

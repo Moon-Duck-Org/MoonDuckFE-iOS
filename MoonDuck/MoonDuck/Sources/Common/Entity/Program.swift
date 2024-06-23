@@ -8,6 +8,7 @@
 import Foundation
 
 struct Program {
+    var id: Int? = nil
     var category: Category
     var title: String
     var date: String? = nil

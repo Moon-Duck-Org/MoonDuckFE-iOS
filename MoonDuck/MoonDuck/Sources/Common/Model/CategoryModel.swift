@@ -13,7 +13,7 @@ protocol CategoryModelDelegate: AnyObject {
 }
 
 protocol CategoryModelType: AnyObject {
-    /// Data
+    // Data
     var delegate: CategoryModelDelegate? { get set }
     var categories: [Category] { get }
     var numberOfCategories: Int { get }
@@ -22,10 +22,10 @@ protocol CategoryModelType: AnyObject {
     
     func category(at index: Int) -> Category?
     
-    /// Action
+    // Action
     func selectCategory(_ index: Int)
     
-    /// Netwok
+    // Netwok
     func getCategories(isHaveAll: Bool)
 }
 

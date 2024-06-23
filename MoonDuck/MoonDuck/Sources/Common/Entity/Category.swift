@@ -14,6 +14,7 @@ enum Category: String {
     case book = "BOOK"
     case drama = "DRAMA"
     case concert = "CONCERT"
+    case none
     
     var apiKey: String {
         return self.rawValue
@@ -31,6 +32,8 @@ enum Category: String {
             return Asset.Assets.categoryDrama.image
         case .concert:
             return Asset.Assets.categoryConcert.image
+        case .none:
+            return Asset.Assets.categoryDefault.image
         }
     }
     
@@ -74,6 +77,8 @@ enum Category: String {
             return "드라마"
         case .concert:
             return "공연"
+        case .none:
+            return ""
         }
     }
 }

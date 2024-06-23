@@ -160,7 +160,12 @@ extension MoonDuckAPI: TargetType {
             return ["accept": "application/json",
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNjRmZjk2OGEzYTdkMWQ2NjVhNDI2NmIyNzhmMzI0ZiIsInN1YiI6IjY2NmQ0MjA2NmIzYTk0MmQyOGVjMWMwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uvFajFOjUVv57Xb8onVa0kLT2ZLXtTdYRHkOgalHMmA"]
         case .postReview:
-            return ["Content-Type" : "multipart/form-data"]
+            if let token: String = AuthManager.default.getAccessToken() {
+                return ["Content-Type": "multipart/form-data",
+                        "Authorization": "Bearer \(token)"]
+            } else {
+                return ["Content-Type": "multipart/form-data"]
+            }
         default:
             return ["Content-Type": "application/json"]
         }
@@ -171,7 +176,7 @@ extension MoonDuckAPI: TargetType {
         let multipartFormData = MultipartFormData()
         
         switch self {
-        case .postReview(let request, let images):
+        case let .postReview(request, images):
             // 이미지를 멀티파트 폼 데이터에 추가
             if let images {
                 for (index, image) in images.enumerated() {
