@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "CateogryConcertSmall.png",
+      "filename" : "drama_round button_small.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "CateogryConcertSmall@2x.png",
+      "filename" : "drama_round button_small@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "CateogryConcertSmall@3x.png",
+      "filename" : "drama_round button_small@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

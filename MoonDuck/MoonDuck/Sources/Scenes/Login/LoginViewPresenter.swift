@@ -155,7 +155,9 @@ extension LoginViewPresenter: UserModelDelegate {
     func user(_ model: UserModel, didChange user: User) {
         // User 정보 조회 성공
         view?.updateLoadingView(false)
-        let presenter = V2HomeViewPresenter(with: provider, userModel: model)
+        let cateogryModel = CategoryModel()
+        let reviewModel = HomeReviewModel(provider)
+        let presenter = V2HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, reviewModel: reviewModel)
         view?.moveHome(with: presenter)
     }
     

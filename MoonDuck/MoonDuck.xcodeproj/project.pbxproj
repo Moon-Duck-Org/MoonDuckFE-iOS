@@ -11,6 +11,15 @@
 		5EEE2DF6C73F533BFA556AD2 /* Pods_MoonDuck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31889ED7FB1E6AAD97B6990E /* Pods_MoonDuck.framework */; };
 		A07826AC2BFFAB6300D7BA63 /* BoardListTvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07826AB2BFFAB6300D7BA63 /* BoardListTvCell.xib */; };
 		A07826AD2BFFAB6300D7BA63 /* BoardListTvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07826AA2BFFAB6300D7BA63 /* BoardListTvCell.swift */; };
+		A0A633662C285D9200744694 /* HomeCategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633652C285D9200744694 /* HomeCategoryDataSource.swift */; };
+		A0A6336A2C2862E600744694 /* HomeCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0A633692C2862E600744694 /* HomeCategoryCollectionViewCell.xib */; };
+		A0A6336B2C2862E600744694 /* HomeCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633682C2862E600744694 /* HomeCategoryCollectionViewCell.swift */; };
+		A0A6336E2C28687100744694 /* GetReviewResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6336D2C28687100744694 /* GetReviewResponse.swift */; };
+		A0A633702C286A4C00744694 /* ReviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6336F2C286A4C00744694 /* ReviewList.swift */; };
+		A0A633722C286B3E00744694 /* HomeReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633712C286B3E00744694 /* HomeReviewModel.swift */; };
+		A0A633742C286DA100744694 /* HomeReviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633732C286DA100744694 /* HomeReviewDataSource.swift */; };
+		A0A6337D2C28758600744694 /* HomeReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0A6337C2C28758600744694 /* HomeReviewTableViewCell.xib */; };
+		A0A6337E2C28758600744694 /* HomeReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6337B2C28758600744694 /* HomeReviewTableViewCell.swift */; };
 		A0E657FB2BFE22B7001A8D54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E657FA2BFE22B7001A8D54 /* AppDelegate.swift */; };
 		A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E657FC2BFE22B7001A8D54 /* SceneDelegate.swift */; };
 		A0E658022BFE22B7001A8D54 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A0E658012BFE22B7001A8D54 /* Base */; };
@@ -169,6 +178,15 @@
 		812049C204C639AFB27ABED3 /* Pods-MoonDuckTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuckTests.release.xcconfig"; path = "Target Support Files/Pods-MoonDuckTests/Pods-MoonDuckTests.release.xcconfig"; sourceTree = "<group>"; };
 		A07826AA2BFFAB6300D7BA63 /* BoardListTvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListTvCell.swift; sourceTree = "<group>"; };
 		A07826AB2BFFAB6300D7BA63 /* BoardListTvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardListTvCell.xib; sourceTree = "<group>"; };
+		A0A633652C285D9200744694 /* HomeCategoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryDataSource.swift; sourceTree = "<group>"; };
+		A0A633682C2862E600744694 /* HomeCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		A0A633692C2862E600744694 /* HomeCategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCategoryCollectionViewCell.xib; sourceTree = "<group>"; };
+		A0A6336D2C28687100744694 /* GetReviewResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetReviewResponse.swift; sourceTree = "<group>"; };
+		A0A6336F2C286A4C00744694 /* ReviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewList.swift; sourceTree = "<group>"; };
+		A0A633712C286B3E00744694 /* HomeReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeReviewModel.swift; sourceTree = "<group>"; };
+		A0A633732C286DA100744694 /* HomeReviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeReviewDataSource.swift; sourceTree = "<group>"; };
+		A0A6337B2C28758600744694 /* HomeReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeReviewTableViewCell.swift; sourceTree = "<group>"; };
+		A0A6337C2C28758600744694 /* HomeReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeReviewTableViewCell.xib; sourceTree = "<group>"; };
 		A0E657F72BFE22B7001A8D54 /* MoonDuck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonDuck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E657FA2BFE22B7001A8D54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0E657FC2BFE22B7001A8D54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -368,6 +386,26 @@
 				EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */,
 			);
 			path = DataSource;
+			sourceTree = "<group>";
+		};
+		A0A633672C2862A800744694 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A0A633682C2862E600744694 /* HomeCategoryCollectionViewCell.swift */,
+				A0A633692C2862E600744694 /* HomeCategoryCollectionViewCell.xib */,
+				A0A6337B2C28758600744694 /* HomeReviewTableViewCell.swift */,
+				A0A6337C2C28758600744694 /* HomeReviewTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		A0A6336C2C28683600744694 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				EAE017D42C0195D500699145 /* ReviewResponse.swift */,
+				A0A6336D2C28687100744694 /* GetReviewResponse.swift */,
+			);
+			path = Review;
 			sourceTree = "<group>";
 		};
 		A0E657EE2BFE22B6001A8D54 = {
@@ -596,10 +634,12 @@
 		EA61048B2C14755C00CAC460 /* HomeV2 */ = {
 			isa = PBXGroup;
 			children = (
-				EAF78EFC2C147CD100EFBCB0 /* DataSource */,
+				A0A633672C2862A800744694 /* Cell */,
 				EA61048C2C14756F00CAC460 /* V2HomeViewController.swift */,
 				EA6379E32BFF33C500464A19 /* V2HomeViewController.xib */,
 				EAF78EFA2C14762400EFBCB0 /* V2HomeViewPresenter.swift */,
+				A0A633652C285D9200744694 /* HomeCategoryDataSource.swift */,
+				A0A633732C286DA100744694 /* HomeReviewDataSource.swift */,
 			);
 			path = HomeV2;
 			sourceTree = "<group>";
@@ -647,10 +687,10 @@
 		EA6379D82BFF2BA300464A19 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				A0A6336C2C28683600744694 /* Review */,
 				EA4E1DA12C1E7D7E00125239 /* SearchProgram */,
 				EA72084C2C12869B00E96212 /* AuthResponse.swift */,
 				EA6379E02BFF2E5300464A19 /* UserResponse.swift */,
-				EAE017D42C0195D500699145 /* ReviewResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -702,6 +742,7 @@
 				EAF78F072C14CAAE00EFBCB0 /* UserModel.swift */,
 				EA5758F82C155AF800E80050 /* CategoryModel.swift */,
 				EAB6E65C2C17DC2500A9E191 /* ProgramSearchModel.swift */,
+				A0A633712C286B3E00744694 /* HomeReviewModel.swift */,
 				EADD89052C23F7B700CA2B43 /* WriteReviewModel.swift */,
 			);
 			path = Model;
@@ -786,13 +827,6 @@
 			path = Edit;
 			sourceTree = "<group>";
 		};
-		EAF78EFC2C147CD100EFBCB0 /* DataSource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DataSource;
-			sourceTree = "<group>";
-		};
 		EAF78EFD2C14806A00EFBCB0 /* My */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,6 +846,7 @@
 				EA81F4A82BFF716600FDC7A7 /* Category.swift */,
 				EAC93F422C157006008FDFF2 /* Program.swift */,
 				EAD957642C0029D3001FB6E1 /* Review.swift */,
+				A0A6336F2C286A4C00744694 /* ReviewList.swift */,
 				EAE017D62C01AA3D00699145 /* Sort.swift */,
 			);
 			path = Entity;
@@ -937,6 +972,7 @@
 				EAA914D52C022DF700A98950 /* SelectCategoryCollectionViewCell.xib in Resources */,
 				A0E658402BFE36A5001A8D54 /* NotoSansCJKkr-Regular.otf in Resources */,
 				A0E6583E2BFE36A5001A8D54 /* NotoSansCJKkr-Thin.otf in Resources */,
+				A0A6337D2C28758600744694 /* HomeReviewTableViewCell.xib in Resources */,
 				EA5EA0C62C0119880041A8B4 /* BoardDetailViewController.xib in Resources */,
 				EAD9576E2C008ED5001FB6E1 /* LoginViewController.xib in Resources */,
 				EA96A95F2C1D47890010AB60 /* WriteReviewViewController.xib in Resources */,
@@ -945,6 +981,7 @@
 				A0E658322BFE300D001A8D54 /* Color.xcassets in Resources */,
 				EAF78F012C14813800EFBCB0 /* MyInfoViewController.xib in Resources */,
 				A0E658432BFE36A5001A8D54 /* NotoSansMonoCJKkr-Bold.otf in Resources */,
+				A0A6336A2C2862E600744694 /* HomeCategoryCollectionViewCell.xib in Resources */,
 				EAA914F32C02D63100A98950 /* ReviewImageCvCell.xib in Resources */,
 				EA5758EE2C154E5400E80050 /* SelectProgramViewController.xib in Resources */,
 				A07826AC2BFFAB6300D7BA63 /* BoardListTvCell.xib in Resources */,
@@ -1125,6 +1162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0A633722C286B3E00744694 /* HomeReviewModel.swift in Sources */,
 				EA7208552C12929700E96212 /* Auth.swift in Sources */,
 				EAE017E82C01E6D100699145 /* BoardEditViewController.swift in Sources */,
 				EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */,
@@ -1162,12 +1200,14 @@
 				EA5758F02C154E9C00E80050 /* SelectProgramViewPresenter.swift in Sources */,
 				EA6D9A7A2BFF6884003B459A /* RadiusView.swift in Sources */,
 				A0FE0E3A2C283695005C403C /* WriteImageDataSource.swift in Sources */,
+				A0A6337E2C28758600744694 /* HomeReviewTableViewCell.swift in Sources */,
 				EAE017DB2C01CA0500699145 /* CellButton.swift in Sources */,
 				EAE017D32C0193B800699145 /* ReviewRequest.swift in Sources */,
 				EAA914CE2C02274700A98950 /* String+Extension.swift in Sources */,
 				EAD9576D2C008ED5001FB6E1 /* LoginViewController.swift in Sources */,
 				EA7C07362C2029C800563264 /* SearchConcertResponse.swift in Sources */,
 				EA96A9622C1D54C00010AB60 /* WriteReviewViewPresenter.swift in Sources */,
+				A0A633662C285D9200744694 /* HomeCategoryDataSource.swift in Sources */,
 				EA5758ED2C154E5400E80050 /* SelectProgramViewController.swift in Sources */,
 				EA9A84452C00E306004B7FDF /* APIEventLogger.swift in Sources */,
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,
@@ -1175,6 +1215,7 @@
 				EAB6E6632C1845F700A9E191 /* ProgramSearchDataSource.swift in Sources */,
 				EA5758F72C1559C300E80050 /* SelectCategoryDataSource.swift in Sources */,
 				EA810A362C17253F00DF6C72 /* ProgramSearchViewController.swift in Sources */,
+				A0A6336B2C2862E600744694 /* HomeCategoryCollectionViewCell.swift in Sources */,
 				EAD957702C0094A1001FB6E1 /* LoginViewPresenter.swift in Sources */,
 				EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */,
 				EAE017D12C01935700699145 /* ReviewService.swift in Sources */,
@@ -1193,8 +1234,10 @@
 				A0E657FB2BFE22B7001A8D54 /* AppDelegate.swift in Sources */,
 				EA946D582C16956800F44BB5 /* UIButton+Extension.swift in Sources */,
 				EA6379E72BFF342F00464A19 /* HomeViewPresenter.swift in Sources */,
+				A0A6336E2C28687100744694 /* GetReviewResponse.swift in Sources */,
 				EA6D9A772BFF6823003B459A /* UIView+Extension.swift in Sources */,
 				EAE017D52C0195D500699145 /* ReviewResponse.swift in Sources */,
+				A0A633702C286A4C00744694 /* ReviewList.swift in Sources */,
 				EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */,
 				EA6D9A742BFF67A0003B459A /* HomeCategoryCvCell.swift in Sources */,
 				EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */,
@@ -1215,6 +1258,7 @@
 				EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */,
 				EAF78F052C148BE700EFBCB0 /* RadiusButton.swift in Sources */,
 				EAF78F002C14813800EFBCB0 /* MyInfoViewController.swift in Sources */,
+				A0A633742C286DA100744694 /* HomeReviewDataSource.swift in Sources */,
 				EAE017D92C01C11B00699145 /* BoardDetailViewPresenter.swift in Sources */,
 				EADD89062C23F7B700CA2B43 /* WriteReviewModel.swift in Sources */,
 				EA72084D2C12869B00E96212 /* AuthResponse.swift in Sources */,

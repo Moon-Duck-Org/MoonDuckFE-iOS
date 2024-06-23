@@ -78,7 +78,7 @@ enum APIError: Error, Equatable, LocalizedError {
         }
     }
     
-    var isWriteReviewError: Bool {
+    var isReviewError: Bool {
         switch self {
         case .nonExistentReview, .invalidFilterCondition, .fileProcessingError, .invalidProgram: return true
         default: return false
