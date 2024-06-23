@@ -9,7 +9,7 @@ import Foundation
 import SwiftyJSON
 
 struct UserResponse: Codable {
-    let userId: Int?
+    let userId: Int
     let nickname: String?
     let movie: Int?
     let book: Int?
@@ -25,7 +25,7 @@ struct UserResponse: Codable {
             return movie + book + drama + concert
         }()
         
-        return User(userId: userId ?? 0,
+        return User(userId: userId,
                     nickname: nickname ?? "",
                     all: all,
                     movie: movie,

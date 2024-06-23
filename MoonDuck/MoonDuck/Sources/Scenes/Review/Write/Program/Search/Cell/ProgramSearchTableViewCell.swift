@@ -14,6 +14,6 @@ class ProgramSearchTableViewCell: UITableViewCell {
         
     func configure(with program: Program) {
         titleLabel.text = program.title
-        subTitleLabel.text = program.getSubInfo()
+        subTitleLabel.text = program.subInfo
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 protocol WriteReviewView: BaseView {
     // UI Logic
@@ -14,6 +15,8 @@ protocol WriteReviewView: BaseView {
     func updateTitleCountLabel(_ text: String)
     func updateContentCountLabel(_ text: String)
     func updateRating(_ rating: Int)
+    func showSelectImageSheet()
+    func reloadImages()
     
     // Navigation
     func backToHome()
@@ -23,6 +26,7 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     
     var navigator: Navigator?
     let presenter: WriteReviewPresenter
+    private let imageDataSource: WriteImageDataSource
     
     // @IBOutlet
     @IBOutlet private weak var scrollViewBottomConstraint: NSLayoutConstraint!
@@ -56,6 +60,7 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
             linkTextField.delegate = self
         }
     }
+    @IBOutlet weak var imageCollectionView: UICollectionView!
     
     // @IBAction
     @IBAction private func tapCancelButton(_ sender: Any) {
@@ -78,6 +83,7 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
          presenter: WriteReviewPresenter) {
         self.navigator = navigator
         self.presenter = presenter
+        self.imageDataSource = WriteImageDataSource(presenter: self.presenter)
         super.init(nibName: WriteReviewViewController.className, bundle: Bundle(for: WriteReviewViewController.self))
     }
     
@@ -92,6 +98,8 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
         presenter.viewDidLoad()
         
         registeRatingButtonAction()
+        
+        imageDataSource.configure(with: imageCollectionView)
     }
     
     deinit {
@@ -126,6 +134,25 @@ extension WriteReviewViewController {
         ratingButton3.isSelected = rating > 2
         ratingButton4.isSelected = rating > 3
         ratingButton5.isSelected = rating > 4
+    }
+     
+    func showSelectImageSheet() {
+        let actionSheet = UIAlertController(title: "Choose an option", message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            self.openCamera()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { _ in
+            self.openPhotoLibrary()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func reloadImages() {
+        DispatchQueue.main.async {
+            self.imageCollectionView.reloadData()
+        }
     }
     
     // 노티피케이션 등록
@@ -215,5 +242,63 @@ extension WriteReviewViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         presenter.textViewDidBeginEditing(textView.text)
+    }
+}
+
+// MARK: - PHPickerViewControllerDelegate, UIImagePickerControllerDelegate
+extension WriteReviewViewController: PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func openCamera() {
+         if UIImagePickerController.isSourceTypeAvailable(.camera) {
+             let imagePicker = UIImagePickerController()
+             imagePicker.delegate = self
+             imagePicker.sourceType = .camera
+             imagePicker.allowsEditing = false
+             self.present(imagePicker, animated: true, completion: nil)
+         } else {
+             let alert = UIAlertController(title: "Camera not available", message: "This device has no camera", preferredStyle: .alert)
+             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+             self.present(alert, animated: true, completion: nil)
+         }
+    }
+    
+    func openPhotoLibrary() {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = presenter.numberOfImagesSelectLimit // 최대 5개의 이미지를 선택할 수 있도록 설정
+        configuration.filter = .images // 이미지만 선택 가능
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        let group = DispatchGroup()
+        
+        for result in results {
+            group.enter()
+            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
+                defer { group.leave() }
+                if let image = object as? UIImage {
+                    self?.presenter.selectImages([image])
+                }
+            }
+        }
+        
+        group.notify(queue: .main) {
+//            self.collectionView.reloadData()
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let selectedImage = info[.originalImage] as? UIImage {
+            presenter.selectImages([selectedImage])
+//            collectionView.reloadData()
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

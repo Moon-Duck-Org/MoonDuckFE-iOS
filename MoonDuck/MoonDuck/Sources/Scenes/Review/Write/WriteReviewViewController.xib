@@ -26,6 +26,7 @@
                 <outlet property="categoryImageView" destination="PAJ-pE-fuI" id="NUh-75-UbF"/>
                 <outlet property="contentCountLabel" destination="kjt-v8-l7W" id="gUr-6N-eoE"/>
                 <outlet property="contentTextView" destination="lKm-Mc-73q" id="u32-RJ-nz6"/>
+                <outlet property="imageCollectionView" destination="msu-KU-4HD" id="qvn-Mc-SKh"/>
                 <outlet property="linkTextField" destination="JY6-xW-LBJ" id="bPW-ZK-rP9"/>
                 <outlet property="programSubTitleLabel" destination="O81-rq-1Yi" id="zcV-WR-ecB"/>
                 <outlet property="programTitleLabel" destination="CM1-Jk-Not" id="5aw-Jo-5Jc"/>
@@ -63,12 +64,11 @@
                                 <action selector="tapSaveButton:" destination="-1" eventType="touchUpInside" id="nTj-pG-HKx"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bI1-If-eKw">
-                            <rect key="frame" x="16" y="4" width="34" height="39"/>
-                            <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="18"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bI1-If-eKw">
+                            <rect key="frame" x="16" y="11.666666666666671" width="24" height="24"/>
                             <color key="tintColor" name="Black"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="취소">
+                            <state key="normal" image="Back">
                                 <color key="titleColor" name="Black"/>
                             </state>
                             <connections>
@@ -421,6 +421,7 @@
         </view>
     </objects>
     <resources>
+        <image name="Back" width="24" height="24"/>
         <image name="CategoryMovieRound" width="72" height="30"/>
         <image name="DoteRed" width="10" height="10"/>
         <image name="StarFillLarge" width="36" height="36"/>

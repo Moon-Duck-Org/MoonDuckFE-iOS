@@ -20,12 +20,21 @@ class ReviewService {
     }
     
     func putReview(request: PutReviewRequest, completion: @escaping (_ succeed: Review?, _ failed: Error?) -> Void) {
-        completion(Review(id: 0, title: "title", category: .movie, user: .init(userId: 0, nickname: "nickname"), content: "content", imageUrlList: [], score: 5, createdAt: "createdAt"), nil)
+        completion(nil, nil)
         
     }
     
-    func postReview(request: PostReviewRequest, completion: @escaping (_ succeed: Review?, _ failed: Error?) -> Void) {
-        completion(Review(id: 0, title: "title", category: .movie, user: .init(userId: 0, nickname: "nickname"), content: "content", imageUrlList: [], score: 5, createdAt: "createdAt"), nil)
+    func postReview(request: PostReviewRequest, images: [UIImage]?, completion: @escaping (_ succeed: Review?, _ failed: APIError?) -> Void) {
+        uploadMultipartFromData(.postReview(request, images), responseType: ReviewResponse.self) { result in
+            switch result {
+            case .success(let response):
+                Log.debug("rseponse \(response)")
+                let review = response.toDomain()
+                completion(review, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
+        }
         
     }
     
@@ -35,7 +44,33 @@ class ReviewService {
     }
     
     func reviewDetail(request: ReviewDetailRequest, completion: @escaping (_ succeed: Review?, _ failed: Error?) -> Void) {
-        completion(Review(id: 0, title: "title", category: .movie, user: .init(userId: 0, nickname: "nickname"), content: "content", imageUrlList: [], score: 5, createdAt: "createdAt"), nil)
+        completion(nil, nil)
     
+    }
+    
+    func uploadMultipartFromData<T: Decodable>(_ api: MoonDuckAPI, responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
+        do {
+            let multipartFormData = try api.asMultipartFormData()
+            let urlRequest = try api.asURLRequest()
+            
+            API.session.upload(multipartFormData: { multipartFormData }(), with: urlRequest)
+                .responseDecodable(of: responseType) { response in
+                    switch response.result {
+                    case .success(let decodedResponse):
+                        completion(.success(decodedResponse))
+                    case .failure(let error):
+                        if let data = response.data, let errorResponse = try? JSONDecoder().decode(ErrorEntity.self, from: data) {
+                            let apiError = APIError(error: errorResponse)
+                            completion(.failure(apiError))
+                        } else {
+                            completion(.failure(.unowned))
+                        }
+                    }
+                }
+        } catch let error as APIError {
+            completion(.failure(error))
+        } catch {
+            completion(.failure(.unowned))
+        }
     }
 }

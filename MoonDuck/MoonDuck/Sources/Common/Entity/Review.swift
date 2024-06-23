@@ -8,23 +8,23 @@
 import UIKit
 
 struct Review {
-    let id: Int
+    let id: Int?
     var title: String
     var category: Category
     let user: User
     var program: Program?
     var content: String
     var imageUrlList: [String]
-    var url: String?
-    var score: Int
+    var link: String?
+    var rating: Int
     let createdAt: String
     
     func getImageList() -> [UIImage] {
-        return [Asset.Assets.imageEmptyHome.image,
-                Asset.Assets.imageEmptyHome.image,
-                Asset.Assets.imageEmptyHome.image,
-                Asset.Assets.imageEmptyHome.image,
-                Asset.Assets.imageEmptyHome.image]
+        return [Asset.Assets.imageEmpty.image,
+                Asset.Assets.imageEmpty.image,
+                Asset.Assets.imageEmpty.image,
+                Asset.Assets.imageEmpty.image,
+                Asset.Assets.imageEmpty.image]
     }
     
     func getImage(at index: Int) -> UIImage? {
@@ -39,11 +39,5 @@ struct Review {
     struct User {
         let userId: Int
         let nickname: String
-    }
-    
-    struct Program {
-        let id: Int
-        let title: String
-        let date: String
     }
 }
