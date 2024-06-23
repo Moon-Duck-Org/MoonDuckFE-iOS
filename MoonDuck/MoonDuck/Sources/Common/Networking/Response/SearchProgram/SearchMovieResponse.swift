@@ -60,8 +60,16 @@ struct SearchMovieResponse: Codable {
             
             var date: String {
                 var str = ""
-                if let openDt, openDt.count > 3 {
-                    str = String(openDt.prefix(4))
+                if let openDt {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyyMMdd"
+
+                    if let date = dateFormatter.date(from: openDt) {
+                        // 다시 원하는 형식의 문자열로 포맷
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        let formattedDate = dateFormatter.string(from: date)
+                        str = formattedDate
+                    }
                 }
                 return str
             }

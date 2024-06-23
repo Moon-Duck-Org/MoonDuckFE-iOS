@@ -65,6 +65,8 @@ extension ProgramSearchViewPresenter {
     func viewDidLoad() {
         view?.createTouchEvent()
         view?.updateUserInputButton(false)
+        
+        view?.updateTextField(with: "\(model.category.title) 검색어 입력")
     }
     
     // MARK: - Action

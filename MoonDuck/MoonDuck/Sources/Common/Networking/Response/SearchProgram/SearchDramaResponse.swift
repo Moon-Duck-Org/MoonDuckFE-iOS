@@ -44,6 +44,15 @@ struct SearchDramaResponse: Codable {
             
             let title: String = originalName ?? ""
             
+            var genre: String {
+                var str = ""
+                if let genreIds {
+                    let list: [String] = genreIds.map { return self.genre($0) }.filter { $0.isNotEmpty }
+                    str = list.toSlashString(max: 2)
+                }
+                return str
+            }
+            
             var date: String {
                 var str = ""
                 if let firstAirDate, firstAirDate.count > 3 {
@@ -54,7 +63,30 @@ struct SearchDramaResponse: Codable {
             
             return Program(category: .drama,
                            title: title,
-                           date: date)
+                           date: date,
+                           genre: genre)
+        }
+        
+        private func genre(_ id: Int) -> String {
+            switch id {
+            case 10759: return "Action & Adventure"
+            case 16: return "애니메이션"
+            case 35: return "코미디"
+            case 80: return "범죄"
+            case 99: return "다큐멘터리"
+            case 18: return "드라마"
+            case 10751: return "가족"
+            case 10762: return "Kids"
+            case 9648: return "미스터리"
+            case 10763: return "News"
+            case 10764: return "Reality"
+            case 10765: return "Sci-Fi & Fantasy"
+            case 10766: return "Soap"
+            case 10767: return "Talk"
+            case 10768: return "War & Politics"
+            case 37: return "서부"
+            default: return ""
+            }
         }
     }
 }

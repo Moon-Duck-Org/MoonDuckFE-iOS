@@ -114,7 +114,7 @@ extension WriteReviewViewPresenter {
         view?.createTouchEvent()
         
         view?.updateCategory(model.program.category)
-        view?.updateProgramInfo(title: model.program.title, subTitle: model.program.getSubInfo())
+        view?.updateProgramInfo(title: model.program.title, subTitle: model.program.subInfo)
     }
     
     // MARK: - Action

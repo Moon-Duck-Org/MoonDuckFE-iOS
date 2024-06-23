@@ -20,10 +20,6 @@ class WriteImageCollectionViewCell: UICollectionViewCell {
         deleteButtonHandler?()
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     func configure(with image: UIImage, deleteImageHandler: (() -> Void)? = nil) {
         imageView.image = image
         imageView.contentMode = .scaleAspectFill
@@ -31,7 +27,7 @@ class WriteImageCollectionViewCell: UICollectionViewCell {
         
         self.deleteButtonHandler = deleteImageHandler
         
-        if let _ = deleteButtonHandler {
+        if deleteButtonHandler != nil {
             deleteButton.isHidden = false
         } else {
             deleteButton.isHidden = true

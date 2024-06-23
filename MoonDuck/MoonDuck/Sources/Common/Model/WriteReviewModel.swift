@@ -41,7 +41,7 @@ class WriteReviewModel: WriteReviewModelType {
     // MARK: - Networking
     func writeReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?) {
         let programRequest = ProgramRequest(program: program)
-        let request = PostReviewRequest(title: title, category: program.category.apiKey, program: programRequest, content: content, score: score, url: url)
+        let request = PostReviewRequest(title: title, category: program.category.apiKey, program: programRequest, content: content, url: url ?? "", score: score)
         
         provider.reviewService.postReview(request: request, images: images) { [weak self] succeed, failed in
             guard let self else { return }

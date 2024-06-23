@@ -37,9 +37,8 @@ struct PostReviewRequest: Codable {
     var category: String
     var program: ProgramRequest?
     var content: String
+    var url: String
     var score: Int
-    var url: String?
-//    var boardId: Int
 }
 
 struct ProgramRequest: Codable {

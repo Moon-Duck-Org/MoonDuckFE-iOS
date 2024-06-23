@@ -19,7 +19,7 @@ struct Program {
     var place: String? = nil
     var price: String? = nil
     
-    func getSubInfo() -> String {
+    var subInfo: String {
         switch self.category {
         case .movie:
             return getMovieInfo(with: self)
@@ -44,7 +44,8 @@ struct Program {
             subInfo += subInfo.isEmpty ? genre : " · \(genre)"
         }
         if let date = program.date, date.isNotEmpty {
-            subInfo += subInfo.isEmpty ? date : " · \(date)"
+            let strDate = date.prefix(4)
+            subInfo += subInfo.isEmpty ? strDate : " · \(strDate)"
         }
         
         return subInfo
@@ -60,7 +61,8 @@ struct Program {
             subInfo += subInfo.isEmpty ? publisher : " · \(publisher)"
         }
         if let date = program.date, date.isNotEmpty {
-            subInfo += subInfo.isEmpty ? date : " · \(date)"
+            let strDate = date.prefix(4)
+            subInfo += subInfo.isEmpty ? strDate : " · \(strDate)"
         }
         
         return subInfo
@@ -69,8 +71,12 @@ struct Program {
     private func getDramaInfo(with program: Program) -> String {
         
         var subInfo: String = ""
+        if let genre = program.genre, genre.isNotEmpty {
+            subInfo += subInfo.isEmpty ? genre : " · \(genre)"
+        }
         if let date = program.date, date.isNotEmpty {
-            subInfo += subInfo.isEmpty ? date : " · \(date)"
+            let strDate = date.prefix(4)
+            subInfo += subInfo.isEmpty ? strDate : " · \(strDate)"
         }
         return subInfo
     }

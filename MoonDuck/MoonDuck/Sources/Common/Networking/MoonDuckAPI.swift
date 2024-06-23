@@ -115,7 +115,7 @@ extension MoonDuckAPI: TargetType {
             return .query(request)
         case .searchConcert(let request):
             return .query(request)
-        case let .postReview(request, images):
+        case .postReview:
             return nil
             
         case .getReview(let request):
@@ -189,8 +189,9 @@ extension MoonDuckAPI: TargetType {
             // JSON 문자열을 멀티파트 폼 데이터에 추가
             let jsonObject = request.toDictionary()
             if let json = try? JSONSerialization.data(withJSONObject: jsonObject, options: []) {
-                if let jsonString = String(data: json, encoding: .utf8) {
-                    multipartFormData.append(jsonString.data(using: .unicode)!, withName: "boardDto", mimeType: "application/json")
+                if let jsonString = String(data: json, encoding: .utf8),
+                   let data = jsonString.data(using: .unicode) {
+                    multipartFormData.append(data, withName: "boardDto", mimeType: "application/json")
                 }
             }
         default: break
