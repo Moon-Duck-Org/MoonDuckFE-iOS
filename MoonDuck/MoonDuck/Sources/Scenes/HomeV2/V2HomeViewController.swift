@@ -22,7 +22,8 @@ class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
     private let categoryDataSource: HomeCategoryDataSource
     
     // @IBOutlet
-    @IBOutlet weak var categoryCollectioinView: UICollectionView!
+    @IBOutlet weak private var categoryCollectioinView: UICollectionView!
+    @IBOutlet weak private var reviewTableView: UIView!
     
     // @IBAction
     @IBAction private func tapMyButton(_ sender: Any) {

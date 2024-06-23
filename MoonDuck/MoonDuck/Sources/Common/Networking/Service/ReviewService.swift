@@ -14,8 +14,26 @@ class ReviewService {
         
     }
     
-    func reviewAll(request: ReviewAllRequest, completion: @escaping (_ succeed: [Review]?, _ failed: Error?) -> Void) {
-        completion([], nil)
+    func reviewAll(request: ReviewAllRequest, completion: @escaping (_ succeed: ReviewList?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.reviewAll(request))
+            .responseDecodable { (response: AFDataResponse<GetReviewResponse>) in
+                switch response.result {
+                case .success(let response):
+                    completion(response.toDomain(), nil)
+                case .failure(let error):
+                    if let errorData = response.data {
+                        do {
+                            let decodeError = try JSONDecoder().decode(ErrorEntity.self, from: errorData)
+                            let apiError = APIError(error: decodeError)
+                            completion(nil, apiError)
+                        } catch {
+                            completion(nil, APIError.decodingError)
+                        }
+                    } else {
+                        completion(nil, error)
+                    }
+                }
+            }
         
     }
     
@@ -28,7 +46,6 @@ class ReviewService {
         uploadMultipartFromData(.postReview(request, images), responseType: ReviewResponse.self) { result in
             switch result {
             case .success(let response):
-                Log.debug("rseponse \(response)")
                 let review = response.toDomain()
                 completion(review, nil)
             case .failure(let error):
@@ -58,7 +75,7 @@ class ReviewService {
                     switch response.result {
                     case .success(let decodedResponse):
                         completion(.success(decodedResponse))
-                    case .failure(let error):
+                    case .failure:
                         if let data = response.data, let errorResponse = try? JSONDecoder().decode(ErrorEntity.self, from: data) {
                             let apiError = APIError(error: errorResponse)
                             completion(.failure(apiError))

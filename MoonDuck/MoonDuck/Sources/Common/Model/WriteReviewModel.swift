@@ -50,7 +50,7 @@ class WriteReviewModel: WriteReviewModelType {
             } else {
                 // 오류 발생
                 if let code = failed {
-                    if code.isWriteReviewError {
+                    if code.isReviewError {
                         self.delegate?.writeReview(self, didRecieve: code)
                         return
                     } else if code.needsTokenRefresh {

@@ -24,6 +24,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="V2HomeViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
                 <outlet property="categoryCollectioinView" destination="dTc-CL-Im9" id="CSr-pc-qJa"/>
+                <outlet property="reviewTableView" destination="lZO-AC-av6" id="Pax-7s-dXp"/>
                 <outlet property="view" destination="EKg-iH-Kx3" id="CWf-yP-9un"/>
             </connections>
         </placeholder>

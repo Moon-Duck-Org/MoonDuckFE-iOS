@@ -13,8 +13,10 @@ protocol V2HomePresenter: AnyObject {
     /// Data
     var numberOfCategories: Int { get }
     var indexOfSelectedCategory: Int? { get }
+    var numberOfReviews: Int { get }
     
     func category(at index: Int) -> Category?
+    func review(at index: Int) -> Review?
     
     /// Life Cycle
     func viewDidLoad()
@@ -30,12 +32,15 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
     weak var view: V2HomeView?
     private let userModel: UserModelType
     private let categoryModel: CategoryModelType
+    private let reviewModel: HomeReviewModel
     
     init(with provider: AppServices,
          userModel: UserModelType,
-         categoryModel: CategoryModelType) {
+         categoryModel: CategoryModelType,
+         reviewModel: HomeReviewModel) {
         self.userModel = userModel
         self.categoryModel = categoryModel
+        self.reviewModel = reviewModel
         super.init(with: provider)
         self.userModel.delegate = self
         self.categoryModel.delegate = self
@@ -49,8 +54,20 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
         return categoryModel.indexOfSelectedCategory
     }
     
+    var numberOfReviews: Int {
+        return reviewModel.numberOfReviews
+    }
+    
     func category(at index: Int) -> Category? {
         return categoryModel.category(at: index)
+    }
+    
+    func review(at index: Int) -> Review? {
+        if index < reviewModel.numberOfReviews {
+            return reviewModel.reviews[index]
+        } else {
+            return nil
+        }
     }
 }
 

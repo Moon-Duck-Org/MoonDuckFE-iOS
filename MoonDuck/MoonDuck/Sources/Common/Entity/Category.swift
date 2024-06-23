@@ -65,6 +65,20 @@ enum Category: String {
         }
     }
     
+    var roundSmallImage: UIImage {
+        switch self {
+        case .movie:
+            return Asset.Assets.categoryMovieRound.image
+        case .book:
+            return Asset.Assets.categoryBookRound.image
+        case .drama:
+            return Asset.Assets.categoryDramaRound.image
+        case .concert:
+            return Asset.Assets.categoryConcertRound.image
+        default: return Asset.Assets.imageEmpty.image
+        }
+    }
+    
     var title: String {
         switch self {
         case .all:

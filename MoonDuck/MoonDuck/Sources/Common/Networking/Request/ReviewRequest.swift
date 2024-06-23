@@ -8,8 +8,9 @@
 import Foundation
 
 struct ReviewAllRequest: Codable {
-    var userId: Int
     var filter: String
+    var offset: Int
+    var size: Int
 }
 
 struct GetReviewRequest: Codable {

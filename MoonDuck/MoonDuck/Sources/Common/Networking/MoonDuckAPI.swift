@@ -18,8 +18,8 @@ enum MoonDuckAPI {
     case searchDrama(SearchDramaRequest)
     case searchConcert(SearchConcertRequest)
     case postReview(PostReviewRequest, [UIImage]?)
-    // TODO: - API 수정
     case reviewAll(ReviewAllRequest)
+    // TODO: - API 수정
     case getReview(GetReviewRequest)
     case putReview(PutReviewRequest)
     case deleteReview(DeleteReviewRequest)
@@ -88,10 +88,12 @@ extension MoonDuckAPI: TargetType {
         case .searchConcert(let request):
             return "/\(request.key)/\(request.type)/\(request.service)/\(request.startIndex)/\(request.endIndex)/\(request.codename)/\(request.title)/\(request.date)"
             
-        case .getReview, .putReview, .postReview, .deleteReview:
-            return "/api/review"
+            // Review 전체 리스트
         case .reviewAll:
             return "/api/review/all"
+            
+        case .getReview, .putReview, .postReview, .deleteReview:
+            return "/api/review"
         case .reviewDetail:
             return "/api/review/detail"
         }
@@ -117,10 +119,10 @@ extension MoonDuckAPI: TargetType {
             return .query(request)
         case .postReview:
             return nil
+        case .reviewAll(let request):
+            return .query(request)
             
         case .getReview(let request):
-            return .query(request)
-        case .reviewAll(let request):
             return .query(request)
         case .putReview(let request):
             return .body(request)
@@ -146,7 +148,7 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .authLogin, .authReissue:
             return ["Content-Type": "application/json"]
-        case .user, .userNickname:
+        case .user, .userNickname, .reviewAll:
             if let token: String = AuthManager.default.getAccessToken() {
                 return ["Content-Type": "application/json",
                         "Authorization": "Bearer \(token)"]

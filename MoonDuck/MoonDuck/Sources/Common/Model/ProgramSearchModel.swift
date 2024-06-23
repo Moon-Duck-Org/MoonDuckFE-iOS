@@ -13,21 +13,20 @@ protocol ProgramSearchModelDelegate: AnyObject {
 }
 
 protocol ProgramSearchModelType: AnyObject {
+    // Data
     var delegate: ProgramSearchModelDelegate? { get set }
     var category: Category { get }
     var lastSearchText: String { get }
     var numberOfPrograms: Int { get }
     var programs: [Program] { get }
     
+    // Networking
     func search(_ text: String)
 }
 
 class ProgramSearchModel: ProgramSearchModelType {
     
-    weak var delegate: ProgramSearchModelDelegate?
-    
     private let provider: AppServices
-    var category: Category
     
     private var currentPage: Int = 1
     private var itemPerPage: Int = 30
@@ -41,6 +40,9 @@ class ProgramSearchModel: ProgramSearchModelType {
     }
     
     // MARK: - Data
+    weak var delegate: ProgramSearchModelDelegate?
+    var category: Category
+    
     var numberOfPrograms: Int {
         return programs.count
     }
@@ -51,6 +53,7 @@ class ProgramSearchModel: ProgramSearchModelType {
         }
     }
     
+    // MARK: - Logic
     private func save(_ programs: [Program]) {
         self.programs = programs
     }
