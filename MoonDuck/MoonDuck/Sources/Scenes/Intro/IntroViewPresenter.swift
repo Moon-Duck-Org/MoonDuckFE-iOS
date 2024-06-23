@@ -64,7 +64,8 @@ extension IntroViewPresenter {
 extension IntroViewPresenter: UserModelDelegate {
     func user(_ model: UserModel, didChange user: User) {
         // User 정보 조회 성공
-        let presenter = V2HomeViewPresenter(with: provider, userModel: model)
+        let cateogryModel = CategoryModel()
+        let presenter = V2HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel)
         view?.moveHome(with: presenter)
     }
     

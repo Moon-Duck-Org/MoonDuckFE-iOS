@@ -8,6 +8,10 @@
 import UIKit
 
 protocol V2HomeView: BaseView {
+    // UI Logic
+    func reloadCategories()
+    
+    // Navigation
     func moveMy(with presenter: MyInfoPresenter)
     func moveSelectProgram(with presenter: SelectProgramPresenter)
 }
@@ -15,8 +19,10 @@ protocol V2HomeView: BaseView {
 class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
     var navigator: Navigator?
     let presenter: V2HomePresenter
+    private let categoryDataSource: HomeCategoryDataSource
     
     // @IBOutlet
+    @IBOutlet weak var categoryCollectioinView: UICollectionView!
     
     // @IBAction
     @IBAction private func tapMyButton(_ sender: Any) {
@@ -32,6 +38,7 @@ class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
          presenter: V2HomePresenter) {
         self.navigator = navigator
         self.presenter = presenter
+        self.categoryDataSource = HomeCategoryDataSource(presenter: self.presenter)
         super.init(nibName: V2HomeViewController.className, bundle: Bundle(for: V2HomeViewController.self))
     }
     
@@ -42,12 +49,17 @@ class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.view = self
+        presenter.viewDidLoad()
         
+        categoryDataSource.configure(with: categoryCollectioinView)
     }
 }
 
 // MARK: - UI Logic
 extension V2HomeViewController {
+    func reloadCategories() {
+        categoryCollectioinView.reloadData()
+    }
     
 }
 

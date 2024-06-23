@@ -11,6 +11,9 @@
 		5EEE2DF6C73F533BFA556AD2 /* Pods_MoonDuck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31889ED7FB1E6AAD97B6990E /* Pods_MoonDuck.framework */; };
 		A07826AC2BFFAB6300D7BA63 /* BoardListTvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07826AB2BFFAB6300D7BA63 /* BoardListTvCell.xib */; };
 		A07826AD2BFFAB6300D7BA63 /* BoardListTvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07826AA2BFFAB6300D7BA63 /* BoardListTvCell.swift */; };
+		A0A633662C285D9200744694 /* HomeCategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633652C285D9200744694 /* HomeCategoryDataSource.swift */; };
+		A0A6336A2C2862E600744694 /* HomeCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0A633692C2862E600744694 /* HomeCategoryCollectionViewCell.xib */; };
+		A0A6336B2C2862E600744694 /* HomeCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633682C2862E600744694 /* HomeCategoryCollectionViewCell.swift */; };
 		A0E657FB2BFE22B7001A8D54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E657FA2BFE22B7001A8D54 /* AppDelegate.swift */; };
 		A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E657FC2BFE22B7001A8D54 /* SceneDelegate.swift */; };
 		A0E658022BFE22B7001A8D54 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A0E658012BFE22B7001A8D54 /* Base */; };
@@ -169,6 +172,9 @@
 		812049C204C639AFB27ABED3 /* Pods-MoonDuckTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuckTests.release.xcconfig"; path = "Target Support Files/Pods-MoonDuckTests/Pods-MoonDuckTests.release.xcconfig"; sourceTree = "<group>"; };
 		A07826AA2BFFAB6300D7BA63 /* BoardListTvCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListTvCell.swift; sourceTree = "<group>"; };
 		A07826AB2BFFAB6300D7BA63 /* BoardListTvCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardListTvCell.xib; sourceTree = "<group>"; };
+		A0A633652C285D9200744694 /* HomeCategoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryDataSource.swift; sourceTree = "<group>"; };
+		A0A633682C2862E600744694 /* HomeCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		A0A633692C2862E600744694 /* HomeCategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		A0E657F72BFE22B7001A8D54 /* MoonDuck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonDuck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E657FA2BFE22B7001A8D54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0E657FC2BFE22B7001A8D54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -368,6 +374,15 @@
 				EAD9575E2C002384001FB6E1 /* BoardListTvDataSource.swift */,
 			);
 			path = DataSource;
+			sourceTree = "<group>";
+		};
+		A0A633672C2862A800744694 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A0A633682C2862E600744694 /* HomeCategoryCollectionViewCell.swift */,
+				A0A633692C2862E600744694 /* HomeCategoryCollectionViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		A0E657EE2BFE22B6001A8D54 = {
@@ -596,10 +611,11 @@
 		EA61048B2C14755C00CAC460 /* HomeV2 */ = {
 			isa = PBXGroup;
 			children = (
-				EAF78EFC2C147CD100EFBCB0 /* DataSource */,
+				A0A633672C2862A800744694 /* Cell */,
 				EA61048C2C14756F00CAC460 /* V2HomeViewController.swift */,
 				EA6379E32BFF33C500464A19 /* V2HomeViewController.xib */,
 				EAF78EFA2C14762400EFBCB0 /* V2HomeViewPresenter.swift */,
+				A0A633652C285D9200744694 /* HomeCategoryDataSource.swift */,
 			);
 			path = HomeV2;
 			sourceTree = "<group>";
@@ -786,13 +802,6 @@
 			path = Edit;
 			sourceTree = "<group>";
 		};
-		EAF78EFC2C147CD100EFBCB0 /* DataSource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DataSource;
-			sourceTree = "<group>";
-		};
 		EAF78EFD2C14806A00EFBCB0 /* My */ = {
 			isa = PBXGroup;
 			children = (
@@ -945,6 +954,7 @@
 				A0E658322BFE300D001A8D54 /* Color.xcassets in Resources */,
 				EAF78F012C14813800EFBCB0 /* MyInfoViewController.xib in Resources */,
 				A0E658432BFE36A5001A8D54 /* NotoSansMonoCJKkr-Bold.otf in Resources */,
+				A0A6336A2C2862E600744694 /* HomeCategoryCollectionViewCell.xib in Resources */,
 				EAA914F32C02D63100A98950 /* ReviewImageCvCell.xib in Resources */,
 				EA5758EE2C154E5400E80050 /* SelectProgramViewController.xib in Resources */,
 				A07826AC2BFFAB6300D7BA63 /* BoardListTvCell.xib in Resources */,
@@ -1168,6 +1178,7 @@
 				EAD9576D2C008ED5001FB6E1 /* LoginViewController.swift in Sources */,
 				EA7C07362C2029C800563264 /* SearchConcertResponse.swift in Sources */,
 				EA96A9622C1D54C00010AB60 /* WriteReviewViewPresenter.swift in Sources */,
+				A0A633662C285D9200744694 /* HomeCategoryDataSource.swift in Sources */,
 				EA5758ED2C154E5400E80050 /* SelectProgramViewController.swift in Sources */,
 				EA9A84452C00E306004B7FDF /* APIEventLogger.swift in Sources */,
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,
@@ -1175,6 +1186,7 @@
 				EAB6E6632C1845F700A9E191 /* ProgramSearchDataSource.swift in Sources */,
 				EA5758F72C1559C300E80050 /* SelectCategoryDataSource.swift in Sources */,
 				EA810A362C17253F00DF6C72 /* ProgramSearchViewController.swift in Sources */,
+				A0A6336B2C2862E600744694 /* HomeCategoryCollectionViewCell.swift in Sources */,
 				EAD957702C0094A1001FB6E1 /* LoginViewPresenter.swift in Sources */,
 				EA5EA0BA2C00F6D70041A8B4 /* TextField.swift in Sources */,
 				EAE017D12C01935700699145 /* ReviewService.swift in Sources */,
