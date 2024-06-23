@@ -119,6 +119,7 @@ extension WriteReviewViewPresenter {
     
     // MARK: - Action
     func tapSaveButton() {
+        view?.updateLoadingView(true)
         var title: String = ""
         var content: String = ""
         var score: Int = 0
@@ -126,6 +127,7 @@ extension WriteReviewViewPresenter {
         if let titleText, titleText.isNotEmpty {
             title = titleText
         } else {
+            view?.updateLoadingView(false)
             view?.showToast("제목을 입력해주세요.")
             return
         }
@@ -133,6 +135,7 @@ extension WriteReviewViewPresenter {
         if let contentText, contentText.isNotEmpty {
             content = contentText
         } else {
+            view?.updateLoadingView(false)
             view?.showToast("내용을 입력해주세요.")
             return
         }
@@ -140,6 +143,7 @@ extension WriteReviewViewPresenter {
         if rating > 0 {
             score = rating
         } else {
+            view?.updateLoadingView(false)
             view?.showToast("별점을 입력해주세요.")
             return
         }
@@ -227,10 +231,12 @@ extension WriteReviewViewPresenter {
 // MARK: - WriteReviewModelDelegate
 extension WriteReviewViewPresenter: WriteReviewModelDelegate {
     func writeReview(_ model: WriteReviewModel, didSuccess review: Review) {
+        view?.updateLoadingView(false)
         view?.backToHome()
     }
     
     func writeReview(_ model: WriteReviewModel, didRecieve error: APIError?) {
+        view?.updateLoadingView(false)
         view?.showToast(error?.errorDescription ?? error?.localizedDescription ?? "리뷰 작성 오류 발생")
     }
 }
