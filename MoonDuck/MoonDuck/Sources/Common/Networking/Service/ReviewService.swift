@@ -25,7 +25,7 @@ class ReviewService {
     }
     
     func postReview(request: PostReviewRequest, images: [UIImage]?, completion: @escaping (_ succeed: Review?, _ failed: APIError?) -> Void) {
-        uploadImagesAndDTO(.postReview(request, images), responseType: ReviewResponse.self) { result in
+        uploadMultipartFromData(.postReview(request, images), responseType: ReviewResponse.self) { result in
             switch result {
             case .success(let response):
                 Log.debug("rseponse \(response)")
@@ -48,7 +48,7 @@ class ReviewService {
     
     }
     
-    func uploadImagesAndDTO<T: Decodable>(_ api: MoonDuckAPI, responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
+    func uploadMultipartFromData<T: Decodable>(_ api: MoonDuckAPI, responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
         do {
             let multipartFormData = try api.asMultipartFormData()
             let urlRequest = try api.asURLRequest()

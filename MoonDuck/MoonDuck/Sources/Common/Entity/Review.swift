@@ -20,11 +20,11 @@ struct Review {
     let createdAt: String
     
     func getImageList() -> [UIImage] {
-        return [Asset.Assets.imageEmptyHome.image,
-                Asset.Assets.imageEmptyHome.image,
-                Asset.Assets.imageEmptyHome.image,
-                Asset.Assets.imageEmptyHome.image,
-                Asset.Assets.imageEmptyHome.image]
+        return [Asset.Assets.imageEmpty.image,
+                Asset.Assets.imageEmpty.image,
+                Asset.Assets.imageEmpty.image,
+                Asset.Assets.imageEmpty.image,
+                Asset.Assets.imageEmpty.image]
     }
     
     func getImage(at index: Int) -> UIImage? {

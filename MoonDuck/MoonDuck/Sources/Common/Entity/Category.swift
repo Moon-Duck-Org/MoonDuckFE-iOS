@@ -47,7 +47,7 @@ enum Category: String {
             return Asset.Assets.categoryDramaGray.image
         case .concert:
             return Asset.Assets.categoryConcertGray.image
-        default: return Asset.Assets.imageEmptyHome.image
+        default: return Asset.Assets.imageEmpty.image
         }
     }
     
@@ -61,7 +61,7 @@ enum Category: String {
             return Asset.Assets.categoryDramaRound.image
         case .concert:
             return Asset.Assets.categoryConcertRound.image
-        default: return Asset.Assets.imageEmptyHome.image
+        default: return Asset.Assets.imageEmpty.image
         }
     }
     

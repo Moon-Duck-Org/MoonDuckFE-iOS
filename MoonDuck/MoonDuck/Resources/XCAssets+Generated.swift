@@ -59,7 +59,7 @@ internal enum Asset {
     internal static let starLarge = ImageAsset(name: "StarLarge")
     internal static let starSmall = ImageAsset(name: "StarSmall")
     internal static let imageAdd = ImageAsset(name: "ImageAdd")
-    internal static let imageEmptyHome = ImageAsset(name: "ImageEmptyHome")
+    internal static let imageEmpty = ImageAsset(name: "ImageEmpty")
     internal static let logo = ImageAsset(name: "Logo")
     internal static let logoGray = ImageAsset(name: "LogoGray")
     internal static let logoLogin = ImageAsset(name: "LogoLogin")

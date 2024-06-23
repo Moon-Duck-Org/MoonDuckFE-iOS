@@ -26,6 +26,7 @@
                 <outlet property="categoryImageView" destination="PAJ-pE-fuI" id="NUh-75-UbF"/>
                 <outlet property="contentCountLabel" destination="kjt-v8-l7W" id="gUr-6N-eoE"/>
                 <outlet property="contentTextView" destination="lKm-Mc-73q" id="u32-RJ-nz6"/>
+                <outlet property="imageCollectionView" destination="msu-KU-4HD" id="qvn-Mc-SKh"/>
                 <outlet property="linkTextField" destination="JY6-xW-LBJ" id="bPW-ZK-rP9"/>
                 <outlet property="programSubTitleLabel" destination="O81-rq-1Yi" id="zcV-WR-ecB"/>
                 <outlet property="programTitleLabel" destination="CM1-Jk-Not" id="5aw-Jo-5Jc"/>

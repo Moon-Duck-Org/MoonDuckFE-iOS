@@ -6,11 +6,18 @@
 //
 
 import Foundation
+import PhotosUI
+import UIKit
 
 protocol WriteReviewPresenter: AnyObject {
     var view: WriteReviewView? { get set }
     
     // Data
+    var numberOfImagesSelectLimit: Int { get }
+    var numberOfImages: Int { get }
+    
+    func image(at index: Int) -> UIImage
+    func deleteImageHandler(at index: Int) -> (() -> Void)?
     
     // Life Cycle
     func viewDidLoad()
@@ -18,6 +25,8 @@ protocol WriteReviewPresenter: AnyObject {
     // Action
     func tapSaveButton()
     func tapRatingButton(at tag: Int)
+    func selectImages(_ images: [UIImage])
+    func selectImage(at index: Int)
     
     // TextField Delegate
     func titleTextFieldEditingChanged(_ text: String?)
@@ -39,6 +48,7 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     private struct Config {
         let maxTitleCount = 40
         let maxContentCount = 500
+        let maxImageCount = 5
     }
     
     private let config: Config = Config()
@@ -50,11 +60,49 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
         }
     }
     private var linkText: String?
+    private var images: [UIImage] = [] {
+        didSet {
+            view?.reloadImages()
+        }
+    }
+    private var addImage: UIImage = Asset.Assets.imageAdd.image
     
     init(with provider: AppServices, model: WriteReviewModelType) {
         self.model = model
         super.init(with: provider)
         self.model.delegate = self
+    }
+    
+    // MARK: - Data
+    var numberOfImagesSelectLimit: Int {
+        return config.maxImageCount - images.count
+    }
+    
+    var numberOfImages: Int {
+        if images.count == 0 {
+            return 1
+        } else if images.count == config.maxImageCount {
+            return config.maxImageCount
+        } else {
+            return images.count + 1
+        }
+    }
+    
+    func image(at index: Int) -> UIImage {
+        if index < images.count {
+            return images[index]
+        } else {
+            return addImage
+        }
+    }
+    
+    func deleteImageHandler(at index: Int) -> (() -> Void)? {
+        if index < images.count {
+            return { [weak self] in
+                self?.deleteButton(at: index)
+            }
+        }
+        return nil
     }
 
 }
@@ -97,7 +145,7 @@ extension WriteReviewViewPresenter {
         }
         
         // TODO: 기록 작성 API 연결
-        model.writeReview(title: title, content: content, score: score, url: linkText, images: nil)
+        model.writeReview(title: title, content: content, score: score, url: linkText, images: images)
     }
     
     func tapRatingButton(at tag: Int) {
@@ -105,7 +153,22 @@ extension WriteReviewViewPresenter {
         rating = tag
     }
     
+    func selectImages(_ images: [UIImage]) {
+        self.images.append(contentsOf: images)
+    }
+    
+    func selectImage(at index: Int) {
+        if index < images.count {
+            // TODO: - 크게 보기 연동?
+        } else {
+            view?.showSelectImageSheet()
+        }
+    }
+    
     // MARK: - Logic
+    private func deleteButton(at index: Int) {
+        images.remove(at: index)
+    }
     
 }
 
