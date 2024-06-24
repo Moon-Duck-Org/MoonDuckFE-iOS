@@ -32,7 +32,7 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
     weak var view: V2HomeView?
     private let userModel: UserModelType
     private let categoryModel: CategoryModelType
-    private let reviewModel: HomeReviewModel
+    private let reviewModel: HomeReviewModelType
     
     init(with provider: AppServices,
          userModel: UserModelType,
@@ -90,9 +90,11 @@ extension V2HomeViewPresenter {
     
     func tapWriteNewReviewButton() {
         let model = CategoryModel()
-        let presenter = SelectProgramViewPresenter(with: provider, categoryModel: model)
+        let presenter = SelectProgramViewPresenter(with: provider, categoryModel: model, delegate: self)
         view?.moveSelectProgram(with: presenter)
     }
+    
+    // MARK: - Logic
 }
 
 // MARK: - UserModelDelegate
@@ -129,12 +131,31 @@ extension V2HomeViewPresenter: CategoryModelDelegate {
 
 // MARK: - HomeReviewModelDelegate
 extension V2HomeViewPresenter: HomeReviewModelDelegate {
-    func homeReview(_ model: HomeReviewModel, didSuccess reviews: [Review]) {
-        view?.updateEmptyReviewsView(reviews.isEmpty)
+    func homeReview(_ model: HomeReviewModel, didSuccess reviews: [Review], isRefresh: Bool) {
         view?.reloadReviews()
+        if isRefresh {
+            view?.updateEmptyReviewsView(reviews.isEmpty)
+            view?.updateReviewCount("\(reviews.count)")
+//            view?.scrollToTopReviews()
+        }
     }
     
     func homeReview(_ model: HomeReviewModel, didRecieve error: APIError?) {
         view?.showToast(error?.errorDescription ?? error?.localizedDescription ?? "오류 발생")
+    }
+}
+
+// MARK: - WriteReviewPresenterDelegate
+extension V2HomeViewPresenter: WriteReviewPresenterDelegate {
+    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review) {
+        view?.popToSelf()
+        
+        if let category = categoryModel.selectedCategory {
+            reviewModel.getReviews(with: category, filter: Sort.latestOrder)
+        }
+    }
+    
+    func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
+        view?.popToSelf()
     }
 }

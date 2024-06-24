@@ -55,16 +55,16 @@ class HomeReviewTableViewCell: UITableViewCell {
         
         contentLabel.text = review.content
         
+        imageDataSource = ReviewImageDataSource(review: review)
+        imageDataSource?.configure(with: imageCollectionView)
+        imageCollectionView.reloadData()
+        
         if review.imageUrlList.count > 0 {
             imageCollectionView.isHidden = false
             imageHeightConstraint.constant = 181
-            imageDataSource = ReviewImageDataSource(review: review)
-            imageDataSource?.configure(with: imageCollectionView)
-            imageCollectionView.reloadData()
         } else {
             imageCollectionView.isHidden = true
             imageHeightConstraint.constant = 0
-            imageDataSource = nil
         }
         
         if let link = review.link, link.isNotEmpty {

@@ -13,27 +13,32 @@ class ReviewImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var imageView: UIImageView!
     
     func configure(with imageUrl: String) {
-        if let url = URL(string: imageUrl) {
-            imageView.kf.setImage(
-                with: url,
-                placeholder: Asset.Assets.imageEmpty.image,
-                options: [
-                    .transition(.fade(0.2)),
-                    .cacheOriginalImage
-                ],
-                completionHandler: { [weak self] _ in
-                    self?.imageView.contentMode = .scaleAspectFill
-                    self?.imageView.roundCornersAndAddBorder(radius: 12.0)
+        
+        let url = URL(string: imageUrl)
+        imageView.kf.setImage(
+            with: url,
+            placeholder: Asset.Assets.imageEmpty.image,
+            options: [
+                .transition(.fade(0.2))
+            ],
+            completionHandler: { [weak self] result in
+                Log.debug("result \(result) \(imageUrl)")
+                switch result {
+                case .success(let value):
+                    print(value.source)
+                case .failure(let error):
+                    print(error) // The error happens
+                    self?.imageView.image = Asset.Assets.imageEmpty.image
                 }
-            )
-        } else {
-            imageView.image = Asset.Assets.imageEmpty.image
-            imageView.contentMode = .scaleAspectFill
-            imageView.roundCornersAndAddBorder(radius: 12.0)
-        }
+                self?.imageView.clipsToBounds = true
+                self?.imageView.contentMode = .scaleAspectFill
+                self?.roundCornersAndAddBorder(radius: 12.0)
+            }
+        )
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
     }
 }

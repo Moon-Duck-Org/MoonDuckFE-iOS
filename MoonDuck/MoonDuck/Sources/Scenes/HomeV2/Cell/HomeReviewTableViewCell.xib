@@ -37,12 +37,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1y-Ao-lFj" customClass="CellButton" customModule="MoonDuck" customModuleProvider="target">
-                                <rect key="frame" x="330" y="19.666666666666671" width="34" height="34"/>
+                                <rect key="frame" x="330" y="7" width="34" height="34"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="More" translatesAutoresizingMaskIntoConstraints="NO" id="GAM-XF-0Hz">
-                                <rect key="frame" x="335" y="24.666666666666671" width="24" height="24"/>
+                                <rect key="frame" x="335" y="12" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="QOS-1q-YVF"/>
                                     <constraint firstAttribute="width" constant="24" id="ZM9-Yf-Xtb"/>
@@ -58,6 +58,7 @@
                         <color key="backgroundColor" name="White"/>
                         <constraints>
                             <constraint firstItem="Q1y-Ao-lFj" firstAttribute="bottom" secondItem="GAM-XF-0Hz" secondAttribute="bottom" constant="5" id="1oT-no-YgY"/>
+                            <constraint firstItem="GAM-XF-0Hz" firstAttribute="top" secondItem="iqt-71-Ihb" secondAttribute="top" constant="2" id="2kI-Xn-Jzs"/>
                             <constraint firstItem="GAM-XF-0Hz" firstAttribute="leading" secondItem="iqt-71-Ihb" secondAttribute="trailing" constant="6" id="4Mz-4m-c5n"/>
                             <constraint firstAttribute="trailing" secondItem="GAM-XF-0Hz" secondAttribute="trailing" constant="16" id="4T4-2i-TGq"/>
                             <constraint firstItem="Q1y-Ao-lFj" firstAttribute="leading" secondItem="GAM-XF-0Hz" secondAttribute="leading" constant="-5" id="5di-hF-mSG"/>
@@ -67,7 +68,6 @@
                             <constraint firstAttribute="bottom" secondItem="Pnv-lg-uEy" secondAttribute="bottom" constant="9" id="Vhb-NS-b8n"/>
                             <constraint firstItem="Pnv-lg-uEy" firstAttribute="leading" secondItem="iqt-71-Ihb" secondAttribute="leading" id="Yj7-st-8lg"/>
                             <constraint firstItem="iqt-71-Ihb" firstAttribute="leading" secondItem="aJi-DQ-ihJ" secondAttribute="leading" constant="16" id="kcO-Hc-ash"/>
-                            <constraint firstItem="GAM-XF-0Hz" firstAttribute="centerY" secondItem="iqt-71-Ihb" secondAttribute="centerY" id="qXg-Oa-FXf"/>
                             <constraint firstItem="Q1y-Ao-lFj" firstAttribute="top" secondItem="GAM-XF-0Hz" secondAttribute="top" constant="-5" id="vbw-Tu-ku7"/>
                             <constraint firstItem="iqt-71-Ihb" firstAttribute="top" secondItem="aJi-DQ-ihJ" secondAttribute="top" constant="10" id="vlf-QW-CrS"/>
                         </constraints>

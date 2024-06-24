@@ -25,6 +25,7 @@
             <connections>
                 <outlet property="categoryCollectioinView" destination="dTc-CL-Im9" id="CSr-pc-qJa"/>
                 <outlet property="emptyReviewsView" destination="lZO-AC-av6" id="pgf-vJ-Y5t"/>
+                <outlet property="reviewCountLabel" destination="YBa-HC-796" id="s5I-iX-NdE"/>
                 <outlet property="reviewTableView" destination="IeJ-hE-v5h" id="YdG-nC-q4W"/>
                 <outlet property="view" destination="EKg-iH-Kx3" id="CWf-yP-9un"/>
             </connections>

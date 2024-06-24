@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HomeReviewModelDelegate: AnyObject {
-    func homeReview(_ model: HomeReviewModel, didSuccess reviews: [Review])
+    func homeReview(_ model: HomeReviewModel, didSuccess reviews: [Review], isRefresh: Bool)
     func homeReview(_ model: HomeReviewModel, didRecieve error: APIError?)
     
 }
@@ -41,16 +41,11 @@ class HomeReviewModel: HomeReviewModelType {
         return reviews.count
     }
     
-    var reviews: [Review] = [] {
-        didSet {
-            delegate?.homeReview(self, didSuccess: reviews)
-        }
-    }
-    
+    var reviews: [Review] = []
     // MARK: - Logic
-    private func save(_ reviews: [Review]) {
-        self.reviews = reviews
-    }
+//    private func save(_ reviews: [Review]) {
+//        self.reviews = reviews
+//    }
     
     // MARK: - Networking
     func getReviews(with category: Category, filter: Sort) {
@@ -68,7 +63,8 @@ class HomeReviewModel: HomeReviewModelType {
             if let succeed {
                 // 검색 성공
 //                self.offset += 1
-                self.save(succeed.reviews)
+                self.reviews = succeed.reviews
+                self.delegate?.homeReview(self, didSuccess: self.reviews, isRefresh: true)
             } else {
                 // 오류 발생
                 if let code = failed as? APIError {

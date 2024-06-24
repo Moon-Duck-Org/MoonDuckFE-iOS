@@ -11,11 +11,14 @@ protocol V2HomeView: BaseView {
     // UI Logic
     func reloadCategories()
     func reloadReviews()
+    func updateReviewCount(_ count: String)
     func updateEmptyReviewsView(_ isEmpty: Bool)
+    func scrollToTopReviews()
     
     // Navigation
     func moveMy(with presenter: MyInfoPresenter)
     func moveSelectProgram(with presenter: SelectProgramPresenter)
+    func popToSelf()
 }
 
 class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
@@ -26,6 +29,7 @@ class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
     
     // @IBOutlet
     @IBOutlet weak private var categoryCollectioinView: UICollectionView!
+    @IBOutlet weak private var reviewCountLabel: UILabel!
     @IBOutlet weak private var reviewTableView: UITableView!
     @IBOutlet weak private var emptyReviewsView: UIView!
     
@@ -72,8 +76,18 @@ extension V2HomeViewController {
         reviewTableView.reloadData()
     }
     
+    func updateReviewCount(_ count: String) {
+        reviewCountLabel.text = count
+    }
+    
     func updateEmptyReviewsView(_ isEmpty: Bool) {
         emptyReviewsView.isHidden = !isEmpty
+    }
+
+    func scrollToTopReviews() {
+        DispatchQueue.main.async {
+            self.reviewTableView.setContentOffset(CGPoint(x: 0, y: -self.reviewTableView.contentInset.top), animated: true)
+        }
     }
 }
 
@@ -85,5 +99,9 @@ extension V2HomeViewController {
     
     func moveSelectProgram(with presenter: SelectProgramPresenter) {
         navigator?.show(seque: .selectProgram(presenter: presenter), sender: self, transition: .navigation, animated: true)
+    }
+    
+    func popToSelf() {
+        navigator?.pop(sender: self, popType: .popToSelf, animated: true)
     }
 }
