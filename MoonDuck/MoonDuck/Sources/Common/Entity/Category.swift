@@ -68,13 +68,13 @@ enum Category: String {
     var roundSmallImage: UIImage {
         switch self {
         case .movie:
-            return Asset.Assets.categoryMovieRound.image
+            return Asset.Assets.categoryMovieRoundSmall.image
         case .book:
-            return Asset.Assets.categoryBookRound.image
+            return Asset.Assets.categoryBookRoundSmall.image
         case .drama:
-            return Asset.Assets.categoryDramaRound.image
+            return Asset.Assets.categoryDramaRoundSmall.image
         case .concert:
-            return Asset.Assets.categoryConcertRound.image
+            return Asset.Assets.categoryConcertRoundSmall.image
         default: return Asset.Assets.imageEmpty.image
         }
     }

@@ -8,6 +8,9 @@
 import UIKit
 
 class HomeReviewTableViewCell: UITableViewCell {
+    private var imageDataSource: ReviewImageDataSource?
+    
+    // @IBOutlet
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var dateLabel: UILabel!
     
@@ -55,15 +58,19 @@ class HomeReviewTableViewCell: UITableViewCell {
         if review.imageUrlList.count > 0 {
             imageCollectionView.isHidden = false
             imageHeightConstraint.constant = 181
+            imageDataSource = ReviewImageDataSource(review: review)
+            imageDataSource?.configure(with: imageCollectionView)
+            imageCollectionView.reloadData()
         } else {
             imageCollectionView.isHidden = true
             imageHeightConstraint.constant = 0
+            imageDataSource = nil
         }
         
         if let link = review.link, link.isNotEmpty {
             linkLabel.text = link
             linkLabel.isHidden = false
-            linkHeightContraint.constant = 48
+            linkHeightContraint.constant = 34
         } else {
             linkLabel.text = ""
             linkLabel.isHidden = true

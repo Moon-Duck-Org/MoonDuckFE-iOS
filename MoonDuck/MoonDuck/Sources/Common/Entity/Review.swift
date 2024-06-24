@@ -18,24 +18,7 @@ struct Review {
     var link: String?
     var rating: Int
     let createdAt: String
-    
-    func getImageList() -> [UIImage] {
-        return [Asset.Assets.imageEmpty.image,
-                Asset.Assets.imageEmpty.image,
-                Asset.Assets.imageEmpty.image,
-                Asset.Assets.imageEmpty.image,
-                Asset.Assets.imageEmpty.image]
-    }
-    
-    func getImage(at index: Int) -> UIImage? {
-        let list = getImageList()
-        if list.count > index {
-            return list[index]
-        } else {
-            return nil
-        }
-    }
-    
+        
     struct User {
         let userId: Int
         let nickname: String

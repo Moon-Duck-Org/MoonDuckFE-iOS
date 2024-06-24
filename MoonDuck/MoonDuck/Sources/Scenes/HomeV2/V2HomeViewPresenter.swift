@@ -44,6 +44,7 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
         super.init(with: provider)
         self.userModel.delegate = self
         self.categoryModel.delegate = self
+        self.reviewModel.delegate = self
     }
     // MARK: - Data
     var numberOfCategories: Int {
@@ -111,11 +112,29 @@ extension V2HomeViewPresenter: UserModelDelegate {
 
 // MARK: - CategoryModelDelegate
 extension V2HomeViewPresenter: CategoryModelDelegate {
-    func category(_ reviewCategoryModel: CategoryModel, didChange categories: [Category]) {
-        view?.reloadCategories()
+    func category(_ model: CategoryModel, didChange categories: [Category]) {
+        if categories.count > 0 {
+            model.selectCategory(0)
+        }
     }
     
-    func category(_ reviewCategoryModel: CategoryModel, didSelect index: Int?) {
+    func category(_ model: CategoryModel, didSelect index: Int?) {
         view?.reloadCategories()
+        
+        if let category = model.selectedCategory {
+            reviewModel.getReviews(with: category, filter: Sort.latestOrder)
+        }
+    }
+}
+
+// MARK: - HomeReviewModelDelegate
+extension V2HomeViewPresenter: HomeReviewModelDelegate {
+    func homeReview(_ model: HomeReviewModel, didSuccess reviews: [Review]) {
+        view?.updateEmptyReviewsView(reviews.isEmpty)
+        view?.reloadReviews()
+    }
+    
+    func homeReview(_ model: HomeReviewModel, didRecieve error: APIError?) {
+        view?.showToast(error?.errorDescription ?? error?.localizedDescription ?? "오류 발생")
     }
 }

@@ -52,7 +52,6 @@ class HomeReviewModel: HomeReviewModelType {
         self.reviews = reviews
     }
     
-    
     // MARK: - Networking
     func getReviews(with category: Category, filter: Sort) {
         if category == .all {
@@ -68,7 +67,7 @@ class HomeReviewModel: HomeReviewModelType {
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-                self.offset += 1
+//                self.offset += 1
                 self.save(succeed.reviews)
             } else {
                 // 오류 발생
