@@ -132,15 +132,17 @@ extension V2HomeViewPresenter: CategoryModelDelegate {
 // MARK: - HomeReviewModelDelegate
 extension V2HomeViewPresenter: HomeReviewModelDelegate {
     func homeReview(_ model: HomeReviewModel, didSuccess reviews: [Review], isRefresh: Bool) {
+        view?.updateLoadingView(false)
         view?.reloadReviews()
         if isRefresh {
             view?.updateEmptyReviewsView(reviews.isEmpty)
             view?.updateReviewCount("\(reviews.count)")
-//            view?.scrollToTopReviews()
+            view?.scrollToTopReviews()
         }
     }
     
     func homeReview(_ model: HomeReviewModel, didRecieve error: APIError?) {
+        view?.updateLoadingView(false)
         view?.showToast(error?.errorDescription ?? error?.localizedDescription ?? "오류 발생")
     }
 }
@@ -152,6 +154,11 @@ extension V2HomeViewPresenter: WriteReviewPresenterDelegate {
         
         if let category = categoryModel.selectedCategory {
             reviewModel.getReviews(with: category, filter: Sort.latestOrder)
+            view?.updateLoadingView(true)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.view?.showToast("기록 작성 완료!")
         }
     }
     

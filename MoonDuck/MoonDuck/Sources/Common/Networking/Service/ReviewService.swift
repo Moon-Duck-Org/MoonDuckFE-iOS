@@ -9,8 +9,26 @@ import Alamofire
 
 class ReviewService {
     
-    func getReview(request: GetReviewRequest, completion: @escaping (_ succeed: [Review]?, _ failed: Error?) -> Void) {
-        completion([], nil)
+    func getReview(request: GetReviewRequest, completion: @escaping (_ succeed: ReviewList?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.getReview(request))
+            .responseDecodable { (response: AFDataResponse<GetReviewResponse>) in
+                switch response.result {
+                case .success(let response):
+                    completion(response.toDomain(), nil)
+                case .failure(let error):
+                    if let errorData = response.data {
+                        do {
+                            let decodeError = try JSONDecoder().decode(ErrorEntity.self, from: errorData)
+                            let apiError = APIError(error: decodeError)
+                            completion(nil, apiError)
+                        } catch {
+                            completion(nil, APIError.decodingError)
+                        }
+                    } else {
+                        completion(nil, error)
+                    }
+                }
+            }
         
     }
     

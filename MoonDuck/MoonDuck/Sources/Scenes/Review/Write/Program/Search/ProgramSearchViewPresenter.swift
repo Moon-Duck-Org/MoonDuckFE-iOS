@@ -78,7 +78,7 @@ extension ProgramSearchViewPresenter {
             let program = Program(category: model.category, title: searchText)
             moveWriteReview(with: program)
         } else {
-            showToastWithEndEditing("제목을 입력하세요.")
+            showToastWithEndEditing("\(model.category.title) 제목을 입력해주세요.")
         }
     }
     

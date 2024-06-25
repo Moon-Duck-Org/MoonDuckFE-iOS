@@ -14,9 +14,10 @@ struct ReviewAllRequest: Codable {
 }
 
 struct GetReviewRequest: Codable {
-    var userId: Int
     var category: String
     var filter: String
+    var offset: Int
+    var size: Int
 }
 
 struct PutReviewRequest: Codable {

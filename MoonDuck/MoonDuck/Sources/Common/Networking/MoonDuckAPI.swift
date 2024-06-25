@@ -19,8 +19,8 @@ enum MoonDuckAPI {
     case searchConcert(SearchConcertRequest)
     case postReview(PostReviewRequest, [UIImage]?)
     case reviewAll(ReviewAllRequest)
-    // TODO: - API 수정
     case getReview(GetReviewRequest)
+    // TODO: - API 수정
     case putReview(PutReviewRequest)
     case deleteReview(DeleteReviewRequest)
     case reviewDetail(ReviewDetailRequest)
@@ -92,6 +92,7 @@ extension MoonDuckAPI: TargetType {
         case .reviewAll:
             return "/api/review/all"
             
+            // Review 리스트/수정/추가/삭제
         case .getReview, .putReview, .postReview, .deleteReview:
             return "/api/review"
         case .reviewDetail:
@@ -121,11 +122,10 @@ extension MoonDuckAPI: TargetType {
             return nil
         case .reviewAll(let request):
             return .query(request)
-            
         case .getReview(let request):
             return .query(request)
         case .putReview(let request):
-            return .body(request)
+            return nil
         case .deleteReview(let request):
             return .query(request)
         case .reviewDetail(let request):
@@ -148,7 +148,7 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .authLogin, .authReissue:
             return ["Content-Type": "application/json"]
-        case .user, .userNickname, .reviewAll:
+        case .user, .userNickname, .reviewAll, .getReview:
             if let token: String = AuthManager.default.getAccessToken() {
                 return ["Content-Type": "application/json",
                         "Authorization": "Bearer \(token)"]
@@ -161,7 +161,7 @@ extension MoonDuckAPI: TargetType {
         case .searchDrama:
             return ["accept": "application/json",
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNjRmZjk2OGEzYTdkMWQ2NjVhNDI2NmIyNzhmMzI0ZiIsInN1YiI6IjY2NmQ0MjA2NmIzYTk0MmQyOGVjMWMwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uvFajFOjUVv57Xb8onVa0kLT2ZLXtTdYRHkOgalHMmA"]
-        case .postReview:
+        case .postReview, .putReview:
             if let token: String = AuthManager.default.getAccessToken() {
                 return ["Content-Type": "multipart/form-data",
                         "Authorization": "Bearer \(token)"]

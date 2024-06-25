@@ -526,6 +526,7 @@
 				A0F384062BFFAF390035D2E3 /* Base */,
 				EAA914F02C02D63100A98950 /* ReviewImageCollectionViewCell.swift */,
 				EAA914F12C02D63100A98950 /* ReviewImageCollectionViewCell.xib */,
+				EA93674F2C297402007A649B /* ReviewImageDataSource.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -636,7 +637,6 @@
 		EA61048B2C14755C00CAC460 /* HomeV2 */ = {
 			isa = PBXGroup;
 			children = (
-				EA93674F2C297402007A649B /* ReviewImageDataSource.swift */,
 				A0A633672C2862A800744694 /* Cell */,
 				EA61048C2C14756F00CAC460 /* V2HomeViewController.swift */,
 				EA6379E32BFF33C500464A19 /* V2HomeViewController.xib */,

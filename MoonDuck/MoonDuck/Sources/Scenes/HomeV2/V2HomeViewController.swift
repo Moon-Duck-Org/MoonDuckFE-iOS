@@ -86,6 +86,7 @@ extension V2HomeViewController {
 
     func scrollToTopReviews() {
         DispatchQueue.main.async {
+            self.reviewTableView.layoutIfNeeded()
             self.reviewTableView.setContentOffset(CGPoint(x: 0, y: -self.reviewTableView.contentInset.top), animated: true)
         }
     }
