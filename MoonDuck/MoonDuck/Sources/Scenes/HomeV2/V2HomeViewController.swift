@@ -96,9 +96,13 @@ extension V2HomeViewController {
     }
 
     func scrollToTopReviews() {
+        // reloadData가 완료된 후 비동기적으로 실행
         DispatchQueue.main.async {
-            self.reviewTableView.layoutIfNeeded()
-            self.reviewTableView.setContentOffset(CGPoint(x: 0, y: -self.reviewTableView.contentInset.top), animated: true)
+            // 테이블 뷰를 맨 위로 스크롤
+            let topIndexPath = IndexPath(row: 0, section: 0)
+            if self.reviewTableView.numberOfSections > 0 && self.reviewTableView.numberOfRows(inSection: 0) > 0 {
+                self.reviewTableView.scrollToRow(at: topIndexPath, at: .top, animated: true)
+            }
         }
     }
 }

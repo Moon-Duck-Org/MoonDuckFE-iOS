@@ -8,24 +8,28 @@
 import Foundation
 
 protocol HomeReviewModelDelegate: AnyObject {
-    func homeReview(_ model: HomeReviewModel, didSuccess reviews: [Review], isRefresh: Bool)
+    func homeReview(_ model: HomeReviewModel, didSuccess list: ReviewList)
     func homeReview(_ model: HomeReviewModel, didRecieve error: APIError?)
+    func homeReviewDidRecieveLastReviews(_ model: HomeReviewModel)
     
 }
 protocol HomeReviewModelType: AnyObject {
     // Data
     var delegate: HomeReviewModelDelegate? { get set }
-    var numberOfReviews: Int { get }
-    var reviews: [Review] { get }
+    
+    func numberOfReviews(with category: Category) -> Int
+    func reviews(with category: Category) -> [Review]
+    func review(with category: Category, at index: Int) -> Review?
+    func reviewList(with category: Category) -> ReviewList?
     
     // Logic
     
     // Networking
-    func getReviews(with category: Category, filter: Sort)
+    func loadReviews(with category: Category, filter: Sort)
+    func reloadReviews(with category: Category, filter: Sort)
 }
 
 class HomeReviewModel: HomeReviewModelType {
-    
     private let provider: AppServices
     private var offset: Int = 0
     private var size: Int = 30
@@ -37,31 +41,94 @@ class HomeReviewModel: HomeReviewModelType {
     // MARK: - Data
     weak var delegate: HomeReviewModelDelegate?
     
-    var numberOfReviews: Int {
-        return reviews.count
+    private var reviewLists: [ReviewList] = []
+    
+    func numberOfReviews(with category: Category) -> Int {
+        return reviews(with: category).count
     }
     
-    var reviews: [Review] = []
-    // MARK: - Logic
+    func reviews(with category: Category) -> [Review] {
+        if let reviewList = reviewList(with: category) {
+            return reviewList.reviews
+        }
+        return []
+    }
     
-    // MARK: - Networking
-    func getReviews(with category: Category, filter: Sort) {
-        if category == .all {
-            getAllReview(filter)
-        } else {
-            getReview(with: category, filter: filter)
+    func review(with category: Category, at index: Int) -> Review? {
+        let reviews = reviews(with: category)
+        if index < reviews.count {
+            return reviews[index]
+        }
+        return nil
+    }
+    
+    func reviewList(with category: Category) -> ReviewList? {
+        if let list = reviewLists.first(where: { $0.category == category }) {
+            return list
+        }
+        return nil
+    }
+    
+    // MARK: - Logic
+    private func removeReviewList(with category: Category) {
+        if let findIndex = reviewLists.firstIndex(where: { $0.category == category }) {
+            reviewLists.remove(at: findIndex)
         }
     }
     
-    private func getReview(with category: Category, filter: Sort) {
+    private func saveReviewList(_ list: ReviewList) {
+        let category = list.category
+        if list.isFirst {
+            removeReviewList(with: category)
+        }
+        
+        if let findIndex = reviewLists.firstIndex(where: { $0.category == category }) {
+            reviewLists[findIndex].update(list)
+            delegate?.homeReview(self, didSuccess: reviewLists[findIndex])
+        } else {
+            reviewLists.append(list)
+            delegate?.homeReview(self, didSuccess: list)
+        }
+    }
+    
+    // MARK: - Networking
+    func loadReviews(with category: Category, filter: Sort) {
+        if category == .all {
+            getAllReview(filter, isReload: false)
+        } else {
+            getReview(with: category, filter: filter, isReload: false)
+        }
+    }
+    
+    func reloadReviews(with category: Category, filter: Sort) {
+        if category == .all {
+            getAllReview(filter, isReload: true)
+        } else {
+            getReview(with: category, filter: filter, isReload: true)
+        }
+    }
+    
+    private func getReview(with category: Category, filter: Sort, isReload: Bool) {
+        var offset: Int = 0
+        var size: Int = 30
+        
+        if !isReload, let list = reviewList(with: category) {
+            if list.isLast {
+                self.delegate?.homeReview(self, didRecieve: nil)
+                return
+            }
+            offset = list.currentPage + 1
+            size = list.size
+        }
+        
         let request = GetReviewRequest(category: category.apiKey, filter: filter.apiKey, offset: offset, size: size)
         provider.reviewService.getReview(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-//                self.offset += 1
-                self.reviews = succeed.reviews
-                self.delegate?.homeReview(self, didSuccess: self.reviews, isRefresh: true)
+                var list = succeed
+                list.category = category
+                self.saveReviewList(list)
             } else {
                 // 오류 발생
                 if let code = failed as? APIError {
@@ -72,7 +139,7 @@ class HomeReviewModel: HomeReviewModelType {
                         AuthManager.default.refreshToken { [weak self] code in
                             guard let self else { return }
                             if code == .success {
-                                self.getReview(with: category, filter: filter)
+                                self.getReview(with: category, filter: filter, isReload: isReload)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
                                 self.delegate?.homeReview(self, didRecieve: .unowned)
@@ -87,15 +154,27 @@ class HomeReviewModel: HomeReviewModelType {
         }
     }
     
-    private func getAllReview(_ filter: Sort) {
+    private func getAllReview(_ filter: Sort, isReload: Bool) {
+        var offset: Int = 0
+        var size: Int = 30
+        
+        if !isReload, let list = reviewList(with: .all) {
+            if list.isLast {
+                self.delegate?.homeReview(self, didRecieve: nil)
+                return
+            }
+            offset = list.currentPage + 1
+            size = list.size
+        }
+        
         let request = ReviewAllRequest(filter: filter.apiKey, offset: offset, size: size)
         provider.reviewService.reviewAll(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-//                self.offset += 1
-                self.reviews = succeed.reviews
-                self.delegate?.homeReview(self, didSuccess: self.reviews, isRefresh: true)
+                var list = succeed
+                list.category = .all
+                self.saveReviewList(list)
             } else {
                 // 오류 발생
                 if let code = failed as? APIError {
@@ -106,7 +185,7 @@ class HomeReviewModel: HomeReviewModelType {
                         AuthManager.default.refreshToken { [weak self] code in
                             guard let self else { return }
                             if code == .success {
-                                self.getAllReview(filter)
+                                self.getAllReview(filter, isReload: isReload)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
                                 self.delegate?.homeReview(self, didRecieve: .unowned)

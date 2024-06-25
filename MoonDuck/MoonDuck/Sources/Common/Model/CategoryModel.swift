@@ -9,7 +9,14 @@ import Foundation
 
 protocol CategoryModelDelegate: AnyObject {
     func category(_ model: CategoryModel, didChange categories: [Category])
-    func category(_ model: CategoryModel, didSelect category: Category?)
+    func category(_ model: CategoryModel, didSelect category: Category)
+    func category(_ model: CategoryModel, didReload category: Category)
+}
+
+extension CategoryModelDelegate {
+    func category(_ model: CategoryModel, didReload category: Category) {
+        
+    }
 }
 
 protocol CategoryModelType: AnyObject {
@@ -24,6 +31,7 @@ protocol CategoryModelType: AnyObject {
     
     // Action
     func selectCategory(_ index: Int)
+    func reloadCategory()
     
     // Netwok
     func getCategories(isHaveAll: Bool)
@@ -63,7 +71,16 @@ class CategoryModel: CategoryModelType {
     func selectCategory(_ index: Int) {
         if indexOfSelectedCategory == index { return }
         indexOfSelectedCategory = index
-        delegate?.category(self, didSelect: selectedCategory)
+        if let selectedCategory {
+            delegate?.category(self, didSelect: selectedCategory)
+        }
+    }
+    
+    func reloadCategory() {
+        indexOfSelectedCategory = 0
+        if let selectedCategory {
+            delegate?.category(self, didReload: selectedCategory)
+        }
     }
     
     // MARK: - Networking

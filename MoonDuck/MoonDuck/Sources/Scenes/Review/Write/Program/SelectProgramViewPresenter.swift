@@ -78,8 +78,8 @@ extension SelectProgramViewPresenter: CategoryModelDelegate {
         view?.reloadCategories()
     }
     
-    func category(_ model: CategoryModel, didSelect category: Category?) {
-        view?.updateNextButton(category != nil)
+    func category(_ model: CategoryModel, didSelect category: Category) {
+        view?.updateNextButton(true)
         view?.reloadCategories()
     }
 }

@@ -62,7 +62,8 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
     }
     
     var numberOfReviews: Int {
-        return reviewModel.numberOfReviews
+        let category = categoryModel.selectedCategory ?? .none
+        return reviewModel.numberOfReviews(with: category)
     }
     
     var sortTitleList: [String] {
@@ -74,11 +75,8 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
     }
     
     func review(at index: Int) -> Review? {
-        if index < reviewModel.numberOfReviews {
-            return reviewModel.reviews[index]
-        } else {
-            return nil
-        }
+        let category = categoryModel.selectedCategory ?? .none
+        return reviewModel.review(with: category, at: index)
     }
 }
 
@@ -109,6 +107,11 @@ extension V2HomeViewPresenter {
     }
     
     // MARK: - Logic
+    private func relaodReviewList(_ list: ReviewList) {
+        view?.updateReviewCount("\(list.totalElements)")
+        view?.updateEmptyReviewsView(list.reviews.isEmpty)
+        view?.scrollToTopReviews()
+    }
 }
 
 // MARK: - UserModelDelegate
@@ -129,18 +132,25 @@ extension V2HomeViewPresenter: UserModelDelegate {
 // MARK: - CategoryModelDelegate
 extension V2HomeViewPresenter: CategoryModelDelegate {
     func category(_ model: CategoryModel, didChange categories: [Category]) {
-        if categories.count > 0 {
-            model.selectCategory(0)
+        model.selectCategory(0)
+    }
+    
+    func category(_ model: CategoryModel, didSelect category: Category) {
+        view?.reloadCategories()
+        
+        if let list = reviewModel.reviewList(with: category) {
+            // 리뷰 리스트가 있으면 테이블뷰만 리로드
+            view?.reloadReviews()
+            relaodReviewList(list)
+        } else {
+            // 리뷰 리스트가 없으면 API 호출
+            view?.updateLoadingView(true)
+            reviewModel.loadReviews(with: category, filter: sortModel.selectedSortOption)
         }
     }
     
-    func category(_ model: CategoryModel, didSelect category: Category?) {
+    func category(_ model: CategoryModel, didReload category: Category) {
         view?.reloadCategories()
-        
-        if let category {
-            view?.updateLoadingView(true)
-            reviewModel.getReviews(with: category, filter: sortModel.selectedSortOption)
-        }
     }
 }
 
@@ -149,28 +159,36 @@ extension V2HomeViewPresenter: SortModelDelegate {
     func sort(_ model: SortModel, didSelect sortOption: Sort) {
         view?.updateSortTitle(sortOption.title)
         
-        if let category = categoryModel.selectedCategory {
+        if let selectedCategory = categoryModel.selectedCategory {
             view?.updateLoadingView(true)
-            reviewModel.getReviews(with: category, filter: sortOption)
+            reviewModel.reloadReviews(with: selectedCategory, filter: sortOption)
         }
+    }
+    
+    func sort(_ model: SortModel, didReload sortOption: Sort) {
+        view?.updateSortTitle(sortOption.title)
     }
 }
 
 // MARK: - HomeReviewModelDelegate
 extension V2HomeViewPresenter: HomeReviewModelDelegate {
-    func homeReview(_ model: HomeReviewModel, didSuccess reviews: [Review], isRefresh: Bool) {
+    func homeReview(_ model: HomeReviewModel, didSuccess list: ReviewList) {
         view?.updateLoadingView(false)
+        
         view?.reloadReviews()
-        if isRefresh {
-            view?.updateEmptyReviewsView(reviews.isEmpty)
-            view?.updateReviewCount("\(reviews.count)")
-            view?.scrollToTopReviews()
+        if list.isFirst {
+            // 첫 번째 리뷰 리스트면 리로드 로직 수행
+            relaodReviewList(list)
         }
     }
     
     func homeReview(_ model: HomeReviewModel, didRecieve error: APIError?) {
         view?.updateLoadingView(false)
         view?.showToast(error?.errorDescription ?? error?.localizedDescription ?? "오류 발생")
+    }
+    
+    func homeReviewDidRecieveLastReviews(_ model: HomeReviewModel) {
+        view?.updateLoadingView(false)
     }
 }
 
@@ -179,9 +197,11 @@ extension V2HomeViewPresenter: WriteReviewPresenterDelegate {
     func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review) {
         view?.popToSelf()
         
-        if let category = categoryModel.selectedCategory {
+        categoryModel.reloadCategory()
+        sortModel.reloadSortOption()
+        if let selectedCategory = categoryModel.selectedCategory {
             view?.updateLoadingView(true)
-            reviewModel.getReviews(with: category, filter: Sort.latestOrder)
+            reviewModel.reloadReviews(with: selectedCategory, filter: sortModel.selectedSortOption)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

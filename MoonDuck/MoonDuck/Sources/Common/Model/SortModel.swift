@@ -9,6 +9,7 @@ import Foundation
 
 protocol SortModelDelegate: AnyObject {
     func sort(_ model: SortModel, didSelect sortOption: Sort)
+    func sort(_ model: SortModel, didReload sortOption: Sort)
 }
 
 protocol SortModelType: AnyObject {
@@ -23,6 +24,7 @@ protocol SortModelType: AnyObject {
     
     // Action
     func selectSortOption(_ index: Int)
+    func reloadSortOption()
 }
 
 class SortModel: SortModelType {
@@ -58,5 +60,10 @@ class SortModel: SortModelType {
         
         indexOfSelectedSortOption = index
         delegate?.sort(self, didSelect: selectedSortOption)
+    }
+    
+    func reloadSortOption() {
+        indexOfSelectedSortOption = 0
+        delegate?.sort(self, didReload: selectedSortOption)
     }
 }
