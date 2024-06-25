@@ -157,7 +157,8 @@ extension LoginViewPresenter: UserModelDelegate {
         view?.updateLoadingView(false)
         let cateogryModel = CategoryModel()
         let reviewModel = HomeReviewModel(provider)
-        let presenter = V2HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, reviewModel: reviewModel)
+        let sortModel = SortModel()
+        let presenter = V2HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
         view?.moveHome(with: presenter)
     }
     

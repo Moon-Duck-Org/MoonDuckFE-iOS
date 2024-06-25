@@ -9,7 +9,7 @@ import Foundation
 
 protocol CategoryModelDelegate: AnyObject {
     func category(_ model: CategoryModel, didChange categories: [Category])
-    func category(_ model: CategoryModel, didSelect index: Int?)
+    func category(_ model: CategoryModel, didSelect category: Category?)
 }
 
 protocol CategoryModelType: AnyObject {
@@ -43,11 +43,7 @@ class CategoryModel: CategoryModelType {
         return categories.count
     }
     
-    var indexOfSelectedCategory: Int? {
-        didSet {
-            delegate?.category(self, didSelect: indexOfSelectedCategory)
-        }
-    }
+    var indexOfSelectedCategory: Int?
     
     var selectedCategory: Category? {
         if let indexOfSelectedCategory {
@@ -65,7 +61,9 @@ class CategoryModel: CategoryModelType {
     
     // MARK: - Action
     func selectCategory(_ index: Int) {
+        if indexOfSelectedCategory == index { return }
         indexOfSelectedCategory = index
+        delegate?.category(self, didSelect: selectedCategory)
     }
     
     // MARK: - Networking

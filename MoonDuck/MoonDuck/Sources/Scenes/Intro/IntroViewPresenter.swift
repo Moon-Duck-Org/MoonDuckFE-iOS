@@ -65,8 +65,9 @@ extension IntroViewPresenter: UserModelDelegate {
     func user(_ model: UserModel, didChange user: User) {
         // User 정보 조회 성공
         let cateogryModel = CategoryModel()
+        let sortModel = SortModel()
         let reviewModel = HomeReviewModel(provider)
-        let presenter = V2HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, reviewModel: reviewModel)
+        let presenter = V2HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
         view?.moveHome(with: presenter)
     }
     

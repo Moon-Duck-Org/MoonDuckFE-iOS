@@ -27,6 +27,7 @@
                 <outlet property="emptyReviewsView" destination="lZO-AC-av6" id="pgf-vJ-Y5t"/>
                 <outlet property="reviewCountLabel" destination="YBa-HC-796" id="s5I-iX-NdE"/>
                 <outlet property="reviewTableView" destination="IeJ-hE-v5h" id="YdG-nC-q4W"/>
+                <outlet property="sortTitleLabel" destination="uzQ-cp-Rmk" id="tvn-N7-8qg"/>
                 <outlet property="view" destination="EKg-iH-Kx3" id="CWf-yP-9un"/>
             </connections>
         </placeholder>
@@ -133,6 +134,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="64.666666666666671" height="24"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain"/>
+                                    <connections>
+                                        <action selector="tapSortButton:" destination="-1" eventType="touchUpInside" id="JCw-6H-I2n"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -263,7 +267,7 @@
                 <constraint firstItem="Vnm-eJ-7s3" firstAttribute="leading" secondItem="EKg-iH-Kx3" secondAttribute="leading" id="z7y-58-pp1"/>
                 <constraint firstItem="Lkn-Nd-Qz1" firstAttribute="leading" secondItem="LeH-dl-Ksy" secondAttribute="leading" id="zBE-Yc-fOf"/>
             </constraints>
-            <point key="canvasLocation" x="-327" y="-1273"/>
+            <point key="canvasLocation" x="-327.48091603053433" y="-1273.2394366197184"/>
         </view>
     </objects>
     <resources>

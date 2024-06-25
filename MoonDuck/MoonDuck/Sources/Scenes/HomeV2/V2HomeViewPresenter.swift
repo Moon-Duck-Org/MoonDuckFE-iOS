@@ -14,6 +14,7 @@ protocol V2HomePresenter: AnyObject {
     var numberOfCategories: Int { get }
     var indexOfSelectedCategory: Int? { get }
     var numberOfReviews: Int { get }
+    var sortTitleList: [String] { get }
     
     func category(at index: Int) -> Category?
     func review(at index: Int) -> Review?
@@ -23,6 +24,7 @@ protocol V2HomePresenter: AnyObject {
     
     /// Action
     func selectCategory(at index: Int)
+    func selectSort(at index: Int)
     func tapMyButton()
     func tapWriteNewReviewButton()
 }
@@ -32,17 +34,21 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
     weak var view: V2HomeView?
     private let userModel: UserModelType
     private let categoryModel: CategoryModelType
+    private let sortModel: SortModelType
     private let reviewModel: HomeReviewModelType
     
     init(with provider: AppServices,
          userModel: UserModelType,
          categoryModel: CategoryModelType,
+         sortModel: SortModelType,
          reviewModel: HomeReviewModel) {
         self.userModel = userModel
         self.categoryModel = categoryModel
+        self.sortModel = sortModel
         self.reviewModel = reviewModel
         super.init(with: provider)
         self.userModel.delegate = self
+        self.sortModel.delegate = self
         self.categoryModel.delegate = self
         self.reviewModel.delegate = self
     }
@@ -57,6 +63,10 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
     
     var numberOfReviews: Int {
         return reviewModel.numberOfReviews
+    }
+    
+    var sortTitleList: [String] {
+        return sortModel.sortOptions.map { $0.title }
     }
     
     func category(at index: Int) -> Category? {
@@ -81,6 +91,10 @@ extension V2HomeViewPresenter {
     // MARK: - Action
     func selectCategory(at index: Int) {
         categoryModel.selectCategory(index)
+    }
+    
+    func selectSort(at index: Int) {
+        sortModel.selectSortOption(index)
     }
     
     func tapMyButton() {
@@ -120,11 +134,24 @@ extension V2HomeViewPresenter: CategoryModelDelegate {
         }
     }
     
-    func category(_ model: CategoryModel, didSelect index: Int?) {
+    func category(_ model: CategoryModel, didSelect category: Category?) {
         view?.reloadCategories()
         
-        if let category = model.selectedCategory {
-            reviewModel.getReviews(with: category, filter: Sort.latestOrder)
+        if let category {
+            view?.updateLoadingView(true)
+            reviewModel.getReviews(with: category, filter: sortModel.selectedSortOption)
+        }
+    }
+}
+
+// MARK: - SortModelDelegate
+extension V2HomeViewPresenter: SortModelDelegate {
+    func sort(_ model: SortModel, didSelect sortOption: Sort) {
+        view?.updateSortTitle(sortOption.title)
+        
+        if let category = categoryModel.selectedCategory {
+            view?.updateLoadingView(true)
+            reviewModel.getReviews(with: category, filter: sortOption)
         }
     }
 }
@@ -153,8 +180,8 @@ extension V2HomeViewPresenter: WriteReviewPresenterDelegate {
         view?.popToSelf()
         
         if let category = categoryModel.selectedCategory {
-            reviewModel.getReviews(with: category, filter: Sort.latestOrder)
             view?.updateLoadingView(true)
+            reviewModel.getReviews(with: category, filter: Sort.latestOrder)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

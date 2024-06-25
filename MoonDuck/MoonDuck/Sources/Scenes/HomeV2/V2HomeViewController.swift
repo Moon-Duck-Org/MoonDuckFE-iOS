@@ -12,6 +12,7 @@ protocol V2HomeView: BaseView {
     func reloadCategories()
     func reloadReviews()
     func updateReviewCount(_ count: String)
+    func updateSortTitle(_ text: String)
     func updateEmptyReviewsView(_ isEmpty: Bool)
     func scrollToTopReviews()
     
@@ -30,12 +31,18 @@ class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
     // @IBOutlet
     @IBOutlet weak private var categoryCollectioinView: UICollectionView!
     @IBOutlet weak private var reviewCountLabel: UILabel!
+    @IBOutlet weak private var sortTitleLabel: UILabel!
     @IBOutlet weak private var reviewTableView: UITableView!
     @IBOutlet weak private var emptyReviewsView: UIView!
     
     // @IBAction
     @IBAction private func tapMyButton(_ sender: Any) {
         presenter.tapMyButton()
+    }
+    @IBAction private func tapSortButton(_ sender: Any) {
+        Alert.default.showList(self, buttonTitleList: presenter.sortTitleList) { [weak self] index in
+            self?.presenter.selectSort(at: index)
+        }
     }
     @IBAction private func tapWriteNewReviewButton(_ sender: Any) {
         presenter.tapWriteNewReviewButton()
@@ -78,6 +85,10 @@ extension V2HomeViewController {
     
     func updateReviewCount(_ count: String) {
         reviewCountLabel.text = count
+    }
+    
+    func updateSortTitle(_ text: String) {
+        sortTitleLabel.text = text
     }
     
     func updateEmptyReviewsView(_ isEmpty: Bool) {
