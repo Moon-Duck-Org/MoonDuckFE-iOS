@@ -9,6 +9,7 @@ import UIKit
 
 class HomeReviewTableViewCell: UITableViewCell {
     private var imageDataSource: ReviewImageDataSource?
+    private var linkButtonHandler: (() -> Void)?
     
     // @IBOutlet
     @IBOutlet weak private var titleLabel: UILabel!
@@ -30,10 +31,15 @@ class HomeReviewTableViewCell: UITableViewCell {
     @IBOutlet weak private var imageCollectionView: UICollectionView!
     @IBOutlet weak private var imageHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak private var linkView: UIView!
     @IBOutlet weak private var linkLabel: UILabel!
     @IBOutlet weak private var linkHeightContraint: NSLayoutConstraint!
     
-    func configure(with review: Review) {
+    @IBAction private func tapLinkButton(_ sender: Any) {
+        linkButtonHandler?()
+    }
+    
+    func configure(with review: Review, linkButtonHandler: (() -> Void)? = nil) {
         titleLabel.text = review.title
         dateLabel.text = review.createdAt
         categoryImageview.image = review.category.roundSmallImage
@@ -69,12 +75,15 @@ class HomeReviewTableViewCell: UITableViewCell {
         
         if let link = review.link, link.isNotEmpty {
             linkLabel.text = link
-            linkLabel.isHidden = false
+            linkView.isHidden = false
             linkHeightContraint.constant = 34
+            self.linkButtonHandler = { Utils.openSafariViewController(urlString: link)
+            }
         } else {
             linkLabel.text = ""
-            linkLabel.isHidden = true
+            linkView.isHidden = true
             linkHeightContraint.constant = 0
+            self.linkButtonHandler = nil
         }
     }
 }

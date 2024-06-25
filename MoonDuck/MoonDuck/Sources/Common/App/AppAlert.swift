@@ -1,5 +1,5 @@
 //
-//  Alert.swift
+//  AppAlert.swift
 //  MoonDuck
 //
 //  Created by suni on 5/24/24.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class Alert {
-    static var `default` = Alert()
+class AppAlert {
+    static var `default` = AppAlert()
     
     weak var currentAlert: UIViewController?
     

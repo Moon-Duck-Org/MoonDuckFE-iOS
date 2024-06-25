@@ -31,7 +31,7 @@
 //    
 //    @IBAction private func sortButtonTap(_ sender: Any) {
 //        let titleList = presenter.sortList.map { String($0.title) }
-//        Alert.shared.showList(self, buttonTitleList: titleList) { index in
+//        AppAlert.shared.showList(self, buttonTitleList: titleList) { index in
 //            self.presenter.selectSort(at: index)
 //        }
 //    }

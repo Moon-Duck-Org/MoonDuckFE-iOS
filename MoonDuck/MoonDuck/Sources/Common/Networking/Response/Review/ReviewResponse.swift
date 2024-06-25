@@ -76,10 +76,8 @@ struct ReviewResponse: Codable {
         var created: String {
             var str = ""
             if let createdAt {
-                let split = createdAt.split(separator: "T")
-                if let date = split.first {
-                    str = String(date)
-                }
+                let formattedDate = Utils.formattedDate(createdAt: createdAt)
+                str = formattedDate
             }
             return str
         }

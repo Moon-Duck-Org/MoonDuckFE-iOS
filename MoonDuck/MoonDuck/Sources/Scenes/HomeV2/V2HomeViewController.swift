@@ -40,7 +40,7 @@ class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
         presenter.tapMyButton()
     }
     @IBAction private func tapSortButton(_ sender: Any) {
-        Alert.default.showList(self, buttonTitleList: presenter.sortTitleList) { [weak self] index in
+        AppAlert.default.showList(self, buttonTitleList: presenter.sortTitleList) { [weak self] index in
             self?.presenter.selectSort(at: index)
         }
     }

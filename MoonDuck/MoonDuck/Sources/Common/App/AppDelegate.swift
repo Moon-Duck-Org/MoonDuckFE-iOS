@@ -14,14 +14,10 @@ import GoogleSignIn
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let confing: Config = Config(
-        kakaoAppKey: "115f84135ae908760cadabb7d51a0e26"
-    )
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        KakaoSDK.initSDK(appKey: confing.kakaoAppKey)
+        KakaoSDK.initSDK(appKey: Constants.kakaoAppKey)
         return true
     }
     

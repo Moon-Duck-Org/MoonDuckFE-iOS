@@ -248,6 +248,14 @@
                                 <color key="textColor" name="Blue"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fpm-A5-jc8">
+                                <rect key="frame" x="16" y="10" width="343" height="24"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="tapLinkButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sGb-Fw-zK3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -257,7 +265,11 @@
                             <constraint firstAttribute="height" constant="34" id="GoE-ZE-J4g"/>
                             <constraint firstItem="3mm-Id-s07" firstAttribute="leading" secondItem="3qv-nH-TK9" secondAttribute="leading" constant="16" id="LHE-S6-FFz"/>
                             <constraint firstAttribute="trailing" secondItem="nVp-bN-hTm" secondAttribute="trailing" constant="16" id="OEL-VN-xtr"/>
+                            <constraint firstItem="fpm-A5-jc8" firstAttribute="top" secondItem="3qv-nH-TK9" secondAttribute="top" constant="10" id="QES-zG-Do4"/>
+                            <constraint firstAttribute="trailing" secondItem="fpm-A5-jc8" secondAttribute="trailing" constant="16" id="Y4Z-gG-oj2"/>
                             <constraint firstItem="nVp-bN-hTm" firstAttribute="centerY" secondItem="3mm-Id-s07" secondAttribute="centerY" id="cH9-fh-SLM"/>
+                            <constraint firstAttribute="bottom" secondItem="fpm-A5-jc8" secondAttribute="bottom" id="fjo-MC-kbc"/>
+                            <constraint firstItem="fpm-A5-jc8" firstAttribute="leading" secondItem="3qv-nH-TK9" secondAttribute="leading" constant="16" id="rts-nh-JeM"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gmc-0M-CLq">
@@ -296,6 +308,7 @@
                 <outlet property="imageHeightConstraint" destination="kP3-2A-uaE" id="7lP-U0-kIO"/>
                 <outlet property="linkHeightContraint" destination="GoE-ZE-J4g" id="CqL-5k-aB0"/>
                 <outlet property="linkLabel" destination="nVp-bN-hTm" id="8qC-V9-dt3"/>
+                <outlet property="linkView" destination="3qv-nH-TK9" id="Tkb-I9-aN9"/>
                 <outlet property="programTitleDot" destination="V1U-dx-DL1" id="92X-Vf-sWZ"/>
                 <outlet property="programTitleLabel" destination="ygO-1n-f0J" id="Sfa-52-xXa"/>
                 <outlet property="ratingButton1" destination="vJT-0N-Me6" id="TG8-Qk-6pT"/>
