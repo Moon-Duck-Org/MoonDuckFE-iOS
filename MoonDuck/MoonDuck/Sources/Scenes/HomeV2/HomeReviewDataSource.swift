@@ -30,7 +30,8 @@ extension HomeReviewDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell: HomeReviewTableViewCell = tableView.dequeueReusableCell(withIdentifier: HomeReviewTableViewCell.className, for: indexPath) as? HomeReviewTableViewCell {
             if let review = presenter.review(at: indexPath.row) {
-                cell.configure(with: review)
+                let reviewOptionHandler: (() -> Void)? = presenter.reviewOptionHandler(for: review)
+                cell.configure(with: review, optionButtonHandler: reviewOptionHandler)
             }
             return cell
         }

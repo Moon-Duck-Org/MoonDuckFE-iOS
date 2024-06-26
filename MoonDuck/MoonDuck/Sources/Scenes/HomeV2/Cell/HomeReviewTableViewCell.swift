@@ -10,6 +10,7 @@ import UIKit
 class HomeReviewTableViewCell: UITableViewCell {
     private var imageDataSource: ReviewImageDataSource?
     private var linkButtonHandler: (() -> Void)?
+    private var optionButtonHandler: (() -> Void)?
     
     // @IBOutlet
     @IBOutlet weak private var titleLabel: UILabel!
@@ -39,7 +40,11 @@ class HomeReviewTableViewCell: UITableViewCell {
         linkButtonHandler?()
     }
     
-    func configure(with review: Review, linkButtonHandler: (() -> Void)? = nil) {
+    @IBAction private func tapOptionButton(_ sender: Any) {
+        optionButtonHandler?()
+    }
+    
+    func configure(with review: Review, optionButtonHandler: (() -> Void)? = nil) {
         titleLabel.text = review.title
         dateLabel.text = review.createdAt
         categoryImageview.image = review.category.roundSmallImage
@@ -77,13 +82,15 @@ class HomeReviewTableViewCell: UITableViewCell {
             linkLabel.text = link
             linkView.isHidden = false
             linkHeightContraint.constant = 34
-            self.linkButtonHandler = { Utils.openSafariViewController(urlString: link)
+            linkButtonHandler = { Utils.openSafariViewController(urlString: link)
             }
         } else {
             linkLabel.text = ""
             linkView.isHidden = true
             linkHeightContraint.constant = 0
-            self.linkButtonHandler = nil
+            linkButtonHandler = nil
         }
+        
+        self.optionButtonHandler = optionButtonHandler
     }
 }

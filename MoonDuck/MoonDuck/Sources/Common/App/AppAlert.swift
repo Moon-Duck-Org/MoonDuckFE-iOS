@@ -10,39 +10,31 @@ import UIKit
 class AppAlert {
     static var `default` = AppAlert()
     
-    weak var currentAlert: UIViewController?
-    
-    private func dismissAlert() {
-        if let currentAlert {
-            currentAlert.dismiss(animated: true)
-            removeAlert()
-        }
-    }
-    
-    private func removeAlert() {
-        currentAlert = nil
-    }
-    
-    func logout(_ viewController: UIViewController,
-                cancelHandler: (() -> Void)? = nil,
-                logoutHandler: (() -> Void)? = nil) {
+    func showDestructive(_ viewController: UIViewController,
+                         title: String? = "",
+                         message: String? = "",
+                         cancelTitle: String = L10n.Localizable.cancel,
+                         destructiveTitle: String = "삭제",
+                         cancelHandler: (() -> Void)? = nil,
+                         destructiveHandler: (() -> Void)? = nil) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: L10n.Localizable.wouldYouLikeToLogOut, message: "", preferredStyle: .alert)
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             
-            let cancelAction = UIAlertAction(title: L10n.Localizable.cancel, style: .default) { _ in
+            let cancelAction = UIAlertAction(title: cancelTitle, style: .default) { _ in
                 alert.dismiss(animated: true)
                 cancelHandler?()
             }
-            let logoutAction = UIAlertAction(title: L10n.Localizable.logout, style: .destructive) { _ in
-                logoutHandler?()
+            let destructiveAction = UIAlertAction(title: destructiveTitle, style: .destructive) { _ in
+                destructiveHandler?()
             }
             alert.addAction(cancelAction)
-            alert.addAction(logoutAction)
+            alert.addAction(destructiveAction)
             
             viewController.present(alert, animated: true)
         }
+        
     }
-//    
+//
 //    func showAlert(_ viewController: UIViewController,
 //                   style: AlertStyle = .defualtTwoButton,
 //                   title: String? = "",
@@ -132,7 +124,6 @@ class AppAlert {
                   cancelHandler: (() -> Void)? = nil
     ) {
         DispatchQueue.main.async {
-            self.dismissAlert()
             let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             
             for (index, title) in buttonTitleList.enumerated() {
@@ -149,32 +140,26 @@ class AppAlert {
             }
             alert.addAction(cancelAction)
             
-            viewController.present(alert, animated: true, completion: {
-                self.currentAlert = alert
-            })
+            viewController.present(alert, animated: true)
         }
     }
     
     func showSystemShare(_ viewController: UIViewController, str: String? = nil) {
         guard let str else { return }
         DispatchQueue.main.async {
-            self.dismissAlert()
             let shareContent = [str]
             let activityController = UIActivityViewController(activityItems: shareContent,
                                                               applicationActivities: nil)
-            viewController.present(activityController, animated: true, completion: {
-                self.currentAlert = activityController
-            })
+            viewController.present(activityController, animated: true)
         }
     }
     
-    func showDetailMore(_ viewController: UIViewController,
+    func showReviewOption(_ viewController: UIViewController,
                         writeHandler: (() -> Void)? = nil,
                         shareHandler: (() -> Void)? = nil,
                         deleteHandler: (() -> Void)? = nil
     ) {
         DispatchQueue.main.async {
-            self.dismissAlert()
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             let writeAction = UIAlertAction(title: "수정", style: .default) { _ in
@@ -200,9 +185,7 @@ class AppAlert {
             }
             alert.addAction(cancelAction)
             
-            viewController.present(alert, animated: true, completion: {
-                self.currentAlert = alert
-            })
+            viewController.present(alert, animated: true)
         }
     }
 }

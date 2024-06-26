@@ -18,6 +18,10 @@ protocol V2HomePresenter: AnyObject {
     
     func category(at index: Int) -> Category?
     func review(at index: Int) -> Review?
+    func reviewOptionHandler(for review: Review) -> (() -> Void)?
+    func writeReviewHandler(for review: Review) -> (() -> Void)?
+    func shareReviewHandler(for review: Review) -> (() -> Void)?
+    func deleteReviewHandler(for review: Review) -> (() -> Void)?
     
     /// Life Cycle
     func viewDidLoad()
@@ -78,6 +82,30 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
         let category = categoryModel.selectedCategory ?? .none
         return reviewModel.review(with: category, at: index)
     }
+    
+    func reviewOptionHandler(for review: Review) -> (() -> Void)? {
+        return { [weak self] in
+            self?.view?.showOptionAlert(for: review)
+        }
+    }
+    
+    func writeReviewHandler(for review: Review) -> (() -> Void)? {
+        return { [weak self] in
+            self?.view?.showToast("수정 연동 예정")
+        }
+    }
+    
+    func shareReviewHandler(for review: Review) -> (() -> Void)? {
+        return { [weak self] in
+            self?.view?.showToast("공유 연동 예정")
+        }
+    }
+    
+    func deleteReviewHandler(for review: Review) -> (() -> Void)? {
+        return { [weak self] in
+            self?.view?.showToast("삭제 연동 예정")
+        }
+    }
 }
 
 extension V2HomeViewPresenter {
@@ -107,7 +135,7 @@ extension V2HomeViewPresenter {
     }
     
     // MARK: - Logic
-    private func relaodReviewList(_ list: ReviewList) {
+    private func relaodReviews(for list: ReviewList) {
         view?.updateReviewCount("\(list.totalElements)")
         view?.updateEmptyReviewsView(list.reviews.isEmpty)
         view?.scrollToTopReviews()
@@ -141,7 +169,7 @@ extension V2HomeViewPresenter: CategoryModelDelegate {
         if let list = reviewModel.reviewList(with: category) {
             // 리뷰 리스트가 있으면 테이블뷰만 리로드
             view?.reloadReviews()
-            relaodReviewList(list)
+            relaodReviews(for: list)
         } else {
             // 리뷰 리스트가 없으면 API 호출
             view?.updateLoadingView(true)
@@ -178,7 +206,7 @@ extension V2HomeViewPresenter: HomeReviewModelDelegate {
         view?.reloadReviews()
         if list.isFirst {
             // 첫 번째 리뷰 리스트면 리로드 로직 수행
-            relaodReviewList(list)
+            relaodReviews(for: list)
         }
     }
     

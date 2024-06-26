@@ -31,8 +31,6 @@ protocol HomeReviewModelType: AnyObject {
 
 class HomeReviewModel: HomeReviewModelType {
     private let provider: AppServices
-    private var offset: Int = 0
-    private var size: Int = 30
     
     init(_ provider: AppServices) {
         self.provider = provider

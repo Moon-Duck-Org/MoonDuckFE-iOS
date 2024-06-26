@@ -15,6 +15,7 @@ protocol V2HomeView: BaseView {
     func updateSortTitle(_ text: String)
     func updateEmptyReviewsView(_ isEmpty: Bool)
     func scrollToTopReviews()
+    func showOptionAlert(for review: Review)
     
     // Navigation
     func moveMy(with presenter: MyInfoPresenter)
@@ -104,6 +105,26 @@ extension V2HomeViewController {
                 self.reviewTableView.scrollToRow(at: topIndexPath, at: .top, animated: true)
             }
         }
+    }
+    
+    func showOptionAlert(for review: Review) {
+        AppAlert.default
+            .showReviewOption(
+                self,
+                writeHandler: presenter.writeReviewHandler(for: review),
+                shareHandler: presenter.shareReviewHandler(for: review),
+                deleteHandler: { [weak self] in
+                    self?.showDeleteReviewAlert(review) }
+            )
+    }
+    
+    private func showDeleteReviewAlert(_ review: Review) {
+        AppAlert.default
+            .showDestructive(
+                self,
+                title: "삭제하시겠어요?",
+                destructiveHandler: presenter.deleteReviewHandler(for: review)
+            )
     }
 }
 

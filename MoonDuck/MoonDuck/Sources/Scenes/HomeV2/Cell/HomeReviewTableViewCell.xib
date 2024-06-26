@@ -40,8 +40,11 @@
                                 <rect key="frame" x="330" y="7" width="34" height="34"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="tapOptionButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="RLX-vU-UDe"/>
+                                </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="More" translatesAutoresizingMaskIntoConstraints="NO" id="GAM-XF-0Hz">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Option" translatesAutoresizingMaskIntoConstraints="NO" id="GAM-XF-0Hz">
                                 <rect key="frame" x="335" y="12" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="QOS-1q-YVF"/>
@@ -324,7 +327,7 @@
     <resources>
         <image name="CategoryDramaRoundSmall" width="60" height="18"/>
         <image name="Link" width="24" height="24"/>
-        <image name="More" width="24" height="24"/>
+        <image name="Option" width="24" height="24"/>
         <image name="StarFillSmall" width="18.666666030883789" height="18"/>
         <image name="StarSmall" width="18.666666030883789" height="18"/>
         <namedColor name="Black">

@@ -108,7 +108,7 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     func deleteImageHandler(at index: Int) -> (() -> Void)? {
         if index < images.count {
             return { [weak self] in
-                self?.deleteButton(at: index)
+                self?.deleteImage(at: index)
             }
         }
         return nil
@@ -179,7 +179,7 @@ extension WriteReviewViewPresenter {
     }
     
     // MARK: - Logic
-    private func deleteButton(at index: Int) {
+    private func deleteImage(at index: Int) {
         images.remove(at: index)
     }
     

@@ -44,9 +44,13 @@ class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
     }
     
     @IBAction private func tapLogoutButton(_ sender: Any) {
-        AppAlert.default.logout(self, logoutHandler: {
-            self.presenter.tapLogoutButton()
-        })
+        AppAlert.default
+            .showDestructive(self,
+                             title: L10n.Localizable.wouldYouLikeToLogOut,
+                             destructiveTitle: L10n.Localizable.logout,
+                             destructiveHandler: { [weak self] in
+                self?.presenter.tapLogoutButton()
+            })
     }
         
     init(navigator: Navigator,
