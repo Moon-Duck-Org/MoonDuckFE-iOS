@@ -156,10 +156,17 @@ extension V2HomeViewPresenter {
     }
     
     // MARK: - Logic
-    private func relaodReviews(for list: ReviewList) {
+    private func updateData(with list: ReviewList) {
         view?.updateReviewCount("\(list.totalElements)")
         view?.updateEmptyReviewsView(list.reviews.isEmpty)
-        view?.resetScrollAndEndRefresh()
+    }
+    
+    private func isNeededReloadReviews(with category: Category) -> Bool {
+        if let list = reviewModel.reviewList(with: category),
+           list.sortOption == sortModel.selectedSortOption {
+            return false
+        }
+        return true
     }
 }
 
@@ -187,14 +194,17 @@ extension V2HomeViewPresenter: CategoryModelDelegate {
     func category(_ model: CategoryModel, didSelect category: Category) {
         view?.reloadCategories()
         
-        if let list = reviewModel.reviewList(with: category) {
-            // 리뷰 리스트가 있으면 테이블뷰만 리로드
-            view?.reloadReviews()
-            relaodReviews(for: list)
-        } else {
-            // 리뷰 리스트가 없으면 API 호출
+        if isNeededReloadReviews(with: category) {
+            // API 호출
             view?.updateLoadingView(true)
-            reviewModel.loadReviews(with: category, filter: sortModel.selectedSortOption)
+            reviewModel.reloadReviews(with: category, filter: sortModel.selectedSortOption)
+        } else {
+            // 테이블 뷰만 리로드
+            view?.reloadReviews()
+            if let list = reviewModel.reviewList(with: category) {
+                updateData(with: list)
+            }
+            view?.resetScrollAndEndRefresh()
         }
     }
     
@@ -222,28 +232,34 @@ extension V2HomeViewPresenter: SortModelDelegate {
 extension V2HomeViewPresenter: ReviewListModelDelegate {
     func reviewList(_ model: ReviewListModelType, didSuccess list: ReviewList) {
         view?.updateLoadingView(false)
+        
         view?.reloadReviews()
         if list.isFirst {
-            // 첫 번째 리뷰 리스트면 리로드 로직 수행
-            relaodReviews(for: list)
+            // 첫 번째 리뷰 리스트면 데이터 업데이트
+            updateData(with: list)
+            view?.resetScrollAndEndRefresh()
         }
     }
     
     func reviewList(_ model: ReviewListModelType, didRecieve error: APIError?) {
         view?.updateLoadingView(false)
+        
         if let error = error {
             view?.showToast(error.errorDescription ?? error.localizedDescription)
         }
     }
     
     func reviewList(_ model: ReviewListModelType, didDelete review: Review) {
-        view?.updateLoadingView(false)
+        if let category = categoryModel.selectedCategory {
+            model.syncReviewList(with: category, review: review)
+        }
     }
     
-    func reviewList(_ model: ReviewListModelType, didUpdate list: ReviewList) {
+    func reviewList(_ model: ReviewListModelType, didAync list: ReviewList) {
         view?.updateLoadingView(false)
+        view?.reloadReviews()
+        updateData(with: list)
     }
-    
 }
 
 // MARK: - WriteReviewPresenterDelegate

@@ -41,10 +41,8 @@ struct GetReviewResponse: Codable {
             reviews = content.map { $0.toDomain() }
         }
         
-        return ReviewList(totalPages: totalPages,
-                          totalElements: totalElements,
+        return ReviewList(totalElements: totalElements,
                           currentPage: number,
-                          size: size,
                           isFirst: first,
                           isLast: last,
                           isEmpty: empty,

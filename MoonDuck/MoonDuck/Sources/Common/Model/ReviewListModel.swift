@@ -11,14 +11,13 @@ protocol ReviewListModelDelegate: AnyObject {
     func reviewList(_ model: ReviewListModelType, didSuccess list: ReviewList)
     func reviewList(_ model: ReviewListModelType, didRecieve error: APIError?)
     func reviewList(_ model: ReviewListModelType, didDelete review: Review)
-    func reviewList(_ model: ReviewListModelType, didUpdate list: ReviewList)
+    func reviewList(_ model: ReviewListModelType, didAync list: ReviewList)
 }
 protocol ReviewListModelType: AnyObject {
     // Data
     var delegate: ReviewListModelDelegate? { get set }
     
     func numberOfReviews(with category: Category) -> Int
-    func reviews(with category: Category) -> [Review]
     func review(with category: Category, at index: Int) -> Review?
     func reviewList(with category: Category) -> ReviewList?
     
@@ -28,13 +27,13 @@ protocol ReviewListModelType: AnyObject {
     func loadReviews(with category: Category, filter: Sort)
     func reloadReviews(with category: Category, filter: Sort)
     func deleteReview(for review: Review)
-    func syncReviewList(with category: Category, filter: Sort)
+    func syncReviewList(with category: Category, review: Review)
 }
 
 class ReviewListModel: ReviewListModelType {
     
     struct Config {
-        let defaultSize: Int = 30
+        let defaultSize: Int = 10
     }
     
     private let config: Config = Config()
@@ -54,13 +53,6 @@ class ReviewListModel: ReviewListModelType {
         return reviews(with: category).count
     }
     
-    func reviews(with category: Category) -> [Review] {
-        if let reviewList = reviewList(with: category) {
-            return reviewList.reviews
-        }
-        return []
-    }
-    
     func review(with category: Category, at index: Int) -> Review? {
         let reviews = reviews(with: category)
         if index < reviews.count {
@@ -70,10 +62,18 @@ class ReviewListModel: ReviewListModelType {
     }
     
     func reviewList(with category: Category) -> ReviewList? {
-        if let list = reviewLists.first(where: { $0.category == category }) {
-            return list
+        return reviewLists.first(where: { $0.category == category })
+    }
+    
+    private func reviews(with category: Category) -> [Review] {
+        if let reviewList = reviewList(with: category) {
+            return reviewList.reviews
         }
-        return nil
+        return []
+    }
+    
+    private func reviewListIndex(with category: Category) -> Int? {
+        return reviewLists.firstIndex(where: { $0.category == category })
     }
     
     // MARK: - Logic
@@ -97,31 +97,15 @@ class ReviewListModel: ReviewListModelType {
             delegate?.reviewList(self, didSuccess: list)
         }
     }
-    
-    private func removeReview(for review: Review) {
-        if let listIndex = reviewLists.firstIndex(where: { $0.category == .all }),
-           let reviewIndex = reviewLists[listIndex].reviews.firstIndex(where: { $0.id == review.id }) {
-            reviewLists[listIndex].reviews.remove(at: reviewIndex)
-        }
-        
-        if let listIndex = reviewLists.firstIndex(where: { $0.category == review.category }),
-           let reviewIndex = reviewLists[listIndex].reviews.firstIndex(where: { $0.id == review.id }) {
-            reviewLists[listIndex].reviews.remove(at: reviewIndex)
-        }
-    }
-    
-    private func updateReviews(with category: Category, for reviews: [Review]) {
-        if let listIndex = reviewLists.firstIndex(where: { $0.category == category }) {
-            reviewLists[listIndex].reviews = reviews
-        }
-    }
-    
-    // MARK: - Networking
+}
+
+// MARK: - Networking
+extension ReviewListModel {
     func loadReviews(with category: Category, filter: Sort) {
         guard !isLoading else { return }
         
         var offset: Int = 0
-        var size: Int = config.defaultSize
+        let size: Int = config.defaultSize
         
         if let list = reviewList(with: category) {
             if list.isLast {
@@ -129,7 +113,6 @@ class ReviewListModel: ReviewListModelType {
                 return
             }
             offset = list.currentPage + 1
-            size = list.size
         }
         
         if category == .all {
@@ -142,8 +125,8 @@ class ReviewListModel: ReviewListModelType {
     func reloadReviews(with category: Category, filter: Sort) {
         guard !isLoading else { return }
         
-        var offset: Int = 0
-        var size: Int = config.defaultSize
+        let offset: Int = 0
+        let size: Int = config.defaultSize
         
         if category == .all {
             getAllReview(with: filter, offset: offset, size: size)
@@ -162,6 +145,7 @@ class ReviewListModel: ReviewListModelType {
                 // 검색 성공
                 var list = succeed
                 list.category = category
+                list.sortOption = filter
                 self.saveReviewList(list)
             } else {
                 // 오류 발생
@@ -198,6 +182,7 @@ class ReviewListModel: ReviewListModelType {
                 // 검색 성공
                 var list = succeed
                 list.category = .all
+                list.sortOption = filter
                 self.saveReviewList(list)
             } else {
                 // 오류 발생
@@ -224,31 +209,32 @@ class ReviewListModel: ReviewListModelType {
         }
     }
     
-    func syncReviewList(with category: Category, filter: Sort) {
-        guard !isLoading else { return }
-        
-        if let list = reviewList(with: category) {
-            let offset = list.size * list.currentPage
-            let size = list.size
-            syncGetReview(with: category, filter: filter, offset: offset, size: size)
-        }
-        
-        if let list = reviewList(with: .all) {
-            let offset = list.size * list.currentPage
-            let size = list.size
-            syncGetAllReview(with: filter, offset: offset, size: size)
-        }
-        
+    func syncReviewList(with category: Category, review: Review) {
+            if category == .all {
+                syncGetAllReview(with: review)
+            } else {
+                syncGetReview(with: category, review: review)
+            }
     }
     
-    private func syncGetReview(with category: Category, filter: Sort, offset: Int, size: Int) {
-        isLoading = true
+    private func syncGetReview(with category: Category, review: Review) {
+        guard let listIndex = reviewListIndex(with: category) else { return }
+        let list = reviewLists[listIndex]
+        
+        guard let reviewIndex = list.reviews.firstIndex(where: { $0.id == review.id }) else { return }
+        let filter = list.sortOption
+        let offset = reviewIndex / config.defaultSize
+        let size = config.defaultSize * 2
+        
         let request = GetReviewRequest(category: category.apiKey, filter: filter.apiKey, offset: offset, size: size)
         provider.reviewService.getReview(request: request) { [weak self] succeed, failed in
             guard let self else { return }
-            self.isLoading = false
             if let succeed {
-                self.updateReviews(with: category, for: succeed.reviews)
+                // 현재 페이지 데이터 갱신
+                let startIndex = offset * size
+                let endIndex = min(startIndex + size, self.reviewLists[listIndex].reviews.count)
+                self.reviewLists[listIndex].updateSync(succeed, startIndex: startIndex)
+                self.delegate?.reviewList(self, didAync: self.reviewLists[listIndex])
             } else {
                 // 오류 발생
                 if let code = failed as? APIError {
@@ -258,7 +244,7 @@ class ReviewListModel: ReviewListModelType {
                         AuthManager.default.refreshToken { [weak self] code in
                             guard let self else { return }
                             if code == .success {
-                                self.syncGetReview(with: category, filter: filter, offset: offset, size: size)
+                                self.syncGetReview(with: category, review: review)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
                             }
@@ -271,15 +257,23 @@ class ReviewListModel: ReviewListModelType {
         }
     }
     
-    private func syncGetAllReview(with filter: Sort, offset: Int, size: Int) {
-        isLoading = true
+    private func syncGetAllReview(with review: Review) {
+        guard let listIndex = reviewListIndex(with: .all) else { return }
+        let list = reviewLists[listIndex]
+        
+        guard let reviewIndex = list.reviews.firstIndex(where: { $0.id == review.id }) else { return }
+        let filter = list.sortOption
+        let offset = reviewIndex / config.defaultSize
+        let size = config.defaultSize * 2
+        
         let allRequest = ReviewAllRequest(filter: filter.apiKey, offset: offset, size: size)
         provider.reviewService.reviewAll(request: allRequest) { [weak self]  succeed, failed in
             guard let self else { return }
-            self.isLoading = false
             if let succeed {
-                // 검색 성공
-                self.updateReviews(with: .all, for: succeed.reviews)
+                // 현재 페이지 데이터 갱신
+                let startIndex = offset * config.defaultSize
+                self.reviewLists[listIndex].updateSync(succeed, startIndex: startIndex)
+                self.delegate?.reviewList(self, didAync: self.reviewLists[listIndex])
             } else {
                 // 오류 발생
                 if let code = failed as? APIError {
@@ -289,7 +283,7 @@ class ReviewListModel: ReviewListModelType {
                         AuthManager.default.refreshToken { [weak self] code in
                             guard let self else { return }
                             if code == .success {
-                                self.syncGetAllReview(with: filter, offset: offset, size: size)
+                                self.syncGetAllReview(with: review)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
                             }
@@ -333,6 +327,5 @@ class ReviewListModel: ReviewListModelType {
                 self.delegate?.reviewList(self, didRecieve: .unowned)
             }
         }
-        
     }
 }

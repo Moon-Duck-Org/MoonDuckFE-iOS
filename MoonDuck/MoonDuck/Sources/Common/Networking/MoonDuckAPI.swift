@@ -124,7 +124,7 @@ extension MoonDuckAPI: TargetType {
             return .query(request)
         case .getReview(let request):
             return .query(request)
-        case .putReview(let request):
+        case .putReview:
             return nil
         case .deleteReview(let request):
             return .query(request)
