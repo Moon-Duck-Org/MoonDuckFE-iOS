@@ -14,7 +14,7 @@ protocol V2HomeView: BaseView {
     func updateReviewCount(_ count: String)
     func updateSortTitle(_ text: String)
     func updateEmptyReviewsView(_ isEmpty: Bool)
-    func scrollToTopReviews()
+    func resetScrollAndEndRefresh()
     func showOptionAlert(for review: Review)
     
     // Navigation
@@ -26,8 +26,10 @@ protocol V2HomeView: BaseView {
 class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
     var navigator: Navigator?
     let presenter: V2HomePresenter
+    
     private let categoryDataSource: HomeCategoryDataSource
     private let reviewDataSource: HomeReviewDataSource
+    private let refreshControl = UIRefreshControl()
     
     // @IBOutlet
     @IBOutlet weak private var categoryCollectioinView: UICollectionView!
@@ -48,9 +50,7 @@ class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
     @IBAction private func tapWriteNewReviewButton(_ sender: Any) {
         presenter.tapWriteNewReviewButton()
     }
-    
-    // datasource
-    
+        
     init(navigator: Navigator,
          presenter: V2HomePresenter) {
         self.navigator = navigator
@@ -71,6 +71,10 @@ class V2HomeViewController: BaseViewController, V2HomeView, Navigatable {
         
         categoryDataSource.configure(with: categoryCollectioinView)
         reviewDataSource.configure(with: reviewTableView)
+        
+        refreshControl.tintColor = Asset.Color.gray3.color
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        reviewTableView.refreshControl = refreshControl
     }
 }
 
@@ -96,13 +100,18 @@ extension V2HomeViewController {
         emptyReviewsView.isHidden = !isEmpty
     }
 
-    func scrollToTopReviews() {
-        // reloadData가 완료된 후 비동기적으로 실행
-        DispatchQueue.main.async {
-            // 테이블 뷰를 맨 위로 스크롤
-            let topIndexPath = IndexPath(row: 0, section: 0)
-            if self.reviewTableView.numberOfSections > 0 && self.reviewTableView.numberOfRows(inSection: 0) > 0 {
-                self.reviewTableView.scrollToRow(at: topIndexPath, at: .top, animated: true)
+    func resetScrollAndEndRefresh() {
+        if refreshControl.isRefreshing {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.refreshControl.endRefreshing()
+            }
+        } else {
+            DispatchQueue.main.async {
+                // 테이블 뷰를 맨 위로 스크롤
+                let topIndexPath = IndexPath(row: 0, section: 0)
+                if self.reviewTableView.numberOfSections > 0 && self.reviewTableView.numberOfRows(inSection: 0) > 0 {
+                    self.reviewTableView.scrollToRow(at: topIndexPath, at: .top, animated: true)
+                }
             }
         }
     }
@@ -114,7 +123,8 @@ extension V2HomeViewController {
                 writeHandler: presenter.writeReviewHandler(for: review),
                 shareHandler: presenter.shareReviewHandler(for: review),
                 deleteHandler: { [weak self] in
-                    self?.showDeleteReviewAlert(review) }
+                    self?.showDeleteReviewAlert(review)
+                }
             )
     }
     
@@ -125,6 +135,12 @@ extension V2HomeViewController {
                 title: "삭제하시겠어요?",
                 destructiveHandler: presenter.deleteReviewHandler(for: review)
             )
+    }
+    
+    @objc
+    private func refreshData(_ sender: Any) {
+        // 새로고침할 데이터 로드하는 메서드 호출
+        presenter.refreshReviews()
     }
 }
 

@@ -31,6 +31,7 @@ protocol V2HomePresenter: AnyObject {
     func selectSort(at index: Int)
     func tapMyButton()
     func tapWriteNewReviewButton()
+    func refreshReviews()
 }
 
 class V2HomeViewPresenter: Presenter, V2HomePresenter {
@@ -134,11 +135,18 @@ extension V2HomeViewPresenter {
         view?.moveSelectProgram(with: presenter)
     }
     
+    func refreshReviews() {
+        if let category = categoryModel.selectedCategory {
+            view?.updateLoadingView(true)
+            reviewModel.reloadReviews(with: category, filter: sortModel.selectedSortOption)
+        }
+    }
+    
     // MARK: - Logic
     private func relaodReviews(for list: ReviewList) {
         view?.updateReviewCount("\(list.totalElements)")
         view?.updateEmptyReviewsView(list.reviews.isEmpty)
-        view?.scrollToTopReviews()
+        view?.resetScrollAndEndRefresh()
     }
 }
 
@@ -188,7 +196,6 @@ extension V2HomeViewPresenter: SortModelDelegate {
         view?.updateSortTitle(sortOption.title)
         
         if let selectedCategory = categoryModel.selectedCategory {
-            view?.updateLoadingView(true)
             reviewModel.reloadReviews(with: selectedCategory, filter: sortOption)
         }
     }
