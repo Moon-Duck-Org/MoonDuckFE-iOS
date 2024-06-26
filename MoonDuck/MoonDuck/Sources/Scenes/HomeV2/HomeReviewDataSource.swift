@@ -17,6 +17,7 @@ final class HomeReviewDataSource: NSObject {
     func configure(with tableView: UITableView) {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         tableView.register(UINib(nibName: HomeReviewTableViewCell.className, bundle: nil), forCellReuseIdentifier: HomeReviewTableViewCell.className)
     }
 }
@@ -42,6 +43,20 @@ extension HomeReviewDataSource: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension HomeReviewDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        presenter.selectProgram(at: indexPath.row)
+        presenter.selectReview(at: indexPath.row)
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension HomeReviewDataSource: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        // 셀이 prefetch 되었을 때 호출되는 메서드
+        guard let lastIndexPath = indexPaths.last else { return }
+        let lastIndex = lastIndexPath.row
+        
+        // 마지막 인덱스가 현재 로드된 데이터의 갯수보다 많으면 다음 페이지를 로드
+        if lastIndex > presenter.numberOfReviews - 2 {
+            presenter.loadNextReviews()
+        }
     }
 }

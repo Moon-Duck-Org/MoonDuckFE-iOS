@@ -22,12 +22,10 @@ class ReviewImageCollectionViewCell: UICollectionViewCell {
                 .transition(.fade(0.2))
             ],
             completionHandler: { [weak self] result in
-                Log.debug("result \(result) \(imageUrl)")
                 switch result {
                 case .success(let value):
-                    print(value.source)
+                    break
                 case .failure(let error):
-                    print(error) // The error happens
                     self?.imageView.image = Asset.Assets.imageEmpty.image
                 }
                 self?.imageView.clipsToBounds = true

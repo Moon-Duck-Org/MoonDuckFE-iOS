@@ -30,6 +30,12 @@ protocol HomeReviewModelType: AnyObject {
 }
 
 class HomeReviewModel: HomeReviewModelType {
+    
+    struct Config {
+        let defaultSize: Int = 30
+    }
+    
+    private let config: Config = Config()
     private let provider: AppServices
     
     init(_ provider: AppServices) {
@@ -39,6 +45,7 @@ class HomeReviewModel: HomeReviewModelType {
     // MARK: - Data
     weak var delegate: HomeReviewModelDelegate?
     
+    private var isLoading: Bool = false
     private var reviewLists: [ReviewList] = []
     
     func numberOfReviews(with category: Category) -> Int {
@@ -107,8 +114,10 @@ class HomeReviewModel: HomeReviewModelType {
     }
     
     private func getReview(with category: Category, filter: Sort, isReload: Bool) {
+        guard !isLoading else { return }
+        
         var offset: Int = 0
-        var size: Int = 30
+        var size: Int = config.defaultSize
         
         if !isReload, let list = reviewList(with: category) {
             if list.isLast {
@@ -119,9 +128,11 @@ class HomeReviewModel: HomeReviewModelType {
             size = list.size
         }
         
+        isLoading = true
         let request = GetReviewRequest(category: category.apiKey, filter: filter.apiKey, offset: offset, size: size)
         provider.reviewService.getReview(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
+            self.isLoading = false
             if let succeed {
                 // 검색 성공
                 var list = succeed
@@ -153,8 +164,10 @@ class HomeReviewModel: HomeReviewModelType {
     }
     
     private func getAllReview(_ filter: Sort, isReload: Bool) {
+        guard !isLoading else { return }
+        
         var offset: Int = 0
-        var size: Int = 30
+        var size: Int = config.defaultSize
         
         if !isReload, let list = reviewList(with: .all) {
             if list.isLast {
@@ -165,9 +178,11 @@ class HomeReviewModel: HomeReviewModelType {
             size = list.size
         }
         
+        isLoading = true
         let request = ReviewAllRequest(filter: filter.apiKey, offset: offset, size: size)
         provider.reviewService.reviewAll(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
+            self.isLoading = false
             if let succeed {
                 // 검색 성공
                 var list = succeed

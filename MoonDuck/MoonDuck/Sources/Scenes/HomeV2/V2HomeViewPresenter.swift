@@ -29,9 +29,11 @@ protocol V2HomePresenter: AnyObject {
     /// Action
     func selectCategory(at index: Int)
     func selectSort(at index: Int)
+    func selectReview(at index: Int)
     func tapMyButton()
     func tapWriteNewReviewButton()
     func refreshReviews()
+    func loadNextReviews()
 }
 
 class V2HomeViewPresenter: Presenter, V2HomePresenter {
@@ -124,6 +126,10 @@ extension V2HomeViewPresenter {
         sortModel.selectSortOption(index)
     }
     
+    func selectReview(at index: Int) {
+        view?.showToast("기록 상세 이동 예정")
+    }
+    
     func tapMyButton() {
         let presenter = MyInfoViewPresenter(with: provider, model: userModel)
         view?.moveMy(with: presenter)
@@ -139,6 +145,12 @@ extension V2HomeViewPresenter {
         if let category = categoryModel.selectedCategory {
             view?.updateLoadingView(true)
             reviewModel.reloadReviews(with: category, filter: sortModel.selectedSortOption)
+        }
+    }
+
+    func loadNextReviews() {
+        if let category = categoryModel.selectedCategory {
+            reviewModel.loadReviews(with: category, filter: sortModel.selectedSortOption)
         }
     }
     
@@ -219,7 +231,9 @@ extension V2HomeViewPresenter: HomeReviewModelDelegate {
     
     func homeReview(_ model: HomeReviewModel, didRecieve error: APIError?) {
         view?.updateLoadingView(false)
-        view?.showToast(error?.errorDescription ?? error?.localizedDescription ?? "오류 발생")
+        if let error = error {
+            view?.showToast(error.errorDescription ?? error.localizedDescription)
+        }
     }
     
     func homeReviewDidRecieveLastReviews(_ model: HomeReviewModel) {
