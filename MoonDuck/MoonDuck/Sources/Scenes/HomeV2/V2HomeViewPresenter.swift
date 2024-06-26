@@ -42,13 +42,13 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
     private let userModel: UserModelType
     private let categoryModel: CategoryModelType
     private let sortModel: SortModelType
-    private let reviewModel: HomeReviewModelType
+    private let reviewModel: ReviewListModelType
     
     init(with provider: AppServices,
          userModel: UserModelType,
          categoryModel: CategoryModelType,
          sortModel: SortModelType,
-         reviewModel: HomeReviewModel) {
+         reviewModel: ReviewListModelType) {
         self.userModel = userModel
         self.categoryModel = categoryModel
         self.sortModel = sortModel
@@ -106,7 +106,8 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
     
     func deleteReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
-            self?.view?.showToast("삭제 연동 예정")
+            self?.view?.updateLoadingView(true)
+            self?.reviewModel.deleteReview(for: review)
         }
     }
 }
@@ -217,11 +218,10 @@ extension V2HomeViewPresenter: SortModelDelegate {
     }
 }
 
-// MARK: - HomeReviewModelDelegate
-extension V2HomeViewPresenter: HomeReviewModelDelegate {
-    func homeReview(_ model: HomeReviewModel, didSuccess list: ReviewList) {
+// MARK: - ReviewListModelDelegate
+extension V2HomeViewPresenter: ReviewListModelDelegate {
+    func reviewList(_ model: ReviewListModelType, didSuccess list: ReviewList) {
         view?.updateLoadingView(false)
-        
         view?.reloadReviews()
         if list.isFirst {
             // 첫 번째 리뷰 리스트면 리로드 로직 수행
@@ -229,16 +229,21 @@ extension V2HomeViewPresenter: HomeReviewModelDelegate {
         }
     }
     
-    func homeReview(_ model: HomeReviewModel, didRecieve error: APIError?) {
+    func reviewList(_ model: ReviewListModelType, didRecieve error: APIError?) {
         view?.updateLoadingView(false)
         if let error = error {
             view?.showToast(error.errorDescription ?? error.localizedDescription)
         }
     }
     
-    func homeReviewDidRecieveLastReviews(_ model: HomeReviewModel) {
+    func reviewList(_ model: ReviewListModelType, didDelete review: Review) {
         view?.updateLoadingView(false)
     }
+    
+    func reviewList(_ model: ReviewListModelType, didUpdate list: ReviewList) {
+        view?.updateLoadingView(false)
+    }
+    
 }
 
 // MARK: - WriteReviewPresenterDelegate

@@ -20,9 +20,9 @@ enum MoonDuckAPI {
     case postReview(PostReviewRequest, [UIImage]?)
     case reviewAll(ReviewAllRequest)
     case getReview(GetReviewRequest)
+    case deleteReview(DeleteReviewRequest)
     // TODO: - API 수정
     case putReview(PutReviewRequest)
-    case deleteReview(DeleteReviewRequest)
     case reviewDetail(ReviewDetailRequest)
 }
 extension MoonDuckAPI: TargetType {
@@ -148,7 +148,7 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .authLogin, .authReissue:
             return ["Content-Type": "application/json"]
-        case .user, .userNickname, .reviewAll, .getReview:
+        case .user, .userNickname, .reviewAll, .getReview, .deleteReview:
             if let token: String = AuthManager.default.getAccessToken() {
                 return ["Content-Type": "application/json",
                         "Authorization": "Bearer \(token)"]
