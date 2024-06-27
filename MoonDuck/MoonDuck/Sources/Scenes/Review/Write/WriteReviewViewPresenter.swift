@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import PhotosUI
 import UIKit
 
 protocol WriteReviewPresenterDelegate: AnyObject {
@@ -62,7 +61,7 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     private var contentText: String?
     private var rating: Int = 0 {
         didSet {
-            view?.updateRating(rating)
+            view?.updateRating(for: rating)
         }
     }
     private var linkText: String?
@@ -121,9 +120,26 @@ extension WriteReviewViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         view?.createTouchEvent()
-        
-        view?.updateCategory(model.program.category)
-        view?.updateProgramInfo(title: model.program.title, subTitle: model.program.subInfo)
+        if let review = model.review {
+            let program = review.program
+            view?.updateProgramInfo(for: program.category, with: program.title, and: program.subInfo)
+            view?.updateTestField(for: review.title, with: review.content, and: review.link)
+            titleText = review.title
+            contentText = review.content
+            linkText = review.link
+            view?.updateRating(for: review.rating)
+            rating = review.rating
+            
+            for imageUrl in review.imageUrlList {
+                if let url = URL(string: imageUrl) {
+                    Utils.downloadImage(from: url) { [weak self] image in
+                        self?.images.append(image)
+                    }
+                }
+            }
+        } else if let program = model.program {
+            view?.updateProgramInfo(for: program.category, with: program.title, and: program.subInfo)
+        }
     }
     
     // MARK: - Action
@@ -157,8 +173,12 @@ extension WriteReviewViewPresenter {
             return
         }
         
-        // TODO: 기록 작성 API 연결
-        model.writeReview(title: title, content: content, score: score, url: linkText, images: images)
+        if let review = model.review {
+            view?.updateLoadingView(true)
+            view?.showToast("수정 연동 예정")
+        } else {
+            model.postReview(title: title, content: content, score: score, url: linkText, images: images)
+        }
     }
     
     func tapRatingButton(at tag: Int) {
@@ -188,7 +208,7 @@ extension WriteReviewViewPresenter {
 // MARK: - UITextFieldDelegate
 extension WriteReviewViewPresenter {
     func titleTextFieldEditingChanged(_ text: String?) {
-        view?.updateTitleCountLabel("\(text?.count ?? 0)/\(config.maxTitleCount)")
+        view?.updateTitleCountLabel(for: "\(text?.count ?? 0)/\(config.maxTitleCount)")
         titleText = text
     }
     
@@ -217,7 +237,7 @@ extension WriteReviewViewPresenter {
 // MARK: - UITextViewDelegate
 extension WriteReviewViewPresenter {
     func textViewDidChange(_ text: String?) {
-        view?.updateContentCountLabel("\(text?.count ?? 0)/\(config.maxContentCount)")
+        view?.updateContentCountLabel(for: "\(text?.count ?? 0)/\(config.maxContentCount)")
         contentText = text
     }
     
@@ -242,7 +262,6 @@ extension WriteReviewViewPresenter: WriteReviewModelDelegate {
     func writeReview(_ model: WriteReviewModel, didSuccess review: Review) {
         view?.updateLoadingView(false)
         delegate?.writeReview(self, didSuccess: review)
-//        view?.backToHome()
     }
     
     func writeReview(_ model: WriteReviewModel, didRecieve error: APIError?) {

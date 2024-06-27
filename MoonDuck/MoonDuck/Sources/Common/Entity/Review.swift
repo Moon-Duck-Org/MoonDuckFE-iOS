@@ -12,7 +12,7 @@ struct Review {
     var title: String
     var category: Category
     let user: User
-    var program: Program?
+    var program: Program
     var content: String
     var imageUrlList: [String]
     var link: String?

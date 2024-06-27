@@ -49,8 +49,8 @@ class HomeReviewTableViewCell: UITableViewCell {
         dateLabel.text = review.createdAt
         categoryImageview.image = review.category.roundSmallImage
         
-        if let program = review.program, program.title.isNotEmpty {
-            programTitleLabel.text = program.title
+        if review.program.title.isNotEmpty {
+            programTitleLabel.text = review.program.title
             programTitleDot.isHidden = false
         } else {
             programTitleLabel.text = ""

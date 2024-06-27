@@ -10,11 +10,11 @@ import PhotosUI
 
 protocol WriteReviewView: BaseView {
     // UI Logic
-    func updateCategory(_ category: Category)
-    func updateProgramInfo(title: String, subTitle: String)
-    func updateTitleCountLabel(_ text: String)
-    func updateContentCountLabel(_ text: String)
-    func updateRating(_ rating: Int)
+    func updateProgramInfo(for category: Category, with title: String, and subTitle: String)
+    func updateTestField(for title: String, with content: String, and link: String?)
+    func updateTitleCountLabel(for count: String)
+    func updateContentCountLabel(for count: String)
+    func updateRating(for rating: Int)
     func showSelectImageSheet()
     func reloadImages()
     
@@ -110,25 +110,27 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
 
 // MARK: - UI Logic
 extension WriteReviewViewController {
-    
-    func updateCategory(_ category: Category) {
+    func updateProgramInfo(for category: Category, with title: String, and subTitle: String) {
         categoryImageView.image = category.roundImage
-    }
-    
-    func updateProgramInfo(title: String, subTitle: String) {
         programTitleLabel.text = title
         programSubTitleLabel.text = subTitle
     }
     
-    func updateTitleCountLabel(_ text: String) {
+    func updateTestField(for title: String, with content: String, and link: String?) {
+        titleTextField.text = title
+        contentTextView.text = content
+        linkTextField.text = link
+    }
+    
+    func updateTitleCountLabel(for text: String) {
         titleCountLabel.text = text
     }
     
-    func updateContentCountLabel(_ text: String) {
+    func updateContentCountLabel(for text: String) {
         contentCountLabel.text = text
     }
     
-    func updateRating(_ rating: Int) {
+    func updateRating(for rating: Int) {
         ratingButton1.isSelected = rating > 0
         ratingButton2.isSelected = rating > 1
         ratingButton3.isSelected = rating > 2

@@ -16,30 +16,37 @@ protocol WriteReviewModelDelegate: AnyObject {
 protocol WriteReviewModelType: AnyObject {
     // Data
     var delegate: WriteReviewModelDelegate? { get set }
-    var program: Program { get }
+    var program: Program? { get }
+    var review: Review? { get }
     
     // Logic
     
     // Networking
-    func writeReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?)
+    func postReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?)
 }
 
 class WriteReviewModel: WriteReviewModelType {
     private let provider: AppServices
     
-    init(_ provider: AppServices, program: Program) {
+    init(_ provider: AppServices,
+         review: Review? = nil,
+         program: Program? = nil) {
         self.provider = provider
+        self.review = review
         self.program = program
     }
     
     // MARK: - Data
     weak var delegate: WriteReviewModelDelegate?
-    var program: Program
+    var review: Review?
+    var program: Program?
     
     // MARK: - Logic
     
     // MARK: - Networking
-    func writeReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?) {
+    func postReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?) {
+        guard let program = program else { return }
+        
         let programRequest = ProgramRequest(program: program)
         let request = PostReviewRequest(title: title, category: program.category.apiKey, program: programRequest, content: content, url: url ?? "", score: score)
         
@@ -57,7 +64,7 @@ class WriteReviewModel: WriteReviewModelType {
                         AuthManager.default.refreshToken { [weak self] code in
                             guard let self else { return }
                             if code == .success {
-                                self.writeReview(title: title, content: content, score: score, url: url, images: images)
+                                self.postReview(title: title, content: content, score: score, url: url, images: images)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
                                 self.delegate?.writeReview(self, didRecieve: failed)

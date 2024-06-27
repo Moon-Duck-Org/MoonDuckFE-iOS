@@ -7,7 +7,9 @@
 
 import Foundation
 import UIKit
+
 import SafariServices
+import Kingfisher
 
 class Utils {
     static func formattedDate(createdAt date: String) -> String {
@@ -34,5 +36,21 @@ class Utils {
             }
         }
         
+    }
+    
+    static func downloadImage(from url: URL, completion: @escaping (UIImage) -> Void) {
+        let downloader = KingfisherManager.shared.downloader
+
+        downloader.downloadImage(with: url, options: nil) { result in
+            switch result {
+            case .success(let value):
+                // 성공적으로 이미지를 다운로드한 경우 UIImage를 반환
+                completion(value.image)
+            case .failure(let error):
+                // 에러 처리
+                print("Error downloading image: \(error)")
+                completion(Asset.Assets.imageEmpty.image)
+            }
+        }
     }
 }
