@@ -90,7 +90,7 @@ class ReviewListModel: ReviewListModelType {
         }
         
         if let findIndex = reviewLists.firstIndex(where: { $0.category == category }) {
-            reviewLists[findIndex].update(list)
+            reviewLists[findIndex].update(for: list)
             delegate?.reviewList(self, didSuccess: reviewLists[findIndex])
         } else {
             reviewLists.append(list)
@@ -105,7 +105,7 @@ extension ReviewListModel {
         guard !isLoading else { return }
         
         var offset: Int = 0
-        let size: Int = config.defaultSize
+        var size: Int = config.defaultSize
         
         if let list = reviewList(with: category) {
             if list.isLast {
@@ -113,6 +113,7 @@ extension ReviewListModel {
                 return
             }
             offset = list.currentPage + 1
+            size = list.size
         }
         
         if category == .all {
@@ -210,6 +211,7 @@ extension ReviewListModel {
     }
     
     func syncReviewList(with category: Category, review: Review) {
+        guard !isLoading else { return }
             if category == .all {
                 syncGetAllReview(with: review)
             } else {
@@ -218,22 +220,23 @@ extension ReviewListModel {
     }
     
     private func syncGetReview(with category: Category, review: Review) {
+        isLoading = true
         guard let listIndex = reviewListIndex(with: category) else { return }
         let list = reviewLists[listIndex]
         
         guard let reviewIndex = list.reviews.firstIndex(where: { $0.id == review.id }) else { return }
         let filter = list.sortOption
         let offset = reviewIndex / config.defaultSize
-        let size = config.defaultSize * 2
+        let size = list.size
         
         let request = GetReviewRequest(category: category.apiKey, filter: filter.apiKey, offset: offset, size: size)
         provider.reviewService.getReview(request: request) { [weak self] succeed, failed in
             guard let self else { return }
+            self.isLoading = false
             if let succeed {
                 // 현재 페이지 데이터 갱신
                 let startIndex = offset * size
-                let endIndex = min(startIndex + size, self.reviewLists[listIndex].reviews.count)
-                self.reviewLists[listIndex].updateSync(succeed, startIndex: startIndex)
+                self.reviewLists[listIndex].updateSync(for: succeed, startIndex: startIndex)
                 self.delegate?.reviewList(self, didAync: self.reviewLists[listIndex])
             } else {
                 // 오류 발생
@@ -258,21 +261,23 @@ extension ReviewListModel {
     }
     
     private func syncGetAllReview(with review: Review) {
+        isLoading = true
         guard let listIndex = reviewListIndex(with: .all) else { return }
         let list = reviewLists[listIndex]
         
         guard let reviewIndex = list.reviews.firstIndex(where: { $0.id == review.id }) else { return }
         let filter = list.sortOption
         let offset = reviewIndex / config.defaultSize
-        let size = config.defaultSize
+        let size = list.size
         
         let allRequest = ReviewAllRequest(filter: filter.apiKey, offset: offset, size: size)
         provider.reviewService.reviewAll(request: allRequest) { [weak self]  succeed, failed in
             guard let self else { return }
+            self.isLoading = false
             if let succeed {
                 // 현재 페이지 데이터 갱신
                 let startIndex = offset * config.defaultSize
-                self.reviewLists[listIndex].updateSync(succeed, startIndex: startIndex)
+                self.reviewLists[listIndex].updateSync(for: succeed, startIndex: startIndex)
                 self.delegate?.reviewList(self, didAync: self.reviewLists[listIndex])
             } else {
                 // 오류 발생

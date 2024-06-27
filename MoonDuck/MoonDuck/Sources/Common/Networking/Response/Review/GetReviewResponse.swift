@@ -42,6 +42,8 @@ struct GetReviewResponse: Codable {
         }
         
         return ReviewList(totalElements: totalElements,
+                          totalPages: totalPages,
+                          size: size,
                           currentPage: number,
                           isFirst: first,
                           isLast: last,

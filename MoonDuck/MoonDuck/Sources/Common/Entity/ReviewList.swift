@@ -11,15 +11,18 @@ struct ReviewList {
     var category: Category = .none
     var sortOption: Sort = .latestOrder
     var totalElements: Int
+    var totalPages: Int
+    let size: Int
     var currentPage: Int
     var isFirst: Bool
     var isLast: Bool
     var isEmpty: Bool
     var reviews: [Review]
     
-    mutating func update(_ list: ReviewList) {
+    mutating func update(for list: ReviewList) {
         // Update the properties
         self.totalElements = list.totalElements
+        self.totalPages = list.totalPages
         self.currentPage = list.currentPage
         self.isFirst = list.isFirst
         self.isLast = list.isLast
@@ -29,9 +32,11 @@ struct ReviewList {
         self.reviews.append(contentsOf: list.reviews)
     }
     
-    mutating func updateSync(_ list: ReviewList, startIndex: Int) {
+    mutating func updateSync(for list: ReviewList, startIndex: Int) {
         // Update the properties
         self.totalElements = list.totalElements
+        self.totalPages = list.totalPages
+        self.currentPage = list.currentPage
         self.isFirst = list.isFirst
         self.isLast = list.isLast
         self.isEmpty = list.isEmpty
@@ -51,7 +56,5 @@ struct ReviewList {
         if endIndex < self.reviews.count {
             self.reviews.removeSubrange(endIndex..<self.reviews.count)
         }
-        
-        self.currentPage = (self.reviews.count - 1) / 10
     }
 }
