@@ -279,11 +279,24 @@ extension WriteReviewViewController: PHPickerViewControllerDelegate, UIImagePick
         
         for result in results {
             group.enter()
-            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
-                defer { group.leave() }
-                if let image = object as? UIImage {
-                    self?.presenter.selectImages([image])
+            if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
+                result.itemProvider.loadDataRepresentation(forTypeIdentifier: "public.jpeg") { [weak self] data, error in
+                    defer { group.leave() }
+                    if let data = data {
+                        let sizeInMB = Double(data.count) / (1024.0 * 1024.0)
+                        Log.debug("Image size in MB: \(sizeInMB)")
+                        
+                        if sizeInMB <= 10, let image = UIImage(data: data) {
+                            self?.presenter.selectImages([image])
+                        } else {
+                            self?.showToast("10메가 이하의 이미지만 첨부 가능해요.")
+                        }
+                    } else if let error = error {
+                        Log.error("Error loading image data: \(error.localizedDescription)")
+                    }
                 }
+            } else {
+                group.leave()
             }
         }
         
