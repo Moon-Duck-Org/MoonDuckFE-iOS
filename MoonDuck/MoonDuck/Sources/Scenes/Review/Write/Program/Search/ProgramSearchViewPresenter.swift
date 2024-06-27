@@ -35,12 +35,15 @@ class ProgramSearchViewPresenter: Presenter, ProgramSearchPresenter {
     weak var view: ProgramSearchView?
     
     private let model: ProgramSearchModelType
+    private var delegate: WriteReviewPresenterDelegate?
     
     private var searchText: String?
     
     init(with provider: AppServices,
-         model: ProgramSearchModel) {
+         model: ProgramSearchModel,
+         delegate: WriteReviewPresenterDelegate?) {
         self.model = model
+        self.delegate = delegate
         super.init(with: provider)
         self.model.delegate = self
     }
@@ -75,7 +78,7 @@ extension ProgramSearchViewPresenter {
             let program = Program(category: model.category, title: searchText)
             moveWriteReview(with: program)
         } else {
-            showToastWithEndEditing("제목을 입력하세요.")
+            showToastWithEndEditing("\(model.category.title) 제목을 입력해주세요.")
         }
     }
     
@@ -95,7 +98,7 @@ extension ProgramSearchViewPresenter {
     
     private func moveWriteReview(with program: Program) {
         let model = WriteReviewModel(provider, program: program)
-        let presenter = WriteReviewViewPresenter(with: provider, model: model)
+        let presenter = WriteReviewViewPresenter(with: provider, model: model, delegate: delegate)
         view?.moveWriteReview(with: presenter)
     }
     

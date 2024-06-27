@@ -8,6 +8,11 @@
 import UIKit
 
 class HomeReviewTableViewCell: UITableViewCell {
+    private var imageDataSource: ReviewImageDataSource?
+    private var linkButtonHandler: (() -> Void)?
+    private var optionButtonHandler: (() -> Void)?
+    
+    // @IBOutlet
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var dateLabel: UILabel!
     
@@ -27,10 +32,19 @@ class HomeReviewTableViewCell: UITableViewCell {
     @IBOutlet weak private var imageCollectionView: UICollectionView!
     @IBOutlet weak private var imageHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak private var linkView: UIView!
     @IBOutlet weak private var linkLabel: UILabel!
     @IBOutlet weak private var linkHeightContraint: NSLayoutConstraint!
     
-    func configure(with review: Review) {
+    @IBAction private func tapLinkButton(_ sender: Any) {
+        linkButtonHandler?()
+    }
+    
+    @IBAction private func tapOptionButton(_ sender: Any) {
+        optionButtonHandler?()
+    }
+    
+    func configure(with review: Review, optionButtonHandler: (() -> Void)? = nil) {
         titleLabel.text = review.title
         dateLabel.text = review.createdAt
         categoryImageview.image = review.category.roundSmallImage
@@ -52,6 +66,10 @@ class HomeReviewTableViewCell: UITableViewCell {
         
         contentLabel.text = review.content
         
+        imageDataSource = ReviewImageDataSource(review: review)
+        imageDataSource?.configure(with: imageCollectionView)
+        imageCollectionView.reloadData()
+        
         if review.imageUrlList.count > 0 {
             imageCollectionView.isHidden = false
             imageHeightConstraint.constant = 181
@@ -62,12 +80,17 @@ class HomeReviewTableViewCell: UITableViewCell {
         
         if let link = review.link, link.isNotEmpty {
             linkLabel.text = link
-            linkLabel.isHidden = false
-            linkHeightContraint.constant = 48
+            linkView.isHidden = false
+            linkHeightContraint.constant = 34
+            linkButtonHandler = { Utils.openSafariViewController(urlString: link)
+            }
         } else {
             linkLabel.text = ""
-            linkLabel.isHidden = true
+            linkView.isHidden = true
             linkHeightContraint.constant = 0
+            linkButtonHandler = nil
         }
+        
+        self.optionButtonHandler = optionButtonHandler
     }
 }

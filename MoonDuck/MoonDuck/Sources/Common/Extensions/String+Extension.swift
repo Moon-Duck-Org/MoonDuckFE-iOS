@@ -8,13 +8,6 @@
 import Foundation
 
 extension String {
-    func toDateString() -> String {
-        let date = self.split(separator: "T")[0]
-        let str = String(date).split(separator: "-")
-        let (year, month, day) = (str[0], str[1], str[2])
-        return "\(year)년 \(month)월 \(day)일"
-    }
-    
     func toBool() -> Bool? {
         if self == "true" {
           return true

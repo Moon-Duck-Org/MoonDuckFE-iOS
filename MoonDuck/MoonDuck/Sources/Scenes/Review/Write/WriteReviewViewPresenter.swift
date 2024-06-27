@@ -9,6 +9,11 @@ import Foundation
 import PhotosUI
 import UIKit
 
+protocol WriteReviewPresenterDelegate: AnyObject {
+    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review)
+    func writeReviewDidCancel(_ presenter: WriteReviewPresenter)
+}
+
 protocol WriteReviewPresenter: AnyObject {
     var view: WriteReviewView? { get set }
     
@@ -44,6 +49,7 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     
     weak var view: WriteReviewView?
     private var model: WriteReviewModelType
+    private var delegate: WriteReviewPresenterDelegate?
     
     private struct Config {
         let maxTitleCount = 40
@@ -67,8 +73,11 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     }
     private var addImage: UIImage = Asset.Assets.imageAdd.image
     
-    init(with provider: AppServices, model: WriteReviewModelType) {
+    init(with provider: AppServices,
+         model: WriteReviewModelType,
+         delegate: WriteReviewPresenterDelegate?) {
         self.model = model
+        self.delegate = delegate
         super.init(with: provider)
         self.model.delegate = self
     }
@@ -99,7 +108,7 @@ class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
     func deleteImageHandler(at index: Int) -> (() -> Void)? {
         if index < images.count {
             return { [weak self] in
-                self?.deleteButton(at: index)
+                self?.deleteImage(at: index)
             }
         }
         return nil
@@ -170,7 +179,7 @@ extension WriteReviewViewPresenter {
     }
     
     // MARK: - Logic
-    private func deleteButton(at index: Int) {
+    private func deleteImage(at index: Int) {
         images.remove(at: index)
     }
     
@@ -232,7 +241,8 @@ extension WriteReviewViewPresenter {
 extension WriteReviewViewPresenter: WriteReviewModelDelegate {
     func writeReview(_ model: WriteReviewModel, didSuccess review: Review) {
         view?.updateLoadingView(false)
-        view?.backToHome()
+        delegate?.writeReview(self, didSuccess: review)
+//        view?.backToHome()
     }
     
     func writeReview(_ model: WriteReviewModel, didRecieve error: APIError?) {

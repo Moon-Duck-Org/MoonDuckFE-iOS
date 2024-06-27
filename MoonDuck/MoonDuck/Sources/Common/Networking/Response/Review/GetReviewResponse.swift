@@ -36,13 +36,18 @@ struct GetReviewResponse: Codable {
     }
     
     func toDomain() -> ReviewList {
-        var reviewList: [Review] = []
+        var reviews: [Review] = []
         if let content {
-            reviewList = content.map { $0.toDomain() }
+            reviews = content.map { $0.toDomain() }
         }
         
-        return ReviewList(totalCount: totalElements,
+        return ReviewList(totalElements: totalElements,
+                          totalPages: totalPages,
                           size: size,
-                          reviews: reviewList)
+                          currentPage: number,
+                          isFirst: first,
+                          isLast: last,
+                          isEmpty: empty,
+                          reviews: reviews)
     }
 }
