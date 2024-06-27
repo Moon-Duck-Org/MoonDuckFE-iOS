@@ -23,24 +23,20 @@ struct GetReviewRequest: Codable {
 struct PutReviewRequest: Codable {
     var title: String
     var category: String
+    var program: ProgramRequest?
     var content: String
-    var image1: String?
-    var image2: String?
-    var image3: String?
-    var image4: String?
-    var image5: String?
-    var url: String?
+    var url: String
     var score: Int
-    var boardId: Int
 }
 
-struct PostReviewRequest: Codable {
+struct WriteReviewRequest: Codable {
     var title: String
     var category: String
     var program: ProgramRequest?
     var content: String
     var url: String
     var score: Int
+    var boardId: Int? = nil
 }
 
 struct ProgramRequest: Codable {

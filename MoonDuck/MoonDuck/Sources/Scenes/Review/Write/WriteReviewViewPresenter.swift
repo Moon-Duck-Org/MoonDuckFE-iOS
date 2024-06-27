@@ -173,11 +173,10 @@ extension WriteReviewViewPresenter {
             return
         }
         
-        if let review = model.review {
-            view?.updateLoadingView(true)
-            view?.showToast("수정 연동 예정")
-        } else {
+        if model.isNewWrite {
             model.postReview(title: title, content: content, score: score, url: linkText, images: images)
+        } else {
+            model.putReview(title: title, content: content, score: score, url: linkText, images: images)
         }
     }
     
