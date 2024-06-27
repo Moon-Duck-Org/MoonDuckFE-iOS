@@ -264,7 +264,7 @@ extension ReviewListModel {
         guard let reviewIndex = list.reviews.firstIndex(where: { $0.id == review.id }) else { return }
         let filter = list.sortOption
         let offset = reviewIndex / config.defaultSize
-        let size = config.defaultSize * 2
+        let size = config.defaultSize
         
         let allRequest = ReviewAllRequest(filter: filter.apiKey, offset: offset, size: size)
         provider.reviewService.reviewAll(request: allRequest) { [weak self]  succeed, failed in

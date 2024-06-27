@@ -52,6 +52,6 @@ struct ReviewList {
             self.reviews.removeSubrange(endIndex..<self.reviews.count)
         }
         
-        self.currentPage = self.reviews.count / 10
+        self.currentPage = (self.reviews.count - 1) / 10
     }
 }
