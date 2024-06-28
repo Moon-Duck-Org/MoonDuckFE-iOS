@@ -20,6 +20,7 @@ protocol V2HomeView: BaseView {
     // Navigation
     func moveMy(with presenter: MyInfoPresenter)
     func moveSelectProgram(with presenter: SelectProgramPresenter)
+    func moveWriteReview(with presenter: WriteReviewPresenter)
     func popToSelf()
 }
 
@@ -152,6 +153,10 @@ extension V2HomeViewController {
     
     func moveSelectProgram(with presenter: SelectProgramPresenter) {
         navigator?.show(seque: .selectProgram(presenter: presenter), sender: self, transition: .navigation, animated: true)
+    }
+     
+    func moveWriteReview(with presenter: WriteReviewPresenter) {
+        navigator?.show(seque: .writeReview(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
     
     func popToSelf() {

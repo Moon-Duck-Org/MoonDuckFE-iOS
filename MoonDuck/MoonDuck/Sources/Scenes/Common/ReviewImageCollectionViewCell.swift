@@ -23,9 +23,9 @@ class ReviewImageCollectionViewCell: UICollectionViewCell {
             ],
             completionHandler: { [weak self] result in
                 switch result {
-                case .success(let value):
+                case .success:
                     break
-                case .failure(let error):
+                case .failure:
                     self?.imageView.image = Asset.Assets.imageEmpty.image
                 }
                 self?.imageView.clipsToBounds = true

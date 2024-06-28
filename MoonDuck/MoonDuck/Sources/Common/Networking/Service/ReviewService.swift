@@ -55,13 +55,8 @@ class ReviewService {
         
     }
     
-    func putReview(request: PutReviewRequest, completion: @escaping (_ succeed: Review?, _ failed: Error?) -> Void) {
-        completion(nil, nil)
-        
-    }
-    
-    func postReview(request: PostReviewRequest, images: [UIImage]?, completion: @escaping (_ succeed: Review?, _ failed: APIError?) -> Void) {
-        uploadMultipartFromData(.postReview(request, images), responseType: ReviewResponse.self) { result in
+    func putReview(request: WriteReviewRequest, images: [UIImage]?, completion: @escaping (_ succeed: Review?, _ failed: APIError?) -> Void) {
+        uploadMultipartFromData(.putReview(request, images), responseType: ReviewResponse.self) { result in
             switch result {
             case .success(let response):
                 let review = response.toDomain()
@@ -71,6 +66,18 @@ class ReviewService {
             }
         }
         
+    }
+    
+    func postReview(request: WriteReviewRequest, images: [UIImage]?, completion: @escaping (_ succeed: Review?, _ failed: APIError?) -> Void) {
+        uploadMultipartFromData(.postReview(request, images), responseType: ReviewResponse.self) { result in
+            switch result {
+            case .success(let response):
+                let review = response.toDomain()
+                completion(review, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
+        }
     }
     
     func deleteReview(request: DeleteReviewRequest, completion: @escaping (_ succeed: Bool?, _ failed: Error?) -> Void) {

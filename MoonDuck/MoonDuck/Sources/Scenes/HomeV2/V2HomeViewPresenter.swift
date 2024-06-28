@@ -94,7 +94,10 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
     
     func writeReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
-            self?.view?.showToast("수정 연동 예정")
+            guard let self else { return }
+            let model = WriteReviewModel(self.provider, review: review)
+            let presenter = WriteReviewViewPresenter(with: self.provider, model: model, delegate: self)
+            view?.moveWriteReview(with: presenter)
         }
     }
     

@@ -17,12 +17,12 @@ enum MoonDuckAPI {
     case searchBook(SearchBookRequest)
     case searchDrama(SearchDramaRequest)
     case searchConcert(SearchConcertRequest)
-    case postReview(PostReviewRequest, [UIImage]?)
+    case postReview(WriteReviewRequest, [UIImage]?)
+    case putReview(WriteReviewRequest, [UIImage]?)
     case reviewAll(ReviewAllRequest)
     case getReview(GetReviewRequest)
     case deleteReview(DeleteReviewRequest)
     // TODO: - API 수정
-    case putReview(PutReviewRequest)
     case reviewDetail(ReviewDetailRequest)
 }
 extension MoonDuckAPI: TargetType {
@@ -51,9 +51,7 @@ extension MoonDuckAPI: TargetType {
             return .get
         case .authLogin, .authReissue, .postReview:
             return .post
-        case .userNickname:
-            return .put
-        case .putReview:
+        case .userNickname, .putReview:
             return .put
         case .deleteReview:
             return HTTPMethod.delete
@@ -91,7 +89,6 @@ extension MoonDuckAPI: TargetType {
             // Review 전체 리스트
         case .reviewAll:
             return "/api/review/all"
-            
             // Review 리스트/수정/추가/삭제
         case .getReview, .putReview, .postReview, .deleteReview:
             return "/api/review"
@@ -178,7 +175,7 @@ extension MoonDuckAPI: TargetType {
         let multipartFormData = MultipartFormData()
         
         switch self {
-        case let .postReview(request, images):
+        case let .postReview(request, images), let .putReview(request, images):
             // 이미지를 멀티파트 폼 데이터에 추가
             if let images {
                 for (index, image) in images.enumerated() {
