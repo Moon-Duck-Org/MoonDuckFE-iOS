@@ -91,6 +91,9 @@
 		EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A82BFF716600FDC7A7 /* Category.swift */; };
 		EA81F4AB2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */; };
 		EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA81F4B12BFF881800FDC7A7 /* IntroViewController.xib */; };
+		EA8C24162C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C24142C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift */; };
+		EA8C24172C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */; };
+		EA8C24192C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */; };
 		EA9367502C297402007A649B /* ReviewImageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93674F2C297402007A649B /* ReviewImageDataSource.swift */; };
 		EA946D582C16956800F44BB5 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA946D572C16956800F44BB5 /* UIButton+Extension.swift */; };
 		EA946D5A2C16960E00F44BB5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA946D592C16960E00F44BB5 /* LoadingView.swift */; };
@@ -265,6 +268,9 @@
 		EA81F4A82BFF716600FDC7A7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		EA81F4AA2BFF79FA00FDC7A7 /* HomeCategoryCvDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCvDataSource.swift; sourceTree = "<group>"; };
 		EA81F4B12BFF881800FDC7A7 /* IntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
+		EA8C24142C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
+		EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewDetailViewController.xib; sourceTree = "<group>"; };
+		EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewPresenter.swift; sourceTree = "<group>"; };
 		EA93674F2C297402007A649B /* ReviewImageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewImageDataSource.swift; sourceTree = "<group>"; };
 		EA946D572C16956800F44BB5 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		EA946D592C16960E00F44BB5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -588,6 +594,7 @@
 		EA5758E82C154DBE00E80050 /* Review */ = {
 			isa = PBXGroup;
 			children = (
+				EA8C24132C2EABF200F2C2F4 /* Detail */,
 				EA5758F32C1555B100E80050 /* Write */,
 			);
 			path = Review;
@@ -757,6 +764,16 @@
 				EAB6E6622C1845F700A9E191 /* ProgramSearchDataSource.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		EA8C24132C2EABF200F2C2F4 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				EA8C24142C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift */,
+				EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */,
+				EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		EA9A84212C00BBAE004B7FDF /* NameSetting */ = {
@@ -971,6 +988,7 @@
 				EA9A843F2C00DCDA004B7FDF /* Localizable.strings in Resources */,
 				A0E658442BFE36A5001A8D54 /* NotoSansCJKkr-Black.otf in Resources */,
 				EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */,
+				EA8C24172C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib in Resources */,
 				EAA914D52C022DF700A98950 /* SelectCategoryCollectionViewCell.xib in Resources */,
 				A0E658402BFE36A5001A8D54 /* NotoSansCJKkr-Regular.otf in Resources */,
 				A0E6583E2BFE36A5001A8D54 /* NotoSansCJKkr-Thin.otf in Resources */,
@@ -1167,6 +1185,7 @@
 				EA7208552C12929700E96212 /* Auth.swift in Sources */,
 				EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */,
 				EAF78F032C14814400EFBCB0 /* MyInfoViewPresenter.swift in Sources */,
+				EA8C24192C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift in Sources */,
 				EA6379D72BFF2B2D00464A19 /* TargetType.swift in Sources */,
 				EAD957652C0029D3001FB6E1 /* Review.swift in Sources */,
 				EA72084F2C1287EF00E96212 /* AppUserDefaults.swift in Sources */,
@@ -1208,6 +1227,7 @@
 				EA7C07362C2029C800563264 /* SearchConcertResponse.swift in Sources */,
 				EA96A9622C1D54C00010AB60 /* WriteReviewViewPresenter.swift in Sources */,
 				A0A633662C285D9200744694 /* HomeCategoryDataSource.swift in Sources */,
+				EA8C24162C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift in Sources */,
 				EA5758ED2C154E5400E80050 /* SelectProgramViewController.swift in Sources */,
 				EA9A84452C00E306004B7FDF /* APIEventLogger.swift in Sources */,
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,

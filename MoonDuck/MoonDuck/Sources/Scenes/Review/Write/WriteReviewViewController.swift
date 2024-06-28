@@ -91,6 +91,10 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        unregisterNotifications()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNotifications()
@@ -100,10 +104,6 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
         registeRatingButtonAction()
         
         imageDataSource.configure(with: imageCollectionView)
-    }
-    
-    deinit {
-        unregisterNotifications()
     }
     
 }
