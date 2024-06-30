@@ -10,7 +10,7 @@ import UIKit
 protocol MyInfoView: BaseView {
     // UI Logic
     func updateNameLabel(_ text: String)
-    func updateCountLabel(movie: Int, book: Int, drama: Int, concert: Int)
+    func updateCountLabel(with all: Int, movie: Int, book: Int, drama: Int, concert: Int)
     
     // Navigation
     func dismiss()
@@ -25,6 +25,7 @@ class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
     
     // @IBOutlet
     @IBOutlet weak private var nameLabel: UILabel!
+    @IBOutlet weak private var allCountLabel: UILabel!
     @IBOutlet weak private var movieCountLabel: UILabel!
     @IBOutlet weak private var bookCountLabel: UILabel!
     @IBOutlet weak private var dramaCountLabel: UILabel!
@@ -77,11 +78,12 @@ extension MyInfoViewController {
         nameLabel.text = text
     }
     
-    func updateCountLabel(movie: Int, book: Int, drama: Int, concert: Int) {
-        self.movieCountLabel.text = "\(movie)"
-        self.bookCountLabel.text = "\(movie)"
-        self.dramaCountLabel.text = "\(movie)"
-        self.concertCountLabel.text = "\(concert)"
+    func updateCountLabel(with all: Int, movie: Int, book: Int, drama: Int, concert: Int) {
+        allCountLabel.text = "\(all)"
+        movieCountLabel.text = "\(movie)"
+        bookCountLabel.text = "\(book)"
+        dramaCountLabel.text = "\(drama)"
+        concertCountLabel.text = "\(concert)"
     }
 }
 

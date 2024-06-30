@@ -35,7 +35,7 @@ extension MyInfoViewPresenter {
     func viewDidLoad() {
         if let user = model.user {
             view?.updateNameLabel(user.nickname)
-            view?.updateCountLabel(movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
+            view?.updateCountLabel(with: user.all, movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
         } else {
             AuthManager.default.logout()
             moveLogin()

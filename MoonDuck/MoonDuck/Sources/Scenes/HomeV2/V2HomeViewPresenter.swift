@@ -43,6 +43,7 @@ class V2HomeViewPresenter: Presenter, V2HomePresenter {
     private let categoryModel: CategoryModelType
     private let sortModel: SortModelType
     private let reviewModel: ReviewListModelType
+    private var isMyInfoTapped: Bool = false
     
     init(with provider: AppServices,
          userModel: UserModelType,
@@ -135,8 +136,8 @@ extension V2HomeViewPresenter {
     }
     
     func tapMyButton() {
-        let presenter = MyInfoViewPresenter(with: provider, model: userModel)
-        view?.moveMy(with: presenter)
+        isMyInfoTapped = true
+        userModel.getUser()
     }
     
     func tapWriteNewReviewButton() {
@@ -171,20 +172,34 @@ extension V2HomeViewPresenter {
         }
         return true
     }
+    
+    private func moveMyInfo(with model: UserModel) {
+        let presenter = MyInfoViewPresenter(with: provider, model: model)
+        view?.moveMy(with: presenter)
+    }
 }
 
 // MARK: - UserModelDelegate
 extension V2HomeViewPresenter: UserModelDelegate {
     func user(_ model: UserModel, didChange user: User) {
-        
+        if isMyInfoTapped {
+            isMyInfoTapped = false
+            moveMyInfo(with: model)
+        }
     }
     
     func user(_ model: UserModel, didRecieve error: Error?) {
-        
+        if isMyInfoTapped {
+            isMyInfoTapped = false
+            moveMyInfo(with: model)
+        }
     }
     
     func user(_ model: UserModel, didRecieve error: UserModelError) {
-        
+        if isMyInfoTapped {
+            isMyInfoTapped = false
+            moveMyInfo(with: model)
+        }
     }
 }
 
@@ -253,6 +268,7 @@ extension V2HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewList(_ model: ReviewListModelType, didDelete review: Review) {
+        userModel.deleteReview(category: review.category)
         if let category = categoryModel.selectedCategory {
             model.syncReviewList(with: category, review: review)
         }
@@ -272,6 +288,7 @@ extension V2HomeViewPresenter: WriteReviewPresenterDelegate {
         
         categoryModel.reloadCategory()
         sortModel.reloadSortOption()
+        userModel.createReview(category: review.category)
         if let selectedCategory = categoryModel.selectedCategory {
             view?.updateLoadingView(true)
             reviewModel.reloadReviews(with: selectedCategory, filter: sortModel.selectedSortOption)

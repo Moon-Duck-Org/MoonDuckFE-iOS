@@ -30,6 +30,8 @@ protocol UserModelType: AnyObject {
     func save(nickname: String)
     func save(user: User)
     func logout()
+    func deleteReview(category: Category)
+    func createReview(category: Category)
     
     // Networking
     func getUser()
@@ -71,6 +73,44 @@ class UserModel: UserModelType {
     
     func save(user: User) {
         self.user = user
+    }
+    
+    func deleteReview(category: Category) {
+        if let user {
+            var tempUser = user
+            tempUser.all -= 1
+            switch category {
+            case .movie:
+                tempUser.movie -= 1
+            case .book:
+                tempUser.book -= 1
+            case .drama:
+                tempUser.drama -= 1
+            case .concert:
+                tempUser.concert -= 1
+            default: break
+            }
+            save(user: user)
+        }
+    }
+    
+    func createReview(category: Category) {
+        if let user {
+            var tempUser = user
+            tempUser.all += 1
+            switch category {
+            case .movie:
+                tempUser.movie += 1
+            case .book:
+                tempUser.book += 1
+            case .drama:
+                tempUser.drama += 1
+            case .concert:
+                tempUser.concert += 1
+            default: break
+            }
+            save(user: user)
+        }
     }
 
     // MARK: - Networking
