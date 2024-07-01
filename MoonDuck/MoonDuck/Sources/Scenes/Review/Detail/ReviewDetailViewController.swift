@@ -13,6 +13,8 @@ protocol ReviewDetailView: BaseView {
     
     // Navigation
     func backToHome()
+    func moveWriteReview(with presenter: WriteReviewPresenter)
+    func popToSelf()
 }
 
 class ReviewDetailViewController: BaseViewController, ReviewDetailView, Navigatable {
@@ -20,6 +22,7 @@ class ReviewDetailViewController: BaseViewController, ReviewDetailView, Navigata
     var navigator: Navigator?
     let presenter: ReviewDetailPresenter
     private var imageDataSource: ReviewImageDataSource?
+    private var linkButtonHandler: (() -> Void)?
     
     // @IBOutlet
     @IBOutlet weak private var categoryImageView: UIImageView!
@@ -49,10 +52,10 @@ class ReviewDetailViewController: BaseViewController, ReviewDetailView, Navigata
         backToHome()
     }
     @IBAction private func tapOptionButton(_ sender: Any) {
-        
+        showOptionAlert()
     }
     @IBAction private func tapLink(_ sender: Any) {
-        
+        linkButtonHandler?()
     }
     
     init(navigator: Navigator,
@@ -93,10 +96,13 @@ extension ReviewDetailViewController {
             linkLabel.text = link
             linkView.isHidden = false
             linkViewHeightConstraint.constant = 34
+            linkButtonHandler = { Utils.openSafariViewController(urlString: link)
+            }
         } else {
             linkLabel.text = ""
             linkView.isHidden = true
             linkViewHeightConstraint.constant = 0
+            linkButtonHandler = nil
         }
         
         imageDataSource = ReviewImageDataSource(review: presenter.review)
@@ -119,11 +125,40 @@ extension ReviewDetailViewController {
         ratingButton4.isSelected = rating > 3
         ratingButton5.isSelected = rating > 4
     }
+    
+    private func showOptionAlert() {
+        AppAlert.default
+            .showReviewOption(
+                self,
+                writeHandler: presenter.writeReviewHandler(),
+                shareHandler: presenter.shareReviewHandler(),
+                deleteHandler: { [weak self] in
+                    self?.showDeleteReviewAlert()
+                }
+            )
+    }
+    
+    private func showDeleteReviewAlert() {
+        AppAlert.default
+            .showDestructive(
+                self,
+                title: "삭제하시겠어요?",
+                destructiveHandler: presenter.deleteReviewHandler()
+            )
+    }
 }
 
 // MARK: - Navigation
 extension ReviewDetailViewController {
     func backToHome() {
         navigator?.pop(sender: self, popType: .popToRoot, animated: true)
+    }
+    
+    func moveWriteReview(with presenter: WriteReviewPresenter) {
+        navigator?.show(seque: .writeReview(presenter: presenter), sender: self, transition: .navigation, animated: true)
+    }
+    
+    func popToSelf() {
+        navigator?.pop(sender: self, popType: .popToSelf, animated: true)
     }
 }

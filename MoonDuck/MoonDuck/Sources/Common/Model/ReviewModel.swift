@@ -10,27 +10,28 @@ import Foundation
 protocol ReviewModelDelegate: AnyObject {
     func review(_ model: ReviewModelType, didSuccess review: Review)
     func review(_ model: ReviewModelType, didRecieve error: APIError?)
-    func review(_ model: ReviewModelType, didDelete review: Review)
 }
 
 protocol ReviewModelType: AnyObject {
     // Data
     var delegate: ReviewModelDelegate? { get set }
     var review: Review { get }
+    var deleteReviewHandler: (() -> Void)? { get }
     
     // Logic
+    func save(for review: Review)
     
     // Networking
     func reviewDetail(with reviewId: Int)
 }
 
 class ReviewModel: ReviewModelType {
-    
     private let provider: AppServices
     
-    init(_ provider: AppServices, review: Review) {
+    init(_ provider: AppServices, review: Review, deleteReviewHandler: (() -> Void)?) {
         self.provider = provider
         self.review = review
+        self.deleteReviewHandler = deleteReviewHandler
     }
     
     // MARK: - Data
@@ -42,8 +43,12 @@ class ReviewModel: ReviewModelType {
         }
     }
     
-    // MARK: - Logic
+    var deleteReviewHandler: (() -> Void)?
     
+    // MARK: - Logic
+    func save(for review: Review) {
+        self.review = review
+    }
     
 }
 

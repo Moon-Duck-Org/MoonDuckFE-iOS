@@ -133,7 +133,8 @@ extension V2HomeViewPresenter {
     func selectReview(at index: Int) {
         if let category = categoryModel.selectedCategory,
            let review = reviewModel.review(with: category, at: index) {
-            let model = ReviewModel(provider, review: review)
+            let handler = deleteReviewHandler(for: review)
+            let model = ReviewModel(provider, review: review, deleteReviewHandler: handler)
             let presenter = ReviewDetailViewPresenter(with: provider, model: model)
             view?.moveReviewDetail(with: presenter)
         }
@@ -258,6 +259,8 @@ extension V2HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewList(_ model: ReviewListModelType, didDelete review: Review) {
+        view?.popToSelf()
+        
         if let category = categoryModel.selectedCategory {
             model.syncReviewList(with: category, review: review)
         }

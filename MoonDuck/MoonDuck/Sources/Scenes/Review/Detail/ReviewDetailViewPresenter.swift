@@ -13,6 +13,10 @@ protocol ReviewDetailPresenter: AnyObject {
     // Data
     var review: Review { get }
     
+    func writeReviewHandler() -> (() -> Void)?
+    func shareReviewHandler() -> (() -> Void)?
+    func deleteReviewHandler() -> (() -> Void)?
+    
     // Life Cycle
     func viewDidLoad()
 
@@ -20,6 +24,7 @@ protocol ReviewDetailPresenter: AnyObject {
 }
 
 class ReviewDetailViewPresenter: Presenter, ReviewDetailPresenter {
+    
     weak var view: ReviewDetailView?
     var model: ReviewModelType
     
@@ -33,6 +38,34 @@ class ReviewDetailViewPresenter: Presenter, ReviewDetailPresenter {
     var review: Review {
         return model.review
     }
+    
+    func writeReviewHandler() -> (() -> Void)? {
+        return { [weak self] in
+            guard let self else { return }
+            let model = WriteReviewModel(self.provider, review: review)
+            let presenter = WriteReviewViewPresenter(with: self.provider, model: model, delegate: self)
+            view?.moveWriteReview(with: presenter)
+        }
+    }
+    
+    func shareReviewHandler() -> (() -> Void)? {
+        return { [weak self] in
+            self?.view?.showToast("공유 연동 예정")
+        }
+    }
+    
+    func deleteReviewHandler() -> (() -> Void)? {
+        if let deleteReviewHandler = model.deleteReviewHandler {
+            return { [weak self] in
+                guard let self else { return }
+                view?.updateLoadingView(true)
+                model.deleteReviewHandler?()
+            }
+        } else {
+            return model.deleteReviewHandler
+        }
+    }
+    
 }
 
 extension ReviewDetailViewPresenter {
@@ -45,9 +78,6 @@ extension ReviewDetailViewPresenter {
     // MARK: - Action
     
     // MARK: - Logic
-    private func updateReviewData(with review: Review) {
-        
-    }
 }
 
 // MARK: - ReviewModelDelegate
@@ -59,8 +89,20 @@ extension ReviewDetailViewPresenter: ReviewModelDelegate {
     func review(_ model: ReviewModelType, didRecieve error: APIError?) {
         
     }
-    
-    func review(_ model: ReviewModelType, didDelete review: Review) {
+}
+
+// MARK: - WriteReviewPresenterDelegate
+extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
+    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review) {
+        view?.popToSelf()
+        model.save(for: review)
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.view?.showToast("기록 작성 완료!")
+        }
+    }
+    
+    func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
+        view?.popToSelf()
     }
 }
