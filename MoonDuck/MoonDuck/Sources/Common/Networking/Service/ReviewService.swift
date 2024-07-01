@@ -103,11 +103,29 @@ class ReviewService {
     }
     
     func reviewDetail(request: ReviewDetailRequest, completion: @escaping (_ succeed: Review?, _ failed: Error?) -> Void) {
-        completion(nil, nil)
+        API.session.request(MoonDuckAPI.reviewDetail(request))
+            .responseDecodable { (response: AFDataResponse<ReviewResponse>) in
+                switch response.result {
+                case .success(let response):
+                    completion(response.toDomain(), nil)
+                case .failure(let error):
+                    if let errorData = response.data {
+                        do {
+                            let decodeError = try JSONDecoder().decode(ErrorEntity.self, from: errorData)
+                            let apiError = APIError(error: decodeError)
+                            completion(nil, apiError)
+                        } catch {
+                            completion(nil, APIError.decodingError)
+                        }
+                    } else {
+                        completion(nil, error)
+                    }
+                }
+            }
     
     }
     
-    func uploadMultipartFromData<T: Decodable>(_ api: MoonDuckAPI, responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
+    private func uploadMultipartFromData<T: Decodable>(_ api: MoonDuckAPI, responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
         do {
             let multipartFormData = try api.asMultipartFormData()
             let urlRequest = try api.asURLRequest()

@@ -13,6 +13,7 @@ protocol ReviewListModelDelegate: AnyObject {
     func reviewList(_ model: ReviewListModelType, didDelete review: Review)
     func reviewList(_ model: ReviewListModelType, didAync list: ReviewList)
 }
+
 protocol ReviewListModelType: AnyObject {
     // Data
     var delegate: ReviewListModelDelegate? { get set }

@@ -8,9 +8,5 @@
 import UIKit
 
 class HomeCategoryCollectionViewCell: BaseCategoryCell {
-
-    override func configure(with category: Category, isSelect: Bool = false) {
-        super.configure(with: category, isSelect: isSelect)
-    }
-
+    
 }
