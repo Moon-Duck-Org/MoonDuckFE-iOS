@@ -10,7 +10,6 @@ import UIKit
 protocol ReviewDetailView: BaseView {
     // UI Logic
     func updateData(for review: Review)
-    func reloadImages()
     
     // Navigation
     func backToHome()
@@ -43,26 +42,25 @@ class ReviewDetailViewController: BaseViewController, ReviewDetailView, Navigata
     
     @IBOutlet weak private var imageView: UIView!
     @IBOutlet weak private var imageCollectionView: UICollectionView!
-    @IBOutlet weak private var imageViewHeightConstraint: UIView!
+    @IBOutlet weak private var imageViewHeightConstraint: NSLayoutConstraint!
     
     // @IBAction
-    @IBAction func tapBackButton(_ sender: Any) {
+    @IBAction private func tapBackButton(_ sender: Any) {
         backToHome()
     }
-    @IBAction func tapOptionButton(_ sender: Any) {
+    @IBAction private func tapOptionButton(_ sender: Any) {
         
     }
-    @IBAction func tapLink(_ sender: Any) {
+    @IBAction private func tapLink(_ sender: Any) {
         
     }
-    
     
     init(navigator: Navigator,
          presenter: ReviewDetailPresenter) {
         self.navigator = navigator
         self.presenter = presenter
-        self.imageDataSource = ReviewImageDataSource(review: presenter.review)
         super.init(nibName: ReviewDetailViewController.className, bundle: Bundle(for: ReviewDetailViewController.self))
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -71,18 +69,55 @@ class ReviewDetailViewController: BaseViewController, ReviewDetailView, Navigata
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        presenter.view = self        
+        presenter.viewDidLoad()
     }
 }
 
 // MARK: - UI Logic
 extension ReviewDetailViewController {
     func updateData(for review: Review) {
+        // 프로그램
+        categoryImageView.image = review.category.roundImage
+        programTitleLabel.text = review.program.title
+        programSubTitleLabel.text = review.program.subInfo
         
+        // 데이터
+        updateRating(for: review.rating)
+        titleLabel.text = review.title
+        dateLabel.text = review.createdAt
+        contentLabel.text = review.content
+        
+        if let link = review.link, link.isNotEmpty {
+            linkLabel.text = link
+            linkView.isHidden = false
+            linkViewHeightConstraint.constant = 34
+        } else {
+            linkLabel.text = ""
+            linkView.isHidden = true
+            linkViewHeightConstraint.constant = 0
+        }
+        
+        imageDataSource = ReviewImageDataSource(review: presenter.review)
+        imageDataSource?.configure(with: imageCollectionView)
+        imageCollectionView.reloadData()
+        
+        if review.imageUrlList.count > 0 {
+            imageCollectionView.isHidden = false
+            imageViewHeightConstraint.constant = 221
+        } else {
+            imageCollectionView.isHidden = true
+            imageViewHeightConstraint.constant = 0
+        }
     }
     
-    func reloadImages() {
-        
+    private func updateRating(for rating: Int) {
+        ratingButton1.isSelected = rating > 0
+        ratingButton2.isSelected = rating > 1
+        ratingButton3.isSelected = rating > 2
+        ratingButton4.isSelected = rating > 3
+        ratingButton5.isSelected = rating > 4
     }
 }
 

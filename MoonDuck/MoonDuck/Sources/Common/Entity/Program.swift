@@ -14,10 +14,8 @@ struct Program {
     var date: String? = nil
     var genre: String? = nil
     var director: String? = nil
-    var actor: String? = nil
     var publisher: String? = nil
     var place: String? = nil
-    var price: String? = nil
     
     var subInfo: String {
         switch self.category {
