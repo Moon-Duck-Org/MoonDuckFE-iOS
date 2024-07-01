@@ -28,7 +28,7 @@
                 <outlet property="dateLabel" destination="jtW-bh-hj1" id="vr6-tg-oYf"/>
                 <outlet property="imageCollectionView" destination="ujO-U3-n7s" id="Qra-Kr-Dxa"/>
                 <outlet property="imageView" destination="HAX-hS-Bps" id="g8A-b4-rDd"/>
-                <outlet property="imageViewHeightConstraint" destination="HAX-hS-Bps" id="lIT-50-Vbp"/>
+                <outlet property="imageViewHeightConstraint" destination="sms-jW-ctY" id="8EL-pk-Jsw"/>
                 <outlet property="linkLabel" destination="ljx-E9-4Dg" id="Hel-V6-Ye4"/>
                 <outlet property="linkView" destination="bYa-Om-K3o" id="8w9-N6-Bq4"/>
                 <outlet property="linkViewHeightConstraint" destination="a9S-t3-0Hn" id="12F-zM-Epc"/>

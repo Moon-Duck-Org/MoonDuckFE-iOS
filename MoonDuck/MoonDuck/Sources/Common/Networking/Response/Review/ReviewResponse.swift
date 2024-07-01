@@ -35,10 +35,8 @@ struct ReviewResponse: Codable {
         let date: String?
         let genre: String?
         let director: String?
-        let actor: String?
         let publisher: String?
         let place: String?
-        let price: String?
         
         func toDomain() -> Program {
             return Program(id: id,
@@ -47,10 +45,8 @@ struct ReviewResponse: Codable {
                            date: date,
                            genre: genre,
                            director: director,
-                           actor: actor,
                            publisher: publisher,
-                           place: place,
-                           price: price)
+                           place: place)
         }
     }
     

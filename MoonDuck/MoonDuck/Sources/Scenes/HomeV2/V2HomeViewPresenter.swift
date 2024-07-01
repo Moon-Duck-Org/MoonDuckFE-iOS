@@ -131,7 +131,13 @@ extension V2HomeViewPresenter {
     }
     
     func selectReview(at index: Int) {
-        view?.showToast("기록 상세 이동 예정")
+        if let category = categoryModel.selectedCategory,
+           let review = reviewModel.review(with: category, at: index) {
+            let handler = deleteReviewHandler(for: review)
+            let model = ReviewModel(provider, review: review, deleteReviewHandler: handler)
+            let presenter = ReviewDetailViewPresenter(with: provider, model: model)
+            view?.moveReviewDetail(with: presenter)
+        }
     }
     
     func tapMyButton() {
@@ -253,6 +259,8 @@ extension V2HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewList(_ model: ReviewListModelType, didDelete review: Review) {
+        view?.popToSelf()
+        
         if let category = categoryModel.selectedCategory {
             model.syncReviewList(with: category, review: review)
         }

@@ -61,10 +61,8 @@ struct ProgramRequest: Codable {
         self.date = program.date
         self.genre = program.genre
         self.director = program.director
-        self.actor = program.actor
         self.publisher = program.publisher
         self.place = program.place
-        self.price = program.price
     }
 }
 
