@@ -112,6 +112,8 @@
 		EAA914D72C02382400A98950 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914D62C02382400A98950 /* UIViewController+Extension.swift */; };
 		EAA914F22C02D63100A98950 /* ReviewImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914F02C02D63100A98950 /* ReviewImageCollectionViewCell.swift */; };
 		EAA914F32C02D63100A98950 /* ReviewImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA914F12C02D63100A98950 /* ReviewImageCollectionViewCell.xib */; };
+		EAA98FBC2C33F5F300F3A723 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA98FBA2C33F5F300F3A723 /* SettingViewController.swift */; };
+		EAA98FBD2C33F5F300F3A723 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA98FBB2C33F5F300F3A723 /* SettingViewController.xib */; };
 		EAB6E65D2C17DC2500A9E191 /* ProgramSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6E65C2C17DC2500A9E191 /* ProgramSearchModel.swift */; };
 		EAB6E65F2C17F9B000A9E191 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6E65E2C17F9B000A9E191 /* Array+Extension.swift */; };
 		EAB6E6632C1845F700A9E191 /* ProgramSearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6E6622C1845F700A9E191 /* ProgramSearchDataSource.swift */; };
@@ -281,6 +283,8 @@
 		EAA914D62C02382400A98950 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		EAA914F02C02D63100A98950 /* ReviewImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAA914F12C02D63100A98950 /* ReviewImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		EAA98FBA2C33F5F300F3A723 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		EAA98FBB2C33F5F300F3A723 /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
 		EAB6E65C2C17DC2500A9E191 /* ProgramSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchModel.swift; sourceTree = "<group>"; };
 		EAB6E65E2C17F9B000A9E191 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		EAB6E6622C1845F700A9E191 /* ProgramSearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchDataSource.swift; sourceTree = "<group>"; };
@@ -486,6 +490,7 @@
 				EA61048B2C14755C00CAC460 /* Home */,
 				EA5758E82C154DBE00E80050 /* Review */,
 				EAF78EFD2C14806A00EFBCB0 /* My */,
+				EAA98FB92C33F5E200F3A723 /* Setting */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -755,6 +760,23 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		EAA98FB92C33F5E200F3A723 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				EAA98FBE2C33F88600F3A723 /* New Group */,
+				EAA98FBA2C33F5F300F3A723 /* SettingViewController.swift */,
+				EAA98FBB2C33F5F300F3A723 /* SettingViewController.xib */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		EAA98FBE2C33F88600F3A723 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		EAB6E6642C18469A00A9E191 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -925,6 +947,7 @@
 				EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */,
 				EA8C24172C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib in Resources */,
 				EAA914D52C022DF700A98950 /* SelectCategoryCollectionViewCell.xib in Resources */,
+				EAA98FBD2C33F5F300F3A723 /* SettingViewController.xib in Resources */,
 				A0E658402BFE36A5001A8D54 /* NotoSansCJKkr-Regular.otf in Resources */,
 				A0E6583E2BFE36A5001A8D54 /* NotoSansCJKkr-Thin.otf in Resources */,
 				A0A6337D2C28758600744694 /* HomeReviewTableViewCell.xib in Resources */,
@@ -1136,6 +1159,7 @@
 				EAC93F3F2C156E09008FDFF2 /* SearchOpenRequest.swift in Sources */,
 				EAB6E65D2C17DC2500A9E191 /* ProgramSearchModel.swift in Sources */,
 				EA9A842B2C00C33E004B7FDF /* NicknameSettingViewPresenter.swift in Sources */,
+				EAA98FBC2C33F5F300F3A723 /* SettingViewController.swift in Sources */,
 				EA9A84202C00AA93004B7FDF /* AppServices.swift in Sources */,
 				EADD89122C2423CD00CA2B43 /* CustomPopAnimator.swift in Sources */,
 				EA9A84262C00BCAF004B7FDF /* NicknameSettingViewController.swift in Sources */,
