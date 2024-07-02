@@ -18,7 +18,7 @@ protocol NicknameSettingView: BaseView {
     // Navigation
     func dismiss()
     func moveLogin(with presenter: LoginPresenter)
-    func moveHome(with presenter: V2HomePresenter)
+    func moveHome(with presenter: HomePresenter)
 }
 
 class NicknameSettingViewController: BaseViewController, NicknameSettingView, Navigatable {
@@ -123,7 +123,7 @@ extension NicknameSettingViewController {
         navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
     
-    func moveHome(with presenter: V2HomePresenter) {
+    func moveHome(with presenter: HomePresenter) {
         navigator?.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
 }

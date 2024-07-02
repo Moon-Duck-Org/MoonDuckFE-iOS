@@ -8,9 +8,9 @@
 import UIKit
 
 final class HomeReviewDataSource: NSObject {
-    fileprivate let presenter: V2HomePresenter
+    fileprivate let presenter: HomePresenter
     
-    init(presenter: V2HomePresenter) {
+    init(presenter: HomePresenter) {
         self.presenter = presenter
     }
 

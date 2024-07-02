@@ -30,7 +30,7 @@ class Navigator {
         case intro(presenter: IntroPresenter)
         case login(presenter: LoginPresenter)
         case nameSetting(presenter: NicknameSettingPresenter)
-        case home(presenter: V2HomePresenter)
+        case home(presenter: HomePresenter)
         case myInfo(presenter: MyInfoPresenter)
         case selectProgram(presenter: SelectProgramPresenter)
         case programSearch(presenter: ProgramSearchPresenter)
@@ -62,7 +62,7 @@ class Navigator {
         case .nameSetting(let presenter):
             return NicknameSettingViewController(navigator: self, presenter: presenter)
         case .home(let presenter):
-            return V2HomeViewController(navigator: self, presenter: presenter)
+            return HomeViewController(navigator: self, presenter: presenter)
         case .myInfo(let presenter):
             return MyInfoViewController(navigator: self, presenter: presenter)
         case .selectProgram(let presenter):

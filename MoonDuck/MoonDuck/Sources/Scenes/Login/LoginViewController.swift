@@ -16,7 +16,7 @@ protocol LoginView: BaseView {
     // Navigation
     func dismiss()
     func moveNameSetting(with presenter: NicknameSettingPresenter)
-    func moveHome(with presenter: V2HomePresenter)
+    func moveHome(with presenter: HomePresenter)
 }
 
 class LoginViewController: BaseViewController, LoginView, Navigatable {
@@ -121,7 +121,7 @@ extension LoginViewController {
         navigator?.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .navigation)
     }
     
-    func moveHome(with presenter: V2HomePresenter) {
+    func moveHome(with presenter: HomePresenter) {
         navigator?.show(seque: .home(presenter: presenter), sender: nil, transition: .root)
     }
 }

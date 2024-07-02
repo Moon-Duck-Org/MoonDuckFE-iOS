@@ -8,7 +8,7 @@
 import UIKit
 
 final class HomeCategoryDataSource: NSObject {
-    fileprivate let presenter: V2HomePresenter
+    fileprivate let presenter: HomePresenter
     fileprivate let config = Config()
     
     struct Config {
@@ -16,7 +16,7 @@ final class HomeCategoryDataSource: NSObject {
         let sectionInsets: UIEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 9, right: 16)
     }
 
-    init(presenter: V2HomePresenter) {
+    init(presenter: HomePresenter) {
         self.presenter = presenter
     }
 
