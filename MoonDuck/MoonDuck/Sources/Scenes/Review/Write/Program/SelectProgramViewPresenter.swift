@@ -21,7 +21,7 @@ protocol SelectProgramPresenter: AnyObject {
     
     /// Action
     func selectCategory(at index: Int)
-    func tapNextButton()
+    func nextButtonTapped()
 }
 
 class SelectProgramViewPresenter: Presenter, SelectProgramPresenter {
@@ -64,7 +64,7 @@ extension SelectProgramViewPresenter {
         categoryModel.selectCategory(index)
     }
     
-    func tapNextButton() {
+    func nextButtonTapped() {
         guard let selectedCategory = categoryModel.selectedCategory else { return }
         let model = ProgramSearchModel(provider, category: selectedCategory)
         let presenter = ProgramSearchViewPresenter(with: provider, model: model, delegate: delegate)

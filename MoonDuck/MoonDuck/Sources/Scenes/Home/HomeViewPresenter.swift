@@ -30,8 +30,8 @@ protocol HomePresenter: AnyObject {
     func selectCategory(at index: Int)
     func selectSort(at index: Int)
     func selectReview(at index: Int)
-    func tapMyButton()
-    func tapWriteNewReviewButton()
+    func myButtonTapped()
+    func writeNewReviewButtonTapped()
     func refreshReviews()
     func loadNextReviews()
 }
@@ -141,12 +141,12 @@ extension HomeViewPresenter {
         }
     }
     
-    func tapMyButton() {
+    func myButtonTapped() {
         isMyInfoTapped = true
         userModel.getUser()
     }
     
-    func tapWriteNewReviewButton() {
+    func writeNewReviewButtonTapped() {
         let model = CategoryModel()
         let presenter = SelectProgramViewPresenter(with: provider, categoryModel: model, delegate: self)
         view?.moveSelectProgram(with: presenter)

@@ -27,12 +27,12 @@ class SelectProgramViewController: BaseViewController, SelectProgramView, Naviga
     @IBOutlet weak private var nextButton: RadiusButton!
     
     // @IBAction
-    @IBAction private func tapCancelButton(_ sender: Any) {
+    @IBAction private func cancelButtonTapped(_ sender: Any) {
         back()
     }
     
-    @IBAction private func tapNextButton(_ sender: Any) {
-        presenter.tapNextButton()
+    @IBAction private func nextButtonTapped(_ sender: Any) {
+        presenter.nextButtonTapped()
     }
     
     init(navigator: Navigator,

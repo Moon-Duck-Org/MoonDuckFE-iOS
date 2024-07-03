@@ -63,12 +63,12 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
     // @IBAction
-    @IBAction private func tapCancelButton(_ sender: Any) {
+    @IBAction private func cancelButtonTapped(_ sender: Any) {
         backToHome()
     }
     
-    @IBAction private func tapSaveButton(_ sender: Any) {
-        presenter.tapSaveButton()
+    @IBAction private func saveButtonTapped(_ sender: Any) {
+        presenter.saveButtonTapped()
     }    
     
     @IBAction private func titleTextFieldEditingChanged(_ sender: Any) {
@@ -199,16 +199,16 @@ extension WriteReviewViewController {
     }
     
     private func registeRatingButtonAction() {
-        ratingButton1.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
-        ratingButton2.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
-        ratingButton3.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
-        ratingButton4.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
-        ratingButton5.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
+        ratingButton1.addTarget(self, action: #selector(ratingButtonTapped(_:)), for: .touchUpInside)
+        ratingButton2.addTarget(self, action: #selector(ratingButtonTapped(_:)), for: .touchUpInside)
+        ratingButton3.addTarget(self, action: #selector(ratingButtonTapped(_:)), for: .touchUpInside)
+        ratingButton4.addTarget(self, action: #selector(ratingButtonTapped(_:)), for: .touchUpInside)
+        ratingButton5.addTarget(self, action: #selector(ratingButtonTapped(_:)), for: .touchUpInside)
     }
     
     @objc
-    private func tapRatingButton(_ sender: UIButton) {
-        presenter.tapRatingButton(at: sender.tag)
+    private func ratingButtonTapped(_ sender: UIButton) {
+        presenter.ratingButtonTapped(at: sender.tag)
     }
 }
 

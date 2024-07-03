@@ -19,7 +19,7 @@ protocol ProgramSearchPresenter: AnyObject {
     func viewDidLoad()
     
     // Action
-    func tapUserInputButton()
+    func userInputButtonTapped()
     func selectProgram(at index: Int)
     
     // TextField Delegate
@@ -73,7 +73,7 @@ extension ProgramSearchViewPresenter {
     }
     
     // MARK: - Action
-    func tapUserInputButton() {
+    func userInputButtonTapped() {
         if let searchText, searchText.isNotEmpty {
             let program = Program(category: model.category, title: searchText)
             moveWriteReview(with: program)

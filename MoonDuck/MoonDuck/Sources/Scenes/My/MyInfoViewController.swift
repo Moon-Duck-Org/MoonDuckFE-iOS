@@ -32,25 +32,25 @@ class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
     @IBOutlet weak private var concertCountLabel: UILabel!
     
     // @IBAction
-    @IBAction private func tapBackButton(_ sender: Any) {
+    @IBAction private func backButtonTapped(_ sender: Any) {
         back()
     }
     
-    @IBAction private func tapSettingButton(_ sender: Any) {
+    @IBAction private func settingButtonTapped(_ sender: Any) {
         showToast("설정 화면 이동 예정")
     }
     
-    @IBAction private func tapNicknameSettingButton(_ sender: Any) {
-        presenter.tapNicknameSettingButton()
+    @IBAction private func nicknameSettingButtonTapped(_ sender: Any) {
+        presenter.nicknameSettingButtonTapped()
     }
     
-    @IBAction private func tapLogoutButton(_ sender: Any) {
+    @IBAction private func logoutButtonTapped(_ sender: Any) {
         AppAlert.default
             .showDestructive(self,
                              title: L10n.Localizable.wouldYouLikeToLogOut,
                              destructiveTitle: L10n.Localizable.logout,
                              destructiveHandler: { [weak self] in
-                self?.presenter.tapLogoutButton()
+                self?.presenter.logoutButtonTapped()
             })
     }
         

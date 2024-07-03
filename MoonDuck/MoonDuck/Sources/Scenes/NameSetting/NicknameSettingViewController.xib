@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -44,7 +43,7 @@
                                 <color key="titleColor" name="Black"/>
                             </state>
                             <connections>
-                                <action selector="tapCancelButton:" destination="-1" eventType="touchUpInside" id="zNS-Of-UEs"/>
+                                <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="zNS-Of-UEs"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XAw-RU-SFO">
@@ -59,7 +58,7 @@
                                 <color key="titleColor" name="Gray2"/>
                             </state>
                             <connections>
-                                <action selector="tapCompleteButton:" destination="-1" eventType="touchUpInside" id="pyo-vc-qjm"/>
+                                <action selector="completeButtonTapped:" destination="-1" eventType="touchUpInside" id="pyo-vc-qjm"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임 설정" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gve-qC-cq7">

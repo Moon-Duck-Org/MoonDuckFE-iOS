@@ -27,8 +27,8 @@ protocol WriteReviewPresenter: AnyObject {
     func viewDidLoad()
     
     // Action
-    func tapSaveButton()
-    func tapRatingButton(at tag: Int)
+    func saveButtonTapped()
+    func ratingButtonTapped(at tag: Int)
     func selectImages(_ images: [UIImage])
     func selectImage(at index: Int)
     
@@ -143,7 +143,7 @@ extension WriteReviewViewPresenter {
     }
     
     // MARK: - Action
-    func tapSaveButton() {
+    func saveButtonTapped() {
         view?.updateLoadingView(true)
         var title: String = ""
         var content: String = ""
@@ -180,7 +180,7 @@ extension WriteReviewViewPresenter {
         }
     }
     
-    func tapRatingButton(at tag: Int) {
+    func ratingButtonTapped(at tag: Int) {
         guard rating != tag else { return }
         rating = tag
     }

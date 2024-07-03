@@ -41,16 +41,16 @@ class HomeViewController: BaseViewController, HomeView, Navigatable {
     @IBOutlet weak private var emptyReviewsView: UIView!
     
     // @IBAction
-    @IBAction private func tapMyButton(_ sender: Any) {
-        presenter.tapMyButton()
+    @IBAction private func myButtonTapped(_ sender: Any) {
+        presenter.myButtonTapped()
     }
-    @IBAction private func tapSortButton(_ sender: Any) {
+    @IBAction private func sortButtonTapped(_ sender: Any) {
         AppAlert.default.showList(self, buttonTitleList: presenter.sortTitleList) { [weak self] index in
             self?.presenter.selectSort(at: index)
         }
     }
-    @IBAction private func tapWriteNewReviewButton(_ sender: Any) {
-        presenter.tapWriteNewReviewButton()
+    @IBAction private func writeNewReviewButtonTapped(_ sender: Any) {
+        presenter.writeNewReviewButtonTapped()
     }
         
     init(navigator: Navigator,

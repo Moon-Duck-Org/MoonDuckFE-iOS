@@ -34,12 +34,12 @@ class NicknameSettingViewController: BaseViewController, NicknameSettingView, Na
     @IBOutlet weak private var countLabel: UILabel!
     
     // IBAction
-    @IBAction private func tapCancelButton(_ sender: Any) {
+    @IBAction private func cancelButtonTapped(_ sender: Any) {
         dismiss()
     }
-    @IBAction private func tapCompleteButton(_ sender: Any) {
+    @IBAction private func completeButtonTapped(_ sender: Any) {
         view.endEditing(true)
-        presenter.tapCompleteButton()
+        presenter.completeButtonTapped()
     }
     
     @IBAction private func nameTextFieldEditingChanged(_ sender: Any) {

@@ -20,7 +20,7 @@ protocol NicknameSettingPresenter: AnyObject {
     func viewDidLoad()
     
     // Action
-    func tapCompleteButton()
+    func completeButtonTapped()
     
     // TextField Delegate
     func nicknameTextFieldEditingChanged(_ text: String?)
@@ -66,7 +66,7 @@ extension NicknameSettingViewPresenter {
     }
     
     // MARK: - Action
-    func tapCompleteButton() {
+    func completeButtonTapped() {
         guard let nicknameText else { return }
         
         if let userNickname = model.user?.nickname,

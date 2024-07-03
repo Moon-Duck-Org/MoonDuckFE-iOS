@@ -27,7 +27,7 @@ class WebViewController: BaseViewController, WebView, Navigatable {
     @IBOutlet weak private var webView: WKWebView!
     
     // @IBAction
-    @IBAction private func tapBackButton(_ sender: Any) {
+    @IBAction private func backButtonTapped(_ sender: Any) {
         back()
     }
     

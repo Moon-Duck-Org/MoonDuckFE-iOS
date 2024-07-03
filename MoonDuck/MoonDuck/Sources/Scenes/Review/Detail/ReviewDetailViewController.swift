@@ -48,13 +48,13 @@ class ReviewDetailViewController: BaseViewController, ReviewDetailView, Navigata
     @IBOutlet weak private var imageViewHeightConstraint: NSLayoutConstraint!
     
     // @IBAction
-    @IBAction private func tapBackButton(_ sender: Any) {
+    @IBAction private func backButtonTapped(_ sender: Any) {
         backToHome()
     }
-    @IBAction private func tapOptionButton(_ sender: Any) {
+    @IBAction private func optionButtonTapped(_ sender: Any) {
         showOptionAlert()
     }
-    @IBAction private func tapLink(_ sender: Any) {
+    @IBAction private func linkTapped(_ sender: Any) {
         linkButtonHandler?()
     }
     

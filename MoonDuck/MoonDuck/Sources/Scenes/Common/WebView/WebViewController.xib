@@ -40,7 +40,7 @@
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="Back"/>
                             <connections>
-                                <action selector="tapBackButton:" destination="-1" eventType="touchUpInside" id="h5l-wy-uJK"/>
+                                <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="h5l-wy-uJK"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서비스 이용약관" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vR-F6-vVu">

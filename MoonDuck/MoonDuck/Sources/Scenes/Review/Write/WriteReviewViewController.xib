@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -61,7 +60,7 @@
                                 <color key="titleColor" name="Gray2"/>
                             </state>
                             <connections>
-                                <action selector="tapSaveButton:" destination="-1" eventType="touchUpInside" id="nTj-pG-HKx"/>
+                                <action selector="saveButtonTapped:" destination="-1" eventType="touchUpInside" id="nTj-pG-HKx"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bI1-If-eKw">
@@ -72,7 +71,7 @@
                                 <color key="titleColor" name="Black"/>
                             </state>
                             <connections>
-                                <action selector="tapCancelButton:" destination="-1" eventType="touchUpInside" id="AKJ-LZ-nor"/>
+                                <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="AKJ-LZ-nor"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기록 작성" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IwV-Rp-AhF">

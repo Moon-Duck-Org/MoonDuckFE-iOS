@@ -126,6 +126,7 @@
 		EACCDA042C35351200D9ADAD /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EACCDA032C35351200D9ADAD /* WebViewController.xib */; };
 		EACCDA052C35351200D9ADAD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCDA022C35351200D9ADAD /* WebViewController.swift */; };
 		EACCDA082C35371B00D9ADAD /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCDA072C35371B00D9ADAD /* WebViewPresenter.swift */; };
+		EACCDA0A2C353CF600D9ADAD /* SettingViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCDA092C353CF600D9ADAD /* SettingViewPresenter.swift */; };
 		EAD957632C002982001FB6E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957622C002982001FB6E1 /* User.swift */; };
 		EAD957652C0029D3001FB6E1 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957642C0029D3001FB6E1 /* Review.swift */; };
 		EAD9576D2C008ED5001FB6E1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9576B2C008ED5001FB6E1 /* LoginViewController.swift */; };
@@ -300,6 +301,7 @@
 		EACCDA022C35351200D9ADAD /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		EACCDA032C35351200D9ADAD /* WebViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		EACCDA072C35371B00D9ADAD /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
+		EACCDA092C353CF600D9ADAD /* SettingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewPresenter.swift; sourceTree = "<group>"; };
 		EAD957622C002982001FB6E1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EAD957642C0029D3001FB6E1 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		EAD9576B2C008ED5001FB6E1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -771,6 +773,7 @@
 				EAA98FBE2C33F88600F3A723 /* New Group */,
 				EAA98FBA2C33F5F300F3A723 /* SettingViewController.swift */,
 				EAA98FBB2C33F5F300F3A723 /* SettingViewController.xib */,
+				EACCDA092C353CF600D9ADAD /* SettingViewPresenter.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1256,6 +1259,7 @@
 				EAB6E65F2C17F9B000A9E191 /* Array+Extension.swift in Sources */,
 				EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */,
 				EAF78F052C148BE700EFBCB0 /* RadiusButton.swift in Sources */,
+				EACCDA0A2C353CF600D9ADAD /* SettingViewPresenter.swift in Sources */,
 				EAF78F002C14813800EFBCB0 /* MyInfoViewController.swift in Sources */,
 				A0A633742C286DA100744694 /* HomeReviewDataSource.swift in Sources */,
 				EADD89062C23F7B700CA2B43 /* WriteReviewModel.swift in Sources */,

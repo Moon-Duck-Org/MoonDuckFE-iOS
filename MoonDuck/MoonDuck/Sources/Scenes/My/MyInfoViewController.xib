@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -50,7 +49,7 @@
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="Setting"/>
                             <connections>
-                                <action selector="tapSettingButton:" destination="-1" eventType="touchUpInside" id="phG-Vg-Wk0"/>
+                                <action selector="settingButtonTapped:" destination="-1" eventType="touchUpInside" id="phG-Vg-Wk0"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCS-Xp-sYK">
@@ -63,7 +62,7 @@
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="Back"/>
                             <connections>
-                                <action selector="tapBackButton:" destination="-1" eventType="touchUpInside" id="fOG-PN-wa4"/>
+                                <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="fOG-PN-wa4"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="마이페이지" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnA-so-dvV">
@@ -110,7 +109,7 @@
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain"/>
                                     <connections>
-                                        <action selector="tapNicknameSettingButton:" destination="-1" eventType="touchUpInside" id="4EH-5w-4Lb"/>
+                                        <action selector="nicknameSettingButtonTapped:" destination="-1" eventType="touchUpInside" id="4EH-5w-4Lb"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임 설정" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSx-ue-mdw">
@@ -407,7 +406,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="tapLogoutButton:" destination="-1" eventType="touchUpInside" id="LhB-uI-EPV"/>
+                        <action selector="logoutButtonTapped:" destination="-1" eventType="touchUpInside" id="LhB-uI-EPV"/>
                     </connections>
                 </button>
             </subviews>

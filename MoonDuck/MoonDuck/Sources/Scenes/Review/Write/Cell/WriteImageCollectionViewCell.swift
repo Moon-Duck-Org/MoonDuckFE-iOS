@@ -16,7 +16,7 @@ class WriteImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak private var imageView: UIImageView!
     
     // @IBAction
-    @IBAction private func tapDeleteButton(_ sender: Any) {
+    @IBAction private func deleteButtonTapped(_ sender: Any) {
         deleteButtonHandler?()
     }
     

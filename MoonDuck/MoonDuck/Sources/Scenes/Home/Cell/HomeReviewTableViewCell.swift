@@ -36,11 +36,11 @@ class HomeReviewTableViewCell: UITableViewCell {
     @IBOutlet weak private var linkLabel: UILabel!
     @IBOutlet weak private var linkHeightContraint: NSLayoutConstraint!
     
-    @IBAction private func tapLinkButton(_ sender: Any) {
+    @IBAction private func linkButtonTapped(_ sender: Any) {
         linkButtonHandler?()
     }
     
-    @IBAction private func tapOptionButton(_ sender: Any) {
+    @IBAction private func optionButtonTapped(_ sender: Any) {
         optionButtonHandler?()
     }
     
