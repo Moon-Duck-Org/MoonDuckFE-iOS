@@ -196,6 +196,9 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="44"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <action selector="privacyPolicyButtonTapped:" destination="-1" eventType="touchUpInside" id="3pI-Ee-9vg"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -231,6 +234,9 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="44"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <action selector="contactUsButtonTapped:" destination="-1" eventType="touchUpInside" id="0KW-us-AsM"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -272,6 +278,9 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="44"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <action selector="appVersionButtonTapped:" destination="-1" eventType="touchUpInside" id="7hb-Xw-cf9"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -346,6 +355,9 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="44"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <action selector="noticeButtonTapped:" destination="-1" eventType="touchUpInside" id="5L5-iu-xSG"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -381,6 +393,9 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="44"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <action selector="withdrawButtonTapped:" destination="-1" eventType="touchUpInside" id="Lat-mg-ew4"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

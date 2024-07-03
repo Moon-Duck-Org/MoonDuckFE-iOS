@@ -1,5 +1,5 @@
 //
-//  Contants.swift
+//  Constants.swift
 //  MoonDuck
 //
 //  Created by suni on 6/25/24.

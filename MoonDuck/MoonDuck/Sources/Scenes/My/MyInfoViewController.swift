@@ -16,6 +16,7 @@ protocol MyInfoView: BaseView {
     func dismiss()
     func presentNameSetting(with presenter: NicknameSettingPresenter)
     func moveLogin(with presenter: LoginPresenter)
+    func moveSetting(with presenter: SettingPresenter)
 }
 
 class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
@@ -37,7 +38,7 @@ class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
     }
     
     @IBAction private func settingButtonTapped(_ sender: Any) {
-        showToast("설정 화면 이동 예정")
+        presenter.settingButtonTapped()
     }
     
     @IBAction private func nicknameSettingButtonTapped(_ sender: Any) {
@@ -92,7 +93,7 @@ extension MyInfoViewController {
     private func back() {
         navigator?.pop(sender: self)
     }
-
+    
     func dismiss() {
         navigator?.dismiss(sender: self)
     }
@@ -103,5 +104,9 @@ extension MyInfoViewController {
     
     func moveLogin(with presenter: LoginPresenter) {
         navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
+    }
+    
+    func moveSetting(with presenter: SettingPresenter) {
+        navigator?.show(seque: .setting(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
 }

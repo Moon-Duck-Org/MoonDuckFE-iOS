@@ -7,10 +7,11 @@
 
 import UIKit
 
+import MessageUI
+
 protocol SettingView: BaseView {
     // UI Logic
-    
-    
+        
     // Navigation
     func moveWebview(with presenter: WebPresenter)
     
@@ -25,7 +26,24 @@ class SettingViewController: BaseViewController, SettingView, Navigatable {
     
     // @IBAction
     @IBAction private func termsOfServiceButtonTapped(_ sender: Any) {
+        presenter.termsOfServiceButtonTapped()
         
+    }
+    @IBAction private func privacyPolicyButtonTapped(_ sender: Any) {
+        presenter.privacyPolicyButtonTapped()
+        
+    }
+    @IBAction private func contactUsButtonTapped(_ sender: Any) {
+        showContractUsMail()
+    }
+    @IBAction private func appVersionButtonTapped(_ sender: Any) {
+        showToast("앱 버전 화면 이동 예정")
+    }
+    @IBAction private func noticeButtonTapped(_ sender: Any) {
+        presenter.noticeButtonTapped()
+    }
+    @IBAction private func withdrawButtonTapped(_ sender: Any) {
+        showToast("탈퇴 화면 이동 예정")
     }
     
     init(navigator: Navigator,
@@ -48,7 +66,22 @@ class SettingViewController: BaseViewController, SettingView, Navigatable {
 
 // MARK: - UI Logic
 extension SettingViewController {
-    
+    private func showContractUsMail() {
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposeVC = MFMailComposeViewController()
+            mailComposeVC.mailComposeDelegate = self
+            mailComposeVC.setToRecipients([presenter.contractUs.mail])
+            mailComposeVC.setSubject(presenter.contractUs.subject)
+            mailComposeVC.setMessageBody(presenter.contractUs.getBody(), isHTML: false)
+            
+            self.present(mailComposeVC, animated: true, completion: nil)
+        } else {
+            // 메일을 보낼 수 없는 경우 경고 표시
+            let alert = UIAlertController(title: "Error", message: "Mail services are not available", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 // MARK: - Navigation
@@ -59,5 +92,25 @@ extension SettingViewController {
     
     func moveWebview(with presenter: WebPresenter) {
         navigator?.show(seque: .webview(presenter: presenter), sender: self, transition: .navigation, animated: true)
+    }
+}
+
+// MARK: - MFMailComposeViewControllerDelegate
+extension SettingViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+        
+        switch result {
+        case .cancelled:
+            Log.debug("Mail cancelled")
+        case .saved:
+            Log.debug("Mail saved")
+        case .sent:
+            Log.debug("Mail sent")
+        case .failed:
+            Log.debug("Mail sent failure: \(String(describing: error?.localizedDescription))")
+        @unknown default:
+            Log.error("Mail Error")
+        }
     }
 }

@@ -36,6 +36,7 @@ class Navigator {
         case programSearch(presenter: ProgramSearchPresenter)
         case writeReview(presenter: WriteReviewPresenter)
         case reviewDetail(presenter: ReviewDetailPresenter)
+        case setting(presenter: SettingPresenter)
         case webview(presenter: WebPresenter)
     }
 
@@ -74,6 +75,8 @@ class Navigator {
             return WriteReviewViewController(navigator: self, presenter: presenter)
         case .reviewDetail(let presenter):
             return ReviewDetailViewController(navigator: self, presenter: presenter)
+        case .setting(let presenter):
+            return SettingViewController(navigator: self, presenter: presenter)
         case .webview(let presenter):
             return WebViewController(navigator: self, presenter: presenter)
         }

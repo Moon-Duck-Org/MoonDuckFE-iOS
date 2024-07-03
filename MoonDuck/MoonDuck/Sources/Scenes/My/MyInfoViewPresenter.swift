@@ -16,6 +16,7 @@ protocol MyInfoPresenter: AnyObject {
     // Action
     func logoutButtonTapped()
     func nicknameSettingButtonTapped()
+    func settingButtonTapped()
 }
 
 class MyInfoViewPresenter: Presenter, MyInfoPresenter {
@@ -52,6 +53,11 @@ extension MyInfoViewPresenter {
     func logoutButtonTapped() {
         AuthManager.default.logout()
         moveLogin()
+    }
+    
+    func settingButtonTapped() {
+        let presenter = SettingViewPrsenter(with: provider, user: model.user)
+        self.view?.moveSetting(with: presenter)
     }
     
     // MARK: - Logic
