@@ -36,6 +36,7 @@ class Navigator {
         case programSearch(presenter: ProgramSearchPresenter)
         case writeReview(presenter: WriteReviewPresenter)
         case reviewDetail(presenter: ReviewDetailPresenter)
+        case webview(presenter: WebPresenter)
     }
 
     enum Transition {
@@ -73,6 +74,8 @@ class Navigator {
             return WriteReviewViewController(navigator: self, presenter: presenter)
         case .reviewDetail(let presenter):
             return ReviewDetailViewController(navigator: self, presenter: presenter)
+        case .webview(let presenter):
+            return WebViewController(navigator: self, presenter: presenter)
         }
     }
     

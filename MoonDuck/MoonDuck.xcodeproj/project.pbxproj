@@ -123,6 +123,9 @@
 		EAC93F3F2C156E09008FDFF2 /* SearchOpenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */; };
 		EAC93F412C156F35008FDFF2 /* SearchMovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F402C156F35008FDFF2 /* SearchMovieResponse.swift */; };
 		EAC93F432C157006008FDFF2 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F422C157006008FDFF2 /* Program.swift */; };
+		EACCDA042C35351200D9ADAD /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EACCDA032C35351200D9ADAD /* WebViewController.xib */; };
+		EACCDA052C35351200D9ADAD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCDA022C35351200D9ADAD /* WebViewController.swift */; };
+		EACCDA082C35371B00D9ADAD /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCDA072C35371B00D9ADAD /* WebViewPresenter.swift */; };
 		EAD957632C002982001FB6E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957622C002982001FB6E1 /* User.swift */; };
 		EAD957652C0029D3001FB6E1 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957642C0029D3001FB6E1 /* Review.swift */; };
 		EAD9576D2C008ED5001FB6E1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9576B2C008ED5001FB6E1 /* LoginViewController.swift */; };
@@ -294,6 +297,9 @@
 		EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOpenRequest.swift; sourceTree = "<group>"; };
 		EAC93F402C156F35008FDFF2 /* SearchMovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieResponse.swift; sourceTree = "<group>"; };
 		EAC93F422C157006008FDFF2 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
+		EACCDA022C35351200D9ADAD /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		EACCDA032C35351200D9ADAD /* WebViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
+		EACCDA072C35371B00D9ADAD /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
 		EAD957622C002982001FB6E1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EAD957642C0029D3001FB6E1 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		EAD9576B2C008ED5001FB6E1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -499,9 +505,8 @@
 			isa = PBXGroup;
 			children = (
 				A0F384062BFFAF390035D2E3 /* Base */,
-				EAA914F02C02D63100A98950 /* ReviewImageCollectionViewCell.swift */,
-				EAA914F12C02D63100A98950 /* ReviewImageCollectionViewCell.xib */,
-				EA93674F2C297402007A649B /* ReviewImageDataSource.swift */,
+				EACCDA062C35352000D9ADAD /* Review */,
+				EACCDA012C3534F800D9ADAD /* WebView */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -786,6 +791,26 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		EACCDA012C3534F800D9ADAD /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				EACCDA022C35351200D9ADAD /* WebViewController.swift */,
+				EACCDA032C35351200D9ADAD /* WebViewController.xib */,
+				EACCDA072C35371B00D9ADAD /* WebViewPresenter.swift */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
+		EACCDA062C35352000D9ADAD /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				EAA914F02C02D63100A98950 /* ReviewImageCollectionViewCell.swift */,
+				EAA914F12C02D63100A98950 /* ReviewImageCollectionViewCell.xib */,
+				EA93674F2C297402007A649B /* ReviewImageDataSource.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		EAD9576A2C008EB6001FB6E1 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -970,6 +995,7 @@
 				EA6379E42BFF33C500464A19 /* HomeViewController.xib in Resources */,
 				A0E658462BFE36A5001A8D54 /* NotoSansCJKkr-Medium.otf in Resources */,
 				A0E658422BFE36A5001A8D54 /* NotoSansCJKkr-Light.otf in Resources */,
+				EACCDA042C35351200D9ADAD /* WebViewController.xib in Resources */,
 				A0FE0E3E2C283A0C005C403C /* WriteImageCollectionViewCell.xib in Resources */,
 				A0E658022BFE22B7001A8D54 /* Base in Resources */,
 			);
@@ -1145,6 +1171,7 @@
 				EAD957652C0029D3001FB6E1 /* Review.swift in Sources */,
 				EA72084F2C1287EF00E96212 /* AppUserDefaults.swift in Sources */,
 				A0E6584D2BFE3C0B001A8D54 /* XCAssets+Generated.swift in Sources */,
+				EACCDA082C35371B00D9ADAD /* WebViewPresenter.swift in Sources */,
 				EA7208532C1290C700E96212 /* AuthManager.swift in Sources */,
 				EA946D5C2C16EBA200F44BB5 /* BaseViewController.swift in Sources */,
 				EA7C07342C20155300563264 /* SearchDramaResponse.swift in Sources */,
@@ -1199,6 +1226,7 @@
 				EADD89102C241A1100CA2B43 /* CustomPushAnimator.swift in Sources */,
 				A0FE0E3F2C283A0C005C403C /* WriteImageCollectionViewCell.swift in Sources */,
 				EA6379D22BFF295C00464A19 /* OSLog+Extension.swift in Sources */,
+				EACCDA052C35351200D9ADAD /* WebViewController.swift in Sources */,
 				EA9E1ABE2C2ABFBA001C7706 /* SortModel.swift in Sources */,
 				EAF78EFB2C14762400EFBCB0 /* HomeViewPresenter.swift in Sources */,
 				EA9A84422C00DD08004B7FDF /* Strings+Generated.swift in Sources */,

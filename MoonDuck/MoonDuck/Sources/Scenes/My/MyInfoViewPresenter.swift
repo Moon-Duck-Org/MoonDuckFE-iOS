@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 protocol MyInfoPresenter: AnyObject {
     var view: MyInfoView? { get set }
