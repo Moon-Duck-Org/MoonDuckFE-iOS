@@ -122,7 +122,7 @@ struct SearchConcertResponse: Codable {
 //    func xmlParser(_ parser: SearchConcertXMLParser, didSuccess resList: [SearchConcertResponse])
 // }
 //
-//class SearchConcertXMLParser: NSObject, XMLParserDelegate {
+// class SearchConcertXMLParser: NSObject, XMLParserDelegate {
 //    
 //    var delegate: SearchConcertXMLParserDelegate?
 //    

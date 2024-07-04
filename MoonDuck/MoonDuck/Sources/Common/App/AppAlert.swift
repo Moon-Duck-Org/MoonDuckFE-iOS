@@ -155,9 +155,9 @@ class AppAlert {
     }
     
     func showReviewOption(_ viewController: UIViewController,
-                        writeHandler: (() -> Void)? = nil,
-                        shareHandler: (() -> Void)? = nil,
-                        deleteHandler: (() -> Void)? = nil
+                          writeHandler: (() -> Void)? = nil,
+                          shareHandler: (() -> Void)? = nil,
+                          deleteHandler: (() -> Void)? = nil
     ) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)

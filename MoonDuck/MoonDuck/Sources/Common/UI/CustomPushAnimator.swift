@@ -27,8 +27,8 @@ class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         // Animate toViewController to its final position
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
             toViewController.view.frame = finalFrame
-        }) { finished in
+        }, completion: { finished in
             transitionContext.completeTransition(finished)
-        }
+        })
     }
 }

@@ -59,7 +59,7 @@ class ReviewDetailViewPresenter: Presenter, ReviewDetailPresenter {
             return { [weak self] in
                 guard let self else { return }
                 view?.updateLoadingView(isLoading: true)
-                model.deleteReviewHandler?()
+                deleteReviewHandler()
             }
         } else {
             return model.deleteReviewHandler

@@ -76,7 +76,7 @@ extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
         model.save(nickname: nickname)
     }
     
-    func nicknameSetting(didCancel presenter: NicknameSettingPresenter) {
+    func nicknameSettingDidCancel(_ presenter: NicknameSettingPresenter) {
         view?.dismiss()
     }
 }

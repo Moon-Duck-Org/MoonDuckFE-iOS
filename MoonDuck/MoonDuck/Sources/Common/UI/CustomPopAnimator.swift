@@ -27,8 +27,8 @@ class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         // Animate fromViewController out of the screen
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
             fromViewController.view.frame = initialFrame.offsetBy(dx: 0, dy: containerView.bounds.height)
-        }) { finished in
+        }, completion: { _ in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        }
+        })
     }
 }

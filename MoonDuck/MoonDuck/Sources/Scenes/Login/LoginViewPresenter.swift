@@ -180,7 +180,7 @@ extension LoginViewPresenter: NicknameSettingPresenterDelegate {
         model.save(nickname: nickname)
     }
     
-    func nicknameSetting(didCancel presenter: NicknameSettingPresenter) {
+    func nicknameSettingDidCancel(_ presenter: NicknameSettingPresenter) {
         
     }
 }

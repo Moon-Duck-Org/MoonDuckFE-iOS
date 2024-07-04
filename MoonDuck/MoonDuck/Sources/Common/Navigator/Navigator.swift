@@ -56,6 +56,7 @@ class Navigator {
         case popToSelf
     }
     
+    // swiftlint:disable cyclomatic_complexity
     func get(seque: Scene) -> UIViewController? {
         switch seque {
         case .intro(let presenter):
@@ -84,6 +85,7 @@ class Navigator {
             return WithdrawViewController(navigator: self, presenter: presenter)
         }
     }
+    // swiftlint:enable cyclomatic_complexity
     
     func pop(sender: UIViewController?, popType: PopType = .pop, animated: Bool = false) {
         switch popType {

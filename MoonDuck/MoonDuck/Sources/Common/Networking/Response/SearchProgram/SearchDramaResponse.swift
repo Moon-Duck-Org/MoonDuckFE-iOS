@@ -67,6 +67,7 @@ struct SearchDramaResponse: Codable {
                            genre: genre)
         }
         
+        // swiftlint:disable cyclomatic_complexity
         private func genre(_ id: Int) -> String {
             switch id {
             case 10759: return "Action & Adventure"
@@ -88,5 +89,6 @@ struct SearchDramaResponse: Codable {
             default: return ""
             }
         }
+        // swiftlint:enable cyclomatic_complexity
     }
 }

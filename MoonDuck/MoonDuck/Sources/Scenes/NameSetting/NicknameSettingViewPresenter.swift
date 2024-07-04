@@ -10,7 +10,7 @@ import UIKit
 
 protocol NicknameSettingPresenterDelegate: AnyObject {
     func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String)
-    func nicknameSetting(didCancel presenter: NicknameSettingPresenter)
+    func nicknameSettingDidCancel(_ presenter: NicknameSettingPresenter)
 }
 
 protocol NicknameSettingPresenter: AnyObject {
@@ -72,7 +72,7 @@ extension NicknameSettingViewPresenter {
         if let userNickname = model.user?.nickname,
             !userNickname.isEmpty,
            nicknameText == userNickname {
-            delegate?.nicknameSetting(didCancel: self)
+            delegate?.nicknameSettingDidCancel(self)
         } else {
             if isValidNickname(nicknameText) {
                 view?.updateLoadingView(isLoading: true)
