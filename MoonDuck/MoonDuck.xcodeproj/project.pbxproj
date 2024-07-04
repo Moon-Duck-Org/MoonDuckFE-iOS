@@ -122,6 +122,9 @@
 		EAB6E6632C1845F700A9E191 /* ProgramSearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6E6622C1845F700A9E191 /* ProgramSearchDataSource.swift */; };
 		EAB6E6672C1846C900A9E191 /* ProgramSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6E6652C1846C900A9E191 /* ProgramSearchTableViewCell.swift */; };
 		EAB6E6682C1846C900A9E191 /* ProgramSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAB6E6662C1846C900A9E191 /* ProgramSearchTableViewCell.xib */; };
+		EAC25CF52C366481004254D4 /* AppVersionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC25CF42C366481004254D4 /* AppVersionViewController.xib */; };
+		EAC25CF62C366481004254D4 /* AppVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC25CF32C366481004254D4 /* AppVersionViewController.swift */; };
+		EAC25CF82C366687004254D4 /* AppVersionViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC25CF72C366687004254D4 /* AppVersionViewPresenter.swift */; };
 		EAC93F3D2C156DA1008FDFF2 /* ProgramSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3C2C156DA1008FDFF2 /* ProgramSearchService.swift */; };
 		EAC93F3F2C156E09008FDFF2 /* SearchOpenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */; };
 		EAC93F412C156F35008FDFF2 /* SearchMovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F402C156F35008FDFF2 /* SearchMovieResponse.swift */; };
@@ -301,6 +304,9 @@
 		EAB6E6622C1845F700A9E191 /* ProgramSearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchDataSource.swift; sourceTree = "<group>"; };
 		EAB6E6652C1846C900A9E191 /* ProgramSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchTableViewCell.swift; sourceTree = "<group>"; };
 		EAB6E6662C1846C900A9E191 /* ProgramSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgramSearchTableViewCell.xib; sourceTree = "<group>"; };
+		EAC25CF32C366481004254D4 /* AppVersionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionViewController.swift; sourceTree = "<group>"; };
+		EAC25CF42C366481004254D4 /* AppVersionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppVersionViewController.xib; sourceTree = "<group>"; };
+		EAC25CF72C366687004254D4 /* AppVersionViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionViewPresenter.swift; sourceTree = "<group>"; };
 		EAC93F3C2C156DA1008FDFF2 /* ProgramSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchService.swift; sourceTree = "<group>"; };
 		EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOpenRequest.swift; sourceTree = "<group>"; };
 		EAC93F402C156F35008FDFF2 /* SearchMovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieResponse.swift; sourceTree = "<group>"; };
@@ -723,6 +729,9 @@
 		EA8495362C362E8D00112EDB /* AppVersion */ = {
 			isa = PBXGroup;
 			children = (
+				EAC25CF32C366481004254D4 /* AppVersionViewController.swift */,
+				EAC25CF42C366481004254D4 /* AppVersionViewController.xib */,
+				EAC25CF72C366687004254D4 /* AppVersionViewPresenter.swift */,
 			);
 			path = AppVersion;
 			sourceTree = "<group>";
@@ -997,6 +1006,7 @@
 				EAA914D52C022DF700A98950 /* SelectCategoryCollectionViewCell.xib in Resources */,
 				EAA98FBD2C33F5F300F3A723 /* SettingViewController.xib in Resources */,
 				A0E658402BFE36A5001A8D54 /* NotoSansCJKkr-Regular.otf in Resources */,
+				EAC25CF52C366481004254D4 /* AppVersionViewController.xib in Resources */,
 				A0E6583E2BFE36A5001A8D54 /* NotoSansCJKkr-Thin.otf in Resources */,
 				A0A6337D2C28758600744694 /* HomeReviewTableViewCell.xib in Resources */,
 				EAD9576E2C008ED5001FB6E1 /* LoginViewController.xib in Resources */,
@@ -1217,6 +1227,7 @@
 				EA7C07322C20153700563264 /* SearchBookResponse.swift in Sources */,
 				EAC93F412C156F35008FDFF2 /* SearchMovieResponse.swift in Sources */,
 				EAF78F082C14CAAE00EFBCB0 /* UserModel.swift in Sources */,
+				EAC25CF62C366481004254D4 /* AppVersionViewController.swift in Sources */,
 				EA7208432C12735A00E96212 /* AuthService.swift in Sources */,
 				EACCDA0C2C354C3600D9ADAD /* ContractuUs.swift in Sources */,
 				EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */,
@@ -1230,6 +1241,7 @@
 				A0A6337E2C28758600744694 /* HomeReviewTableViewCell.swift in Sources */,
 				EAE017DB2C01CA0500699145 /* CellButton.swift in Sources */,
 				EAE017D32C0193B800699145 /* ReviewRequest.swift in Sources */,
+				EAC25CF82C366687004254D4 /* AppVersionViewPresenter.swift in Sources */,
 				EAA914CE2C02274700A98950 /* String+Extension.swift in Sources */,
 				EAD9576D2C008ED5001FB6E1 /* LoginViewController.swift in Sources */,
 				EA7C07362C2029C800563264 /* SearchConcertResponse.swift in Sources */,

@@ -16,7 +16,7 @@ protocol SettingView: BaseView {
     // Navigation
     func moveWebview(with presenter: WebPresenter)
     func moveWithdraw(with presenter: WithdrawPresenter)
-    
+    func moveAppVersion(with presenter: AppVersionPresenter)
 }
 
 class SettingViewController: BaseViewController, SettingView, Navigatable {
@@ -40,7 +40,7 @@ class SettingViewController: BaseViewController, SettingView, Navigatable {
         showContractUsMail()
     }
     @IBAction private func appVersionButtonTapped(_ sender: Any) {
-        showToastMessage("앱 버전 화면 이동 예정")
+        presenter.appVersionButtonTapped()
     }
     @IBAction private func noticeButtonTapped(_ sender: Any) {
         presenter.noticeButtonTapped()
@@ -103,6 +103,10 @@ extension SettingViewController {
     
     func moveWithdraw(with presenter: WithdrawPresenter) {
         navigator?.show(seque: .withdraw(presenter: presenter), sender: self, transition: .navigation, animated: true)
+    }
+    
+    func moveAppVersion(with presenter: AppVersionPresenter) {
+        navigator?.show(seque: .appVersion(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
 }
 
