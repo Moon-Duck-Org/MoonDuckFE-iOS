@@ -78,7 +78,7 @@ extension NicknameSettingViewPresenter {
                 view?.updateLoadingView(isLoading: true)
                 model.nickname(nicknameText)
             } else {
-                view?.updateHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
+                view?.updateHintLabelText(with: L10n.Localizable.specialCharactersAreNotAllowed)
             }
         }
     }
