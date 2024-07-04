@@ -59,7 +59,7 @@ extension NicknameSettingViewPresenter {
             view?.updateCountLabelText(with: "\(nickname.count)/\(maxNicknameCount)")
             nicknameText = nickname
         } else {
-            view?.updateCancelButtonHidden(false)
+            view?.updateCancelButtonHidden(true)
         }
         view?.updateCompleteButtonEnabled(false)
         view?.createTouchEvent()

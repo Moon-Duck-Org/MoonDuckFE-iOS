@@ -118,7 +118,7 @@ extension LoginViewController {
     }
     
     func moveNameSetting(with presenter: NicknameSettingPresenter) {
-        navigator?.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .navigation)
+        navigator?.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
     }
     
     func moveHome(with presenter: HomePresenter) {
