@@ -11,9 +11,9 @@ protocol HomeView: BaseView {
     // UI Logic
     func reloadCategories()
     func reloadReviews()
-    func updateReviewCount(_ count: String)
-    func updateSortTitle(_ text: String)
-    func updateEmptyReviewsView(_ isEmpty: Bool)
+    func updateReviewCountLabelText(with count: String)
+    func updateSortTitleLabelText(with text: String)
+    func updateEmptyReviewsViewHidden(_ isHidden: Bool)
     func resetScrollAndEndRefresh()
     func showOptionAlert(for review: Review)
     
@@ -90,16 +90,16 @@ extension HomeViewController {
         reviewTableView.reloadData()
     }
     
-    func updateReviewCount(_ count: String) {
+    func updateReviewCountLabelText(with count: String) {
         reviewCountLabel.text = count
     }
     
-    func updateSortTitle(_ text: String) {
+    func updateSortTitleLabelText(with text: String) {
         sortTitleLabel.text = text
     }
     
-    func updateEmptyReviewsView(_ isEmpty: Bool) {
-        emptyReviewsView.isHidden = !isEmpty
+    func updateEmptyReviewsViewHidden(_ isHidden: Bool) {
+        emptyReviewsView.isHidden = isHidden
     }
 
     func resetScrollAndEndRefresh() {
@@ -125,12 +125,12 @@ extension HomeViewController {
                 writeHandler: presenter.writeReviewHandler(for: review),
                 shareHandler: presenter.shareReviewHandler(for: review),
                 deleteHandler: { [weak self] in
-                    self?.showDeleteReviewAlert(review)
+                    self?.showDeleteReviewAlert(for: review)
                 }
             )
     }
     
-    private func showDeleteReviewAlert(_ review: Review) {
+    private func showDeleteReviewAlert(for review: Review) {
         AppAlert.default
             .showDestructive(
                 self,

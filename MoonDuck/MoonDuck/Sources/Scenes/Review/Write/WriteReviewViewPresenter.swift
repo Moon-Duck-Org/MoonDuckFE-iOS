@@ -207,7 +207,7 @@ extension WriteReviewViewPresenter {
 // MARK: - UITextFieldDelegate
 extension WriteReviewViewPresenter {
     func titleTextFieldEditingChanged(_ text: String?) {
-        view?.updateTitleCountLabel(for: "\(text?.count ?? 0)/\(config.maxTitleCount)")
+        view?.updateTitleCountLabelText(with: "\(text?.count ?? 0)/\(config.maxTitleCount)")
         titleText = text
     }
     
@@ -236,7 +236,7 @@ extension WriteReviewViewPresenter {
 // MARK: - UITextViewDelegate
 extension WriteReviewViewPresenter {
     func textViewDidChange(_ text: String?) {
-        view?.updateContentCountLabel(for: "\(text?.count ?? 0)/\(config.maxContentCount)")
+        view?.updateContentCountLabelText(with: "\(text?.count ?? 0)/\(config.maxContentCount)")
         contentText = text
     }
     

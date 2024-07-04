@@ -67,9 +67,9 @@ extension ProgramSearchViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         view?.createTouchEvent()
-        view?.updateUserInputButton(false)
+        view?.updateUserInputButtonEnabled(false)
         
-        view?.updateTextField(with: "\(model.category.title) 검색어 입력")
+        view?.updateTextFieldPlaceHolder(with: "\(model.category.title) 검색어 입력")
     }
     
     // MARK: - Action
@@ -107,7 +107,7 @@ extension ProgramSearchViewPresenter {
 // MARK: - UITextFieldDelegate
 extension ProgramSearchViewPresenter {
     func searchTextFieldEditingChanged(_ text: String?) {
-        view?.updateUserInputButton(text?.isNotEmpty ?? false)
+        view?.updateUserInputButtonEnabled(text?.isNotEmpty ?? false)
         searchText = text
     }
     
@@ -138,7 +138,7 @@ extension ProgramSearchViewPresenter: ProgramSearchModelDelegate {
         view?.updateLoadingView(isLoading: false)
         view?.reloadTableView()
         view?.endEditing()
-        view?.updateEmptyResultView(programs.isEmpty)
+        view?.updateEmptyResultViewHidden(!programs.isEmpty)
     }
     
     func programSearchModel(_ searchModel: ProgramSearchModel, didRecieve error: Error?) {

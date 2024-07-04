@@ -167,8 +167,8 @@ extension HomeViewPresenter {
     
     // MARK: - Logic
     private func updateData(with list: ReviewList) {
-        view?.updateReviewCount("\(list.totalElements)")
-        view?.updateEmptyReviewsView(list.reviews.isEmpty)
+        view?.updateReviewCountLabelText(with: "\(list.totalElements)")
+        view?.updateEmptyReviewsViewHidden(!list.reviews.isEmpty)
     }
     
     private func isNeededReloadReviews(with category: Category) -> Bool {
@@ -240,7 +240,7 @@ extension HomeViewPresenter: CategoryModelDelegate {
 // MARK: - SortModelDelegate
 extension HomeViewPresenter: SortModelDelegate {
     func sort(_ model: SortModel, didSelect sortOption: Sort) {
-        view?.updateSortTitle(sortOption.title)
+        view?.updateSortTitleLabelText(with: sortOption.title)
         
         if let selectedCategory = categoryModel.selectedCategory {
             reviewModel.reloadReviews(with: selectedCategory, filter: sortOption)
@@ -248,7 +248,7 @@ extension HomeViewPresenter: SortModelDelegate {
     }
     
     func sort(_ model: SortModel, didReload sortOption: Sort) {
-        view?.updateSortTitle(sortOption.title)
+        view?.updateSortTitleLabelText(with: sortOption.title)
     }
 }
 

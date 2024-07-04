@@ -11,7 +11,7 @@ import MessageUI
 
 protocol SettingView: BaseView {
     // UI Logic
-    func updateAppVersionLabel(with version: String)
+    func updateAppVersionLabelText(with version: String)
         
     // Navigation
     func moveWebview(with presenter: WebPresenter)
@@ -69,7 +69,7 @@ class SettingViewController: BaseViewController, SettingView, Navigatable {
 
 // MARK: - UI Logic
 extension SettingViewController {
-    func updateAppVersionLabel(with version: String) {
+    func updateAppVersionLabelText(with version: String) {
         appVersionLabel.text = version
     }
     

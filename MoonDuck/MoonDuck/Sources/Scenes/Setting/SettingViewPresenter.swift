@@ -46,7 +46,7 @@ extension SettingViewPrsenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        
+        view?.updateAppVersionLabelText(with: Utils.getAppVersion() ?? "")
     }
     
     // MARK: - Action

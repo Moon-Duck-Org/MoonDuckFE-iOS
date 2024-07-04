@@ -9,7 +9,7 @@ import UIKit
 
 protocol WithdrawView: BaseView {
     // UI Logic
-    func updateContentLabel(with text: String)
+    func updateContentLabelText(with text: String)
         
     // Navigation
     func moveIntro(with presenter: IntroPresenter)
@@ -53,7 +53,7 @@ class WithdrawViewController: BaseViewController, WithdrawView, Navigatable {
 
 // MARK: - UI Logic
 extension WithdrawViewController {
-    func updateContentLabel(with text: String) {
+    func updateContentLabelText(with text: String) {
         contentLabel?.text = text
     }
 }
