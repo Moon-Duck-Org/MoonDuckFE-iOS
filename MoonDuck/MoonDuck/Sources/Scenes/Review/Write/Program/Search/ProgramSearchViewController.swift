@@ -49,7 +49,9 @@ class ProgramSearchViewController: BaseViewController, ProgramSearchView, Naviga
     }
     
     @IBAction private func userInputButtonTapped(_ sender: Any) {
-        presenter.userInputButtonTapped()
+        throttler.throttle {
+            self.presenter.userInputButtonTapped()
+        }
     }
     
     init(navigator: Navigator,

@@ -64,7 +64,7 @@ extension IntroViewPresenter {
 // MARK: - UserModelDelegate
 extension IntroViewPresenter: UserModelDelegate {
     func userModel(_ model: UserModel, didChange user: User) {
-        // User 정보 조회 성공
+        // User 정보 조회 성공 -> 홈 이동
         let cateogryModel = CategoryModel()
         let sortModel = SortModel()
         let reviewModel = ReviewListModel(provider)

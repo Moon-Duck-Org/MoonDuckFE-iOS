@@ -32,7 +32,9 @@ class SelectProgramViewController: BaseViewController, SelectProgramView, Naviga
     }
     
     @IBAction private func nextButtonTapped(_ sender: Any) {
-        presenter.nextButtonTapped()
+        throttler.throttle {
+            self.presenter.nextButtonTapped()
+        }
     }
     
     init(navigator: Navigator,

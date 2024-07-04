@@ -38,8 +38,10 @@ class NicknameSettingViewController: BaseViewController, NicknameSettingView, Na
         dismiss()
     }
     @IBAction private func completeButtonTapped(_ sender: Any) {
-        view.endEditing(true)
-        presenter.completeButtonTapped()
+        throttler.throttle {
+            self.view.endEditing(true)
+            self.presenter.completeButtonTapped()
+        }
     }
     
     @IBAction private func nameTextFieldEditingChanged(_ sender: Any) {

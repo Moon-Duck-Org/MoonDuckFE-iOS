@@ -19,3 +19,6 @@
 // 마이
 "Would you like to log out?" = "로그아웃 하시겠어요?";
 "logout" = "로그아웃";
+
+// 로그인
+"Login failed. Please try again." = "로그인에 실패하였습니다. 다시 시도해주세요.";

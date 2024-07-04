@@ -42,7 +42,9 @@ class HomeViewController: BaseViewController, HomeView, Navigatable {
     
     // @IBAction
     @IBAction private func myButtonTapped(_ sender: Any) {
-        presenter.myButtonTapped()
+        throttler.throttle {
+            self.presenter.myButtonTapped()
+        }
     }
     @IBAction private func sortButtonTapped(_ sender: Any) {
         AppAlert.default.showList(self, buttonTitleList: presenter.sortTitles) { [weak self] index in
@@ -50,7 +52,9 @@ class HomeViewController: BaseViewController, HomeView, Navigatable {
         }
     }
     @IBAction private func writeNewReviewButtonTapped(_ sender: Any) {
-        presenter.writeNewReviewButtonTapped()
+        throttler.throttle {
+            self.presenter.writeNewReviewButtonTapped()
+        }
     }
         
     init(navigator: Navigator,

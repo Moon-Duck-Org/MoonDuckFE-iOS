@@ -66,8 +66,7 @@ extension LoginViewPresenter {
     
     func loginError() {
         view?.updateLoadingView(isLoading: false)
-        Log.todo("로그인 오류 알럿 노출")
-        view?.showToastMessage("로그인에 실패하였습니다.")
+        view?.showToastMessage(L10n.Localizable.LoginFailed.pleaseTryAgain)
     }
 }
 
@@ -83,7 +82,7 @@ extension LoginViewPresenter {
                 }
                 
                 guard let oauthToken else {
-                    Log.error("oauthToken is nil.")
+                    Log.error("kakaoLogin oauthToken is nil.")
                     self?.loginError()
                     return
                 }
@@ -98,7 +97,7 @@ extension LoginViewPresenter {
                 }
                 
                 guard let oauthToken else {
-                    Log.error("oauthToken is nil.")
+                    Log.error("kakaoLogin oauthToken is nil.")
                     self?.loginError()
                     return
                 }
@@ -117,8 +116,8 @@ extension LoginViewPresenter {
             } 
             
             guard let id = user?.id else {
-                Log.error("user.id is nil.")
-                self?.view?.showToastMessage("카카오 아이디가 없습니다.")
+                Log.error("kakaoUser user.id is nil.")
+                self?.loginError()
                 return
             }
             
@@ -153,7 +152,7 @@ extension LoginViewPresenter {
 // MARK: - UserModelDelegate
 extension LoginViewPresenter: UserModelDelegate {
     func userModel(_ model: UserModel, didChange user: User) {
-        // User 정보 조회 성공
+        // User 정보 조회 성공 -> 홈 이동
         view?.updateLoadingView(isLoading: false)
         let cateogryModel = CategoryModel()
         let reviewModel = ReviewListModel(provider)

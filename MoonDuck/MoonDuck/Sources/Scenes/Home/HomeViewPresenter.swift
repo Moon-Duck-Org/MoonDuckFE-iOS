@@ -43,7 +43,6 @@ class HomeViewPresenter: Presenter, HomePresenter {
     private let categoryModel: CategoryModelType
     private let sortModel: SortModelType
     private let reviewModel: ReviewListModelType
-    private var isMyInfoTapped: Bool = false
     
     init(with provider: AppServices,
          userModel: UserModelType,
@@ -142,8 +141,10 @@ extension HomeViewPresenter {
     }
     
     func myButtonTapped() {
-        isMyInfoTapped = true
         userModel.getUser()
+        
+        let presenter = MyInfoViewPresenter(with: provider, model: userModel)
+        view?.moveMy(with: presenter)
     }
     
     func writeNewReviewButtonTapped() {
@@ -188,24 +189,15 @@ extension HomeViewPresenter {
 // MARK: - UserModelDelegate
 extension HomeViewPresenter: UserModelDelegate {
     func userModel(_ model: UserModel, didChange user: User) {
-        if isMyInfoTapped {
-            isMyInfoTapped = false
-            moveMyInfo(with: model)
-        }
+        
     }
     
     func userModel(_ model: UserModel, didRecieve error: Error?) {
-        if isMyInfoTapped {
-            isMyInfoTapped = false
-            moveMyInfo(with: model)
-        }
+        
     }
     
     func userModel(_ model: UserModel, didRecieve error: UserModelError) {
-        if isMyInfoTapped {
-            isMyInfoTapped = false
-            moveMyInfo(with: model)
-        }
+        
     }
 }
 

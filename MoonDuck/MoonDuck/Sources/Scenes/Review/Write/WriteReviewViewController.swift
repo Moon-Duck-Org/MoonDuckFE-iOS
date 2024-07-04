@@ -68,8 +68,10 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     }
     
     @IBAction private func saveButtonTapped(_ sender: Any) {
-        presenter.saveButtonTapped()
-    }    
+        throttler.throttle {
+            self.presenter.saveButtonTapped()
+        }
+    }
     
     @IBAction private func titleTextFieldEditingChanged(_ sender: Any) {
         presenter.titleTextFieldEditingChanged(titleTextField.text)

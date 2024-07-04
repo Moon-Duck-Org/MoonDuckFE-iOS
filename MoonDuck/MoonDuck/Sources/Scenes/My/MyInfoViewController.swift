@@ -38,11 +38,15 @@ class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
     }
     
     @IBAction private func settingButtonTapped(_ sender: Any) {
-        presenter.settingButtonTapped()
+        throttler.throttle {
+            self.presenter.settingButtonTapped()
+        }
     }
     
     @IBAction private func nicknameSettingButtonTapped(_ sender: Any) {
-        presenter.nicknameSettingButtonTapped()
+        throttler.throttle {
+            self.presenter.nicknameSettingButtonTapped()
+        }
     }
     
     @IBAction private func logoutButtonTapped(_ sender: Any) {

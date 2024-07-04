@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -53,10 +54,10 @@
                             </constraints>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIZ-u4-QU1">
-                            <rect key="frame" x="353" y="11.666666666666671" width="24" height="24"/>
+                            <rect key="frame" x="343" y="1" width="45" height="45"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="24" id="bQ1-Uk-rIj"/>
-                                <constraint firstAttribute="height" constant="24" id="zR6-PX-AcG"/>
+                                <constraint firstAttribute="width" constant="45" id="bQ1-Uk-rIj"/>
+                                <constraint firstAttribute="height" constant="45" id="zR6-PX-AcG"/>
                             </constraints>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="My">
@@ -75,7 +76,7 @@
                         <constraint firstItem="R5R-0b-aqy" firstAttribute="centerY" secondItem="aik-Bg-Vtp" secondAttribute="centerY" id="plU-Kt-5qF"/>
                         <constraint firstItem="R5R-0b-aqy" firstAttribute="leading" secondItem="aik-Bg-Vtp" secondAttribute="leading" constant="16" id="sKj-bL-0WX"/>
                         <constraint firstItem="ZIZ-u4-QU1" firstAttribute="centerY" secondItem="aik-Bg-Vtp" secondAttribute="centerY" id="uZA-cg-8Lt"/>
-                        <constraint firstAttribute="trailing" secondItem="ZIZ-u4-QU1" secondAttribute="trailing" constant="16" id="xfb-nX-3wO"/>
+                        <constraint firstAttribute="trailing" secondItem="ZIZ-u4-QU1" secondAttribute="trailing" constant="5" id="xfb-nX-3wO"/>
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dTc-CL-Im9">

@@ -17,6 +17,8 @@ protocol BaseView: AnyObject {
 }
 
 class BaseViewController: UIViewController {
+    lazy var throttler = Throttler(interval: 1.0)
+    
     let loadingView: LoadingView = {
         let view = LoadingView()
         view.translatesAutoresizingMaskIntoConstraints = false
