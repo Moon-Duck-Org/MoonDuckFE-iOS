@@ -18,7 +18,7 @@ protocol LoginPresenter: AnyObject {
     var view: LoginView? { get set }
     
     /// Action
-    func tapKakaoLoginButton()
+    func kakaoLoginButtonTapped()
     func googleLogin(result: GIDSignInResult?, error: Error?)
     func appleLogin(id: String)
     func loginError()
@@ -38,7 +38,7 @@ final class LoginViewPresenter: Presenter, LoginPresenter {
 
 // MARK: - Input
 extension LoginViewPresenter {
-    func tapKakaoLoginButton() {
+    func kakaoLoginButtonTapped() {
         kakaoLogin()
     }
     
@@ -50,7 +50,7 @@ extension LoginViewPresenter {
         }
         guard let id = result?.user.userID else {
             Log.error("userID is nil.")
-            self.view?.showToast("구글 아이디가 없습니다.")
+            self.view?.showToastMessage("구글 아이디가 없습니다.")
             loginError()
             return
         }
@@ -65,9 +65,9 @@ extension LoginViewPresenter {
     }
     
     func loginError() {
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         Log.todo("로그인 오류 알럿 노출")
-        view?.showToast("로그인에 실패하였습니다.")
+        view?.showToastMessage("로그인에 실패하였습니다.")
     }
 }
 
@@ -118,7 +118,7 @@ extension LoginViewPresenter {
             
             guard let id = user?.id else {
                 Log.error("user.id is nil.")
-                self?.view?.showToast("카카오 아이디가 없습니다.")
+                self?.view?.showToastMessage("카카오 아이디가 없습니다.")
                 return
             }
             
@@ -128,10 +128,10 @@ extension LoginViewPresenter {
     }
     
     private func login(_ auth: Auth) {
-        view?.updateLoadingView(true)
+        view?.updateLoadingView(isLoading: true)
         AuthManager.default.login(auth: auth) { [weak self] result in
             guard let self else {
-                self?.view?.updateLoadingView(false)
+                self?.view?.updateLoadingView(isLoading: false)
                 return
             }
             
@@ -139,7 +139,7 @@ extension LoginViewPresenter {
             case .success: 
                 self.model.getUser()
             case .donthaveNickname:
-                self.view?.updateLoadingView(false)
+                self.view?.updateLoadingView(isLoading: false)
                 let model = UserModel(provider)
                 let presenter = NicknameSettingViewPresenter(with: self.provider, model: model, delegate: self)
                 self.view?.moveNameSetting(with: presenter)
@@ -154,7 +154,7 @@ extension LoginViewPresenter {
 extension LoginViewPresenter: UserModelDelegate {
     func user(_ model: UserModel, didChange user: User) {
         // User 정보 조회 성공
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         let cateogryModel = CategoryModel()
         let reviewModel = ReviewListModel(provider)
         let sortModel = SortModel()
@@ -176,7 +176,7 @@ extension LoginViewPresenter: UserModelDelegate {
 // MARK: - NicknameSettingPresenterDelegate
 extension LoginViewPresenter: NicknameSettingPresenterDelegate {
     func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         model.save(nickname: nickname)
     }
     

@@ -34,23 +34,23 @@ class HomeViewController: BaseViewController, HomeView, Navigatable {
     private let refreshControl = UIRefreshControl()
     
     // @IBOutlet
-    @IBOutlet weak private var categoryCollectioinView: UICollectionView!
-    @IBOutlet weak private var reviewCountLabel: UILabel!
-    @IBOutlet weak private var sortTitleLabel: UILabel!
-    @IBOutlet weak private var reviewTableView: UITableView!
-    @IBOutlet weak private var emptyReviewsView: UIView!
+    @IBOutlet private weak var categoryCollectioinView: UICollectionView!
+    @IBOutlet private weak var reviewCountLabel: UILabel!
+    @IBOutlet private weak var sortTitleLabel: UILabel!
+    @IBOutlet private weak var reviewTableView: UITableView!
+    @IBOutlet private weak var emptyReviewsView: UIView!
     
     // @IBAction
-    @IBAction private func tapMyButton(_ sender: Any) {
-        presenter.tapMyButton()
+    @IBAction private func myButtonTapped(_ sender: Any) {
+        presenter.myButtonTapped()
     }
-    @IBAction private func tapSortButton(_ sender: Any) {
+    @IBAction private func sortButtonTapped(_ sender: Any) {
         AppAlert.default.showList(self, buttonTitleList: presenter.sortTitleList) { [weak self] index in
             self?.presenter.selectSort(at: index)
         }
     }
-    @IBAction private func tapWriteNewReviewButton(_ sender: Any) {
-        presenter.tapWriteNewReviewButton()
+    @IBAction private func writeNewReviewButtonTapped(_ sender: Any) {
+        presenter.writeNewReviewButtonTapped()
     }
         
     init(navigator: Navigator,

@@ -11,8 +11,8 @@ protocol BaseView: AnyObject {
     var isEditingText: Bool { get set }
     
     func createTouchEvent()
-    func updateLoadingView(_ isLoading: Bool)
-    func showToast(_ message: String)
+    func updateLoadingView(isLoading: Bool)
+    func showToastMessage(_ message: String)
     func endEditing()
 }
 
@@ -37,11 +37,11 @@ class BaseViewController: UIViewController {
         self.loadingView.isLoading = false
     }
     
-    func updateLoadingView(_ isLoading: Bool) {
+    func updateLoadingView(isLoading: Bool) {
         self.loadingView.isLoading = isLoading
     }
     
-    func showToast(_ message: String) {
+    func showToastMessage(_ message: String) {
         showToast(message: message)
     }
     /**

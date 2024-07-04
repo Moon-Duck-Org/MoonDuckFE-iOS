@@ -25,36 +25,36 @@ class ReviewDetailViewController: BaseViewController, ReviewDetailView, Navigata
     private var linkButtonHandler: (() -> Void)?
     
     // @IBOutlet
-    @IBOutlet weak private var categoryImageView: UIImageView!
-    @IBOutlet weak private var programTitleLabel: UILabel!
-    @IBOutlet weak private var programSubTitleLabel: UILabel!
+    @IBOutlet private weak var categoryImageView: UIImageView!
+    @IBOutlet private weak var programTitleLabel: UILabel!
+    @IBOutlet private weak var programSubTitleLabel: UILabel!
     
-    @IBOutlet weak private var ratingButton1: UIButton!
-    @IBOutlet weak private var ratingButton2: UIButton!
-    @IBOutlet weak private var ratingButton3: UIButton!
-    @IBOutlet weak private var ratingButton4: UIButton!
-    @IBOutlet weak private var ratingButton5: UIButton!
+    @IBOutlet private weak var ratingButton1: UIButton!
+    @IBOutlet private weak var ratingButton2: UIButton!
+    @IBOutlet private weak var ratingButton3: UIButton!
+    @IBOutlet private weak var ratingButton4: UIButton!
+    @IBOutlet private weak var ratingButton5: UIButton!
     
-    @IBOutlet weak private var titleLabel: UILabel!
-    @IBOutlet weak private var dateLabel: UILabel!
-    @IBOutlet weak private var contentLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var contentLabel: UILabel!
     
-    @IBOutlet weak private var linkView: UIView!
-    @IBOutlet weak private var linkViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak private var linkLabel: UILabel!
+    @IBOutlet private weak var linkView: UIView!
+    @IBOutlet private weak var linkViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var linkLabel: UILabel!
     
-    @IBOutlet weak private var imageView: UIView!
-    @IBOutlet weak private var imageCollectionView: UICollectionView!
-    @IBOutlet weak private var imageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var imageView: UIView!
+    @IBOutlet private weak var imageCollectionView: UICollectionView!
+    @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
     
     // @IBAction
-    @IBAction private func tapBackButton(_ sender: Any) {
+    @IBAction private func backButtonTapped(_ sender: Any) {
         backToHome()
     }
-    @IBAction private func tapOptionButton(_ sender: Any) {
+    @IBAction private func optionButtonTapped(_ sender: Any) {
         showOptionAlert()
     }
-    @IBAction private func tapLink(_ sender: Any) {
+    @IBAction private func linkTapped(_ sender: Any) {
         linkButtonHandler?()
     }
     

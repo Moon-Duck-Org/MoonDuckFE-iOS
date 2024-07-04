@@ -29,7 +29,7 @@
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" image="ImageDelete"/>
                         <connections>
-                            <action selector="tapDeleteButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="hmz-aG-W7c"/>
+                            <action selector="deleteButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="hmz-aG-W7c"/>
                         </connections>
                     </button>
                 </subviews>

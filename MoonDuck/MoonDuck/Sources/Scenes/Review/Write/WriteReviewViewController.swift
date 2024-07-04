@@ -49,11 +49,11 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     }
     @IBOutlet private weak var contentCountLabel: UILabel!
         
-    @IBOutlet weak private var ratingButton1: UIButton!
-    @IBOutlet weak private var ratingButton2: UIButton!
-    @IBOutlet weak private var ratingButton3: UIButton!
-    @IBOutlet weak private var ratingButton4: UIButton!
-    @IBOutlet weak private var ratingButton5: UIButton!
+    @IBOutlet private weak var ratingButton1: UIButton!
+    @IBOutlet private weak var ratingButton2: UIButton!
+    @IBOutlet private weak var ratingButton3: UIButton!
+    @IBOutlet private weak var ratingButton4: UIButton!
+    @IBOutlet private weak var ratingButton5: UIButton!
     
     @IBOutlet private weak var linkTextField: TextField! {
         didSet {
@@ -63,12 +63,12 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
     // @IBAction
-    @IBAction private func tapCancelButton(_ sender: Any) {
+    @IBAction private func cancelButtonTapped(_ sender: Any) {
         backToHome()
     }
     
-    @IBAction private func tapSaveButton(_ sender: Any) {
-        presenter.tapSaveButton()
+    @IBAction private func saveButtonTapped(_ sender: Any) {
+        presenter.saveButtonTapped()
     }    
     
     @IBAction private func titleTextFieldEditingChanged(_ sender: Any) {
@@ -199,16 +199,16 @@ extension WriteReviewViewController {
     }
     
     private func registeRatingButtonAction() {
-        ratingButton1.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
-        ratingButton2.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
-        ratingButton3.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
-        ratingButton4.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
-        ratingButton5.addTarget(self, action: #selector(tapRatingButton(_:)), for: .touchUpInside)
+        ratingButton1.addTarget(self, action: #selector(ratingButtonTapped(_:)), for: .touchUpInside)
+        ratingButton2.addTarget(self, action: #selector(ratingButtonTapped(_:)), for: .touchUpInside)
+        ratingButton3.addTarget(self, action: #selector(ratingButtonTapped(_:)), for: .touchUpInside)
+        ratingButton4.addTarget(self, action: #selector(ratingButtonTapped(_:)), for: .touchUpInside)
+        ratingButton5.addTarget(self, action: #selector(ratingButtonTapped(_:)), for: .touchUpInside)
     }
     
     @objc
-    private func tapRatingButton(_ sender: UIButton) {
-        presenter.tapRatingButton(at: sender.tag)
+    private func ratingButtonTapped(_ sender: UIButton) {
+        presenter.ratingButtonTapped(at: sender.tag)
     }
 }
 
@@ -289,7 +289,7 @@ extension WriteReviewViewController: PHPickerViewControllerDelegate, UIImagePick
                         if sizeInMB <= 10, let image = UIImage(data: data) {
                             self?.presenter.selectImages([image])
                         } else {
-                            self?.showToast("10메가 이하의 이미지만 첨부 가능해요.")
+                            self?.showToastMessage("10메가 이하의 이미지만 첨부 가능해요.")
                         }
                     } else if let error = error {
                         Log.error("Error loading image data: \(error.localizedDescription)")

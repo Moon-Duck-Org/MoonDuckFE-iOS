@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 protocol MyInfoPresenter: AnyObject {
     var view: MyInfoView? { get set }
@@ -15,8 +14,9 @@ protocol MyInfoPresenter: AnyObject {
     func viewDidLoad()
     
     // Action
-    func tapLogoutButton()
-    func tapNicknameSettingButton()
+    func logoutButtonTapped()
+    func nicknameSettingButtonTapped()
+    func settingButtonTapped()
 }
 
 class MyInfoViewPresenter: Presenter, MyInfoPresenter {
@@ -43,16 +43,21 @@ extension MyInfoViewPresenter {
     }
     
     // MARK: - Action
-    func tapNicknameSettingButton() {
+    func nicknameSettingButtonTapped() {
         let model = UserModel(provider)
         model.user = self.model.user
         let presenter = NicknameSettingViewPresenter(with: provider, model: model, delegate: self)
         view?.presentNameSetting(with: presenter)
     }
     
-    func tapLogoutButton() {
+    func logoutButtonTapped() {
         AuthManager.default.logout()
         moveLogin()
+    }
+    
+    func settingButtonTapped() {
+        let presenter = SettingViewPrsenter(with: provider, model: model)
+        self.view?.moveSetting(with: presenter)
     }
     
     // MARK: - Logic

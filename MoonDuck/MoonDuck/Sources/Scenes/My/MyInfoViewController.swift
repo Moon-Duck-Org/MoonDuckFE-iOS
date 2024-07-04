@@ -16,6 +16,7 @@ protocol MyInfoView: BaseView {
     func dismiss()
     func presentNameSetting(with presenter: NicknameSettingPresenter)
     func moveLogin(with presenter: LoginPresenter)
+    func moveSetting(with presenter: SettingPresenter)
 }
 
 class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
@@ -24,33 +25,33 @@ class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
     let presenter: MyInfoPresenter
     
     // @IBOutlet
-    @IBOutlet weak private var nameLabel: UILabel!
-    @IBOutlet weak private var allCountLabel: UILabel!
-    @IBOutlet weak private var movieCountLabel: UILabel!
-    @IBOutlet weak private var bookCountLabel: UILabel!
-    @IBOutlet weak private var dramaCountLabel: UILabel!
-    @IBOutlet weak private var concertCountLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var allCountLabel: UILabel!
+    @IBOutlet private weak var movieCountLabel: UILabel!
+    @IBOutlet private weak var bookCountLabel: UILabel!
+    @IBOutlet private weak var dramaCountLabel: UILabel!
+    @IBOutlet private weak var concertCountLabel: UILabel!
     
     // @IBAction
-    @IBAction private func tapBackButton(_ sender: Any) {
+    @IBAction private func backButtonTapped(_ sender: Any) {
         back()
     }
     
-    @IBAction private func tapSettingButton(_ sender: Any) {
-        showToast("설정 화면 이동 예정")
+    @IBAction private func settingButtonTapped(_ sender: Any) {
+        presenter.settingButtonTapped()
     }
     
-    @IBAction private func tapNicknameSettingButton(_ sender: Any) {
-        presenter.tapNicknameSettingButton()
+    @IBAction private func nicknameSettingButtonTapped(_ sender: Any) {
+        presenter.nicknameSettingButtonTapped()
     }
     
-    @IBAction private func tapLogoutButton(_ sender: Any) {
+    @IBAction private func logoutButtonTapped(_ sender: Any) {
         AppAlert.default
             .showDestructive(self,
                              title: L10n.Localizable.wouldYouLikeToLogOut,
                              destructiveTitle: L10n.Localizable.logout,
                              destructiveHandler: { [weak self] in
-                self?.presenter.tapLogoutButton()
+                self?.presenter.logoutButtonTapped()
             })
     }
         
@@ -92,7 +93,7 @@ extension MyInfoViewController {
     private func back() {
         navigator?.pop(sender: self)
     }
-
+    
     func dismiss() {
         navigator?.dismiss(sender: self)
     }
@@ -103,5 +104,9 @@ extension MyInfoViewController {
     
     func moveLogin(with presenter: LoginPresenter) {
         navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
+    }
+    
+    func moveSetting(with presenter: SettingPresenter) {
+        navigator?.show(seque: .setting(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
 }

@@ -20,7 +20,7 @@ protocol NicknameSettingPresenter: AnyObject {
     func viewDidLoad()
     
     // Action
-    func tapCompleteButton()
+    func completeButtonTapped()
     
     // TextField Delegate
     func nicknameTextFieldEditingChanged(_ text: String?)
@@ -54,19 +54,19 @@ extension NicknameSettingViewPresenter {
     func viewDidLoad() {
         // 닉네임이 세팅
         if let nickname = model.user?.nickname {
-            view?.updateCancelButton(false)
-            view?.updateNameTextfield(nickname)
-            view?.updateCountLabel("\(nickname.count)/\(maxNicknameCount)")
+            view?.updateCancelButtonHidden(false)
+            view?.updateNameTextfieldText(with: nickname)
+            view?.updateCountLabelText(with: "\(nickname.count)/\(maxNicknameCount)")
             nicknameText = nickname
         } else {
-            view?.updateCancelButton(false)
+            view?.updateCancelButtonHidden(false)
         }
-        view?.updateCompleteButton(false)
+        view?.updateCompleteButtonEnabled(false)
         view?.createTouchEvent()
     }
     
     // MARK: - Action
-    func tapCompleteButton() {
+    func completeButtonTapped() {
         guard let nicknameText else { return }
         
         if let userNickname = model.user?.nickname,
@@ -75,10 +75,10 @@ extension NicknameSettingViewPresenter {
             delegate?.nicknameSetting(didCancel: self)
         } else {
             if isValidNickname(nicknameText) {
-                view?.updateLoadingView(true)
+                view?.updateLoadingView(isLoading: true)
                 model.nickname(nicknameText)
             } else {
-                view?.updateHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
+                view?.updateHintLabelText(with: L10n.Localizable.specialCharactersAreNotAllowed)
             }
         }
     }
@@ -102,8 +102,8 @@ extension NicknameSettingViewPresenter {
 // MARK: - UITextFieldDelegate
 extension NicknameSettingViewPresenter {
     func nicknameTextFieldEditingChanged(_ text: String?) {
-        view?.updateCountLabel("\(text?.count ?? 0)/\(maxNicknameCount)")
-        view?.updateCompleteButton(text?.count ?? 0 > 1)
+        view?.updateCountLabelText(with: "\(text?.count ?? 0)/\(maxNicknameCount)")
+        view?.updateCompleteButtonEnabled(text?.count ?? 0 > 1)
         nicknameText = text
     }
     
@@ -121,7 +121,7 @@ extension NicknameSettingViewPresenter {
     
     func textFieldDidBeginEditing(_ text: String?) {
         view?.isEditingText = true
-        view?.updateHintLabel("")
+        view?.updateHintLabelText(with: "")
     }
     
     func textFieldShouldReturn(_ text: String?) -> Bool {
@@ -132,9 +132,9 @@ extension NicknameSettingViewPresenter {
     func textFieldDidEndEditing(_ text: String?) {
         guard let text else { return }
         if isValidNickname(text) {
-            view?.updateHintLabel("")
+            view?.updateHintLabelText(with: "")
         } else {
-            view?.updateHintLabel(L10n.Localizable.specialCharactersAreNotAllowed)
+            view?.updateHintLabelText(with: L10n.Localizable.specialCharactersAreNotAllowed)
         }
     }
 }
@@ -143,18 +143,18 @@ extension NicknameSettingViewPresenter {
 extension NicknameSettingViewPresenter: UserModelDelegate {
     func user(_ model: UserModel, didChange user: User) {
         // 닉네임 변경 성공
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         delegate?.nicknameSetting(self, didSuccess: user.nickname)
     }
     
     func user(_ model: UserModel, didRecieve error: UserModelError) {
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         switch error {
         case .authError:
             AuthManager.default.logout()
             moveLogin()
         case .duplicateNickname:
-            view?.updateHintLabel(L10n.Localizable.duplicateNickname)
+            view?.updateHintLabelText(with: L10n.Localizable.duplicateNickname)
         }
     }
     
@@ -163,8 +163,8 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
     }
     
     private func networkError() {
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         Log.todo("네트워크 오류 알럿 노출")
-        view?.showToast("네트워크 오류 발생")
+        view?.showToastMessage("네트워크 오류 발생")
     }
 }

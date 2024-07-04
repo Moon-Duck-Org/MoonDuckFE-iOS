@@ -41,7 +41,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="tapOptionButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="RLX-vU-UDe"/>
+                                    <action selector="optionButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="RLX-vU-UDe"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Option" translatesAutoresizingMaskIntoConstraints="NO" id="GAM-XF-0Hz">
@@ -256,7 +256,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="tapLinkButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sGb-Fw-zK3"/>
+                                    <action selector="linkButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sGb-Fw-zK3"/>
                                 </connections>
                             </button>
                         </subviews>

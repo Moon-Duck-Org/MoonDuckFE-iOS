@@ -45,6 +45,7 @@ internal enum Asset {
     internal static let categoryMovieRound = ImageAsset(name: "CategoryMovieRound")
     internal static let categoryMovieRoundSmall = ImageAsset(name: "CategoryMovieRoundSmall")
     internal static let floatingButton = ImageAsset(name: "FloatingButton")
+    internal static let arrowRight = ImageAsset(name: "ArrowRight")
     internal static let back = ImageAsset(name: "Back")
     internal static let doteRed = ImageAsset(name: "DoteRed")
     internal static let dropdown = ImageAsset(name: "Dropdown")
