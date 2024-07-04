@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSansCJKkr-Bold.otf">
+            <string>NotoSansCJKkr-Bold</string>
+        </array>
+        <array key="NotoSansCJKkr-Medium.otf">
+            <string>NotoSansCJKkr-Medium</string>
+        </array>
+        <array key="NotoSansCJKkr-Regular.otf">
+            <string>NotoSansCJKkr-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WithdrawViewController" customModule="MoonDuck" customModuleProvider="target">
+            <connections>
+                <outlet property="contentLabel" destination="l6Q-gc-HJt" id="rTu-gN-dxE"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jv5-UL-5AI">
+                    <rect key="frame" x="0.0" y="59" width="393" height="47"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHa-0L-oLH">
+                            <rect key="frame" x="16" y="11.666666666666671" width="24" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="24" id="2bx-wx-nOd"/>
+                                <constraint firstAttribute="height" constant="24" id="5Te-Jm-bJZ"/>
+                            </constraints>
+                            <color key="tintColor" name="Blue"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" image="Back"/>
+                            <connections>
+                                <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="z1v-vA-Uzt"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회원탈퇴" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5K-Id-ugg">
+                            <rect key="frame" x="163.33333333333334" y="10.33333333333333" width="66.333333333333343" height="26.666666666666671"/>
+                            <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="18"/>
+                            <color key="textColor" name="Black"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" name="White"/>
+                    <constraints>
+                        <constraint firstItem="BHa-0L-oLH" firstAttribute="centerY" secondItem="Jv5-UL-5AI" secondAttribute="centerY" id="8Kq-O9-9Pi"/>
+                        <constraint firstItem="k5K-Id-ugg" firstAttribute="centerY" secondItem="Jv5-UL-5AI" secondAttribute="centerY" id="Fac-Eb-pe3"/>
+                        <constraint firstItem="BHa-0L-oLH" firstAttribute="leading" secondItem="Jv5-UL-5AI" secondAttribute="leading" constant="16" id="K6N-wW-PHv"/>
+                        <constraint firstItem="k5K-Id-ugg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BHa-0L-oLH" secondAttribute="trailing" id="RCy-yy-T8x"/>
+                        <constraint firstItem="k5K-Id-ugg" firstAttribute="centerX" secondItem="Jv5-UL-5AI" secondAttribute="centerX" id="mYl-4v-vFm"/>
+                        <constraint firstAttribute="height" constant="47" id="vER-Jf-ED9"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6Q-gc-HJt">
+                    <rect key="frame" x="22" y="130" width="349" height="80"/>
+                    <string key="text">님은 문덕이와
+번의 기록을 함께했어요.
+정말 탈퇴하시겠어요? 너무 아쉬워요.</string>
+                    <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="18"/>
+                    <color key="textColor" name="Black"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계정을 탈퇴하면 나의 기록이 모두 삭제돼요." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUU-Hl-GrS">
+                    <rect key="frame" x="22" y="226" width="349" height="18"/>
+                    <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="12"/>
+                    <color key="textColor" name="Gray1"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jp5-Au-Dkv" customClass="RadiusView" customModule="MoonDuck" customModuleProvider="target">
+                    <rect key="frame" x="16" y="753" width="361" height="59"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="탈퇴" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HRG-oK-Ujc">
+                            <rect key="frame" x="165.66666666666666" y="17.666666666666629" width="29.666666666666657" height="24"/>
+                            <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="16"/>
+                            <color key="textColor" name="Red"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPD-1g-4Qz">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="59"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain"/>
+                            <connections>
+                                <action selector="withdrawButtonTapped:" destination="-1" eventType="touchUpInside" id="SjW-zz-JsY"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" name="Gray3"/>
+                    <constraints>
+                        <constraint firstItem="HRG-oK-Ujc" firstAttribute="centerX" secondItem="Jp5-Au-Dkv" secondAttribute="centerX" id="0qJ-Lm-Gnp"/>
+                        <constraint firstItem="rPD-1g-4Qz" firstAttribute="leading" secondItem="Jp5-Au-Dkv" secondAttribute="leading" id="37j-h9-YFN"/>
+                        <constraint firstAttribute="bottom" secondItem="rPD-1g-4Qz" secondAttribute="bottom" id="910-mK-bVx"/>
+                        <constraint firstItem="HRG-oK-Ujc" firstAttribute="centerY" secondItem="Jp5-Au-Dkv" secondAttribute="centerY" id="Bi8-O3-SO6"/>
+                        <constraint firstAttribute="width" secondItem="Jp5-Au-Dkv" secondAttribute="height" multiplier="343:56" id="Veo-ML-Pvd"/>
+                        <constraint firstItem="rPD-1g-4Qz" firstAttribute="top" secondItem="Jp5-Au-Dkv" secondAttribute="top" id="X8K-Ta-RFt"/>
+                        <constraint firstAttribute="trailing" secondItem="rPD-1g-4Qz" secondAttribute="trailing" id="Z8b-cY-hGV"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z3D-lp-lOM" customClass="RadiusView" customModule="MoonDuck" customModuleProvider="target">
+                    <rect key="frame" x="16" y="689" width="361" height="59"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="취소" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jed-Cc-o53">
+                            <rect key="frame" x="165.66666666666666" y="17.666666666666629" width="29.666666666666657" height="24"/>
+                            <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="16"/>
+                            <color key="textColor" name="Black"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AOa-Dx-FXo">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="59"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain"/>
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="he9-7x-aEo"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" name="White"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="AOa-Dx-FXo" secondAttribute="trailing" id="2TR-e1-zWG"/>
+                        <constraint firstItem="AOa-Dx-FXo" firstAttribute="top" secondItem="Z3D-lp-lOM" secondAttribute="top" id="eq1-XP-2MY"/>
+                        <constraint firstItem="jed-Cc-o53" firstAttribute="centerY" secondItem="Z3D-lp-lOM" secondAttribute="centerY" id="gAT-lz-Rea"/>
+                        <constraint firstItem="AOa-Dx-FXo" firstAttribute="leading" secondItem="Z3D-lp-lOM" secondAttribute="leading" id="stI-jB-w6d"/>
+                        <constraint firstItem="jed-Cc-o53" firstAttribute="centerX" secondItem="Z3D-lp-lOM" secondAttribute="centerX" id="z3m-a5-hVs"/>
+                        <constraint firstAttribute="bottom" secondItem="AOa-Dx-FXo" secondAttribute="bottom" id="zKy-Ly-TKb"/>
+                        <constraint firstAttribute="width" secondItem="Z3D-lp-lOM" secondAttribute="height" multiplier="343:56" id="zTi-R5-blj"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" name="Black"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Z3D-lp-lOM" secondAttribute="trailing" constant="16" id="1x3-0R-Izi"/>
+                <constraint firstItem="l6Q-gc-HJt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="22" id="3hj-SO-vKl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LUU-Hl-GrS" secondAttribute="trailing" constant="22" id="Anh-tW-2AR"/>
+                <constraint firstItem="Jv5-UL-5AI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="BbL-4I-ovV"/>
+                <constraint firstItem="Jp5-Au-Dkv" firstAttribute="top" secondItem="Z3D-lp-lOM" secondAttribute="bottom" constant="5" id="Hsg-bB-Whq"/>
+                <constraint firstItem="Z3D-lp-lOM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="JEB-0m-15C"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Jp5-Au-Dkv" secondAttribute="bottom" constant="6" id="N8J-0l-EKM"/>
+                <constraint firstAttribute="trailing" secondItem="Jv5-UL-5AI" secondAttribute="trailing" id="NE1-Jg-Lud"/>
+                <constraint firstItem="l6Q-gc-HJt" firstAttribute="top" secondItem="Jv5-UL-5AI" secondAttribute="bottom" constant="24" id="OBy-yl-uCn"/>
+                <constraint firstAttribute="trailing" secondItem="Jp5-Au-Dkv" secondAttribute="trailing" constant="16" id="Od3-hj-MMK"/>
+                <constraint firstItem="LUU-Hl-GrS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="22" id="Rop-4Y-Cgm"/>
+                <constraint firstItem="Jv5-UL-5AI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="STa-Sy-Ezb"/>
+                <constraint firstItem="Jp5-Au-Dkv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="oMf-Bj-18B"/>
+                <constraint firstItem="LUU-Hl-GrS" firstAttribute="top" secondItem="l6Q-gc-HJt" secondAttribute="bottom" constant="16" id="oTM-cZ-M3Y"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="l6Q-gc-HJt" secondAttribute="trailing" constant="22" id="s3z-Ju-2lu"/>
+            </constraints>
+            <point key="canvasLocation" x="28" y="21"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Back" width="24" height="24"/>
+        <namedColor name="Black">
+            <color red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Blue">
+            <color red="0.37254901960784315" green="0.74509803921568629" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Gray1">
+            <color red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Gray3">
+            <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Red">
+            <color red="0.97647058823529409" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="White">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -38,6 +38,7 @@ class Navigator {
         case reviewDetail(presenter: ReviewDetailPresenter)
         case setting(presenter: SettingPresenter)
         case webview(presenter: WebPresenter)
+        case withdraw(presenter: WithdrawPresenter)
     }
 
     enum Transition {
@@ -79,6 +80,8 @@ class Navigator {
             return SettingViewController(navigator: self, presenter: presenter)
         case .webview(let presenter):
             return WebViewController(navigator: self, presenter: presenter)
+        case .withdraw(let presenter):
+            return WithdrawViewController(navigator: self, presenter: presenter)
         }
     }
     

@@ -19,7 +19,6 @@ protocol SettingPresenter: AnyObject {
     // Action
     func termsOfServiceButtonTapped()
     func privacyPolicyButtonTapped()
-    func contactUsButtonTapped()
     func appVersionButtonTapped()
     func noticeButtonTapped()
     func withdrawButtonTapped()
@@ -28,16 +27,16 @@ protocol SettingPresenter: AnyObject {
 
 class SettingViewPrsenter: Presenter, SettingPresenter {
     weak var view: SettingView?
-    private let user: User?
+    private let model: UserModelType
     
-    init(with provider: AppServices, user: User?) {
-        self.user = user
+    init(with provider: AppServices, model: UserModelType) {
+        self.model = model
         super.init(with: provider)
     }
     
     // MARK: - Data
     var contractUs: ContractUs {
-        let nickname = user?.nickname ?? ""
+        let nickname = model.user?.nickname ?? ""
         return ContractUs(nickName: nickname, appVersion: "1.0.0")
     }
     
@@ -65,10 +64,6 @@ extension SettingViewPrsenter {
         view?.moveWebview(with: presenter)
     }
     
-    func contactUsButtonTapped() {
-        
-    }
-    
     func appVersionButtonTapped() {
         
     }
@@ -81,7 +76,8 @@ extension SettingViewPrsenter {
     }
     
     func withdrawButtonTapped() {
-        
+        let presenter = WithdrawViewPresenter(with: provider, model: model)
+        view?.moveWithdraw(with: presenter)
     }
     
     // MARK: - Logic

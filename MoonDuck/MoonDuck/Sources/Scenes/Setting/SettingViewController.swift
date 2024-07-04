@@ -14,13 +14,14 @@ protocol SettingView: BaseView {
         
     // Navigation
     func moveWebview(with presenter: WebPresenter)
+    func moveWithdraw(with presenter: WithdrawPresenter)
     
 }
 
 class SettingViewController: BaseViewController, SettingView, Navigatable {
     
     var navigator: Navigator?
-    let presenter: SettingPresenter
+    private let presenter: SettingPresenter
     
     // @IBOutlet
     
@@ -43,7 +44,7 @@ class SettingViewController: BaseViewController, SettingView, Navigatable {
         presenter.noticeButtonTapped()
     }
     @IBAction private func withdrawButtonTapped(_ sender: Any) {
-        showToast("탈퇴 화면 이동 예정")
+        presenter.withdrawButtonTapped()
     }
     
     init(navigator: Navigator,
@@ -92,6 +93,10 @@ extension SettingViewController {
     
     func moveWebview(with presenter: WebPresenter) {
         navigator?.show(seque: .webview(presenter: presenter), sender: self, transition: .navigation, animated: true)
+    }
+    
+    func moveWithdraw(with presenter: WithdrawPresenter) {
+        navigator?.show(seque: .withdraw(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
 }
 

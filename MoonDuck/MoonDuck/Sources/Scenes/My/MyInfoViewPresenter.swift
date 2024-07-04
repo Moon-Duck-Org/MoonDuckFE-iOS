@@ -56,7 +56,7 @@ extension MyInfoViewPresenter {
     }
     
     func settingButtonTapped() {
-        let presenter = SettingViewPrsenter(with: provider, user: model.user)
+        let presenter = SettingViewPrsenter(with: provider, model: model)
         self.view?.moveSetting(with: presenter)
     }
     

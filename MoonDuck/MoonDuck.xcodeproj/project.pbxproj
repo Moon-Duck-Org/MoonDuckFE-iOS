@@ -82,6 +82,9 @@
 		EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */; };
 		EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A82BFF716600FDC7A7 /* Category.swift */; };
 		EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA81F4B12BFF881800FDC7A7 /* IntroViewController.xib */; };
+		EA8495322C36265F00112EDB /* WithdrawViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8495312C36265F00112EDB /* WithdrawViewController.xib */; };
+		EA8495332C36265F00112EDB /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8495302C36265F00112EDB /* WithdrawViewController.swift */; };
+		EA8495352C36277900112EDB /* WithdrawViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8495342C36277900112EDB /* WithdrawViewPresenter.swift */; };
 		EA8C24162C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C24142C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift */; };
 		EA8C24172C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */; };
 		EA8C24192C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */; };
@@ -255,6 +258,9 @@
 		EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCategoryCell.swift; sourceTree = "<group>"; };
 		EA81F4A82BFF716600FDC7A7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		EA81F4B12BFF881800FDC7A7 /* IntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
+		EA8495302C36265F00112EDB /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
+		EA8495312C36265F00112EDB /* WithdrawViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawViewController.xib; sourceTree = "<group>"; };
+		EA8495342C36277900112EDB /* WithdrawViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewPresenter.swift; sourceTree = "<group>"; };
 		EA8C24142C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
 		EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewDetailViewController.xib; sourceTree = "<group>"; };
 		EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewPresenter.swift; sourceTree = "<group>"; };
@@ -772,7 +778,7 @@
 		EAA98FB92C33F5E200F3A723 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				EAA98FBE2C33F88600F3A723 /* New Group */,
+				EAA98FBE2C33F88600F3A723 /* Withdraw */,
 				EAA98FBA2C33F5F300F3A723 /* SettingViewController.swift */,
 				EAA98FBB2C33F5F300F3A723 /* SettingViewController.xib */,
 				EACCDA092C353CF600D9ADAD /* SettingViewPresenter.swift */,
@@ -780,11 +786,14 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
-		EAA98FBE2C33F88600F3A723 /* New Group */ = {
+		EAA98FBE2C33F88600F3A723 /* Withdraw */ = {
 			isa = PBXGroup;
 			children = (
+				EA8495302C36265F00112EDB /* WithdrawViewController.swift */,
+				EA8495312C36265F00112EDB /* WithdrawViewController.xib */,
+				EA8495342C36277900112EDB /* WithdrawViewPresenter.swift */,
 			);
-			path = "New Group";
+			path = Withdraw;
 			sourceTree = "<group>";
 		};
 		EAB6E6642C18469A00A9E191 /* Cell */ = {
@@ -993,6 +1002,7 @@
 				EAA914F32C02D63100A98950 /* ReviewImageCollectionViewCell.xib in Resources */,
 				EA5758EE2C154E5400E80050 /* SelectProgramViewController.xib in Resources */,
 				EAB6E6682C1846C900A9E191 /* ProgramSearchTableViewCell.xib in Resources */,
+				EA8495322C36265F00112EDB /* WithdrawViewController.xib in Resources */,
 				EA9A84272C00BCAF004B7FDF /* NicknameSettingViewController.xib in Resources */,
 				EA810A372C17253F00DF6C72 /* ProgramSearchViewController.xib in Resources */,
 				EA96A9662C1D635C0010AB60 /* GoogleService-Info.plist in Resources */,
@@ -1264,7 +1274,9 @@
 				EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */,
 				EAF78F052C148BE700EFBCB0 /* RadiusButton.swift in Sources */,
 				EACCDA0A2C353CF600D9ADAD /* SettingViewPresenter.swift in Sources */,
+				EA8495332C36265F00112EDB /* WithdrawViewController.swift in Sources */,
 				EAF78F002C14813800EFBCB0 /* MyInfoViewController.swift in Sources */,
+				EA8495352C36277900112EDB /* WithdrawViewPresenter.swift in Sources */,
 				A0A633742C286DA100744694 /* HomeReviewDataSource.swift in Sources */,
 				EADD89062C23F7B700CA2B43 /* WriteReviewModel.swift in Sources */,
 				EA72084D2C12869B00E96212 /* AuthResponse.swift in Sources */,

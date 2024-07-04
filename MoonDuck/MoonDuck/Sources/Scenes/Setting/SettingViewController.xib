@@ -99,7 +99,7 @@
                                                 <constraint firstAttribute="height" constant="51" id="yCd-uS-VYj"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UA9-v1-O6q">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UA9-v1-O6q">
                                             <rect key="frame" x="22" y="106.66666666666666" width="349" height="35.666666666666657"/>
                                             <string key="text">문덕이 이용에 필요한 알림을 보내드려요.
 푸시 알림을 받으려면 기기 알림을 허용해 주세요.</string>
