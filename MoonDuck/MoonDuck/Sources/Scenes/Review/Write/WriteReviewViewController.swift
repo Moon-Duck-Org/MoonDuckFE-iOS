@@ -12,8 +12,8 @@ protocol WriteReviewView: BaseView {
     // UI Logic
     func updateProgramInfo(for category: Category, with title: String, and subTitle: String)
     func updateTestField(for title: String, with content: String, and link: String?)
-    func updateTitleCountLabel(for count: String)
-    func updateContentCountLabel(for count: String)
+    func updateTitleCountLabelText(with count: String)
+    func updateContentCountLabelText(with count: String)
     func updateRating(for rating: Int)
     func showSelectImageSheet()
     func reloadImages()
@@ -122,12 +122,12 @@ extension WriteReviewViewController {
         linkTextField.text = link
     }
     
-    func updateTitleCountLabel(for text: String) {
-        titleCountLabel.text = text
+    func updateTitleCountLabelText(with count: String) {
+        titleCountLabel.text = count
     }
     
-    func updateContentCountLabel(for text: String) {
-        contentCountLabel.text = text
+    func updateContentCountLabelText(with count: String) {
+        contentCountLabel.text = count
     }
     
     func updateRating(for rating: Int) {

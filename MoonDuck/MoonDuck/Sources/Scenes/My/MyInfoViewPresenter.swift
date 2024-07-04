@@ -34,8 +34,8 @@ extension MyInfoViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         if let user = model.user {
-            view?.updateNameLabel(user.nickname)
-            view?.updateCountLabel(with: user.all, movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
+            view?.updateNameLabelText(with: user.nickname)
+            view?.updateCountLabels(with: user.all, movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
         } else {
             AuthManager.default.logout()
             moveLogin()
@@ -72,7 +72,7 @@ extension MyInfoViewPresenter {
 extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
     func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {
         view?.dismiss()
-        view?.updateNameLabel(nickname)
+        view?.updateContentLabelText(with: nickname)
         model.save(nickname: nickname)
     }
     

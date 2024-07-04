@@ -10,9 +10,9 @@ import UIKit
 protocol ProgramSearchView: BaseView {
     // UI Logic
     func reloadTableView()
-    func updateTextField(with placeHolder: String)
-    func updateEmptyResultView(_ isEmpty: Bool)
-    func updateUserInputButton(_ isEnabled: Bool)
+    func updateTextFieldPlaceHolder(with placeHolder: String)
+    func updateEmptyResultViewHidden(_ isHidden: Bool)
+    func updateUserInputButtonEnabled(_ isEnabled: Bool)
     
     // Navigation
     func moveWriteReview(with presenter: WriteReviewViewPresenter)
@@ -80,7 +80,7 @@ class ProgramSearchViewController: BaseViewController, ProgramSearchView, Naviga
 
 // MARK: - UI Logic
 extension ProgramSearchViewController {
-    func updateTextField(with placeHolder: String) {
+    func updateTextFieldPlaceHolder(with placeHolder: String) {
         searchTextField.placeholder = placeHolder
     }
     
@@ -88,11 +88,11 @@ extension ProgramSearchViewController {
         resultTableView.reloadData()
     }
     
-    func updateEmptyResultView(_ isEmpty: Bool) {
-        emptyResultView.isHidden = !isEmpty
+    func updateEmptyResultViewHidden(_ isHidden: Bool) {
+        emptyResultView.isHidden = isHidden
     }
     
-    func updateUserInputButton(_ isEnabled: Bool) {
+    func updateUserInputButtonEnabled(_ isEnabled: Bool) {
         userInputButton.isEnabled = isEnabled
         userInputButton.borderColor = isEnabled ? .black : .gray2
     }
