@@ -115,14 +115,14 @@ extension MoonDuckAPI: TargetType {
             return .query(request)
         case .searchConcert(let request):
             return .query(request)
-        case .postReview:
-            return nil
+        case let .postReview(request, images):
+            return .multipart(request, images: images)
         case .reviewAll(let request):
             return .query(request)
         case .getReview(let request):
             return .query(request)
-        case .putReview:
-            return nil
+        case let .putReview(request, images):
+            return .multipart(request, images: images)
         case .deleteReview(let request):
             return .query(request)
         case .reviewDetail(let request):
@@ -168,38 +168,7 @@ extension MoonDuckAPI: TargetType {
         default:
             return ["Content-Type": "application/json"]
         }
-    }
-    
-    // 멀티파트 폼 데이터 구성
-    func asMultipartFormData() throws -> MultipartFormData {
-        let multipartFormData = MultipartFormData()
-        
-        switch self {
-        case let .postReview(request, images), let .putReview(request, images):
-            // 이미지를 멀티파트 폼 데이터에 추가
-            if let images {
-                for (index, image) in images.enumerated() {
-                    if let imageData = image.jpegData(compressionQuality: 0.8) {
-                        multipartFormData.append(imageData, withName: "images", fileName: "image\(index).jpg", mimeType: "image/jpeg")
-                    }
-                }
-                Log.network("MultipartFormData success Images --> \(images)")
-            }
-            
-            // JSON 문자열을 멀티파트 폼 데이터에 추가
-            let jsonObject = request.toDictionary()
-            if let json = try? JSONSerialization.data(withJSONObject: jsonObject, options: []) {
-                if let jsonString = String(data: json, encoding: .utf8),
-                   let data = jsonString.data(using: .unicode) {
-                    multipartFormData.append(data, withName: "boardDto", mimeType: "application/json")
-                    Log.network("MultipartFormData success jsonString --> \(jsonString)")
-                }
-            }
-        default: break
-        }
-        
-        return multipartFormData
-    }
+    }    
 }
 
 class API {

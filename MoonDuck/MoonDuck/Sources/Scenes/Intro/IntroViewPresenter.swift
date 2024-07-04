@@ -36,7 +36,7 @@ extension IntroViewPresenter {
 extension IntroViewPresenter {
     private func checkAutoLogin() {
         if let auth = AuthManager.default.getAutoLoginAuth() {
-            // 자동 로그인 가능 시, 로그인 시도
+            // 자동 로그인 정보 있으면 로그인 시도
             login(auth)
         } else {
             moveLogin()
@@ -46,6 +46,7 @@ extension IntroViewPresenter {
     private func login(_ auth: Auth) {
         AuthManager.default.login(auth: auth) { [weak self] result in
             if result == .success {
+                // 로그인 성공 시, User 정보 조회
                 self?.model.getUser()
             } else {
                 self?.moveLogin()
@@ -68,7 +69,10 @@ extension IntroViewPresenter: UserModelDelegate {
         let sortModel = SortModel()
         let reviewModel = ReviewListModel(provider)
         let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
-        view?.moveHome(with: presenter)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.view?.moveHome(with: presenter)
+        }
     }
     
     func userModel(_ model: UserModel, didRecieve errorMessage: Error?) {
