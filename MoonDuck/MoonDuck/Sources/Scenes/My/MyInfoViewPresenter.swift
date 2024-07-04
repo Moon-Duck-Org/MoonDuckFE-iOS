@@ -72,7 +72,7 @@ extension MyInfoViewPresenter {
 extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
     func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {
         view?.dismiss()
-        view?.updateContentLabelText(with: nickname)
+        view?.updateNameLabelText(with: nickname)
         model.save(nickname: nickname)
     }
     

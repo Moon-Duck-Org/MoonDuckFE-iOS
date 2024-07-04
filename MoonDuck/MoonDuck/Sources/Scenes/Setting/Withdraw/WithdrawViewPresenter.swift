@@ -38,7 +38,7 @@ extension WithdrawViewPresenter {
                             \(all)번의 기록을 함께했어요.
                             정말 탈퇴하시겠어요? 너무 아쉬워요.
                             """
-        view?.updateContentLabel(with: text)
+        view?.updateContentLabelText(with: text)
     }
     
     // MARK: - Action
