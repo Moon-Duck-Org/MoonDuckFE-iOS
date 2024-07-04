@@ -11,7 +11,7 @@ import WebKit
 
 protocol WebView: BaseView {
     // UI Logic
-    func updateTitleLabel(with title: String)
+    func updateTitleLabelText(with title: String)
     func loadWebView(with url: URL)
     
     // Navigation
@@ -23,8 +23,8 @@ class WebViewController: BaseViewController, WebView, Navigatable {
     let presenter: WebPresenter
     
     // @IBOutlet
-    @IBOutlet weak private var titleLabel: UILabel!
-    @IBOutlet weak private var webView: WKWebView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var webView: WKWebView!
     
     // @IBAction
     @IBAction private func backButtonTapped(_ sender: Any) {
@@ -52,7 +52,7 @@ class WebViewController: BaseViewController, WebView, Navigatable {
 
 // MARK: - UI Logic
 extension WebViewController {
-    func updateTitleLabel(with title: String) {
+    func updateTitleLabelText(with title: String) {
         titleLabel.text = title
     }
     

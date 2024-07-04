@@ -104,13 +104,13 @@ class HomeViewPresenter: Presenter, HomePresenter {
     
     func shareReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
-            self?.view?.showToast("공유 연동 예정")
+            self?.view?.showToastMessage("공유 연동 예정")
         }
     }
     
     func deleteReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
-            self?.view?.updateLoadingView(true)
+            self?.view?.updateLoadingView(isLoading: true)
             self?.reviewModel.deleteReview(for: review)
         }
     }
@@ -154,7 +154,7 @@ extension HomeViewPresenter {
     
     func refreshReviews() {
         if let category = categoryModel.selectedCategory {
-            view?.updateLoadingView(true)
+            view?.updateLoadingView(isLoading: true)
             reviewModel.reloadReviews(with: category, filter: sortModel.selectedSortOption)
         }
     }
@@ -220,7 +220,7 @@ extension HomeViewPresenter: CategoryModelDelegate {
         
         if isNeededReloadReviews(with: category) {
             // API 호출
-            view?.updateLoadingView(true)
+            view?.updateLoadingView(isLoading: true)
             reviewModel.reloadReviews(with: category, filter: sortModel.selectedSortOption)
         } else {
             // 테이블 뷰만 리로드
@@ -255,7 +255,7 @@ extension HomeViewPresenter: SortModelDelegate {
 // MARK: - ReviewListModelDelegate
 extension HomeViewPresenter: ReviewListModelDelegate {
     func reviewList(_ model: ReviewListModelType, didSuccess list: ReviewList) {
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         
         view?.reloadReviews()
         if list.isFirst {
@@ -266,10 +266,10 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewList(_ model: ReviewListModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         
         if let error = error {
-            view?.showToast(error.errorDescription ?? error.localizedDescription)
+            view?.showToastMessage(error.errorDescription ?? error.localizedDescription)
         }
     }
     
@@ -283,7 +283,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewList(_ model: ReviewListModelType, didAync list: ReviewList) {
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         view?.reloadReviews()
         updateData(with: list)
     }
@@ -298,12 +298,12 @@ extension HomeViewPresenter: WriteReviewPresenterDelegate {
         sortModel.reloadSortOption()
         userModel.createReview(category: review.category)
         if let selectedCategory = categoryModel.selectedCategory {
-            view?.updateLoadingView(true)
+            view?.updateLoadingView(isLoading: true)
             reviewModel.reloadReviews(with: selectedCategory, filter: sortModel.selectedSortOption)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.view?.showToast("기록 작성 완료!")
+            self.view?.showToastMessage("기록 작성 완료!")
         }
     }
     

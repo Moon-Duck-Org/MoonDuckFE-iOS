@@ -92,7 +92,7 @@ extension ProgramSearchViewPresenter {
     private func showToastWithEndEditing(_ text: String) {
         view?.endEditing()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.view?.showToast(text)
+            self.view?.showToastMessage(text)
         }
     }
     
@@ -119,7 +119,7 @@ extension ProgramSearchViewPresenter {
         guard let text,
               text != model.lastSearchText else { return true }
         view?.endEditing()
-        view?.updateLoadingView(true)
+        view?.updateLoadingView(isLoading: true)
         model.search(text)
         return true
     }
@@ -135,14 +135,14 @@ extension ProgramSearchViewPresenter {
 // MARK: - ProgramSearchModelDelegate
 extension ProgramSearchViewPresenter: ProgramSearchModelDelegate {
     func programSearchModel(_ searchModel: ProgramSearchModel, didChange programs: [Program]) {
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         view?.reloadTableView()
         view?.endEditing()
         view?.updateEmptyResultView(programs.isEmpty)
     }
     
     func programSearchModel(_ searchModel: ProgramSearchModel, didRecieve error: Error?) {
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         showToastWithEndEditing("검색 중 오류가 발생하였습니다.")
     }
 }

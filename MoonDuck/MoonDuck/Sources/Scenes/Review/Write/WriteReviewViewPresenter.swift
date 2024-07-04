@@ -144,7 +144,7 @@ extension WriteReviewViewPresenter {
     
     // MARK: - Action
     func saveButtonTapped() {
-        view?.updateLoadingView(true)
+        view?.updateLoadingView(isLoading: true)
         var title: String = ""
         var content: String = ""
         var score: Int = 0
@@ -152,24 +152,24 @@ extension WriteReviewViewPresenter {
         if let titleText, titleText.isNotEmpty {
             title = titleText
         } else {
-            view?.updateLoadingView(false)
-            view?.showToast("제목을 입력해주세요.")
+            view?.updateLoadingView(isLoading: false)
+            view?.showToastMessage("제목을 입력해주세요.")
             return
         }
         
         if let contentText, contentText.isNotEmpty {
             content = contentText
         } else {
-            view?.updateLoadingView(false)
-            view?.showToast("내용을 입력해주세요.")
+            view?.updateLoadingView(isLoading: false)
+            view?.showToastMessage("내용을 입력해주세요.")
             return
         }
         
         if rating > 0 {
             score = rating
         } else {
-            view?.updateLoadingView(false)
-            view?.showToast("별점을 입력해주세요.")
+            view?.updateLoadingView(isLoading: false)
+            view?.showToastMessage("별점을 입력해주세요.")
             return
         }
         
@@ -259,12 +259,12 @@ extension WriteReviewViewPresenter {
 // MARK: - WriteReviewModelDelegate
 extension WriteReviewViewPresenter: WriteReviewModelDelegate {
     func writeReview(_ model: WriteReviewModel, didSuccess review: Review) {
-        view?.updateLoadingView(false)
+        view?.updateLoadingView(isLoading: false)
         delegate?.writeReview(self, didSuccess: review)
     }
     
     func writeReview(_ model: WriteReviewModel, didRecieve error: APIError?) {
-        view?.updateLoadingView(false)
-        view?.showToast(error?.errorDescription ?? error?.localizedDescription ?? "리뷰 작성 오류 발생")
+        view?.updateLoadingView(isLoading: false)
+        view?.showToastMessage(error?.errorDescription ?? error?.localizedDescription ?? "리뷰 작성 오류 발생")
     }
 }

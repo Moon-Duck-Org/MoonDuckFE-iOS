@@ -20,6 +20,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingViewController" customModule="MoonDuck" customModuleProvider="target">
             <connections>
+                <outlet property="appVersionLabel" destination="zqd-di-I4a" id="tfv-kX-n8B"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

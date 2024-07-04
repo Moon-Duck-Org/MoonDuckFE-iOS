@@ -33,7 +33,7 @@ extension WebViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        view?.updateTitleLabel(with: title)
+        view?.updateTitleLabelText(with: title)
         if let loadUrl = URL(string: url) {
             view?.loadWebView(with: loadUrl)
         }

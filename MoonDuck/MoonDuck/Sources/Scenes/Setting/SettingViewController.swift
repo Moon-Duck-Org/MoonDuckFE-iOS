@@ -11,6 +11,7 @@ import MessageUI
 
 protocol SettingView: BaseView {
     // UI Logic
+    func updateAppVersionLabel(with version: String)
         
     // Navigation
     func moveWebview(with presenter: WebPresenter)
@@ -24,6 +25,7 @@ class SettingViewController: BaseViewController, SettingView, Navigatable {
     private let presenter: SettingPresenter
     
     // @IBOutlet
+    @IBOutlet private weak var appVersionLabel: UILabel!
     
     // @IBAction
     @IBAction private func termsOfServiceButtonTapped(_ sender: Any) {
@@ -38,7 +40,7 @@ class SettingViewController: BaseViewController, SettingView, Navigatable {
         showContractUsMail()
     }
     @IBAction private func appVersionButtonTapped(_ sender: Any) {
-        showToast("앱 버전 화면 이동 예정")
+        showToastMessage("앱 버전 화면 이동 예정")
     }
     @IBAction private func noticeButtonTapped(_ sender: Any) {
         presenter.noticeButtonTapped()
@@ -67,6 +69,10 @@ class SettingViewController: BaseViewController, SettingView, Navigatable {
 
 // MARK: - UI Logic
 extension SettingViewController {
+    func updateAppVersionLabel(with version: String) {
+        appVersionLabel.text = version
+    }
+    
     private func showContractUsMail() {
         if MFMailComposeViewController.canSendMail() {
             let mailComposeVC = MFMailComposeViewController()

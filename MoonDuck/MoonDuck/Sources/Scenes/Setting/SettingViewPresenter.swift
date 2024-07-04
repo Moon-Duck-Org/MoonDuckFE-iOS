@@ -37,7 +37,7 @@ class SettingViewPrsenter: Presenter, SettingPresenter {
     // MARK: - Data
     var contractUs: ContractUs {
         let nickname = model.user?.nickname ?? ""
-        return ContractUs(nickName: nickname, appVersion: "1.0.0")
+        return ContractUs(nickName: nickname, appVersion: Utils.getAppVersion() ?? "")
     }
     
 }

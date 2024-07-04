@@ -25,15 +25,15 @@ class ProgramSearchViewController: BaseViewController, ProgramSearchView, Naviga
     private let searchDataSource: ProgramSearchDataSource
     
     // @IBOutlet
-    @IBOutlet weak private var buttonBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak private var searchTextField: TextField! {
+    @IBOutlet private weak var buttonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var searchTextField: TextField! {
         didSet {
             searchTextField.delegate = self
         }
     }
-    @IBOutlet weak private var resultTableView: UITableView!
-    @IBOutlet weak private var emptyResultView: UIView!
-    @IBOutlet weak private var userInputButton: RadiusButton! {
+    @IBOutlet private weak var resultTableView: UITableView!
+    @IBOutlet private weak var emptyResultView: UIView!
+    @IBOutlet private weak var userInputButton: RadiusButton! {
         didSet {
             userInputButton.setTitleColor(.gray2, for: .disabled)
         }

@@ -49,11 +49,11 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     }
     @IBOutlet private weak var contentCountLabel: UILabel!
         
-    @IBOutlet weak private var ratingButton1: UIButton!
-    @IBOutlet weak private var ratingButton2: UIButton!
-    @IBOutlet weak private var ratingButton3: UIButton!
-    @IBOutlet weak private var ratingButton4: UIButton!
-    @IBOutlet weak private var ratingButton5: UIButton!
+    @IBOutlet private weak var ratingButton1: UIButton!
+    @IBOutlet private weak var ratingButton2: UIButton!
+    @IBOutlet private weak var ratingButton3: UIButton!
+    @IBOutlet private weak var ratingButton4: UIButton!
+    @IBOutlet private weak var ratingButton5: UIButton!
     
     @IBOutlet private weak var linkTextField: TextField! {
         didSet {
@@ -289,7 +289,7 @@ extension WriteReviewViewController: PHPickerViewControllerDelegate, UIImagePick
                         if sizeInMB <= 10, let image = UIImage(data: data) {
                             self?.presenter.selectImages([image])
                         } else {
-                            self?.showToast("10메가 이하의 이미지만 첨부 가능해요.")
+                            self?.showToastMessage("10메가 이하의 이미지만 첨부 가능해요.")
                         }
                     } else if let error = error {
                         Log.error("Error loading image data: \(error.localizedDescription)")

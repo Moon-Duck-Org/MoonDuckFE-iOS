@@ -34,11 +34,11 @@ class HomeViewController: BaseViewController, HomeView, Navigatable {
     private let refreshControl = UIRefreshControl()
     
     // @IBOutlet
-    @IBOutlet weak private var categoryCollectioinView: UICollectionView!
-    @IBOutlet weak private var reviewCountLabel: UILabel!
-    @IBOutlet weak private var sortTitleLabel: UILabel!
-    @IBOutlet weak private var reviewTableView: UITableView!
-    @IBOutlet weak private var emptyReviewsView: UIView!
+    @IBOutlet private weak var categoryCollectioinView: UICollectionView!
+    @IBOutlet private weak var reviewCountLabel: UILabel!
+    @IBOutlet private weak var sortTitleLabel: UILabel!
+    @IBOutlet private weak var reviewTableView: UITableView!
+    @IBOutlet private weak var emptyReviewsView: UIView!
     
     // @IBAction
     @IBAction private func myButtonTapped(_ sender: Any) {

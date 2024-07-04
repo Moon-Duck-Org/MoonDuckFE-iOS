@@ -23,8 +23,8 @@ class SelectProgramViewController: BaseViewController, SelectProgramView, Naviga
     private let categoryDataSource: SelectCategoryDataSource
     
     // @IBOutlet
-    @IBOutlet weak private var categoryCollectioinView: UICollectionView!
-    @IBOutlet weak private var nextButton: RadiusButton!
+    @IBOutlet private weak var categoryCollectioinView: UICollectionView!
+    @IBOutlet private weak var nextButton: RadiusButton!
     
     // @IBAction
     @IBAction private func cancelButtonTapped(_ sender: Any) {

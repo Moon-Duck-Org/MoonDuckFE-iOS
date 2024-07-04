@@ -720,6 +720,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		EA8495362C362E8D00112EDB /* AppVersion */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AppVersion;
+			sourceTree = "<group>";
+		};
 		EA8933932C25072100EDCBD5 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -778,6 +785,7 @@
 		EAA98FB92C33F5E200F3A723 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				EA8495362C362E8D00112EDB /* AppVersion */,
 				EAA98FBE2C33F88600F3A723 /* Withdraw */,
 				EAA98FBA2C33F5F300F3A723 /* SettingViewController.swift */,
 				EAA98FBB2C33F5F300F3A723 /* SettingViewController.xib */,

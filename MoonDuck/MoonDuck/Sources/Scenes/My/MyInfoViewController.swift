@@ -25,12 +25,12 @@ class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
     let presenter: MyInfoPresenter
     
     // @IBOutlet
-    @IBOutlet weak private var nameLabel: UILabel!
-    @IBOutlet weak private var allCountLabel: UILabel!
-    @IBOutlet weak private var movieCountLabel: UILabel!
-    @IBOutlet weak private var bookCountLabel: UILabel!
-    @IBOutlet weak private var dramaCountLabel: UILabel!
-    @IBOutlet weak private var concertCountLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var allCountLabel: UILabel!
+    @IBOutlet private weak var movieCountLabel: UILabel!
+    @IBOutlet private weak var bookCountLabel: UILabel!
+    @IBOutlet private weak var dramaCountLabel: UILabel!
+    @IBOutlet private weak var concertCountLabel: UILabel!
     
     // @IBAction
     @IBAction private func backButtonTapped(_ sender: Any) {

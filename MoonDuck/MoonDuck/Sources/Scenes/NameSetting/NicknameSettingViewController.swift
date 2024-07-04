@@ -9,11 +9,11 @@ import UIKit
 
 protocol NicknameSettingView: BaseView {
     // UI Logic
-    func updateCancelButton(_ isHidden: Bool)
-    func updateHintLabel(_ text: String?)
-    func updateNameTextfield(_ text: String)
-    func updateCountLabel(_ text: String)
-    func updateCompleteButton(_ isEnabled: Bool)
+    func updateCancelButtonHidden(_ isHidden: Bool)
+    func updateHintLabelText(with text: String?)
+    func updateNameTextfieldText(with text: String)
+    func updateCountLabelText(with text: String)
+    func updateCompleteButtonEnabled(_ isEnabled: Bool)
     
     // Navigation
     func dismiss()
@@ -27,11 +27,11 @@ class NicknameSettingViewController: BaseViewController, NicknameSettingView, Na
     let presenter: NicknameSettingPresenter
     
     // @IBOutlet
-    @IBOutlet weak private var cancelButton: UIButton!
-    @IBOutlet weak private var completeButton: UIButton!
-    @IBOutlet weak private var nicknameTextField: TextField!
-    @IBOutlet weak private var hintLabel: UILabel!
-    @IBOutlet weak private var countLabel: UILabel!
+    @IBOutlet private weak var cancelButton: UIButton!
+    @IBOutlet private weak var completeButton: UIButton!
+    @IBOutlet private weak var nicknameTextField: TextField!
+    @IBOutlet private weak var hintLabel: UILabel!
+    @IBOutlet private weak var countLabel: UILabel!
     
     // IBAction
     @IBAction private func cancelButtonTapped(_ sender: Any) {
@@ -67,11 +67,11 @@ class NicknameSettingViewController: BaseViewController, NicknameSettingView, Na
 
 // MARK: - UI Logic
 extension NicknameSettingViewController {
-    func updateCancelButton(_ isHidden: Bool) {
+    func updateCancelButtonHidden(_ isHidden: Bool) {
         cancelButton.isHidden = isHidden
     }
     
-    func updateHintLabel(_ text: String?) {
+    func updateHintLabelText(with text: String?) {
         if let text, text.isEmpty {
             nicknameTextField.normal()
             hintLabel.text = ""
@@ -81,15 +81,15 @@ extension NicknameSettingViewController {
         }
     }
     
-    func updateNameTextfield(_ text: String) {
+    func updateNameTextfieldText(with text: String) {
         nicknameTextField.text = text
     }
     
-    func updateCountLabel(_ text: String) {
+    func updateCountLabelText(with text: String) {
         countLabel.text = text
     }
     
-    func updateCompleteButton(_ isEnabled: Bool) {
+    func updateCompleteButtonEnabled(_ isEnabled: Bool) {
         completeButton.isEnabled = isEnabled
     }
 }

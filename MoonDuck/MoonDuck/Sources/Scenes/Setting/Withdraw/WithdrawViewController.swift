@@ -20,7 +20,7 @@ class WithdrawViewController: BaseViewController, WithdrawView, Navigatable {
     private let presenter: WithdrawPresenter
     
     // @IBOutlet
-    @IBOutlet weak private var contentLabel: UILabel!
+    @IBOutlet private weak var contentLabel: UILabel!
     
     // @IBAction
     @IBAction private func backButtonTapped(_ sender: Any) {

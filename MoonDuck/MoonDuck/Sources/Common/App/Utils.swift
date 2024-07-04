@@ -48,9 +48,13 @@ class Utils {
                 completion(value.image)
             case .failure(let error):
                 // 에러 처리
-                print("Error downloading image: \(error)")
+                Log.error("Error downloading image: \(error)")
                 completion(Asset.Assets.imageEmpty.image)
             }
         }
+    }
+    
+    static func getAppVersion() -> String? {
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     }
 }

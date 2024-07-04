@@ -50,7 +50,7 @@ class ReviewDetailViewPresenter: Presenter, ReviewDetailPresenter {
     
     func shareReviewHandler() -> (() -> Void)? {
         return { [weak self] in
-            self?.view?.showToast("공유 연동 예정")
+            self?.view?.showToastMessage("공유 연동 예정")
         }
     }
     
@@ -58,7 +58,7 @@ class ReviewDetailViewPresenter: Presenter, ReviewDetailPresenter {
         if let deleteReviewHandler = model.deleteReviewHandler {
             return { [weak self] in
                 guard let self else { return }
-                view?.updateLoadingView(true)
+                view?.updateLoadingView(isLoading: true)
                 model.deleteReviewHandler?()
             }
         } else {
@@ -98,7 +98,7 @@ extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
         model.save(for: review)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.view?.showToast("기록 작성 완료!")
+            self.view?.showToastMessage("기록 작성 완료!")
         }
     }
     

@@ -58,7 +58,7 @@ extension LoginViewController {
     
     private func googleLogin() {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
-            self.showToast("구글 클라이언트 아이디가 없습니다.")
+            self.showToastMessage("구글 클라이언트 아이디가 없습니다.")
             return
         }
         

@@ -13,28 +13,28 @@ class HomeReviewTableViewCell: UITableViewCell {
     private var optionButtonHandler: (() -> Void)?
     
     // @IBOutlet
-    @IBOutlet weak private var titleLabel: UILabel!
-    @IBOutlet weak private var dateLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
     
-    @IBOutlet weak private var categoryImageview: UIImageView!
+    @IBOutlet private weak var categoryImageview: UIImageView!
     
-    @IBOutlet weak private var programTitleLabel: UILabel!
-    @IBOutlet weak private var programTitleDot: UILabel!
+    @IBOutlet private weak var programTitleLabel: UILabel!
+    @IBOutlet private weak var programTitleDot: UILabel!
     
-    @IBOutlet weak private var ratingButton1: UIButton!
-    @IBOutlet weak private var ratingButton2: UIButton!
-    @IBOutlet weak private var ratingButton3: UIButton!
-    @IBOutlet weak private var ratingButton4: UIButton!
-    @IBOutlet weak private var ratingButton5: UIButton!
+    @IBOutlet private weak var ratingButton1: UIButton!
+    @IBOutlet private weak var ratingButton2: UIButton!
+    @IBOutlet private weak var ratingButton3: UIButton!
+    @IBOutlet private weak var ratingButton4: UIButton!
+    @IBOutlet private weak var ratingButton5: UIButton!
     
-    @IBOutlet weak private var contentLabel: UILabel!
+    @IBOutlet private weak var contentLabel: UILabel!
     
-    @IBOutlet weak private var imageCollectionView: UICollectionView!
-    @IBOutlet weak private var imageHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var imageCollectionView: UICollectionView!
+    @IBOutlet private weak var imageHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak private var linkView: UIView!
-    @IBOutlet weak private var linkLabel: UILabel!
-    @IBOutlet weak private var linkHeightContraint: NSLayoutConstraint!
+    @IBOutlet private weak var linkView: UIView!
+    @IBOutlet private weak var linkLabel: UILabel!
+    @IBOutlet private weak var linkHeightContraint: NSLayoutConstraint!
     
     @IBAction private func linkButtonTapped(_ sender: Any) {
         linkButtonHandler?()
