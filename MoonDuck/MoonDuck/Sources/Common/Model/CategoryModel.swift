@@ -8,13 +8,13 @@
 import Foundation
 
 protocol CategoryModelDelegate: AnyObject {
-    func category(_ model: CategoryModel, didChange categories: [Category])
-    func category(_ model: CategoryModel, didSelect category: Category)
-    func category(_ model: CategoryModel, didReload category: Category)
+    func categoryModel(_ model: CategoryModel, didChange categories: [Category])
+    func categoryModel(_ model: CategoryModel, didSelect category: Category)
+    func categoryModel(_ model: CategoryModel, didReload category: Category)
 }
 
 extension CategoryModelDelegate {
-    func category(_ model: CategoryModel, didReload category: Category) {
+    func categoryModel(_ model: CategoryModel, didReload category: Category) {
         
     }
 }
@@ -43,7 +43,7 @@ class CategoryModel: CategoryModelType {
     
     var categories: [Category] = [] {
         didSet {
-            delegate?.category(self, didChange: categories)
+            delegate?.categoryModel(self, didChange: categories)
         }
     }
     
@@ -72,14 +72,14 @@ class CategoryModel: CategoryModelType {
         if indexOfSelectedCategory == index { return }
         indexOfSelectedCategory = index
         if let selectedCategory {
-            delegate?.category(self, didSelect: selectedCategory)
+            delegate?.categoryModel(self, didSelect: selectedCategory)
         }
     }
     
     func reloadCategory() {
         indexOfSelectedCategory = 0
         if let selectedCategory {
-            delegate?.category(self, didReload: selectedCategory)
+            delegate?.categoryModel(self, didReload: selectedCategory)
         }
     }
     

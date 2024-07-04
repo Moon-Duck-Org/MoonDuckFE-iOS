@@ -134,14 +134,14 @@ extension ProgramSearchViewPresenter {
 
 // MARK: - ProgramSearchModelDelegate
 extension ProgramSearchViewPresenter: ProgramSearchModelDelegate {
-    func programSearchModel(_ searchModel: ProgramSearchModel, didChange programs: [Program]) {
+    func programSearchModel(_ model: ProgramSearchModel, didChange programs: [Program]) {
         view?.updateLoadingView(isLoading: false)
         view?.reloadTableView()
         view?.endEditing()
         view?.updateEmptyResultViewHidden(!programs.isEmpty)
     }
     
-    func programSearchModel(_ searchModel: ProgramSearchModel, didRecieve error: Error?) {
+    func programSearchModel(_ model: ProgramSearchModel, didRecieve error: Error?) {
         view?.updateLoadingView(isLoading: false)
         showToastWithEndEditing("검색 중 오류가 발생하였습니다.")
     }

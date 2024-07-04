@@ -45,7 +45,7 @@ class HomeViewController: BaseViewController, HomeView, Navigatable {
         presenter.myButtonTapped()
     }
     @IBAction private func sortButtonTapped(_ sender: Any) {
-        AppAlert.default.showList(self, buttonTitleList: presenter.sortTitleList) { [weak self] index in
+        AppAlert.default.showList(self, buttonTitleList: presenter.sortTitles) { [weak self] index in
             self?.presenter.selectSort(at: index)
         }
     }

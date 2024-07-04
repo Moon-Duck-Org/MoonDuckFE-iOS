@@ -8,8 +8,8 @@
 import Foundation
 
 protocol SortModelDelegate: AnyObject {
-    func sort(_ model: SortModel, didSelect sortOption: Sort)
-    func sort(_ model: SortModel, didReload sortOption: Sort)
+    func sortModel(_ model: SortModel, didSelect sortOption: Sort)
+    func sortModel(_ model: SortModel, didReload sortOption: Sort)
 }
 
 protocol SortModelType: AnyObject {
@@ -59,11 +59,11 @@ class SortModel: SortModelType {
         if indexOfSelectedSortOption == index { return }
         
         indexOfSelectedSortOption = index
-        delegate?.sort(self, didSelect: selectedSortOption)
+        delegate?.sortModel(self, didSelect: selectedSortOption)
     }
     
     func reloadSortOption() {
         indexOfSelectedSortOption = 0
-        delegate?.sort(self, didReload: selectedSortOption)
+        delegate?.sortModel(self, didReload: selectedSortOption)
     }
 }

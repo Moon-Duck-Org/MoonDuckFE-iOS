@@ -8,12 +8,12 @@
 import Foundation
 
 protocol UserModelDelegate: AnyObject {
-    func user(_ model: UserModel, didChange user: User)
-    func user(_ model: UserModel, didRecieve error: UserModelError)
-    func user(_ model: UserModel, didRecieve error: Error?)
+    func userModel(_ model: UserModel, didChange user: User)
+    func userModel(_ model: UserModel, didRecieve error: UserModelError)
+    func userModel(_ model: UserModel, didRecieve error: Error?)
 }
 extension UserModelDelegate {
-    func user(_ model: UserModel, didChange user: User) { }
+    func userModel(_ model: UserModel, didChange user: User) { }
 }
 
 enum UserModelError {
@@ -51,7 +51,7 @@ class UserModel: UserModelType {
     var user: User? {
         didSet {
             if let user {
-                delegate?.user(self, didChange: user)
+                delegate?.userModel(self, didChange: user)
             }
         }
     }
@@ -124,7 +124,7 @@ class UserModel: UserModelType {
             } else {
                 // User 정보 조회 실패
                 Log.error(failed?.localizedDescription ?? "User Error")
-                self.delegate?.user(self, didRecieve: .authError)
+                self.delegate?.userModel(self, didRecieve: .authError)
             }
         }
     }
@@ -141,7 +141,7 @@ class UserModel: UserModelType {
                 if let code = failed as? APIError {
                     if code.isAuthError {
                         Log.error("Auth Error \(code)")
-                        self.delegate?.user(self, didRecieve: .authError)
+                        self.delegate?.userModel(self, didRecieve: .authError)
                         return
                     } else if code.needsTokenRefresh {
                         AuthManager.default.refreshToken { [weak self] code in
@@ -150,18 +150,18 @@ class UserModel: UserModelType {
                                 self.nickname(name)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
-                                self.delegate?.user(self, didRecieve: .authError)
+                                self.delegate?.userModel(self, didRecieve: .authError)
                             }
                         }
                         return
                     } else if code.duplicateNickname {
                         // 중복된 닉네임
-                        self.delegate?.user(self, didRecieve: .duplicateNickname)
+                        self.delegate?.userModel(self, didRecieve: .duplicateNickname)
                         return
                     }
                 }
                 Log.error(failed?.localizedDescription ?? "Nickname Error")
-                self.delegate?.user(self, didRecieve: failed)
+                self.delegate?.userModel(self, didRecieve: failed)
             }
         }
     }

@@ -152,7 +152,7 @@ extension LoginViewPresenter {
 
 // MARK: - UserModelDelegate
 extension LoginViewPresenter: UserModelDelegate {
-    func user(_ model: UserModel, didChange user: User) {
+    func userModel(_ model: UserModel, didChange user: User) {
         // User 정보 조회 성공
         view?.updateLoadingView(isLoading: false)
         let cateogryModel = CategoryModel()
@@ -162,12 +162,12 @@ extension LoginViewPresenter: UserModelDelegate {
         view?.moveHome(with: presenter)
     }
     
-    func user(_ model: UserModel, didRecieve error: UserModelError) {
+    func userModel(_ model: UserModel, didRecieve error: UserModelError) {
         AuthManager.default.logout()
         loginError()
     }
     
-    func user(_ model: UserModel, didRecieve errorMessage: (any Error)?) {
+    func userModel(_ model: UserModel, didRecieve errorMessage: (any Error)?) {
         AuthManager.default.logout()
         loginError()
     }

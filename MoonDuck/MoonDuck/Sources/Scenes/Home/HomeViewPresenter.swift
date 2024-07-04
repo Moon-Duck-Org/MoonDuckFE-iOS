@@ -14,7 +14,7 @@ protocol HomePresenter: AnyObject {
     var numberOfCategories: Int { get }
     var indexOfSelectedCategory: Int? { get }
     var numberOfReviews: Int { get }
-    var sortTitleList: [String] { get }
+    var sortTitles: [String] { get }
     
     func category(at index: Int) -> Category?
     func review(at index: Int) -> Review?
@@ -74,7 +74,7 @@ class HomeViewPresenter: Presenter, HomePresenter {
         return reviewModel.numberOfReviews(with: category)
     }
     
-    var sortTitleList: [String] {
+    var sortTitles: [String] {
         return sortModel.sortOptions.map { $0.title }
     }
     
@@ -187,21 +187,21 @@ extension HomeViewPresenter {
 
 // MARK: - UserModelDelegate
 extension HomeViewPresenter: UserModelDelegate {
-    func user(_ model: UserModel, didChange user: User) {
+    func userModel(_ model: UserModel, didChange user: User) {
         if isMyInfoTapped {
             isMyInfoTapped = false
             moveMyInfo(with: model)
         }
     }
     
-    func user(_ model: UserModel, didRecieve error: Error?) {
+    func userModel(_ model: UserModel, didRecieve error: Error?) {
         if isMyInfoTapped {
             isMyInfoTapped = false
             moveMyInfo(with: model)
         }
     }
     
-    func user(_ model: UserModel, didRecieve error: UserModelError) {
+    func userModel(_ model: UserModel, didRecieve error: UserModelError) {
         if isMyInfoTapped {
             isMyInfoTapped = false
             moveMyInfo(with: model)
@@ -211,11 +211,11 @@ extension HomeViewPresenter: UserModelDelegate {
 
 // MARK: - CategoryModelDelegate
 extension HomeViewPresenter: CategoryModelDelegate {
-    func category(_ model: CategoryModel, didChange categories: [Category]) {
+    func categoryModel(_ model: CategoryModel, didChange categories: [Category]) {
         model.selectCategory(0)
     }
     
-    func category(_ model: CategoryModel, didSelect category: Category) {
+    func categoryModel(_ model: CategoryModel, didSelect category: Category) {
         view?.reloadCategories()
         
         if isNeededReloadReviews(with: category) {
@@ -232,14 +232,14 @@ extension HomeViewPresenter: CategoryModelDelegate {
         }
     }
     
-    func category(_ model: CategoryModel, didReload category: Category) {
+    func categoryModel(_ model: CategoryModel, didReload category: Category) {
         view?.reloadCategories()
     }
 }
 
 // MARK: - SortModelDelegate
 extension HomeViewPresenter: SortModelDelegate {
-    func sort(_ model: SortModel, didSelect sortOption: Sort) {
+    func sortModel(_ model: SortModel, didSelect sortOption: Sort) {
         view?.updateSortTitleLabelText(with: sortOption.title)
         
         if let selectedCategory = categoryModel.selectedCategory {
@@ -247,14 +247,14 @@ extension HomeViewPresenter: SortModelDelegate {
         }
     }
     
-    func sort(_ model: SortModel, didReload sortOption: Sort) {
+    func sortModel(_ model: SortModel, didReload sortOption: Sort) {
         view?.updateSortTitleLabelText(with: sortOption.title)
     }
 }
 
 // MARK: - ReviewListModelDelegate
 extension HomeViewPresenter: ReviewListModelDelegate {
-    func reviewList(_ model: ReviewListModelType, didSuccess list: ReviewList) {
+    func reviewListModel(_ model: ReviewListModelType, didSuccess list: ReviewList) {
         view?.updateLoadingView(isLoading: false)
         
         view?.reloadReviews()
@@ -265,7 +265,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
         }
     }
     
-    func reviewList(_ model: ReviewListModelType, didRecieve error: APIError?) {
+    func reviewListModel(_ model: ReviewListModelType, didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
         
         if let error = error {
@@ -273,7 +273,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
         }
     }
     
-    func reviewList(_ model: ReviewListModelType, didDelete review: Review) {
+    func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
         userModel.deleteReview(category: review.category)
         view?.popToSelf()
         
@@ -282,7 +282,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
         }
     }
     
-    func reviewList(_ model: ReviewListModelType, didAync list: ReviewList) {
+    func reviewListModel(_ model: ReviewListModelType, didAync list: ReviewList) {
         view?.updateLoadingView(isLoading: false)
         view?.reloadReviews()
         updateData(with: list)

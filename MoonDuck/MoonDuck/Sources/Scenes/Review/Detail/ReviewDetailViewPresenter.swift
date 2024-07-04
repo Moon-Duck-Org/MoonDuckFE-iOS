@@ -82,11 +82,11 @@ extension ReviewDetailViewPresenter {
 
 // MARK: - ReviewModelDelegate
 extension ReviewDetailViewPresenter: ReviewModelDelegate {
-    func review(_ model: ReviewModelType, didSuccess review: Review) {
+    func reviewModel(_ model: ReviewModelType, didSuccess review: Review) {
         view?.updateData(for: review)
     }
     
-    func review(_ model: ReviewModelType, didRecieve error: APIError?) {
+    func reviewModel(_ model: ReviewModelType, didRecieve error: APIError?) {
         
     }
 }

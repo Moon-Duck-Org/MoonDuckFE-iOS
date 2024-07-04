@@ -258,12 +258,12 @@ extension WriteReviewViewPresenter {
 
 // MARK: - WriteReviewModelDelegate
 extension WriteReviewViewPresenter: WriteReviewModelDelegate {
-    func writeReview(_ model: WriteReviewModel, didSuccess review: Review) {
+    func writeReviewModel(_ model: WriteReviewModel, didSuccess review: Review) {
         view?.updateLoadingView(isLoading: false)
         delegate?.writeReview(self, didSuccess: review)
     }
     
-    func writeReview(_ model: WriteReviewModel, didRecieve error: APIError?) {
+    func writeReviewModel(_ model: WriteReviewModel, didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
         view?.showToastMessage(error?.errorDescription ?? error?.localizedDescription ?? "리뷰 작성 오류 발생")
     }

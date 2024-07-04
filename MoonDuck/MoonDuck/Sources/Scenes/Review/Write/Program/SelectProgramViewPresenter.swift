@@ -74,11 +74,11 @@ extension SelectProgramViewPresenter {
 
 // MARK: - CategoryModelDelegate
 extension SelectProgramViewPresenter: CategoryModelDelegate {
-    func category(_ reviewCategoryModel: CategoryModel, didChange categories: [Category]) {
+    func categoryModel(_ reviewCategoryModel: CategoryModel, didChange categories: [Category]) {
         view?.reloadCategories()
     }
     
-    func category(_ model: CategoryModel, didSelect category: Category) {
+    func categoryModel(_ model: CategoryModel, didSelect category: Category) {
         view?.updateNextButton(true)
         view?.reloadCategories()
     }

@@ -62,7 +62,7 @@ extension IntroViewPresenter {
 
 // MARK: - UserModelDelegate
 extension IntroViewPresenter: UserModelDelegate {
-    func user(_ model: UserModel, didChange user: User) {
+    func userModel(_ model: UserModel, didChange user: User) {
         // User 정보 조회 성공
         let cateogryModel = CategoryModel()
         let sortModel = SortModel()
@@ -71,12 +71,12 @@ extension IntroViewPresenter: UserModelDelegate {
         view?.moveHome(with: presenter)
     }
     
-    func user(_ model: UserModel, didRecieve errorMessage: Error?) {
+    func userModel(_ model: UserModel, didRecieve errorMessage: Error?) {
         AuthManager.default.logout()
         moveLogin()
     }
     
-    func user(_ model: UserModel, didRecieve error: UserModelError) {
+    func userModel(_ model: UserModel, didRecieve error: UserModelError) {
         AuthManager.default.logout()
         moveLogin()
     }

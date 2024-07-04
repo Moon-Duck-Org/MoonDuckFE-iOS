@@ -16,7 +16,6 @@ protocol WebPresenter: AnyObject {
     // Action
 }
 
-
 class WebViewPresenter: Presenter, WebPresenter {
     weak var view: WebView?
     private let title: String

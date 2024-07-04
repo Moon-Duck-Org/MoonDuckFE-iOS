@@ -8,8 +8,8 @@
 import Foundation
 
 protocol ReviewModelDelegate: AnyObject {
-    func review(_ model: ReviewModelType, didSuccess review: Review)
-    func review(_ model: ReviewModelType, didRecieve error: APIError?)
+    func reviewModel(_ model: ReviewModelType, didSuccess review: Review)
+    func reviewModel(_ model: ReviewModelType, didRecieve error: APIError?)
 }
 
 protocol ReviewModelType: AnyObject {
@@ -39,7 +39,7 @@ class ReviewModel: ReviewModelType {
     
     var review: Review {
         didSet {
-            delegate?.review(self, didSuccess: review)
+            delegate?.reviewModel(self, didSuccess: review)
         }
     }
     
@@ -65,7 +65,7 @@ extension ReviewModel {
                 // 오류 발생
                 if let code = failed as? APIError {
                     if code.isReviewError {
-                        self.delegate?.review(self, didRecieve: code)
+                        self.delegate?.reviewModel(self, didRecieve: code)
                         return
                     } else if code.needsTokenRefresh {
                         AuthManager.default.refreshToken { [weak self] code in
@@ -74,14 +74,14 @@ extension ReviewModel {
                                 self.reviewDetail(with: reviewId)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
-                                self.delegate?.review(self, didRecieve: .unowned)
+                                self.delegate?.reviewModel(self, didRecieve: .unowned)
                             }
                         }
                         return
                     }
                 }
                 Log.error(failed?.localizedDescription ?? "Get Review Error")
-                self.delegate?.review(self, didRecieve: .unowned)
+                self.delegate?.reviewModel(self, didRecieve: .unowned)
             }
         }
     }

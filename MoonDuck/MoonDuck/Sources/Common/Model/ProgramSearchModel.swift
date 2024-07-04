@@ -8,8 +8,8 @@
 import Foundation
 
 protocol ProgramSearchModelDelegate: AnyObject {
-    func programSearchModel(_ searchModel: ProgramSearchModel, didChange programs: [Program])
-    func programSearchModel(_ searchModel: ProgramSearchModel, didRecieve error: Error?)
+    func programSearchModel(_ model: ProgramSearchModel, didChange programs: [Program])
+    func programSearchModel(_ model: ProgramSearchModel, didRecieve error: Error?)
 }
 
 protocol ProgramSearchModelType: AnyObject {
