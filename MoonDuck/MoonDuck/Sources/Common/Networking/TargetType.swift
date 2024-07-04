@@ -40,6 +40,33 @@ extension TargetType {
         
         return urlRequest
     }
+    
+    func performRequest<T: Decodable>(responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
+        do {
+            let urlRequest = try asURLRequest()
+            API.session.request(urlRequest).responseDecodable(of: responseType) { response in
+                switch response.result {
+                case .success(let decodedResponse):
+                    completion(.success(decodedResponse))
+                case .failure(let error):
+                    if let data = response.data {
+                        do {
+                            let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
+                            let apiError = APIError(error: errorResponse)
+                            completion(.failure(apiError))
+                        } catch {
+                            completion(.failure(.decodingError))
+                        }
+                    } else {
+                        completion(.failure(.network(code: "\(error.responseCode ?? -99)", message: error.localizedDescription)))
+                    }
+                }
+            }
+        } catch {
+            completion(.failure(.unowned))
+        }
+    }
+    
 }
 
 enum RequestParams {

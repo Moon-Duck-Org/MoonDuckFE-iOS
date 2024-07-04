@@ -10,31 +10,19 @@ import Alamofire
 class ReviewService {
     
     func getReview(request: GetReviewRequest, completion: @escaping (_ succeed: ReviewList?, _ failed: Error?) -> Void) {
-        API.session.request(MoonDuckAPI.getReview(request))
-            .responseDecodable { (response: AFDataResponse<GetReviewResponse>) in
-                switch response.result {
-                case .success(let response):
-                    completion(response.toDomain(), nil)
-                case .failure(let error):
-                    if let errorData = response.data {
-                        do {
-                            let decodeError = try JSONDecoder().decode(ErrorEntity.self, from: errorData)
-                            let apiError = APIError(error: decodeError)
-                            completion(nil, apiError)
-                        } catch {
-                            completion(nil, APIError.decodingError)
-                        }
-                    } else {
-                        completion(nil, error)
-                    }
-                }
+        MoonDuckAPI.getReview(request).performRequest(responseType: ReviewListResponse.self, completion: {  result in
+            switch result {
+            case .success(let response):
+                completion(response.toDomain(), nil)
+            case .failure(let error):
+                completion(nil, error)
             }
-        
+        })
     }
     
     func reviewAll(request: ReviewAllRequest, completion: @escaping (_ succeed: ReviewList?, _ failed: Error?) -> Void) {
         API.session.request(MoonDuckAPI.reviewAll(request))
-            .responseDecodable { (response: AFDataResponse<GetReviewResponse>) in
+            .responseDecodable { (response: AFDataResponse<ReviewListResponse>) in
                 switch response.result {
                 case .success(let response):
                     completion(response.toDomain(), nil)

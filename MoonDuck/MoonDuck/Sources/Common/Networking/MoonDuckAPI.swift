@@ -183,6 +183,7 @@ extension MoonDuckAPI: TargetType {
                         multipartFormData.append(imageData, withName: "images", fileName: "image\(index).jpg", mimeType: "image/jpeg")
                     }
                 }
+                Log.network("MultipartFormData success Images --> \(images)")
             }
             
             // JSON 문자열을 멀티파트 폼 데이터에 추가
@@ -191,6 +192,7 @@ extension MoonDuckAPI: TargetType {
                 if let jsonString = String(data: json, encoding: .utf8),
                    let data = jsonString.data(using: .unicode) {
                     multipartFormData.append(data, withName: "boardDto", mimeType: "application/json")
+                    Log.network("MultipartFormData success jsonString --> \(jsonString)")
                 }
             }
         default: break

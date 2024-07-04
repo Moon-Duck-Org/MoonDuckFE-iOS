@@ -12,7 +12,7 @@
 		A0A633662C285D9200744694 /* HomeCategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633652C285D9200744694 /* HomeCategoryDataSource.swift */; };
 		A0A6336A2C2862E600744694 /* HomeCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0A633692C2862E600744694 /* HomeCategoryCollectionViewCell.xib */; };
 		A0A6336B2C2862E600744694 /* HomeCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633682C2862E600744694 /* HomeCategoryCollectionViewCell.swift */; };
-		A0A6336E2C28687100744694 /* GetReviewResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6336D2C28687100744694 /* GetReviewResponse.swift */; };
+		A0A6336E2C28687100744694 /* ReviewListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6336D2C28687100744694 /* ReviewListResponse.swift */; };
 		A0A633702C286A4C00744694 /* ReviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6336F2C286A4C00744694 /* ReviewList.swift */; };
 		A0A633722C286B3E00744694 /* ReviewListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633712C286B3E00744694 /* ReviewListModel.swift */; };
 		A0A633742C286DA100744694 /* HomeReviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633732C286DA100744694 /* HomeReviewDataSource.swift */; };
@@ -184,7 +184,7 @@
 		A0A633652C285D9200744694 /* HomeCategoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryDataSource.swift; sourceTree = "<group>"; };
 		A0A633682C2862E600744694 /* HomeCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		A0A633692C2862E600744694 /* HomeCategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCategoryCollectionViewCell.xib; sourceTree = "<group>"; };
-		A0A6336D2C28687100744694 /* GetReviewResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetReviewResponse.swift; sourceTree = "<group>"; };
+		A0A6336D2C28687100744694 /* ReviewListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListResponse.swift; sourceTree = "<group>"; };
 		A0A6336F2C286A4C00744694 /* ReviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewList.swift; sourceTree = "<group>"; };
 		A0A633712C286B3E00744694 /* ReviewListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListModel.swift; sourceTree = "<group>"; };
 		A0A633732C286DA100744694 /* HomeReviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeReviewDataSource.swift; sourceTree = "<group>"; };
@@ -399,15 +399,6 @@
 				A0A6337C2C28758600744694 /* HomeReviewTableViewCell.xib */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		A0A6336C2C28683600744694 /* Review */ = {
-			isa = PBXGroup;
-			children = (
-				EAE017D42C0195D500699145 /* ReviewResponse.swift */,
-				A0A6336D2C28687100744694 /* GetReviewResponse.swift */,
-			);
-			path = Review;
 			sourceTree = "<group>";
 		};
 		A0E657EE2BFE22B6001A8D54 = {
@@ -675,10 +666,11 @@
 		EA6379D82BFF2BA300464A19 /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				A0A6336C2C28683600744694 /* Review */,
 				EA4E1DA12C1E7D7E00125239 /* SearchProgram */,
 				EA72084C2C12869B00E96212 /* AuthResponse.swift */,
 				EA6379E02BFF2E5300464A19 /* UserResponse.swift */,
+				EAE017D42C0195D500699145 /* ReviewResponse.swift */,
+				A0A6336D2C28687100744694 /* ReviewListResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1274,7 +1266,7 @@
 				EA9A842F2C00D577004B7FDF /* AppAlert.swift in Sources */,
 				A0E657FB2BFE22B7001A8D54 /* AppDelegate.swift in Sources */,
 				EA946D582C16956800F44BB5 /* UIButton+Extension.swift in Sources */,
-				A0A6336E2C28687100744694 /* GetReviewResponse.swift in Sources */,
+				A0A6336E2C28687100744694 /* ReviewListResponse.swift in Sources */,
 				EA6D9A772BFF6823003B459A /* UIView+Extension.swift in Sources */,
 				EAE017D52C0195D500699145 /* ReviewResponse.swift in Sources */,
 				A0A633702C286A4C00744694 /* ReviewList.swift in Sources */,

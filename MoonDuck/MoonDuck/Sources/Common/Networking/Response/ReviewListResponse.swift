@@ -1,5 +1,5 @@
 //
-//  GetReviewResponse.swift
+//  ReviewListResponse.swift
 //  MoonDuck
 //
 //  Created by suni on 6/23/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetReviewResponse: Codable {
+struct ReviewListResponse: Codable {
     let totalPages: Int
     let totalElements: Int
     let size: Int

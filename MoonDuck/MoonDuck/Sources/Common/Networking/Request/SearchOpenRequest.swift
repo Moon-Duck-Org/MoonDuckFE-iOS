@@ -8,7 +8,7 @@
 import Foundation
 
 struct SearchMovieRequest: Codable {
-    var key: String = "31263527c9b0f3dba1f669b2990459c4"
+    var key: String = Constants.searchMovieKey
     var curPage: String?
     var itemPerPage: String?
     var movieNm: String?
@@ -22,7 +22,7 @@ struct SearchBookRequest: Codable {
 }
 
 struct SearchDramaRequest: Codable {
-    var language: String = "ko_KR"
+    var language: String = Constants.appLanguage
     var includeAdult: Bool = false
     var query: String
     var page: Int?
@@ -34,7 +34,7 @@ struct SearchDramaRequest: Codable {
 }
 
 struct SearchConcertRequest: Codable {
-    var key: String = "4e6e495762687975313031746b705741"
+    var key: String = Constants.searchConcertKey
     var type: String = "json"
     var service: String = "culturalEventInfo"
     var startIndex: Int

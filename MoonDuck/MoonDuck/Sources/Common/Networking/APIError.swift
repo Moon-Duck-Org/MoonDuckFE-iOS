@@ -23,8 +23,8 @@ enum APIError: Error, Equatable, LocalizedError {
         
     var errorDescription: String? {
         switch self {
-        case let .network(statusCode, message):
-            return "ErrorCode: \(statusCode) - Message: \(message ?? "error")"
+        case let .network(code, message):
+            return "ErrorCode: \(code ?? "-99") - Message: \(message ?? "error")"
         case let .expiredToken(message):
             return message
         case let .invalidToken(message):
