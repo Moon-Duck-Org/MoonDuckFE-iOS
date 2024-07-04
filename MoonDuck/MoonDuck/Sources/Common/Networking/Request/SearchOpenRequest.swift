@@ -23,7 +23,7 @@ struct SearchBookRequest: Codable {
 
 struct SearchDramaRequest: Codable {
     var language: String = "ko_KR"
-    var includeAdult: Bool = true
+    var includeAdult: Bool = false
     var query: String
     var page: Int?
     
