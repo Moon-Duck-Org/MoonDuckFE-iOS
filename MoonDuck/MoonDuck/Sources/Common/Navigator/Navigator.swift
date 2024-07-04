@@ -39,6 +39,7 @@ class Navigator {
         case setting(presenter: SettingPresenter)
         case webview(presenter: WebPresenter)
         case withdraw(presenter: WithdrawPresenter)
+        case appVersion(presenter: AppVersionPresenter)
     }
 
     enum Transition {
@@ -83,6 +84,8 @@ class Navigator {
             return WebViewController(navigator: self, presenter: presenter)
         case .withdraw(let presenter):
             return WithdrawViewController(navigator: self, presenter: presenter)
+        case .appVersion(let presenter):
+            return AppVersionViewController(navigator: self, presenter: presenter)
         }
     }
     // swiftlint:enable cyclomatic_complexity

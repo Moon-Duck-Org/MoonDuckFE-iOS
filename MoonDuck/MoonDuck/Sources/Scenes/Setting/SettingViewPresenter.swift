@@ -65,7 +65,8 @@ extension SettingViewPrsenter {
     }
     
     func appVersionButtonTapped() {
-        
+        let presenter = AppVersionViewPresenter(with: provider)
+        view?.moveAppVersion(with: presenter)
     }
     
     func noticeButtonTapped() {
