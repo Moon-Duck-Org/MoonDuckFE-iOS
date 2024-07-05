@@ -189,10 +189,11 @@ extension HomeViewPresenter {
 // MARK: - UserModelDelegate
 extension HomeViewPresenter: UserModelDelegate {
     func userModelDidAuthError(_ model: UserModelType) {
+        view?.updateLoadingView(isLoading: false)
         AuthManager.default.logout()
         let model = UserModel(provider)
         let presenter = LoginViewPresenter(with: provider, model: model)
-        view?.moveLogin(with: presenter)
+        view?.showAuthErrorAlert(with: presenter)
     }
 }
 
@@ -255,10 +256,22 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     
     func reviewListModel(_ model: ReviewListModelType, didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
-        
-        if let error = error {
-            view?.showToastMessage(error.errorDescription ?? error.localizedDescription)
+        if let error {
+            if error.isAuthError {
+                AuthManager.default.logout()
+                let model = UserModel(provider)
+                let presenter = LoginViewPresenter(with: provider, model: model)
+                view?.showAuthErrorAlert(with: presenter)
+                return
+            } else if error.isNetworkError {
+                view?.showNetworkErrorAlert()
+                return
+            } else if error.isSystemError {
+                view?.showSystemErrorAlert()
+                return
+            }
         }
+        view?.showToastMessage("기록을 불러오는데 실패했습니다. 다시 시도해주세요.")
     }
     
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
@@ -278,7 +291,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewListDidFailReviewList(_ model: ReviewListModelType) {
-        view?.showToastMessage("기록을 불러오는데 실패했습니다.")
+        view?.showToastMessage("기록을 불러오는데 실패했습니다. 다시 시도해주세요.")
     }
     
     func reviewListDidLastReviewList(_ model: ReviewListModelType) {
