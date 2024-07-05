@@ -9,9 +9,11 @@ import Foundation
 
 protocol ReviewListModelDelegate: AnyObject {
     func reviewListModel(_ model: ReviewListModelType, didSuccess list: ReviewList)
-    func reviewListModel(_ model: ReviewListModelType, didRecieve error: APIError?)
-    func reviewListModel(_ model: ReviewListModelType, didDelete review: Review)
     func reviewListModel(_ model: ReviewListModelType, didAync list: ReviewList)
+    func reviewListModel(_ model: ReviewListModelType, didDelete review: Review)
+    func reviewListDidFailReviewList(_ model: ReviewListModelType)
+    func reviewListDidLastReviewList(_ model: ReviewListModelType)
+    func reviewListModel(_ model: ReviewListModelType, didRecieve error: APIError?)
 }
 
 protocol ReviewListModelType: AnyObject {
@@ -110,7 +112,7 @@ extension ReviewListModel {
         
         if let list = reviewList(with: category) {
             if list.isLast {
-                self.delegate?.reviewListModel(self, didRecieve: nil)
+                self.delegate?.reviewListDidLastReviewList(self)
                 return
             }
             offset = list.currentPage + 1
@@ -151,24 +153,25 @@ extension ReviewListModel {
                 self.saveReviewList(list)
             } else {
                 // 오류 발생
-                if let code = failed as? APIError {
+                if let code = failed {
                     if code.isReviewError {
-                        self.delegate?.reviewListModel(self, didRecieve: code)
+                        self.delegate?.reviewListDidFailReviewList(self)
                         return
                     } else if code.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] code in
+                        AuthManager.default.refreshToken { [weak self] success, error in
                             guard let self else { return }
-                            if code == .success {
+                            if let error {
+                                self.delegate?.reviewListModel(self, didRecieve: error)
+                                return
+                            }
+                            if success {
                                 self.getReview(with: category, filter: filter, offset: offset, size: size)
-                            } else {
-                                Log.error("Refresh Token Error \(code)")
-                                self.delegate?.reviewListModel(self, didRecieve: .unknown)
+                                return
                             }
                         }
                         return
                     }
                 }
-                Log.error(failed?.localizedDescription ?? "Get Review Error")
                 self.delegate?.reviewListModel(self, didRecieve: .unknown)
             }
         }
@@ -188,24 +191,25 @@ extension ReviewListModel {
                 self.saveReviewList(list)
             } else {
                 // 오류 발생
-                if let code = failed as? APIError {
-                    if code.isReviewError {
-                        self.delegate?.reviewListModel(self, didRecieve: code)
+                if let error = failed {
+                    if error.isReviewError {
+                        self.delegate?.reviewListModel(self, didRecieve: error)
                         return
-                    } else if code.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] code in
+                    } else if error.needsTokenRefresh {
+                        AuthManager.default.refreshToken { [weak self] success, error in
                             guard let self else { return }
-                            if code == .success {
+                            if let error {
+                                self.delegate?.reviewListModel(self, didRecieve: error)
+                                return
+                            }
+                            if success {
                                 self.getAllReview(with: filter, offset: offset, size: size)
-                            } else {
-                                Log.error("Refresh Token Error \(code)")
-                                self.delegate?.reviewListModel(self, didRecieve: .unknown)
+                                return
                             }
                         }
                         return
                     }
                 }
-                Log.error(failed?.localizedDescription ?? "Get ALL Review Error")
                 self.delegate?.reviewListModel(self, didRecieve: .unknown)
             }
         }
@@ -241,22 +245,24 @@ extension ReviewListModel {
                 self.delegate?.reviewListModel(self, didAync: self.reviewLists[listIndex])
             } else {
                 // 오류 발생
-                if let code = failed as? APIError {
+                if let code = failed {
                     if code.isReviewError {
                         return
                     } else if code.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] code in
+                        AuthManager.default.refreshToken { [weak self] success, error in
                             guard let self else { return }
-                            if code == .success {
+                            if let error {
+                                return
+                            }
+                            if success {
                                 self.syncGetReview(with: category, review: review)
-                            } else {
-                                Log.error("Refresh Token Error \(code)")
+                                return
                             }
                         }
                         return
                     }
                 }
-                Log.error(failed?.localizedDescription ?? "Get Review Error")
+                self.delegate?.reviewListModel(self, didRecieve: .unknown)
             }
         }
     }
@@ -282,22 +288,24 @@ extension ReviewListModel {
                 self.delegate?.reviewListModel(self, didAync: self.reviewLists[listIndex])
             } else {
                 // 오류 발생
-                if let code = failed as? APIError {
+                if let code = failed {
                     if code.isReviewError {
                         return
                     } else if code.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] code in
+                        AuthManager.default.refreshToken { [weak self] success, error in
                             guard let self else { return }
-                            if code == .success {
+                            if let error {
+                                return
+                            }
+                            if success {
                                 self.syncGetAllReview(with: review)
-                            } else {
-                                Log.error("Refresh Token Error \(code)")
+                                return
                             }
                         }
                         return
                     }
                 }
-                Log.error(failed?.localizedDescription ?? "Get ALL Review Error")
+                self.delegate?.reviewListModel(self, didRecieve: .unknown)
             }
         }
     }
@@ -312,24 +320,25 @@ extension ReviewListModel {
                 self.delegate?.reviewListModel(self, didDelete: review)
             } else {
                 // 오류 발생
-                if let code = failed as? APIError {
+                if let code = failed {
                     if code.isReviewError {
                         self.delegate?.reviewListModel(self, didRecieve: code)
                         return
                     } else if code.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] code in
+                        AuthManager.default.refreshToken { [weak self] success, error in
                             guard let self else { return }
-                            if code == .success {
+                            if let error {
+                                self.delegate?.reviewListModel(self, didRecieve: error)
+                                return
+                            }
+                            if success {
                                 self.deleteReview(for: review)
-                            } else {
-                                Log.error("Refresh Token Error \(code)")
-                                self.delegate?.reviewListModel(self, didRecieve: .unknown)
+                                return
                             }
                         }
                         return
                     }
                 }
-                Log.error(failed?.localizedDescription ?? "Get Review Error")
                 self.delegate?.reviewListModel(self, didRecieve: .unknown)
             }
         }

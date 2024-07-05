@@ -15,6 +15,7 @@ protocol BaseView: AnyObject {
     func showToastMessage(_ message: String)
     func endEditing()
     func moveLogin(with presenter: LoginPresenter)
+    func showAuthErrorAlert(with presenter: LoginPresenter)
     func showNetworkErrorAlert()
     func showSystemErrorAlert()
 }
@@ -83,6 +84,12 @@ class BaseViewController: UIViewController, Navigatable {
     
     func moveLogin(with presenter: LoginPresenter) {
         navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root, animated: false)
+    }
+    
+    func showAuthErrorAlert(with presenter: LoginPresenter) {
+        AppAlert.default.showAuthError(self) { [weak self] in
+            self?.moveLogin(with: presenter)
+        }
     }
     
     func showNetworkErrorAlert() {

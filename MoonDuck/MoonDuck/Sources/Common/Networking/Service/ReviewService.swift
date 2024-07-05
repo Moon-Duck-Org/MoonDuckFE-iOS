@@ -9,7 +9,7 @@ import Alamofire
 
 class ReviewService {
     
-    func getReview(request: GetReviewRequest, completion: @escaping (_ succeed: ReviewList?, _ failed: Error?) -> Void) {
+    func getReview(request: GetReviewRequest, completion: @escaping (_ succeed: ReviewList?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.getReview(request).performRequest(responseType: ReviewListResponse.self, completion: {  result in
             switch result {
             case .success(let response):
@@ -20,7 +20,7 @@ class ReviewService {
         })
     }
     
-    func reviewAll(request: ReviewAllRequest, completion: @escaping (_ succeed: ReviewList?, _ failed: Error?) -> Void) {
+    func reviewAll(request: ReviewAllRequest, completion: @escaping (_ succeed: ReviewList?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.reviewAll(request).performRequest(responseType: ReviewListResponse.self, completion: {  result in
             switch result {
             case .success(let response):
@@ -55,7 +55,7 @@ class ReviewService {
         })
     }
     
-    func deleteReview(request: DeleteReviewRequest, completion: @escaping (_ succeed: Bool?, _ failed: Error?) -> Void) {
+    func deleteReview(request: DeleteReviewRequest, completion: @escaping (_ succeed: Bool?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.deleteReview(request).performRequest(responseType: Bool.self, completion: {  result in
             switch result {
             case .success(let response):
@@ -66,7 +66,7 @@ class ReviewService {
         })
     }
     
-    func reviewDetail(request: ReviewDetailRequest, completion: @escaping (_ succeed: Review?, _ failed: Error?) -> Void) {
+    func reviewDetail(request: ReviewDetailRequest, completion: @escaping (_ succeed: Review?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.reviewDetail(request).performRequest(responseType: ReviewResponse.self, completion: {  result in
             switch result {
             case .success(let response):

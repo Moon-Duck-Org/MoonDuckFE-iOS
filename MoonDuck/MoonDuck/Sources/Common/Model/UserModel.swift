@@ -8,19 +8,19 @@
 import Foundation
 
 protocol UserModelDelegate: AnyObject {
-    func userModel(_ model: UserModel, didChange user: User)
-    func userModel(_ model: UserModel, didRecieve error: APIError?)
-    func userModelDidFailLogin(_ model: UserModel)
-    func userModelDidFailFetchingUser(_ model: UserModel)
-    func userModelDidFailNickname(_ model: UserModel)
-    func userModelDidAuthError(_ model: UserModel)
+    func userModel(_ model: UserModelType, didChange user: User)
+    func userModel(_ model: UserModelType, didRecieve error: APIError?)
+    func userModelDidFailLogin(_ model: UserModelType)
+    func userModelDidFailFetchingUser(_ model: UserModelType)
+    func userModelDidFailNickname(_ model: UserModelType)
+    func userModelDidAuthError(_ model: UserModelType)
 }
 extension UserModelDelegate {
-    func userModel(_ model: UserModel, didChange user: User) { }
-    func userModel(_ model: UserModel, didRecieve error: APIError?) { }
-    func userModelDidFailLogin(_ model: UserModel) { }
-    func userModelDidFailFetchingUser(_ model: UserModel) { }
-    func userModelDidFailNickname(_ model: UserModel) { }
+    func userModel(_ model: UserModelType, didChange user: User) { }
+    func userModel(_ model: UserModelType, didRecieve error: APIError?) { }
+    func userModelDidFailLogin(_ model: UserModelType) { }
+    func userModelDidFailFetchingUser(_ model: UserModelType) { }
+    func userModelDidFailNickname(_ model: UserModelType) { }
 }
 
 protocol UserModelType: AnyObject {
@@ -130,9 +130,9 @@ class UserModel: UserModelType {
                         self.delegate?.userModelDidAuthError(self)
                         return
                     } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] code in
+                        AuthManager.default.refreshToken { [weak self] success, error in
                             guard let self else { return }
-                            if code == .success {
+                            if success {
                                 self.getUser()
                             } else {
                                 self.delegate?.userModelDidAuthError(self)
@@ -161,9 +161,9 @@ class UserModel: UserModelType {
                         self.delegate?.userModelDidAuthError(self)
                         return
                     } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] code in
+                        AuthManager.default.refreshToken { [weak self] success, error in
                             guard let self else { return }
-                            if code == .success {
+                            if success {
                                 self.nickname(name)
                             } else {
                                 self.delegate?.userModelDidAuthError(self)
@@ -176,7 +176,7 @@ class UserModel: UserModelType {
                         return
                     }
                 }
-                self.delegate?.userModel(self, didRecieve: failed)
+                self.delegate?.userModel(self, didRecieve: .unknown)
             }
         }
     }

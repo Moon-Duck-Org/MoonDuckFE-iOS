@@ -135,7 +135,6 @@ class Navigator {
             }
         case .modal:
             DispatchQueue.main.async {
-                target.modalPresentationStyle = .fullScreen
                 sender.present(target, animated: animated)
             }
         case .popup:

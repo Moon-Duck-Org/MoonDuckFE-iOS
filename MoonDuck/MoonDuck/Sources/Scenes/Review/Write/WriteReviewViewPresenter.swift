@@ -258,13 +258,38 @@ extension WriteReviewViewPresenter {
 
 // MARK: - WriteReviewModelDelegate
 extension WriteReviewViewPresenter: WriteReviewModelDelegate {
-    func writeReviewModel(_ model: WriteReviewModel, didSuccess review: Review) {
+    func writeReviewModel(_ model: WriteReviewModelType, didSuccess review: Review) {
         view?.updateLoadingView(isLoading: false)
         delegate?.writeReview(self, didSuccess: review)
     }
     
-    func writeReviewModel(_ model: WriteReviewModel, didRecieve error: APIError?) {
+    func writeReviewModel(_ model: WriteReviewModelType, didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
-        view?.showToastMessage(error?.errorDescription ?? error?.localizedDescription ?? "리뷰 작성 오류 발생")
+        if let error {
+            if error.isAuthError {
+                AuthManager.default.logout()
+                let model = UserModel(provider)
+                let presenter = LoginViewPresenter(with: provider, model: model)
+                view?.showAuthErrorAlert(with: presenter)
+                return
+            } else if error.isNetworkError {
+                view?.showNetworkErrorAlert()
+                return
+            } else if error.isSystemError {
+                view?.showSystemErrorAlert()
+                return
+            }
+        }
+        view?.showToastMessage("기록 작성에 실패했습니다. 다시 시도해주세요.")
+    }
+    
+    func writeReviewDidFailSaveReview(_ model: WriteReviewModelType) {
+        view?.updateLoadingView(isLoading: false)
+        view?.showToastMessage("기록 작성에 실패했습니다. 다시 시도해주세요.")
+    }
+    
+    func writeReviewDidExceedeImageSize(_ model: WriteReviewModelType) {
+        view?.updateLoadingView(isLoading: false)
+        view?.showExceedeImageSizeAlert("이미지 용량을 초과하였습니다.\n다시 시도해주세요.")
     }
 }

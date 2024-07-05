@@ -100,6 +100,14 @@ enum APIError: Error, Equatable, LocalizedError {
         }
     }
     
+    var imageSizeLimitExceeded: Bool {
+        switch self {
+        case .imageSizeLimitExceeded:
+            return true
+        default: return false
+        }
+    }
+    
     var duplicateNickname: Bool {
         switch self {
         case .duplicateNickname:

@@ -126,30 +126,39 @@ extension LoginViewPresenter {
     
     private func login(_ auth: Auth) {
         view?.updateLoadingView(isLoading: true)
-        AuthManager.default.login(auth: auth) { [weak self] result in
+        AuthManager.default.login(auth: auth) { [weak self] isHaveNickname, failed in
             guard let self else {
                 self?.view?.updateLoadingView(isLoading: false)
                 return
             }
-            
-            switch result {
-            case .success: 
-                self.model.getUser()
-            case .donthaveNickname:
+            if let failed {
                 self.view?.updateLoadingView(isLoading: false)
-                let model = UserModel(provider)
-                let presenter = NicknameSettingViewPresenter(with: self.provider, model: model, delegate: self)
-                self.view?.moveNameSetting(with: presenter)
-            case .error:
                 self.loginError()
+                return
             }
+            
+            if let isHaveNickname {
+                if isHaveNickname {
+                    self.model.getUser()
+                    return
+                } else {
+                    self.view?.updateLoadingView(isLoading: false)
+                    let model = UserModel(provider)
+                    let presenter = NicknameSettingViewPresenter(with: self.provider, model: model, delegate: nil)
+                    self.view?.moveNameSetting(with: presenter)
+                    return
+                }
+            }
+            
+            self.view?.updateLoadingView(isLoading: false)
+            self.loginError()
         }
     }
 }
 
 // MARK: - UserModelDelegate
 extension LoginViewPresenter: UserModelDelegate {
-    func userModel(_ model: UserModel, didChange user: User) {
+    func userModel(_ model: UserModelType, didChange user: User) {
         // User 정보 조회 성공 -> 홈 이동
         view?.updateLoadingView(isLoading: false)
         let cateogryModel = CategoryModel()
@@ -159,9 +168,9 @@ extension LoginViewPresenter: UserModelDelegate {
         view?.moveHome(with: presenter)
     }
     
-    func userModel(_ model: UserModel, didRecieve error: APIError?) {
-        AuthManager.default.logout()
+    func userModel(_ model: UserModelType, didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
+        AuthManager.default.logout()
         
         if let error {
             if error.isNetworkError {
@@ -176,33 +185,21 @@ extension LoginViewPresenter: UserModelDelegate {
         loginError()
     }
     
-    func userModelDidFailLogin(_ model: UserModel) {
-        AuthManager.default.logout()
+    func userModelDidFailLogin(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
+        AuthManager.default.logout()
         loginError()
     }
     
-    func userModelDidFailFetchingUser(_ model: UserModel) {
-        AuthManager.default.logout()
+    func userModelDidFailFetchingUser(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
+        AuthManager.default.logout()
         loginError()
     }
     
-    func userModelDidAuthError(_ model: UserModel) {
+    func userModelDidAuthError(_ model: UserModelType) {
+        view?.updateLoadingView(isLoading: false)
         AuthManager.default.logout()
-        view?.updateLoadingView(isLoading: false)
         loginError()
-    }
-}
-
-// MARK: - NicknameSettingPresenterDelegate
-extension LoginViewPresenter: NicknameSettingPresenterDelegate {
-    func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {
-        view?.updateLoadingView(isLoading: false)
-        model.save(nickname: nickname)
-    }
-    
-    func nicknameSettingDidCancel(_ presenter: NicknameSettingPresenter) {
-        
     }
 }

@@ -73,7 +73,7 @@ class AuthManager {
         case donthaveNickname
     }
     
-    func login(auth: Auth, completion: @escaping (LoginResultCode) -> Void) {
+    func login(auth: Auth, completion: @escaping (_ isHaveNickname: Bool?, _ failed: APIError?) -> Void) {
         let request = AuthLoginRequest(dvsnCd: auth.loginType.rawValue, id: auth.id)
         provider?.authService.login(request: request) { succeed, failed in
             if let succeed {
@@ -83,28 +83,17 @@ class AuthManager {
                     Token(accessToken: succeed.accessToken,
                           refreshToken: succeed.refreshToken)
                 )
-                if succeed.isHaveNickname {
-                    completion(.success)
-                } else {
-                    completion(.donthaveNickname)
-                }
+                completion(succeed.isHaveNickname, nil)
             } else {
-                Log.error(failed?.localizedDescription ?? "Login Error")
-                completion(.error)
+                completion(nil, failed)
             }
         }
     }
     
-    enum RefreshtTokenResultCode {
-        case success
-        case emptyToken
-        case error
-    }
-    
-    func refreshToken(completion: @escaping (_ code: RefreshtTokenResultCode) -> Void) {
+    func refreshToken(completion: @escaping (_ success: Bool, _ error: APIError?) -> Void) {
         guard let accessToken = token?.accessToken,
               let refreshToken = token?.refreshToken else {
-            completion(.emptyToken)
+            completion(false, .unknown)
             return
         }
         
@@ -112,10 +101,9 @@ class AuthManager {
         provider?.authService.reissue(request: request) { succeed, failed in
             if let succeed {
                 self.saveToken(succeed)
-                completion(.success)
+                completion(true, nil)
             } else {
-                Log.error(failed?.localizedDescription ?? "Auth Reissue Error")
-                completion(.error)
+                completion(false, failed)
             }
         }
     }

@@ -188,7 +188,7 @@ extension HomeViewPresenter {
 
 // MARK: - UserModelDelegate
 extension HomeViewPresenter: UserModelDelegate {
-    func userModelDidAuthError(_ model: UserModel) {
+    func userModelDidAuthError(_ model: UserModelType) {
         AuthManager.default.logout()
         let model = UserModel(provider)
         let presenter = LoginViewPresenter(with: provider, model: model)
@@ -241,6 +241,7 @@ extension HomeViewPresenter: SortModelDelegate {
 
 // MARK: - ReviewListModelDelegate
 extension HomeViewPresenter: ReviewListModelDelegate {
+    
     func reviewListModel(_ model: ReviewListModelType, didSuccess list: ReviewList) {
         view?.updateLoadingView(isLoading: false)
         
@@ -261,6 +262,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
+        view?.updateLoadingView(isLoading: false)
         userModel.deleteReview(category: review.category)
         view?.popToSelf()
         
@@ -274,11 +276,20 @@ extension HomeViewPresenter: ReviewListModelDelegate {
         view?.reloadReviews()
         updateData(with: list)
     }
+    
+    func reviewListDidFailReviewList(_ model: ReviewListModelType) {
+        view?.showToastMessage("기록을 불러오는데 실패했습니다.")
+    }
+    
+    func reviewListDidLastReviewList(_ model: ReviewListModelType) {
+        
+    }
 }
 
 // MARK: - WriteReviewPresenterDelegate
 extension HomeViewPresenter: WriteReviewPresenterDelegate {
     func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review) {
+        view?.updateLoadingView(isLoading: false)
         view?.popToSelf()
         
         categoryModel.reloadCategory()

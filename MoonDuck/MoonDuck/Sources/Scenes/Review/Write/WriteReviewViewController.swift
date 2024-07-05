@@ -17,6 +17,7 @@ protocol WriteReviewView: BaseView {
     func updateRating(for rating: Int)
     func showSelectImageSheet()
     func reloadImages()
+    func showExceedeImageSizeAlert(_ message: String)
     
     // Navigation
     func backToHome()
@@ -155,6 +156,10 @@ extension WriteReviewViewController {
         DispatchQueue.main.async {
             self.imageCollectionView.reloadData()
         }
+    }
+    
+    func showExceedeImageSizeAlert(_ message: String) {
+        AppAlert.default.showError(self, message: message)
     }
     
     // 노티피케이션 등록

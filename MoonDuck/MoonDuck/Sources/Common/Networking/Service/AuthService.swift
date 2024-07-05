@@ -8,7 +8,7 @@
 import Alamofire
 
 class AuthService {
-    func login(request: AuthLoginRequest, completion: @escaping (_ succeed: AuthLoginResponse?, _ failed: Error?) -> Void) {
+    func login(request: AuthLoginRequest, completion: @escaping (_ succeed: AuthLoginResponse?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.authLogin(request).performRequest(responseType: AuthLoginResponse.self, completion: {  result in
             switch result {
             case .success(let response):
@@ -19,7 +19,7 @@ class AuthService {
         })
     }
 
-    func reissue(request: AuthReissueRequest, completion: @escaping (_ succeed: Token?, _ failed: Error?) -> Void) {
+    func reissue(request: AuthReissueRequest, completion: @escaping (_ succeed: Token?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.authReissue(request).performRequest(responseType: AuthReissueResponse.self, completion: {  result in
             switch result {
             case .success(let response):

@@ -35,6 +35,11 @@ class AppAlert {
         
     }
     
+    func showAuthError(_ viewController: UIViewController,
+                       doneHandler: (() -> Void)? = nil) {
+        showError(viewController, message: "유효하지 않은 계정입니다.\n로그인 페이지로 이동합니다.")
+    }
+    
     func showNetworkError(_ viewController: UIViewController) {
         showError(viewController, message: "네트워크 연결 상태를 확인해주세요.")
     }
@@ -43,7 +48,7 @@ class AppAlert {
         showError(viewController, message: "시스템 오류")
     }
     
-    private func showError(_ viewController: UIViewController,
+    func showError(_ viewController: UIViewController,
                            title: String? = "",
                            message: String? = "",
                            doneTitle: String? = "확인",

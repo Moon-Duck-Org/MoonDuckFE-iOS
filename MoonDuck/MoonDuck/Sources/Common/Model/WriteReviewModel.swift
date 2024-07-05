@@ -9,8 +9,10 @@ import Foundation
 import UIKit
 
 protocol WriteReviewModelDelegate: AnyObject {
-    func writeReviewModel(_ model: WriteReviewModel, didSuccess review: Review)
-    func writeReviewModel(_ model: WriteReviewModel, didRecieve error: APIError?)
+    func writeReviewModel(_ model: WriteReviewModelType, didSuccess review: Review)
+    func writeReviewModel(_ model: WriteReviewModelType, didRecieve error: APIError?)
+    func writeReviewDidFailSaveReview(_ model: WriteReviewModelType)
+    func writeReviewDidExceedeImageSize(_ model: WriteReviewModelType)
     
 }
 protocol WriteReviewModelType: AnyObject {
@@ -51,7 +53,7 @@ class WriteReviewModel: WriteReviewModelType {
     // MARK: - Networking
     func putReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?) {
         guard let review else {
-            self.delegate?.writeReviewModel(self, didRecieve: .unknown)
+            self.delegate?.writeReviewDidFailSaveReview(self)
             return
         }
         
@@ -64,32 +66,37 @@ class WriteReviewModel: WriteReviewModelType {
                 self.delegate?.writeReviewModel(self, didSuccess: succeed)
             } else {
                 // 오류 발생
-                if let code = failed {
-                    if code.isReviewError {
-                        self.delegate?.writeReviewModel(self, didRecieve: code)
+                if let error = failed {
+                    if error.imageSizeLimitExceeded {
+                        self.delegate?.writeReviewDidExceedeImageSize(self)
                         return
-                    } else if code.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] code in
+                    } else if error.isReviewError {
+                        self.delegate?.writeReviewDidFailSaveReview(self)
+                        return
+                    } else if error.needsTokenRefresh {
+                        AuthManager.default.refreshToken { [weak self] success, error in
                             guard let self else { return }
-                            if code == .success {
+                            if let error {
+                                self.delegate?.writeReviewModel(self, didRecieve: error)
+                                return
+                            }
+                            
+                            if success {
                                 self.putReview(title: title, content: content, score: score, url: url, images: images)
-                            } else {
-                                Log.error("Refresh Token Error \(code)")
-                                self.delegate?.writeReviewModel(self, didRecieve: failed)
+                                return
                             }
                         }
                         return
                     }
                 }
-                Log.error(APIError.unknown)
-                self.delegate?.writeReviewModel(self, didRecieve: failed)
+                self.delegate?.writeReviewModel(self, didRecieve: .unknown)
             }
         }
     }
     
     func postReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?) {
         guard let program else { 
-            self.delegate?.writeReviewModel(self, didRecieve: .unknown)
+            self.delegate?.writeReviewDidFailSaveReview(self)
             return
         }
         
@@ -102,25 +109,29 @@ class WriteReviewModel: WriteReviewModelType {
                 self.delegate?.writeReviewModel(self, didSuccess: succeed)
             } else {
                 // 오류 발생
-                if let code = failed {
-                    if code.isReviewError {
-                        self.delegate?.writeReviewModel(self, didRecieve: code)
+                if let error = failed {
+                    if error.imageSizeLimitExceeded {
+                        self.delegate?.writeReviewDidExceedeImageSize(self)
                         return
-                    } else if code.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] code in
+                    } else if error.isReviewError {
+                        self.delegate?.writeReviewDidFailSaveReview(self)
+                        return
+                    } else if error.needsTokenRefresh {
+                        AuthManager.default.refreshToken { [weak self] success, error in
                             guard let self else { return }
-                            if code == .success {
+                            if let error {
+                                self.delegate?.writeReviewModel(self, didRecieve: error)
+                                return
+                            }
+                            if success {
                                 self.postReview(title: title, content: content, score: score, url: url, images: images)
-                            } else {
-                                Log.error("Refresh Token Error \(code)")
-                                self.delegate?.writeReviewModel(self, didRecieve: failed)
+                                return
                             }
                         }
                         return
                     }
                 }
-                Log.error(APIError.unknown)
-                self.delegate?.writeReviewModel(self, didRecieve: failed)
+                self.delegate?.writeReviewModel(self, didRecieve: .unknown)
             }
         }
     }

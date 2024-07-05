@@ -35,6 +35,7 @@ class NicknameSettingViewPresenter: BaseViewPresenter, NicknameSettingPresenter 
     
     private weak var delegate: NicknameSettingPresenterDelegate?
     private let model: UserModelType
+    private let isNew: Bool
     
     private let maxNicknameCount: Int = 10
     private var nicknameText: String?
@@ -44,6 +45,7 @@ class NicknameSettingViewPresenter: BaseViewPresenter, NicknameSettingPresenter 
          delegate: NicknameSettingPresenterDelegate?) {
         self.model = model
         self.delegate = delegate
+        self.isNew = delegate == nil
         super.init(with: provider)
         self.model.delegate = self
     }
@@ -53,14 +55,11 @@ extension NicknameSettingViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         // 닉네임이 세팅
-        if let nickname = model.user?.nickname {
-            view?.updateCancelButtonHidden(false)
-            view?.updateNameTextfieldText(with: nickname)
-            view?.updateCountLabelText(with: "\(nickname.count)/\(maxNicknameCount)")
-            nicknameText = nickname
-        } else {
-            view?.updateCancelButtonHidden(true)
-        }
+        let nickname = model.user?.nickname ?? ""
+        view?.updateCancelButtonHidden(isNew)
+        view?.updateNameTextfieldText(with: nickname)
+        view?.updateCountLabelText(with: "\(nickname.count)/\(maxNicknameCount)")
+        nicknameText = nickname
         view?.updateCompleteButtonEnabled(false)
         view?.createTouchEvent()
     }
@@ -142,13 +141,22 @@ extension NicknameSettingViewPresenter {
 // MARK: - UserModelDelegate
 extension NicknameSettingViewPresenter: UserModelDelegate {
     
-    func userModel(_ model: UserModel, didChange user: User) {
+    func userModel(_ model: UserModelType, didChange user: User) {
         // 닉네임 변경 성공
         view?.updateLoadingView(isLoading: false)
-        delegate?.nicknameSetting(self, didSuccess: user.nickname)
+        
+        if isNew {
+            let cateogryModel = CategoryModel()
+            let reviewModel = ReviewListModel(provider)
+            let sortModel = SortModel()
+            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
+            view?.moveHome(with: presenter)
+        } else {
+            delegate?.nicknameSetting(self, didSuccess: user.nickname)
+        }
     }
     
-    func userModel(_ model: UserModel, didRecieve error: APIError?) {
+    func userModel(_ model: UserModelType, didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
         
         if let error, error.isNetworkError {
@@ -158,12 +166,12 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
         }
     }
     
-    func userModelDidFailNickname(_ model: UserModel) {
+    func userModelDidFailNickname(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
         view?.updateHintLabelText(with: L10n.Localizable.duplicateNickname)
     }
     
-    func userModelDidAuthError(_ model: UserModel) {
+    func userModelDidAuthError(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
         AuthManager.default.logout()
         moveLogin()

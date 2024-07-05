@@ -44,13 +44,15 @@ extension IntroViewPresenter {
     }
     
     private func login(_ auth: Auth) {
-        AuthManager.default.login(auth: auth) { [weak self] result in
-            if result == .success {
-                // 로그인 성공 시, User 정보 조회
-                self?.model.getUser()
-            } else {
-                self?.moveLogin()
+        AuthManager.default.login(auth: auth) { [weak self] isHaveNickname, failed in
+            if let isHaveNickname, isHaveNickname {
+                if isHaveNickname {
+                    // 로그인 성공 시, User 정보 조회
+                    self?.model.getUser()
+                    return
+                }
             }
+            self?.moveLogin()
         }
     }
     
@@ -64,7 +66,7 @@ extension IntroViewPresenter {
 // MARK: - UserModelDelegate
 extension IntroViewPresenter: UserModelDelegate {
     
-    func userModel(_ model: UserModel, didChange user: User) {
+    func userModel(_ model: UserModelType, didChange user: User) {
         // User 정보 조회 성공 -> 홈 이동
         let cateogryModel = CategoryModel()
         let sortModel = SortModel()
@@ -76,22 +78,22 @@ extension IntroViewPresenter: UserModelDelegate {
         }
     }
     
-    func userModel(_ model: UserModel, didRecieve error: APIError?) {
+    func userModel(_ model: UserModelType, didRecieve error: APIError?) {
         AuthManager.default.logout()
         moveLogin()
     }
     
-    func userModelDidFailLogin(_ model: UserModel) {
+    func userModelDidFailLogin(_ model: UserModelType) {
         AuthManager.default.logout()
         moveLogin()
     }
     
-    func userModelDidFailFetchingUser(_ model: UserModel) {
+    func userModelDidFailFetchingUser(_ model: UserModelType) {
         AuthManager.default.logout()
         moveLogin()
     }
     
-    func userModelDidAuthError(_ model: UserModel) {
+    func userModelDidAuthError(_ model: UserModelType) {
         AuthManager.default.logout()
         moveLogin()
     }
