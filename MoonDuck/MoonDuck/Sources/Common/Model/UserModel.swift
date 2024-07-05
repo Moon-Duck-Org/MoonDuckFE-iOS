@@ -9,16 +9,18 @@ import Foundation
 
 protocol UserModelDelegate: AnyObject {
     func userModel(_ model: UserModel, didChange user: User)
-    func userModel(_ model: UserModel, didRecieve error: UserModelError)
-    func userModel(_ model: UserModel, didRecieve error: Error?)
+    func userModel(_ model: UserModel, didRecieve error: APIError?)
+    func userModelDidFailLogin(_ model: UserModel)
+    func userModelDidFailFetchingUser(_ model: UserModel)
+    func userModelDidFailNickname(_ model: UserModel)
+    func userModelDidAuthError(_ model: UserModel)
 }
 extension UserModelDelegate {
     func userModel(_ model: UserModel, didChange user: User) { }
-}
-
-enum UserModelError {
-    case authError
-    case duplicateNickname
+    func userModel(_ model: UserModel, didRecieve error: APIError?) { }
+    func userModelDidFailLogin(_ model: UserModel) { }
+    func userModelDidFailFetchingUser(_ model: UserModel) { }
+    func userModelDidFailNickname(_ model: UserModel) { }
 }
 
 protocol UserModelType: AnyObject {
@@ -122,9 +124,25 @@ class UserModel: UserModelType {
                 // User 정보 조회 성공
                 self.save(user: succeed)
             } else {
+                // 오류 발생
+                if let error = failed {
+                    if error.isAuthError {
+                        self.delegate?.userModelDidAuthError(self)
+                        return
+                    } else if error.needsTokenRefresh {
+                        AuthManager.default.refreshToken { [weak self] code in
+                            guard let self else { return }
+                            if code == .success {
+                                self.getUser()
+                            } else {
+                                self.delegate?.userModelDidAuthError(self)
+                            }
+                        }
+                        return
+                    }
+                }
                 // User 정보 조회 실패
-                Log.error(failed?.localizedDescription ?? "User Error")
-                self.delegate?.userModel(self, didRecieve: .authError)
+                self.delegate?.userModelDidFailFetchingUser(self)
             }
         }
     }
@@ -138,29 +156,26 @@ class UserModel: UserModelType {
                 self.save(nickname: succeed.nickname)
             } else {
                 // 오류 발생
-                if let code = failed as? APIError {
-                    if code.isAuthError {
-                        Log.error("Auth Error \(code)")
-                        self.delegate?.userModel(self, didRecieve: .authError)
+                if let error = failed {
+                    if error.isAuthError {
+                        self.delegate?.userModelDidAuthError(self)
                         return
-                    } else if code.needsTokenRefresh {
+                    } else if error.needsTokenRefresh {
                         AuthManager.default.refreshToken { [weak self] code in
                             guard let self else { return }
                             if code == .success {
                                 self.nickname(name)
                             } else {
-                                Log.error("Refresh Token Error \(code)")
-                                self.delegate?.userModel(self, didRecieve: .authError)
+                                self.delegate?.userModelDidAuthError(self)
                             }
                         }
                         return
-                    } else if code.duplicateNickname {
+                    } else if error.duplicateNickname {
                         // 중복된 닉네임
-                        self.delegate?.userModel(self, didRecieve: .duplicateNickname)
+                        self.delegate?.userModelDidFailNickname(self)
                         return
                     }
                 }
-                Log.error(failed?.localizedDescription ?? "Nickname Error")
                 self.delegate?.userModel(self, didRecieve: failed)
             }
         }

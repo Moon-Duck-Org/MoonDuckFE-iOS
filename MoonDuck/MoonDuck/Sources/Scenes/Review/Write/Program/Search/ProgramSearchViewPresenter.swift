@@ -31,7 +31,7 @@ protocol ProgramSearchPresenter: AnyObject {
     func scrollViewWillBeginDragging()
 }
 
-class ProgramSearchViewPresenter: Presenter, ProgramSearchPresenter {
+class ProgramSearchViewPresenter: BaseViewPresenter, ProgramSearchPresenter {
     weak var view: ProgramSearchView?
     
     private let model: ProgramSearchModelType

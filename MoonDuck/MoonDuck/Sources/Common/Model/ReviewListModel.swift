@@ -162,14 +162,14 @@ extension ReviewListModel {
                                 self.getReview(with: category, filter: filter, offset: offset, size: size)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
-                                self.delegate?.reviewListModel(self, didRecieve: .unowned)
+                                self.delegate?.reviewListModel(self, didRecieve: .unknown)
                             }
                         }
                         return
                     }
                 }
                 Log.error(failed?.localizedDescription ?? "Get Review Error")
-                self.delegate?.reviewListModel(self, didRecieve: .unowned)
+                self.delegate?.reviewListModel(self, didRecieve: .unknown)
             }
         }
     }
@@ -199,14 +199,14 @@ extension ReviewListModel {
                                 self.getAllReview(with: filter, offset: offset, size: size)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
-                                self.delegate?.reviewListModel(self, didRecieve: .unowned)
+                                self.delegate?.reviewListModel(self, didRecieve: .unknown)
                             }
                         }
                         return
                     }
                 }
                 Log.error(failed?.localizedDescription ?? "Get ALL Review Error")
-                self.delegate?.reviewListModel(self, didRecieve: .unowned)
+                self.delegate?.reviewListModel(self, didRecieve: .unknown)
             }
         }
     }
@@ -323,14 +323,14 @@ extension ReviewListModel {
                                 self.deleteReview(for: review)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
-                                self.delegate?.reviewListModel(self, didRecieve: .unowned)
+                                self.delegate?.reviewListModel(self, didRecieve: .unknown)
                             }
                         }
                         return
                     }
                 }
                 Log.error(failed?.localizedDescription ?? "Get Review Error")
-                self.delegate?.reviewListModel(self, didRecieve: .unowned)
+                self.delegate?.reviewListModel(self, didRecieve: .unknown)
             }
         }
     }

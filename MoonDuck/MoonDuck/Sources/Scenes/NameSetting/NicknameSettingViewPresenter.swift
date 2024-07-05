@@ -30,7 +30,7 @@ protocol NicknameSettingPresenter: AnyObject {
     func textFieldDidEndEditing(_ text: String?)
 }
 
-class NicknameSettingViewPresenter: Presenter, NicknameSettingPresenter {
+class NicknameSettingViewPresenter: BaseViewPresenter, NicknameSettingPresenter {
     weak var view: NicknameSettingView?
     
     private weak var delegate: NicknameSettingPresenterDelegate?
@@ -141,30 +141,31 @@ extension NicknameSettingViewPresenter {
 
 // MARK: - UserModelDelegate
 extension NicknameSettingViewPresenter: UserModelDelegate {
+    
     func userModel(_ model: UserModel, didChange user: User) {
         // 닉네임 변경 성공
         view?.updateLoadingView(isLoading: false)
         delegate?.nicknameSetting(self, didSuccess: user.nickname)
     }
     
-    func userModel(_ model: UserModel, didRecieve error: UserModelError) {
+    func userModel(_ model: UserModel, didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
-        switch error {
-        case .authError:
-            AuthManager.default.logout()
-            moveLogin()
-        case .duplicateNickname:
-            view?.updateHintLabelText(with: L10n.Localizable.duplicateNickname)
+        
+        if let error, error.isNetworkError {
+            view?.showNetworkErrorAlert()
+        } else {
+            view?.showSystemErrorAlert()
         }
     }
     
-    func userModel(_ model: UserModel, didRecieve error: Error?) {
-        networkError()
+    func userModelDidFailNickname(_ model: UserModel) {
+        view?.updateLoadingView(isLoading: false)
+        view?.updateHintLabelText(with: L10n.Localizable.duplicateNickname)
     }
     
-    private func networkError() {
+    func userModelDidAuthError(_ model: UserModel) {
         view?.updateLoadingView(isLoading: false)
-        Log.todo("네트워크 오류 알럿 노출")
-        view?.showToastMessage("네트워크 오류 발생")
+        AuthManager.default.logout()
+        moveLogin()
     }
 }

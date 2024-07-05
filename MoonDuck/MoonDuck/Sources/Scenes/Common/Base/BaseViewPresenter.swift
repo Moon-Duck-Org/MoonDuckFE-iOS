@@ -1,5 +1,5 @@
 //
-//  Presenter.swift
+//  BaseViewPresenter.swift
 //  MoonDuck
 //
 //  Created by suni on 6/3/24.
@@ -7,7 +7,11 @@
 
 import Foundation
 
-class Presenter: NSObject {
+protocol BasePresenter: AnyObject {
+    
+}
+
+class BaseViewPresenter: NSObject {
     let provider: AppServices
     
     init(with provider: AppServices) {

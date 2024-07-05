@@ -24,7 +24,7 @@ protocol SelectProgramPresenter: AnyObject {
     func nextButtonTapped()
 }
 
-class SelectProgramViewPresenter: Presenter, SelectProgramPresenter {
+class SelectProgramViewPresenter: BaseViewPresenter, SelectProgramPresenter {
     weak var view: SelectProgramView?
     private let categoryModel: CategoryModelType
     private var delegate: WriteReviewPresenterDelegate?

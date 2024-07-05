@@ -28,6 +28,8 @@ internal enum L10n {
     internal static let logout = L10n.tr("Localizable", "logout", fallback: "로그아웃")
     /// 닉네임 설정 완료!
     internal static let nicknameSetupComplete = L10n.tr("Localizable", "Nickname setup complete!", fallback: "닉네임 설정 완료!")
+    /// 네트워크 연결 상태를 확인해주세요.
+    internal static let pleaseCheckYourNetworkConnection = L10n.tr("Localizable", "Please check your network connection", fallback: "네트워크 연결 상태를 확인해주세요.")
     /// 특수문자는 사용 불가해요.
     internal static let specialCharactersAreNotAllowed = L10n.tr("Localizable", "Special characters are not allowed.", fallback: "특수문자는 사용 불가해요.")
     /// 취소하시겠어요?
@@ -37,6 +39,10 @@ internal enum L10n {
     internal enum LoginFailed {
       /// 로그인에 실패하였습니다. 다시 시도해주세요.
       internal static let pleaseTryAgain = L10n.tr("Localizable", "Login failed. Please try again.", fallback: "로그인에 실패하였습니다. 다시 시도해주세요.")
+    }
+    internal enum WeAreWorkingToResolveASystemError {
+      /// 시스템 오류를 해결하기 위해 노력중이에요. 잠시 후에 다시 확인해주세요.
+      internal static let pleaseCheckBackLater = L10n.tr("Localizable", "We are working to resolve a system error. Please check back later.", fallback: "시스템 오류를 해결하기 위해 노력중이에요. 잠시 후에 다시 확인해주세요.")
     }
   }
   internal enum Main {

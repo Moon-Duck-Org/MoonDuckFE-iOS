@@ -36,7 +36,7 @@ protocol HomePresenter: AnyObject {
     func loadNextReviews()
 }
 
-class HomeViewPresenter: Presenter, HomePresenter {
+class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     
     weak var view: HomeView?
     private let userModel: UserModelType
@@ -188,16 +188,11 @@ extension HomeViewPresenter {
 
 // MARK: - UserModelDelegate
 extension HomeViewPresenter: UserModelDelegate {
-    func userModel(_ model: UserModel, didChange user: User) {
-        
-    }
-    
-    func userModel(_ model: UserModel, didRecieve error: Error?) {
-        
-    }
-    
-    func userModel(_ model: UserModel, didRecieve error: UserModelError) {
-        
+    func userModelDidAuthError(_ model: UserModel) {
+        AuthManager.default.logout()
+        let model = UserModel(provider)
+        let presenter = LoginViewPresenter(with: provider, model: model)
+        view?.moveLogin(with: presenter)
     }
 }
 

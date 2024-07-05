@@ -8,7 +8,7 @@
 import Alamofire
 
 class UserService {
-    func user(completion: @escaping (_ succeed: User?, _ failed: Error?) -> Void) {
+    func user(completion: @escaping (_ succeed: User?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.user.performRequest(responseType: UserResponse.self, completion: {  result in
             switch result {
             case .success(let response):
@@ -20,7 +20,7 @@ class UserService {
 
     }
     
-    func nickname(request: UserNicknameRequest, completion: @escaping (_ succeed: UserNicknameResponse?, _ failed: Error?) -> Void) {
+    func nickname(request: UserNicknameRequest, completion: @escaping (_ succeed: UserNicknameResponse?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.userNickname(request).performRequest(responseType: UserNicknameResponse.self, completion: {  result in
             switch result {
             case .success(let response):

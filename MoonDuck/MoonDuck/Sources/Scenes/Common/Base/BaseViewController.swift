@@ -14,10 +14,14 @@ protocol BaseView: AnyObject {
     func updateLoadingView(isLoading: Bool)
     func showToastMessage(_ message: String)
     func endEditing()
+    func moveLogin(with presenter: LoginPresenter)
+    func showNetworkErrorAlert()
+    func showSystemErrorAlert()
 }
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, Navigatable {
     lazy var throttler = Throttler(interval: 1.0)
+    var navigator: Navigator?
     
     let loadingView: LoadingView = {
         let view = LoadingView()
@@ -25,7 +29,16 @@ class BaseViewController: UIViewController {
         return view
     }()
     var isEditingText: Bool = false
-        
+    
+    init(navigator: Navigator, nibName: String?, bundle: Bundle?) {
+        self.navigator = navigator
+        super.init(nibName: nibName, bundle: bundle)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(self.loadingView)
@@ -66,5 +79,17 @@ class BaseViewController: UIViewController {
             view.endEditing(true)
             isEditingText = false
         }
+    }
+    
+    func moveLogin(with presenter: LoginPresenter) {
+        navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root, animated: false)
+    }
+    
+    func showNetworkErrorAlert() {
+        AppAlert.default.showNetworkError(self)
+    }
+    
+    func showSystemErrorAlert() {
+        AppAlert.default.showSystemErrorAlert(self)
     }
 }

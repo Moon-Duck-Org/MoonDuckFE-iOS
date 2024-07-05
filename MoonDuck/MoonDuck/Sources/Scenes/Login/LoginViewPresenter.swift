@@ -24,7 +24,7 @@ protocol LoginPresenter: AnyObject {
     func loginError()
 }
 
-final class LoginViewPresenter: Presenter, LoginPresenter {
+final class LoginViewPresenter: BaseViewPresenter, LoginPresenter {
     
     weak var view: LoginView?
     let model: UserModelType
@@ -50,7 +50,6 @@ extension LoginViewPresenter {
         }
         guard let id = result?.user.userID else {
             Log.error("userID is nil.")
-            self.view?.showToastMessage("구글 아이디가 없습니다.")
             loginError()
             return
         }
@@ -65,7 +64,6 @@ extension LoginViewPresenter {
     }
     
     func loginError() {
-        view?.updateLoadingView(isLoading: false)
         view?.showToastMessage(L10n.Localizable.LoginFailed.pleaseTryAgain)
     }
 }
@@ -161,13 +159,38 @@ extension LoginViewPresenter: UserModelDelegate {
         view?.moveHome(with: presenter)
     }
     
-    func userModel(_ model: UserModel, didRecieve error: UserModelError) {
+    func userModel(_ model: UserModel, didRecieve error: APIError?) {
         AuthManager.default.logout()
+        view?.updateLoadingView(isLoading: false)
+        
+        if let error {
+            if error.isNetworkError {
+                view?.showNetworkErrorAlert()
+                return
+            } else if error.isSystemError {
+                view?.showSystemErrorAlert()
+                return
+            }
+        }
+        
         loginError()
     }
     
-    func userModel(_ model: UserModel, didRecieve errorMessage: (any Error)?) {
+    func userModelDidFailLogin(_ model: UserModel) {
         AuthManager.default.logout()
+        view?.updateLoadingView(isLoading: false)
+        loginError()
+    }
+    
+    func userModelDidFailFetchingUser(_ model: UserModel) {
+        AuthManager.default.logout()
+        view?.updateLoadingView(isLoading: false)
+        loginError()
+    }
+    
+    func userModelDidAuthError(_ model: UserModel) {
+        AuthManager.default.logout()
+        view?.updateLoadingView(isLoading: false)
         loginError()
     }
 }

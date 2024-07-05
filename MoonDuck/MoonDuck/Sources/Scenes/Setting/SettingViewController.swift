@@ -19,9 +19,7 @@ protocol SettingView: BaseView {
     func moveAppVersion(with presenter: AppVersionPresenter)
 }
 
-class SettingViewController: BaseViewController, SettingView, Navigatable {
-    
-    var navigator: Navigator?
+class SettingViewController: BaseViewController, SettingView {
     private let presenter: SettingPresenter
     
     // @IBOutlet
@@ -51,9 +49,8 @@ class SettingViewController: BaseViewController, SettingView, Navigatable {
     
     init(navigator: Navigator,
          presenter: SettingPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: SettingViewController.className, bundle: Bundle(for: SettingViewController.self))
+        super.init(navigator: navigator, nibName: SettingViewController.className, bundle: Bundle(for: SettingViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {

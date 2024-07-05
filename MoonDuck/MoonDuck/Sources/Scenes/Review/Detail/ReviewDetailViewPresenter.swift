@@ -23,7 +23,7 @@ protocol ReviewDetailPresenter: AnyObject {
     // Action
 }
 
-class ReviewDetailViewPresenter: Presenter, ReviewDetailPresenter {
+class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     
     weak var view: ReviewDetailView?
     var model: ReviewModelType

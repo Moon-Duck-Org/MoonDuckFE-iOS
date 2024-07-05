@@ -17,10 +17,9 @@ protocol WebView: BaseView {
     // Navigation
 }
 
-class WebViewController: BaseViewController, WebView, Navigatable {
+class WebViewController: BaseViewController, WebView {
     
-    var navigator: Navigator?
-    let presenter: WebPresenter
+    private let presenter: WebPresenter
     
     // @IBOutlet
     @IBOutlet private weak var titleLabel: UILabel!
@@ -33,9 +32,8 @@ class WebViewController: BaseViewController, WebView, Navigatable {
     
     init(navigator: Navigator,
          presenter: WebPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: WebViewController.className, bundle: Bundle(for: WebViewController.self))
+        super.init(navigator: navigator, nibName: WebViewController.className, bundle: Bundle(for: WebViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {

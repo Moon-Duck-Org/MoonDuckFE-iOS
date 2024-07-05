@@ -25,7 +25,7 @@ protocol SettingPresenter: AnyObject {
     
 }
 
-class SettingViewPrsenter: Presenter, SettingPresenter {
+class SettingViewPrsenter: BaseViewPresenter, SettingPresenter {
     weak var view: SettingView?
     private let model: UserModelType
     

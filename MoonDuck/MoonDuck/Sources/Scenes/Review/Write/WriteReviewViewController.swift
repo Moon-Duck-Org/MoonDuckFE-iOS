@@ -22,9 +22,8 @@ protocol WriteReviewView: BaseView {
     func backToHome()
 }
 
-class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatable {
+class WriteReviewViewController: BaseViewController, WriteReviewView {
     
-    var navigator: Navigator?
     let presenter: WriteReviewPresenter
     private let imageDataSource: WriteImageDataSource
     
@@ -83,10 +82,9 @@ class WriteReviewViewController: BaseViewController, WriteReviewView, Navigatabl
     
     init(navigator: Navigator,
          presenter: WriteReviewPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
         self.imageDataSource = WriteImageDataSource(presenter: self.presenter)
-        super.init(nibName: WriteReviewViewController.className, bundle: Bundle(for: WriteReviewViewController.self))
+        super.init(navigator: navigator, nibName: WriteReviewViewController.className, bundle: Bundle(for: WriteReviewViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {

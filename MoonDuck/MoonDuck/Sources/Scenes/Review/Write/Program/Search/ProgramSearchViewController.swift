@@ -18,9 +18,8 @@ protocol ProgramSearchView: BaseView {
     func moveWriteReview(with presenter: WriteReviewViewPresenter)
 }
 
-class ProgramSearchViewController: BaseViewController, ProgramSearchView, Navigatable {
+class ProgramSearchViewController: BaseViewController, ProgramSearchView {
     
-    var navigator: Navigator?
     private let presenter: ProgramSearchPresenter
     private let searchDataSource: ProgramSearchDataSource
     
@@ -56,10 +55,9 @@ class ProgramSearchViewController: BaseViewController, ProgramSearchView, Naviga
     
     init(navigator: Navigator,
          presenter: ProgramSearchPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
         self.searchDataSource = ProgramSearchDataSource(presenter: self.presenter)
-        super.init(nibName: ProgramSearchViewController.className, bundle: Bundle(for: ProgramSearchViewController.self))
+        super.init(navigator: navigator, nibName: ProgramSearchViewController.className, bundle: Bundle(for: ProgramSearchViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {

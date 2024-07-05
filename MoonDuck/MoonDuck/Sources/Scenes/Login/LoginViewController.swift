@@ -19,9 +19,8 @@ protocol LoginView: BaseView {
     func moveHome(with presenter: HomePresenter)
 }
 
-class LoginViewController: BaseViewController, LoginView, Navigatable {
+class LoginViewController: BaseViewController, LoginView {
     
-    var navigator: Navigator?
     let presenter: LoginPresenter
     
     // IBAction
@@ -37,9 +36,8 @@ class LoginViewController: BaseViewController, LoginView, Navigatable {
     
     init(navigator: Navigator,
          presenter: LoginPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: LoginViewController.className, bundle: Bundle(for: LoginViewController.self))
+        super.init(navigator: navigator, nibName: LoginViewController.className, bundle: Bundle(for: LoginViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {

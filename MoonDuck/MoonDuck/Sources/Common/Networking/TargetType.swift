@@ -50,23 +50,32 @@ extension TargetType {
                 case .success(let decodedResponse):
                     completion(.success(decodedResponse))
                 case .failure(let error):
+                    if let httpResponse = response.response {
+                        completion(.failure(APIError(statusCode: httpResponse.statusCode)))
+                        return
+                    }
+                    
                     if let data = response.data {
                         do {
                             let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
                             let apiError = APIError(error: errorResponse)
                             completion(.failure(apiError))
                         } catch {
-                            completion(.failure(.decodingError))
+                            completion(.failure(.decoding))
                         }
                     } else {
-                        completion(.failure(.network(code: "\(error.responseCode ?? -99)", message: error.localizedDescription)))
+                        if let error = response.error {
+                            completion(.failure(APIError(error: error)))
+                        } else {
+                            completion(.failure(.unknown))
+                        }
                     }
                 }
             }
         } catch {
-            completion(.failure(.unowned))
+            completion(.failure(.unknown))
         }
-    } 
+    }
     
     // 멀티파트 폼 데이터 구성
     func asMultipartFormData() throws -> MultipartFormData {
@@ -112,22 +121,31 @@ extension TargetType {
                     case .success(let decodedResponse):
                         completion(.success(decodedResponse))
                     case .failure(let error):
+                        if let httpResponse = response.response {
+                            completion(.failure(APIError(statusCode: httpResponse.statusCode)))
+                            return
+                        }
+                        
                         if let data = response.data {
                             do {
                                 let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
                                 let apiError = APIError(error: errorResponse)
                                 completion(.failure(apiError))
                             } catch {
-                                completion(.failure(.decodingError))
+                                completion(.failure(.decoding))
                             }
                         } else {
-                            completion(.failure(.network(code: "\(error.responseCode ?? -99)", message: error.localizedDescription)))
+                            if let error = response.error {
+                                completion(.failure(APIError(error: error)))
+                            } else {
+                                completion(.failure(.unknown))
+                            }
                         }
                     }
                 }
-        } catch {
-            completion(.failure(.unowned))
-        }
+            } catch {
+                completion(.failure(.unknown))
+            }
     }
     
 }

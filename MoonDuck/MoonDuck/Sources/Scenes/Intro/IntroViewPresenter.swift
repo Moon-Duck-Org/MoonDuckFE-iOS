@@ -14,7 +14,7 @@ protocol IntroPresenter: AnyObject {
     func viewDidLoad()
 }
 
-class IntroViewPresenter: Presenter, IntroPresenter {
+class IntroViewPresenter: BaseViewPresenter, IntroPresenter {
     
     weak var view: IntroView?
     let model: UserModelType
@@ -63,6 +63,7 @@ extension IntroViewPresenter {
 
 // MARK: - UserModelDelegate
 extension IntroViewPresenter: UserModelDelegate {
+    
     func userModel(_ model: UserModel, didChange user: User) {
         // User 정보 조회 성공 -> 홈 이동
         let cateogryModel = CategoryModel()
@@ -75,12 +76,22 @@ extension IntroViewPresenter: UserModelDelegate {
         }
     }
     
-    func userModel(_ model: UserModel, didRecieve errorMessage: Error?) {
+    func userModel(_ model: UserModel, didRecieve error: APIError?) {
         AuthManager.default.logout()
         moveLogin()
     }
     
-    func userModel(_ model: UserModel, didRecieve error: UserModelError) {
+    func userModelDidFailLogin(_ model: UserModel) {
+        AuthManager.default.logout()
+        moveLogin()
+    }
+    
+    func userModelDidFailFetchingUser(_ model: UserModel) {
+        AuthManager.default.logout()
+        moveLogin()
+    }
+    
+    func userModelDidAuthError(_ model: UserModel) {
         AuthManager.default.logout()
         moveLogin()
     }

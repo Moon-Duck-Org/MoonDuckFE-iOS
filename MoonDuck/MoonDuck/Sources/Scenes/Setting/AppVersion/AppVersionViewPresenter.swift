@@ -15,7 +15,7 @@ protocol AppVersionPresenter: AnyObject {
     
     // Action
 }
-class AppVersionViewPresenter: Presenter, AppVersionPresenter {
+class AppVersionViewPresenter: BaseViewPresenter, AppVersionPresenter {
     weak var view: AppVersionView?
 }
 

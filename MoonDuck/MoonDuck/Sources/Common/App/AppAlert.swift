@@ -34,6 +34,39 @@ class AppAlert {
         }
         
     }
+    
+    func showNetworkError(_ viewController: UIViewController) {
+        showError(viewController, message: "네트워크 연결 상태를 확인해주세요.")
+    }
+    
+    func showSystemErrorAlert(_ viewController: UIViewController) {
+        showError(viewController, message: "시스템 오류")
+    }
+    
+    private func showError(_ viewController: UIViewController,
+                           title: String? = "",
+                           message: String? = "",
+                           doneTitle: String? = "확인",
+                           doneHandler: (() -> Void)? = nil) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            
+            let doneAction = UIAlertAction(title: doneTitle, style: .default) { _ in
+                alert.dismiss(animated: true)
+                doneHandler?()
+            }
+            alert.addAction(doneAction)
+            
+            viewController.present(alert, animated: true)
+        }
+    }
+//
+//    func showNetworkError(_ viewController: UIViewController,
+//                          title: String? = "",
+//                          message: String? = "",
+//                          cancelTitle: String = ) {
+//        
+//    }
 //
 //    func showAlert(_ viewController: UIViewController,
 //                   style: AlertStyle = .defualtTwoButton,

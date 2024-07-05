@@ -16,9 +16,8 @@ protocol SelectProgramView: AnyObject {
     func moveProgramSearch(with presenter: ProgramSearchPresenter)
 }
 
-class SelectProgramViewController: BaseViewController, SelectProgramView, Navigatable {
+class SelectProgramViewController: BaseViewController, SelectProgramView {
     
-    var navigator: Navigator?
     let presenter: SelectProgramPresenter
     private let categoryDataSource: SelectCategoryDataSource
     
@@ -39,10 +38,9 @@ class SelectProgramViewController: BaseViewController, SelectProgramView, Naviga
     
     init(navigator: Navigator,
          presenter: SelectProgramPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
         self.categoryDataSource = SelectCategoryDataSource(presenter: self.presenter)
-        super.init(nibName: SelectProgramViewController.className, bundle: Bundle(for: SelectProgramViewController.self))
+        super.init(navigator: navigator, nibName: SelectProgramViewController.className, bundle: Bundle(for: SelectProgramViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {

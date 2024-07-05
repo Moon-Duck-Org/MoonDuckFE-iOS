@@ -15,8 +15,7 @@ protocol WithdrawView: BaseView {
     func moveIntro(with presenter: IntroPresenter)
 }
 
-class WithdrawViewController: BaseViewController, WithdrawView, Navigatable {
-    var navigator: Navigator?
+class WithdrawViewController: BaseViewController, WithdrawView {
     private let presenter: WithdrawPresenter
     
     // @IBOutlet
@@ -35,9 +34,8 @@ class WithdrawViewController: BaseViewController, WithdrawView, Navigatable {
     
     init(navigator: Navigator,
          presenter: WithdrawPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: WithdrawViewController.className, bundle: Bundle(for: WithdrawViewController.self))
+        super.init(navigator: navigator, nibName: WithdrawViewController.className, bundle: Bundle(for: WithdrawViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {

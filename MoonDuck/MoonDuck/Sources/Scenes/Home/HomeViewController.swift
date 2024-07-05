@@ -25,8 +25,7 @@ protocol HomeView: BaseView {
     func popToSelf()
 }
 
-class HomeViewController: BaseViewController, HomeView, Navigatable {
-    var navigator: Navigator?
+class HomeViewController: BaseViewController, HomeView {
     let presenter: HomePresenter
     
     private let categoryDataSource: HomeCategoryDataSource
@@ -56,14 +55,13 @@ class HomeViewController: BaseViewController, HomeView, Navigatable {
             self.presenter.writeNewReviewButtonTapped()
         }
     }
-        
+    
     init(navigator: Navigator,
          presenter: HomePresenter) {
-        self.navigator = navigator
         self.presenter = presenter
         self.categoryDataSource = HomeCategoryDataSource(presenter: self.presenter)
         self.reviewDataSource = HomeReviewDataSource(presenter: self.presenter)
-        super.init(nibName: HomeViewController.className, bundle: Bundle(for: HomeViewController.self))
+        super.init(navigator: navigator, nibName: HomeViewController.className, bundle: Bundle(for: HomeViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {

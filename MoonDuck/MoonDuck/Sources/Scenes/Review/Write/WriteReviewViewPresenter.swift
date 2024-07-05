@@ -44,7 +44,7 @@ protocol WriteReviewPresenter: AnyObject {
     func textViewDidBeginEditing(_ text: String?)
 }
 
-class WriteReviewViewPresenter: Presenter, WriteReviewPresenter {
+class WriteReviewViewPresenter: BaseViewPresenter, WriteReviewPresenter {
     
     weak var view: WriteReviewView?
     private var model: WriteReviewModelType

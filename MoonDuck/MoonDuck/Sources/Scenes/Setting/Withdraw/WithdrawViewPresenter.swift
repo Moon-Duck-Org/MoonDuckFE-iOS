@@ -16,7 +16,7 @@ protocol WithdrawPresenter: AnyObject {
     // Action
 }
 
-class WithdrawViewPresenter: Presenter, WithdrawPresenter {
+class WithdrawViewPresenter: BaseViewPresenter, WithdrawPresenter {
     weak var view: WithdrawView?
     private let model: UserModelType
     

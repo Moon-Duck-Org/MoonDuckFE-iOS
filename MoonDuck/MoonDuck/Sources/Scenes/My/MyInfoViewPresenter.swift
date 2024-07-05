@@ -19,7 +19,7 @@ protocol MyInfoPresenter: AnyObject {
     func settingButtonTapped()
 }
 
-class MyInfoViewPresenter: Presenter, MyInfoPresenter {
+class MyInfoViewPresenter: BaseViewPresenter, MyInfoPresenter {
     weak var view: MyInfoView?
     private let model: UserModelType
     

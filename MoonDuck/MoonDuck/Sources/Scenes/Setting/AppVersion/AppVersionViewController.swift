@@ -15,8 +15,7 @@ protocol AppVersionView: BaseView {
     // Navigation
 }
 
-class AppVersionViewController: BaseViewController, AppVersionView, Navigatable {
-    var navigator: Navigator?
+class AppVersionViewController: BaseViewController, AppVersionView {
     private let presenter: AppVersionPresenter
     
     // @IBOutlet
@@ -34,9 +33,8 @@ class AppVersionViewController: BaseViewController, AppVersionView, Navigatable 
     
     init(navigator: Navigator,
          presenter: AppVersionPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: AppVersionViewController.className, bundle: Bundle(for: AppVersionViewController.self))
+        super.init(navigator: navigator, nibName: AppVersionViewController.className, bundle: Bundle(for: AppVersionViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {

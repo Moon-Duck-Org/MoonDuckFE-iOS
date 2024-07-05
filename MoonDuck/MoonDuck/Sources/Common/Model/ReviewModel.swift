@@ -74,14 +74,14 @@ extension ReviewModel {
                                 self.reviewDetail(with: reviewId)
                             } else {
                                 Log.error("Refresh Token Error \(code)")
-                                self.delegate?.reviewModel(self, didRecieve: .unowned)
+                                self.delegate?.reviewModel(self, didRecieve: .unknown)
                             }
                         }
                         return
                     }
                 }
                 Log.error(failed?.localizedDescription ?? "Get Review Error")
-                self.delegate?.reviewModel(self, didRecieve: .unowned)
+                self.delegate?.reviewModel(self, didRecieve: .unknown)
             }
         }
     }

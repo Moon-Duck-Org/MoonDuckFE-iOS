@@ -22,3 +22,7 @@
 
 // 로그인
 "Login failed. Please try again." = "로그인에 실패하였습니다. 다시 시도해주세요.";
+
+// 네트워크 오류
+"Please check your network connection" = "네트워크 연결 상태를 확인해주세요.";
+"We are working to resolve a system error. Please check back later." = "시스템 오류를 해결하기 위해 노력중이에요. 잠시 후에 다시 확인해주세요.";

@@ -17,9 +17,8 @@ protocol ReviewDetailView: BaseView {
     func popToSelf()
 }
 
-class ReviewDetailViewController: BaseViewController, ReviewDetailView, Navigatable {
+class ReviewDetailViewController: BaseViewController, ReviewDetailView {
     
-    var navigator: Navigator?
     let presenter: ReviewDetailPresenter
     private var imageDataSource: ReviewImageDataSource?
     private var linkButtonHandler: (() -> Void)?
@@ -60,10 +59,8 @@ class ReviewDetailViewController: BaseViewController, ReviewDetailView, Navigata
     
     init(navigator: Navigator,
          presenter: ReviewDetailPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: ReviewDetailViewController.className, bundle: Bundle(for: ReviewDetailViewController.self))
-        
+        super.init(navigator: navigator, nibName: ReviewDetailViewController.className, bundle: Bundle(for: ReviewDetailViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {

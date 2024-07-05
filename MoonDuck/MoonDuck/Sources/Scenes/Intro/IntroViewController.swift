@@ -9,21 +9,17 @@ import UIKit
 
 protocol IntroView: BaseView {
     // Navigation
-    func moveLogin(with presenter: LoginPresenter)
     func moveNameSetting(with presenter: NicknameSettingPresenter)
     func moveHome(with presenter: HomePresenter)
 }
 
-class IntroViewController: BaseViewController, IntroView, Navigatable {
-    
-    var navigator: Navigator?
+class IntroViewController: BaseViewController, IntroView {
     let presenter: IntroPresenter
     
     init(navigator: Navigator,
          presenter: IntroPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: IntroViewController.className, bundle: Bundle(for: IntroViewController.self))
+        super.init(navigator: navigator, nibName: IntroViewController.className, bundle: Bundle(for: IntroViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,10 +36,6 @@ class IntroViewController: BaseViewController, IntroView, Navigatable {
 
 // MARK: - Navigation
 extension IntroViewController {
-    func moveLogin(with presenter: LoginPresenter) {
-        navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root, animated: false)
-    }
-    
     func moveNameSetting(with presenter: NicknameSettingPresenter) {
         navigator?.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root, animated: false)
     }

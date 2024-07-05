@@ -17,13 +17,11 @@ protocol NicknameSettingView: BaseView {
     
     // Navigation
     func dismiss()
-    func moveLogin(with presenter: LoginPresenter)
     func moveHome(with presenter: HomePresenter)
 }
 
-class NicknameSettingViewController: BaseViewController, NicknameSettingView, Navigatable {
+class NicknameSettingViewController: BaseViewController, NicknameSettingView {
     
-    var navigator: Navigator?
     let presenter: NicknameSettingPresenter
     
     // @IBOutlet
@@ -50,9 +48,8 @@ class NicknameSettingViewController: BaseViewController, NicknameSettingView, Na
     
     init(navigator: Navigator,
          presenter: NicknameSettingPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: NicknameSettingViewController.className, bundle: Bundle(for: NicknameSettingViewController.self))
+        super.init(navigator: navigator, nibName: NicknameSettingViewController.className, bundle: Bundle(for: NicknameSettingViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -119,10 +116,6 @@ extension NicknameSettingViewController: UITextFieldDelegate {
 extension NicknameSettingViewController {
     func dismiss() {
         dismiss(animated: true)
-    }
-    
-    func moveLogin(with presenter: LoginPresenter) {
-        navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
     
     func moveHome(with presenter: HomePresenter) {

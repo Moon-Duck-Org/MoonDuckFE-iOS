@@ -8,7 +8,8 @@
 import Foundation
 
 enum APIError: Error, Equatable, LocalizedError {
-    case network(code: String?, message: String?)
+    // API ERROR
+    case error(code: String?, message: String?)
     case expiredToken(_ message: String?)
     case invalidToken(_ message: String?)
     case missingToken(_ message: String?)
@@ -17,14 +18,20 @@ enum APIError: Error, Equatable, LocalizedError {
     case invalidFilterCondition(_ message: String?)
     case nonExistentReview(_ message: String?)
     case invalidProgram(_ message: String?)
-    case fileProcessingError(_ message: String?)
-    case decodingError
-    case unowned
+    case fileProcessing(_ message: String?)
+    case imageSizeLimitExceeded(_ message: String?)
+
+    // ERROR
+    case network
+    case client
+    case server
+    case decoding
+    case unknown
         
     var errorDescription: String? {
         switch self {
-        case let .network(code, message):
-            return "ErrorCode: \(code ?? "-99") - Message: \(message ?? "error")"
+        case let .error(code, message):
+            return "ErrorCode: \(code ?? "-99") | Message: \(message ?? "unknown")"
         case let .expiredToken(message):
             return message
         case let .invalidToken(message):
@@ -33,26 +40,41 @@ enum APIError: Error, Equatable, LocalizedError {
             return message
         case let .missingUser(message):
             return message
-        case let .duplicateNickname(message):
-            return message
         case let .invalidFilterCondition(message):
             return message
         case let .nonExistentReview(message):
             return message
         case let .invalidProgram(message):
             return message
-        case let .fileProcessingError(message):
+        case let .fileProcessing(message):
             return message
-        case .decodingError:
-            return "디코딩 에러 발생"
-        case .unowned:
-            return "알 수 없는 에러 발생"
+        case let .imageSizeLimitExceeded(message):
+            return message
+        case let .duplicateNickname(message):
+            return message
+            
+        case .network:
+            return "네트워크 오류 발생"
+        case .client:
+            return "클라이언트 오류 발생"
+        case .server:
+            return "서버 오류 발생"
+        case .decoding:
+            return "디코딩 오류 발생"
+        case .unknown:
+            return "알 수 없는 오류 발생"
         }
     }
     
     var isNetworkError: Bool {
         switch self {
-        case .network, .decodingError, .unowned: return true
+        case .network: return true
+        default: return false
+        }
+    }
+    var isSystemError: Bool {
+        switch self {
+        case .client, .server, .decoding, .unknown: return true
         default: return false
         }
     }
@@ -71,20 +93,22 @@ enum APIError: Error, Equatable, LocalizedError {
         }
     }
     
-    var duplicateNickname: Bool {
-        switch self {
-        case .duplicateNickname: return true
-        default: return false
-        }
-    }
-    
     var isReviewError: Bool {
         switch self {
-        case .nonExistentReview, .invalidFilterCondition, .fileProcessingError, .invalidProgram: return true
+        case .nonExistentReview, .invalidFilterCondition, .fileProcessing, .invalidProgram, .imageSizeLimitExceeded: return true
         default: return false
         }
     }
     
+    var duplicateNickname: Bool {
+        switch self {
+        case .duplicateNickname:
+            return true
+        default: return false
+        }
+    }
+    
+    // swiftlint:disable cyclomatic_complexity
     init(error: ErrorEntity) {
         switch error.code {
             // 토큰이 존재하지 않음
@@ -102,10 +126,35 @@ enum APIError: Error, Equatable, LocalizedError {
             // 잘못된 필터 조건
         case "BO003": self = .invalidFilterCondition(error.message)
             // 파일 처리 중 오류
-        case "BO004": self = .fileProcessingError(error.message)
+        case "BO004": self = .fileProcessing(error.message)
             // 유효하지 않은 프로그램
         case "BO005": self = .invalidProgram(error.message)
-        default: self = .network(code: error.code, message: error.message)
+            // 이미지 용량 초과
+        case "BO006": self = .imageSizeLimitExceeded(error.message)
+        default: self = .error(code: error.code, message: error.message)
+        }
+    }
+    // swiftlint:enable cyclomatic_complexity
+    
+    init(statusCode: Int) {
+        switch statusCode {
+        case 400..<500:
+            self = .client
+        case 500..<600:
+            self = .server
+        default: self = .unknown
+        }
+    }
+    
+    init(error: Error) {
+        if let urlError = error as? URLError {
+            switch urlError.code {
+            case .timedOut, .cannotFindHost, .cannotConnectToHost, .networkConnectionLost, .dnsLookupFailed, .notConnectedToInternet, .secureConnectionFailed:
+                self = .network
+            default: self = .error(code: "\(urlError.errorCode)", message: "\(urlError.localizedDescription)")
+            }
+        } else {
+            self = .error(code: "-99", message: "\(error.localizedDescription)")
         }
     }
 }

@@ -51,7 +51,7 @@ class WriteReviewModel: WriteReviewModelType {
     // MARK: - Networking
     func putReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?) {
         guard let review else {
-            self.delegate?.writeReviewModel(self, didRecieve: .unowned)
+            self.delegate?.writeReviewModel(self, didRecieve: .unknown)
             return
         }
         
@@ -81,7 +81,7 @@ class WriteReviewModel: WriteReviewModelType {
                         return
                     }
                 }
-                Log.error(APIError.unowned)
+                Log.error(APIError.unknown)
                 self.delegate?.writeReviewModel(self, didRecieve: failed)
             }
         }
@@ -89,7 +89,7 @@ class WriteReviewModel: WriteReviewModelType {
     
     func postReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?) {
         guard let program else { 
-            self.delegate?.writeReviewModel(self, didRecieve: .unowned)
+            self.delegate?.writeReviewModel(self, didRecieve: .unknown)
             return
         }
         
@@ -119,7 +119,7 @@ class WriteReviewModel: WriteReviewModelType {
                         return
                     }
                 }
-                Log.error(APIError.unowned)
+                Log.error(APIError.unknown)
                 self.delegate?.writeReviewModel(self, didRecieve: failed)
             }
         }

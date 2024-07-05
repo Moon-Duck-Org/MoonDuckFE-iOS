@@ -15,14 +15,12 @@ protocol MyInfoView: BaseView {
     // Navigation
     func dismiss()
     func presentNameSetting(with presenter: NicknameSettingPresenter)
-    func moveLogin(with presenter: LoginPresenter)
     func moveSetting(with presenter: SettingPresenter)
 }
 
-class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
+class MyInfoViewController: BaseViewController, MyInfoView {
     
-    var navigator: Navigator?
-    let presenter: MyInfoPresenter
+    private let presenter: MyInfoPresenter
     
     // @IBOutlet
     @IBOutlet private weak var nameLabel: UILabel!
@@ -58,12 +56,11 @@ class MyInfoViewController: BaseViewController, MyInfoView, Navigatable {
                 self?.presenter.logoutButtonTapped()
             })
     }
-        
+    
     init(navigator: Navigator,
          presenter: MyInfoPresenter) {
-        self.navigator = navigator
         self.presenter = presenter
-        super.init(nibName: MyInfoViewController.className, bundle: Bundle(for: MyInfoViewController.self))
+        super.init(navigator: navigator, nibName: MyInfoViewController.className, bundle: Bundle(for: MyInfoViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -104,10 +101,6 @@ extension MyInfoViewController {
     
     func presentNameSetting(with presenter: NicknameSettingPresenter) {
         navigator?.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .modal)
-    }
-    
-    func moveLogin(with presenter: LoginPresenter) {
-        navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
     }
     
     func moveSetting(with presenter: SettingPresenter) {
