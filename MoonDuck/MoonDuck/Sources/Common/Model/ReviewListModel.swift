@@ -11,8 +11,9 @@ protocol ReviewListModelDelegate: AnyObject {
     func reviewListModel(_ model: ReviewListModelType, didSuccess list: ReviewList)
     func reviewListModel(_ model: ReviewListModelType, didAync list: ReviewList)
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review)
-    func reviewListDidFailReviewList(_ model: ReviewListModelType)
-    func reviewListDidLastReviewList(_ model: ReviewListModelType)
+    func reviewListDidFail(_ model: ReviewListModelType)
+    func reviewListDidLast(_ model: ReviewListModelType)
+    func reviewListDidFailDeleteReview(_ model: ReviewListModelType)
     func reviewListModel(_ model: ReviewListModelType, didRecieve error: APIError?)
 }
 
@@ -112,7 +113,7 @@ extension ReviewListModel {
         
         if let list = reviewList(with: category) {
             if list.isLast {
-                self.delegate?.reviewListDidLastReviewList(self)
+                self.delegate?.reviewListDidLast(self)
                 return
             }
             offset = list.currentPage + 1
@@ -155,7 +156,7 @@ extension ReviewListModel {
                 // 오류 발생
                 if let code = failed {
                     if code.isReviewError {
-                        self.delegate?.reviewListDidFailReviewList(self)
+                        self.delegate?.reviewListDidFail(self)
                         return
                     } else if code.needsTokenRefresh {
                         AuthManager.default.refreshToken { [weak self] success, error in
@@ -251,7 +252,7 @@ extension ReviewListModel {
                     } else if code.needsTokenRefresh {
                         AuthManager.default.refreshToken { [weak self] success, error in
                             guard let self else { return }
-                            if let error {
+                            if error != nil {
                                 return
                             }
                             if success {
@@ -294,7 +295,7 @@ extension ReviewListModel {
                     } else if code.needsTokenRefresh {
                         AuthManager.default.refreshToken { [weak self] success, error in
                             guard let self else { return }
-                            if let error {
+                            if error != nil {
                                 return
                             }
                             if success {
@@ -317,7 +318,11 @@ extension ReviewListModel {
         provider.reviewService.deleteReview(request: request) { [weak self] succeed, failed in
             guard let self else { return }
             if let succeed {
-                self.delegate?.reviewListModel(self, didDelete: review)
+                if succeed {
+                    self.delegate?.reviewListModel(self, didDelete: review)
+                } else {
+                    self.delegate?.reviewListDidFailDeleteReview(self)
+                }
             } else {
                 // 오류 발생
                 if let code = failed {

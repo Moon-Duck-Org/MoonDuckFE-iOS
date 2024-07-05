@@ -246,7 +246,6 @@ extension HomeViewPresenter: SortModelDelegate {
 
 // MARK: - ReviewListModelDelegate
 extension HomeViewPresenter: ReviewListModelDelegate {
-    
     func reviewListModel(_ model: ReviewListModelType, didSuccess list: ReviewList) {
         view?.updateLoadingView(isLoading: false)
         
@@ -275,7 +274,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
                 return
             }
         }
-        view?.showToastMessage("기록을 불러오는데 실패했습니다. 다시 시도해주세요.")
+        view?.showToastMessage("기록 불러오기를 실패했어요. 다시 시도해주세요.")
     }
     
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
@@ -294,12 +293,16 @@ extension HomeViewPresenter: ReviewListModelDelegate {
         updateData(with: list)
     }
     
-    func reviewListDidFailReviewList(_ model: ReviewListModelType) {
-        view?.showToastMessage("기록을 불러오는데 실패했습니다. 다시 시도해주세요.")
+    func reviewListDidFail(_ model: ReviewListModelType) {
+        view?.showToastMessage("기록 불러오기를 실패했어요. 다시 시도해주세요.")
     }
     
-    func reviewListDidLastReviewList(_ model: ReviewListModelType) {
+    func reviewListDidLast(_ model: ReviewListModelType) {
         
+    }
+    
+    func reviewListDidFailDeleteReview(_ model: ReviewListModelType) {
+        view?.showToastMessage("기록 삭제를 실패했어요. 다시 시도해주세요.")
     }
 }
 
