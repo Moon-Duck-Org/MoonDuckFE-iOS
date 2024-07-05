@@ -102,6 +102,23 @@ struct SearchConcertResponse: Codable {
     }
 }
 
+struct SearchConcertResponseError: Codable {
+    var result: Result
+    
+    enum CodingKeys: String, CodingKey {
+        case result = "RESULT"
+    }
+    
+    struct Result: Codable {
+        var message: String
+        var code: String
+        
+        enum CodingKeys: String, CodingKey {
+            case code = "CODE"
+            case message = "MESSAGE"
+        }
+    }
+}
 // - deleted code : 이전 Open API에 사용된 XML Parser
 // struct SearchConcertResponse {
 //    enum TagType: String {

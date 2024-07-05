@@ -55,6 +55,18 @@ class ProgramSearchService {
                     let concertList = response.culturalEventInfo.row.map { $0.toDomain() }
                     completion(concertList, nil)
                 case .failure(let error):
+                    if let data = response.data {
+                        do {
+                            let errorResponse = try JSONDecoder().decode(SearchConcertResponseError.self, from: data)
+                            if errorResponse.result.code == "INFO-200" {
+                                completion([], nil)
+                                return
+                            }
+                        } catch {
+                            completion(nil, error)
+                            return
+                        }
+                    }
                     completion(nil, error)
                 }
             }
