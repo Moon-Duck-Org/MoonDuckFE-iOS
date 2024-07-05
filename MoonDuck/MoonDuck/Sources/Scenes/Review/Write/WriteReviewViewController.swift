@@ -282,21 +282,24 @@ extension WriteReviewViewController: PHPickerViewControllerDelegate, UIImagePick
         picker.dismiss(animated: true, completion: nil)
         let group = DispatchGroup()
         
+        var selectedImages: [UIImage] = []
+        var exceededImagesCount: Int = 0
         for result in results {
             group.enter()
             if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
-                result.itemProvider.loadDataRepresentation(forTypeIdentifier: "public.jpeg") { [weak self] data, error in
+                result.itemProvider.loadDataRepresentation(forTypeIdentifier: "public.jpeg") { data, error in
                     defer { group.leave() }
                     if let data = data {
                         let sizeInMB = Double(data.count) / (1024.0 * 1024.0)
                         Log.debug("Image size in MB: \(sizeInMB)")
                         
                         if sizeInMB <= 10, let image = UIImage(data: data) {
-                            self?.presenter.selectImages([image])
+                            selectedImages.append(image)
                         } else {
-                            self?.showToastMessage("10메가 이하의 이미지만 첨부 가능해요.")
+                            exceededImagesCount += 1
                         }
                     } else if let error = error {
+                        exceededImagesCount += 1
                         Log.error("Error loading image data: \(error.localizedDescription)")
                     }
                 }
@@ -306,7 +309,8 @@ extension WriteReviewViewController: PHPickerViewControllerDelegate, UIImagePick
         }
         
         group.notify(queue: .main) {
-//            self.collectionView.reloadData()
+            self.presenter.selectImages(selectedImages)
+            self.presenter.exceededImagesCount(exceededImagesCount)
         }
     }
     

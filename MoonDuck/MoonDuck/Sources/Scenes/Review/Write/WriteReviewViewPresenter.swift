@@ -30,6 +30,7 @@ protocol WriteReviewPresenter: AnyObject {
     func saveButtonTapped()
     func ratingButtonTapped(at tag: Int)
     func selectImages(_ images: [UIImage])
+    func exceededImagesCount(_ count: Int)
     func selectImage(at index: Int)
     
     // TextField Delegate
@@ -189,6 +190,12 @@ extension WriteReviewViewPresenter {
         self.images.append(contentsOf: images)
     }
     
+    func exceededImagesCount(_ count: Int) {
+        if count > 0 {
+            view?.showExceedeImageSizeAlert("용량이 크거나 확장자가 부적절한 \(count)개의 사진은 처리되지 않았어요.")
+        }
+    }
+    
     func selectImage(at index: Int) {
         if index < images.count {
             // TODO: - 크게 보기 연동?
@@ -280,16 +287,16 @@ extension WriteReviewViewPresenter: WriteReviewModelDelegate {
                 return
             }
         }
-        view?.showToastMessage("기록 작성에 실패했습니다. 다시 시도해주세요.")
+        view?.showToastMessage("기록 작성을 실패했습니다. 다시 시도해주세요.")
     }
     
     func writeReviewDidFailSaveReview(_ model: WriteReviewModelType) {
         view?.updateLoadingView(isLoading: false)
-        view?.showToastMessage("기록 작성에 실패했습니다. 다시 시도해주세요.")
+        view?.showToastMessage("기록 작성을 실패했습니다. 다시 시도해주세요.")
     }
     
     func writeReviewDidExceedeImageSize(_ model: WriteReviewModelType) {
         view?.updateLoadingView(isLoading: false)
-        view?.showExceedeImageSizeAlert("이미지 용량을 초과하였습니다.\n다시 시도해주세요.")
+        view?.showExceedeImageSizeAlert("이미지 용량을 초과했습니다.\n다시 시도해주세요.")
     }
 }
