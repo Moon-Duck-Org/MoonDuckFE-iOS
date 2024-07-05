@@ -71,7 +71,6 @@ class APIEventLogger: EventMonitor {
         url: \(urlStr)
         body: \(bodyString)
         response: \(responseString)
-        result: \(result)
         --------------------------------
         """
         Log.network(message)

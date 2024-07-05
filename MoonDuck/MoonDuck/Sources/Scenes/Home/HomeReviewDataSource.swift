@@ -47,7 +47,7 @@ extension HomeReviewDataSource: UITableViewDelegate {
     }
 }
 
-// MARK: - UITableViewDelegate
+// MARK: - UITableViewDataSourcePrefetching
 extension HomeReviewDataSource: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         // 셀이 prefetch 되었을 때 호출되는 메서드

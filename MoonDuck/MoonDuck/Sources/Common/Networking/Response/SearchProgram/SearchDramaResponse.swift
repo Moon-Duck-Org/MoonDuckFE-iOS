@@ -11,6 +11,13 @@ struct SearchDramaResponse: Codable {
     let page: Int
     let results: [ResultItem]
     
+//    func toDomain() -> ProgramList {
+//        let programs = results.map { $0.toDomain() }
+//        return ProgramList(category: .drama,
+//                           currentPage: page,
+//                           programs: programs)
+//    }
+    
     struct ResultItem: Codable {
         let adult: Bool?
         let backdropPath: String?

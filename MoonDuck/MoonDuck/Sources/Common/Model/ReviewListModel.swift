@@ -37,11 +37,13 @@ protocol ReviewListModelType: AnyObject {
 class ReviewListModel: ReviewListModelType {
     
     struct Config {
-        let defaultSize: Int = 10
+        let defaultSize: Int = 30
     }
     
     private let config: Config = Config()
     private let provider: AppServices
+    private var isLoading: Bool = false
+    private var reviewLists: [ReviewList] = []
     
     init(_ provider: AppServices) {
         self.provider = provider
@@ -49,9 +51,6 @@ class ReviewListModel: ReviewListModelType {
     
     // MARK: - Data
     weak var delegate: ReviewListModelDelegate?
-    
-    private var isLoading: Bool = false
-    private var reviewLists: [ReviewList] = []
     
     func numberOfReviews(with category: Category) -> Int {
         return reviews(with: category).count

@@ -15,6 +15,13 @@ struct SearchConcertResponse: Codable {
         var result: Result
         var row: [Row]
         
+//        func toDomain() -> ProgramList {
+//            let programs = row.map { $0.toDomain() }
+//            return ProgramList(category: .concert,
+//                               totalElements: listTotalCount,
+//                               programs: programs)
+//        }
+        
         enum CodingKeys: String, CodingKey {
             case row
             case listTotalCount = "list_total_count"

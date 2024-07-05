@@ -95,4 +95,21 @@ enum Category: String {
             return ""
         }
     }
+    
+    var searchSize: Int {
+        switch self {
+        case .all:
+            return 0
+        case .movie:
+            return 100
+        case .book:
+            return 100
+        case .drama:
+            return 30
+        case .concert:
+            return 1000
+        case .none:
+            return 0
+        }
+    }
 }

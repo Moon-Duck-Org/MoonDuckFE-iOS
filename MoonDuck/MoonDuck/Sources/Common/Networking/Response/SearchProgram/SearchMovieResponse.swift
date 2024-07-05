@@ -15,6 +15,12 @@ struct SearchMovieResponse: Codable {
         let source: String
         let movieList: [Movie]
         
+//        func toDomain() -> ProgramList {
+//            let programs = movieList.map { $0.toDomain() }
+//            return ProgramList(category: .movie,
+//                               totalElements: totCnt,
+//                               programs: programs)
+//        }
     }
     
     struct Movie: Codable {

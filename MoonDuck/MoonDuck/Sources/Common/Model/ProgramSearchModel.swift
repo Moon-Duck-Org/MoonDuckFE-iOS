@@ -17,21 +17,21 @@ protocol ProgramSearchModelType: AnyObject {
     var delegate: ProgramSearchModelDelegate? { get set }
     var category: Category { get }
     var lastSearchText: String { get }
+    var isLastPrograms: Bool { get }
     var numberOfPrograms: Int { get }
     var programs: [Program] { get }
     
     // Networking
     func search(_ text: String)
+    func searchNext()
 }
 
 class ProgramSearchModel: ProgramSearchModelType {
     
     private let provider: AppServices
+    private var isLoading: Bool = false
     
     private var currentPage: Int = 1
-    private var itemPerPage: Int = 30
-    
-    var lastSearchText: String = ""
     
     init(_ provider: AppServices,
          category: Category) {
@@ -42,6 +42,8 @@ class ProgramSearchModel: ProgramSearchModelType {
     // MARK: - Data
     weak var delegate: ProgramSearchModelDelegate?
     var category: Category
+    var lastSearchText: String = ""
+    var isLastPrograms: Bool = false
     
     var numberOfPrograms: Int {
         return programs.count
@@ -54,12 +56,11 @@ class ProgramSearchModel: ProgramSearchModelType {
     }
     
     // MARK: - Logic
-    private func save(_ programs: [Program]) {
-        self.programs = programs
-    }
     
     // MARK: - Networking
     func search(_ text: String) {
+        currentPage = 1
+        programs.removeAll()
         switch category {
         case .movie:
             searchMovie(text)
@@ -74,14 +75,35 @@ class ProgramSearchModel: ProgramSearchModelType {
         }
     }
     
-    func searchConcert(_ concert: String) {
+    func searchNext() {
+        currentPage += 1
+        switch category {
+        case .movie:
+            searchMovie(lastSearchText)
+        case .book:
+            searchBook(lastSearchText)
+        case .drama:
+            searchDrama(lastSearchText)
+        case .concert:
+            searchConcert(lastSearchText)
+        default:
+            delegate?.programSearchModel(self, didRecieve: nil)
+        }
+    }
+    
+    private func searchConcert(_ concert: String) {
         lastSearchText = concert
-        let request = SearchConcertRequest(startIndex: currentPage, endIndex: itemPerPage, title: concert)
+        let request = SearchConcertRequest(startIndex: currentPage, endIndex: category.searchSize, title: concert)
         provider.programSearchService.concert(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-                self.save(succeed)
+                if succeed.isEmpty {
+                    self.isLastPrograms = true
+                } else {
+                    self.isLastPrograms = succeed.count < category.searchSize
+                    self.programs.append(contentsOf: succeed)
+                }
             } else {
                 // 오류 발생
                 self.delegate?.programSearchModel(self, didRecieve: failed)
@@ -89,14 +111,19 @@ class ProgramSearchModel: ProgramSearchModelType {
         }
     }
     
-    func searchDrama(_ drama: String) {
+    private func searchDrama(_ drama: String) {
         lastSearchText = drama
         let request = SearchDramaRequest(query: drama, page: currentPage)
         provider.programSearchService.drama(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-                self.save(succeed)
+                if succeed.isEmpty {
+                    self.isLastPrograms = true
+                } else {
+                    self.isLastPrograms = succeed.count < category.searchSize
+                    self.programs.append(contentsOf: succeed)
+                }
             } else {
                 // 오류 발생
                 self.delegate?.programSearchModel(self, didRecieve: failed)
@@ -104,14 +131,19 @@ class ProgramSearchModel: ProgramSearchModelType {
         }
     }
     
-    func searchBook(_ book: String) {
+    private func searchBook(_ book: String) {
         lastSearchText = book
-        let request = SearchBookRequest(query: book, display: itemPerPage, start: currentPage)
+        let request = SearchBookRequest(query: book, display: category.searchSize, start: currentPage)
         provider.programSearchService.book(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-                self.save(succeed)
+                if succeed.isEmpty {
+                    self.isLastPrograms = true
+                } else {
+                    self.isLastPrograms = succeed.count < category.searchSize
+                    self.programs.append(contentsOf: succeed)
+                }
             } else {
                 // 오류 발생
                 self.delegate?.programSearchModel(self, didRecieve: failed)
@@ -119,14 +151,19 @@ class ProgramSearchModel: ProgramSearchModelType {
         }
     }
     
-    func searchMovie(_ movie: String) {
+    private func searchMovie(_ movie: String) {
         lastSearchText = movie
-        let request = SearchMovieRequest(curPage: "\(currentPage)", itemPerPage: "\(itemPerPage)", movieNm: movie)
+        let request = SearchMovieRequest(curPage: "\(currentPage)", itemPerPage: "\(category.searchSize)", movieNm: movie)
         provider.programSearchService.movie(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-                self.save(succeed)
+                if succeed.isEmpty {
+                    self.isLastPrograms = true
+                } else {
+                    self.isLastPrograms = succeed.count < category.searchSize
+                    self.programs.append(contentsOf: succeed)
+                }
             } else {
                 // 오류 발생
                 self.delegate?.programSearchModel(self, didRecieve: failed)

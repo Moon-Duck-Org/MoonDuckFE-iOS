@@ -21,6 +21,7 @@ protocol ProgramSearchPresenter: AnyObject {
     // Action
     func userInputButtonTapped()
     func selectProgram(at index: Int)
+    func searchNextProgram()
     
     // TextField Delegate
     func searchTextFieldEditingChanged(_ text: String?)
@@ -85,6 +86,13 @@ extension ProgramSearchViewPresenter {
     func selectProgram(at index: Int) {
         if let program = program(at: index) {
             moveWriteReview(with: program)
+        }
+    }
+    
+    func searchNextProgram() {
+        if !model.isLastPrograms {
+            view?.updateLoadingView(isLoading: true)
+            model.searchNext()
         }
     }
     

@@ -17,6 +17,7 @@ final class ProgramSearchDataSource: NSObject {
     func configure(with tableView: UITableView) {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         tableView.register(UINib(nibName: ProgramSearchTableViewCell.className, bundle: nil), forCellReuseIdentifier: ProgramSearchTableViewCell.className)
     }
 }
@@ -46,5 +47,19 @@ extension ProgramSearchDataSource: UITableViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         presenter.scrollViewWillBeginDragging()
+    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+extension ProgramSearchDataSource: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        // 셀이 prefetch 되었을 때 호출되는 메서드
+        guard let lastIndexPath = indexPaths.last else { return }
+        let lastIndex = lastIndexPath.row
+        
+        // 마지막 인덱스가 현재 로드된 데이터의 갯수보다 많으면 다음 페이지를 로드
+        if lastIndex > presenter.numberOfPrograms - 3 {
+            presenter.searchNextProgram()
+        }
     }
 }

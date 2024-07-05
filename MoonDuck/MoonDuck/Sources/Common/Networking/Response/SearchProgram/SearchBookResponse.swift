@@ -14,6 +14,15 @@ struct SearchBookResponse: Codable {
     let display: Int
     let items: [Item]
     
+//    func toDomain() -> ProgramList {
+//        let programs = items.map { $0.toDomain() }
+//        return ProgramList(category: .book,
+//                           totalElements: total,
+//                           size: display,
+//                           currentPage: start,
+//                           programs: programs)
+//    }
+    
     struct Item: Codable {
         let title: String
         let link: String?
