@@ -56,12 +56,11 @@ extension SelectProgramViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         categoryModel.getCategories(isHaveAll: false)
-        selectCategory(at: 0)
     }
     
     // MARK: - Action
     func selectCategory(at index: Int) {
-        categoryModel.selectCategory(index)
+        categoryModel.selectCategory(at: index)
     }
     
     func nextButtonTapped() {

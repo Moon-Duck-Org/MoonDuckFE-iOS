@@ -123,7 +123,7 @@ extension HomeViewPresenter {
     
     // MARK: - Action
     func selectCategory(at index: Int) {
-        categoryModel.selectCategory(index)
+        categoryModel.selectCategory(at: index)
     }
     
     func selectSort(at index: Int) {
@@ -149,6 +149,10 @@ extension HomeViewPresenter {
     
     func writeNewReviewButtonTapped() {
         let model = CategoryModel()
+        if let category = categoryModel.selectedCategory,
+           category != .all {
+            model.selectedCategory = category
+        }
         let presenter = SelectProgramViewPresenter(with: provider, categoryModel: model, delegate: self)
         view?.moveSelectProgram(with: presenter)
     }
@@ -200,7 +204,7 @@ extension HomeViewPresenter: UserModelDelegate {
 // MARK: - CategoryModelDelegate
 extension HomeViewPresenter: CategoryModelDelegate {
     func categoryModel(_ model: CategoryModel, didChange categories: [Category]) {
-        model.selectCategory(0)
+        model.selectCategory(at: 0)
     }
     
     func categoryModel(_ model: CategoryModel, didSelect category: Category) {

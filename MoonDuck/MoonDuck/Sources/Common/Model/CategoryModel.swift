@@ -25,12 +25,12 @@ protocol CategoryModelType: AnyObject {
     var categories: [Category] { get }
     var numberOfCategories: Int { get }
     var indexOfSelectedCategory: Int? { get }
-    var selectedCategory: Category? { get }
+    var selectedCategory: Category? { get set }
     
     func category(at index: Int) -> Category?
     
     // Action
-    func selectCategory(_ index: Int)
+    func selectCategory(at index: Int)
     func reloadCategory()
     
     // Netwok
@@ -53,12 +53,7 @@ class CategoryModel: CategoryModelType {
     
     var indexOfSelectedCategory: Int?
     
-    var selectedCategory: Category? {
-        if let indexOfSelectedCategory {
-            return category(at: indexOfSelectedCategory)
-        }
-        return nil
-    }
+    var selectedCategory: Category?
     
     func category(at index: Int) -> Category? {
         if index < categories.count {
@@ -68,9 +63,10 @@ class CategoryModel: CategoryModelType {
     }
     
     // MARK: - Action
-    func selectCategory(_ index: Int) {
+    func selectCategory(at index: Int) {
         if indexOfSelectedCategory == index { return }
         indexOfSelectedCategory = index
+        selectedCategory = category(at: index)
         if let selectedCategory {
             delegate?.categoryModel(self, didSelect: selectedCategory)
         }
@@ -78,6 +74,7 @@ class CategoryModel: CategoryModelType {
     
     func reloadCategory() {
         indexOfSelectedCategory = 0
+        selectedCategory = category(at: 0)
         if let selectedCategory {
             delegate?.categoryModel(self, didReload: selectedCategory)
         }
@@ -89,6 +86,11 @@ class CategoryModel: CategoryModelType {
             categories = [.all, .movie, .book, .drama, .concert]
         } else {
             categories = [.movie, .book, .drama, .concert]
+        }
+        
+        if let selectedCategory,
+           let index = categories.firstIndex(of: selectedCategory) {
+            selectCategory(at: index)
         }
     }
 }
