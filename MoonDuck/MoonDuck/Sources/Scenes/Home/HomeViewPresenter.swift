@@ -135,7 +135,7 @@ extension HomeViewPresenter {
            let review = reviewModel.review(with: category, at: index) {
             let handler = deleteReviewHandler(for: review)
             let model = ReviewModel(provider, review: review, deleteReviewHandler: handler)
-            let presenter = ReviewDetailViewPresenter(with: provider, model: model)
+            let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
             view?.moveReviewDetail(with: presenter)
         }
     }
@@ -320,5 +320,18 @@ extension HomeViewPresenter: WriteReviewPresenterDelegate {
     
     func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
         view?.popToSelf()
+    }
+}
+
+// MARK: - ReviewDetailPresenterDelegate
+extension HomeViewPresenter: ReviewDetailPresenterDelegate {
+    func reviewDetail(_ presenter: any ReviewDetailPresenter, didWrite review: Review) {
+        categoryModel.reloadCategory()
+        sortModel.reloadSortOption()
+        userModel.createReview(category: review.category)
+        if let selectedCategory = categoryModel.selectedCategory {
+            view?.updateLoadingView(isLoading: true)
+            reviewModel.reloadReviews(with: selectedCategory, filter: sortModel.selectedSortOption)
+        }
     }
 }

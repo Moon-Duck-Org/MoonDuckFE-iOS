@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol ReviewDetailPresenterDelegate: AnyObject {
+    func reviewDetail(_ presenter: ReviewDetailPresenter, didWrite review: Review)
+}
+
 protocol ReviewDetailPresenter: AnyObject {
     var view: ReviewDetailView? { get set }
     
@@ -26,10 +30,14 @@ protocol ReviewDetailPresenter: AnyObject {
 class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     
     weak var view: ReviewDetailView?
-    var model: ReviewModelType
+    private var model: ReviewModelType
+    private var delegate: ReviewDetailPresenterDelegate?
     
-    init(with provider: AppServices, model: ReviewModelType) {
+    init(with provider: AppServices, 
+         model: ReviewModelType,
+         delegate: ReviewDetailPresenterDelegate?) {
         self.model = model
+        self.delegate = delegate
         super.init(with: provider)
         self.model.delegate = self
     }
@@ -94,6 +102,9 @@ extension ReviewDetailViewPresenter: ReviewModelDelegate {
 // MARK: - WriteReviewPresenterDelegate
 extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
     func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review) {
+        view?.updateLoadingView(isLoading: false)
+        
+        delegate?.reviewDetail(self, didWrite: review)
         view?.popToSelf()
         model.save(for: review)
         
