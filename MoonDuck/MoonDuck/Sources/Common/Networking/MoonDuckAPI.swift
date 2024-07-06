@@ -12,6 +12,7 @@ enum MoonDuckAPI {
     case authLogin(AuthLoginRequest)
     case authReissue(AuthReissueRequest)
     case user
+    case deleteUser
     case userNickname(UserNicknameRequest)
     case searchMovie(SearchMovieRequest)
     case searchBook(SearchBookRequest)
@@ -52,7 +53,7 @@ extension MoonDuckAPI: TargetType {
             return .post
         case .userNickname, .putReview:
             return .put
-        case .deleteReview:
+        case .deleteUser, .deleteReview:
             return HTTPMethod.delete
         }
     }
@@ -66,7 +67,7 @@ extension MoonDuckAPI: TargetType {
         case .authReissue:
             return "/auth/reissue"
             // User 정보 조회
-        case .user:
+        case .user, .deleteUser:
             return "/user"
             // User Nickname 수정
         case .userNickname:
@@ -103,7 +104,7 @@ extension MoonDuckAPI: TargetType {
             return .body(request)
         case .authReissue(let request):
             return .body(request)
-        case .user:
+        case .user, .deleteUser:
             return nil
         case .userNickname(let request):
             return .body(request)
@@ -145,7 +146,7 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .authLogin, .authReissue:
             return ["Content-Type": "application/json"]
-        case .user, .userNickname, .reviewAll, .getReview, .deleteReview, .reviewDetail:
+        case .user, .deleteUser, .userNickname, .reviewAll, .getReview, .deleteReview, .reviewDetail:
             if let token: String = AuthManager.default.getAccessToken() {
                 return ["Content-Type": "application/json",
                         "Authorization": "Bearer \(token)"]

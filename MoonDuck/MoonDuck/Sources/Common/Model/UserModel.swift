@@ -31,7 +31,6 @@ protocol UserModelType: AnyObject {
     // Logic
     func save(nickname: String)
     func save(user: User)
-    func logout()
     func deleteReview(category: Category)
     func createReview(category: Category)
     
@@ -59,10 +58,6 @@ class UserModel: UserModelType {
     }
     
     // MARK: - Logic
-    func logout() {
-        self.user = nil
-    }
-    
     func save(nickname: String) {
         if let user {
             var updateUser = user
@@ -75,6 +70,10 @@ class UserModel: UserModelType {
     
     func save(user: User) {
         self.user = user
+    }
+    
+    func logout() {
+        self.user = nil
     }
     
     func deleteReview(category: Category) {
@@ -177,6 +176,39 @@ class UserModel: UserModelType {
                     }
                 }
                 self.delegate?.userModel(self, didRecieve: .unknown)
+            }
+        }
+    }
+    
+    func deleteUser() {
+        provider.userService.deleteUser { [weak self] succeed, failed in
+            guard let self else { return }
+            if let succeed {
+                if succeed {
+                    self.logout()
+                } else {
+                    self.delegate?.userModelDidFailFetchingUser(self)
+                }
+            } else {
+                // 오류 발생
+                if let error = failed {
+                    if error.isAuthError {
+                        self.delegate?.userModelDidAuthError(self)
+                        return
+                    } else if error.needsTokenRefresh {
+                        AuthManager.default.refreshToken { [weak self] success, error in
+                            guard let self else { return }
+                            if success {
+                                self.deleteUser()
+                            } else {
+                                self.delegate?.userModelDidAuthError(self)
+                            }
+                        }
+                        return
+                    }
+                }
+                // User 정보 조회 실패
+                self.delegate?.userModelDidFailFetchingUser(self)
             }
         }
     }
