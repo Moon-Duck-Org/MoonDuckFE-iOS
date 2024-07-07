@@ -10,7 +10,7 @@
 <br>
 
 ## ⚒️ 개발 환경 및 사용 기술
-Front End (iOS)
+iOS
 - Xcode (version 15.4)
 - Swift5
 - MVP
