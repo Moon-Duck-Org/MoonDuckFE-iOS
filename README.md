@@ -13,8 +13,8 @@
 iOS
 - Xcode (version 15.4)
 - Swift5
-- MVP
-- Alamofire
+- MVP Design Pattern
+- PhotoKit / MessageUI
 
 <br>
 
