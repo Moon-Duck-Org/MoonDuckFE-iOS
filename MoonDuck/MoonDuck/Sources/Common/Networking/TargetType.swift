@@ -59,21 +59,9 @@ extension TargetType {
                             completion(.failure(.decoding))
                         }
                     } else {
-                        if let httpResponse = response.response {
-                            let apiError = APIError(statusCode: httpResponse.statusCode)
-                            if apiError == .unknown {
-                                if let error = response.error {
-                                    completion(.failure(APIError(error: error)))
-                                    return
-                                }
-                            } else {
-                                completion(.failure(apiError))
-                                return
-                            }
-                        }
+                        let apiError = APIError(statusCode: response.response?.statusCode ?? -99, error: response.error ?? error)
+                        completion(.failure(apiError))
                     }
-                    completion(.failure(APIError(error: error)))
-                    return
                 }
             }
         } catch {
@@ -134,21 +122,9 @@ extension TargetType {
                                 completion(.failure(.decoding))
                             }
                         } else {
-                            if let httpResponse = response.response {
-                                let apiError = APIError(statusCode: httpResponse.statusCode)
-                                if apiError == .unknown {
-                                    if let error = response.error {
-                                        completion(.failure(APIError(error: error)))
-                                        return
-                                    }
-                                } else {
-                                    completion(.failure(apiError))
-                                    return
-                                }
-                            }
+                            let apiError = APIError(statusCode: response.response?.statusCode ?? -99, error: response.error ?? error)
+                            completion(.failure(apiError))
                         }
-                        completion(.failure(APIError(error: error)))
-                        return
                     }
                 }
             } catch {

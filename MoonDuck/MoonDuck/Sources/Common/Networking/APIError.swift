@@ -142,19 +142,18 @@ enum APIError: Error, Equatable, LocalizedError {
         default: self = .error(code: error.code, message: error.message)
         }
     }
-    // swiftlint:enable cyclomatic_complexity
-    
-    init(statusCode: Int) {
+    // swiftlint:enable cyclomatic_complexity    
+    init(statusCode: Int, error: Error) {
         switch statusCode {
         case 400..<500:
             self = .client
+            return
         case 500..<600:
             self = .server
-        default: self = .unknown
+            return
+        default: break
         }
-    }
-    
-    init(error: Error) {
+        
         if let urlError = error as? URLError {
             switch urlError.code {
             case .timedOut, .cannotFindHost, .cannotConnectToHost, .networkConnectionLost, .dnsLookupFailed, .notConnectedToInternet, .secureConnectionFailed:
