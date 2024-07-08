@@ -96,11 +96,8 @@ extension IntroViewPresenter: UserModelDelegate {
             let cateogryModel = CategoryModel()
             let sortModel = SortModel()
             let reviewModel = ReviewListModel(provider)
-            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.view?.moveHome(with: presenter)
-            }
+            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)            
+            self.view?.moveHome(with: presenter)
         }
     }
     

@@ -14,6 +14,7 @@ protocol AppVersionPresenter: AnyObject {
     func viewDidLoad()
     
     // Action
+    func updateButtonTapped()
 }
 class AppVersionViewPresenter: BaseViewPresenter, AppVersionPresenter {
     weak var view: AppVersionView?
@@ -23,15 +24,31 @@ extension AppVersionViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        let currentVersion: String = Utils.getAppVersion() ?? ""
-        let versionInfo = "현재 버전은 \(currentVersion) 이에요."
-        let updateInfo = "가장 최신 버전이에요."
-        
-        view?.updateLabelsText(versionInfo: versionInfo, updateInfo: updateInfo)
-        view?.updateUpdateButtonHidden(true)
+        checkForUpdate()
     }
     
     // MARK: - Action
+    func updateButtonTapped() {
+        Utils.moveAppStore()
+    }
     
     // MARK: - Logic
+    private func checkForUpdate() {
+        let currentVersion: String = Utils.getAppVersion() ?? "1.0.0"
+        let versionInfo = "현재 버전은 \(currentVersion) 이에요."
+        
+        Utils.checkForUpdate { [weak self] appUpdate in
+            DispatchQueue.main.async {
+                if appUpdate == .none {
+                    let updateInfo = "가장 최신 버전이에요"
+                    self?.view?.updateLabelsText(versionInfo: versionInfo, updateInfo: updateInfo)
+                    self?.view?.updateUpdateButtonHidden(true)
+                } else {
+                    let updateInfo = "새로운 버전 업데이트가 있어요"
+                    self?.view?.updateLabelsText(versionInfo: versionInfo, updateInfo: updateInfo)
+                    self?.view?.updateUpdateButtonHidden(false)
+                }
+            }
+        }
+    }
 }
