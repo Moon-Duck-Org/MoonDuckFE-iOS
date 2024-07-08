@@ -31,7 +31,6 @@ extension UIViewController {
                 $0.centerX.equalTo(self.view.snp.centerX)
                 $0.leading.equalTo(self.view.snp.leading).offset(16)
                 $0.trailing.equalTo(self.view.snp.trailing).offset(-16)
-//                $0.height.equalTo(37)
             })
             toastLabel.snp.makeConstraints({
                 $0.leading.trailing.bottom.top.equalToSuperview().inset(8)

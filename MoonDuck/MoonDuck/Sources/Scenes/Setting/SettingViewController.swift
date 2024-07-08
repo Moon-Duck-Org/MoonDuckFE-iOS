@@ -26,6 +26,9 @@ class SettingViewController: BaseViewController, SettingView {
     @IBOutlet private weak var appVersionLabel: UILabel!
     
     // @IBAction
+    @IBAction private func pushSwitchValueChanged(_ sender: UISwitch) {
+        
+    }
     @IBAction private func termsOfServiceButtonTapped(_ sender: Any) {
         presenter.termsOfServiceButtonTapped()
         
