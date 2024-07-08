@@ -12,7 +12,7 @@ protocol WithdrawView: BaseView {
     func updateContentLabelText(with text: String)
         
     // Navigation
-    func moveIntro(with presenter: IntroPresenter)
+    func showComplteWithDrawAlert(with presenter: IntroPresenter)
 }
 
 class WithdrawViewController: BaseViewController, WithdrawView {
@@ -29,7 +29,14 @@ class WithdrawViewController: BaseViewController, WithdrawView {
         back()
     }
     @IBAction private func withdrawButtonTapped(_ sender: Any) {
-    
+        AppAlert.default.showDestructive(
+            self,
+            title: "정말 탈퇴 하시겠어요?",
+            cancelTitle: "취소",
+            destructiveTitle: "탈퇴",
+            destructiveHandler: { [weak self] in
+                self?.presenter.withdrawButtonTapped()
+        })
     }
     
     init(navigator: Navigator,
@@ -54,6 +61,10 @@ extension WithdrawViewController {
     func updateContentLabelText(with text: String) {
         contentLabel?.text = text
     }
+    
+    func showMoveLoginAlert(_ message: String) {
+        
+    }
 }
 
 // MARK: - Navigation
@@ -62,7 +73,9 @@ extension WithdrawViewController {
         navigator?.pop(sender: self, animated: true)
     }
     
-    func moveIntro(with presenter: IntroPresenter) {
-        
+    func showComplteWithDrawAlert(with presenter: IntroPresenter) {
+        AppAlert.default.showError(self, message: "회원 탈퇴가 성공적으로 완료되었습니다. 이용해 주셔서 감사합니다.", doneHandler: { [weak self] in
+            self?.navigator?.show(seque: .intro(presenter: presenter), sender: nil, transition: .root)
+        })
     }
 }

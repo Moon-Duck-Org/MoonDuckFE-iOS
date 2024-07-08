@@ -8,19 +8,21 @@
 import Foundation
 
 protocol UserModelDelegate: AnyObject {
-    func userModel(_ model: UserModelType, didChange user: User)
+    func userModel(_ model: UserModelType, didChange user: User?)
     func userModel(_ model: UserModelType, didRecieve error: APIError?)
     func userModelDidFailLogin(_ model: UserModelType)
     func userModelDidFailFetchingUser(_ model: UserModelType)
     func userModelDidFailNickname(_ model: UserModelType)
+    func userModelDidFailDeleteUser(_ model: UserModelType)
     func userModelDidAuthError(_ model: UserModelType)
 }
 extension UserModelDelegate {
-    func userModel(_ model: UserModelType, didChange user: User) { }
+    func userModel(_ model: UserModelType, didChange user: User?) { }
     func userModel(_ model: UserModelType, didRecieve error: APIError?) { }
     func userModelDidFailLogin(_ model: UserModelType) { }
     func userModelDidFailFetchingUser(_ model: UserModelType) { }
     func userModelDidFailNickname(_ model: UserModelType) { }
+    func userModelDidFailDeleteUser(_ model: UserModelType) { }
 }
 
 protocol UserModelType: AnyObject {
@@ -37,6 +39,7 @@ protocol UserModelType: AnyObject {
     // Networking
     func getUser()
     func nickname(_ name: String)
+    func deleteUser()
 }
 
 class UserModel: UserModelType {
@@ -51,9 +54,7 @@ class UserModel: UserModelType {
     weak var delegate: UserModelDelegate?
     var user: User? {
         didSet {
-            if let user {
-                delegate?.userModel(self, didChange: user)
-            }
+            delegate?.userModel(self, didChange: user)
         }
     }
     
@@ -187,7 +188,7 @@ class UserModel: UserModelType {
                 if succeed {
                     self.logout()
                 } else {
-                    self.delegate?.userModelDidFailFetchingUser(self)
+                    self.delegate?.userModelDidFailDeleteUser(self)
                 }
             } else {
                 // 오류 발생
@@ -208,7 +209,7 @@ class UserModel: UserModelType {
                     }
                 }
                 // User 정보 조회 실패
-                self.delegate?.userModelDidFailFetchingUser(self)
+                self.delegate?.userModelDidFailDeleteUser(self)
             }
         }
     }

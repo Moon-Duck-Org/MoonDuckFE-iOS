@@ -44,7 +44,7 @@ extension IntroViewPresenter {
     }
     
     private func login(_ auth: Auth) {
-        AuthManager.default.login(auth: auth) { [weak self] isHaveNickname, failed in
+        AuthManager.default.login(auth: auth) { [weak self] isHaveNickname, _ in
             if let isHaveNickname, isHaveNickname {
                 if isHaveNickname {
                     // 로그인 성공 시, User 정보 조회
@@ -66,15 +66,17 @@ extension IntroViewPresenter {
 // MARK: - UserModelDelegate
 extension IntroViewPresenter: UserModelDelegate {
     
-    func userModel(_ model: UserModelType, didChange user: User) {
+    func userModel(_ model: UserModelType, didChange user: User?) {
         // User 정보 조회 성공 -> 홈 이동
-        let cateogryModel = CategoryModel()
-        let sortModel = SortModel()
-        let reviewModel = ReviewListModel(provider)
-        let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.view?.moveHome(with: presenter)
+        if let user {
+            let cateogryModel = CategoryModel()
+            let sortModel = SortModel()
+            let reviewModel = ReviewListModel(provider)
+            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.view?.moveHome(with: presenter)
+            }
         }
     }
     

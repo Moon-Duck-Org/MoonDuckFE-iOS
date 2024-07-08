@@ -287,12 +287,12 @@ extension WriteReviewViewPresenter: WriteReviewModelDelegate {
                 return
             }
         }
-        view?.showToastMessage("기록 작성을 실패했습니다. 다시 시도해주세요.")
+        view?.showToastMessage("기록 작성을 실패했습니다. 다시 시도해주세요. 문제가 지속되면 '설정->문의하기'에 문의해주세요.")
     }
     
     func writeReviewDidFailSaveReview(_ model: WriteReviewModelType) {
         view?.updateLoadingView(isLoading: false)
-        view?.showToastMessage("기록 작성을 실패했습니다. 다시 시도해주세요.")
+        view?.showToastMessage("기록 작성을 실패했습니다. 다시 시도해주세요. 문제가 지속되면 '설정->문의하기'에 문의해주세요.")
     }
     
     func writeReviewDidExceedeImageSize(_ model: WriteReviewModelType) {
