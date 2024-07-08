@@ -36,6 +36,7 @@ class Navigator {
         case programSearch(presenter: ProgramSearchPresenter)
         case writeReview(presenter: WriteReviewPresenter)
         case reviewDetail(presenter: ReviewDetailPresenter)
+        case reviewDetailImage(presenter: ReviewDetailImagePresenter)
         case setting(presenter: SettingPresenter)
         case webview(presenter: WebPresenter)
         case withdraw(presenter: WithdrawPresenter)
@@ -78,6 +79,8 @@ class Navigator {
             return WriteReviewViewController(navigator: self, presenter: presenter)
         case .reviewDetail(let presenter):
             return ReviewDetailViewController(navigator: self, presenter: presenter)
+        case .reviewDetailImage(let presenter):
+            return ReviewDetailImageViewController(navigator: self, presenter: presenter)
         case .setting(let presenter):
             return SettingViewController(navigator: self, presenter: presenter)
         case .webview(let presenter):

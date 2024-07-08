@@ -47,6 +47,7 @@ internal enum Asset {
     internal static let floatingButton = ImageAsset(name: "FloatingButton")
     internal static let arrowRight = ImageAsset(name: "ArrowRight")
     internal static let back = ImageAsset(name: "Back")
+    internal static let backWhite = ImageAsset(name: "BackWhite")
     internal static let doteRed = ImageAsset(name: "DoteRed")
     internal static let dropdown = ImageAsset(name: "Dropdown")
     internal static let imageDelete = ImageAsset(name: "ImageDelete")

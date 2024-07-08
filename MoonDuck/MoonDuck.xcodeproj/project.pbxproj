@@ -89,6 +89,12 @@
 		EA8C24172C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */; };
 		EA8C24192C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */; };
 		EA8DC7B92C3B825E00DB8815 /* RemoteConfigDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */; };
+		EA8DC7BB2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8DC7BA2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift */; };
+		EA8DC7BF2C3BDD3F00DB8815 /* ReviewDetailImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8DC7BE2C3BDD3F00DB8815 /* ReviewDetailImageViewController.xib */; };
+		EA8DC7C02C3BDD3F00DB8815 /* ReviewDetailImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8DC7BD2C3BDD3F00DB8815 /* ReviewDetailImageViewController.swift */; };
+		EA8DC7C22C3BDE1100DB8815 /* ReviewDetailImageViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8DC7C12C3BDE1100DB8815 /* ReviewDetailImageViewPresenter.swift */; };
+		EA8DC7C62C3BE0CB00DB8815 /* ReviewDetailImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8DC7C52C3BE0CB00DB8815 /* ReviewDetailImageCollectionViewCell.xib */; };
+		EA8DC7C72C3BE0CB00DB8815 /* ReviewDetailImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8DC7C42C3BE0CB00DB8815 /* ReviewDetailImageCollectionViewCell.swift */; };
 		EA9367502C297402007A649B /* HomeReviewImageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93674F2C297402007A649B /* HomeReviewImageDataSource.swift */; };
 		EA946D582C16956800F44BB5 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA946D572C16956800F44BB5 /* UIButton+Extension.swift */; };
 		EA946D5A2C16960E00F44BB5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA946D592C16960E00F44BB5 /* LoadingView.swift */; };
@@ -271,6 +277,12 @@
 		EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewDetailViewController.xib; sourceTree = "<group>"; };
 		EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewPresenter.swift; sourceTree = "<group>"; };
 		EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RemoteConfigDefaults.plist; sourceTree = "<group>"; };
+		EA8DC7BA2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailImageDataSource.swift; sourceTree = "<group>"; };
+		EA8DC7BD2C3BDD3F00DB8815 /* ReviewDetailImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailImageViewController.swift; sourceTree = "<group>"; };
+		EA8DC7BE2C3BDD3F00DB8815 /* ReviewDetailImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewDetailImageViewController.xib; sourceTree = "<group>"; };
+		EA8DC7C12C3BDE1100DB8815 /* ReviewDetailImageViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailImageViewPresenter.swift; sourceTree = "<group>"; };
+		EA8DC7C42C3BE0CB00DB8815 /* ReviewDetailImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA8DC7C52C3BE0CB00DB8815 /* ReviewDetailImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewDetailImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		EA93674F2C297402007A649B /* HomeReviewImageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeReviewImageDataSource.swift; sourceTree = "<group>"; };
 		EA946D572C16956800F44BB5 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		EA946D592C16960E00F44BB5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -752,11 +764,33 @@
 		EA8C24132C2EABF200F2C2F4 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				EA8DC7BC2C3BDD1400DB8815 /* Image */,
 				EA8C24142C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift */,
 				EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */,
 				EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		EA8DC7BC2C3BDD1400DB8815 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				EA8DC7C32C3BE0A200DB8815 /* Cell */,
+				EA8DC7BD2C3BDD3F00DB8815 /* ReviewDetailImageViewController.swift */,
+				EA8DC7BE2C3BDD3F00DB8815 /* ReviewDetailImageViewController.xib */,
+				EA8DC7C12C3BDE1100DB8815 /* ReviewDetailImageViewPresenter.swift */,
+				EA8DC7BA2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		EA8DC7C32C3BE0A200DB8815 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				EA8DC7C42C3BE0CB00DB8815 /* ReviewDetailImageCollectionViewCell.swift */,
+				EA8DC7C52C3BE0CB00DB8815 /* ReviewDetailImageCollectionViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		EA9A84212C00BBAE004B7FDF /* NameSetting */ = {
@@ -1026,8 +1060,10 @@
 				EA9A84272C00BCAF004B7FDF /* NicknameSettingViewController.xib in Resources */,
 				EA810A372C17253F00DF6C72 /* ProgramSearchViewController.xib in Resources */,
 				EA96A9662C1D635C0010AB60 /* GoogleService-Info.plist in Resources */,
+				EA8DC7BF2C3BDD3F00DB8815 /* ReviewDetailImageViewController.xib in Resources */,
 				A0E658072BFE22B9001A8D54 /* Base in Resources */,
 				A0E658492BFE394F001A8D54 /* .swiftlint.yml in Resources */,
+				EA8DC7C62C3BE0CB00DB8815 /* ReviewDetailImageCollectionViewCell.xib in Resources */,
 				EA6379E42BFF33C500464A19 /* HomeViewController.xib in Resources */,
 				A0E658462BFE36A5001A8D54 /* NotoSansCJKkr-Medium.otf in Resources */,
 				A0E658422BFE36A5001A8D54 /* NotoSansCJKkr-Light.otf in Resources */,
@@ -1214,6 +1250,7 @@
 				EA946D5C2C16EBA200F44BB5 /* BaseViewController.swift in Sources */,
 				EA7C07342C20155300563264 /* SearchDramaResponse.swift in Sources */,
 				EA6379E92BFF359100464A19 /* NSObjectProtocol+Extension.swift in Sources */,
+				EA8DC7C02C3BDD3F00DB8815 /* ReviewDetailImageViewController.swift in Sources */,
 				EAE017EE2C02015900699145 /* UIKeyboardInfo.swift in Sources */,
 				EA96F2002C32A32500E46D87 /* ReviewModel.swift in Sources */,
 				A0E6584B2BFE3C03001A8D54 /* Fonts+Generated.swift in Sources */,
@@ -1223,12 +1260,14 @@
 				EA6379E12BFF2E5300464A19 /* UserResponse.swift in Sources */,
 				EAC93F3F2C156E09008FDFF2 /* SearchOpenRequest.swift in Sources */,
 				EAB6E65D2C17DC2500A9E191 /* ProgramSearchModel.swift in Sources */,
+				EA8DC7C22C3BDE1100DB8815 /* ReviewDetailImageViewPresenter.swift in Sources */,
 				EA9A842B2C00C33E004B7FDF /* NicknameSettingViewPresenter.swift in Sources */,
 				EAA98FBC2C33F5F300F3A723 /* SettingViewController.swift in Sources */,
 				EA9A84202C00AA93004B7FDF /* AppServices.swift in Sources */,
 				EADD89122C2423CD00CA2B43 /* CustomPopAnimator.swift in Sources */,
 				EA9A84262C00BCAF004B7FDF /* NicknameSettingViewController.swift in Sources */,
 				EA7C07322C20153700563264 /* SearchBookResponse.swift in Sources */,
+				EA8DC7BB2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift in Sources */,
 				EAC93F412C156F35008FDFF2 /* SearchMovieResponse.swift in Sources */,
 				EAF78F082C14CAAE00EFBCB0 /* UserModel.swift in Sources */,
 				EAC25CF62C366481004254D4 /* AppVersionViewController.swift in Sources */,
@@ -1287,6 +1326,7 @@
 				EAC93F432C157006008FDFF2 /* Program.swift in Sources */,
 				EAE017D72C01AA3D00699145 /* Sort.swift in Sources */,
 				EA9A84292C00BF04004B7FDF /* UITextField+Extension.swift in Sources */,
+				EA8DC7C72C3BE0CB00DB8815 /* ReviewDetailImageCollectionViewCell.swift in Sources */,
 				EAA914D42C022DF700A98950 /* SelectCategoryCollectionViewCell.swift in Sources */,
 				EAB6E6672C1846C900A9E191 /* ProgramSearchTableViewCell.swift in Sources */,
 				EAE017EC2C01FBD600699145 /* TextView.swift in Sources */,

@@ -89,7 +89,7 @@ class WriteReviewModel: WriteReviewModelType {
                         return
                     }
                 }
-                self.delegate?.writeReviewModel(self, didRecieve: .unknown)
+                self.delegate?.writeReviewModel(self, didRecieve: failed)
             }
         }
     }
@@ -131,7 +131,7 @@ class WriteReviewModel: WriteReviewModelType {
                         return
                     }
                 }
-                self.delegate?.writeReviewModel(self, didRecieve: .unknown)
+                self.delegate?.writeReviewModel(self, didRecieve: failed)
             }
         }
     }

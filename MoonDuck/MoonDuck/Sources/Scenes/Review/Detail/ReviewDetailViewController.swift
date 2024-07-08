@@ -14,13 +14,14 @@ protocol ReviewDetailView: BaseView {
     // Navigation
     func backToHome()
     func moveWriteReview(with presenter: WriteReviewPresenter)
+    func moveDetailImage(with presenter: ReviewDetailImagePresenter)
     func popToSelf()
 }
 
 class ReviewDetailViewController: BaseViewController, ReviewDetailView {
     
-    let presenter: ReviewDetailPresenter
-    private var imageDataSource: HomeReviewImageDataSource?
+    private let presenter: ReviewDetailPresenter
+    private var imageDataSource: ReviewDetailImageDataSource?
     private var linkButtonHandler: (() -> Void)?
     
     // @IBOutlet
@@ -102,7 +103,7 @@ extension ReviewDetailViewController {
             linkButtonHandler = nil
         }
         
-        imageDataSource = HomeReviewImageDataSource(review: presenter.review)
+        imageDataSource = ReviewDetailImageDataSource(with: presenter)
         imageDataSource?.configure(with: imageCollectionView)
         imageCollectionView.reloadData()
         
@@ -153,6 +154,10 @@ extension ReviewDetailViewController {
     
     func moveWriteReview(with presenter: WriteReviewPresenter) {
         navigator?.show(seque: .writeReview(presenter: presenter), sender: self, transition: .navigation, animated: true)
+    }
+    
+    func moveDetailImage(with presenter: ReviewDetailImagePresenter) {
+        navigator?.show(seque: .reviewDetailImage(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
     
     func popToSelf() {
