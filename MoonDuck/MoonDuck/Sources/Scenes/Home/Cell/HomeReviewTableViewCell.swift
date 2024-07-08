@@ -8,7 +8,7 @@
 import UIKit
 
 class HomeReviewTableViewCell: UITableViewCell {
-    private var imageDataSource: ReviewImageDataSource?
+    private var imageDataSource: HomeReviewImageDataSource?
     private var linkButtonHandler: (() -> Void)?
     private var optionButtonHandler: (() -> Void)?
     
@@ -44,7 +44,7 @@ class HomeReviewTableViewCell: UITableViewCell {
         optionButtonHandler?()
     }
     
-    func configure(with review: Review, optionButtonHandler: (() -> Void)? = nil) {
+    func configure(with review: Review, optionButtonHandler: (() -> Void)? = nil, tappedHandler: (() -> Void)? = nil) {
         titleLabel.text = review.title
         dateLabel.text = review.createdAt
         categoryImageview.image = review.category.roundSmallImage
@@ -66,8 +66,8 @@ class HomeReviewTableViewCell: UITableViewCell {
         
         contentLabel.text = review.content
         
-        imageDataSource = ReviewImageDataSource(review: review)
-        imageDataSource?.configure(with: imageCollectionView)
+        imageDataSource = HomeReviewImageDataSource(review: review)
+        imageDataSource?.configure(with: imageCollectionView, tappedHandler: tappedHandler)
         imageCollectionView.reloadData()
         
         if review.imageUrlList.count > 0 {

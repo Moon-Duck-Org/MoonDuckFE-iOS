@@ -20,7 +20,7 @@ protocol ReviewDetailView: BaseView {
 class ReviewDetailViewController: BaseViewController, ReviewDetailView {
     
     let presenter: ReviewDetailPresenter
-    private var imageDataSource: ReviewImageDataSource?
+    private var imageDataSource: HomeReviewImageDataSource?
     private var linkButtonHandler: (() -> Void)?
     
     // @IBOutlet
@@ -102,7 +102,7 @@ extension ReviewDetailViewController {
             linkButtonHandler = nil
         }
         
-        imageDataSource = ReviewImageDataSource(review: presenter.review)
+        imageDataSource = HomeReviewImageDataSource(review: presenter.review)
         imageDataSource?.configure(with: imageCollectionView)
         imageCollectionView.reloadData()
         

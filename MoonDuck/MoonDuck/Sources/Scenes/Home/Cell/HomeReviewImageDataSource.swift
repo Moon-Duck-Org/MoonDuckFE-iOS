@@ -1,5 +1,5 @@
 //
-//  ReviewImageDataSource.swift
+//  HomeReviewImageDataSource.swift
 //  MoonDuck
 //
 //  Created by suni on 6/24/24.
@@ -7,9 +7,10 @@
 
 import UIKit
 
-final class ReviewImageDataSource: NSObject {
+final class HomeReviewImageDataSource: NSObject {
     fileprivate var review: Review
     fileprivate let config = Config()
+    private var tappedHandler: (() -> Void)?
     
     struct Config {
         let spacing: CGFloat = 11
@@ -20,15 +21,16 @@ final class ReviewImageDataSource: NSObject {
         self.review = review
     }
 
-    func configure(with collectionView: UICollectionView) {
+    func configure(with collectionView: UICollectionView, tappedHandler: (() -> Void)? = nil) {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(UINib(nibName: ReviewImageCollectionViewCell.className, bundle: nil), forCellWithReuseIdentifier: ReviewImageCollectionViewCell.className)
+        self.tappedHandler = tappedHandler
     }
 }
 
 // MARK: - UICollectionViewDataSource
-extension ReviewImageDataSource: UICollectionViewDataSource {
+extension HomeReviewImageDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return review.imageUrlList.count
     }
@@ -47,7 +49,7 @@ extension ReviewImageDataSource: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
-extension ReviewImageDataSource: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension HomeReviewImageDataSource: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let count = review.imageUrlList.count
@@ -63,7 +65,6 @@ extension ReviewImageDataSource: UICollectionViewDelegate, UICollectionViewDeleg
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-        // TODO: - Review Image Selection
+        tappedHandler?()
     }
 }

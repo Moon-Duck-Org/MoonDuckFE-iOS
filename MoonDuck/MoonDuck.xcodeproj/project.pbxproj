@@ -89,7 +89,7 @@
 		EA8C24172C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */; };
 		EA8C24192C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */; };
 		EA8DC7B92C3B825E00DB8815 /* RemoteConfigDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */; };
-		EA9367502C297402007A649B /* ReviewImageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93674F2C297402007A649B /* ReviewImageDataSource.swift */; };
+		EA9367502C297402007A649B /* HomeReviewImageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93674F2C297402007A649B /* HomeReviewImageDataSource.swift */; };
 		EA946D582C16956800F44BB5 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA946D572C16956800F44BB5 /* UIButton+Extension.swift */; };
 		EA946D5A2C16960E00F44BB5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA946D592C16960E00F44BB5 /* LoadingView.swift */; };
 		EA946D5C2C16EBA200F44BB5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA946D5B2C16EBA200F44BB5 /* BaseViewController.swift */; };
@@ -271,7 +271,7 @@
 		EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewDetailViewController.xib; sourceTree = "<group>"; };
 		EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewPresenter.swift; sourceTree = "<group>"; };
 		EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RemoteConfigDefaults.plist; sourceTree = "<group>"; };
-		EA93674F2C297402007A649B /* ReviewImageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewImageDataSource.swift; sourceTree = "<group>"; };
+		EA93674F2C297402007A649B /* HomeReviewImageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeReviewImageDataSource.swift; sourceTree = "<group>"; };
 		EA946D572C16956800F44BB5 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		EA946D592C16960E00F44BB5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		EA946D5B2C16EBA200F44BB5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -399,6 +399,7 @@
 		A0A633672C2862A800744694 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				EA93674F2C297402007A649B /* HomeReviewImageDataSource.swift */,
 				A0A633682C2862E600744694 /* HomeCategoryCollectionViewCell.swift */,
 				A0A633692C2862E600744694 /* HomeCategoryCollectionViewCell.xib */,
 				A0A6337B2C28758600744694 /* HomeReviewTableViewCell.swift */,
@@ -837,7 +838,6 @@
 			children = (
 				EAA914F02C02D63100A98950 /* ReviewImageCollectionViewCell.swift */,
 				EAA914F12C02D63100A98950 /* ReviewImageCollectionViewCell.xib */,
-				EA93674F2C297402007A649B /* ReviewImageDataSource.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -1257,7 +1257,7 @@
 				A0E658512BFE3F6D001A8D54 /* IntroViewController.swift in Sources */,
 				EA946D5A2C16960E00F44BB5 /* LoadingView.swift in Sources */,
 				EAB6E6632C1845F700A9E191 /* ProgramSearchDataSource.swift in Sources */,
-				EA9367502C297402007A649B /* ReviewImageDataSource.swift in Sources */,
+				EA9367502C297402007A649B /* HomeReviewImageDataSource.swift in Sources */,
 				EA5758F72C1559C300E80050 /* SelectCategoryDataSource.swift in Sources */,
 				EA810A362C17253F00DF6C72 /* ProgramSearchViewController.swift in Sources */,
 				A0A6336B2C2862E600744694 /* HomeCategoryCollectionViewCell.swift in Sources */,

@@ -22,6 +22,7 @@ protocol HomePresenter: AnyObject {
     func writeReviewHandler(for review: Review) -> (() -> Void)?
     func shareReviewHandler(for review: Review) -> (() -> Void)?
     func deleteReviewHandler(for review: Review) -> (() -> Void)?
+    func reviewTappedHandler(for review: Review) -> (() -> Void)?
     
     /// Life Cycle
     func viewDidLoad()
@@ -111,6 +112,18 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
         return { [weak self] in
             self?.view?.updateLoadingView(isLoading: true)
             self?.reviewModel.deleteReview(for: review)
+        }
+    }
+    
+    func reviewTappedHandler(for review: Review) -> (() -> Void)? {
+        return { [weak self] in
+            guard let self else { return }
+            if let category = self.categoryModel.selectedCategory {
+                let handler = self.deleteReviewHandler(for: review)
+                let model = ReviewModel(self.provider, review: review, deleteReviewHandler: handler)
+                let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
+                view?.moveReviewDetail(with: presenter)
+            }
         }
     }
 }
