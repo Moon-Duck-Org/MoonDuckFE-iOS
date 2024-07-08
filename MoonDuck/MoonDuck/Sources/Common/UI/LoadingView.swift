@@ -18,14 +18,14 @@ class LoadingView: UIView {
             }
         }
     }
-    private let backgroundView: UIView = {
+    lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let activityIndicatorView: UIActivityIndicatorView = {
+    lazy var activityIndicatorView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

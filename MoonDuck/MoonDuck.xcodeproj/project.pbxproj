@@ -88,6 +88,7 @@
 		EA8C24162C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C24142C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift */; };
 		EA8C24172C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */; };
 		EA8C24192C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */; };
+		EA8DC7B92C3B825E00DB8815 /* RemoteConfigDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */; };
 		EA9367502C297402007A649B /* ReviewImageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93674F2C297402007A649B /* ReviewImageDataSource.swift */; };
 		EA946D582C16956800F44BB5 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA946D572C16956800F44BB5 /* UIButton+Extension.swift */; };
 		EA946D5A2C16960E00F44BB5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA946D592C16960E00F44BB5 /* LoadingView.swift */; };
@@ -269,6 +270,7 @@
 		EA8C24142C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
 		EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewDetailViewController.xib; sourceTree = "<group>"; };
 		EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewPresenter.swift; sourceTree = "<group>"; };
+		EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RemoteConfigDefaults.plist; sourceTree = "<group>"; };
 		EA93674F2C297402007A649B /* ReviewImageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewImageDataSource.swift; sourceTree = "<group>"; };
 		EA946D572C16956800F44BB5 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		EA946D592C16960E00F44BB5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 		A0E6582A2BFE240F001A8D54 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */,
 				EA96A9652C1D635C0010AB60 /* GoogleService-Info.plist */,
 				A0E658082BFE22B9001A8D54 /* Info.plist */,
 				A0E658342BFE35DD001A8D54 /* Font */,
@@ -1001,6 +1004,7 @@
 				A0E658442BFE36A5001A8D54 /* NotoSansCJKkr-Black.otf in Resources */,
 				EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */,
 				EA8C24172C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib in Resources */,
+				EA8DC7B92C3B825E00DB8815 /* RemoteConfigDefaults.plist in Resources */,
 				EAA914D52C022DF700A98950 /* SelectCategoryCollectionViewCell.xib in Resources */,
 				EAA98FBD2C33F5F300F3A723 /* SettingViewController.xib in Resources */,
 				A0E658402BFE36A5001A8D54 /* NotoSansCJKkr-Regular.otf in Resources */,

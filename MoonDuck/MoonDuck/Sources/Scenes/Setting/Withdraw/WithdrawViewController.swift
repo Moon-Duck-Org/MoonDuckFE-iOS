@@ -74,7 +74,7 @@ extension WithdrawViewController {
     }
     
     func showComplteWithDrawAlert(with presenter: IntroPresenter) {
-        AppAlert.default.showError(self, message: "회원 탈퇴가 성공적으로 완료되었습니다. 이용해 주셔서 감사합니다.", doneHandler: { [weak self] in
+        AppAlert.default.showDone(self, message: "회원 탈퇴가 성공적으로 완료되었습니다. 문덕이를 이용해 주셔서 감사합니다.", doneHandler: { [weak self] in
             self?.navigator?.show(seque: .intro(presenter: presenter), sender: nil, transition: .root)
         })
     }

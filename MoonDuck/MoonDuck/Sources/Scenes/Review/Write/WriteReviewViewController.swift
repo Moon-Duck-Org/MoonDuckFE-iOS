@@ -159,7 +159,7 @@ extension WriteReviewViewController {
     }
     
     func showExceedeImageSizeAlert(_ message: String) {
-        AppAlert.default.showError(self, message: message)
+        AppAlert.default.showDone(self, message: message)
     }
     
     // 노티피케이션 등록
