@@ -25,8 +25,9 @@ protocol WriteReviewView: BaseView {
 
 class WriteReviewViewController: BaseViewController, WriteReviewView {
     
-    let presenter: WriteReviewPresenter
+    private let presenter: WriteReviewPresenter
     private let imageDataSource: WriteImageDataSource
+    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
     
     // @IBOutlet
     @IBOutlet private weak var scrollViewBottomConstraint: NSLayoutConstraint!
@@ -213,6 +214,7 @@ extension WriteReviewViewController {
     
     @objc
     private func ratingButtonTapped(_ sender: UIButton) {
+        feedbackGenerator.impactOccurred()
         presenter.ratingButtonTapped(at: sender.tag)
     }
 }
