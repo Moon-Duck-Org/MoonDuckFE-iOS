@@ -77,7 +77,7 @@ extension NicknameSettingViewPresenter {
                 view?.updateLoadingView(isLoading: true)
                 model.nickname(nicknameText)
             } else {
-                view?.updateHintLabelText(with: L10n.Localizable.specialCharactersAreNotAllowed)
+                view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.invalidNameHint)
             }
         }
     }
@@ -133,7 +133,7 @@ extension NicknameSettingViewPresenter {
         if isValidNickname(text) {
             view?.updateHintLabelText(with: "")
         } else {
-            view?.updateHintLabelText(with: L10n.Localizable.specialCharactersAreNotAllowed)
+            view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.invalidNameHint)
         }
     }
 }
@@ -168,9 +168,9 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
         }
     }
     
-    func userModelDidFailNickname(_ model: UserModelType) {
+    func userModelDidDuplicateNickname(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
-        view?.updateHintLabelText(with: L10n.Localizable.duplicateNickname)
+        view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.duplicateNameHint)
     }
     
     func userModelDidAuthError(_ model: UserModelType) {

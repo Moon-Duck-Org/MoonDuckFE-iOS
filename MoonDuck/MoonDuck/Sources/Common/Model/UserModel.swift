@@ -11,8 +11,7 @@ protocol UserModelDelegate: AnyObject {
     func userModel(_ model: UserModelType, didChange user: User?)
     func userModel(_ model: UserModelType, didRecieve error: APIError?)
     func userModelDidFailLogin(_ model: UserModelType)
-    func userModelDidFailFetchingUser(_ model: UserModelType)
-    func userModelDidFailNickname(_ model: UserModelType)
+    func userModelDidDuplicateNickname(_ model: UserModelType)
     func userModelDidFailDeleteUser(_ model: UserModelType)
     func userModelDidAuthError(_ model: UserModelType)
 }
@@ -20,8 +19,7 @@ extension UserModelDelegate {
     func userModel(_ model: UserModelType, didChange user: User?) { }
     func userModel(_ model: UserModelType, didRecieve error: APIError?) { }
     func userModelDidFailLogin(_ model: UserModelType) { }
-    func userModelDidFailFetchingUser(_ model: UserModelType) { }
-    func userModelDidFailNickname(_ model: UserModelType) { }
+    func userModelDidDuplicateNickname(_ model: UserModelType) { }
     func userModelDidFailDeleteUser(_ model: UserModelType) { }
 }
 
@@ -142,7 +140,7 @@ class UserModel: UserModelType {
                     }
                 }
                 // User 정보 조회 실패
-                self.delegate?.userModelDidFailFetchingUser(self)
+                self.delegate?.userModel(self, didRecieve: failed)
             }
         }
     }
@@ -172,11 +170,11 @@ class UserModel: UserModelType {
                         return
                     } else if error.duplicateNickname {
                         // 중복된 닉네임
-                        self.delegate?.userModelDidFailNickname(self)
+                        self.delegate?.userModelDidDuplicateNickname(self)
                         return
                     }
                 }
-                self.delegate?.userModel(self, didRecieve: .unknown)
+                self.delegate?.userModel(self, didRecieve: failed)
             }
         }
     }

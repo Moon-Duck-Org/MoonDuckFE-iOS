@@ -274,7 +274,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
                 return
             }
         }
-        view?.showToastMessage("기록 불러오기를 실패했어요. 다시 시도해주세요. 문제가 지속되면 '설정->문의하기'에 문의해주세요.")
+        view?.showToastMessage(L10n.Localizable.Error.message("기록 불러오기"))
     }
     
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
@@ -294,7 +294,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewListDidFail(_ model: ReviewListModelType) {
-        view?.showToastMessage("기록 불러오기를 실패했어요. 다시 시도해주세요. 문제가 지속되면 '설정->문의하기'에 문의해주세요.")
+        view?.showToastMessage(L10n.Localizable.Error.message("기록 불러오기"))
     }
     
     func reviewListDidLast(_ model: ReviewListModelType) {
@@ -302,7 +302,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewListDidFailDeleteReview(_ model: ReviewListModelType) {
-        view?.showToastMessage("기록 삭제를 실패했어요. 다시 시도해주세요. 문제가 지속되면 '설정->문의하기'에 문의해주세요.")
+        view?.showToastMessage(L10n.Localizable.Error.message("기록 삭제"))
     }
 }
 

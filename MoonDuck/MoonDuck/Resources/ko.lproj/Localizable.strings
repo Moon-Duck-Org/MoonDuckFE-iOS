@@ -6,23 +6,50 @@
   
 */
 
-"done" = "확인";
-"cancel" = "취소";
-"close" = "닫기";
-"Would you like to cancel?" = "취소하시겠어요?";
+"app_name" = "문덕이";
+
+// 알럿 버튼
+"button. done" = "확인";
+"button. cancel" = "취소";
+"button. close" = "닫기";
+"button. delete" = "삭제";
+"button. edit" = "수정";
+"button. share" = "공유";
+"button. logout" = "로그아웃";
+"button. update" = "업데이트 하러가기";
+"button. later" = "나중에 하기";
+
+// 취소 메시지
+"message. cancel" = "취소하시겠어요?";
+
+// 카테고리
+"category. all" = "ALL";
+"category. movie" = "영화";
+"category. book" = "책";
+"category. drama" = "드라마";
+"category. concert" = "공연";
 
 // 닉네임 설정
-"Special characters are not allowed." = "특수문자는 사용 불가해요.";
-"Duplicate nickname." = "중복된 닉네임입니다.";
-"Nickname setup complete!" = "닉네임 설정 완료!";
+"nickname_setting. invalid_name_hint" = "특수문자는 사용 불가해요.";
+"nickname_setting. duplicate_name_hint" = "중복된 닉네임입니다.";
+"nickname_setting. complete_toast" = "닉네임 설정 완료!";
 
 // 마이
-"Would you like to log out?" = "로그아웃 하시겠어요?";
-"logout" = "로그아웃";
+"my. logout_alert_message" = "로그아웃 하시겠어요?";
 
-// 로그인
-"Login failed. Please try again." = "로그인에 실패하였습니다. 다시 시도해주세요.";
+// 오류 메시지
+"error. message" = "%@에 실패하였습니다. 다시 시도해주세요. 문제가 지속되면 '설정->문의하기'에 문의해주세요.";
+"error. network_message" = "네트워크 연결 상태를 확인해주세요.";
+"error. system_message" = "시스템 오류를 해결하기 위해 노력중이에요. 잠시 후에 다시 확인해주세요.";
+"error. auth_message"  ="인증 정보가 유효하지 않습니다.\n다시 로그인해주세요.";
 
-// 네트워크 오류
-"Please check your network connection" = "네트워크 연결 상태를 확인해주세요.";
-"We are working to resolve a system error. Please check back later." = "시스템 오류를 해결하기 위해 노력중이에요. 잠시 후에 다시 확인해주세요.";
+// 업데이트
+"update. force_update_title" = "업데이트가 필요합니다.";
+"update. force_update_message" = "문덕이를 계속 사용하려면 새로운 버전으로 업데이트해야 해요. 지금 바로 업데이트 해주세요!";
+"update. latest_update_title" = "새로운 버전 업데이트가 있어요";
+"update. latest_update_message" = "문덕이의 새로운 기능과 개선된 성능을 경험할 수 있어요. 앱을 지금 최신 버전으로 업데이트 해보세요!";
+
+// 정렬
+"sort. latest_order" = "최신순";
+"sort. rating_order" = "별점순";
+"sort. oldest_first" = "오래된 순";

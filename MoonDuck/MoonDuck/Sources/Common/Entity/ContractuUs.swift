@@ -12,7 +12,7 @@ struct ContractUs {
     let subject: String = "[문덕이 문의] "
     var nickName: String
     var appVersion: String
-    let appName: String = "문덕이"
+    let appName: String = Utils.getAppName()
     
     func getBody() -> String {
         return """

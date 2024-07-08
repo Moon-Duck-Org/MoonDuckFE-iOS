@@ -50,8 +50,8 @@ class MyInfoViewController: BaseViewController, MyInfoView {
     @IBAction private func logoutButtonTapped(_ sender: Any) {
         AppAlert.default
             .showDestructive(self,
-                             title: L10n.Localizable.wouldYouLikeToLogOut,
-                             destructiveTitle: L10n.Localizable.logout,
+                             title: L10n.Localizable.My.logoutAlertMessage,
+                             destructiveTitle: L10n.Localizable.Button.logout,
                              destructiveHandler: { [weak self] in
                 self?.presenter.logoutButtonTapped()
             })

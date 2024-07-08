@@ -65,6 +65,14 @@ class Utils {
         }
     }
     
+    static func getAppName() -> String {
+        if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String {
+            return appName
+        } else {
+            return L10n.Localizable.appName
+        }
+    }
+    
     static var remoteConfig: RemoteConfig?
     
     static func initConfig() {

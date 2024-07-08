@@ -13,8 +13,8 @@ class AppAlert {
     func showDestructive(_ viewController: UIViewController,
                          title: String? = "",
                          message: String? = "",
-                         cancelTitle: String = L10n.Localizable.cancel,
-                         destructiveTitle: String = "삭제",
+                         cancelTitle: String = L10n.Localizable.Button.cancel,
+                         destructiveTitle: String = L10n.Localizable.Button.delete,
                          cancelHandler: (() -> Void)? = nil,
                          destructiveHandler: (() -> Void)? = nil) {
         DispatchQueue.main.async {
@@ -38,8 +38,8 @@ class AppAlert {
     func showCancelAndDone(_ viewController: UIViewController,
                            title: String? = "",
                            message: String? = "",
-                           cancelTitle: String = L10n.Localizable.cancel,
-                           doneTitle: String = L10n.Localizable.done,
+                           cancelTitle: String = L10n.Localizable.Button.cancel,
+                           doneTitle: String = L10n.Localizable.Button.done,
                            cancelHandler: (() -> Void)? = nil,
                            doneHandler: (() -> Void)? = nil) {
         DispatchQueue.main.async {
@@ -63,7 +63,7 @@ class AppAlert {
     func showDone(_ viewController: UIViewController,
                   title: String? = "",
                   message: String? = "",
-                  doneTitle: String? = L10n.Localizable.done,
+                  doneTitle: String? = L10n.Localizable.Button.done,
                   doneHandler: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -80,15 +80,15 @@ class AppAlert {
     
     func showAuthError(_ viewController: UIViewController,
                        doneHandler: (() -> Void)? = nil) {
-        showDone(viewController, message: "인증 정보가 유효하지 않습니다.\n다시 로그인해주세요.")
+        showDone(viewController, message: L10n.Localizable.Error.authMessage)
     }
     
     func showNetworkError(_ viewController: UIViewController) {
-        showDone(viewController, message: "네트워크 연결 상태를 확인해주세요.")
+        showDone(viewController, message: L10n.Localizable.Error.networkMessage)
     }
     
     func showSystemErrorAlert(_ viewController: UIViewController) {
-        showDone(viewController, message: "시스템 오류")
+        showDone(viewController, message: L10n.Localizable.Error.systemMessage)
     }
     
     func showList(_ viewController: UIViewController,
@@ -96,7 +96,7 @@ class AppAlert {
                   message: String? = nil,
                   buttonTitleList: [String],
                   buttonHandlerIndex: ((Int) -> Void)?,
-                  cancelTitle: String = L10n.Localizable.close,
+                  cancelTitle: String = L10n.Localizable.Button.close,
                   cancelHandler: (() -> Void)? = nil
     ) {
         DispatchQueue.main.async {
@@ -138,25 +138,25 @@ class AppAlert {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
-            let writeAction = UIAlertAction(title: "수정", style: .default) { _ in
+            let writeAction = UIAlertAction(title: L10n.Localizable.Button.edit, style: .default) { _ in
                 alert.dismiss(animated: true)
                 writeHandler?()
             }
             alert.addAction(writeAction)
             
-            let shareAction = UIAlertAction(title: "공유", style: .default) { _ in
+            let shareAction = UIAlertAction(title: L10n.Localizable.Button.share, style: .default) { _ in
                 alert.dismiss(animated: true)
                 shareHandler?()
             }
             alert.addAction(shareAction)
             
-            let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+            let deleteAction = UIAlertAction(title: L10n.Localizable.Button.delete, style: .destructive) { _ in
                 alert.dismiss(animated: true)
                 deleteHandler?()
             }
             alert.addAction(deleteAction)
             
-            let cancelAction = UIAlertAction(title: "닫기", style: .cancel) { _ in
+            let cancelAction = UIAlertAction(title: L10n.Localizable.Button.close, style: .cancel) { _ in
                 alert.dismiss(animated: true)
             }
             alert.addAction(cancelAction)

@@ -73,6 +73,7 @@ extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
     func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {
         view?.dismiss()
         view?.updateNameLabelText(with: nickname)
+        view?.showToastMessage(L10n.Localizable.NicknameSetting.completeToast)
         model.save(nickname: nickname)
     }
     

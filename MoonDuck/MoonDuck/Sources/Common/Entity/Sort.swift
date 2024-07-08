@@ -19,11 +19,11 @@ enum Sort: String {
     var title: String {
         switch self {
         case .latestOrder:
-            return "최신순"
+            return L10n.Localizable.Sort.latestOrder
         case .ratingOrder:
-            return "별점순"
+            return L10n.Localizable.Sort.ratingOrder
         case .oldestFirst:
-            return "오래된 순"
+            return L10n.Localizable.Sort.oldestFirst
         }
     }
 }

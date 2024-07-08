@@ -82,15 +82,15 @@ enum Category: String {
     var title: String {
         switch self {
         case .all:
-            return "ALL"
+            return L10n.Localizable.Category.all
         case .movie:
-            return "영화"
+            return L10n.Localizable.Category.movie
         case .book:
-            return "책"
+            return L10n.Localizable.Category.book
         case .drama:
-            return "드라마"
+            return L10n.Localizable.Category.drama
         case .concert:
-            return "공연"
+            return L10n.Localizable.Category.concert
         case .none:
             return ""
         }

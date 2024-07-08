@@ -64,7 +64,7 @@ extension LoginViewPresenter {
     }
     
     func loginError() {
-        view?.showToastMessage(L10n.Localizable.LoginFailed.pleaseTryAgain)
+        view?.showToastMessage(L10n.Localizable.Error.message("로그인"))
     }
 }
 
@@ -188,12 +188,6 @@ extension LoginViewPresenter: UserModelDelegate {
     }
     
     func userModelDidFailLogin(_ model: UserModelType) {
-        view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
-        loginError()
-    }
-    
-    func userModelDidFailFetchingUser(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
         AuthManager.default.logout()
         loginError()
