@@ -28,7 +28,7 @@ class AppVersionViewController: BaseViewController, AppVersionView {
         back()
     }
     @IBAction private func updateButtonTapped(_ sender: Any) {
-        showToastMessage("앱 스토어 이동 예정")
+        presenter.updateButtonTapped()
     }
     
     init(navigator: Navigator,

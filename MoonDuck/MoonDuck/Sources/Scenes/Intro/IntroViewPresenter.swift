@@ -7,11 +7,16 @@
 
 import Foundation
 
+import FirebaseRemoteConfig
+
 protocol IntroPresenter: AnyObject {
     var view: IntroView? { get set }
     
-    /// Life Cycle
+    // Life Cycle
     func viewDidLoad()
+    
+    // Action
+    func latestUpdateButtonTapped()
 }
 
 class IntroViewPresenter: BaseViewPresenter, IntroPresenter {
@@ -26,14 +31,33 @@ class IntroViewPresenter: BaseViewPresenter, IntroPresenter {
     }
 }
 
-// MARK: - Input
 extension IntroViewPresenter {
+    // MARK: - Life Cycle
     func viewDidLoad() {
+        checkAppVersion()
+    }
+    
+    // MARK: - Action
+    func latestUpdateButtonTapped() {
         checkAutoLogin()
     }
 }
 // MARK: - Logic
 extension IntroViewPresenter {
+    private func checkAppVersion() {
+        Utils.initConfig()
+        Utils.checkForUpdate { [weak self] appUpdate in
+            switch appUpdate {
+            case .forceUpdate:
+                self?.view?.showForceUpdateAlert()
+            case .latestUpdate:
+                self?.view?.showLatestUpdateAlert()
+            case .none:
+                self?.checkAutoLogin()
+            }
+        }
+    }
+    
     private func checkAutoLogin() {
         if let auth = AuthManager.default.getAutoLoginAuth() {
             // 자동 로그인 정보 있으면 로그인 시도
@@ -44,7 +68,7 @@ extension IntroViewPresenter {
     }
     
     private func login(_ auth: Auth) {
-        AuthManager.default.login(auth: auth) { [weak self] isHaveNickname, failed in
+        AuthManager.default.login(auth: auth) { [weak self] isHaveNickname, _ in
             if let isHaveNickname, isHaveNickname {
                 if isHaveNickname {
                     // 로그인 성공 시, User 정보 조회
@@ -66,14 +90,13 @@ extension IntroViewPresenter {
 // MARK: - UserModelDelegate
 extension IntroViewPresenter: UserModelDelegate {
     
-    func userModel(_ model: UserModelType, didChange user: User) {
+    func userModel(_ model: UserModelType, didChange user: User?) {
         // User 정보 조회 성공 -> 홈 이동
-        let cateogryModel = CategoryModel()
-        let sortModel = SortModel()
-        let reviewModel = ReviewListModel(provider)
-        let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        if user != nil {
+            let cateogryModel = CategoryModel()
+            let sortModel = SortModel()
+            let reviewModel = ReviewListModel(provider)
+            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)            
             self.view?.moveHome(with: presenter)
         }
     }

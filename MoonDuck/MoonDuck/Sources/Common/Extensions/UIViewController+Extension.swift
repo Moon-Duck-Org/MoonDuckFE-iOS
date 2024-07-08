@@ -21,6 +21,8 @@ extension UIViewController {
             toastLabel.textColor = UIColor(asset: Asset.Color.white)
             toastLabel.font = FontFamily.NotoSansCJKKR.medium.font(size: 14)
             toastLabel.text = message
+            toastLabel.numberOfLines = 0
+            toastLabel.textAlignment = .center
             
             self.view.addSubview(frameView)
             frameView.addSubview(toastLabel)
@@ -29,14 +31,13 @@ extension UIViewController {
                 $0.centerX.equalTo(self.view.snp.centerX)
                 $0.leading.equalTo(self.view.snp.leading).offset(16)
                 $0.trailing.equalTo(self.view.snp.trailing).offset(-16)
-                $0.height.equalTo(37)
             })
             toastLabel.snp.makeConstraints({
-                $0.center.equalTo(frameView.snp.center)
+                $0.leading.trailing.bottom.top.equalToSuperview().inset(8)
             })
             
-            UIView.animate(withDuration: 1.5,
-                           delay: 1.5,
+            UIView.animate(withDuration: 2.0,
+                           delay: 0.5,
                            options: .curveEaseOut,
                            animations: {
                 frameView.alpha = 0.0

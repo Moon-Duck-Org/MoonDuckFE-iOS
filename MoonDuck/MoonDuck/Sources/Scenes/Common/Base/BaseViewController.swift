@@ -24,7 +24,7 @@ class BaseViewController: UIViewController, Navigatable {
     lazy var throttler = Throttler(interval: 1.0)
     var navigator: Navigator?
     
-    let loadingView: LoadingView = {
+    lazy var loadingView: LoadingView = {
         let view = LoadingView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -83,7 +83,9 @@ class BaseViewController: UIViewController, Navigatable {
     }
     
     func moveLogin(with presenter: LoginPresenter) {
-        navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root, animated: false)
+        DispatchQueue.main.async {
+            self.navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root, animated: false)
+        }
     }
     
     func showAuthErrorAlert(with presenter: LoginPresenter) {

@@ -54,14 +54,16 @@ extension SettingViewPrsenter {
         let title = "서비스 이용약관"
         let url = "https://sunidev.notion.site/c85019c82e444fceb580e4667dce8a48?pvs=4"
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
-        view?.moveWebview(with: presenter)
+//        view?.moveWebview(with: presenter)
+        view?.showToastMessage("서비스 이용약관 이동예정")
     }
     
     func privacyPolicyButtonTapped() {
         let title = "개인정보 처리방침"
         let url = "https://sunidev.notion.site/2282adad10e740f08f5d6a30f4704e87?pvs=4"
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
-        view?.moveWebview(with: presenter)
+//        view?.moveWebview(with: presenter)
+        view?.showToastMessage("개인정보 처리방침 이동예정")
     }
     
     func appVersionButtonTapped() {
@@ -73,7 +75,8 @@ extension SettingViewPrsenter {
         let title = "공지사항"
         let url = "https://sunidev.notion.site/c77f983fa04e4525917b80ea1a4f3c22?pvs=4"
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
-        view?.moveWebview(with: presenter)
+//        view?.moveWebview(with: presenter)
+        view?.showToastMessage("공지사항 이동예정")
     }
     
     func withdrawButtonTapped() {

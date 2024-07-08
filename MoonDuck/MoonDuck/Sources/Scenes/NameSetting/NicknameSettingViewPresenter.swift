@@ -141,18 +141,20 @@ extension NicknameSettingViewPresenter {
 // MARK: - UserModelDelegate
 extension NicknameSettingViewPresenter: UserModelDelegate {
     
-    func userModel(_ model: UserModelType, didChange user: User) {
+    func userModel(_ model: UserModelType, didChange user: User?) {
         // 닉네임 변경 성공
         view?.updateLoadingView(isLoading: false)
         
-        if isNew {
-            let cateogryModel = CategoryModel()
-            let reviewModel = ReviewListModel(provider)
-            let sortModel = SortModel()
-            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
-            view?.moveHome(with: presenter)
-        } else {
-            delegate?.nicknameSetting(self, didSuccess: user.nickname)
+        if let user {
+            if isNew {
+                let cateogryModel = CategoryModel()
+                let reviewModel = ReviewListModel(provider)
+                let sortModel = SortModel()
+                let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
+                view?.moveHome(with: presenter)
+            } else {
+                delegate?.nicknameSetting(self, didSuccess: user.nickname)
+            }
         }
     }
     

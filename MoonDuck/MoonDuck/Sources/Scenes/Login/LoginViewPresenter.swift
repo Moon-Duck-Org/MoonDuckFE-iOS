@@ -158,14 +158,16 @@ extension LoginViewPresenter {
 
 // MARK: - UserModelDelegate
 extension LoginViewPresenter: UserModelDelegate {
-    func userModel(_ model: UserModelType, didChange user: User) {
+    func userModel(_ model: UserModelType, didChange user: User?) {
         // User 정보 조회 성공 -> 홈 이동
         view?.updateLoadingView(isLoading: false)
-        let cateogryModel = CategoryModel()
-        let reviewModel = ReviewListModel(provider)
-        let sortModel = SortModel()
-        let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
-        view?.moveHome(with: presenter)
+        if let user {
+            let cateogryModel = CategoryModel()
+            let reviewModel = ReviewListModel(provider)
+            let sortModel = SortModel()
+            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
+            view?.moveHome(with: presenter)
+        }
     }
     
     func userModel(_ model: UserModelType, didRecieve error: APIError?) {
