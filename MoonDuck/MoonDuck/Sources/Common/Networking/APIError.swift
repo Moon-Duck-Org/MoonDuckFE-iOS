@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 enum APIError: Error, Equatable, LocalizedError {
     // API ERROR
@@ -143,7 +144,7 @@ enum APIError: Error, Equatable, LocalizedError {
         }
     }
     // swiftlint:enable cyclomatic_complexity    
-    init(statusCode: Int, error: Error) {
+    init(statusCode: Int, error: AFError) {
         switch statusCode {
         case 400..<500:
             self = .client
@@ -154,20 +155,24 @@ enum APIError: Error, Equatable, LocalizedError {
         default: break
         }
         
-        if let urlError = error as? URLError {
-            switch urlError.code {
-            case .timedOut, .cannotFindHost, .cannotConnectToHost, .networkConnectionLost, .dnsLookupFailed, .notConnectedToInternet, .secureConnectionFailed:
-                self = .network
-            default: self = .error(code: "\(urlError.errorCode)", message: "\(urlError.localizedDescription)")
-            }
-        } else if let nsError = error as NSError? {
+        if let nsError = error as NSError? {
             switch nsError.code {
             case NSURLErrorTimedOut, NSURLErrorCannotFindHost, NSURLErrorCannotConnectToHost, NSURLErrorNetworkConnectionLost, NSURLErrorDNSLookupFailed, NSURLErrorNotConnectedToInternet, NSURLErrorSecureConnectionFailed:
                 self = .network
-            default: self = .error(code: "\(nsError.code)", message: "\(nsError.localizedDescription)")
+                return
+            default: break
             }
+        }
+        
+        if error.isSessionDeinitializedError ||
+            error.isSessionInvalidatedError ||
+            error.isExplicitlyCancelledError ||
+            error.isInvalidURLError ||
+            error.isRequestAdaptationError ||
+            error.isSessionTaskError {
+            self = .network
         } else {
-            self = .error(code: "-99", message: "\(error.localizedDescription)")
+            self = .error(code: "\(statusCode)", message: "\(error.localizedDescription)")
         }
     }
 }

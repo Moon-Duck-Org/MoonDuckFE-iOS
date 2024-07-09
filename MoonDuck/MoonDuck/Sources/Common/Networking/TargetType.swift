@@ -61,7 +61,7 @@ extension TargetType {
                     } else {
                         let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
                         let error = response.error ?? error
-                        let apiError = APIError(statusCode: statusCode , error: error)
+                        let apiError = APIError(statusCode: statusCode, error: error)
                         completion(.failure(apiError))
                     }
                 }
