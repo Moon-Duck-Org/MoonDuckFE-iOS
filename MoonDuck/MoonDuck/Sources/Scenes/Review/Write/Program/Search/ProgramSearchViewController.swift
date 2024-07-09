@@ -147,7 +147,7 @@ extension ProgramSearchViewController {
     }
     
     func moveWriteReview(with presenter: WriteReviewViewPresenter) {
-        navigator?.show(seque: .writeReview(presenter: presenter), sender: self, transition: .navigation, animated: false)
+        navigator?.show(seque: .writeReview(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
 }
 

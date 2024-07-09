@@ -111,7 +111,7 @@ class Navigator {
     }
     
     // MARK: - invoke a single segue
-    func show(seque: Scene, sender: UIViewController?, transition: Transition = .navigation, animated: Bool = true) {
+    func show(seque: Scene, sender: UIViewController?, transition: Transition = .navigation, animated: Bool = false) {
         if let target = get(seque: seque) {
             show(target: target, sender: sender, transition: transition, animated: animated)
         }

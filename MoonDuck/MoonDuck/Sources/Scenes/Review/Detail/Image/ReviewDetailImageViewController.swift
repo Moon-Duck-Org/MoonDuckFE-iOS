@@ -66,7 +66,7 @@ extension ReviewDetailImageViewController {
 // MARK: - Navigation
 extension ReviewDetailImageViewController {
     private func back() {
-        navigator?.pop(sender: self)
+        navigator?.pop(sender: self, animated: true)
     }
 }
 // MARK: - UICollectionViewDataSource

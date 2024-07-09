@@ -64,6 +64,6 @@ extension WebViewController {
 // MARK: - Navigation
 extension WebViewController {
     private func back() {
-        navigator?.pop(sender: self)
+        navigator?.pop(sender: self, animated: true)
     }
 }

@@ -18,6 +18,7 @@
 "button. logout" = "로그아웃";
 "button. update" = "업데이트 하러가기";
 "button. later" = "나중에 하기";
+"button. withdraw" = "탈퇴";
 
 // 취소 메시지
 "message. cancel" = "취소하시겠어요?";
@@ -36,6 +37,9 @@
 
 // 마이
 "my. logout_alert_message" = "로그아웃 하시겠어요?";
+"my. withdraw_complete_message" = "회원 탈퇴가 성공적으로 완료되었습니다. 문덕이를 이용해 주셔서 감사합니다.";
+"my. withdraw_alert_message" = "정말 탈퇴 하시겠어요?";
+
 
 // 오류 메시지
 "error. login_message" = "로그인에 실패했어요. 다시 시도해주세요.";

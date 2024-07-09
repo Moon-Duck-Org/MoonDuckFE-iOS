@@ -37,6 +37,8 @@ internal enum L10n {
       internal static let share = L10n.tr("Localizable", "button. share", fallback: "공유")
       /// 업데이트 하러가기
       internal static let update = L10n.tr("Localizable", "button. update", fallback: "업데이트 하러가기")
+      /// 탈퇴
+      internal static let withdraw = L10n.tr("Localizable", "button. withdraw", fallback: "탈퇴")
     }
     internal enum Category {
       /// ALL
@@ -86,6 +88,10 @@ internal enum L10n {
     internal enum My {
       /// 로그아웃 하시겠어요?
       internal static let logoutAlertMessage = L10n.tr("Localizable", "my. logout_alert_message", fallback: "로그아웃 하시겠어요?")
+      /// 정말 탈퇴 하시겠어요?
+      internal static let withdrawAlertMessage = L10n.tr("Localizable", "my. withdraw_alert_message", fallback: "정말 탈퇴 하시겠어요?")
+      /// 회원 탈퇴가 성공적으로 완료되었습니다. 문덕이를 이용해 주셔서 감사합니다.
+      internal static let withdrawCompleteMessage = L10n.tr("Localizable", "my. withdraw_complete_message", fallback: "회원 탈퇴가 성공적으로 완료되었습니다. 문덕이를 이용해 주셔서 감사합니다.")
     }
     internal enum NicknameSetting {
       /// 닉네임 설정 완료!

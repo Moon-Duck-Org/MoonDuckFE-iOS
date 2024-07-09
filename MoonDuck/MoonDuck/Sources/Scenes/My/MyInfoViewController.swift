@@ -92,15 +92,15 @@ extension MyInfoViewController {
 // MARK: - Navigation
 extension MyInfoViewController {
     private func back() {
-        navigator?.pop(sender: self)
+        navigator?.pop(sender: self, animated: true)
     }
     
     func dismiss() {
-        navigator?.dismiss(sender: self)
+        navigator?.dismiss(sender: self, animated: true)
     }
     
     func presentNameSetting(with presenter: NicknameSettingPresenter) {
-        navigator?.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .modal)
+        navigator?.show(seque: .nameSetting(presenter: presenter), sender: self, transition: .modal, animated: true)
     }
     
     func moveSetting(with presenter: SettingPresenter) {
