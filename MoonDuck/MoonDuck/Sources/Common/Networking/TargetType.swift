@@ -50,11 +50,6 @@ extension TargetType {
                 case .success(let decodedResponse):
                     completion(.success(decodedResponse))
                 case .failure(let error):
-                    if let httpResponse = response.response {
-                        completion(.failure(APIError(statusCode: httpResponse.statusCode)))
-                        return
-                    }
-                    
                     if let data = response.data {
                         do {
                             let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
@@ -64,11 +59,8 @@ extension TargetType {
                             completion(.failure(.decoding))
                         }
                     } else {
-                        if let error = response.error {
-                            completion(.failure(APIError(error: error)))
-                        } else {
-                            completion(.failure(.unknown))
-                        }
+                        let apiError = APIError(statusCode: response.response?.statusCode ?? -99, error: response.error ?? error)
+                        completion(.failure(apiError))
                     }
                 }
             }
@@ -121,11 +113,6 @@ extension TargetType {
                     case .success(let decodedResponse):
                         completion(.success(decodedResponse))
                     case .failure(let error):
-                        if let httpResponse = response.response {
-                            completion(.failure(APIError(statusCode: httpResponse.statusCode)))
-                            return
-                        }
-                        
                         if let data = response.data {
                             do {
                                 let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
@@ -135,11 +122,8 @@ extension TargetType {
                                 completion(.failure(.decoding))
                             }
                         } else {
-                            if let error = response.error {
-                                completion(.failure(APIError(error: error)))
-                            } else {
-                                completion(.failure(.unknown))
-                            }
+                            let apiError = APIError(statusCode: response.response?.statusCode ?? -99, error: response.error ?? error)
+                            completion(.failure(apiError))
                         }
                     }
                 }

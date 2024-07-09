@@ -75,6 +75,6 @@ extension SelectProgramViewController {
     }
     
     func moveProgramSearch(with presenter: ProgramSearchPresenter) {
-        navigator?.show(seque: .programSearch(presenter: presenter), sender: self, transition: .navigation)
+        navigator?.show(seque: .programSearch(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
 }

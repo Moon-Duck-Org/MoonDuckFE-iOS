@@ -22,6 +22,7 @@ protocol HomePresenter: AnyObject {
     func writeReviewHandler(for review: Review) -> (() -> Void)?
     func shareReviewHandler(for review: Review) -> (() -> Void)?
     func deleteReviewHandler(for review: Review) -> (() -> Void)?
+    func reviewTappedHandler(for review: Review) -> (() -> Void)?
     
     /// Life Cycle
     func viewDidLoad()
@@ -43,6 +44,8 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     private let categoryModel: CategoryModelType
     private let sortModel: SortModelType
     private let reviewModel: ReviewListModelType
+    
+    private var reloadCategoryTrigger: [Category] = []
     
     init(with provider: AppServices,
          userModel: UserModelType,
@@ -113,6 +116,16 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
             self?.reviewModel.deleteReview(for: review)
         }
     }
+    
+    func reviewTappedHandler(for review: Review) -> (() -> Void)? {
+        return { [weak self] in
+            guard let self else { return }
+            let handler = self.deleteReviewHandler(for: review)
+            let model = ReviewModel(self.provider, review: review, deleteReviewHandler: handler)
+            let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
+            view?.moveReviewDetail(with: presenter)
+        }
+    }
 }
 
 extension HomeViewPresenter {
@@ -177,8 +190,18 @@ extension HomeViewPresenter {
     }
     
     private func isNeededReloadReviews(with category: Category) -> Bool {
-        if let list = reviewModel.reviewList(with: category),
-           list.sortOption == sortModel.selectedSortOption {
+        if let list = reviewModel.reviewList(with: category) {
+            // 1. 리뷰 수정/삭제가 일어난 카테고리면 리로드
+            if let firstIndex = reloadCategoryTrigger.firstIndex(of: category) {
+                reloadCategoryTrigger.remove(at: firstIndex)
+                return true
+            }
+            
+            // 2. 선택된 정렬과 캐싱된 리스트 정렬이 다르면 리로드
+            if list.sortOption != sortModel.selectedSortOption {
+                return true
+            }
+            
             return false
         }
         return true
@@ -187,6 +210,12 @@ extension HomeViewPresenter {
     private func moveMyInfo(with model: UserModel) {
         let presenter = MyInfoViewPresenter(with: provider, model: model)
         view?.moveMy(with: presenter)
+    }
+    
+    private func setReloadCategoryTrigger(with category: Category) {
+        if !reloadCategoryTrigger.contains(category) {
+            reloadCategoryTrigger.append(category)
+        }
     }
 }
 
@@ -274,7 +303,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
                 return
             }
         }
-        view?.showToastMessage(L10n.Localizable.Error.message("기록 불러오기"))
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 불러오기"), message: L10n.Localizable.Error.message)
     }
     
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
@@ -283,6 +312,9 @@ extension HomeViewPresenter: ReviewListModelDelegate {
         view?.popToSelf()
         
         if let category = categoryModel.selectedCategory {
+            if category != review.category {
+                setReloadCategoryTrigger(with: review.category)
+            }
             model.syncReviewList(with: category, review: review)
         }
     }
@@ -294,7 +326,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewListDidFail(_ model: ReviewListModelType) {
-        view?.showToastMessage(L10n.Localizable.Error.message("기록 불러오기"))
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 불러오기"), message: L10n.Localizable.Error.message)
     }
     
     func reviewListDidLast(_ model: ReviewListModelType) {
@@ -302,7 +334,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewListDidFailDeleteReview(_ model: ReviewListModelType) {
-        view?.showToastMessage(L10n.Localizable.Error.message("기록 삭제"))
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 삭제"), message: L10n.Localizable.Error.message)
     }
 }
 
@@ -315,14 +347,13 @@ extension HomeViewPresenter: WriteReviewPresenterDelegate {
         categoryModel.reloadCategory()
         sortModel.reloadSortOption()
         userModel.createReview(category: review.category)
+        setReloadCategoryTrigger(with: review.category)
         if let selectedCategory = categoryModel.selectedCategory {
             view?.updateLoadingView(isLoading: true)
             reviewModel.reloadReviews(with: selectedCategory, filter: sortModel.selectedSortOption)
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.view?.showToastMessage("기록 작성 완료!")
-        }
+        view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
     }
     
     func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
@@ -336,6 +367,7 @@ extension HomeViewPresenter: ReviewDetailPresenterDelegate {
         categoryModel.reloadCategory()
         sortModel.reloadSortOption()
         userModel.createReview(category: review.category)
+        setReloadCategoryTrigger(with: review.category)
         if let selectedCategory = categoryModel.selectedCategory {
             view?.updateLoadingView(isLoading: true)
             reviewModel.reloadReviews(with: selectedCategory, filter: sortModel.selectedSortOption)

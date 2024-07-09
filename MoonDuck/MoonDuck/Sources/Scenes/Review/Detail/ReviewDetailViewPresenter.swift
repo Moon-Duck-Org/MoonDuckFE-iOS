@@ -25,6 +25,7 @@ protocol ReviewDetailPresenter: AnyObject {
     func viewDidLoad()
 
     // Action
+    func selectReviewImage(_ index: Int)
 }
 
 class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
@@ -84,6 +85,13 @@ extension ReviewDetailViewPresenter {
     }
     
     // MARK: - Action
+    func selectReviewImage(_ index: Int) {
+        if index < review.imageUrlList.count {
+            let imageUrls = review.imageUrlList
+            let presenter = ReviewDetailImageViewPresenter(with: provider, imageUrls: imageUrls, currentIndex: index)
+            view?.moveDetailImage(with: presenter)
+        }
+    }
     
     // MARK: - Logic
 }
@@ -108,9 +116,7 @@ extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
         view?.popToSelf()
         model.save(for: review)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.view?.showToastMessage("기록 작성 완료!")
-        }
+        view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
     }
     
     func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {

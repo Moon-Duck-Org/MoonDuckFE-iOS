@@ -57,7 +57,7 @@ extension NicknameSettingViewPresenter {
         // 닉네임이 세팅
         let nickname = model.user?.nickname ?? ""
         view?.updateCancelButtonHidden(isNew)
-        view?.updateNameTextfieldText(with: nickname)
+        view?.updateNameTextFieldText(with: nickname)
         view?.updateCountLabelText(with: "\(nickname.count)/\(maxNicknameCount)")
         nicknameText = nickname
         view?.updateCompleteButtonEnabled(false)
@@ -101,17 +101,23 @@ extension NicknameSettingViewPresenter {
 // MARK: - UITextFieldDelegate
 extension NicknameSettingViewPresenter {
     func nicknameTextFieldEditingChanged(_ text: String?) {
-        view?.updateCountLabelText(with: "\(text?.count ?? 0)/\(maxNicknameCount)")
-        view?.updateCompleteButtonEnabled(text?.count ?? 0 > 1)
-        nicknameText = text
+        guard let text else { return }
+        
+        var currentText = text
+        if text.count > maxNicknameCount {
+            let maxIndex = text.index(text.startIndex, offsetBy: maxNicknameCount)
+            let replaceText = String(text[..<maxIndex])
+            view?.updateNameTextFieldText(with: replaceText)
+            currentText = replaceText
+        }
+        
+        view?.updateCountLabelText(with: "\(currentText.count)/\(maxNicknameCount)")
+        view?.updateCompleteButtonEnabled(currentText.count > 1)
+        nicknameText = currentText
     }
     
     func textField(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let currentText = text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let changeText = currentText.replacingCharacters(in: stringRange, with: string)
-        
-        if changeText.count > maxNicknameCount || changeText.contains(" ") {
+        if string.contains(" ") {
             return false
         } else {
             return true

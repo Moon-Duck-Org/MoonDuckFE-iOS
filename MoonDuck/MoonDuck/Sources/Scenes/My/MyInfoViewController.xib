@@ -96,8 +96,8 @@
                                 <constraint firstAttribute="width" constant="40" id="uCv-l3-5FP"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="포덕이" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGZ-fE-rCh">
-                            <rect key="frame" x="70" y="43.666666666666657" width="198" height="26.666666666666671"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGZ-fE-rCh">
+                            <rect key="frame" x="70" y="57" width="198" height="0.0"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="18"/>
                             <color key="textColor" name="Black"/>
                             <nil key="highlightedColor"/>

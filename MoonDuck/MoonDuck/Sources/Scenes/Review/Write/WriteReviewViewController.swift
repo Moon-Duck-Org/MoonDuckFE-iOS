@@ -11,20 +11,21 @@ import PhotosUI
 protocol WriteReviewView: BaseView {
     // UI Logic
     func updateProgramInfo(for category: Category, with title: String, and subTitle: String)
-    func updateTestField(for title: String, with content: String, and link: String?)
+    func updateTextField(for title: String, with content: String, and link: String?)
+    func updateTitleTextFieldText(with text: String)
     func updateTitleCountLabelText(with count: String)
+    func updateContentTextViewText(with text: String)
     func updateContentCountLabelText(with count: String)
     func updateRating(for rating: Int)
     func showSelectImageSheet()
     func reloadImages()
-    func showExceedeImageSizeAlert(_ message: String)
+    func showBackAlert()
     
     // Navigation
-    func backToHome()
+    func back()
 }
 
 class WriteReviewViewController: BaseViewController, WriteReviewView {
-    
     private let presenter: WriteReviewPresenter
     private let imageDataSource: WriteImageDataSource
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
@@ -65,7 +66,9 @@ class WriteReviewViewController: BaseViewController, WriteReviewView {
     
     // @IBAction
     @IBAction private func cancelButtonTapped(_ sender: Any) {
-        backToHome()
+        throttler.throttle {
+            self.presenter.cancelButtonTapped()
+        }
     }
     
     @IBAction private func saveButtonTapped(_ sender: Any) {
@@ -103,6 +106,9 @@ class WriteReviewViewController: BaseViewController, WriteReviewView {
         presenter.view = self
         presenter.viewDidLoad()
         
+        // interactivePopGestureRecognizer 설정
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
         registeRatingButtonAction()
         
         imageDataSource.configure(with: imageCollectionView)
@@ -118,14 +124,21 @@ extension WriteReviewViewController {
         programSubTitleLabel.text = subTitle
     }
     
-    func updateTestField(for title: String, with content: String, and link: String?) {
+    func updateTextField(for title: String, with content: String, and link: String?) {
         titleTextField.text = title
         contentTextView.text = content
         linkTextField.text = link
     }
+    func updateTitleTextFieldText(with text: String) {
+        titleTextField.text = text
+    }
     
     func updateTitleCountLabelText(with count: String) {
         titleCountLabel.text = count
+    }
+    
+    func updateContentTextViewText(with text: String) {
+        contentTextView.text = text
     }
     
     func updateContentCountLabelText(with count: String) {
@@ -157,10 +170,6 @@ extension WriteReviewViewController {
         DispatchQueue.main.async {
             self.imageCollectionView.reloadData()
         }
-    }
-    
-    func showExceedeImageSizeAlert(_ message: String) {
-        AppAlert.default.showDone(self, message: message)
     }
     
     // 노티피케이션 등록
@@ -217,12 +226,23 @@ extension WriteReviewViewController {
         feedbackGenerator.impactOccurred()
         presenter.ratingButtonTapped(at: sender.tag)
     }
+    
+    func showBackAlert() {
+        AppAlert.default.showCancelAndDone(
+            self,
+            title: L10n.Localizable.Write.backTitle,
+            message: L10n.Localizable.Write.backMessage,
+            doneHandler: { [weak self] in
+                self?.back()
+            }
+        )
+    }
 }
 
 // MARK: - Navigation
 extension WriteReviewViewController {
-    func backToHome() {
-        navigator?.pop(sender: self, popType: .popToRoot, animated: true)
+    func back() {
+        navigator?.pop(sender: self, animated: true)
     }
 }
 
@@ -319,12 +339,22 @@ extension WriteReviewViewController: PHPickerViewControllerDelegate, UIImagePick
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
             presenter.selectImages([selectedImage])
-//            collectionView.reloadData()
         }
         picker.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension WriteReviewViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        // 스와이프 제스처가 시작되기 전에 호출됨
+        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer {
+            return presenter.gestureRecognizerShouldBegin()
+        }
+        return true
     }
 }

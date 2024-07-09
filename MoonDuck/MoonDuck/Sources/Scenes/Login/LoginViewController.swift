@@ -14,7 +14,6 @@ import AuthenticationServices
 
 protocol LoginView: BaseView {
     // Navigation
-    func dismiss()
     func moveNameSetting(with presenter: NicknameSettingPresenter)
     func moveHome(with presenter: HomePresenter)
 }
@@ -111,10 +110,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
 
 // MARK: - Navigation
 extension LoginViewController {
-    func dismiss() {
-        navigator?.dismiss(sender: self, animated: false)
-    }
-    
     func moveNameSetting(with presenter: NicknameSettingPresenter) {
         navigator?.show(seque: .nameSetting(presenter: presenter), sender: nil, transition: .root)
     }

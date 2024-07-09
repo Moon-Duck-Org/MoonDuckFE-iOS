@@ -27,6 +27,7 @@ protocol WriteReviewPresenter: AnyObject {
     func viewDidLoad()
     
     // Action
+    func cancelButtonTapped()
     func saveButtonTapped()
     func ratingButtonTapped(at tag: Int)
     func selectImages(_ images: [UIImage])
@@ -43,6 +44,9 @@ protocol WriteReviewPresenter: AnyObject {
     func textViewDidChange(_ text: String?)
     func textView(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     func textViewDidBeginEditing(_ text: String?)
+    
+    // UIGestureRecognizerDelegate
+    func gestureRecognizerShouldBegin() -> Bool
 }
 
 class WriteReviewViewPresenter: BaseViewPresenter, WriteReviewPresenter {
@@ -124,10 +128,12 @@ extension WriteReviewViewPresenter {
         if let review = model.review {
             let program = review.program
             view?.updateProgramInfo(for: program.category, with: program.title, and: program.subInfo)
-            view?.updateTestField(for: review.title, with: review.content, and: review.link)
+            view?.updateTextField(for: review.title, with: review.content, and: review.link)
             titleText = review.title
             contentText = review.content
             linkText = review.link
+            view?.updateTitleCountLabelText(with: "\(review.title.count)/\(config.maxTitleCount)")
+            view?.updateContentCountLabelText(with: "\(review.content.count)/\(config.maxContentCount)")
             view?.updateRating(for: review.rating)
             rating = review.rating
             
@@ -144,6 +150,14 @@ extension WriteReviewViewPresenter {
     }
     
     // MARK: - Action
+    func cancelButtonTapped() {
+        if isWritingReview() {
+            view?.showBackAlert()
+        } else {
+            view?.back()
+        }
+    }
+    
     func saveButtonTapped() {
         view?.updateLoadingView(isLoading: true)
         var title: String = ""
@@ -154,7 +168,7 @@ extension WriteReviewViewPresenter {
             title = titleText
         } else {
             view?.updateLoadingView(isLoading: false)
-            view?.showToastMessage("제목을 입력해주세요.")
+            view?.showToastMessage(L10n.Localizable.Write.emptyTitleMessage)
             return
         }
         
@@ -162,7 +176,7 @@ extension WriteReviewViewPresenter {
             content = contentText
         } else {
             view?.updateLoadingView(isLoading: false)
-            view?.showToastMessage("내용을 입력해주세요.")
+            view?.showToastMessage(L10n.Localizable.Write.emptyContentMessage)
             return
         }
         
@@ -170,7 +184,7 @@ extension WriteReviewViewPresenter {
             score = rating
         } else {
             view?.updateLoadingView(isLoading: false)
-            view?.showToastMessage("별점을 입력해주세요.")
+            view?.showToastMessage(L10n.Localizable.Write.emptyRatingMessage)
             return
         }
         
@@ -192,7 +206,7 @@ extension WriteReviewViewPresenter {
     
     func exceededImagesCount(_ count: Int) {
         if count > 0 {
-            view?.showExceedeImageSizeAlert("용량이 크거나 확장자가 부적절한 \(count)개의 사진은 처리되지 않았어요.")
+            view?.showErrorAlert(title: "", message: L10n.Localizable.Error.systemImageSizeMessage("\(count)"))
         }
     }
     
@@ -209,13 +223,32 @@ extension WriteReviewViewPresenter {
         images.remove(at: index)
     }
     
+    private func isWritingReview() -> Bool {
+        if titleText?.isNotEmpty ?? false ||
+            contentText?.isNotEmpty ?? false ||
+            linkText?.isNotEmpty ?? false ||
+            images.count > 0 {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 // MARK: - UITextFieldDelegate
 extension WriteReviewViewPresenter {
     func titleTextFieldEditingChanged(_ text: String?) {
-        view?.updateTitleCountLabelText(with: "\(text?.count ?? 0)/\(config.maxTitleCount)")
-        titleText = text
+        guard let text else { return }
+        
+        var currentText = text
+        if text.count > config.maxTitleCount {
+            let maxIndex = text.index(text.startIndex, offsetBy: config.maxTitleCount)
+            let replaceText = String(text[..<maxIndex])
+            view?.updateTitleTextFieldText(with: replaceText)
+            currentText = replaceText
+        }
+        view?.updateTitleCountLabelText(with: "\(currentText.count)/\(config.maxTitleCount)")
+        titleText = currentText
     }
     
     func linkTextFieldEditingChanged(_ text: String?) {
@@ -224,15 +257,7 @@ extension WriteReviewViewPresenter {
     }
     
     func textField(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String, isTitle: Bool) -> Bool {
-        let currentText = text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let changeText = currentText.replacingCharacters(in: stringRange, with: string)
-        let maxCount = isTitle ? config.maxTitleCount : config.maxContentCount
-        if changeText.count > maxCount {
-            return false
-        } else {
-            return true
-        }
+        return true
     }
     
     func textFieldDidBeginEditing(_ text: String?, isTitle: Bool) {
@@ -243,8 +268,18 @@ extension WriteReviewViewPresenter {
 // MARK: - UITextViewDelegate
 extension WriteReviewViewPresenter {
     func textViewDidChange(_ text: String?) {
-        view?.updateContentCountLabelText(with: "\(text?.count ?? 0)/\(config.maxContentCount)")
-        contentText = text
+        guard let text else { return }
+        
+        var currentText = text
+        if text.count > config.maxContentCount {
+            let maxIndex = text.index(text.startIndex, offsetBy: config.maxContentCount)
+            let replaceText = String(text[..<maxIndex])
+            view?.updateContentTextViewText(with: replaceText)
+            currentText = replaceText
+        }
+        
+        view?.updateContentCountLabelText(with: "\(currentText.count)/\(config.maxContentCount)")
+        contentText = currentText
     }
     
     func textView(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -260,6 +295,18 @@ extension WriteReviewViewPresenter {
     
     func textViewDidBeginEditing(_ text: String?) {
         view?.isEditingText = true
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension WriteReviewViewPresenter {
+    func gestureRecognizerShouldBegin() -> Bool {
+        if isWritingReview() {
+            view?.showBackAlert()
+            return false
+        } else {
+            return true
+        }
     }
 }
 
@@ -287,16 +334,16 @@ extension WriteReviewViewPresenter: WriteReviewModelDelegate {
                 return
             }
         }
-        view?.showToastMessage(L10n.Localizable.Error.message("기록 작성"))
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 작성"), message: L10n.Localizable.Error.message)
     }
     
     func writeReviewDidFailSaveReview(_ model: WriteReviewModelType) {
         view?.updateLoadingView(isLoading: false)
-        view?.showToastMessage(L10n.Localizable.Error.message("기록 작성"))
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 작성"), message: L10n.Localizable.Error.message)
     }
     
     func writeReviewDidExceedeImageSize(_ model: WriteReviewModelType) {
         view?.updateLoadingView(isLoading: false)
-        view?.showExceedeImageSizeAlert("이미지 용량을 초과했습니다.\n다시 시도해주세요.")
+        view?.showErrorAlert(title: "", message: L10n.Localizable.Error.networkImageSizeMessage)
     }
 }

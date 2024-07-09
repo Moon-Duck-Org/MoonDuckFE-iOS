@@ -31,12 +31,13 @@ class WithdrawViewController: BaseViewController, WithdrawView {
     @IBAction private func withdrawButtonTapped(_ sender: Any) {
         AppAlert.default.showDestructive(
             self,
-            title: "정말 탈퇴 하시겠어요?",
-            cancelTitle: "취소",
-            destructiveTitle: "탈퇴",
+            title: L10n.Localizable.My.withdrawAlertMessage,
+            cancelTitle: L10n.Localizable.Button.cancel,
+            destructiveTitle: L10n.Localizable.Button.withdraw,
             destructiveHandler: { [weak self] in
                 self?.presenter.withdrawButtonTapped()
-        })
+            }
+        )
     }
     
     init(navigator: Navigator,
@@ -74,7 +75,7 @@ extension WithdrawViewController {
     }
     
     func showComplteWithDrawAlert(with presenter: IntroPresenter) {
-        AppAlert.default.showDone(self, message: "회원 탈퇴가 성공적으로 완료되었습니다. 문덕이를 이용해 주셔서 감사합니다.", doneHandler: { [weak self] in
+        AppAlert.default.showDone(self, message: L10n.Localizable.My.withdrawCompleteMessage, doneHandler: { [weak self] in
             self?.navigator?.show(seque: .intro(presenter: presenter), sender: nil, transition: .root)
         })
     }

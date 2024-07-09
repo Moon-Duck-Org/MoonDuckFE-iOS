@@ -63,7 +63,7 @@ extension WithdrawViewPresenter: UserModelDelegate {
     
     func userModelDidFailDeleteUser(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
-        view?.showToastMessage(L10n.Localizable.Error.message("회원 탈퇴"))
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("회원 탈퇴"), message: L10n.Localizable.Error.message)
     }
     
     func userModel(_ model: UserModelType, didChange user: User?) {

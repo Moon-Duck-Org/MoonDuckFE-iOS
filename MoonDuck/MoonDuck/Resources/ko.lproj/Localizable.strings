@@ -18,6 +18,7 @@
 "button. logout" = "로그아웃";
 "button. update" = "업데이트 하러가기";
 "button. later" = "나중에 하기";
+"button. withdraw" = "탈퇴";
 
 // 취소 메시지
 "message. cancel" = "취소하시겠어요?";
@@ -36,12 +37,20 @@
 
 // 마이
 "my. logout_alert_message" = "로그아웃 하시겠어요?";
+"my. withdraw_complete_message" = "회원 탈퇴가 성공적으로 완료되었습니다. 문덕이를 이용해 주셔서 감사합니다.";
+"my. withdraw_alert_message" = "정말 탈퇴 하시겠어요?";
+
 
 // 오류 메시지
-"error. message" = "%@에 실패하였습니다. 다시 시도해주세요. 문제가 지속되면 '설정->문의하기'에 문의해주세요.";
+"error. login_message" = "로그인에 실패했어요. 다시 시도해주세요.";
+"error. title" = "%@에 실패하였습니다. 다시 시도해주세요.";
+"error. message" = "문제가 지속되면 '설정->문의하기'에 문의해주세요.";
 "error. network_message" = "네트워크 연결 상태를 확인해주세요.";
 "error. system_message" = "시스템 오류를 해결하기 위해 노력중이에요. 잠시 후에 다시 확인해주세요.";
-"error. auth_message"  ="인증 정보가 유효하지 않습니다.\n다시 로그인해주세요.";
+"error. auth_message"  = "인증 정보가 유효하지 않습니다.\n다시 로그인해주세요.";
+"error. network_image_size_message" = "이미지 용량을 초과했습니다.\n다시 시도해주세요.";
+"error. system_image_size_message" = "용량이 크거나 확장자가 부적절한 %@개의 사진은 처리되지 않았어요.";
+"error. link_message" = "유효하지 않은 링크입니다.";
 
 // 업데이트
 "update. force_update_title" = "업데이트가 필요합니다.";
@@ -53,3 +62,14 @@
 "sort. latest_order" = "최신순";
 "sort. rating_order" = "별점순";
 "sort. oldest_first" = "오래된 순";
+
+// 리뷰
+"review. delete_message" = "삭제하시겠어요?";
+"review. write_complete_message" = "기록 작성 완료!";
+
+// 리뷰 작성
+"write. back_title" = "이전 화면으로 가시겠어요?";
+"write. back_message" = "작성된 내용은 모두 지워져요.";
+"write. empty_title_message" = "제목을 입력해주세요.";
+"write. empty_content_message" = "내용을 입력해주세요.";
+"write. empty_rating_message" = "별점을 입력해주세요.";

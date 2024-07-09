@@ -14,13 +14,14 @@ protocol ReviewDetailView: BaseView {
     // Navigation
     func backToHome()
     func moveWriteReview(with presenter: WriteReviewPresenter)
+    func moveDetailImage(with presenter: ReviewDetailImagePresenter)
     func popToSelf()
 }
 
 class ReviewDetailViewController: BaseViewController, ReviewDetailView {
     
-    let presenter: ReviewDetailPresenter
-    private var imageDataSource: ReviewImageDataSource?
+    private let presenter: ReviewDetailPresenter
+    private var imageDataSource: ReviewDetailImageDataSource?
     private var linkButtonHandler: (() -> Void)?
     
     // @IBOutlet
@@ -42,7 +43,6 @@ class ReviewDetailViewController: BaseViewController, ReviewDetailView {
     @IBOutlet private weak var linkViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var linkLabel: UILabel!
     
-    @IBOutlet private weak var imageView: UIView!
     @IBOutlet private weak var imageCollectionView: UICollectionView!
     @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
     
@@ -102,17 +102,28 @@ extension ReviewDetailViewController {
             linkButtonHandler = nil
         }
         
-        imageDataSource = ReviewImageDataSource(review: presenter.review)
+        imageDataSource = ReviewDetailImageDataSource(with: presenter)
         imageDataSource?.configure(with: imageCollectionView)
         imageCollectionView.reloadData()
         
         if review.imageUrlList.count > 0 {
             imageCollectionView.isHidden = false
-            imageViewHeightConstraint.constant = 221
+            imageViewHeightConstraint.constant = getImageSizeForRatioDynamic(with: imageCollectionView).height
+            
+            if let flowLayout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                let sectionInsets = flowLayout.sectionInset
+                imageViewHeightConstraint.constant += sectionInsets.top + sectionInsets.bottom
+            }
         } else {
             imageCollectionView.isHidden = true
             imageViewHeightConstraint.constant = 0
         }
+    }
+    
+    private func getImageSizeForRatioDynamic(with collectionView: UICollectionView) -> CGSize {
+        let deviceWidth = UIScreen.main.bounds.width
+        let ratioDynamic: CGFloat = round(deviceWidth / 375 * 181)
+        return CGSize(width: ratioDynamic, height: ratioDynamic)
     }
     
     private func updateRating(for rating: Int) {
@@ -139,7 +150,7 @@ extension ReviewDetailViewController {
         AppAlert.default
             .showDestructive(
                 self,
-                title: "삭제하시겠어요?",
+                title: L10n.Localizable.Review.deleteMessage,
                 destructiveHandler: presenter.deleteReviewHandler()
             )
     }
@@ -153,6 +164,10 @@ extension ReviewDetailViewController {
     
     func moveWriteReview(with presenter: WriteReviewPresenter) {
         navigator?.show(seque: .writeReview(presenter: presenter), sender: self, transition: .navigation, animated: true)
+    }
+    
+    func moveDetailImage(with presenter: ReviewDetailImagePresenter) {
+        navigator?.show(seque: .reviewDetailImage(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
     
     func popToSelf() {
