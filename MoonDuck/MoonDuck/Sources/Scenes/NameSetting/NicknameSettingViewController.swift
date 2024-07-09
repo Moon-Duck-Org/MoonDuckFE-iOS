@@ -110,6 +110,10 @@ extension NicknameSettingViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         presenter.textFieldDidEndEditing(textField.text)
     }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        presenter.textFieldDidChangeSelection(textField.text)
+    }
 }
 
 // MARK: - Navigation

@@ -25,6 +25,7 @@ protocol NicknameSettingPresenter: AnyObject {
     // TextField Delegate
     func nicknameTextFieldEditingChanged(_ text: String?)
     func textField(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    func textFieldDidChangeSelection(_ text: String?)
     func textFieldDidBeginEditing(_ text: String?)
     func textFieldShouldReturn(_ text: String?) -> Bool
     func textFieldDidEndEditing(_ text: String?)
@@ -111,10 +112,41 @@ extension NicknameSettingViewPresenter {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changeText = currentText.replacingCharacters(in: stringRange, with: string)
         
-        if changeText.count > maxNicknameCount || changeText.contains(" ") {
+        if string.contains(" ") {
             return false
-        } else {
+        }
+        
+        if changeText.count <= maxNicknameCount {
             return true
+        }
+        
+        let lastWordOfCurrentText = String(currentText[currentText.index(before: stringRange.lowerBound)]) // 입력하기 전 text의 마지막 글자 입니다.
+        let separatedCharacters = lastWordOfCurrentText.decomposedStringWithCanonicalMapping.unicodeScalars.map { String($0) } // 입력하기 전 text의 마지막 글자를 자음과 모음으로 분리해줍니다.
+        let separatedCharactersCount = separatedCharacters.count // 분리된 자음, 모음의 개수입니다.
+        
+        if separatedCharactersCount == 1 && !string.isConsonant { // -- A
+            return true
+        }
+        
+        if separatedCharactersCount == 2 && (string.isConsonant || string.isVowel) { // -- B
+            return true
+        }
+        
+        if separatedCharactersCount == 3 && string.isConsonant { // -- C
+            return true
+        }
+        
+        return false
+    }
+    
+    func textFieldDidChangeSelection(_ text: String?) {
+        var text = text ?? "" // textField에 수정이 반영된 후의 text 입니다.
+        if text.count > maxNicknameCount {
+            let startIndex = text.startIndex
+            let endIndex = text.index(startIndex, offsetBy: maxNicknameCount - 1)
+            let fixedText = String(text[startIndex...endIndex])
+            view?.updateNameTextfieldText(with: fixedText)
+            nicknameText = text
         }
     }
     
