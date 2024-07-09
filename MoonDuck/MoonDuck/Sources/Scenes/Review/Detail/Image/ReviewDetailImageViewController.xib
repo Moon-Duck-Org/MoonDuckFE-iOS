@@ -42,8 +42,8 @@
                                 <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="wmp-IK-8FD"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2s-wQ-gfs">
-                            <rect key="frame" x="183" y="10.33333333333333" width="27.333333333333343" height="26.666666666666671"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2s-wQ-gfs">
+                            <rect key="frame" x="196.66666666666666" y="23.666666666666671" width="0.0" height="0.0"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="18"/>
                             <color key="textColor" name="White"/>
                             <nil key="highlightedColor"/>
