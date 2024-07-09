@@ -106,6 +106,9 @@ class WriteReviewViewController: BaseViewController, WriteReviewView {
         presenter.view = self
         presenter.viewDidLoad()
         
+        // interactivePopGestureRecognizer 설정
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
         registeRatingButtonAction()
         
         imageDataSource.configure(with: imageCollectionView)
@@ -336,12 +339,22 @@ extension WriteReviewViewController: PHPickerViewControllerDelegate, UIImagePick
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
             presenter.selectImages([selectedImage])
-//            collectionView.reloadData()
         }
         picker.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension WriteReviewViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        // 스와이프 제스처가 시작되기 전에 호출됨
+        if gestureRecognizer == self.navigationController?.interactivePopGestureRecognizer {
+            return presenter.gestureRecognizerShouldBegin()
+        }
+        return true
     }
 }

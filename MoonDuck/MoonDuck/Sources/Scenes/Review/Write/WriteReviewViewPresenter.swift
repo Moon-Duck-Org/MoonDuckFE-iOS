@@ -44,6 +44,9 @@ protocol WriteReviewPresenter: AnyObject {
     func textViewDidChange(_ text: String?)
     func textView(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     func textViewDidBeginEditing(_ text: String?)
+    
+    // UIGestureRecognizerDelegate
+    func gestureRecognizerShouldBegin() -> Bool
 }
 
 class WriteReviewViewPresenter: BaseViewPresenter, WriteReviewPresenter {
@@ -148,10 +151,7 @@ extension WriteReviewViewPresenter {
     
     // MARK: - Action
     func cancelButtonTapped() {
-        if titleText?.isNotEmpty ?? false ||
-            contentText?.isNotEmpty ?? false ||
-            linkText?.isNotEmpty ?? false ||
-            images.count > 0 {
+        if isWritingReview() {
             view?.showBackAlert()
         } else {
             view?.back()
@@ -223,6 +223,16 @@ extension WriteReviewViewPresenter {
         images.remove(at: index)
     }
     
+    private func isWritingReview() -> Bool {
+        if titleText?.isNotEmpty ?? false ||
+            contentText?.isNotEmpty ?? false ||
+            linkText?.isNotEmpty ?? false ||
+            images.count > 0 {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -285,6 +295,18 @@ extension WriteReviewViewPresenter {
     
     func textViewDidBeginEditing(_ text: String?) {
         view?.isEditingText = true
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension WriteReviewViewPresenter {
+    func gestureRecognizerShouldBegin() -> Bool {
+        if isWritingReview() {
+            view?.showBackAlert()
+            return false
+        } else {
+            return true
+        }
     }
 }
 
