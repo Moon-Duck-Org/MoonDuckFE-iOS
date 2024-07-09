@@ -57,7 +57,7 @@ extension NicknameSettingViewPresenter {
         // 닉네임이 세팅
         let nickname = model.user?.nickname ?? ""
         view?.updateCancelButtonHidden(isNew)
-        view?.updateNameTextfieldText(with: nickname)
+        view?.updateNameTextFieldText(with: nickname)
         view?.updateCountLabelText(with: "\(nickname.count)/\(maxNicknameCount)")
         nicknameText = nickname
         view?.updateCompleteButtonEnabled(false)
@@ -107,7 +107,7 @@ extension NicknameSettingViewPresenter {
         if text.count > maxNicknameCount {
             let maxIndex = text.index(text.startIndex, offsetBy: maxNicknameCount)
             let replaceText = String(text[..<maxIndex])
-            view?.updateNameTextfieldText(with: replaceText)
+            view?.updateNameTextFieldText(with: replaceText)
             currentText = replaceText
         }
         

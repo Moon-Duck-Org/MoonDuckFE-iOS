@@ -11,7 +11,7 @@ protocol NicknameSettingView: BaseView {
     // UI Logic
     func updateCancelButtonHidden(_ isHidden: Bool)
     func updateHintLabelText(with text: String?)
-    func updateNameTextfieldText(with text: String)
+    func updateNameTextFieldText(with text: String)
     func updateCountLabelText(with text: String)
     func updateCompleteButtonEnabled(_ isEnabled: Bool)
     
@@ -80,7 +80,7 @@ extension NicknameSettingViewController {
         }
     }
     
-    func updateNameTextfieldText(with text: String) {
+    func updateNameTextFieldText(with text: String) {
         nicknameTextField.text = text
     }
     

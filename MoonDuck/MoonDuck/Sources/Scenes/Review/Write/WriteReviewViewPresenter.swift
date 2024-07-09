@@ -124,7 +124,7 @@ extension WriteReviewViewPresenter {
         if let review = model.review {
             let program = review.program
             view?.updateProgramInfo(for: program.category, with: program.title, and: program.subInfo)
-            view?.updateTestField(for: review.title, with: review.content, and: review.link)
+            view?.updateTextField(for: review.title, with: review.content, and: review.link)
             titleText = review.title
             contentText = review.content
             linkText = review.link
@@ -214,8 +214,17 @@ extension WriteReviewViewPresenter {
 // MARK: - UITextFieldDelegate
 extension WriteReviewViewPresenter {
     func titleTextFieldEditingChanged(_ text: String?) {
-        view?.updateTitleCountLabelText(with: "\(text?.count ?? 0)/\(config.maxTitleCount)")
-        titleText = text
+        guard let text else { return }
+        
+        var currentText = text
+        if text.count > config.maxTitleCount {
+            let maxIndex = text.index(text.startIndex, offsetBy: config.maxTitleCount)
+            let replaceText = String(text[..<maxIndex])
+            view?.updateTitleTextFieldText(with: replaceText)
+            currentText = replaceText
+        }
+        view?.updateTitleCountLabelText(with: "\(currentText.count)/\(config.maxTitleCount)")
+        titleText = currentText
     }
     
     func linkTextFieldEditingChanged(_ text: String?) {
@@ -224,15 +233,7 @@ extension WriteReviewViewPresenter {
     }
     
     func textField(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String, isTitle: Bool) -> Bool {
-        let currentText = text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let changeText = currentText.replacingCharacters(in: stringRange, with: string)
-        let maxCount = isTitle ? config.maxTitleCount : config.maxContentCount
-        if changeText.count > maxCount {
-            return false
-        } else {
-            return true
-        }
+        return true
     }
     
     func textFieldDidBeginEditing(_ text: String?, isTitle: Bool) {
@@ -243,8 +244,18 @@ extension WriteReviewViewPresenter {
 // MARK: - UITextViewDelegate
 extension WriteReviewViewPresenter {
     func textViewDidChange(_ text: String?) {
-        view?.updateContentCountLabelText(with: "\(text?.count ?? 0)/\(config.maxContentCount)")
-        contentText = text
+        guard let text else { return }
+        
+        var currentText = text
+        if text.count > config.maxContentCount {
+            let maxIndex = text.index(text.startIndex, offsetBy: config.maxContentCount)
+            let replaceText = String(text[..<maxIndex])
+            view?.updateContentTextViewText(with: replaceText)
+            currentText = replaceText
+        }
+        
+        view?.updateContentCountLabelText(with: "\(currentText.count)/\(config.maxContentCount)")
+        contentText = currentText
     }
     
     func textView(_ text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

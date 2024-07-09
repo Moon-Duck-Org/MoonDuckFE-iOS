@@ -11,8 +11,10 @@ import PhotosUI
 protocol WriteReviewView: BaseView {
     // UI Logic
     func updateProgramInfo(for category: Category, with title: String, and subTitle: String)
-    func updateTestField(for title: String, with content: String, and link: String?)
+    func updateTextField(for title: String, with content: String, and link: String?)
+    func updateTitleTextFieldText(with text: String)
     func updateTitleCountLabelText(with count: String)
+    func updateContentTextViewText(with text: String)
     func updateContentCountLabelText(with count: String)
     func updateRating(for rating: Int)
     func showSelectImageSheet()
@@ -23,7 +25,6 @@ protocol WriteReviewView: BaseView {
 }
 
 class WriteReviewViewController: BaseViewController, WriteReviewView {
-    
     private let presenter: WriteReviewPresenter
     private let imageDataSource: WriteImageDataSource
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
@@ -117,14 +118,21 @@ extension WriteReviewViewController {
         programSubTitleLabel.text = subTitle
     }
     
-    func updateTestField(for title: String, with content: String, and link: String?) {
+    func updateTextField(for title: String, with content: String, and link: String?) {
         titleTextField.text = title
         contentTextView.text = content
         linkTextField.text = link
     }
+    func updateTitleTextFieldText(with text: String) {
+        titleTextField.text = text
+    }
     
     func updateTitleCountLabelText(with count: String) {
         titleCountLabel.text = count
+    }
+    
+    func updateContentTextViewText(with text: String) {
+        contentTextView.text = text
     }
     
     func updateContentCountLabelText(with count: String) {
