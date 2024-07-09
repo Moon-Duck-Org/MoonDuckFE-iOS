@@ -70,3 +70,6 @@
 // 리뷰 작성
 "write. back_title" = "이전 화면으로 가시겠어요?";
 "write. back_message" = "작성된 내용은 모두 지워져요.";
+"write. empty_title_message" = "제목을 입력해주세요.";
+"write. empty_content_message" = "내용을 입력해주세요.";
+"write. empty_rating_message" = "별점을 입력해주세요.";

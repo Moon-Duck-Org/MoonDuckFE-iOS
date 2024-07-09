@@ -127,6 +127,12 @@ internal enum L10n {
       internal static let backMessage = L10n.tr("Localizable", "write. back_message", fallback: "작성된 내용은 모두 지워져요.")
       /// 이전 화면으로 가시겠어요?
       internal static let backTitle = L10n.tr("Localizable", "write. back_title", fallback: "이전 화면으로 가시겠어요?")
+      /// 내용을 입력해주세요.
+      internal static let emptyContentMessage = L10n.tr("Localizable", "write. empty_content_message", fallback: "내용을 입력해주세요.")
+      /// 별점을 입력해주세요.
+      internal static let emptyRatingMessage = L10n.tr("Localizable", "write. empty_rating_message", fallback: "별점을 입력해주세요.")
+      /// 제목을 입력해주세요.
+      internal static let emptyTitleMessage = L10n.tr("Localizable", "write. empty_title_message", fallback: "제목을 입력해주세요.")
     }
   }
   internal enum Main {

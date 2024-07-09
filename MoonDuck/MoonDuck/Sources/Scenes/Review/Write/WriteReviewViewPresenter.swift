@@ -168,7 +168,7 @@ extension WriteReviewViewPresenter {
             title = titleText
         } else {
             view?.updateLoadingView(isLoading: false)
-            view?.showToastMessage("제목을 입력해주세요.")
+            view?.showToastMessage(L10n.Localizable.Write.emptyTitleMessage)
             return
         }
         
@@ -176,7 +176,7 @@ extension WriteReviewViewPresenter {
             content = contentText
         } else {
             view?.updateLoadingView(isLoading: false)
-            view?.showToastMessage("내용을 입력해주세요.")
+            view?.showToastMessage(L10n.Localizable.Write.emptyContentMessage)
             return
         }
         
@@ -184,7 +184,7 @@ extension WriteReviewViewPresenter {
             score = rating
         } else {
             view?.updateLoadingView(isLoading: false)
-            view?.showToastMessage("별점을 입력해주세요.")
+            view?.showToastMessage(L10n.Localizable.Write.emptyRatingMessage)
             return
         }
         
