@@ -90,7 +90,7 @@ class UserModel: UserModelType {
                 tempUser.concert -= 1
             default: break
             }
-            save(user: user)
+            save(user: tempUser)
         }
     }
     
@@ -109,7 +109,7 @@ class UserModel: UserModelType {
                 tempUser.concert += 1
             default: break
             }
-            save(user: user)
+            save(user: tempUser)
         }
     }
 

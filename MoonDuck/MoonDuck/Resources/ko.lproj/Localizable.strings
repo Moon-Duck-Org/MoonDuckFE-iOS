@@ -57,3 +57,6 @@
 "sort. latest_order" = "최신순";
 "sort. rating_order" = "별점순";
 "sort. oldest_first" = "오래된 순";
+
+// 리뷰
+"home. delete_message" = "삭제하시겠어요?";

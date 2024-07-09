@@ -75,6 +75,10 @@ internal enum L10n {
       /// 시스템 오류를 해결하기 위해 노력중이에요. 잠시 후에 다시 확인해주세요.
       internal static let systemMessage = L10n.tr("Localizable", "error. system_message", fallback: "시스템 오류를 해결하기 위해 노력중이에요. 잠시 후에 다시 확인해주세요.")
     }
+    internal enum Home {
+      /// 삭제하시겠어요?
+      internal static let deleteMessage = L10n.tr("Localizable", "home. delete_message", fallback: "삭제하시겠어요?")
+    }
     internal enum Message {
       /// 취소하시겠어요?
       internal static let cancel = L10n.tr("Localizable", "message. cancel", fallback: "취소하시겠어요?")
