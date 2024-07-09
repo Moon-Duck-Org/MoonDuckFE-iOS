@@ -136,7 +136,7 @@ extension HomeViewController {
         AppAlert.default
             .showDestructive(
                 self,
-                title: L10n.Localizable.Home.deleteMessage,
+                title: L10n.Localizable.Review.deleteMessage,
                 destructiveHandler: presenter.deleteReviewHandler(for: review)
             )
     }

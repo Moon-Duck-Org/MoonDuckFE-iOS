@@ -353,9 +353,7 @@ extension HomeViewPresenter: WriteReviewPresenterDelegate {
             reviewModel.reloadReviews(with: selectedCategory, filter: sortModel.selectedSortOption)
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.view?.showToastMessage("기록 작성 완료!")
-        }
+        view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
     }
     
     func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {

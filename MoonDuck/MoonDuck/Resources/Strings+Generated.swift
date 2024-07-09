@@ -78,10 +78,6 @@ internal enum L10n {
         return L10n.tr("Localizable", "error. title", String(describing: p1), fallback: "%@에 실패하였습니다. 다시 시도해주세요.")
       }
     }
-    internal enum Home {
-      /// 삭제하시겠어요?
-      internal static let deleteMessage = L10n.tr("Localizable", "home. delete_message", fallback: "삭제하시겠어요?")
-    }
     internal enum Message {
       /// 취소하시겠어요?
       internal static let cancel = L10n.tr("Localizable", "message. cancel", fallback: "취소하시겠어요?")
@@ -101,6 +97,12 @@ internal enum L10n {
       internal static let duplicateNameHint = L10n.tr("Localizable", "nickname_setting. duplicate_name_hint", fallback: "중복된 닉네임입니다.")
       /// 특수문자는 사용 불가해요.
       internal static let invalidNameHint = L10n.tr("Localizable", "nickname_setting. invalid_name_hint", fallback: "특수문자는 사용 불가해요.")
+    }
+    internal enum Review {
+      /// 삭제하시겠어요?
+      internal static let deleteMessage = L10n.tr("Localizable", "review. delete_message", fallback: "삭제하시겠어요?")
+      /// 기록 작성 완료!
+      internal static let writeCompleteMessage = L10n.tr("Localizable", "review. write_complete_message", fallback: "기록 작성 완료!")
     }
     internal enum Sort {
       /// 최신순
