@@ -61,8 +61,6 @@ class APIEventLogger: EventMonitor {
             responseString = responseStr
         }
         
-        let result = response.result
-
         let message: String = """
         
         ---------- HTTP RESPONSE ----------
