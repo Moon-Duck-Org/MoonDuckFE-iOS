@@ -172,7 +172,7 @@ extension ReviewListModel {
                         return
                     }
                 }
-                self.delegate?.reviewListModel(self, didRecieve: .unknown)
+                self.delegate?.reviewListModel(self, didRecieve: failed)
             }
         }
     }
@@ -210,7 +210,7 @@ extension ReviewListModel {
                         return
                     }
                 }
-                self.delegate?.reviewListModel(self, didRecieve: .unknown)
+                self.delegate?.reviewListModel(self, didRecieve: failed)
             }
         }
     }
@@ -262,7 +262,7 @@ extension ReviewListModel {
                         return
                     }
                 }
-                self.delegate?.reviewListModel(self, didRecieve: .unknown)
+                self.delegate?.reviewListModel(self, didRecieve: failed)
             }
         }
     }
@@ -305,7 +305,7 @@ extension ReviewListModel {
                         return
                     }
                 }
-                self.delegate?.reviewListModel(self, didRecieve: .unknown)
+                self.delegate?.reviewListModel(self, didRecieve: failed)
             }
         }
     }
@@ -343,7 +343,7 @@ extension ReviewListModel {
                         return
                     }
                 }
-                self.delegate?.reviewListModel(self, didRecieve: .unknown)
+                self.delegate?.reviewListModel(self, didRecieve: failed)
             }
         }
     }

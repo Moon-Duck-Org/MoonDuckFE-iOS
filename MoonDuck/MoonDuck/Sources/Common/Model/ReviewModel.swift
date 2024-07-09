@@ -82,7 +82,7 @@ extension ReviewModel {
                         return
                     }
                 }
-                self.delegate?.reviewModel(self, didRecieve: .unknown)
+                self.delegate?.reviewModel(self, didRecieve: failed)
             }
         }
     }

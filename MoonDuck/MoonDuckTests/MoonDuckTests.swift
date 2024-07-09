@@ -6,10 +6,57 @@
 //
 
 import XCTest
+
 @testable import MoonDuck
+import OHHTTPStubs
+
 
 final class MoonDuckTests: XCTestCase {
+    var provider: AppServices!
 
+    override func setUp() {
+        super.setUp()
+        provider = AppServices(authService: AuthService(),
+                                userService: UserService(),
+                                reviewService: ReviewService(),
+                                programSearchService: ProgramSearchService())
+        
+        AuthManager.default.login(auth: Auth(loginType: .kakao, id: "TEST")) { _, _ in
+        }
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+    }
+    
+    func testTimedOutError() {
+         stub(condition: isHost("moonduck.o-r.kr")) { _ in
+             let notConnectedError = NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut, userInfo: nil)
+             return HTTPStubsResponse(error: notConnectedError)
+         }
+
+         let expectation = self.expectation(description: "Request should timeout")
+        
+        let request = GetReviewRequest(category:"MOVIE", filter: "LATEST", offset: 0, size: 30)
+        provider.reviewService.getReview(request: request) { [weak self] succeed, failed in
+            guard let self else { return }
+            if let succeed {
+                Log.debug("리뷰 검색 성공 \(succeed.reviews)")
+            } else {
+                // 오류 발생
+                if let code = failed {
+                    if code.isReviewError {
+                        Log.error("리뷰 관련 오류 발생")
+                        return
+                    }
+                }
+                Log.error("오류 발생 \(failed?.errorDescription ?? "")")
+            }
+            expectation.fulfill()
+        }
+         waitForExpectations(timeout: 5, handler: nil)
+     }
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }

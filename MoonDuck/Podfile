@@ -34,6 +34,10 @@ target 'MoonDuck' do
   
   #Keychain
   pod 'SwiftKeychainWrapper'
+
+  #Test
+  pod 'OHHTTPStubs'
+  pod 'OHHTTPStubs/Swift'
   
   target 'MoonDuckTests' do
     inherit! :search_paths
