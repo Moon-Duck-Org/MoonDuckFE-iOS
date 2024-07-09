@@ -45,6 +45,8 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     private let sortModel: SortModelType
     private let reviewModel: ReviewListModelType
     
+    private var reloadCategoryTrigger: [Category] = []
+    
     init(with provider: AppServices,
          userModel: UserModelType,
          categoryModel: CategoryModelType,
@@ -188,8 +190,18 @@ extension HomeViewPresenter {
     }
     
     private func isNeededReloadReviews(with category: Category) -> Bool {
-        if let list = reviewModel.reviewList(with: category),
-           list.sortOption == sortModel.selectedSortOption {
+        if let list = reviewModel.reviewList(with: category) {
+            // 1. 리뷰 수정/삭제가 일어난 카테고리면 리로드
+            if let firstIndex = reloadCategoryTrigger.firstIndex(of: category) {
+                reloadCategoryTrigger.remove(at: firstIndex)
+                return true
+            }
+            
+            // 2. 선택된 정렬과 캐싱된 리스트 정렬이 다르면 리로드
+            if list.sortOption != sortModel.selectedSortOption {
+                return true
+            }
+            
             return false
         }
         return true
@@ -198,6 +210,12 @@ extension HomeViewPresenter {
     private func moveMyInfo(with model: UserModel) {
         let presenter = MyInfoViewPresenter(with: provider, model: model)
         view?.moveMy(with: presenter)
+    }
+    
+    private func setReloadCategoryTrigger(with category: Category) {
+        if !reloadCategoryTrigger.contains(category) {
+            reloadCategoryTrigger.append(category)
+        }
     }
 }
 
@@ -294,6 +312,9 @@ extension HomeViewPresenter: ReviewListModelDelegate {
         view?.popToSelf()
         
         if let category = categoryModel.selectedCategory {
+            if category != review.category {
+                setReloadCategoryTrigger(with: review.category)
+            }
             model.syncReviewList(with: category, review: review)
         }
     }
@@ -326,6 +347,7 @@ extension HomeViewPresenter: WriteReviewPresenterDelegate {
         categoryModel.reloadCategory()
         sortModel.reloadSortOption()
         userModel.createReview(category: review.category)
+        setReloadCategoryTrigger(with: review.category)
         if let selectedCategory = categoryModel.selectedCategory {
             view?.updateLoadingView(isLoading: true)
             reviewModel.reloadReviews(with: selectedCategory, filter: sortModel.selectedSortOption)
@@ -347,6 +369,7 @@ extension HomeViewPresenter: ReviewDetailPresenterDelegate {
         categoryModel.reloadCategory()
         sortModel.reloadSortOption()
         userModel.createReview(category: review.category)
+        setReloadCategoryTrigger(with: review.category)
         if let selectedCategory = categoryModel.selectedCategory {
             view?.updateLoadingView(isLoading: true)
             reviewModel.reloadReviews(with: selectedCategory, filter: sortModel.selectedSortOption)
