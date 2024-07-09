@@ -54,8 +54,8 @@ internal enum L10n {
       /// 인증 정보가 유효하지 않습니다.
       /// 다시 로그인해주세요.
       internal static let authMessage = L10n.tr("Localizable", "error. auth_message", fallback: "인증 정보가 유효하지 않습니다.\n다시 로그인해주세요.")
-      /// 유효하지 않은 URL 입니다.
-      internal static let linkMessage = L10n.tr("Localizable", "error. link_message", fallback: "유효하지 않은 URL 입니다.")
+      /// 유효하지 않은 링크입니다.
+      internal static let linkMessage = L10n.tr("Localizable", "error. link_message", fallback: "유효하지 않은 링크입니다.")
       /// 로그인에 실패했어요. 다시 시도해주세요.
       internal static let loginMessage = L10n.tr("Localizable", "error. login_message", fallback: "로그인에 실패했어요. 다시 시도해주세요.")
       /// %@에 실패하였습니다. 다시 시도해주세요.

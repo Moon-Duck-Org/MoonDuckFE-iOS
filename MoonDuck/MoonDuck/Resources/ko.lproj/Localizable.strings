@@ -45,7 +45,7 @@
 "error. auth_message"  = "인증 정보가 유효하지 않습니다.\n다시 로그인해주세요.";
 "error. network_image_size_message" = "이미지 용량을 초과했습니다.\n다시 시도해주세요.";
 "error. system_image_size_message" = "용량이 크거나 확장자가 부적절한 %@개의 사진은 처리되지 않았어요.";
-"error. link_message" = "유효하지 않은 URL 입니다.";
+"error. link_message" = "유효하지 않은 링크입니다.";
 
 // 업데이트
 "update. force_update_title" = "업데이트가 필요합니다.";
