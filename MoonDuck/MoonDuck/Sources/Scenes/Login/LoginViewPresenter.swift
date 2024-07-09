@@ -64,7 +64,7 @@ extension LoginViewPresenter {
     }
     
     func loginError() {
-        view?.showToastMessage(L10n.Localizable.Error.message("로그인"))
+        view?.showToastMessage(L10n.Localizable.Error.loginMessage)
     }
 }
 

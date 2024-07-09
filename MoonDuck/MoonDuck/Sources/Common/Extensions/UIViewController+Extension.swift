@@ -37,7 +37,7 @@ extension UIViewController {
             })
             
             UIView.animate(withDuration: 2.0,
-                           delay: 0.5,
+                           delay: 1.5,
                            options: .curveEaseOut,
                            animations: {
                 frameView.alpha = 0.0

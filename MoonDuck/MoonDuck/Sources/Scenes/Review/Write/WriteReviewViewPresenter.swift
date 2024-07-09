@@ -192,7 +192,7 @@ extension WriteReviewViewPresenter {
     
     func exceededImagesCount(_ count: Int) {
         if count > 0 {
-            view?.showExceedeImageSizeAlert("용량이 크거나 확장자가 부적절한 \(count)개의 사진은 처리되지 않았어요.")
+            view?.showErrorAlert(L10n.Localizable.Error.systemImageSizeMessage("\(count)"))
         }
     }
     
@@ -287,16 +287,16 @@ extension WriteReviewViewPresenter: WriteReviewModelDelegate {
                 return
             }
         }
-        view?.showToastMessage(L10n.Localizable.Error.message("기록 작성"))
+        view?.showErrorAlert(L10n.Localizable.Error.message("기록 작성"))
     }
     
     func writeReviewDidFailSaveReview(_ model: WriteReviewModelType) {
         view?.updateLoadingView(isLoading: false)
-        view?.showToastMessage(L10n.Localizable.Error.message("기록 작성"))
+        view?.showErrorAlert(L10n.Localizable.Error.message("기록 작성"))
     }
     
     func writeReviewDidExceedeImageSize(_ model: WriteReviewModelType) {
         view?.updateLoadingView(isLoading: false)
-        view?.showExceedeImageSizeAlert("이미지 용량을 초과했습니다.\n다시 시도해주세요.")
+        view?.showErrorAlert(L10n.Localizable.Error.networkImageSizeMessage)
     }
 }
