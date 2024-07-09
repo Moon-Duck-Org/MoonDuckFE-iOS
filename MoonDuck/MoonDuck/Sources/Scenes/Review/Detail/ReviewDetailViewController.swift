@@ -150,7 +150,7 @@ extension ReviewDetailViewController {
         AppAlert.default
             .showDestructive(
                 self,
-                title: "삭제하시겠어요?",
+                title: L10n.Localizable.Home.deleteMessage,
                 destructiveHandler: presenter.deleteReviewHandler()
             )
     }
