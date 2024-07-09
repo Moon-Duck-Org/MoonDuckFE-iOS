@@ -9,13 +9,7 @@ import UIKit
 
 final class HomeReviewImageDataSource: NSObject {
     fileprivate var review: Review
-    fileprivate let config = Config()
     private var tappedHandler: (() -> Void)?
-    
-    struct Config {
-        let spacing: CGFloat = 11
-        let sectionInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-    }
 
     init(review: Review) {
         self.review = review
@@ -53,15 +47,26 @@ extension HomeReviewImageDataSource: UICollectionViewDelegate, UICollectionViewD
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let count = review.imageUrlList.count
-        let height = collectionView.bounds.height - config.sectionInsets.top - config.sectionInsets.bottom
+       
+        let ratioDynamic = getImageSizeForRatioDynamic(with: collectionView)
+        var width = ratioDynamic.width
+        let height = ratioDynamic.height
         
-        var width = height
+        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
+            return CGSize(width: width, height: height) // 기본값 반환
+        }
         if count == 1 {
-            let margin: CGFloat = (config.sectionInsets.left + config.sectionInsets.right) + (CGFloat(count - 1) * config.spacing)
+            let margin: CGFloat = (flowLayout.sectionInset.left + flowLayout.sectionInset.right) + (CGFloat(count - 1) * flowLayout.minimumLineSpacing)
             width = (collectionView.bounds.width - margin) / CGFloat(count)
         }
         
         return CGSize(width: width, height: height)
+    }
+    
+    private func getImageSizeForRatioDynamic(with collectionView: UICollectionView) -> CGSize {
+        let deviceWidth = UIScreen.main.bounds.width
+        let ratioDynamic: CGFloat = round(deviceWidth / 375 * 181)
+        return CGSize(width: ratioDynamic, height: ratioDynamic)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

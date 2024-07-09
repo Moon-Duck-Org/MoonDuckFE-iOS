@@ -72,7 +72,13 @@ class HomeReviewTableViewCell: UITableViewCell {
         
         if review.imageUrlList.count > 0 {
             imageCollectionView.isHidden = false
-            imageHeightConstraint.constant = 181
+            imageHeightConstraint.constant = getImageSizeForRatioDynamic(with: imageCollectionView).height
+            
+            if let flowLayout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                let sectionInsets = flowLayout.sectionInset
+                imageHeightConstraint.constant += sectionInsets.top + sectionInsets.bottom
+            }
+            
         } else {
             imageCollectionView.isHidden = true
             imageHeightConstraint.constant = 0
@@ -92,5 +98,11 @@ class HomeReviewTableViewCell: UITableViewCell {
         }
         
         self.optionButtonHandler = optionButtonHandler
+    }
+    
+    private func getImageSizeForRatioDynamic(with collectionView: UICollectionView) -> CGSize {
+        let deviceWidth = UIScreen.main.bounds.width
+        let ratioDynamic: CGFloat = round(deviceWidth / 375 * 181)
+        return CGSize(width: ratioDynamic, height: ratioDynamic)
     }
 }

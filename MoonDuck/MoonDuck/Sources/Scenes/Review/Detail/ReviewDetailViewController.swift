@@ -43,7 +43,6 @@ class ReviewDetailViewController: BaseViewController, ReviewDetailView {
     @IBOutlet private weak var linkViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var linkLabel: UILabel!
     
-    @IBOutlet private weak var imageView: UIView!
     @IBOutlet private weak var imageCollectionView: UICollectionView!
     @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
     
@@ -109,11 +108,22 @@ extension ReviewDetailViewController {
         
         if review.imageUrlList.count > 0 {
             imageCollectionView.isHidden = false
-            imageViewHeightConstraint.constant = 221
+            imageViewHeightConstraint.constant = getImageSizeForRatioDynamic(with: imageCollectionView).height
+            
+            if let flowLayout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                let sectionInsets = flowLayout.sectionInset
+                imageViewHeightConstraint.constant += sectionInsets.top + sectionInsets.bottom
+            }
         } else {
             imageCollectionView.isHidden = true
             imageViewHeightConstraint.constant = 0
         }
+    }
+    
+    private func getImageSizeForRatioDynamic(with collectionView: UICollectionView) -> CGSize {
+        let deviceWidth = UIScreen.main.bounds.width
+        let ratioDynamic: CGFloat = round(deviceWidth / 375 * 181)
+        return CGSize(width: ratioDynamic, height: ratioDynamic)
     }
     
     private func updateRating(for rating: Int) {

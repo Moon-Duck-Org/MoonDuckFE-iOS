@@ -434,7 +434,7 @@
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="Syq-ar-Ons" firstAttribute="leading" secondItem="238-Yt-tzO" secondAttribute="leading" id="0P9-jJ-pb1"/>
-                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hwT-g2-vaj" secondAttribute="bottom" id="2Ej-db-9UZ"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hwT-g2-vaj" secondAttribute="bottom" constant="20" id="2Ej-db-9UZ"/>
                                 <constraint firstItem="LmP-Dq-e2o" firstAttribute="leading" secondItem="238-Yt-tzO" secondAttribute="leading" id="507-JQ-701"/>
                                 <constraint firstItem="hlP-kY-fI1" firstAttribute="top" secondItem="238-Yt-tzO" secondAttribute="top" id="6lh-F0-c8p"/>
                                 <constraint firstItem="LmP-Dq-e2o" firstAttribute="top" secondItem="KrR-G7-wRu" secondAttribute="bottom" id="7y3-sv-n54"/>
@@ -455,7 +455,7 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="238-Yt-tzO" secondAttribute="trailing" id="0ox-7Y-zeg"/>
                         <constraint firstItem="238-Yt-tzO" firstAttribute="top" secondItem="gd0-d3-Ef8" secondAttribute="top" id="4SB-dL-yQB"/>
-                        <constraint firstItem="238-Yt-tzO" firstAttribute="height" secondItem="gd0-d3-Ef8" secondAttribute="height" id="UH0-du-WjF"/>
+                        <constraint firstItem="238-Yt-tzO" firstAttribute="height" secondItem="gd0-d3-Ef8" secondAttribute="height" priority="250" id="UH0-du-WjF"/>
                         <constraint firstItem="238-Yt-tzO" firstAttribute="leading" secondItem="gd0-d3-Ef8" secondAttribute="leading" id="mdJ-Rv-jIi"/>
                         <constraint firstItem="238-Yt-tzO" firstAttribute="width" secondItem="gd0-d3-Ef8" secondAttribute="width" id="vST-zy-DTS"/>
                         <constraint firstAttribute="bottom" secondItem="238-Yt-tzO" secondAttribute="bottom" id="zae-jW-Ser"/>
