@@ -128,7 +128,7 @@ class UserModel: UserModelType {
                         self.delegate?.userModelDidAuthError(self)
                         return
                     } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
+                        AuthManager.default.refreshToken { [weak self] success, _ in
                             guard let self else { return }
                             if success {
                                 self.getUser()
@@ -159,7 +159,7 @@ class UserModel: UserModelType {
                         self.delegate?.userModelDidAuthError(self)
                         return
                     } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
+                        AuthManager.default.refreshToken { [weak self] success, _ in
                             guard let self else { return }
                             if success {
                                 self.nickname(name)
@@ -195,7 +195,7 @@ class UserModel: UserModelType {
                         self.delegate?.userModelDidAuthError(self)
                         return
                     } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
+                        AuthManager.default.refreshToken { [weak self] success, _ in
                             guard let self else { return }
                             if success {
                                 self.deleteUser()

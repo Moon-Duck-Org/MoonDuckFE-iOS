@@ -100,13 +100,13 @@ class Utils {
             return
         }
         // Remote Config 값 가져오기
-        remoteConfig.fetch { (status, error) -> Void in
+        remoteConfig.fetch { status, error -> Void in
             if error != nil {
                 // 실패
                 completion(.none)
             }
             if status == .success {
-                remoteConfig.activate { (changed, error) in
+                remoteConfig.activate { _, error in
                     if error != nil {
                         // 실패
                         completion(.none)

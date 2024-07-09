@@ -36,7 +36,8 @@ class WithdrawViewController: BaseViewController, WithdrawView {
             destructiveTitle: "탈퇴",
             destructiveHandler: { [weak self] in
                 self?.presenter.withdrawButtonTapped()
-        })
+            }
+        )
     }
     
     init(navigator: Navigator,

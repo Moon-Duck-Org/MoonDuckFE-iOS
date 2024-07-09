@@ -118,12 +118,10 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     func reviewTappedHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
             guard let self else { return }
-            if let category = self.categoryModel.selectedCategory {
-                let handler = self.deleteReviewHandler(for: review)
-                let model = ReviewModel(self.provider, review: review, deleteReviewHandler: handler)
-                let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
-                view?.moveReviewDetail(with: presenter)
-            }
+            let handler = self.deleteReviewHandler(for: review)
+            let model = ReviewModel(self.provider, review: review, deleteReviewHandler: handler)
+            let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
+            view?.moveReviewDetail(with: presenter)
         }
     }
 }

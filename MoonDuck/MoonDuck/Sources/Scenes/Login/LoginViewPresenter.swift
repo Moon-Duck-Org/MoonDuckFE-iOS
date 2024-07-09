@@ -131,7 +131,7 @@ extension LoginViewPresenter {
                 self?.view?.updateLoadingView(isLoading: false)
                 return
             }
-            if let failed {
+            if failed != nil {
                 self.view?.updateLoadingView(isLoading: false)
                 self.loginError()
                 return
@@ -161,7 +161,7 @@ extension LoginViewPresenter: UserModelDelegate {
     func userModel(_ model: UserModelType, didChange user: User?) {
         // User 정보 조회 성공 -> 홈 이동
         view?.updateLoadingView(isLoading: false)
-        if let user {
+        if user != nil {
             let cateogryModel = CategoryModel()
             let reviewModel = ReviewListModel(provider)
             let sortModel = SortModel()

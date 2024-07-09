@@ -23,7 +23,7 @@ class ReviewDetailImageViewController: BaseViewController, ReviewDetailImageView
     @IBOutlet private weak var imageCountLabel: UILabel!
     @IBOutlet private weak var imageCollectionView: UICollectionView!
     
-    @IBAction func backButtonTapped(_ sender: Any) {
+    @IBAction private func backButtonTapped(_ sender: Any) {
         back()
     }
     
@@ -56,14 +56,12 @@ extension ReviewDetailImageViewController {
     }
     
     func scrollToPage(_ page: Int) {
-        if let layout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            let width = imageCollectionView.frame.width
-            let offset = CGPoint(x: width * CGFloat(page), y: 0)
-            DispatchQueue.main.async {
-                self.imageCollectionView.setContentOffset(offset, animated: false)
-            }
+        let width = imageCollectionView.frame.width
+        let offset = CGPoint(x: width * CGFloat(page), y: 0)
+        DispatchQueue.main.async {
+            self.imageCollectionView.setContentOffset(offset, animated: false)
         }
-     }
+    }
 }
 // MARK: - Navigation
 extension ReviewDetailImageViewController {
@@ -97,10 +95,8 @@ extension ReviewDetailImageViewController: UICollectionViewDelegate, UICollectio
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if let layout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            let width = imageCollectionView.frame.width
-            let currentPage = Int(imageCollectionView.contentOffset.x / width)
-            presenter.scrollViewDidEndDecelerating(currentPage)
-        }
+        let width = imageCollectionView.frame.width
+        let currentPage = Int(imageCollectionView.contentOffset.x / width)
+        presenter.scrollViewDidEndDecelerating(currentPage)
     }
 }
