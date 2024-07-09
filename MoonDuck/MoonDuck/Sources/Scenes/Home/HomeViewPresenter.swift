@@ -285,7 +285,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
                 return
             }
         }
-        view?.showErrorAlert(L10n.Localizable.Error.message("기록 불러오기"))
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 불러오기"), message: L10n.Localizable.Error.message)
     }
     
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
@@ -305,7 +305,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewListDidFail(_ model: ReviewListModelType) {
-        view?.showErrorAlert(L10n.Localizable.Error.message("기록 불러오기"))
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 불러오기"), message: L10n.Localizable.Error.message)
     }
     
     func reviewListDidLast(_ model: ReviewListModelType) {
@@ -313,7 +313,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     }
     
     func reviewListDidFailDeleteReview(_ model: ReviewListModelType) {
-        view?.showErrorAlert(L10n.Localizable.Error.message("기록 삭제"))
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 삭제"), message: L10n.Localizable.Error.message)
     }
 }
 

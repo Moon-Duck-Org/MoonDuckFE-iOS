@@ -194,7 +194,7 @@ extension WriteReviewViewPresenter {
     
     func exceededImagesCount(_ count: Int) {
         if count > 0 {
-            view?.showErrorAlert(L10n.Localizable.Error.systemImageSizeMessage("\(count)"))
+            view?.showErrorAlert(title: "", message: L10n.Localizable.Error.systemImageSizeMessage("\(count)"))
         }
     }
     
@@ -300,16 +300,16 @@ extension WriteReviewViewPresenter: WriteReviewModelDelegate {
                 return
             }
         }
-        view?.showErrorAlert(L10n.Localizable.Error.message("기록 작성"))
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 작성"), message: L10n.Localizable.Error.message)
     }
     
     func writeReviewDidFailSaveReview(_ model: WriteReviewModelType) {
         view?.updateLoadingView(isLoading: false)
-        view?.showErrorAlert(L10n.Localizable.Error.message("기록 작성"))
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 작성"), message: L10n.Localizable.Error.message)
     }
     
     func writeReviewDidExceedeImageSize(_ model: WriteReviewModelType) {
         view?.updateLoadingView(isLoading: false)
-        view?.showErrorAlert(L10n.Localizable.Error.networkImageSizeMessage)
+        view?.showErrorAlert(title: "", message: L10n.Localizable.Error.networkImageSizeMessage)
     }
 }

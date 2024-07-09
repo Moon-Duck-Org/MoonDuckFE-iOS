@@ -80,7 +80,7 @@ class AppAlert {
     
     func showAuthError(_ viewController: UIViewController,
                        doneHandler: (() -> Void)? = nil) {
-        showDone(viewController, message: L10n.Localizable.Error.authMessage)
+        showDone(viewController, title: L10n.Localizable.Error.authMessage)
     }
     
     func showNetworkError(_ viewController: UIViewController) {

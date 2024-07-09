@@ -60,11 +60,8 @@ internal enum L10n {
       internal static let linkMessage = L10n.tr("Localizable", "error. link_message", fallback: "유효하지 않은 링크입니다.")
       /// 로그인에 실패했어요. 다시 시도해주세요.
       internal static let loginMessage = L10n.tr("Localizable", "error. login_message", fallback: "로그인에 실패했어요. 다시 시도해주세요.")
-      /// %@에 실패하였습니다. 다시 시도해주세요.
       /// 문제가 지속되면 '설정->문의하기'에 문의해주세요.
-      internal static func message(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "error. message", String(describing: p1), fallback: "%@에 실패하였습니다. 다시 시도해주세요.\n문제가 지속되면 '설정->문의하기'에 문의해주세요.")
-      }
+      internal static let message = L10n.tr("Localizable", "error. message", fallback: "문제가 지속되면 '설정->문의하기'에 문의해주세요.")
       /// 이미지 용량을 초과했습니다.
       /// 다시 시도해주세요.
       internal static let networkImageSizeMessage = L10n.tr("Localizable", "error. network_image_size_message", fallback: "이미지 용량을 초과했습니다.\n다시 시도해주세요.")
@@ -76,6 +73,10 @@ internal enum L10n {
       }
       /// 시스템 오류를 해결하기 위해 노력중이에요. 잠시 후에 다시 확인해주세요.
       internal static let systemMessage = L10n.tr("Localizable", "error. system_message", fallback: "시스템 오류를 해결하기 위해 노력중이에요. 잠시 후에 다시 확인해주세요.")
+      /// %@에 실패하였습니다. 다시 시도해주세요.
+      internal static func title(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "error. title", String(describing: p1), fallback: "%@에 실패하였습니다. 다시 시도해주세요.")
+      }
     }
     internal enum Home {
       /// 삭제하시겠어요?

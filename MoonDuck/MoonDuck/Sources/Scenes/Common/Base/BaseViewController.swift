@@ -18,7 +18,7 @@ protocol BaseView: AnyObject {
     func showAuthErrorAlert(with presenter: LoginPresenter)
     func showNetworkErrorAlert()
     func showSystemErrorAlert()
-    func showErrorAlert(_ message: String)
+    func showErrorAlert(title: String, message: String)
 }
 
 class BaseViewController: UIViewController, Navigatable {
@@ -103,7 +103,7 @@ class BaseViewController: UIViewController, Navigatable {
         AppAlert.default.showSystemErrorAlert(self)
     }
     
-    func showErrorAlert(_ message: String) {
-        AppAlert.default.showDone(self, message: message)
+    func showErrorAlert(title: String = "", message: String = "") {
+        AppAlert.default.showDone(self, title: title, message: message)
     }
 }
