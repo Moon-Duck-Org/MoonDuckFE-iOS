@@ -26,17 +26,22 @@ class Utils {
     }
     
     static func openSafariViewController(urlString: String) {
+        let viewController = Navigator.default.root
+        
         guard let url = URL(string: urlString),
-              UIApplication.shared.canOpenURL(url) else { return }
+              UIApplication.shared.canOpenURL(url) else {
+            viewController.showToast(message: L10n.Localizable.Error.linkMessage)
+            return
+        }
         
         if url.scheme == "http" || url.scheme == "https" {
-            let viewController = Navigator.default.root
             let safariViewController = SFSafariViewController(url: url)
             DispatchQueue.main.async {
                 viewController.present(safariViewController, animated: true, completion: nil)
             }
+        } else {
+            viewController.showToast(message: L10n.Localizable.Error.linkMessage)
         }
-        
     }
     
     static func downloadImage(from url: URL, completion: @escaping (UIImage) -> Void) {
