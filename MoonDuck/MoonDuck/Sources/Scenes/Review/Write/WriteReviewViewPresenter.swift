@@ -128,6 +128,8 @@ extension WriteReviewViewPresenter {
             titleText = review.title
             contentText = review.content
             linkText = review.link
+            view?.updateTitleCountLabelText(with: "\(review.title.count)/\(config.maxTitleCount)")
+            view?.updateContentCountLabelText(with: "\(review.content.count)/\(config.maxContentCount)")
             view?.updateRating(for: review.rating)
             rating = review.rating
             
