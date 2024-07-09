@@ -19,9 +19,10 @@ protocol WriteReviewView: BaseView {
     func updateRating(for rating: Int)
     func showSelectImageSheet()
     func reloadImages()
+    func showBackAlert()
     
     // Navigation
-    func backToHome()
+    func back()
 }
 
 class WriteReviewViewController: BaseViewController, WriteReviewView {
@@ -65,7 +66,9 @@ class WriteReviewViewController: BaseViewController, WriteReviewView {
     
     // @IBAction
     @IBAction private func cancelButtonTapped(_ sender: Any) {
-        backToHome()
+        throttler.throttle {
+            self.presenter.cancelButtonTapped()
+        }
     }
     
     @IBAction private func saveButtonTapped(_ sender: Any) {
@@ -220,12 +223,23 @@ extension WriteReviewViewController {
         feedbackGenerator.impactOccurred()
         presenter.ratingButtonTapped(at: sender.tag)
     }
+    
+    func showBackAlert() {
+        AppAlert.default.showCancelAndDone(
+            self,
+            title: L10n.Localizable.Write.backTitle,
+            message: L10n.Localizable.Write.backMessage,
+            doneHandler: { [weak self] in
+                self?.back()
+            }
+        )
+    }
 }
 
 // MARK: - Navigation
 extension WriteReviewViewController {
-    func backToHome() {
-        navigator?.pop(sender: self, popType: .popToRoot, animated: true)
+    func back() {
+        navigator?.pop(sender: self, animated: true)
     }
 }
 

@@ -122,6 +122,12 @@ internal enum L10n {
       /// 새로운 버전 업데이트가 있어요
       internal static let latestUpdateTitle = L10n.tr("Localizable", "update. latest_update_title", fallback: "새로운 버전 업데이트가 있어요")
     }
+    internal enum Write {
+      /// 작성된 내용은 모두 지워져요.
+      internal static let backMessage = L10n.tr("Localizable", "write. back_message", fallback: "작성된 내용은 모두 지워져요.")
+      /// 이전 화면으로 가시겠어요?
+      internal static let backTitle = L10n.tr("Localizable", "write. back_title", fallback: "이전 화면으로 가시겠어요?")
+    }
   }
   internal enum Main {
     }

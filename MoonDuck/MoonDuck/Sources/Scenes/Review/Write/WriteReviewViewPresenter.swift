@@ -27,6 +27,7 @@ protocol WriteReviewPresenter: AnyObject {
     func viewDidLoad()
     
     // Action
+    func cancelButtonTapped()
     func saveButtonTapped()
     func ratingButtonTapped(at tag: Int)
     func selectImages(_ images: [UIImage])
@@ -146,6 +147,17 @@ extension WriteReviewViewPresenter {
     }
     
     // MARK: - Action
+    func cancelButtonTapped() {
+        if titleText?.isNotEmpty ?? false ||
+            contentText?.isNotEmpty ?? false ||
+            linkText?.isNotEmpty ?? false ||
+            images.count > 0 {
+            view?.showBackAlert()
+        } else {
+            view?.back()
+        }
+    }
+    
     func saveButtonTapped() {
         view?.updateLoadingView(isLoading: true)
         var title: String = ""

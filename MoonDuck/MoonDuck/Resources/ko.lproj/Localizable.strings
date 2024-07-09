@@ -66,3 +66,7 @@
 // 리뷰
 "review. delete_message" = "삭제하시겠어요?";
 "review. write_complete_message" = "기록 작성 완료!";
+
+// 리뷰 작성
+"write. back_title" = "이전 화면으로 가시겠어요?";
+"write. back_message" = "작성된 내용은 모두 지워져요.";
