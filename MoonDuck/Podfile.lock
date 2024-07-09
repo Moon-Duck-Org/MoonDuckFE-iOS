@@ -188,6 +188,21 @@ PODS:
     - nanopb/encode (= 2.30910.0)
   - nanopb/decode (2.30910.0)
   - nanopb/encode (2.30910.0)
+  - OHHTTPStubs (9.1.0):
+    - OHHTTPStubs/Default (= 9.1.0)
+  - OHHTTPStubs/Core (9.1.0)
+  - OHHTTPStubs/Default (9.1.0):
+    - OHHTTPStubs/Core
+    - OHHTTPStubs/JSON
+    - OHHTTPStubs/NSURLSession
+    - OHHTTPStubs/OHPathHelpers
+  - OHHTTPStubs/JSON (9.1.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/NSURLSession (9.1.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/OHPathHelpers (9.1.0)
+  - OHHTTPStubs/Swift (9.1.0):
+    - OHHTTPStubs/Default
   - PromisesObjC (2.4.0)
   - PromisesSwift (2.4.0):
     - PromisesObjC (= 2.4.0)
@@ -237,6 +252,8 @@ DEPENDENCIES:
   - Firebase/RemoteConfig
   - GoogleSignIn
   - Kingfisher (~> 7.6.1)
+  - OHHTTPStubs
+  - OHHTTPStubs/Swift
   - RxKakaoSDKAuth
   - RxKakaoSDKUser
   - SnapKit
@@ -277,6 +294,7 @@ SPEC REPOS:
     - KakaoSDKUser
     - Kingfisher
     - nanopb
+    - OHHTTPStubs
     - PromisesObjC
     - PromisesSwift
     - RecaptchaInterop
@@ -324,6 +342,7 @@ SPEC CHECKSUMS:
   KakaoSDKUser: 642c339cdb3722216241c541a843f6a4588f6cf4
   Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
+  OHHTTPStubs: 90eac6d8f2c18317baeca36698523dc67c513831
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
@@ -341,6 +360,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: fd503b319c12b2b8653cda380371060fb096f808
+PODFILE CHECKSUM: a43407dcc7afc9bd8c8ca5829f8358e2ad4c10a1
 
 COCOAPODS: 1.15.2

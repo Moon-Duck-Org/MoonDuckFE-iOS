@@ -160,6 +160,12 @@ enum APIError: Error, Equatable, LocalizedError {
                 self = .network
             default: self = .error(code: "\(urlError.errorCode)", message: "\(urlError.localizedDescription)")
             }
+        } else if let nsError = error as NSError? {
+            switch nsError.code {
+            case NSURLErrorTimedOut, NSURLErrorCannotFindHost, NSURLErrorCannotConnectToHost, NSURLErrorNetworkConnectionLost, NSURLErrorDNSLookupFailed, NSURLErrorNotConnectedToInternet, NSURLErrorSecureConnectionFailed:
+                self = .network
+            default: self = .error(code: "\(nsError.code)", message: "\(nsError.localizedDescription)")
+            }
         } else {
             self = .error(code: "-99", message: "\(error.localizedDescription)")
         }
