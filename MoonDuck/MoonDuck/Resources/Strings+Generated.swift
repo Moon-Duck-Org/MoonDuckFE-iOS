@@ -52,6 +52,21 @@ internal enum L10n {
       /// 영화
       internal static let movie = L10n.tr("Localizable", "category. movie", fallback: "영화")
     }
+    internal enum ContractUs {
+      /// 메일이 성공적으로 전송되었습니다.
+      /// 문의해 주셔서 감사합니다.
+      internal static let completeMessage = L10n.tr("Localizable", "contractUs. complete_message", fallback: "메일이 성공적으로 전송되었습니다.\n문의해 주셔서 감사합니다.")
+      /// 메일 전송에 실패했습니다.
+      /// 인터넷 연결을 확인하고 다시 시도해 주세요
+      internal static let errorMessage = L10n.tr("Localizable", "contractUs. error_message", fallback: "메일 전송에 실패했습니다.\n인터넷 연결을 확인하고 다시 시도해 주세요")
+      /// 더 많은 도움이 필요하시면 %@ 으로 문의해 주세요.
+      internal static func notAvailableMailMessage(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "contractUs. not_available_mail_message", String(describing: p1), fallback: "더 많은 도움이 필요하시면 %@ 으로 문의해 주세요.")
+      }
+      /// 죄송합니다.
+      /// 메일을 보낼 수 없습니다. 메일 설정을 확인해 주세요.
+      internal static let notAvailableMailTitle = L10n.tr("Localizable", "contractUs. not_available_mail_title", fallback: "죄송합니다.\n메일을 보낼 수 없습니다. 메일 설정을 확인해 주세요.")
+    }
     internal enum Error {
       /// 인증 정보가 유효하지 않습니다.
       /// 다시 로그인해주세요.

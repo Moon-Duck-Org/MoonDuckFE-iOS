@@ -37,7 +37,7 @@ class SettingViewPrsenter: BaseViewPresenter, SettingPresenter {
     // MARK: - Data
     var contractUs: ContractUs {
         let nickname = model.user?.nickname ?? ""
-        return ContractUs(nickName: nickname, appVersion: Utils.getAppVersion() ?? "")
+        return ContractUs(nickName: nickname)
     }
     
 }
@@ -46,20 +46,20 @@ extension SettingViewPrsenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        view?.updateAppVersionLabelText(with: Utils.getAppVersion() ?? "")
+        view?.updateAppVersionLabelText(with: Utils.appVersion ?? "")
     }
     
     // MARK: - Action
     func termsOfServiceButtonTapped() {
         let title = L10n.Localizable.Title.service
-        let url = MoonDuckAPI.baseUrl() + "/root/moonduck/contract.html"
+        let url = MoonDuckAPI.baseUrl() + "/contract.html"
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
     }
     
     func privacyPolicyButtonTapped() {
         let title = L10n.Localizable.Title.policy
-        let url = MoonDuckAPI.baseUrl() + "/root/moonduck/privacy.html"
+        let url = MoonDuckAPI.baseUrl() + "/privacy.html"
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
     }
@@ -71,7 +71,7 @@ extension SettingViewPrsenter {
     
     func noticeButtonTapped() {
         let title = L10n.Localizable.Title.notice
-        let url = MoonDuckAPI.baseUrl() + "/root/moonduck/notice.html"
+        let url = MoonDuckAPI.baseUrl() + "/notice.html"
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
     }

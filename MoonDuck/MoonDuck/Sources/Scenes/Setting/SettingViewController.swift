@@ -77,19 +77,21 @@ extension SettingViewController {
     }
     
     private func showContractUsMail() {
+        let mail = presenter.contractUs.mail
         if MFMailComposeViewController.canSendMail() {
             let mailComposeVC = MFMailComposeViewController()
             mailComposeVC.mailComposeDelegate = self
-            mailComposeVC.setToRecipients([presenter.contractUs.mail])
+            mailComposeVC.setToRecipients([mail])
             mailComposeVC.setSubject(presenter.contractUs.subject)
             mailComposeVC.setMessageBody(presenter.contractUs.getBody(), isHTML: false)
             
             self.present(mailComposeVC, animated: true, completion: nil)
         } else {
             // 메일을 보낼 수 없는 경우 경고 표시
-            let alert = UIAlertController(title: "Error", message: "Mail services are not available", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(alert, animated: true, completion: nil)
+            showErrorAlert(
+                title: L10n.Localizable.ContractUs.notAvailableMailTitle,
+                message: L10n.Localizable.ContractUs.notAvailableMailMessage(mail)
+            )
         }
     }
 }
@@ -124,11 +126,11 @@ extension SettingViewController: MFMailComposeViewControllerDelegate {
         case .saved:
             Log.debug("Mail saved")
         case .sent:
-            Log.debug("Mail sent")
+            showToastMessage(L10n.Localizable.ContractUs.completeMessage)
         case .failed:
-            Log.debug("Mail sent failure: \(String(describing: error?.localizedDescription))")
+            showToastMessage(L10n.Localizable.ContractUs.errorMessage)
         @unknown default:
-            Log.error("Mail Error")
+            showToastMessage(L10n.Localizable.ContractUs.errorMessage)
         }
     }
 }

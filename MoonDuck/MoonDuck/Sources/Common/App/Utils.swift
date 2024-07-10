@@ -13,6 +13,8 @@ import Kingfisher
 import FirebaseRemoteConfig
 
 class Utils {
+    static var appMail: String = "poduck405@gmail.com"
+    
     static func formattedDate(createdAt date: String) -> String {
         let splitDate = date.split(separator: "T")
         if splitDate.count > 0 {
@@ -60,7 +62,7 @@ class Utils {
         }
     }
     
-    static func getAppVersion() -> String? {
+    static var appVersion: String? {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     }
     
@@ -70,8 +72,8 @@ class Utils {
         }
     }
     
-    static func getAppName() -> String {
-        if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String {
+    static var appName: String {
+        if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String {
             return appName
         } else {
             return L10n.Localizable.appName
@@ -120,7 +122,7 @@ class Utils {
                     // 값을 사용할 수 있습니다.
                     let forceVersion = remoteConfig["forceUpdateVersion"].stringValue ?? "1.0.0"
                     let latestVersion = remoteConfig["latestUpdateVersion"].stringValue ?? "1.0.0"
-                    let currentVersion = Utils.getAppVersion() ?? "1.0.0"
+                    let currentVersion = Utils.appVersion ?? "1.0.0"
                     
                     let currentComponents = currentVersion.split(separator: ".").map { Int($0) ?? 0 }
                     
