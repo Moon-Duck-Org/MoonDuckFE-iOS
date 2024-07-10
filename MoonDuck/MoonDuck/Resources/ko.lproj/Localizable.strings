@@ -73,3 +73,8 @@
 "write. empty_title_message" = "제목을 입력해주세요.";
 "write. empty_content_message" = "내용을 입력해주세요.";
 "write. empty_rating_message" = "별점을 입력해주세요.";
+
+// 타이틀
+"title. service" = "서비스 이용약관";
+"title. policy" = "개인정보 처리방침";
+"title. notice" = "공지사항";

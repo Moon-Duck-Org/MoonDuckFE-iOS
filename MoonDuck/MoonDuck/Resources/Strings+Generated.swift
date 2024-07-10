@@ -112,6 +112,14 @@ internal enum L10n {
       /// 별점순
       internal static let ratingOrder = L10n.tr("Localizable", "sort. rating_order", fallback: "별점순")
     }
+    internal enum Title {
+      /// 공지사항
+      internal static let notice = L10n.tr("Localizable", "title. notice", fallback: "공지사항")
+      /// 개인정보 처리방침
+      internal static let policy = L10n.tr("Localizable", "title. policy", fallback: "개인정보 처리방침")
+      /// 서비스 이용약관
+      internal static let service = L10n.tr("Localizable", "title. service", fallback: "서비스 이용약관")
+    }
     internal enum Update {
       /// 문덕이를 계속 사용하려면 새로운 버전으로 업데이트해야 해요. 지금 바로 업데이트 해주세요!
       internal static let forceUpdateMessage = L10n.tr("Localizable", "update. force_update_message", fallback: "문덕이를 계속 사용하려면 새로운 버전으로 업데이트해야 해요. 지금 바로 업데이트 해주세요!")
