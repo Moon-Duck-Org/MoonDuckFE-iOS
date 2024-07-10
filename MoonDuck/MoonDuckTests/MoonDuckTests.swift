@@ -15,6 +15,7 @@ final class MoonDuckTests: XCTestCase {
     var provider: AppServices!
 
     override func setUp() {
+        HTTPStubs.setEnabled(true)
         super.setUp()
         provider = AppServices(authService: AuthService(),
                                 userService: UserService(),
@@ -26,13 +27,24 @@ final class MoonDuckTests: XCTestCase {
     }
     
     override func tearDown() {
+        HTTPStubs.removeAllStubs()
         super.tearDown()
     }
     
-    func testTimedOutError() {
+    func testAsyncNetworkCall() {
          stub(condition: isHost("moonduck.o-r.kr")) { _ in
-             let notConnectedError = NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut, userInfo: nil)
-             return HTTPStubsResponse(error: notConnectedError)
+             // NSError Test
+             let nsError = NSError(domain: NSURLErrorDomain, code: NSURLErrorSecureConnectionFailed, userInfo: nil)
+             
+             // Status Code Test
+             let statusError = HTTPStubsResponse(data: Data(), statusCode: 500, headers: nil)
+            
+             // API Error Test
+             let errorResponse = ["code": "BO001", "message": "존재하지 않는 리뷰"]
+             let data = try! JSONSerialization.data(withJSONObject: errorResponse, options: [])
+             let apiError = HTTPStubsResponse(data: data, statusCode: 400, headers: nil)
+             
+             return apiError
          }
 
          let expectation = self.expectation(description: "Request should timeout")
@@ -47,15 +59,17 @@ final class MoonDuckTests: XCTestCase {
                 if let code = failed {
                     if code.isReviewError {
                         Log.error("리뷰 관련 오류 발생")
+                        expectation.fulfill()
                         return
                     }
                 }
-                Log.error("오류 발생 \(failed?.errorDescription ?? "")")
+                Log.error("오류 발생 \(String(describing: failed))")
             }
             expectation.fulfill()
         }
-         waitForExpectations(timeout: 5, handler: nil)
-     }
+        
+        waitForExpectations(timeout: 10, handler: nil)
+    }
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
