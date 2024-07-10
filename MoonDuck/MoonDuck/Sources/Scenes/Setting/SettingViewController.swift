@@ -97,7 +97,7 @@ extension SettingViewController {
 // MARK: - Navigation
 extension SettingViewController {
     private func back() {
-        navigator?.pop(sender: self)
+        navigator?.pop(sender: self, animated: true)
     }
     
     func moveWebview(with presenter: WebPresenter) {
