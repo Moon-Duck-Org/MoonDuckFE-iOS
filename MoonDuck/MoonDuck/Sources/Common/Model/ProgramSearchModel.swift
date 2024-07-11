@@ -57,6 +57,13 @@ class ProgramSearchModel: ProgramSearchModelType {
     }
     
     // MARK: - Logic
+    private func filterPrograms(with category: Category, programs: [Program]) -> [Program] {
+        switch category {
+        case .movie:
+            return programs.filter { $0.genre != "성인물(에로)" }
+        default: return programs
+        }
+    }
     
     // MARK: - Networking
     func search(_ text: String) {
@@ -167,7 +174,8 @@ class ProgramSearchModel: ProgramSearchModelType {
                     self.delegate?.programSearchDidLast(self)
                 } else {
                     self.isLastPrograms = succeed.count < category.searchSize
-                    self.programs.append(contentsOf: succeed)
+                    let filterPrograms = self.filterPrograms(with: .movie, programs: succeed)
+                    self.programs.append(contentsOf: filterPrograms)
                 }
             } else {
                 // 오류 발생
