@@ -15,6 +15,7 @@ struct UserResponse: Codable {
     let book: Int?
     let drama: Int?
     let concert: Int?
+    let push: String?
     
     var toDomain: User {
         let movie = movie ?? 0
@@ -24,6 +25,12 @@ struct UserResponse: Codable {
         let all: Int = {
             return movie + book + drama + concert
         }()
+        let isPush: Bool = {
+            if let push, let isPush = push.toBool() {
+                return isPush
+            }
+            return false
+        }()
         
         return User(userId: userId,
                     nickname: nickname ?? "",
@@ -31,7 +38,8 @@ struct UserResponse: Codable {
                     movie: movie,
                     book: book,
                     drama: drama,
-                    concert: concert)
+                    concert: concert,
+                    isPush: isPush)
     }
 }
 

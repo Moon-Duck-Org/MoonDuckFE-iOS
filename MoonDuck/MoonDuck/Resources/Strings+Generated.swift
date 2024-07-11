@@ -137,12 +137,11 @@ internal enum L10n {
       /// 푸시 알림 요청
       internal static let requestAlertTitle = L10n.tr("Localizable", "push. request_alert_title", fallback: "푸시 알림 요청")
       /// 문덕이 이용에 유용한 알림을 보내드려요.
-      internal static let settingMessageDefault = L10n.tr("Localizable", "push. setting_message_default", fallback: "문덕이 이용에 유용한 알림을 보내드려요.")
-      /// 문덕이 이용에 유용한 알림을 보내드려요.
+      internal static let settingText = L10n.tr("Localizable", "push. setting_text", fallback: "문덕이 이용에 유용한 알림을 보내드려요.")
       /// 푸시 알림을 받으려면 기기 설정에서 알림을 켜주세요.
-      internal static let settingMessageRequest = L10n.tr("Localizable", "push. setting_message_request", fallback: "문덕이 이용에 유용한 알림을 보내드려요.\n푸시 알림을 받으려면 기기 설정에서 알림을 켜주세요.")
+      internal static let settingTextOs = L10n.tr("Localizable", "push. setting_text_os", fallback: "푸시 알림을 받으려면 기기 설정에서 알림을 켜주세요.")
       /// 알림을 켜주세요.
-      internal static let settingMessageRequestEmphasize = L10n.tr("Localizable", "push. setting_message_request_emphasize", fallback: "알림을 켜주세요.")
+      internal static let settingTextOsEmphasize = L10n.tr("Localizable", "push. setting_text_os_emphasize", fallback: "알림을 켜주세요.")
       /// 문화 생활 기록 🐥 문덕이
       internal static let title = L10n.tr("Localizable", "push. title", fallback: "문화 생활 기록 🐥 문덕이")
     }
@@ -176,7 +175,15 @@ internal enum L10n {
       /// 문덕이의 새로운 기능과 개선된 성능을 경험할 수 있어요. 앱을 지금 최신 버전으로 업데이트 해보세요!
       internal static let latestUpdateMessage = L10n.tr("Localizable", "update. latest_update_message", fallback: "문덕이의 새로운 기능과 개선된 성능을 경험할 수 있어요. 앱을 지금 최신 버전으로 업데이트 해보세요!")
       /// 새로운 버전 업데이트가 있어요
+      internal static let latestUpdateText = L10n.tr("Localizable", "update. latest_update_text", fallback: "새로운 버전 업데이트가 있어요")
+      /// 새로운 버전 업데이트가 있어요
       internal static let latestUpdateTitle = L10n.tr("Localizable", "update. latest_update_title", fallback: "새로운 버전 업데이트가 있어요")
+      /// 가장 최신 버전이에요
+      internal static let latestVersionText = L10n.tr("Localizable", "update. latest_version_text", fallback: "가장 최신 버전이에요")
+      /// 현재 버전은 %@ 이에요.
+      internal static func versionText(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "update. version_text", String(describing: p1), fallback: "현재 버전은 %@ 이에요.")
+      }
     }
     internal enum Write {
       /// 작성된 내용은 모두 지워져요.

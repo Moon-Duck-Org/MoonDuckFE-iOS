@@ -35,16 +35,16 @@ extension AppVersionViewPresenter {
     // MARK: - Logic
     private func checkForUpdate() {
         let currentVersion: String = Utils.appVersion ?? "1.0.0"
-        let versionInfo = "현재 버전은 \(currentVersion) 이에요."
+        let versionInfo = L10n.Localizable.Update.versionText(currentVersion)
         
         Utils.checkForUpdate { [weak self] appUpdate in
             DispatchQueue.main.async {
                 if appUpdate == .none {
-                    let updateInfo = "가장 최신 버전이에요"
+                    let updateInfo = L10n.Localizable.Update.latestVersionText
                     self?.view?.updateLabelsText(versionInfo: versionInfo, updateInfo: updateInfo)
                     self?.view?.updateUpdateButtonHidden(true)
                 } else {
-                    let updateInfo = "새로운 버전 업데이트가 있어요"
+                    let updateInfo = L10n.Localizable.Update.latestUpdateText
                     self?.view?.updateLabelsText(versionInfo: versionInfo, updateInfo: updateInfo)
                     self?.view?.updateUpdateButtonHidden(false)
                 }

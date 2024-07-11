@@ -56,6 +56,9 @@
 "update. force_update_message" = "문덕이를 계속 사용하려면 새로운 버전으로 업데이트해야 해요. 지금 바로 업데이트 해주세요!";
 "update. latest_update_title" = "새로운 버전 업데이트가 있어요";
 "update. latest_update_message" = "문덕이의 새로운 기능과 개선된 성능을 경험할 수 있어요. 앱을 지금 최신 버전으로 업데이트 해보세요!";
+"update. latest_update_text" = "새로운 버전 업데이트가 있어요";
+"update. latest_version_text" = "가장 최신 버전이에요";
+"update. version_text" = "현재 버전은 %@ 이에요.";
 
 // 정렬
 "sort. latest_order" = "최신순";
@@ -94,7 +97,6 @@
 
 "push. request_alert_title" = "푸시 알림 요청";
 "push. request_alert_message" = "문덕이 이용에 유용한 알림을 보내드릴 수 있도록 푸시 알림 권한을 허용해 주세요!";
-
-"push. setting_message_default" = "문덕이 이용에 유용한 알림을 보내드려요.";
-"push. setting_message_request" = "문덕이 이용에 유용한 알림을 보내드려요.\n푸시 알림을 받으려면 기기 설정에서 알림을 켜주세요.";
-"push. setting_message_request_emphasize" = "알림을 켜주세요.";
+"push. setting_text" = "문덕이 이용에 유용한 알림을 보내드려요.";
+"push. setting_text_os" = "푸시 알림을 받으려면 기기 설정에서 알림을 켜주세요.";
+"push. setting_text_os_emphasize" = "알림을 켜주세요.";
