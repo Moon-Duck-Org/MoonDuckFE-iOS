@@ -47,6 +47,7 @@ extension SettingViewPrsenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         view?.updateAppVersionLabelText(with: Utils.appVersion ?? "")
+        view?.updatePushSwitchValue(isOn: model.user?.isPush ?? false)
     }
     
     // MARK: - Action

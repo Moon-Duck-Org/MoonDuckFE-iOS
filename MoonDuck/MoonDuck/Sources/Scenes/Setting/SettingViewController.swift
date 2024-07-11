@@ -12,6 +12,7 @@ import MessageUI
 protocol SettingView: BaseView {
     // UI Logic
     func updateAppVersionLabelText(with version: String)
+    func updatePushSwitchValue(isOn: Bool)
         
     // Navigation
     func moveWebview(with presenter: WebPresenter)
@@ -24,6 +25,7 @@ class SettingViewController: BaseViewController, SettingView {
     
     // @IBOutlet
     @IBOutlet private weak var appVersionLabel: UILabel!
+    @IBOutlet private weak var pushSwitch: UISwitch!
     
     // @IBAction
     @IBAction private func backButtonTapped(_ sender: Any) {
@@ -74,6 +76,10 @@ class SettingViewController: BaseViewController, SettingView {
 extension SettingViewController {
     func updateAppVersionLabelText(with version: String) {
         appVersionLabel.text = version
+    }
+    
+    func updatePushSwitchValue(isOn: Bool) {
+        pushSwitch.isOn = isOn
     }
     
     private func showContractUsMail() {

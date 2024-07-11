@@ -8,8 +8,8 @@
 import UIKit
 
 class AppAlert {
-    static var `default` = AppAlert()
-    
+    static let `default` = AppAlert()
+        
     func showDestructive(_ viewController: UIViewController,
                          title: String? = "",
                          message: String? = "",
@@ -57,7 +57,6 @@ class AppAlert {
             
             viewController.present(alert, animated: true)
         }
-        
     }
     
     func showDone(_ viewController: UIViewController,

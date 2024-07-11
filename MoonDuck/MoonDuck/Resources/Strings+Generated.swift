@@ -113,6 +113,39 @@ internal enum L10n {
       /// 특수문자는 사용 불가해요.
       internal static let invalidNameHint = L10n.tr("Localizable", "nickname_setting. invalid_name_hint", fallback: "특수문자는 사용 불가해요.")
     }
+    internal enum Push {
+      /// %@님! 새로운 기록을 남기지 않으셨어요.
+      /// 최근 즐긴 문화생활에 대해 이야기 해주세요!😊
+      internal static func messageType1(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "push. message_type1", String(describing: p1), fallback: "%@님! 새로운 기록을 남기지 않으셨어요.\n최근 즐긴 문화생활에 대해 이야기 해주세요!😊")
+      }
+      /// %@님! 최근 어떤 멋진 문화생활을 즐기셨나요?
+      /// 기록을 남겨주세요🌟
+      internal static func messageType2(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "push. message_type2", String(describing: p1), fallback: "%@님! 최근 어떤 멋진 문화생활을 즐기셨나요?\n기록을 남겨주세요🌟")
+      }
+      /// [문덕이] 푸시 알림 거부가 완료되었습니다. (%@년 %@월 %@일)
+      internal static func offCompleteToast(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
+        return L10n.tr("Localizable", "push. off_complete_toast", String(describing: p1), String(describing: p2), String(describing: p3), fallback: "[문덕이] 푸시 알림 거부가 완료되었습니다. (%@년 %@월 %@일)")
+      }
+      /// [문덕이] 푸시 알림 허용이 완료되었습니다! (%@년 %@월 %@일)
+      internal static func onCompleteToast(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
+        return L10n.tr("Localizable", "push. on_complete_toast", String(describing: p1), String(describing: p2), String(describing: p3), fallback: "[문덕이] 푸시 알림 허용이 완료되었습니다! (%@년 %@월 %@일)")
+      }
+      /// 문덕이 이용에 유용한 알림을 보내드릴 수 있도록 푸시 알림 권한을 허용해 주세요!
+      internal static let requestAlertMessage = L10n.tr("Localizable", "push. request_alert_message", fallback: "문덕이 이용에 유용한 알림을 보내드릴 수 있도록 푸시 알림 권한을 허용해 주세요!")
+      /// 푸시 알림 요청
+      internal static let requestAlertTitle = L10n.tr("Localizable", "push. request_alert_title", fallback: "푸시 알림 요청")
+      /// 문덕이 이용에 유용한 알림을 보내드려요.
+      internal static let settingMessageDefault = L10n.tr("Localizable", "push. setting_message_default", fallback: "문덕이 이용에 유용한 알림을 보내드려요.")
+      /// 문덕이 이용에 유용한 알림을 보내드려요.
+      /// 푸시 알림을 받으려면 기기 설정에서 알림을 켜주세요.
+      internal static let settingMessageRequest = L10n.tr("Localizable", "push. setting_message_request", fallback: "문덕이 이용에 유용한 알림을 보내드려요.\n푸시 알림을 받으려면 기기 설정에서 알림을 켜주세요.")
+      /// 알림을 켜주세요.
+      internal static let settingMessageRequestEmphasize = L10n.tr("Localizable", "push. setting_message_request_emphasize", fallback: "알림을 켜주세요.")
+      /// 문화 생활 기록 🐥 문덕이
+      internal static let title = L10n.tr("Localizable", "push. title", fallback: "문화 생활 기록 🐥 문덕이")
+    }
     internal enum Review {
       /// 삭제하시겠어요?
       internal static let deleteMessage = L10n.tr("Localizable", "review. delete_message", fallback: "삭제하시겠어요?")
