@@ -34,12 +34,7 @@ extension WithdrawViewPresenter {
     func viewDidLoad() {
         let nickname = model.user?.nickname ?? "사용자"
         let all = "\(model.user?.all ?? 0)"
-        let text: String =
-                            """
-                            \(nickname)님은 문덕이와
-                            \(all)번의 기록을 함께했어요.
-                            정말 탈퇴하시겠어요? 너무 아쉬워요.
-                            """
+        let text: String = L10n.Localizable.Withdraw.text(nickname, all)
         view?.updateContentLabelText(with: text)
     }
     

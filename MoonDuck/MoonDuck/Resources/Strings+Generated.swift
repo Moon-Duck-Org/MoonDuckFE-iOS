@@ -185,6 +185,15 @@ internal enum L10n {
         return L10n.tr("Localizable", "update. version_text", String(describing: p1), fallback: "현재 버전은 %@ 이에요.")
       }
     }
+    internal enum Withdraw {
+      /// %@님은 문덕이와
+      /// %@번의 기록을 함께했어요.
+      /// 정말 탈퇴하시겠어요?
+      /// 너무 아쉬워요.
+      internal static func text(_ p1: Any, _ p2: Any) -> String {
+        return L10n.tr("Localizable", "withdraw. text", String(describing: p1), String(describing: p2), fallback: "%@님은 문덕이와\n%@번의 기록을 함께했어요.\n정말 탈퇴하시겠어요?\n너무 아쉬워요.")
+      }
+    }
     internal enum Write {
       /// 작성된 내용은 모두 지워져요.
       internal static let backMessage = L10n.tr("Localizable", "write. back_message", fallback: "작성된 내용은 모두 지워져요.")

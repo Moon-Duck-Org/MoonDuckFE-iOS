@@ -100,3 +100,6 @@
 "push. setting_text" = "문덕이 이용에 유용한 알림을 보내드려요.";
 "push. setting_text_os" = "푸시 알림을 받으려면 기기 설정에서 알림을 켜주세요.";
 "push. setting_text_os_emphasize" = "알림을 켜주세요.";
+
+// 탈퇴
+"withdraw. text" = "%@님은 문덕이와\n%@번의 기록을 함께했어요.\n정말 탈퇴하시겠어요?\n너무 아쉬워요.";
