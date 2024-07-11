@@ -125,6 +125,7 @@
 		EAA914F32C02D63100A98950 /* ReviewImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA914F12C02D63100A98950 /* ReviewImageCollectionViewCell.xib */; };
 		EAA98FBC2C33F5F300F3A723 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA98FBA2C33F5F300F3A723 /* SettingViewController.swift */; };
 		EAA98FBD2C33F5F300F3A723 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA98FBB2C33F5F300F3A723 /* SettingViewController.xib */; };
+		EAAD30492C3F6FEA0095E73F /* AppNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAD30482C3F6FEA0095E73F /* AppNotification.swift */; };
 		EAB6E65D2C17DC2500A9E191 /* ProgramSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6E65C2C17DC2500A9E191 /* ProgramSearchModel.swift */; };
 		EAB6E65F2C17F9B000A9E191 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6E65E2C17F9B000A9E191 /* Array+Extension.swift */; };
 		EAB6E6632C1845F700A9E191 /* ProgramSearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB6E6622C1845F700A9E191 /* ProgramSearchDataSource.swift */; };
@@ -316,6 +317,7 @@
 		EAA914F12C02D63100A98950 /* ReviewImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		EAA98FBA2C33F5F300F3A723 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		EAA98FBB2C33F5F300F3A723 /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		EAAD30482C3F6FEA0095E73F /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
 		EAB6E65C2C17DC2500A9E191 /* ProgramSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchModel.swift; sourceTree = "<group>"; };
 		EAB6E65E2C17F9B000A9E191 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		EAB6E6622C1845F700A9E191 /* ProgramSearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchDataSource.swift; sourceTree = "<group>"; };
@@ -810,6 +812,7 @@
 				A0E657FA2BFE22B7001A8D54 /* AppDelegate.swift */,
 				EA72084E2C1287EF00E96212 /* AppUserDefaults.swift */,
 				EA7208502C128CE800E96212 /* AppKeychain.swift */,
+				EAAD30482C3F6FEA0095E73F /* AppNotification.swift */,
 				EA9A842E2C00D577004B7FDF /* AppAlert.swift */,
 				EA9E1AC32C2ACB8E001C7706 /* Constants.swift */,
 				EA9E1AC62C2ACD0B001C7706 /* Utils.swift */,
@@ -1308,6 +1311,7 @@
 				EA6379D22BFF295C00464A19 /* OSLog+Extension.swift in Sources */,
 				EACCDA052C35351200D9ADAD /* WebViewController.swift in Sources */,
 				EA9E1ABE2C2ABFBA001C7706 /* SortModel.swift in Sources */,
+				EAAD30492C3F6FEA0095E73F /* AppNotification.swift in Sources */,
 				EAF78EFB2C14762400EFBCB0 /* HomeViewPresenter.swift in Sources */,
 				EA9A84422C00DD08004B7FDF /* Strings+Generated.swift in Sources */,
 				EAA914D72C02382400A98950 /* UIViewController+Extension.swift in Sources */,

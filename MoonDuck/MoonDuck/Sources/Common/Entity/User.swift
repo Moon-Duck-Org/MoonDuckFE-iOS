@@ -15,4 +15,5 @@ struct User {
     var book: Int = 0
     var drama: Int = 0
     var concert: Int = 0
+    var isPush: Bool = false
 }

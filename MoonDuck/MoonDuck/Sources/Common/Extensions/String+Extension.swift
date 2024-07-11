@@ -15,8 +15,16 @@ extension String {
         if self == "false" {
           return false
         }
+        
+        if self == "Y" {
+            return true
+        }
+        
+        if self == "N" {
+            return false
+        }
+        
         return nil
-      
     }
     
     var isNotEmpty: Bool {
