@@ -172,7 +172,6 @@ extension HomeViewPresenter {
     
     func refreshReviews() {
         if let category = categoryModel.selectedCategory {
-            view?.updateLoadingView(isLoading: true)
             reviewModel.reloadReviews(with: category, filter: sortModel.selectedSortOption)
         }
     }

@@ -144,6 +144,7 @@ extension HomeViewController {
     @objc
     private func refreshData(_ sender: Any) {
         // 새로고침할 데이터 로드하는 메서드 호출
+        updateLoadingView(isLoading: true)
         presenter.refreshReviews()
     }
 }
