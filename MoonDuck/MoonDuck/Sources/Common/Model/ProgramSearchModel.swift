@@ -8,8 +8,9 @@
 import Foundation
 
 protocol ProgramSearchModelDelegate: AnyObject {
-    func programSearchModel(_ model: ProgramSearchModel, didChange programs: [Program])
-    func programSearchModel(_ model: ProgramSearchModel, didRecieve error: Error?)
+    func programSearchModel(_ model: ProgramSearchModelType, didChange programs: [Program])
+    func programSearchModel(_ model: ProgramSearchModelType, didRecieve error: Error?)
+    func programSearchDidLast(_ model: ProgramSearchModelType)
 }
 
 protocol ProgramSearchModelType: AnyObject {
@@ -100,6 +101,7 @@ class ProgramSearchModel: ProgramSearchModelType {
                 // 검색 성공
                 if succeed.isEmpty {
                     self.isLastPrograms = true
+                    self.delegate?.programSearchDidLast(self)
                 } else {
                     self.isLastPrograms = succeed.count < category.searchSize
                     self.programs.append(contentsOf: succeed)
@@ -120,6 +122,7 @@ class ProgramSearchModel: ProgramSearchModelType {
                 // 검색 성공
                 if succeed.isEmpty {
                     self.isLastPrograms = true
+                    self.delegate?.programSearchDidLast(self)
                 } else {
                     self.isLastPrograms = succeed.count < category.searchSize
                     self.programs.append(contentsOf: succeed)
@@ -140,6 +143,7 @@ class ProgramSearchModel: ProgramSearchModelType {
                 // 검색 성공
                 if succeed.isEmpty {
                     self.isLastPrograms = true
+                    self.delegate?.programSearchDidLast(self)
                 } else {
                     self.isLastPrograms = succeed.count < category.searchSize
                     self.programs.append(contentsOf: succeed)
@@ -160,6 +164,7 @@ class ProgramSearchModel: ProgramSearchModelType {
                 // 검색 성공
                 if succeed.isEmpty {
                     self.isLastPrograms = true
+                    self.delegate?.programSearchDidLast(self)
                 } else {
                     self.isLastPrograms = succeed.count < category.searchSize
                     self.programs.append(contentsOf: succeed)
