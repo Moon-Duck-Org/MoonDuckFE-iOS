@@ -151,7 +151,7 @@ extension ProgramSearchViewPresenter: ProgramSearchModelDelegate {
     
     func programSearchModel(_ model: ProgramSearchModelType, didRecieve error: Error?) {
         view?.updateLoadingView(isLoading: false)
-        showToastWithEndEditing("검색 중 오류가 발생하였습니다.")
+        showToastWithEndEditing(L10n.Localizable.Error.title("검색") + "\n" + L10n.Localizable.Error.message)
     }
     
     func programSearchDidLast(_ model: ProgramSearchModelType) {
