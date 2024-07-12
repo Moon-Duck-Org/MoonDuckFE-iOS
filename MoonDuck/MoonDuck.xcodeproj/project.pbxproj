@@ -135,6 +135,7 @@
 		EAC25CF62C366481004254D4 /* AppVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC25CF32C366481004254D4 /* AppVersionViewController.swift */; };
 		EAC25CF82C366687004254D4 /* AppVersionViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC25CF72C366687004254D4 /* AppVersionViewPresenter.swift */; };
 		EAC25CFA2C369F70004254D4 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC25CF92C369F70004254D4 /* Throttler.swift */; };
+		EAC8CE742C4120BF0077899D /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC8CE732C4120BF0077899D /* ExpandableLabel.swift */; };
 		EAC93F3D2C156DA1008FDFF2 /* ProgramSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3C2C156DA1008FDFF2 /* ProgramSearchService.swift */; };
 		EAC93F3F2C156E09008FDFF2 /* SearchOpenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */; };
 		EAC93F412C156F35008FDFF2 /* SearchMovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC93F402C156F35008FDFF2 /* SearchMovieResponse.swift */; };
@@ -327,6 +328,7 @@
 		EAC25CF42C366481004254D4 /* AppVersionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppVersionViewController.xib; sourceTree = "<group>"; };
 		EAC25CF72C366687004254D4 /* AppVersionViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionViewPresenter.swift; sourceTree = "<group>"; };
 		EAC25CF92C369F70004254D4 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
+		EAC8CE732C4120BF0077899D /* ExpandableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
 		EAC93F3C2C156DA1008FDFF2 /* ProgramSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchService.swift; sourceTree = "<group>"; };
 		EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOpenRequest.swift; sourceTree = "<group>"; };
 		EAC93F402C156F35008FDFF2 /* SearchMovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieResponse.swift; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 			isa = PBXGroup;
 			children = (
 				EAE017ED2C02015900699145 /* UIKeyboardInfo.swift */,
+				EAC8CE732C4120BF0077899D /* ExpandableLabel.swift */,
 				EA946D592C16960E00F44BB5 /* LoadingView.swift */,
 				EA6D9A792BFF6884003B459A /* RadiusView.swift */,
 				EAF78F042C148BE700EFBCB0 /* RadiusButton.swift */,
@@ -1345,6 +1348,7 @@
 				EA8495332C36265F00112EDB /* WithdrawViewController.swift in Sources */,
 				EAF78F002C14813800EFBCB0 /* MyInfoViewController.swift in Sources */,
 				EA8495352C36277900112EDB /* WithdrawViewPresenter.swift in Sources */,
+				EAC8CE742C4120BF0077899D /* ExpandableLabel.swift in Sources */,
 				A0A633742C286DA100744694 /* HomeReviewDataSource.swift in Sources */,
 				EADD89062C23F7B700CA2B43 /* WriteReviewModel.swift in Sources */,
 				EA72084D2C12869B00E96212 /* AuthResponse.swift in Sources */,
