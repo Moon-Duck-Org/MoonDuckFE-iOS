@@ -142,8 +142,8 @@ internal enum L10n {
       internal static let settingTextOs = L10n.tr("Localizable", "push. setting_text_os", fallback: "푸시 알림을 받으려면 기기 설정에서 알림을 켜주세요.")
       /// 알림을 켜주세요.
       internal static let settingTextOsEmphasize = L10n.tr("Localizable", "push. setting_text_os_emphasize", fallback: "알림을 켜주세요.")
-      /// 문화생활 기록 🐥 문덕이
-      internal static let title = L10n.tr("Localizable", "push. title", fallback: "문화생활 기록 🐥 문덕이")
+      /// 문화생활덕후 🐥 문덕이
+      internal static let title = L10n.tr("Localizable", "push. title", fallback: "문화생활덕후 🐥 문덕이")
     }
     internal enum Review {
       /// 삭제하시겠어요?
