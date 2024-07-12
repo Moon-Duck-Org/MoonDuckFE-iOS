@@ -188,17 +188,10 @@
                                     <color key="textColor" name="Black"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbX-dO-0Yl">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="영화, 드라마, 책 등 어떤 기록이든 좋아요. 더하기 버튼을 탭하여 기록을 시작해 볼까요?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbX-dO-0Yl">
                                     <rect key="frame" x="0.0" y="38.666666666666686" width="290.66666666666669" height="47.666666666666657"/>
-                                    <attributedString key="attributedText">
-                                        <fragment content="영화, 드라마, 책 등 어떤 기록이든 좋아요. 더하기 버튼을 탭하여 기록을 시작해 볼까요?">
-                                            <attributes>
-                                                <color key="NSColor" name="Gray1"/>
-                                                <font key="NSFont" size="16" name="NotoSansCJKkr-Regular"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                    <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="16"/>
+                                    <color key="textColor" name="Gray1"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
