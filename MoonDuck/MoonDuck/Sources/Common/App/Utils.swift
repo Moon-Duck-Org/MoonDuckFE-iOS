@@ -11,10 +11,9 @@ import UIKit
 import SafariServices
 import Kingfisher
 import FirebaseRemoteConfig
+import StoreKit
 
 class Utils {
-    static var appMail: String = "poduck405@gmail.com"
-    
     static func formattedDate(createdAt date: String) -> String {
         let splitDate = date.split(separator: "T")
         if splitDate.count > 0 {
@@ -160,6 +159,12 @@ class Utils {
                 // 실패
                 completion(.none)
             }
+        }
+    }
+    
+    static func requestReview() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: windowScene)
         }
     }
 }

@@ -45,6 +45,9 @@ class SettingViewController: BaseViewController, SettingView {
     @IBAction private func contactUsButtonTapped(_ sender: Any) {
         showContractUsMail()
     }
+    @IBAction private func goReviewButtonTapped(_ sender: Any) {
+        Utils.moveAppStore()
+    }
     @IBAction private func appVersionButtonTapped(_ sender: Any) {
         presenter.appVersionButtonTapped()
     }

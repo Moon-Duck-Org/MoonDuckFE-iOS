@@ -11,8 +11,10 @@ class Constants {
     static let isDebug: Bool = true
     
     static let appLanguage: String = "ko_KR"
+    static let appMail: String = "poduck405@gmail.com"
     
     static let kakaoAppKey: String = "115f84135ae908760cadabb7d51a0e26"
     static let searchMovieKey: String = "31263527c9b0f3dba1f669b2990459c4"
     static let searchConcertKey: String = "4e6e495762687975313031746b705741"
+    
 }
