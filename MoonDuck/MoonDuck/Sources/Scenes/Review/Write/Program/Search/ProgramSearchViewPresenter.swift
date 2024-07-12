@@ -70,7 +70,7 @@ extension ProgramSearchViewPresenter {
         view?.createTouchEvent()
         view?.updateUserInputButtonEnabled(false)
         
-        view?.updateTextFieldPlaceHolder(with: "\(model.category.title) 검색어 입력")
+        view?.updateTextFieldPlaceHolder(with: L10n.Localizable.Search.placeholder(model.category.title))
     }
     
     // MARK: - Action
@@ -79,7 +79,7 @@ extension ProgramSearchViewPresenter {
             let program = Program(category: model.category, title: searchText)
             moveWriteReview(with: program)
         } else {
-            showToastWithEndEditing("\(model.category.title) 제목을 입력해주세요.")
+            showToastWithEndEditing(L10n.Localizable.Search.toast(model.category.title))
         }
     }
     

@@ -50,11 +50,7 @@ class ProgramSearchModel: ProgramSearchModelType {
         return programs.count
     }
     
-    var programs: [Program] = [] {
-        didSet {
-            delegate?.programSearchModel(self, didChange: programs)
-        }
-    }
+    var programs: [Program] = []
     
     // MARK: - Logic
     private func filterPrograms(with category: Category, programs: [Program]) -> [Program] {
@@ -69,6 +65,7 @@ class ProgramSearchModel: ProgramSearchModelType {
     func search(_ text: String) {
         currentPage = 1
         programs.removeAll()
+        
         switch category {
         case .movie:
             searchMovie(text)
@@ -106,12 +103,13 @@ class ProgramSearchModel: ProgramSearchModelType {
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-                if succeed.isEmpty {
+                if !self.programs.isEmpty && succeed.isEmpty {
                     self.isLastPrograms = true
                     self.delegate?.programSearchDidLast(self)
                 } else {
                     self.isLastPrograms = succeed.count < category.searchSize
                     self.programs.append(contentsOf: succeed)
+                    self.delegate?.programSearchModel(self, didChange: self.programs)
                 }
             } else {
                 // 오류 발생
@@ -127,12 +125,13 @@ class ProgramSearchModel: ProgramSearchModelType {
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-                if succeed.isEmpty {
+                if !self.programs.isEmpty && succeed.isEmpty {
                     self.isLastPrograms = true
                     self.delegate?.programSearchDidLast(self)
                 } else {
                     self.isLastPrograms = succeed.count < category.searchSize
                     self.programs.append(contentsOf: succeed)
+                    self.delegate?.programSearchModel(self, didChange: self.programs)
                 }
             } else {
                 // 오류 발생
@@ -148,12 +147,13 @@ class ProgramSearchModel: ProgramSearchModelType {
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-                if succeed.isEmpty {
+                if !self.programs.isEmpty && succeed.isEmpty {
                     self.isLastPrograms = true
                     self.delegate?.programSearchDidLast(self)
                 } else {
                     self.isLastPrograms = succeed.count < category.searchSize
                     self.programs.append(contentsOf: succeed)
+                    self.delegate?.programSearchModel(self, didChange: self.programs)
                 }
             } else {
                 // 오류 발생
@@ -169,13 +169,14 @@ class ProgramSearchModel: ProgramSearchModelType {
             guard let self else { return }
             if let succeed {
                 // 검색 성공
-                if succeed.isEmpty {
+                if !self.programs.isEmpty && succeed.isEmpty {
                     self.isLastPrograms = true
                     self.delegate?.programSearchDidLast(self)
                 } else {
                     self.isLastPrograms = succeed.count < category.searchSize
                     let filterPrograms = self.filterPrograms(with: .movie, programs: succeed)
                     self.programs.append(contentsOf: filterPrograms)
+                    self.delegate?.programSearchModel(self, didChange: self.programs)
                 }
             } else {
                 // 오류 발생

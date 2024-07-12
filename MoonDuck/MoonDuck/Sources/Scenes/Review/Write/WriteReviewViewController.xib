@@ -136,7 +136,7 @@
                                             <color key="textColor" name="Black"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목을 알려주세요" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="U7o-KS-xnG" customClass="TextField" customModule="MoonDuck" customModuleProvider="target">
+                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목을 입력해 주세요" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="U7o-KS-xnG" customClass="TextField" customModule="MoonDuck" customModuleProvider="target">
                                             <rect key="frame" x="16" y="76.666666666666686" width="361" height="57"/>
                                             <color key="backgroundColor" name="Gray3"/>
                                             <constraints>
@@ -308,7 +308,7 @@
                                             <color key="textColor" name="Black"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="링크를 넣어주세요." minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JY6-xW-LBJ" customClass="TextField" customModule="MoonDuck" customModuleProvider="target">
+                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="링크를 입력해 주세요" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JY6-xW-LBJ" customClass="TextField" customModule="MoonDuck" customModuleProvider="target">
                                             <rect key="frame" x="16" y="66.666666666666742" width="361" height="57"/>
                                             <color key="backgroundColor" name="Gray3"/>
                                             <constraints>
@@ -334,7 +334,7 @@
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사진은 5장(파일당 최대 10MB)까지 첨부 가능합니다." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vv3-Vq-AK8">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사진은 5장(파일당 최대 10MB)까지 첨부 가능합니다." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vv3-Vq-AK8">
                                             <rect key="frame" x="95.333333333333329" y="168" width="241.33333333333337" height="16.333333333333343"/>
                                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="11"/>
                                             <color key="textColor" name="Gray2"/>
