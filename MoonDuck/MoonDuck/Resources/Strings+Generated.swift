@@ -18,6 +18,8 @@ internal enum L10n {
     /// 
     ///   Created by suni on 5/24/24.
     internal static let appName = L10n.tr("Localizable", "app_name", fallback: "문덕이")
+    /// 더보기
+    internal static let expand = L10n.tr("Localizable", "expand", fallback: "더보기")
     internal enum Button {
       /// 취소
       internal static let cancel = L10n.tr("Localizable", "button. cancel", fallback: "취소")

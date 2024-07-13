@@ -230,15 +230,15 @@ extension ExpandableLabel {
         lineBreakMode = .byClipping
         collapsedNumberOfLines = numberOfLines
         expandedAttributedLink = nil
-        collapsedAttributedLink = NSAttributedString(string: "더보기", attributes: [.font: FontFamily.NotoSansCJKKR.medium.font(size: 14)])
+        collapsedAttributedLink = NSAttributedString(string: L10n.Localizable.expand, attributes: [.font: FontFamily.NotoSansCJKKR.medium.font(size: 14)])
         ellipsis = NSAttributedString(string: "...")
     }
 
     private func textReplaceWordWithLink(_ lineIndex: LineIndexTuple, text: NSAttributedString, linkName: NSAttributedString?) -> NSAttributedString {
         let lineText = text.text(for: lineIndex.line)
-        let linkName = linkName ?? NSAttributedString(string: "더보기")
+        let linkName = linkName ?? NSAttributedString(string: L10n.Localizable.expand)
         var lineTextWithLink = lineText
-        (lineText.string as NSString).enumerateSubstrings(in: NSRange(location: 0, length: lineText.length), options: [.byWords, .reverse]) { _, subRange, _, stop -> Void in
+        (lineText.string as NSString).enumerateSubstrings(in: NSRange(location: 0, length: lineText.length), options: [.byWords, .reverse]) { _, subRange, _, stop in
             let lineTextWithLastWordRemoved = lineText.attributedSubstring(from: NSRange(location: 0, length: subRange.location))
             let lineTextWithAddedLink = NSMutableAttributedString(attributedString: lineTextWithLastWordRemoved)
             if let ellipsis = self.ellipsis {
@@ -261,7 +261,7 @@ extension ExpandableLabel {
 
     private func textReplaceWithLink(_ lineIndex: LineIndexTuple, text: NSAttributedString, linkName: NSAttributedString?) -> NSAttributedString {
         let lineText = text.text(for: lineIndex.line)
-        let linkName = linkName ?? NSAttributedString(string: "더보기")
+        let linkName = linkName ?? NSAttributedString(string: L10n.Localizable.expand)
         let lineTextTrimmedNewLines = NSMutableAttributedString()
         lineTextTrimmedNewLines.append(lineText)
         let nsString = lineTextTrimmedNewLines.string as NSString
@@ -300,7 +300,7 @@ extension ExpandableLabel {
 
     private func getCollapsedText(for text: NSAttributedString?, link: NSAttributedString?) -> NSAttributedString? {
         guard let text else { return nil }
-        let link = link ?? NSAttributedString(string: "더보기")
+        let link = link ?? NSAttributedString(string: L10n.Localizable.expand)
         let lines = text.lines(for: frame.size.width)
         if collapsedNumberOfLines > 0 && collapsedNumberOfLines < lines.count {
             let lastLineRef = lines[collapsedNumberOfLines - 1] as CTLine

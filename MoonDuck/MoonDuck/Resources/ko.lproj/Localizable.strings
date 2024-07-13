@@ -8,6 +8,7 @@
 
 "app_name" = "문덕이";
 
+"expand" = "더보기";
 // 알럿 버튼
 "button. done" = "확인";
 "button. cancel" = "취소";
