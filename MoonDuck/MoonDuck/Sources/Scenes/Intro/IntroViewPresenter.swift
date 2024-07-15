@@ -96,7 +96,8 @@ extension IntroViewPresenter: UserModelDelegate {
             let cateogryModel = CategoryModel()
             let sortModel = SortModel()
             let reviewModel = ReviewListModel(provider)
-            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)            
+            let shareModel = ShareModel(provider)
+            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel, shareModel: shareModel)
             self.view?.moveHome(with: presenter)
         }
     }

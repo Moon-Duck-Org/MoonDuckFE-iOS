@@ -17,6 +17,7 @@ protocol HomeView: BaseView {
     func resetScrollAndEndRefresh()
     func showOptionAlert(for review: Review)
     func showRequestNotiAuthAlert()
+    func showSystemShare(with url: URL)
     
     // Navigation
     func moveMy(with presenter: MyInfoPresenter)
@@ -145,6 +146,10 @@ extension HomeViewController {
             )
     }
     
+    func showSystemShare(with url: URL) {
+        Utils.showSystemShare(self, url: url)
+    }
+        
     private func requestNotificationAuthorization() {
         AppNotification.requestNotificationAuthorization {  [weak self] isSuccess in
             if isSuccess {
