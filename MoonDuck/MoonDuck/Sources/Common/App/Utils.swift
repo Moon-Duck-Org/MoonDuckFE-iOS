@@ -18,6 +18,18 @@ class Utils {
         return Date().formatted("yyyy년 MM월 dd일")
     }
     
+    static func getNow() -> Date {
+        let now = Date()
+        let timeZone = TimeZone.current
+        let secondsFromGMT = timeZone.secondsFromGMT(for: now)
+        
+        guard let date = Calendar.current.date(byAdding: .second, value: secondsFromGMT, to: now) else {
+            return now
+        }
+        
+        return date
+    }
+    
     static func formattedDate(createdAt date: String) -> String {
         let splitDate = date.split(separator: "T")
         if splitDate.count > 0 {

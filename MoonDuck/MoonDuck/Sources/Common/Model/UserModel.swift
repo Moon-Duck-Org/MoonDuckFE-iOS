@@ -30,6 +30,7 @@ protocol UserModelType: AnyObject {
     
     // Logic
     func save(nickname: String)
+    func save(isPush: Bool)
     func save(user: User)
     func deleteReview(category: Category)
     func createReview(category: Category)
@@ -38,6 +39,7 @@ protocol UserModelType: AnyObject {
     func getUser()
     func nickname(_ name: String)
     func deleteUser()
+    func push(_ isPush: Bool)
 }
 
 class UserModel: UserModelType {
@@ -64,6 +66,14 @@ class UserModel: UserModelType {
             save(user: updateUser)
         } else {
             getUser()
+        }
+    }
+    
+    func save(isPush: Bool) {
+        if let user {
+            var updateUser = user
+            updateUser.isPush = isPush
+            save(user: updateUser)
         }
     }
     
@@ -208,6 +218,36 @@ class UserModel: UserModelType {
                 }
                 // User 정보 조회 실패
                 self.delegate?.userModelDidFailDeleteUser(self)
+            }
+        }
+    }
+    
+    func push(_ isPush: Bool) {
+        let request = UserPushRequest(push: isPush.toYn())
+        provider.userService.push(request: request) { [weak self] succeed, failed in
+            guard let self else { return }
+            if let succeed {
+                // 푸시 변경 성공
+                self.save(isPush: succeed)
+            } else {
+                // 오류 발생
+                if let error = failed {
+                    if error.isAuthError {
+                        self.delegate?.userModelDidAuthError(self)
+                        return
+                    } else if error.needsTokenRefresh {
+                        AuthManager.default.refreshToken { [weak self] success, _ in
+                            guard let self else { return }
+                            if success {
+                                self.push(isPush)
+                            } else {
+                                self.delegate?.userModelDidAuthError(self)
+                            }
+                        }
+                        return
+                    }
+                }
+                self.delegate?.userModel(self, didRecieve: failed)
             }
         }
     }

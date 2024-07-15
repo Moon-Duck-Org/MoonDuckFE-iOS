@@ -133,6 +133,7 @@ extension HomeViewPresenter {
     func viewDidLoad() {
         categoryModel.getCategories(isHaveAll: true)
         checkNotificationAuthorization()
+        updateNotification()
     }
     
     // MARK: - Action
@@ -183,12 +184,21 @@ extension HomeViewPresenter {
         }
     }
     
-    // MARK: - Logic    
+    // MARK: - Logic
     private func checkNotificationAuthorization() {
         AppNotification.getNotificationSettingStatus { [weak self] status in
             if status == .notDetermined {
                 self?.view?.showRequestNotiAuthAlert()
             }
+        }
+    }
+    private func updateNotification() {
+        guard let user = userModel.user else { return }
+        
+        if user.isPush {
+            AppNotification.resetAndScheduleNotification(with: user.nickname)
+        } else {
+            AppNotification.removeNotification()
         }
     }
     

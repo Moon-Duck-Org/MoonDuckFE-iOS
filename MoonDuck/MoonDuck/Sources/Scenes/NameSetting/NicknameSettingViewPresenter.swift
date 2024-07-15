@@ -182,6 +182,8 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
     func userModelDidAuthError(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
         AuthManager.default.logout()
-        moveLogin()
+        let model = UserModel(provider)
+        let presenter = LoginViewPresenter(with: provider, model: model)
+        view?.showAuthErrorAlert(with: presenter)
     }
 }

@@ -17,7 +17,7 @@ struct UserResponse: Codable {
     let concert: Int?
     let push: String?
     
-    var toDomain: User {
+    func toDomain() -> User {
         let movie = movie ?? 0
         let book = book ?? 0
         let drama = drama ?? 0
@@ -46,4 +46,13 @@ struct UserResponse: Codable {
 struct UserNicknameResponse: Codable {
     let userId: Int
     let nickname: String
+}
+
+struct UserPushResponse: Codable {
+    let userId: Int
+    let push: String
+    
+    func toDomain() -> Bool {
+        return push.toBool() ?? false
+    }
 }

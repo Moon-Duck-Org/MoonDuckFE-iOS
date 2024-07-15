@@ -14,6 +14,7 @@ enum MoonDuckAPI {
     case user
     case deleteUser
     case userNickname(UserNicknameRequest)
+    case userPush(UserPushRequest)
     case searchMovie(SearchMovieRequest)
     case searchBook(SearchBookRequest)
     case searchDrama(SearchDramaRequest)
@@ -51,7 +52,7 @@ extension MoonDuckAPI: TargetType {
             return .get
         case .authLogin, .authReissue, .postReview:
             return .post
-        case .userNickname, .putReview:
+        case .userNickname, .userPush, .putReview:
             return .put
         case .deleteUser, .deleteReview:
             return HTTPMethod.delete
@@ -66,12 +67,15 @@ extension MoonDuckAPI: TargetType {
             // access 토큰 재발급
         case .authReissue:
             return "/auth/reissue"
-            // User 정보 조회
+            // User 정보 조회 / 삭제
         case .user, .deleteUser:
             return "/user"
             // User Nickname 수정
         case .userNickname:
             return "/user/nickname"
+            // User Push 수정
+        case .userPush:
+            return "/user/push"
     
             // Movie Open API
         case .searchMovie:
@@ -107,6 +111,8 @@ extension MoonDuckAPI: TargetType {
         case .user, .deleteUser:
             return nil
         case .userNickname(let request):
+            return .body(request)
+        case .userPush(let request):
             return .body(request)
         case .searchMovie(let request):
             return .query(request)
@@ -146,7 +152,7 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .authLogin, .authReissue:
             return ["Content-Type": "application/json"]
-        case .user, .deleteUser, .userNickname, .reviewAll, .getReview, .deleteReview, .reviewDetail:
+        case .user, .deleteUser, .userNickname, .userPush, .reviewAll, .getReview, .deleteReview, .reviewDetail:
             if let token: String = AuthManager.default.getAccessToken() {
                 return ["Content-Type": "application/json",
                         "Authorization": "Bearer \(token)"]
@@ -155,7 +161,7 @@ extension MoonDuckAPI: TargetType {
             }
         case .searchBook:
             return ["X-Naver-Client-Id": "FfwMKOMRcT5KZmhvJxYj",
-                    "X-Naver-Client-Secret": "JPu7G800Rh"]
+                    "X-Naver-Cl ient-Secret": "JPu7G800Rh"]
         case .searchDrama:
             return ["accept": "application/json",
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNjRmZjk2OGEzYTdkMWQ2NjVhNDI2NmIyNzhmMzI0ZiIsInN1YiI6IjY2NmQ0MjA2NmIzYTk0MmQyOGVjMWMwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uvFajFOjUVv57Xb8onVa0kLT2ZLXtTdYRHkOgalHMmA"]

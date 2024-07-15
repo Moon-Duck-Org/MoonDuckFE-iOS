@@ -12,7 +12,7 @@ class UserService {
         MoonDuckAPI.user.performRequest(responseType: UserResponse.self, completion: {  result in
             switch result {
             case .success(let response):
-                completion(response.toDomain, nil)
+                completion(response.toDomain(), nil)
             case .failure(let error):
                 completion(nil, error)
             }
@@ -36,6 +36,17 @@ class UserService {
             switch result {
             case .success(let response):
                 completion(response, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
+        })
+    }
+    
+    func push(request: UserPushRequest, completion: @escaping (_ succeed: Bool?, _ failed: APIError?) -> Void) {
+        MoonDuckAPI.userPush(request).performRequest(responseType: UserPushResponse.self, completion: {  result in
+            switch result {
+            case .success(let response):
+                completion(response.toDomain(), nil)
             case .failure(let error):
                 completion(nil, error)
             }

@@ -56,7 +56,9 @@ extension MyInfoViewPresenter {
     }
     
     func settingButtonTapped() {
-        let presenter = SettingViewPrsenter(with: provider, model: model)
+        let model = UserModel(provider)
+        model.user = self.model.user
+        let presenter = SettingViewPresenter(with: provider, model: model, delegate: self)
         self.view?.moveSetting(with: presenter)
     }
     
@@ -65,6 +67,14 @@ extension MyInfoViewPresenter {
         let model = UserModel(provider)
         let presenter = LoginViewPresenter(with: provider, model: model)
         self.view?.moveLogin(with: presenter)
+    }
+    
+    private func updateNotification() {
+        guard let user = model.user else { return }
+        
+        if user.isPush {
+            AppNotification.resetAndScheduleNotification(with: user.nickname)
+        }
     }
 }
 
@@ -75,9 +85,17 @@ extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
         view?.updateNameLabelText(with: nickname)
         view?.showToastMessage(L10n.Localizable.NicknameSetting.completeToast)
         model.save(nickname: nickname)
+        updateNotification()        
     }
     
     func nicknameSettingDidCancel(_ presenter: NicknameSettingPresenter) {
         view?.dismiss()
+    }
+}
+
+// MARK: - SettingPresenterDelegate
+extension MyInfoViewPresenter: SettingPresenterDelegate {
+    func setting(_ presenter: SettingPresenter, didSuccess isPush: Bool) {
+        model.save(isPush: isPush)
     }
 }

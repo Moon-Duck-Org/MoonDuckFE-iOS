@@ -1,11 +1,15 @@
 //
-//  SettingViewPrsenter.swift
+//  SettingViewPresenter.swift
 //  MoonDuck
 //
 //  Created by suni on 7/3/24.
 //
 
 import Foundation
+
+protocol SettingPresenterDelegate: AnyObject {
+    func setting(_ presenter: SettingPresenter, didSuccess isPush: Bool)
+}
 
 protocol SettingPresenter: AnyObject {
     var view: SettingView? { get set }
@@ -24,16 +28,20 @@ protocol SettingPresenter: AnyObject {
     func noticeButtonTapped()
     func withdrawButtonTapped()
     func pushSwitchValueChanged(isOn: Bool)
-    
 }
 
-class SettingViewPrsenter: BaseViewPresenter, SettingPresenter {
+class SettingViewPresenter: BaseViewPresenter, SettingPresenter {
     weak var view: SettingView?
+    private weak var delegate: SettingPresenterDelegate?
     private let model: UserModelType
     
-    init(with provider: AppServices, model: UserModelType) {
+    init(with provider: AppServices, 
+         model: UserModelType,
+         delegate: SettingPresenterDelegate) {
         self.model = model
+        self.delegate = delegate
         super.init(with: provider)
+        self.model.delegate = self
     }
     
     // MARK: - Data
@@ -44,7 +52,7 @@ class SettingViewPrsenter: BaseViewPresenter, SettingPresenter {
     
 }
 
-extension SettingViewPrsenter {
+extension SettingViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
@@ -101,20 +109,10 @@ extension SettingViewPrsenter {
     }
     
     private func setPushStatus(isOn: Bool) {
-        guard let user = model.user else { return }
-        if user.isPush == isOn {
-            return
-        }
+        guard let user = model.user, user.isPush != isOn else { return }
         
-        let today = Utils.getToday()
-        if isOn {
-            AppNotification.resetAndScheduleNotification(with: user.nickname)
-            view?.showToastMessage(L10n.Localizable.Push.onCompleteToast(today))
-        } else {
-            AppNotification.removeNotification()
-            view?.showToastMessage(L10n.Localizable.Push.offCompleteToast(today))
-        }
-        
+        view?.updateLoadingView(isLoading: true)
+        model.push(isOn)
     }
     
     // MARK: - Logic
@@ -130,5 +128,47 @@ extension SettingViewPrsenter {
                 self.view?.updatePushLabelText(isAddOsString: true)
             }
         }
+    }
+}
+
+// MARK: - UserModelDelegate
+extension SettingViewPresenter: UserModelDelegate {
+    func userModel(_ model: UserModelType, didChange user: User?) {
+        // Push 설정 성공
+        view?.updateLoadingView(isLoading: false)
+        
+        guard let user else { return }
+        delegate?.setting(self, didSuccess: user.isPush)
+        
+        let today = Utils.getToday()
+        if user.isPush {
+            AppNotification.resetAndScheduleNotification(with: user.nickname)
+            view?.showToastMessage(L10n.Localizable.Push.onCompleteToast(today))
+        } else {
+            AppNotification.removeNotification()
+            view?.showToastMessage(L10n.Localizable.Push.offCompleteToast(today))
+        }
+    }
+    
+    func userModel(_ model: UserModelType, didRecieve error: APIError?) {
+        view?.updateLoadingView(isLoading: false)
+        
+        if let error {
+            if error.isNetworkError {
+                view?.showNetworkErrorAlert()
+                return
+            } else if error.isSystemError {
+                view?.showSystemErrorAlert()
+                return
+            }
+        }
+    }
+    
+    func userModelDidAuthError(_ model: UserModelType) {
+        view?.updateLoadingView(isLoading: false)
+        AuthManager.default.logout()
+        let model = UserModel(provider)
+        let presenter = LoginViewPresenter(with: provider, model: model)
+        view?.showAuthErrorAlert(with: presenter)
     }
 }

@@ -89,6 +89,7 @@
 		EA8C24172C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */; };
 		EA8C24192C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */; };
 		EA8C5CF82C44EE5B00AA7884 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5CF72C44EE5B00AA7884 /* Date+Extension.swift */; };
+		EA8C5CFA2C44F5F100AA7884 /* Bool+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5CF92C44F5F100AA7884 /* Bool+Extension.swift */; };
 		EA8DC7B92C3B825E00DB8815 /* RemoteConfigDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */; };
 		EA8DC7BB2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8DC7BA2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift */; };
 		EA8DC7BF2C3BDD3F00DB8815 /* ReviewDetailImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8DC7BE2C3BDD3F00DB8815 /* ReviewDetailImageViewController.xib */; };
@@ -280,6 +281,7 @@
 		EA8C24152C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewDetailViewController.xib; sourceTree = "<group>"; };
 		EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewPresenter.swift; sourceTree = "<group>"; };
 		EA8C5CF72C44EE5B00AA7884 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		EA8C5CF92C44F5F100AA7884 /* Bool+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extension.swift"; sourceTree = "<group>"; };
 		EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RemoteConfigDefaults.plist; sourceTree = "<group>"; };
 		EA8DC7BA2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailImageDataSource.swift; sourceTree = "<group>"; };
 		EA8DC7BD2C3BDD3F00DB8815 /* ReviewDetailImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailImageViewController.swift; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 				EA946D572C16956800F44BB5 /* UIButton+Extension.swift */,
 				EAB6E65E2C17F9B000A9E191 /* Array+Extension.swift */,
 				EA8C5CF72C44EE5B00AA7884 /* Date+Extension.swift */,
+				EA8C5CF92C44F5F100AA7884 /* Bool+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1351,6 +1354,7 @@
 				EACCDA0A2C353CF600D9ADAD /* SettingViewPresenter.swift in Sources */,
 				EA8495332C36265F00112EDB /* WithdrawViewController.swift in Sources */,
 				EAF78F002C14813800EFBCB0 /* MyInfoViewController.swift in Sources */,
+				EA8C5CFA2C44F5F100AA7884 /* Bool+Extension.swift in Sources */,
 				EA8495352C36277900112EDB /* WithdrawViewPresenter.swift in Sources */,
 				EAC8CE742C4120BF0077899D /* ExpandableLabel.swift in Sources */,
 				A0A633742C286DA100744694 /* HomeReviewDataSource.swift in Sources */,

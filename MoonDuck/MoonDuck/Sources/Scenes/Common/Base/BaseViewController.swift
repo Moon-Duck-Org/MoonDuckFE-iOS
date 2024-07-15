@@ -55,7 +55,9 @@ class BaseViewController: UIViewController, Navigatable {
     }
     
     func updateLoadingView(isLoading: Bool) {
-        self.loadingView.isLoading = isLoading
+        DispatchQueue.main.async {
+            self.loadingView.isLoading = isLoading
+        }
     }
     
     func showToastMessage(_ message: String) {

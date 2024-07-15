@@ -46,29 +46,30 @@ class AppNotification {
         
         let messages = [L10n.Localizable.Push.messageType1(nickname),
                         L10n.Localizable.Push.messageType2(nickname)]
-        content.body = messages.randomElement() ?? messages[0]
         content.sound = .default
         // 현재 날짜와 시간
-        let currentDate = Date()
-        let calendar = Calendar.current
+        let currentDate = Utils.getNow()
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC") ?? calendar.timeZone
         
         let intervalCount = 9
         
         for count in 1...intervalCount {
-            // TODO: - 날짜 시간 수정 currentDate -> futureDate 로 수정
-            let interval = count * 1
+            let interval = count * 10
             if let futureDate = calendar.date(byAdding: .day, value: interval, to: currentDate) {
-                var dateComponents = calendar.dateComponents([.year, .month, .day], from: currentDate)
-                dateComponents.hour = 12 // 12 -> 10 수정
-                dateComponents.minute = 0
-                
+                var dateComponents = calendar.dateComponents([.year, .month, .day], from: futureDate)
+                dateComponents.hour = 18
+                dateComponents.minute = 30
+                Log.debug("알림 예약 - ", dateComponents)
                 let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+                
+                content.body = messages.randomElement() ?? messages[0]
                 
                 let request = UNNotificationRequest(identifier: "notification_\(interval)_days", content: content, trigger: trigger)
                 
                 UNUserNotificationCenter.current().add(request) { error in
                     if let error = error {
-                        Log.error("알림 요청 추가 중 오류 발생: \(error)")
+                        Log.error("알림 요청 추가 중 오류 발생 : \(error)")
                     }
                 }
             }
