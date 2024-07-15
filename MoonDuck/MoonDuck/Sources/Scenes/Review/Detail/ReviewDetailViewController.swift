@@ -10,6 +10,7 @@ import UIKit
 protocol ReviewDetailView: BaseView {
     // UI Logic
     func updateData(for review: Review)
+    func showSystemShare(with url: URL)
     
     // Navigation
     func backToHome()
@@ -118,6 +119,10 @@ extension ReviewDetailViewController {
             imageCollectionView.isHidden = true
             imageViewHeightConstraint.constant = 0
         }
+    }
+    
+    func showSystemShare(with url: URL) {
+        Utils.showSystemShare(self, url: url)
     }
     
     private func getImageSizeForRatioDynamic(with collectionView: UICollectionView) -> CGSize {

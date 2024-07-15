@@ -122,7 +122,8 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
             guard let self else { return }
             let handler = self.deleteReviewHandler(for: review)
             let model = ReviewModel(self.provider, review: review, deleteReviewHandler: handler)
-            let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
+            let shareModel = ShareModel(self.provider)
+            let presenter = ReviewDetailViewPresenter(with: provider, model: model, shareModel: shareModel, delegate: self)
             view?.moveReviewDetail(with: presenter)
         }
     }
@@ -150,7 +151,8 @@ extension HomeViewPresenter {
            let review = reviewModel.review(with: category, at: index) {
             let handler = deleteReviewHandler(for: review)
             let model = ReviewModel(provider, review: review, deleteReviewHandler: handler)
-            let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
+            let shareModel = ShareModel(self.provider)
+            let presenter = ReviewDetailViewPresenter(with: provider, model: model, shareModel: shareModel, delegate: self)
             view?.moveReviewDetail(with: presenter)
         }
     }

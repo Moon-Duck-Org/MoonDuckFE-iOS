@@ -30,4 +30,13 @@ extension String {
     var isNotEmpty: Bool {
         return !self.isEmpty
     }
+    
+    func toUrlDecode() -> String {
+        return self.removingPercentEncoding ?? self
+    }
+    
+    func toBase64Decode() -> String {
+        guard let data = Data(base64Encoded: self) else { return self }
+        return String(data: data, encoding: .utf8) ?? self
+    }
 }

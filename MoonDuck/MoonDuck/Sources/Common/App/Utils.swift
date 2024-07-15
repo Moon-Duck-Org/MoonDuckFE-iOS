@@ -193,4 +193,17 @@ class Utils {
             SKStoreReviewController.requestReview(in: windowScene)
         }
     }
+    
+    static func showSystemShare(_ viewController: UIViewController, url: URL) {
+        DispatchQueue.main.async {
+            // UIActivityViewController 생성
+            let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            
+            // iPad에서 UIActivityViewController가 크래시되지 않도록 처리
+            activityViewController.popoverPresentationController?.sourceView = viewController.view
+            
+            // UIActivityViewController를 화면에 표시
+            viewController.present(activityViewController, animated: true, completion: nil)
+        }
+    }
 }

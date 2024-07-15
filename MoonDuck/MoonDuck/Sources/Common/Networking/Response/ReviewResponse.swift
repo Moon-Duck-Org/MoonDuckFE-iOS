@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct ReviewResponse: Codable {
     let id: Int

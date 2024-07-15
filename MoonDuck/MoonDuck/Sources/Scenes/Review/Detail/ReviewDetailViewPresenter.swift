@@ -32,15 +32,19 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     
     weak var view: ReviewDetailView?
     private var model: ReviewModelType
+    private var shareModel: ShareModelType
     private weak var delegate: ReviewDetailPresenterDelegate?
     
     init(with provider: AppServices, 
          model: ReviewModelType,
+         shareModel: ShareModelType,
          delegate: ReviewDetailPresenterDelegate?) {
         self.model = model
+        self.shareModel = shareModel
         self.delegate = delegate
         super.init(with: provider)
         self.model.delegate = self
+        self.shareModel.delegate = self
     }
     
     // MARK: - Data
@@ -59,7 +63,10 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     
     func shareReviewHandler() -> (() -> Void)? {
         return { [weak self] in
-            self?.view?.showToastMessage("공유 연동 예정")
+            guard let self, let reviewId = model.review.id else { return }
+            
+            self.view?.updateLoadingView(isLoading: true)
+            self.shareModel.getShareUrl(with: reviewId)
         }
     }
     
@@ -104,6 +111,39 @@ extension ReviewDetailViewPresenter: ReviewModelDelegate {
     
     func reviewModel(_ model: ReviewModelType, didRecieve error: APIError?) {
         
+    }
+}
+
+// MARK: - ShareModelDelegate
+extension ReviewDetailViewPresenter: ShareModelDelegate {
+    func shareModel(_ model: ShareModelType, didSuccess url: String) {
+        view?.updateLoadingView(isLoading: false)
+        let shareUrlString = Constants.getSharePath(with: url)
+        if let shareUrl = URL(string: shareUrlString) {
+            view?.showSystemShare(with: shareUrl)
+        } else {
+            view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
+        }
+    }
+    
+    func shareModel(_ model: ShareModelType, didRecieve error: APIError?) {
+        view?.updateLoadingView(isLoading: false)
+        if let error {
+            if error.isAuthError {
+                AuthManager.default.logout()
+                let model = UserModel(provider)
+                let presenter = LoginViewPresenter(with: provider, model: model)
+                view?.showAuthErrorAlert(with: presenter)
+                return
+            } else if error.isNetworkError {
+                view?.showNetworkErrorAlert()
+                return
+            } else if error.isSystemError {
+                view?.showSystemErrorAlert()
+                return
+            }
+        }
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
     }
 }
 

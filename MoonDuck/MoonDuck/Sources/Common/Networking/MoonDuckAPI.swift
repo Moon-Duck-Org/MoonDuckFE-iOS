@@ -25,10 +25,11 @@ enum MoonDuckAPI {
     case getReview(GetReviewRequest)
     case deleteReview(DeleteReviewRequest)
     case reviewDetail(ReviewDetailRequest)
+    case getShareUrl(GetShareUrlRequest)
 }
 extension MoonDuckAPI: TargetType {
     static func baseUrl() -> String {
-        return "http://moonduck.o-r.kr"
+        return "https://moonduck.o-r.kr"
     }
     
     var baseURL: URL {
@@ -48,7 +49,7 @@ extension MoonDuckAPI: TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .user, .searchMovie, .searchBook, .searchDrama, .searchConcert, .reviewAll, .getReview, .reviewDetail:
+        case .user, .searchMovie, .searchBook, .searchDrama, .searchConcert, .reviewAll, .getReview, .reviewDetail, .getShareUrl:
             return .get
         case .authLogin, .authReissue, .postReview:
             return .post
@@ -99,6 +100,10 @@ extension MoonDuckAPI: TargetType {
             // Review 상세 페이지
         case .reviewDetail:
             return "/api/review/detail"
+            
+            // 공유 URL 조회
+        case let .getShareUrl(request):
+            return "/share/getShareUrl/\(request.boardId)"
         }
     }
     
@@ -134,6 +139,8 @@ extension MoonDuckAPI: TargetType {
             return .query(request)
         case .reviewDetail(let request):
             return .query(request)
+        case .getShareUrl:
+            return nil
         }
     }
     
@@ -152,7 +159,7 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .authLogin, .authReissue:
             return ["Content-Type": "application/json"]
-        case .user, .deleteUser, .userNickname, .userPush, .reviewAll, .getReview, .deleteReview, .reviewDetail:
+        case .user, .deleteUser, .userNickname, .userPush, .reviewAll, .getReview, .deleteReview, .reviewDetail, .getShareUrl:
             if let token: String = AuthManager.default.getAccessToken() {
                 return ["Content-Type": "application/json",
                         "Authorization": "Bearer \(token)"]

@@ -66,14 +66,14 @@ extension SettingViewPresenter {
     // MARK: - Action
     func termsOfServiceButtonTapped() {
         let title = L10n.Localizable.Title.service
-        let url = MoonDuckAPI.baseUrl() + "/contract.html"
+        let url = Constants.termsOfServiceUrl
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
     }
     
     func privacyPolicyButtonTapped() {
         let title = L10n.Localizable.Title.policy
-        let url = MoonDuckAPI.baseUrl() + "/privacy.html"
+        let url =  Constants.privacyPolicyUrl
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
     }
@@ -85,7 +85,7 @@ extension SettingViewPresenter {
     
     func noticeButtonTapped() {
         let title = L10n.Localizable.Title.notice
-        let url = MoonDuckAPI.baseUrl() + "/notice.html"
+        let url = Constants.noticeUrl
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
     }
