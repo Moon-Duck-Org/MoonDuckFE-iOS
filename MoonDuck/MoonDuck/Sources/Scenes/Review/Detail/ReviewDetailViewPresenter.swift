@@ -32,7 +32,7 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     
     weak var view: ReviewDetailView?
     private var model: ReviewModelType
-    private var delegate: ReviewDetailPresenterDelegate?
+    private weak var delegate: ReviewDetailPresenterDelegate?
     
     init(with provider: AppServices, 
          model: ReviewModelType,

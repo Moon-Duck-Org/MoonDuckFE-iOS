@@ -36,7 +36,7 @@ class ProgramSearchViewPresenter: BaseViewPresenter, ProgramSearchPresenter {
     weak var view: ProgramSearchView?
     
     private let model: ProgramSearchModelType
-    private var delegate: WriteReviewPresenterDelegate?
+    private weak var delegate: WriteReviewPresenterDelegate?
     
     private var searchText: String?
     

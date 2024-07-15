@@ -15,6 +15,7 @@ protocol SettingPresenter: AnyObject {
     
     // Life Cycle
     func viewDidLoad()
+    func viewWillAppear()
     
     // Action
     func termsOfServiceButtonTapped()
@@ -22,6 +23,7 @@ protocol SettingPresenter: AnyObject {
     func appVersionButtonTapped()
     func noticeButtonTapped()
     func withdrawButtonTapped()
+    func pushSwitchValueChanged(isOn: Bool)
     
 }
 
@@ -47,7 +49,10 @@ extension SettingViewPrsenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         view?.updateAppVersionLabelText(with: Utils.appVersion ?? "")
-        view?.updatePushSwitchValue(isOn: model.user?.isPush ?? false)
+    }
+    
+    func viewWillAppear() {
+        checkPushStatus()
     }
     
     // MARK: - Action
@@ -82,5 +87,48 @@ extension SettingViewPrsenter {
         view?.moveWithdraw(with: presenter)
     }
     
+    func pushSwitchValueChanged(isOn: Bool) {
+        AppNotification.getNotificationSettingStatus { [weak self] status in
+            guard let self else { return }
+            
+            if status == .authorized {
+                self.setPushStatus(isOn: isOn)
+            } else {
+                Utils.moveAppSetting()
+                self.view?.updatePushSwitchSetOn(false)
+            }
+        }
+    }
+    
+    private func setPushStatus(isOn: Bool) {
+        guard let user = model.user else { return }
+        if user.isPush == isOn {
+            return
+        }
+        
+        let today = Utils.getToday()
+        if isOn {
+            AppNotification.resetAndScheduleNotification(with: user.nickname)
+            view?.showToastMessage(L10n.Localizable.Push.onCompleteToast(today))
+        } else {
+            AppNotification.removeNotification()
+            view?.showToastMessage(L10n.Localizable.Push.offCompleteToast(today))
+        }
+        
+    }
+    
     // MARK: - Logic
+    private func checkPushStatus() {
+        AppNotification.getNotificationSettingStatus { [weak self] status in
+            guard let self else { return }
+            
+            if status == .authorized {
+                self.view?.updatePushSwitchSetOn(self.model.user?.isPush ?? false)
+                self.view?.updatePushLabelText(isAddOsString: false)
+            } else {
+                self.view?.updatePushSwitchSetOn(false)
+                self.view?.updatePushLabelText(isAddOsString: true)
+            }
+        }
+    }
 }

@@ -22,7 +22,7 @@ protocol NicknameSettingView: BaseView {
 
 class NicknameSettingViewController: BaseViewController, NicknameSettingView {
     
-    let presenter: NicknameSettingPresenter
+    private let presenter: NicknameSettingPresenter
     
     // @IBOutlet
     @IBOutlet private weak var cancelButton: UIButton!

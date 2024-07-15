@@ -132,6 +132,7 @@ extension HomeViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         categoryModel.getCategories(isHaveAll: true)
+        checkNotificationAuthorization()
     }
     
     // MARK: - Action
@@ -182,7 +183,15 @@ extension HomeViewPresenter {
         }
     }
     
-    // MARK: - Logic
+    // MARK: - Logic    
+    private func checkNotificationAuthorization() {
+        AppNotification.getNotificationSettingStatus { [weak self] status in
+            if status == .notDetermined {
+                self?.view?.showRequestNotiAuthAlert()
+            }
+        }
+    }
+    
     private func updateData(with list: ReviewList) {
         view?.updateReviewCountLabelText(with: "\(list.totalElements)")
         view?.updateEmptyReviewsViewHidden(!list.reviews.isEmpty)

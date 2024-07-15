@@ -12,7 +12,8 @@ import MessageUI
 protocol SettingView: BaseView {
     // UI Logic
     func updateAppVersionLabelText(with version: String)
-    func updatePushSwitchValue(isOn: Bool)
+    func updatePushSwitchSetOn(_ isOn: Bool)
+    func updatePushLabelText(isAddOsString: Bool)
         
     // Navigation
     func moveWebview(with presenter: WebPresenter)
@@ -26,13 +27,14 @@ class SettingViewController: BaseViewController, SettingView {
     // @IBOutlet
     @IBOutlet private weak var appVersionLabel: UILabel!
     @IBOutlet private weak var pushSwitch: UISwitch!
+    @IBOutlet private weak var pushLabel: UILabel!
     
     // @IBAction
     @IBAction private func backButtonTapped(_ sender: Any) {
         back()
     }
     @IBAction private func pushSwitchValueChanged(_ sender: UISwitch) {
-        
+        presenter.pushSwitchValueChanged(isOn: pushSwitch.isOn)
     }
     @IBAction private func termsOfServiceButtonTapped(_ sender: Any) {
         presenter.termsOfServiceButtonTapped()
@@ -73,6 +75,11 @@ class SettingViewController: BaseViewController, SettingView {
         presenter.view = self
         presenter.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.viewWillAppear()
+    }
 }
 
 // MARK: - UI Logic
@@ -81,8 +88,29 @@ extension SettingViewController {
         appVersionLabel.text = version
     }
     
-    func updatePushSwitchValue(isOn: Bool) {
-        pushSwitch.isOn = isOn
+    func updatePushSwitchSetOn(_ isOn: Bool) {
+        DispatchQueue.main.async {
+            self.pushSwitch.setOn(isOn, animated: true)
+        }
+    }
+    
+    func updatePushLabelText(isAddOsString: Bool) {
+        DispatchQueue.main.async {
+            var fullText = L10n.Localizable.Push.settingText
+            if isAddOsString {
+                fullText += "\n" + L10n.Localizable.Push.settingTextOs
+                let emphasizeTest = L10n.Localizable.Push.settingTextOsEmphasize
+                let attributedString = NSMutableAttributedString(string: fullText)
+                let emphasizeRange = (fullText as NSString).range(of: emphasizeTest)
+                let emphasizeFont = FontFamily.NotoSansCJKKR.bold.font(size: self.pushLabel.font.pointSize)
+                
+                attributedString.addAttribute(.font, value: emphasizeFont, range: emphasizeRange)
+                
+                self.pushLabel.attributedText = attributedString
+            } else {
+                self.pushLabel.text = fullText
+            }
+        }
     }
     
     private func showContractUsMail() {

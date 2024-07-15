@@ -20,7 +20,7 @@ protocol LoginView: BaseView {
 
 class LoginViewController: BaseViewController, LoginView {
     
-    let presenter: LoginPresenter
+    private let presenter: LoginPresenter
     
     // IBAction
     @IBAction private func kakaoLoginButtonTapped(_ sender: Any) {

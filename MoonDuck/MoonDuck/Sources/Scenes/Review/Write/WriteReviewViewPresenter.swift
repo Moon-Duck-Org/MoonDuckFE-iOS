@@ -53,7 +53,7 @@ class WriteReviewViewPresenter: BaseViewPresenter, WriteReviewPresenter {
     
     weak var view: WriteReviewView?
     private var model: WriteReviewModelType
-    private var delegate: WriteReviewPresenterDelegate?
+    private weak var delegate: WriteReviewPresenterDelegate?
     
     private struct Config {
         let maxTitleCount = 40

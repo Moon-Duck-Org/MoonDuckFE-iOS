@@ -27,7 +27,7 @@ protocol SelectProgramPresenter: AnyObject {
 class SelectProgramViewPresenter: BaseViewPresenter, SelectProgramPresenter {
     weak var view: SelectProgramView?
     private let categoryModel: CategoryModelType
-    private var delegate: WriteReviewPresenterDelegate?
+    private weak var delegate: WriteReviewPresenterDelegate?
     
     init(with provider: AppServices,
          categoryModel: CategoryModelType,

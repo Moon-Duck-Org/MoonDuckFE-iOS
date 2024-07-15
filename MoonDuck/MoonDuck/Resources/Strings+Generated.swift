@@ -126,13 +126,13 @@ internal enum L10n {
       internal static func messageType2(_ p1: Any) -> String {
         return L10n.tr("Localizable", "push. message_type2", String(describing: p1), fallback: "%@님! 최근 어떤 멋진 문화생활을 즐기셨나요?\n기록을 남겨주세요🌟")
       }
-      /// [문덕이] 푸시 알림 거부가 완료되었습니다. (%@년 %@월 %@일)
-      internal static func offCompleteToast(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
-        return L10n.tr("Localizable", "push. off_complete_toast", String(describing: p1), String(describing: p2), String(describing: p3), fallback: "[문덕이] 푸시 알림 거부가 완료되었습니다. (%@년 %@월 %@일)")
+      /// [문덕이] 푸시 알림 거부가 완료되었습니다. (%@)
+      internal static func offCompleteToast(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "push. off_complete_toast", String(describing: p1), fallback: "[문덕이] 푸시 알림 거부가 완료되었습니다. (%@)")
       }
-      /// [문덕이] 푸시 알림 허용이 완료되었습니다! (%@년 %@월 %@일)
-      internal static func onCompleteToast(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
-        return L10n.tr("Localizable", "push. on_complete_toast", String(describing: p1), String(describing: p2), String(describing: p3), fallback: "[문덕이] 푸시 알림 허용이 완료되었습니다! (%@년 %@월 %@일)")
+      /// [문덕이] 푸시 알림 허용이 완료되었습니다! (%@)
+      internal static func onCompleteToast(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "push. on_complete_toast", String(describing: p1), fallback: "[문덕이] 푸시 알림 허용이 완료되었습니다! (%@)")
       }
       /// 문덕이 이용에 유용한 알림을 보내드릴 수 있도록 푸시 알림 권한을 허용해 주세요!
       internal static let requestAlertMessage = L10n.tr("Localizable", "push. request_alert_message", fallback: "문덕이 이용에 유용한 알림을 보내드릴 수 있도록 푸시 알림 권한을 허용해 주세요!")

@@ -18,7 +18,7 @@ protocol SelectProgramView: AnyObject {
 
 class SelectProgramViewController: BaseViewController, SelectProgramView {
     
-    let presenter: SelectProgramPresenter
+    private let presenter: SelectProgramPresenter
     private let categoryDataSource: SelectCategoryDataSource
     
     // @IBOutlet

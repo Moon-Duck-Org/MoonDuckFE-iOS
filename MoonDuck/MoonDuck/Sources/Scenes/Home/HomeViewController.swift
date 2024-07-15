@@ -16,6 +16,7 @@ protocol HomeView: BaseView {
     func updateEmptyReviewsViewHidden(_ isHidden: Bool)
     func resetScrollAndEndRefresh()
     func showOptionAlert(for review: Review)
+    func showRequestNotiAuthAlert()
     
     // Navigation
     func moveMy(with presenter: MyInfoPresenter)
@@ -26,7 +27,7 @@ protocol HomeView: BaseView {
 }
 
 class HomeViewController: BaseViewController, HomeView {
-    let presenter: HomePresenter
+    private let presenter: HomePresenter
     
     private let categoryDataSource: HomeCategoryDataSource
     private let reviewDataSource: HomeReviewDataSource
@@ -130,6 +131,28 @@ extension HomeViewController {
                     self?.showDeleteReviewAlert(for: review)
                 }
             )
+    }
+    
+    func showRequestNotiAuthAlert() {
+        AppAlert.default
+            .showDone(
+                self,
+                title: L10n.Localizable.Push.requestAlertTitle,
+                message: L10n.Localizable.Push.requestAlertMessage,
+                doneHandler: { [weak self] in
+                    self?.requestNotificationAuthorization()
+                }
+            )
+    }
+    
+    private func requestNotificationAuthorization() {
+        AppNotification.requestNotificationAuthorization {  [weak self] isSuccess in
+            if isSuccess {
+                self?.showToastMessage(L10n.Localizable.Push.onCompleteToast(Utils.getToday()))
+            } else {
+                self?.showToastMessage(L10n.Localizable.Push.settingTextOs)
+            }
+        }
     }
     
     private func showDeleteReviewAlert(for review: Review) {

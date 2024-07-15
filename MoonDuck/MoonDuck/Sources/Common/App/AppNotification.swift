@@ -10,10 +10,9 @@ import Foundation
 import UserNotifications
 
 class AppNotification {
-    static let `default` = AppNotification()
     
     // Notification 권한 요청
-    func requestNotificationAuthorization(completion: @escaping (Bool) -> Void) {
+    static func requestNotificationAuthorization(completion: @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
             if let error = error {
                 Log.error("Error requesting notification access: \(error)")
@@ -24,19 +23,23 @@ class AppNotification {
         }
     }
     
-    func checkNotificationSettings(completion: @escaping (Bool) -> Void) {
+    static func getNotificationSettingStatus(completion: @escaping (UNAuthorizationStatus) -> Void) {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
-            completion(settings.authorizationStatus == .authorized)
+            completion(settings.authorizationStatus)
         }
     }
     
-    // 기존 알림 제거 및 새로운 알림 설정
-    func resetAndScheduleNotification(with nickname: String) {
+    static func removeNotification() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
+    
+    // 기존 알림 제거 및 새로운 알림 설정
+    static func resetAndScheduleNotification(with nickname: String) {
+        removeNotification()
         scheduleRepeatingNotification(with: nickname)
     }
     
-    func scheduleRepeatingNotification(with nickname: String) {
+    static func scheduleRepeatingNotification(with nickname: String) {
         // Notification 콘텐츠 생성
         let content = UNMutableNotificationContent()
         content.title = L10n.Localizable.Push.title
@@ -45,23 +48,29 @@ class AppNotification {
                         L10n.Localizable.Push.messageType2(nickname)]
         content.body = messages.randomElement() ?? messages[0]
         content.sound = .default
-
-        // 날짜 컴포넌트 설정
-        var dateComponents = DateComponents()
-        dateComponents.hour = 10
-        dateComponents.minute = 0
-
-        // Trigger 설정 - 10일마다 반복
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-
-        // Notification 요청 생성
-        let identifier = "RemindNotification"
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-
-        // Notification 요청 추가
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                Log.error("Error adding notification request: \(error)")
+        // 현재 날짜와 시간
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        let intervalCount = 9
+        
+        for count in 1...intervalCount {
+            // TODO: - 날짜 시간 수정 currentDate -> futureDate 로 수정
+            let interval = count * 1
+            if let futureDate = calendar.date(byAdding: .day, value: interval, to: currentDate) {
+                var dateComponents = calendar.dateComponents([.year, .month, .day], from: currentDate)
+                dateComponents.hour = 12 // 12 -> 10 수정
+                dateComponents.minute = 0
+                
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+                
+                let request = UNNotificationRequest(identifier: "notification_\(interval)_days", content: content, trigger: trigger)
+                
+                UNUserNotificationCenter.current().add(request) { error in
+                    if let error = error {
+                        Log.error("알림 요청 추가 중 오류 발생: \(error)")
+                    }
+                }
             }
         }
     }

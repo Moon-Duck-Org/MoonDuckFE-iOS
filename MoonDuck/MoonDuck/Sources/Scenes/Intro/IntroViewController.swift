@@ -18,7 +18,7 @@ protocol IntroView: BaseView {
 }
 
 class IntroViewController: BaseViewController, IntroView {
-    let presenter: IntroPresenter
+    private let presenter: IntroPresenter
     
     init(navigator: Navigator,
          presenter: IntroPresenter) {

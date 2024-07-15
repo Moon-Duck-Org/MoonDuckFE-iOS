@@ -14,6 +14,10 @@ import FirebaseRemoteConfig
 import StoreKit
 
 class Utils {
+    static func getToday() -> String {
+        return Date().formatted("yyyy년 MM월 dd일")
+    }
+    
     static func formattedDate(createdAt date: String) -> String {
         let splitDate = date.split(separator: "T")
         if splitDate.count > 0 {
@@ -65,17 +69,27 @@ class Utils {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     }
     
-    static func moveAppStore() {
-        if let appStoreURL = URL(string: "https://apps.apple.com/app/id6502997117") {
-            UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
-        }
-    }
-    
     static var appName: String {
         if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String {
             return appName
         } else {
             return L10n.Localizable.appName
+        }
+    }
+    
+    static func moveAppStore() {
+        if let appStoreURL = URL(string: "https://apps.apple.com/app/id6502997117") {
+            DispatchQueue.main.async {
+                UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
+    static func moveAppSetting() {
+        if let appSetting = URL(string: UIApplication.openSettingsURLString) {
+            DispatchQueue.main.async {
+                UIApplication.shared.open(appSetting, options: [:], completionHandler: nil)
+            }            
         }
     }
     

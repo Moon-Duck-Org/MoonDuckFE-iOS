@@ -97,8 +97,8 @@
 "push. message_type1" = "%@님! 새로운 기록을 남기지 않으셨어요.\n최근 즐긴 문화생활에 대해 이야기해 주세요!😊";
 "push. message_type2" = "%@님! 최근 어떤 멋진 문화생활을 즐기셨나요?\n기록을 남겨주세요🌟";
 
-"push. on_complete_toast" = "[문덕이] 푸시 알림 허용이 완료되었습니다! (%@년 %@월 %@일)";
-"push. off_complete_toast" = "[문덕이] 푸시 알림 거부가 완료되었습니다. (%@년 %@월 %@일)";
+"push. on_complete_toast" = "[문덕이] 푸시 알림 허용이 완료되었습니다! (%@)";
+"push. off_complete_toast" = "[문덕이] 푸시 알림 거부가 완료되었습니다. (%@)";
 
 "push. request_alert_title" = "푸시 알림 요청";
 "push. request_alert_message" = "문덕이 이용에 유용한 알림을 보내드릴 수 있도록 푸시 알림 권한을 허용해 주세요!";
