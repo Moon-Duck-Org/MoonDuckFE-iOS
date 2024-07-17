@@ -4253,7 +4253,7 @@
 		6F70B8A14FEB030DD73FC80F99C5C13E /* GDTCORUploadCoordinator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTCORUploadCoordinator.h; path = GoogleDataTransport/GDTCORLibrary/Private/GDTCORUploadCoordinator.h; sourceTree = "<group>"; };
 		6F73B729D6161DAE823C70288BE487B1 /* RCNConfigDBManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RCNConfigDBManager.m; path = FirebaseRemoteConfig/Sources/RCNConfigDBManager.m; sourceTree = "<group>"; };
 		6F747EA49C7C6493563B61E4A631A7E6 /* FIRCLSMachException.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = FIRCLSMachException.c; path = Crashlytics/Crashlytics/Handlers/FIRCLSMachException.c; sourceTree = "<group>"; };
-		6F911A0CFDCDC1E9CCB64809EEE76205 /* Pods-MoonDuck */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-MoonDuck"; path = Pods_MoonDuck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F911A0CFDCDC1E9CCB64809EEE76205 /* Pods_MoonDuck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoonDuck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FA231A0BF6920201046382BECDAA920 /* SynchronizedOnType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SynchronizedOnType.swift; path = RxSwift/Concurrency/SynchronizedOnType.swift; sourceTree = "<group>"; };
 		6FBD5FAA0ECA79CA5CA02AE0F9F6B1B1 /* FirebaseABTesting-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FirebaseABTesting-dummy.m"; sourceTree = "<group>"; };
 		6FC950736A3F816EC3837CCCC9F82048 /* RecaptchaInterop.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RecaptchaInterop.h; path = RecaptchaEnterprise/RecaptchaInterop/Public/RecaptchaInterop/RecaptchaInterop.h; sourceTree = "<group>"; };
@@ -6701,7 +6701,7 @@
 				06FC5C9CF96D60C50FCD47D339C91951 /* nanopb */,
 				3227F3FC45681D7CEE5D1355A532398A /* nanopb-nanopb_Privacy */,
 				17E33041B314FA837A3CAEB9DF3CDE9F /* OHHTTPStubs.framework */,
-				6F911A0CFDCDC1E9CCB64809EEE76205 /* Pods-MoonDuck */,
+				6F911A0CFDCDC1E9CCB64809EEE76205 /* Pods_MoonDuck.framework */,
 				E2E685FD7B763743C8BBCDC2615A5A5B /* Pods-MoonDuck-MoonDuckUITests */,
 				99429A9536512B741A5A443AB9888A5E /* Pods-MoonDuckTests */,
 				3347A1AB6546F0A3977529B8F199DC41 /* PromisesObjC */,
@@ -11481,7 +11481,7 @@
 			);
 			name = "Pods-MoonDuck";
 			productName = Pods_MoonDuck;
-			productReference = 6F911A0CFDCDC1E9CCB64809EEE76205 /* Pods-MoonDuck */;
+			productReference = 6F911A0CFDCDC1E9CCB64809EEE76205 /* Pods_MoonDuck.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		C17AEFC79E770A2906EFAAB1A3757406 /* Then */ = {
