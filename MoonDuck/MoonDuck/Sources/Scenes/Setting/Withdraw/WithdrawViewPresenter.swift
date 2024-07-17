@@ -63,7 +63,7 @@ extension WithdrawViewPresenter: UserModelDelegate {
     
     func userModel(_ model: UserModelType, didChange user: User?) {
         view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
+        AuthManager.default.withDraw()
         
         let presenter = IntroViewPresenter(with: provider, model: model)
         view?.showComplteWithDrawAlert(with: presenter)

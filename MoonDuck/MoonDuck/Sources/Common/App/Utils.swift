@@ -89,6 +89,10 @@ class Utils {
         }
     }
     
+    static var appBundleId: String {
+        return Bundle.main.bundleIdentifier ?? "com.poduck.moonduck"
+    }
+    
     static func moveAppStore() {
         if let appStoreURL = URL(string: "https://apps.apple.com/app/id6502997117") {
             DispatchQueue.main.async {

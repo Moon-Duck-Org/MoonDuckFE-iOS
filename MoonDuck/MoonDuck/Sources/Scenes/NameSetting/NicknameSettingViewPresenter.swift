@@ -158,6 +158,7 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
                 let sortModel = SortModel()
                 let shareModel = ShareModel(provider)
                 let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel, shareModel: shareModel)
+                view?.moveHome(with: presenter)
             } else {
                 delegate?.nicknameSetting(self, didSuccess: user.nickname)
             }

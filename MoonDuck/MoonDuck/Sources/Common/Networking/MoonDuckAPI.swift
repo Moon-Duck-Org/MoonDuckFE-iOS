@@ -11,6 +11,7 @@ import Alamofire
 enum MoonDuckAPI {
     case authLogin(AuthLoginRequest)
     case authReissue(AuthReissueRequest)
+    case authRevokeApple(AuthRevokeAppleRequest)
     case user
     case deleteUser
     case userNickname(UserNicknameRequest)
@@ -42,6 +43,8 @@ extension MoonDuckAPI: TargetType {
             return URL(string: "https://api.themoviedb.org")!
         case .searchConcert:
             return URL(string: "http://openapi.seoul.go.kr:8088")!
+        case .authRevokeApple:
+            return URL(string: "https://appleid.apple.com")!
         default:
             return URL(string: MoonDuckAPI.baseUrl())!
         }
@@ -51,7 +54,7 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .user, .searchMovie, .searchBook, .searchDrama, .searchConcert, .reviewAll, .getReview, .reviewDetail, .getShareUrl:
             return .get
-        case .authLogin, .authReissue, .postReview:
+        case .authLogin, .authReissue, .authRevokeApple, .postReview:
             return .post
         case .userNickname, .userPush, .putReview:
             return .put
@@ -68,6 +71,10 @@ extension MoonDuckAPI: TargetType {
             // access 토큰 재발급
         case .authReissue:
             return "/auth/reissue"
+            // Apple Login 탈퇴
+        case .authRevokeApple:
+            return "/auth/revoke"
+            
             // User 정보 조회 / 삭제
         case .user, .deleteUser:
             return "/user"
@@ -112,6 +119,8 @@ extension MoonDuckAPI: TargetType {
         case .authLogin(let request):
             return .body(request)
         case .authReissue(let request):
+            return .body(request)
+        case .authRevokeApple(let request):
             return .body(request)
         case .user, .deleteUser:
             return nil
@@ -179,6 +188,8 @@ extension MoonDuckAPI: TargetType {
             } else {
                 return ["Content-Type": "multipart/form-data"]
             }
+        case .authRevokeApple:
+            return ["Content-Type": "application/x-www-form-urlencoded"]
         default:
             return ["Content-Type": "application/json"]
         }

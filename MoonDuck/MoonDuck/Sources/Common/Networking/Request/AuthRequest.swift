@@ -16,3 +16,17 @@ struct AuthReissueRequest: Codable {
     var accessToken: String
     var refreshToken: String
 }
+
+struct AuthRevokeAppleRequest: Codable {
+    var clientId: String = Utils.appBundleId
+    var clientSecret: String
+    var token: String
+    var tokenTypeHint: String = "access_token"
+    
+    enum CodingKeys: String, CodingKey {
+        case clientId = "client_id"
+        case clientSecret = "client_secret"
+        case token
+        case tokenTypeHint = "token_type_hint"
+    }
+}

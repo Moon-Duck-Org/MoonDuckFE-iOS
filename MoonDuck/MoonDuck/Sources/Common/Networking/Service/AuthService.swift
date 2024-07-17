@@ -29,4 +29,25 @@ class AuthService {
             }
         })
     }
+    
+    func revokeApple(request: AuthRevokeAppleRequest, completion: @escaping (_ succeed: Bool?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.authRevokeApple(request))
+            .responseData { response in
+                guard let statusCode = response.response?.statusCode else {
+                    completion(false, nil)
+                    return
+                }
+                
+                switch response.result {
+                case .success(let response):
+                    if statusCode == 200 {
+                        completion(true, nil)
+                    } else {
+                        completion(false, nil)
+                    }
+                case .failure(let error):
+                    completion(nil, error)
+                }
+            }
+    }
 }
