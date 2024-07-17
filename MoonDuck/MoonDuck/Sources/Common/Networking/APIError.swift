@@ -23,6 +23,7 @@ enum APIError: Error, Equatable, LocalizedError {
     case imageSizeLimitExceeded(_ message: String?)
 
     // ERROR
+    case auth
     case network
     case client
     case server
@@ -54,6 +55,8 @@ enum APIError: Error, Equatable, LocalizedError {
         case let .duplicateNickname(message):
             return message
             
+        case .auth:
+            return "사용자 인증 오류 발생"
         case .network:
             return "네트워크 오류 발생"
         case .client:
@@ -82,7 +85,7 @@ enum APIError: Error, Equatable, LocalizedError {
     
     var isAuthError: Bool {
         switch self {
-        case .invalidToken, .missingToken, .missingUser: return true
+        case .invalidToken, .missingToken, .missingUser, .auth: return true
         default: return false
         }
     }

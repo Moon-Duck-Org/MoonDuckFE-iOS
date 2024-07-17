@@ -133,21 +133,9 @@ class UserModel: UserModelType {
                 self.save(user: succeed)
             } else {
                 // 오류 발생
-                if let error = failed {
-                    if error.isAuthError {
-                        self.delegate?.userModelDidAuthError(self)
-                        return
-                    } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, _ in
-                            guard let self else { return }
-                            if success {
-                                self.getUser()
-                            } else {
-                                self.delegate?.userModelDidAuthError(self)
-                            }
-                        }
-                        return
-                    }
+                if failed?.isAuthError ?? false {
+                    self.delegate?.userModelDidAuthError(self)
+                    return
                 }
                 // User 정보 조회 실패
                 self.delegate?.userModel(self, didRecieve: failed)
@@ -167,16 +155,6 @@ class UserModel: UserModelType {
                 if let error = failed {
                     if error.isAuthError {
                         self.delegate?.userModelDidAuthError(self)
-                        return
-                    } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, _ in
-                            guard let self else { return }
-                            if success {
-                                self.nickname(name)
-                            } else {
-                                self.delegate?.userModelDidAuthError(self)
-                            }
-                        }
                         return
                     } else if error.duplicateNickname {
                         // 중복된 닉네임
@@ -200,21 +178,9 @@ class UserModel: UserModelType {
                 }
             } else {
                 // 오류 발생
-                if let error = failed {
-                    if error.isAuthError {
-                        self.delegate?.userModelDidAuthError(self)
-                        return
-                    } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, _ in
-                            guard let self else { return }
-                            if success {
-                                self.deleteUser()
-                            } else {
-                                self.delegate?.userModelDidAuthError(self)
-                            }
-                        }
-                        return
-                    }
+                if failed?.isAuthError ?? false {
+                    self.delegate?.userModelDidAuthError(self)
+                    return
                 }
                 // User 정보 조회 실패
                 self.delegate?.userModelDidFailDeleteUser(self)
@@ -231,21 +197,9 @@ class UserModel: UserModelType {
                 self.save(isPush: succeed)
             } else {
                 // 오류 발생
-                if let error = failed {
-                    if error.isAuthError {
-                        self.delegate?.userModelDidAuthError(self)
-                        return
-                    } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, _ in
-                            guard let self else { return }
-                            if success {
-                                self.push(isPush)
-                            } else {
-                                self.delegate?.userModelDidAuthError(self)
-                            }
-                        }
-                        return
-                    }
+                if failed?.isAuthError ?? false {
+                    self.delegate?.userModelDidAuthError(self)
+                    return
                 }
                 self.delegate?.userModel(self, didRecieve: failed)
             }

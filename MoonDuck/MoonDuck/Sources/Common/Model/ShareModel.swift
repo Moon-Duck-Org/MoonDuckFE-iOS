@@ -48,22 +48,6 @@ extension ShareModel {
                 self.delegate?.shareModel(self, didSuccess: succeed)
             } else {
                 // 오류 발생
-                if let error = failed {
-                    if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
-                            guard let self else { return }
-                            if let error {
-                                self.delegate?.shareModel(self, didRecieve: error)
-                                return
-                            }
-                            if success {
-                                self.getShareUrl(with: reviewId)
-                                return
-                            }
-                        }
-                        return
-                    }
-                }
                 self.delegate?.shareModel(self, didRecieve: failed)
             }
         }

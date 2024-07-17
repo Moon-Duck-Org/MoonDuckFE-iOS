@@ -153,24 +153,9 @@ extension ReviewListModel {
                 self.saveReviewList(list)
             } else {
                 // 오류 발생
-                if let code = failed {
-                    if code.isReviewError {
-                        self.delegate?.reviewListDidFail(self)
-                        return
-                    } else if code.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
-                            guard let self else { return }
-                            if let error {
-                                self.delegate?.reviewListModel(self, didRecieve: error)
-                                return
-                            }
-                            if success {
-                                self.getReview(with: category, filter: filter, offset: offset, size: size)
-                                return
-                            }
-                        }
-                        return
-                    }
+                if failed?.isReviewError ?? false {
+                    self.delegate?.reviewListDidFail(self)
+                    return
                 }
                 self.delegate?.reviewListModel(self, didRecieve: failed)
             }
@@ -191,24 +176,9 @@ extension ReviewListModel {
                 self.saveReviewList(list)
             } else {
                 // 오류 발생
-                if let error = failed {
-                    if error.isReviewError {
-                        self.delegate?.reviewListModel(self, didRecieve: error)
-                        return
-                    } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
-                            guard let self else { return }
-                            if let error {
-                                self.delegate?.reviewListModel(self, didRecieve: error)
-                                return
-                            }
-                            if success {
-                                self.getAllReview(with: filter, offset: offset, size: size)
-                                return
-                            }
-                        }
-                        return
-                    }
+                if failed?.isReviewError ?? false {
+                    self.delegate?.reviewListDidFail(self)
+                    return
                 }
                 self.delegate?.reviewListModel(self, didRecieve: failed)
             }
@@ -245,22 +215,8 @@ extension ReviewListModel {
                 self.delegate?.reviewListModel(self, didAync: self.reviewLists[listIndex])
             } else {
                 // 오류 발생
-                if let code = failed {
-                    if code.isReviewError {
-                        return
-                    } else if code.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
-                            guard let self else { return }
-                            if error != nil {
-                                return
-                            }
-                            if success {
-                                self.syncGetReview(with: category, review: review)
-                                return
-                            }
-                        }
-                        return
-                    }
+                if failed?.isReviewError ?? false {
+                    return
                 }
                 self.delegate?.reviewListModel(self, didRecieve: failed)
             }
@@ -288,22 +244,8 @@ extension ReviewListModel {
                 self.delegate?.reviewListModel(self, didAync: self.reviewLists[listIndex])
             } else {
                 // 오류 발생
-                if let code = failed {
-                    if code.isReviewError {
-                        return
-                    } else if code.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
-                            guard let self else { return }
-                            if error != nil {
-                                return
-                            }
-                            if success {
-                                self.syncGetAllReview(with: review)
-                                return
-                            }
-                        }
-                        return
-                    }
+                if failed?.isReviewError ?? false {
+                    return
                 }
                 self.delegate?.reviewListModel(self, didRecieve: failed)
             }
@@ -324,25 +266,6 @@ extension ReviewListModel {
                 }
             } else {
                 // 오류 발생
-                if let code = failed {
-                    if code.isReviewError {
-                        self.delegate?.reviewListModel(self, didRecieve: code)
-                        return
-                    } else if code.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
-                            guard let self else { return }
-                            if let error {
-                                self.delegate?.reviewListModel(self, didRecieve: error)
-                                return
-                            }
-                            if success {
-                                self.deleteReview(for: review)
-                                return
-                            }
-                        }
-                        return
-                    }
-                }
                 self.delegate?.reviewListModel(self, didRecieve: failed)
             }
         }

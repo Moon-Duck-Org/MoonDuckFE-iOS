@@ -54,7 +54,11 @@ extension TargetType {
                         do {
                             let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
                             let apiError = APIError(error: errorResponse)
-                            completion(.failure(apiError))
+                            if apiError.needsTokenRefresh {
+                                self.refreshTokenAndRetryRequest(responseType: responseType, completion: completion)
+                            } else {
+                                completion(.failure(apiError))
+                            }
                         } catch {
                             completion(.failure(.decoding))
                         }
@@ -68,6 +72,21 @@ extension TargetType {
             }
         } catch {
             completion(.failure(.unknown))
+        }
+    }
+    
+    private func refreshTokenAndRetryRequest<T: Decodable>(responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
+        AuthManager.default.refreshToken { success, error in
+            if let error {
+                // 토큰 재발급 실패 시 오류 반환
+                completion(.failure(error))
+            }
+            if success {
+                // 토큰 재발급 성공 시 동일 요청 재시도
+                self.performRequest(responseType: responseType, completion: completion)
+            } else {
+                completion(.failure(APIError.auth))
+            }
         }
     }
     
@@ -119,20 +138,40 @@ extension TargetType {
                             do {
                                 let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
                                 let apiError = APIError(error: errorResponse)
-                                completion(.failure(apiError))
+                                if apiError.needsTokenRefresh {
+                                    self.refreshTokenAndRetryUpload(responseType: responseType, completion: completion)
+                                } else {
+                                    completion(.failure(apiError))
+                                }
                             } catch {
                                 completion(.failure(.decoding))
                             }
                         } else {
                             let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
                             let error = response.error ?? error
-                            let apiError = APIError(statusCode: statusCode , error: error)
+                            let apiError = APIError(statusCode: statusCode, error: error)
+                            completion(.failure(apiError))
                         }
                     }
                 }
             } catch {
                 completion(.failure(.unknown))
             }
+    }
+    
+    private func refreshTokenAndRetryUpload<T: Decodable>(responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
+        AuthManager.default.refreshToken { success, error in
+            if let error {
+                // 토큰 재발급 실패 시 오류 반환
+                completion(.failure(error))
+            }
+            if success {
+                // 토큰 재발급 성공 시 동일 요청 재시도
+                self.uploadMultipartFromData(responseType: responseType, completion: completion)
+            } else {
+                completion(.failure(APIError.auth))
+            }
+        }
     }
     
 }

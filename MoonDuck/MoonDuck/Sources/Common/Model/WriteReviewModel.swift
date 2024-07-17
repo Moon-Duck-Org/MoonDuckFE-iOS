@@ -73,20 +73,6 @@ class WriteReviewModel: WriteReviewModelType {
                     } else if error.isReviewError {
                         self.delegate?.writeReviewDidFailSaveReview(self)
                         return
-                    } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
-                            guard let self else { return }
-                            if let error {
-                                self.delegate?.writeReviewModel(self, didRecieve: error)
-                                return
-                            }
-                            
-                            if success {
-                                self.putReview(title: title, content: content, score: score, url: url, images: images)
-                                return
-                            }
-                        }
-                        return
                     }
                 }
                 self.delegate?.writeReviewModel(self, didRecieve: failed)
@@ -115,19 +101,6 @@ class WriteReviewModel: WriteReviewModelType {
                         return
                     } else if error.isReviewError {
                         self.delegate?.writeReviewDidFailSaveReview(self)
-                        return
-                    } else if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
-                            guard let self else { return }
-                            if let error {
-                                self.delegate?.writeReviewModel(self, didRecieve: error)
-                                return
-                            }
-                            if success {
-                                self.postReview(title: title, content: content, score: score, url: url, images: images)
-                                return
-                            }
-                        }
                         return
                     }
                 }

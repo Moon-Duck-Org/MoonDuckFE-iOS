@@ -63,22 +63,6 @@ extension ReviewModel {
                 self.review = succeed
             } else {
                 // 오류 발생
-                if let error = failed {
-                    if error.needsTokenRefresh {
-                        AuthManager.default.refreshToken { [weak self] success, error in
-                            guard let self else { return }
-                            if let error {
-                                self.delegate?.reviewModel(self, didRecieve: error)
-                                return
-                            }
-                            if success {
-                                self.reviewDetail(with: reviewId)
-                                return
-                            }
-                        }
-                        return
-                    }
-                }
                 self.delegate?.reviewModel(self, didRecieve: failed)
             }
         }
