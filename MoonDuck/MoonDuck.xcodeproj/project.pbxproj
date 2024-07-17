@@ -259,6 +259,8 @@
 		EA6379E02BFF2E5300464A19 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		EA6379E32BFF33C500464A19 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		EA6379E82BFF359100464A19 /* NSObjectProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObjectProtocol+Extension.swift"; sourceTree = "<group>"; };
+		EA6B3C7E2C47C56400FBD9B0 /* Secrets-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Secrets-Release.xcconfig"; sourceTree = "<group>"; };
+		EA6B3C7F2C47C5EA00FBD9B0 /* Secrets-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Secrets-Debug.xcconfig"; sourceTree = "<group>"; };
 		EA6D9A762BFF6823003B459A /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		EA6D9A792BFF6884003B459A /* RadiusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusView.swift; sourceTree = "<group>"; };
 		EA7208402C1272A500E96212 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
@@ -502,6 +504,8 @@
 				A0E658002BFE22B7001A8D54 /* Main.storyboard */,
 				A0E658052BFE22B9001A8D54 /* LaunchScreen.storyboard */,
 				EA9A843D2C00DCDA004B7FDF /* Localizable.strings */,
+				EA6B3C7F2C47C5EA00FBD9B0 /* Secrets-Debug.xcconfig */,
+				EA6B3C7E2C47C56400FBD9B0 /* Secrets-Release.xcconfig */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1032,7 +1036,7 @@
 			};
 			buildConfigurationList = A0E657F22BFE22B6001A8D54 /* Build configuration list for PBXProject "MoonDuck" */;
 			compatibilityVersion = "Xcode 13.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -1446,6 +1450,7 @@
 /* Begin XCBuildConfiguration section */
 		A0E6581F2BFE22BA001A8D54 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA6B3C7F2C47C5EA00FBD9B0 /* Secrets-Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1510,6 +1515,7 @@
 		};
 		A0E658202BFE22BA001A8D54 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA6B3C7E2C47C56400FBD9B0 /* Secrets-Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
