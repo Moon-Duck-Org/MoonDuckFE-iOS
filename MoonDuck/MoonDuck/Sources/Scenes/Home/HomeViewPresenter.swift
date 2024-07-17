@@ -44,6 +44,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     private let categoryModel: CategoryModelType
     private let sortModel: SortModelType
     private let reviewModel: ReviewListModelType
+    private let shareModel: ShareModelType
     
     private var reloadCategoryTrigger: [Category] = []
     
@@ -51,16 +52,19 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
          userModel: UserModelType,
          categoryModel: CategoryModelType,
          sortModel: SortModelType,
-         reviewModel: ReviewListModelType) {
+         reviewModel: ReviewListModelType,
+         shareModel: ShareModelType) {
         self.userModel = userModel
         self.categoryModel = categoryModel
         self.sortModel = sortModel
         self.reviewModel = reviewModel
+        self.shareModel = shareModel
         super.init(with: provider)
         self.userModel.delegate = self
         self.sortModel.delegate = self
         self.categoryModel.delegate = self
         self.reviewModel.delegate = self
+        self.shareModel.delegate = self
     }
     // MARK: - Data
     var numberOfCategories: Int {
@@ -106,7 +110,10 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     
     func shareReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
-            self?.view?.showToastMessage("공유 연동 예정")
+            guard let self, let reviewId = review.id else { return }
+            
+            self.view?.updateLoadingView(isLoading: true)
+            self.shareModel.getShareUrl(with: reviewId)
         }
     }
     
@@ -122,7 +129,8 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
             guard let self else { return }
             let handler = self.deleteReviewHandler(for: review)
             let model = ReviewModel(self.provider, review: review, deleteReviewHandler: handler)
-            let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
+            let shareModel = ShareModel(self.provider)
+            let presenter = ReviewDetailViewPresenter(with: provider, model: model, shareModel: shareModel, delegate: self)
             view?.moveReviewDetail(with: presenter)
         }
     }
@@ -150,7 +158,8 @@ extension HomeViewPresenter {
            let review = reviewModel.review(with: category, at: index) {
             let handler = deleteReviewHandler(for: review)
             let model = ReviewModel(provider, review: review, deleteReviewHandler: handler)
-            let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
+            let shareModel = ShareModel(self.provider)
+            let presenter = ReviewDetailViewPresenter(with: provider, model: model, shareModel: shareModel, delegate: self)
             view?.moveReviewDetail(with: presenter)
         }
     }
@@ -353,6 +362,39 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     
     func reviewListDidFailDeleteReview(_ model: ReviewListModelType) {
         view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 삭제"), message: L10n.Localizable.Error.message)
+    }
+}
+
+// MARK: - ShareModelDelegate
+extension HomeViewPresenter: ShareModelDelegate {
+    func shareModel(_ model: ShareModelType, didSuccess url: String) {
+        view?.updateLoadingView(isLoading: false)
+        let shareUrlString = Constants.getSharePath(with: url)
+        if let shareUrl = URL(string: shareUrlString) {
+            view?.showSystemShare(with: shareUrl)
+        } else {
+            view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
+        }
+    }
+    
+    func shareModel(_ model: ShareModelType, didRecieve error: APIError?) {
+        view?.updateLoadingView(isLoading: false)
+        if let error {
+            if error.isAuthError {
+                AuthManager.default.logout()
+                let model = UserModel(provider)
+                let presenter = LoginViewPresenter(with: provider, model: model)
+                view?.showAuthErrorAlert(with: presenter)
+                return
+            } else if error.isNetworkError {
+                view?.showNetworkErrorAlert()
+                return
+            } else if error.isSystemError {
+                view?.showSystemErrorAlert()
+                return
+            }
+        }
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
     }
 }
 

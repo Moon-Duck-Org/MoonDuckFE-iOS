@@ -12,4 +12,5 @@ struct AppServices {
     let userService: UserService
     let reviewService: ReviewService
     let programSearchService: ProgramSearchService
+    let shareService: ShareService
 }

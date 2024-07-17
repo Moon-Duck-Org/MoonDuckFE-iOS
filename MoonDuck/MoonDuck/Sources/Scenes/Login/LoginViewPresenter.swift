@@ -165,7 +165,8 @@ extension LoginViewPresenter: UserModelDelegate {
             let cateogryModel = CategoryModel()
             let reviewModel = ReviewListModel(provider)
             let sortModel = SortModel()
-            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel)
+            let shareModel = ShareModel(provider)
+            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel, shareModel: shareModel)
             view?.moveHome(with: presenter)
         }
     }

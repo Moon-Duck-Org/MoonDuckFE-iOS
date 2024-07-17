@@ -17,7 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return AppServices(authService: AuthService(),
                            userService: UserService(),
                            reviewService: ReviewService(),
-                           programSearchService: ProgramSearchService())
+                           programSearchService: ProgramSearchService(), 
+                           shareService: ShareService())
     }()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {

@@ -119,16 +119,6 @@ class AppAlert {
         }
     }
     
-    func showSystemShare(_ viewController: UIViewController, str: String? = nil) {
-        guard let str else { return }
-        DispatchQueue.main.async {
-            let shareContent = [str]
-            let activityController = UIActivityViewController(activityItems: shareContent,
-                                                              applicationActivities: nil)
-            viewController.present(activityController, animated: true)
-        }
-    }
-    
     func showReviewOption(_ viewController: UIViewController,
                           writeHandler: (() -> Void)? = nil,
                           shareHandler: (() -> Void)? = nil,

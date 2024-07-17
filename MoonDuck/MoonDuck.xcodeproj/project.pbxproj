@@ -90,6 +90,10 @@
 		EA8C24192C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */; };
 		EA8C5CF82C44EE5B00AA7884 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5CF72C44EE5B00AA7884 /* Date+Extension.swift */; };
 		EA8C5CFA2C44F5F100AA7884 /* Bool+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5CF92C44F5F100AA7884 /* Bool+Extension.swift */; };
+		EA8C5CFC2C45123D00AA7884 /* ShareRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5CFB2C45123D00AA7884 /* ShareRequest.swift */; };
+		EA8C5CFE2C4512E500AA7884 /* ShareResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5CFD2C4512E500AA7884 /* ShareResponse.swift */; };
+		EA8C5D002C45132700AA7884 /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5CFF2C45132700AA7884 /* ShareService.swift */; };
+		EA8C5D022C4513BE00AA7884 /* ShareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5D012C4513BE00AA7884 /* ShareModel.swift */; };
 		EA8DC7B92C3B825E00DB8815 /* RemoteConfigDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */; };
 		EA8DC7BB2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8DC7BA2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift */; };
 		EA8DC7BF2C3BDD3F00DB8815 /* ReviewDetailImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8DC7BE2C3BDD3F00DB8815 /* ReviewDetailImageViewController.xib */; };
@@ -282,6 +286,10 @@
 		EA8C24182C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewPresenter.swift; sourceTree = "<group>"; };
 		EA8C5CF72C44EE5B00AA7884 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		EA8C5CF92C44F5F100AA7884 /* Bool+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extension.swift"; sourceTree = "<group>"; };
+		EA8C5CFB2C45123D00AA7884 /* ShareRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRequest.swift; sourceTree = "<group>"; };
+		EA8C5CFD2C4512E500AA7884 /* ShareResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareResponse.swift; sourceTree = "<group>"; };
+		EA8C5CFF2C45132700AA7884 /* ShareService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
+		EA8C5D012C4513BE00AA7884 /* ShareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareModel.swift; sourceTree = "<group>"; };
 		EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RemoteConfigDefaults.plist; sourceTree = "<group>"; };
 		EA8DC7BA2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailImageDataSource.swift; sourceTree = "<group>"; };
 		EA8DC7BD2C3BDD3F00DB8815 /* ReviewDetailImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailImageViewController.swift; sourceTree = "<group>"; };
@@ -658,6 +666,7 @@
 				EA6379D42BFF2A4000464A19 /* UserRequest.swift */,
 				EAC93F3E2C156E09008FDFF2 /* SearchOpenRequest.swift */,
 				EAE017D22C0193B800699145 /* ReviewRequest.swift */,
+				EA8C5CFB2C45123D00AA7884 /* ShareRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -701,6 +710,7 @@
 				EA6379E02BFF2E5300464A19 /* UserResponse.swift */,
 				EAE017D42C0195D500699145 /* ReviewResponse.swift */,
 				A0A6336D2C28687100744694 /* ReviewListResponse.swift */,
+				EA8C5CFD2C4512E500AA7884 /* ShareResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -713,6 +723,7 @@
 				EA6379DE2BFF2D6900464A19 /* UserService.swift */,
 				EAC93F3C2C156DA1008FDFF2 /* ProgramSearchService.swift */,
 				EAE017D02C01935700699145 /* ReviewService.swift */,
+				EA8C5CFF2C45132700AA7884 /* ShareService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -746,6 +757,7 @@
 				EADD89052C23F7B700CA2B43 /* WriteReviewModel.swift */,
 				A0A633712C286B3E00744694 /* ReviewListModel.swift */,
 				EA96F1FF2C32A32500E46D87 /* ReviewModel.swift */,
+				EA8C5D012C4513BE00AA7884 /* ShareModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1287,8 +1299,11 @@
 				EACCDA0C2C354C3600D9ADAD /* ContractuUs.swift in Sources */,
 				EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */,
 				EAD957632C002982001FB6E1 /* User.swift in Sources */,
+				EA8C5D002C45132700AA7884 /* ShareService.swift in Sources */,
+				EA8C5CFE2C4512E500AA7884 /* ShareResponse.swift in Sources */,
 				EA9E1AC72C2ACD0B001C7706 /* Utils.swift in Sources */,
 				EAA914F22C02D63100A98950 /* ReviewImageCollectionViewCell.swift in Sources */,
+				EA8C5D022C4513BE00AA7884 /* ShareModel.swift in Sources */,
 				EA7208412C1272A500E96212 /* AuthRequest.swift in Sources */,
 				EA5758F02C154E9C00E80050 /* SelectProgramViewPresenter.swift in Sources */,
 				EA8C5CF82C44EE5B00AA7884 /* Date+Extension.swift in Sources */,
@@ -1337,6 +1352,7 @@
 				A0A633702C286A4C00744694 /* ReviewList.swift in Sources */,
 				EA6379DF2BFF2D6900464A19 /* UserService.swift in Sources */,
 				EA6379CF2BFF1C5400464A19 /* MoonDuckAPI.swift in Sources */,
+				EA8C5CFC2C45123D00AA7884 /* ShareRequest.swift in Sources */,
 				EAC93F432C157006008FDFF2 /* Program.swift in Sources */,
 				EAE017D72C01AA3D00699145 /* Sort.swift in Sources */,
 				EA9A84292C00BF04004B7FDF /* UITextField+Extension.swift in Sources */,

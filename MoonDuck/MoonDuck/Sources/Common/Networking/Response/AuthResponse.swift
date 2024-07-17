@@ -7,8 +7,6 @@
 
 import Foundation
 
-import SwiftyJSON
-
 struct AuthLoginResponse: Codable {
     let accessToken: String
     let refreshToken: String

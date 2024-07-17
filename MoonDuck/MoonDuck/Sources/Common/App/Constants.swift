@@ -17,4 +17,11 @@ class Constants {
     static let searchMovieKey: String = "31263527c9b0f3dba1f669b2990459c4"
     static let searchConcertKey: String = "4e6e495762687975313031746b705741"
     
+    static let termsOfServiceUrl: String = MoonDuckAPI.baseUrl() + "/contract.html"
+    static let privacyPolicyUrl: String = MoonDuckAPI.baseUrl() + "/privacy.html"
+    static let noticeUrl: String = MoonDuckAPI.baseUrl() + "/notice.html"
+    
+    static func getSharePath(with boardId: String) -> String {
+        return MoonDuckAPI.baseUrl() + "/share/\(boardId)"
+    }
 }
