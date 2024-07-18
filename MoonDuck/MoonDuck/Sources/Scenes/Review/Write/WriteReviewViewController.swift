@@ -309,7 +309,8 @@ extension WriteReviewViewController: PHPickerViewControllerDelegate, UIImagePick
         for result in results {
             group.enter()
             if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
-                result.itemProvider.loadDataRepresentation(forTypeIdentifier: "public.jpeg") { data, error in
+                let typeIdentifier = result.itemProvider.registeredTypeIdentifiers.contains("public.png") ? "public.png" : "public.jpeg"
+                result.itemProvider.loadDataRepresentation(forTypeIdentifier: typeIdentifier) { data, error in
                     defer { group.leave() }
                     if let data = data {
                         let sizeInMB = Double(data.count) / (1024.0 * 1024.0)
