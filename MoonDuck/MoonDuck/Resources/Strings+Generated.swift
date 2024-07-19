@@ -200,10 +200,9 @@ internal enum L10n {
     internal enum Withdraw {
       /// %@님은 문덕이와
       /// %@번의 기록을 함께했어요.
-      /// 정말 탈퇴하시겠어요?
-      /// 너무 아쉬워요.
+      /// 정말 탈퇴하시겠어요? 너무 아쉬워요.
       internal static func text(_ p1: Any, _ p2: Any) -> String {
-        return L10n.tr("Localizable", "withdraw. text", String(describing: p1), String(describing: p2), fallback: "%@님은 문덕이와\n%@번의 기록을 함께했어요.\n정말 탈퇴하시겠어요?\n너무 아쉬워요.")
+        return L10n.tr("Localizable", "withdraw. text", String(describing: p1), String(describing: p2), fallback: "%@님은 문덕이와\n%@번의 기록을 함께했어요.\n정말 탈퇴하시겠어요? 너무 아쉬워요.")
       }
     }
     internal enum Write {
