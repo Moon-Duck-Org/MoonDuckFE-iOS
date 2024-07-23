@@ -95,6 +95,7 @@ iOSInjectionProject/
 
 # 보안 파일
 Secrets.swift
+Secrets/
 
 # 빌드 출력 디렉토리
 dist/
@@ -109,6 +110,3 @@ dist/
 *.pem
 *.key
 *.crt
-
-# 사용자 설정 파일
-config/secrets.yml
