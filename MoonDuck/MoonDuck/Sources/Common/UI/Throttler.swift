@@ -29,10 +29,14 @@ class Throttler {
         if let previousRun = previousRun {
             let timeSinceLastRun = Date().timeIntervalSince(previousRun)
             let delay = max(0, interval - timeSinceLastRun)
-            queue.asyncAfter(deadline: .now() + delay, execute: workItem!)
+            if let workItem {
+                queue.asyncAfter(deadline: .now() + delay, execute: workItem)
+            }
         } else {
             previousRun = Date()
-            queue.async(execute: workItem!)
+            if let workItem {
+                queue.async(execute: workItem)
+            }
         }
     }
 }

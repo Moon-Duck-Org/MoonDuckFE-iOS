@@ -30,7 +30,7 @@ enum MoonDuckAPI {
 }
 extension MoonDuckAPI: TargetType {
     static func baseUrl() -> String {
-        return Bundle.main.object(forInfoDictionaryKey: "BaseURL") as? String ?? ""
+        return Bundle.main.object(forInfoDictionaryKey: "BaseURL") as? String ?? "https://"
     }
     
     var baseURL: URL {
