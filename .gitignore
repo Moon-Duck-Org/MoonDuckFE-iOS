@@ -93,6 +93,9 @@ iOSInjectionProject/
 *.env
 *.xcconfig
 
+# 보안 파일
+Secrets.swift
+
 # 빌드 출력 디렉토리
 dist/
 
