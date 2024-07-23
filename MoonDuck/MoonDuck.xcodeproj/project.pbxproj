@@ -44,6 +44,7 @@
 		A0FE0E3E2C283A0C005C403C /* WriteImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0FE0E3D2C283A0C005C403C /* WriteImageCollectionViewCell.xib */; };
 		A0FE0E3F2C283A0C005C403C /* WriteImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FE0E3C2C283A0C005C403C /* WriteImageCollectionViewCell.swift */; };
 		B1172CFFFCCD4092EAB9B177 /* Pods_MoonDuck_MoonDuckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */; };
+		EA1F2A172C4FB8D0003AAD84 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1F2A162C4FB8D0003AAD84 /* Secrets.swift */; };
 		EA33F75B2C0D7D0C00893C35 /* BaseViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA33F75A2C0D7D0C00893C35 /* BaseViewPresenter.swift */; };
 		EA5758ED2C154E5400E80050 /* SelectProgramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5758EB2C154E5400E80050 /* SelectProgramViewController.swift */; };
 		EA5758EE2C154E5400E80050 /* SelectProgramViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5758EC2C154E5400E80050 /* SelectProgramViewController.xib */; };
@@ -240,6 +241,7 @@
 		B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoonDuck_MoonDuckUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD2F616893EF44F45B03BA4 /* Pods-MoonDuck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck/Pods-MoonDuck.debug.xcconfig"; sourceTree = "<group>"; };
 		DFBEA84FB81504AE187A5E07 /* Pods-MoonDuck-MoonDuckUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck-MoonDuckUITests/Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		EA1F2A162C4FB8D0003AAD84 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		EA33F75A2C0D7D0C00893C35 /* BaseViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewPresenter.swift; sourceTree = "<group>"; };
 		EA5758EB2C154E5400E80050 /* SelectProgramViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProgramViewController.swift; sourceTree = "<group>"; };
 		EA5758EC2C154E5400E80050 /* SelectProgramViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectProgramViewController.xib; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 			children = (
 				EA9E1ABF2C2AC097001C7706 /* MoonDuckRelease.entitlements */,
 				A0F5B1EC2C0DEBC900A4215A /* MoonDuckDebug.entitlements */,
+				EA1F2A152C4FB816003AAD84 /* Secrets */,
 				A0E6582C2BFE2419001A8D54 /* Sources */,
 				A0E6582A2BFE240F001A8D54 /* Resources */,
 			);
@@ -504,8 +507,6 @@
 				A0E658002BFE22B7001A8D54 /* Main.storyboard */,
 				A0E658052BFE22B9001A8D54 /* LaunchScreen.storyboard */,
 				EA9A843D2C00DCDA004B7FDF /* Localizable.strings */,
-				EA6B3C7F2C47C5EA00FBD9B0 /* Secrets-Debug.xcconfig */,
-				EA6B3C7E2C47C56400FBD9B0 /* Secrets-Release.xcconfig */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -602,6 +603,16 @@
 				A0FE0E3D2C283A0C005C403C /* WriteImageCollectionViewCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		EA1F2A152C4FB816003AAD84 /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				EA6B3C7F2C47C5EA00FBD9B0 /* Secrets-Debug.xcconfig */,
+				EA6B3C7E2C47C56400FBD9B0 /* Secrets-Release.xcconfig */,
+				EA1F2A162C4FB8D0003AAD84 /* Secrets.swift */,
+			);
+			path = Secrets;
 			sourceTree = "<group>";
 		};
 		EA4E1DA12C1E7D7E00125239 /* SearchProgram */ = {
@@ -1339,6 +1350,7 @@
 				A0FE0E3F2C283A0C005C403C /* WriteImageCollectionViewCell.swift in Sources */,
 				EA6379D22BFF295C00464A19 /* OSLog+Extension.swift in Sources */,
 				EACCDA052C35351200D9ADAD /* WebViewController.swift in Sources */,
+				EA1F2A172C4FB8D0003AAD84 /* Secrets.swift in Sources */,
 				EA9E1ABE2C2ABFBA001C7706 /* SortModel.swift in Sources */,
 				EAAD30492C3F6FEA0095E73F /* AppNotification.swift in Sources */,
 				EAF78EFB2C14762400EFBCB0 /* HomeViewPresenter.swift in Sources */,
@@ -1622,11 +1634,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MoonDuck/MoonDuckRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3T5QFYSPG5;
+				DEVELOPMENT_TEAM = 3T5QFYSPG5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoonDuck/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "문덕이";
@@ -1649,7 +1659,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.poduck.moonduck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Moon Duck AppStore";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

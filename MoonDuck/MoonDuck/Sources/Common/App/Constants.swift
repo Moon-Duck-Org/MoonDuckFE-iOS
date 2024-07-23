@@ -13,9 +13,9 @@ class Constants {
     static let appLanguage: String = "ko_KR"
     static let appMail: String = "poduck405@gmail.com"
     
-    static let kakaoAppKey: String = "115f84135ae908760cadabb7d51a0e26"
-    static let searchMovieKey: String = "31263527c9b0f3dba1f669b2990459c4"
-    static let searchConcertKey: String = "4e6e495762687975313031746b705741"
+    static let kakaoAppKey: String = Bundle.main.object(forInfoDictionaryKey: "KakaoAppKey") as? String ?? ""
+    static let searchMovieKey: String = Bundle.main.object(forInfoDictionaryKey: "SearchMovieApiKey") as? String ?? ""
+    static let searchConcertKey: String = Bundle.main.object(forInfoDictionaryKey: "SearchConcertApiKey") as? String ?? ""
     
     static let termsOfServiceUrl: String = MoonDuckAPI.baseUrl() + "/contract.html"
     static let privacyPolicyUrl: String = MoonDuckAPI.baseUrl() + "/privacy.html"

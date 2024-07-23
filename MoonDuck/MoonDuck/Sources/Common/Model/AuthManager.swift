@@ -15,8 +15,6 @@ import AuthenticationServices
 class AuthManager {
     static let `default` = AuthManager()
     
-    private var token: Token?
-    private var auth: Auth?
     private var provider: AppServices?
     
     func initProvider(_ provider: AppServices) {
@@ -24,50 +22,37 @@ class AuthManager {
     }
         
     func saveAuth(_ auth: Auth) {
-        self.auth = auth
+        Secrets.auth = auth
         
-        AppKeychain.set(auth.id, forKey: .snsId)
-        AppUserDefaults.set(auth.loginType.rawValue, forKey: .snsLoginType)
-        AppUserDefaults.set(true, forKey: .isAutoLogin)
     }
     
     func removeAuth() {
-        self.auth = nil
+        Secrets.auth = nil
         
-        AppKeychain.remove(forKey: .snsId)
-        AppUserDefaults.remove(forKey: .snsLoginType)
-        AppUserDefaults.set(false, forKey: .isAutoLogin)
     }
     
     func saveToken(_ token: Token) {
-        self.token = token
+        Secrets.token = token
     }
     
     func removeToken() {
-        self.token = nil
+        Secrets.token = nil
     }
     
     func getAccessToken() -> String? {
-        return token?.accessToken
+        return Secrets.token?.accessToken
     }
     
     func getRefreshToken() -> String? {
-        return token?.refreshToken
+        return Secrets.token?.refreshToken
     }
     
     func getAutoLoginAuth() -> Auth? {
-        if let isAutoLogin = AppUserDefaults.getObject(forKey: .isAutoLogin) as? Bool, isAutoLogin,
-           let id = AppKeychain.getValue(forKey: .snsId),
-           let snsLoginType = AppUserDefaults.getObject(forKey: .snsLoginType) as? String,
-           let loginType = SnsLoginType(rawValue: snsLoginType) {
-            return Auth(loginType: loginType, id: id)
-        } else {
-            return nil
-        }
+        return Secrets.getAutoLoginAuth()
     }
     
     func logout() {
-        if let auth {
+        if let auth = Secrets.auth {
             switch auth.loginType {
             case .kakao: logoutWithKakao { _ in }
             case .apple: break
@@ -80,7 +65,7 @@ class AuthManager {
     }
     
     func withDraw() {
-        if let auth {
+        if let auth = Secrets.auth {
             switch auth.loginType {
             case .kakao: withdrawWithKakao { _ in }
             case .apple: break
@@ -116,8 +101,8 @@ class AuthManager {
     }
     
     func refreshToken(completion: @escaping (_ success: Bool, _ error: APIError?) -> Void) {
-        guard let accessToken = token?.accessToken,
-              let refreshToken = token?.refreshToken else {
+        guard let accessToken = Secrets.token?.accessToken,
+              let refreshToken = Secrets.token?.refreshToken else {
             completion(false, .unknown)
             return
         }

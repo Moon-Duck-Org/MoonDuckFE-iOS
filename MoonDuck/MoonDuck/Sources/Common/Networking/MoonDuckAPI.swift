@@ -30,7 +30,7 @@ enum MoonDuckAPI {
 }
 extension MoonDuckAPI: TargetType {
     static func baseUrl() -> String {
-        return "https://moonduck.o-r.kr"
+        return Bundle.main.object(forInfoDictionaryKey: "BaseURL") as? String ?? ""
     }
     
     var baseURL: URL {
@@ -67,10 +67,11 @@ extension MoonDuckAPI: TargetType {
         switch self {
             // 로그인
         case .authLogin:
-            return "/auth/login"
+            return SecretAPIPath.login
             // access 토큰 재발급
         case .authReissue:
-            return "/auth/reissue"
+            return SecretAPIPath.reissue
+            
             // Apple Login 탈퇴
         case .authRevokeApple:
             return "/auth/revoke"
@@ -176,11 +177,14 @@ extension MoonDuckAPI: TargetType {
                 return ["Content-Type": "application/json"]
             }
         case .searchBook:
-            return ["X-Naver-Client-Id": "FfwMKOMRcT5KZmhvJxYj",
-                    "X-Naver-Client-Secret": "JPu7G800Rh"]
+            let apiId = Bundle.main.object(forInfoDictionaryKey: "SearchBookApiId") as? String ?? ""
+            let apiKey = Bundle.main.object(forInfoDictionaryKey: "SearchBookApiKey") as? String ?? ""
+            return ["X-Naver-Client-Id": apiId,
+                    "X-Naver-Client-Secret": apiKey]
         case .searchDrama:
+            let apiKey = Bundle.main.object(forInfoDictionaryKey: "SearchDramaApiKey") as? String ?? ""
             return ["accept": "application/json",
-                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNjRmZjk2OGEzYTdkMWQ2NjVhNDI2NmIyNzhmMzI0ZiIsInN1YiI6IjY2NmQ0MjA2NmIzYTk0MmQyOGVjMWMwYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uvFajFOjUVv57Xb8onVa0kLT2ZLXtTdYRHkOgalHMmA"]
+                    "Authorization": "Bearer \(apiKey)"]
         case .postReview, .putReview:
             if let token: String = AuthManager.default.getAccessToken() {
                 return ["Content-Type": "multipart/form-data",

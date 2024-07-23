@@ -58,5 +58,19 @@
 			</array>
 		</dict>
 	</dict>
+    <key>BaseURL</key>
+    <string>$(BASE_URL)</string>
+    <key>KakaoAppKey</key>
+    <string>$(KAKAO_APP_KEY)</string>
+    <key>SearchMovieApiKey</key>
+    <string>$(SEARCH_MOVIE_API_KEY)</string>
+    <key>SearchConcertApiKey</key>
+    <string>$(SEARCH_CONCERT_API_KEY)</string>
+    <key>SearchDramaApiKey</key>
+    <string>$(SEARCH_DRAMA_API_KEY)</string>
+    <key>SearchBookApiId</key>
+    <string>$(SEARCH_BOOK_API_ID)</string>
+    <key>SearchBookApiKey</key>
+    <string>$(SEARCH_BOOK_API_KEY)</string>
 </dict>
 </plist>

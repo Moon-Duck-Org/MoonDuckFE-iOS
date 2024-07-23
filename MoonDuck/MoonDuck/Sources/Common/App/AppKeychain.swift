@@ -26,7 +26,7 @@ class AppKeychain {
     /**
      # remove
      - parameters:
-        - key : 삭제할 value의  Key - (E) Common.KeychainKey
+        - key : 삭제할 value의  Key - (E) KeychainWrapper.Key
      - Authors: suni
      - Note: 키체인 값을 삭제하는 공용 함수
      */
@@ -37,15 +37,11 @@ class AppKeychain {
     /**
      # getValue
      - parameters:
-        - key : 반환할 value의 Key - (E) Common.KeychainKey
+        - key : 반환할 value의 Key - (E) KeychainWrapper.Key
      - Authors: suni
      - Note: 키체인 값을 반환하는 공용 함수
      */
     static func getValue(forKey key: KeychainWrapper.Key) -> String? {
         return KeychainWrapper.standard.string(forKey: key.rawValue)
     }
-}
-
-extension KeychainWrapper.Key {
-    static let snsId: KeychainWrapper.Key = "snsId"
 }
