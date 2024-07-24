@@ -48,6 +48,10 @@ extension WithdrawViewPresenter {
 }
 
 extension WithdrawViewPresenter: UserModelDelegate {
+    func error(didRecieve error: APIError?) {
+        
+    }
+    
     func userModelDidAuthError(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
         AuthManager.shared.logout()

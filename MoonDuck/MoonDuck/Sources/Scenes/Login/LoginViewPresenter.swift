@@ -158,6 +158,22 @@ extension LoginViewPresenter {
 
 // MARK: - UserModelDelegate
 extension LoginViewPresenter: UserModelDelegate {
+    func error(didRecieve error: APIError?) {
+        view?.updateLoadingView(isLoading: false)
+        AuthManager.shared.logout()
+        
+        guard let error else {
+            loginError()
+            return
+        }
+    
+        if error.isNetworkError {
+            view?.showNetworkErrorAlert()
+        } else if error.isSystemError {
+            view?.showSystemErrorAlert()
+        }
+    }
+    
     func userModel(_ model: UserModelType, didChange user: User?) {
         // User 정보 조회 성공 -> 홈 이동
         view?.updateLoadingView(isLoading: false)
@@ -169,23 +185,6 @@ extension LoginViewPresenter: UserModelDelegate {
             let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel, shareModel: shareModel)
             view?.moveHome(with: presenter)
         }
-    }
-    
-    func userModel(_ model: UserModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        AuthManager.shared.logout()
-        
-        if let error {
-            if error.isNetworkError {
-                view?.showNetworkErrorAlert()
-                return
-            } else if error.isSystemError {
-                view?.showSystemErrorAlert()
-                return
-            }
-        }
-        
-        loginError()
     }
     
     func userModelDidFailLogin(_ model: UserModelType) {

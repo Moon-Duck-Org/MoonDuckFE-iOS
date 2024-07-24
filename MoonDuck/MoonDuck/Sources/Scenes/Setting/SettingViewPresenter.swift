@@ -133,6 +133,18 @@ extension SettingViewPresenter {
 
 // MARK: - UserModelDelegate
 extension SettingViewPresenter: UserModelDelegate {
+    func error(didRecieve error: APIError?) {
+        view?.updateLoadingView(isLoading: false)
+        
+        guard let error else { return }
+        
+        if error.isNetworkError {
+            view?.showNetworkErrorAlert()
+        } else if error.isSystemError {
+            view?.showSystemErrorAlert()
+        }
+    }
+    
     func userModel(_ model: UserModelType, didChange user: User?) {
         // Push 설정 성공
         view?.updateLoadingView(isLoading: false)
@@ -147,20 +159,6 @@ extension SettingViewPresenter: UserModelDelegate {
         } else {
             AppNotification.removeNotification()
             view?.showToastMessage(L10n.Localizable.Push.offCompleteToast(today))
-        }
-    }
-    
-    func userModel(_ model: UserModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        
-        if let error {
-            if error.isNetworkError {
-                view?.showNetworkErrorAlert()
-                return
-            } else if error.isSystemError {
-                view?.showSystemErrorAlert()
-                return
-            }
         }
     }
     

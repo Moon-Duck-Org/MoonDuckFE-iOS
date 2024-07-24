@@ -7,9 +7,8 @@
 
 import Foundation
 
-protocol UserModelDelegate: AnyObject {
+protocol UserModelDelegate: BaseModelDelegate {
     func userModel(_ model: UserModelType, didChange user: User?)
-    func userModel(_ model: UserModelType, didRecieve error: APIError?)
     func userModelDidFailLogin(_ model: UserModelType)
     func userModelDidDuplicateNickname(_ model: UserModelType)
     func userModelDidFailDeleteUser(_ model: UserModelType)
@@ -17,13 +16,12 @@ protocol UserModelDelegate: AnyObject {
 }
 extension UserModelDelegate {
     func userModel(_ model: UserModelType, didChange user: User?) { }
-    func userModel(_ model: UserModelType, didRecieve error: APIError?) { }
     func userModelDidFailLogin(_ model: UserModelType) { }
     func userModelDidDuplicateNickname(_ model: UserModelType) { }
     func userModelDidFailDeleteUser(_ model: UserModelType) { }
 }
 
-protocol UserModelType: AnyObject {
+protocol UserModelType: BaseModelType {
     // Data
     var delegate: UserModelDelegate? { get set }
     var user: User? { get set }
@@ -139,7 +137,7 @@ class UserModel: UserModelType {
                     return
                 }
                 // User 정보 조회 실패
-                self.delegate?.userModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
@@ -163,7 +161,7 @@ class UserModel: UserModelType {
                         return
                     }
                 }
-                self.delegate?.userModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
@@ -202,7 +200,7 @@ class UserModel: UserModelType {
                     self.delegate?.userModelDidAuthError(self)
                     return
                 }
-                self.delegate?.userModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }

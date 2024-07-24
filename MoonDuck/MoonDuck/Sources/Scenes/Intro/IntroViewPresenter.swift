@@ -93,6 +93,10 @@ extension IntroViewPresenter {
 
 // MARK: - UserModelDelegate
 extension IntroViewPresenter: UserModelDelegate {
+    func error(didRecieve error: APIError?) {
+        AuthManager.shared.logout()
+        moveLogin()
+    }
     
     func userModel(_ model: UserModelType, didChange user: User?) {
         // User 정보 조회 성공 -> 홈 이동
@@ -104,11 +108,6 @@ extension IntroViewPresenter: UserModelDelegate {
             let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel, shareModel: shareModel)
             self.view?.moveHome(with: presenter)
         }
-    }
-    
-    func userModel(_ model: UserModelType, didRecieve error: APIError?) {
-        AuthManager.shared.logout()
-        moveLogin()
     }
     
     func userModelDidFailLogin(_ model: UserModelType) {

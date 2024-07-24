@@ -146,6 +146,18 @@ extension NicknameSettingViewPresenter {
 
 // MARK: - UserModelDelegate
 extension NicknameSettingViewPresenter: UserModelDelegate {
+    func error(didRecieve error: APIError?) {
+        view?.updateLoadingView(isLoading: false)
+        
+        guard let error else { return }
+        
+        if error.isNetworkError {
+            view?.showNetworkErrorAlert()
+        } else {
+            view?.showSystemErrorAlert()
+        }
+    }
+    
     
     func userModel(_ model: UserModelType, didChange user: User?) {
         // 닉네임 변경 성공
@@ -162,16 +174,6 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
             } else {
                 delegate?.nicknameSetting(self, didSuccess: user.nickname)
             }
-        }
-    }
-    
-    func userModel(_ model: UserModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        
-        if let error, error.isNetworkError {
-            view?.showNetworkErrorAlert()
-        } else {
-            view?.showSystemErrorAlert()
         }
     }
     
