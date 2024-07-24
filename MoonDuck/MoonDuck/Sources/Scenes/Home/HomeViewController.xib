@@ -53,14 +53,13 @@
                                 <constraint firstAttribute="height" constant="22.510000000000002" id="hGy-GU-VUy"/>
                             </constraints>
                         </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="QwI-U8-dpJ">
+                            <rect key="frame" x="337" y="3.6666666666666643" width="40" height="40"/>
+                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIZ-u4-QU1">
-                            <rect key="frame" x="343" y="1" width="45" height="45"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="45" id="bQ1-Uk-rIj"/>
-                                <constraint firstAttribute="height" constant="45" id="zR6-PX-AcG"/>
-                            </constraints>
+                            <rect key="frame" x="329" y="-4.3333333333333357" width="56" height="56"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" image="My">
+                            <buttonConfiguration key="configuration" style="plain">
                                 <backgroundConfiguration key="background"/>
                             </buttonConfiguration>
                             <connections>
@@ -70,13 +69,17 @@
                     </subviews>
                     <color key="backgroundColor" name="White"/>
                     <constraints>
+                        <constraint firstItem="QwI-U8-dpJ" firstAttribute="centerY" secondItem="aik-Bg-Vtp" secondAttribute="centerY" id="Ali-sl-JDM"/>
+                        <constraint firstItem="ZIZ-u4-QU1" firstAttribute="top" secondItem="QwI-U8-dpJ" secondAttribute="top" constant="-8" id="IlL-ya-NuS"/>
                         <constraint firstItem="0Rl-j2-Pjd" firstAttribute="centerY" secondItem="R5R-0b-aqy" secondAttribute="centerY" id="Iwx-aa-ygS"/>
+                        <constraint firstAttribute="trailing" secondItem="QwI-U8-dpJ" secondAttribute="trailing" constant="16" id="Kmc-hX-P6Z"/>
+                        <constraint firstItem="QwI-U8-dpJ" firstAttribute="bottom" secondItem="ZIZ-u4-QU1" secondAttribute="bottom" constant="-8" id="Q5d-7e-kRW"/>
                         <constraint firstAttribute="height" constant="47" id="Rae-GV-SvE"/>
+                        <constraint firstItem="QwI-U8-dpJ" firstAttribute="trailing" secondItem="ZIZ-u4-QU1" secondAttribute="trailing" constant="-8" id="Wjb-wB-QMa"/>
                         <constraint firstItem="0Rl-j2-Pjd" firstAttribute="leading" secondItem="R5R-0b-aqy" secondAttribute="trailing" constant="6" id="ai2-ps-2Tg"/>
                         <constraint firstItem="R5R-0b-aqy" firstAttribute="centerY" secondItem="aik-Bg-Vtp" secondAttribute="centerY" id="plU-Kt-5qF"/>
+                        <constraint firstItem="ZIZ-u4-QU1" firstAttribute="leading" secondItem="QwI-U8-dpJ" secondAttribute="leading" constant="-8" id="rpR-TC-hTb"/>
                         <constraint firstItem="R5R-0b-aqy" firstAttribute="leading" secondItem="aik-Bg-Vtp" secondAttribute="leading" constant="16" id="sKj-bL-0WX"/>
-                        <constraint firstItem="ZIZ-u4-QU1" firstAttribute="centerY" secondItem="aik-Bg-Vtp" secondAttribute="centerY" id="uZA-cg-8Lt"/>
-                        <constraint firstAttribute="trailing" secondItem="ZIZ-u4-QU1" secondAttribute="trailing" constant="5" id="xfb-nX-3wO"/>
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dTc-CL-Im9">
@@ -269,7 +272,7 @@
         <image name="Logo" width="71" height="70.666664123535156"/>
         <image name="LogoGray" width="87.333335876464844" height="41.333332061767578"/>
         <image name="LogoTitle" width="87.333335876464844" height="41.333332061767578"/>
-        <image name="My" width="24" height="24"/>
+        <image name="MyProfile" width="40" height="40"/>
         <namedColor name="Black">
             <color red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
