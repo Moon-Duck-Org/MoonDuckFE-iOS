@@ -138,7 +138,12 @@ extension SettingViewPresenter: UserModelDelegate {
         
         guard let error else { return }
         
-        if error.isNetworkError {
+        if error.isAuthError {
+            AuthManager.shared.logout()
+            let model = UserModel(provider)
+            let presenter = LoginViewPresenter(with: provider, model: model)
+            view?.showAuthErrorAlert(with: presenter)
+        } else if error.isNetworkError {
             view?.showNetworkErrorAlert()
         } else if error.isSystemError {
             view?.showSystemErrorAlert()
@@ -160,13 +165,5 @@ extension SettingViewPresenter: UserModelDelegate {
             AppNotification.removeNotification()
             view?.showToastMessage(L10n.Localizable.Push.offCompleteToast(today))
         }
-    }
-    
-    func userModelDidAuthError(_ model: UserModelType) {
-        view?.updateLoadingView(isLoading: false)
-        AuthManager.shared.logout()
-        let model = UserModel(provider)
-        let presenter = LoginViewPresenter(with: provider, model: model)
-        view?.showAuthErrorAlert(with: presenter)
     }
 }

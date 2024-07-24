@@ -249,15 +249,16 @@ extension HomeViewPresenter {
 // MARK: - UserModelDelegate
 extension HomeViewPresenter: UserModelDelegate {
     func error(didRecieve error: APIError?) {
-        
-    }
-    
-    func userModelDidAuthError(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
-        AuthManager.shared.logout()
-        let model = UserModel(provider)
-        let presenter = LoginViewPresenter(with: provider, model: model)
-        view?.showAuthErrorAlert(with: presenter)
+        
+        guard let error else { return }
+        
+        if error.isAuthError {
+            AuthManager.shared.logout()
+            let model = UserModel(provider)
+            let presenter = LoginViewPresenter(with: provider, model: model)
+            view?.showAuthErrorAlert(with: presenter)
+        }
     }
 }
 

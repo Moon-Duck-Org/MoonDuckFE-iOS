@@ -110,17 +110,7 @@ extension IntroViewPresenter: UserModelDelegate {
         }
     }
     
-    func userModelDidFailLogin(_ model: UserModelType) {
-        AuthManager.shared.logout()
-        moveLogin()
-    }
-    
     func userModelDidFailFetchingUser(_ model: UserModelType) {
-        AuthManager.shared.logout()
-        moveLogin()
-    }
-    
-    func userModelDidAuthError(_ model: UserModelType) {
         AuthManager.shared.logout()
         moveLogin()
     }

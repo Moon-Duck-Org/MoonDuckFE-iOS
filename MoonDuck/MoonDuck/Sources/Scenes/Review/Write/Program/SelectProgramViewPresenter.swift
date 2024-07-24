@@ -73,6 +73,10 @@ extension SelectProgramViewPresenter {
 
 // MARK: - CategoryModelDelegate
 extension SelectProgramViewPresenter: CategoryModelDelegate {
+    func error(didRecieve error: APIError?) {
+        
+    }
+    
     func categoryModel(_ reviewCategoryModel: CategoryModel, didChange categories: [Category]) {
         view?.reloadCategories()
     }

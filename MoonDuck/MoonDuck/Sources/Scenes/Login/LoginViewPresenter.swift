@@ -167,7 +167,10 @@ extension LoginViewPresenter: UserModelDelegate {
             return
         }
     
-        if error.isNetworkError {
+        if error.isAuthError {
+            AuthManager.shared.logout()
+            loginError()
+        } else if error.isNetworkError {
             view?.showNetworkErrorAlert()
         } else if error.isSystemError {
             view?.showSystemErrorAlert()
@@ -185,17 +188,5 @@ extension LoginViewPresenter: UserModelDelegate {
             let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel, shareModel: shareModel)
             view?.moveHome(with: presenter)
         }
-    }
-    
-    func userModelDidFailLogin(_ model: UserModelType) {
-        view?.updateLoadingView(isLoading: false)
-        AuthManager.shared.logout()
-        loginError()
-    }
-    
-    func userModelDidAuthError(_ model: UserModelType) {
-        view?.updateLoadingView(isLoading: false)
-        AuthManager.shared.logout()
-        loginError()
     }
 }

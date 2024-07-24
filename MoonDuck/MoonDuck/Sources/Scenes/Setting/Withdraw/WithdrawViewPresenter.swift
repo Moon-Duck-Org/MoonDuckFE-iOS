@@ -49,21 +49,9 @@ extension WithdrawViewPresenter {
 
 extension WithdrawViewPresenter: UserModelDelegate {
     func error(didRecieve error: APIError?) {
-        
-    }
-    
-    func userModelDidAuthError(_ model: UserModelType) {
-        view?.updateLoadingView(isLoading: false)
-        AuthManager.shared.logout()
-        let model = UserModel(provider)
-        let presenter = LoginViewPresenter(with: provider, model: model)
-        view?.showAuthErrorAlert(with: presenter)
-    }
-    
-    func userModelDidFailDeleteUser(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
         view?.showErrorAlert(title: L10n.Localizable.Error.title("회원 탈퇴"), message: L10n.Localizable.Error.message)
-    }
+    }    
     
     func userModel(_ model: UserModelType, didChange user: User?) {
         view?.updateLoadingView(isLoading: false)

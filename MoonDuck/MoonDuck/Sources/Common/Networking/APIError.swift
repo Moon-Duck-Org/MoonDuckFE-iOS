@@ -110,7 +110,6 @@ enum APIError: Error, Equatable, LocalizedError {
         }
     }
     
-    
     var isReviewError: Bool {
         switch self {
         case .nonExistentReview, .invalidFilterCondition, .fileProcessing, .invalidProgram, .imageSizeLimitExceeded: return true

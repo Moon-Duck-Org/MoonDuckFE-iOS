@@ -151,7 +151,15 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
         
         guard let error else { return }
         
-        if error.isNetworkError {
+        if error.isAuthError {
+            AuthManager.shared.logout()
+            let model = UserModel(provider)
+            let presenter = LoginViewPresenter(with: provider, model: model)
+            view?.showAuthErrorAlert(with: presenter)
+        } else if error.duplicateNickname {
+            // 중복된 닉네임
+            view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.duplicateNameHint)
+        } else if error.isNetworkError {
             view?.showNetworkErrorAlert()
         } else {
             view?.showSystemErrorAlert()
@@ -175,18 +183,5 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
                 delegate?.nicknameSetting(self, didSuccess: user.nickname)
             }
         }
-    }
-    
-    func userModelDidDuplicateNickname(_ model: UserModelType) {
-        view?.updateLoadingView(isLoading: false)
-        view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.duplicateNameHint)
-    }
-    
-    func userModelDidAuthError(_ model: UserModelType) {
-        view?.updateLoadingView(isLoading: false)
-        AuthManager.shared.logout()
-        let model = UserModel(provider)
-        let presenter = LoginViewPresenter(with: provider, model: model)
-        view?.showAuthErrorAlert(with: presenter)
     }
 }
