@@ -34,7 +34,11 @@ class IntroViewPresenter: BaseViewPresenter, IntroPresenter {
 extension IntroViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
-        checkAppVersion()
+        if Utils.isJailbroken() {
+            view?.showJalibrokenAlert()
+        } else {
+            startApp()
+        }
     }
     
     // MARK: - Action
@@ -44,7 +48,7 @@ extension IntroViewPresenter {
 }
 // MARK: - Logic
 extension IntroViewPresenter {
-    private func checkAppVersion() {
+    private func startApp() {
         Utils.initConfig()
         Utils.checkForUpdate { [weak self] appUpdate in
             switch appUpdate {

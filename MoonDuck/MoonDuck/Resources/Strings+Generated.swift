@@ -95,6 +95,10 @@ internal enum L10n {
         return L10n.tr("Localizable", "error. title", String(describing: p1), fallback: "%@에 실패하였습니다. 다시 시도해 주세요.")
       }
     }
+    internal enum Jalibroken {
+      /// 루팅된 기기에서는 문덕이를 이용 하실 수 없습니다.
+      internal static let message = L10n.tr("Localizable", "jalibroken. message", fallback: "루팅된 기기에서는 문덕이를 이용 하실 수 없습니다.")
+    }
     internal enum Message {
       /// 취소하시겠어요?
       internal static let cancel = L10n.tr("Localizable", "message. cancel", fallback: "취소하시겠어요?")

@@ -34,7 +34,7 @@ public class RadiusView: UIView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
