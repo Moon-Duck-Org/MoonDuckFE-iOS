@@ -20,7 +20,8 @@ final class MoonDuckTests: XCTestCase {
         provider = AppServices(authService: AuthService(),
                                 userService: UserService(),
                                 reviewService: ReviewService(),
-                                programSearchService: ProgramSearchService())
+                               programSearchService: ProgramSearchService(), 
+                               shareService: ShareService())
         
         AuthManager.default.login(auth: Auth(loginType: .kakao, id: "TEST")) { _, _ in
         }
