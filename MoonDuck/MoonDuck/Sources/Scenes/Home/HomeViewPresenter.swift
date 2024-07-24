@@ -124,7 +124,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
                 reviewModel: ReviewModel(self.provider, review: review, deleteReviewHandler: handler),
                 shareModel: ShareModel(self.provider)
             )
-            let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
+            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, delegate: self)
             view?.moveReviewDetail(with: presenter)
         }
     }
