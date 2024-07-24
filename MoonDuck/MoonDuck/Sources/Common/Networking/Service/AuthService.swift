@@ -39,7 +39,7 @@ class AuthService {
                 }
                 
                 switch response.result {
-                case .success(let response):
+                case .success:
                     if statusCode == 200 {
                         completion(true, nil)
                     } else {

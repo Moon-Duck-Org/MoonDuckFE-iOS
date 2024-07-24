@@ -83,6 +83,9 @@ nesting:
 identifier_name:
   excluded:
     - id
+file_length:
+  warning: 600  # 파일 길이에 대한 경고를 600줄로 설정
+  error: 800    # 파일 길이에 대한 오류를 800줄로 설정
 # number_separator:
 #   minimum_length: 5
 # file_name:

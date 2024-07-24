@@ -93,7 +93,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
         return { [weak self] in
             guard let self else { return }
             let appModel = AppModels(
-                writeReviewModel:  WriteReviewModel(self.provider, review: review)
+                writeReviewModel: WriteReviewModel(self.provider, review: review)
             )
             let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self)
             view?.moveWriteReview(with: presenter)

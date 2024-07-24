@@ -228,10 +228,8 @@ class Utils {
         ]
         
         // 탈옥 관련 파일 존재 여부 확인
-        for path in jailbreakFilePaths {
-            if FileManager.default.fileExists(atPath: path) {
-                return true
-            }
+        for path in jailbreakFilePaths where FileManager.default.fileExists(atPath: path) {
+            return true
         }
         
         // 시스템 디렉토리에 쓰기 권한 테스트
