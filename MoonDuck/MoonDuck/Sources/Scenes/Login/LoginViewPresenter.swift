@@ -27,12 +27,11 @@ protocol LoginPresenter: AnyObject {
 final class LoginViewPresenter: BaseViewPresenter, LoginPresenter {
     
     weak var view: LoginView?
-    let model: UserModelType
+//    let model: UserModelType
     
-    init(with provider: AppServices, model: UserModelType) {
-        self.model = model
-        super.init(with: provider)
-        self.model.delegate = self
+    override init(with provider: AppServices, model: AppModels) {
+        super.init(with: provider, model: model)
+        self.model.userModel?.delegate = self
     }
 }
 
@@ -139,12 +138,13 @@ extension LoginViewPresenter {
             
             if let isHaveNickname {
                 if isHaveNickname {
-                    self.model.getUser()
+                    self.model.userModel?.getUser()
                     return
                 } else {
                     self.view?.updateLoadingView(isLoading: false)
-                    let model = UserModel(provider)
-                    let presenter = NicknameSettingViewPresenter(with: self.provider, model: model, delegate: nil)
+                    let userModel = UserModel(provider)
+                    let appModel = AppModels(userModel: userModel)
+                    let presenter = NicknameSettingViewPresenter(with: self.provider, model: appModel, delegate: nil)
                     self.view?.moveNameSetting(with: presenter)
                     return
                 }
@@ -182,10 +182,11 @@ extension LoginViewPresenter: UserModelDelegate {
         view?.updateLoadingView(isLoading: false)
         if user != nil {
             let cateogryModel = CategoryModel()
-            let reviewModel = ReviewListModel(provider)
+            let reviewListModel = ReviewListModel(provider)
             let sortModel = SortModel()
             let shareModel = ShareModel(provider)
-            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel, shareModel: shareModel)
+            let appModel = AppModels(userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewListModel: reviewListModel, shareModel: shareModel)
+            let presenter = HomeViewPresenter(with: provider, model: appModel)
             view?.moveHome(with: presenter)
         }
     }

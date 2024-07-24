@@ -24,13 +24,14 @@ final class ReviewDetailImageDataSource: NSObject {
 // MARK: - UICollectionViewDataSource
 extension ReviewDetailImageDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.review.imageUrlList.count
+        return presenter.review?.imageUrlList.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell: ReviewImageCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewImageCollectionViewCell.className, for: indexPath) as? ReviewImageCollectionViewCell {
-            if indexPath.row < presenter.review.imageUrlList.count {
-                let imageUrl = presenter.review.imageUrlList[indexPath.row]
+            if let review = presenter.review,
+                indexPath.row < review.imageUrlList.count {
+                let imageUrl = review.imageUrlList[indexPath.row]
                 cell.configure(with: imageUrl)
             }
             
@@ -44,7 +45,7 @@ extension ReviewDetailImageDataSource: UICollectionViewDataSource {
 extension ReviewDetailImageDataSource: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let count = presenter.review.imageUrlList.count
+        let count = presenter.review?.imageUrlList.count ?? 0
         
         let ratioDynamic = getImageSizeForRatioDynamic(with: collectionView)
         var width = ratioDynamic.width

@@ -67,6 +67,7 @@
 		EA6D9A772BFF6823003B459A /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6D9A762BFF6823003B459A /* UIView+Extension.swift */; };
 		EA6D9A7A2BFF6884003B459A /* RadiusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6D9A792BFF6884003B459A /* RadiusView.swift */; };
 		EA7118E22C518DD100D73B1F /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7118E12C518DD100D73B1F /* BaseModel.swift */; };
+		EA7118E52C51962500D73B1F /* AppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7118E42C51962500D73B1F /* AppModels.swift */; };
 		EA7208412C1272A500E96212 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208402C1272A500E96212 /* AuthRequest.swift */; };
 		EA7208432C12735A00E96212 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7208422C12735A00E96212 /* AuthService.swift */; };
 		EA72084D2C12869B00E96212 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72084C2C12869B00E96212 /* AuthResponse.swift */; };
@@ -267,6 +268,7 @@
 		EA6D9A762BFF6823003B459A /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		EA6D9A792BFF6884003B459A /* RadiusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusView.swift; sourceTree = "<group>"; };
 		EA7118E12C518DD100D73B1F /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		EA7118E42C51962500D73B1F /* AppModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModels.swift; sourceTree = "<group>"; };
 		EA7208402C1272A500E96212 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
 		EA7208422C12735A00E96212 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		EA72084C2C12869B00E96212 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
@@ -766,6 +768,8 @@
 		EA81F4A72BFF714000FDC7A7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EA7118E12C518DD100D73B1F /* BaseModel.swift */,
+				EA7118E42C51962500D73B1F /* AppModels.swift */,
 				EAF78F072C14CAAE00EFBCB0 /* UserModel.swift */,
 				EA5758F82C155AF800E80050 /* CategoryModel.swift */,
 				EA9E1ABD2C2ABFBA001C7706 /* SortModel.swift */,
@@ -774,7 +778,6 @@
 				A0A633712C286B3E00744694 /* ReviewListModel.swift */,
 				EA96F1FF2C32A32500E46D87 /* ReviewModel.swift */,
 				EA8C5D012C4513BE00AA7884 /* ShareModel.swift */,
-				EA7118E12C518DD100D73B1F /* BaseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1286,6 +1289,7 @@
 				EAD957652C0029D3001FB6E1 /* Review.swift in Sources */,
 				EA95C8B02C37D51300369BED /* ProgramList.swift in Sources */,
 				EA72084F2C1287EF00E96212 /* AppUserDefaults.swift in Sources */,
+				EA7118E52C51962500D73B1F /* AppModels.swift in Sources */,
 				A0E6584D2BFE3C0B001A8D54 /* XCAssets+Generated.swift in Sources */,
 				EACCDA082C35371B00D9ADAD /* WebViewPresenter.swift in Sources */,
 				EA7208532C1290C700E96212 /* AuthManager.swift in Sources */,

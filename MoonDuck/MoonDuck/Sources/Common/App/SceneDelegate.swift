@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         AuthManager.shared.initProvider(appService)
         
         let navigator = Navigator.default
-        let model = UserModel(appService)
+        let model = AppModels(userModel: UserModel(appService))
         let presenter = IntroViewPresenter(with: appService, model: model)
         navigator.show(seque: .intro(presenter: presenter), sender: nil, transition: .root)
         

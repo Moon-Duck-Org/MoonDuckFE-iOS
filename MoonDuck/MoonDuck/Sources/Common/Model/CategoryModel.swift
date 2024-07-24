@@ -8,15 +8,13 @@
 import Foundation
 
 protocol CategoryModelDelegate: BaseModelDelegate {
-    func categoryModel(_ model: CategoryModel, didChange categories: [Category])
-    func categoryModel(_ model: CategoryModel, didSelect category: Category)
-    func categoryModel(_ model: CategoryModel, didReload category: Category)
+    func categoryModel(_ model: CategoryModelType, didChange categories: [Category])
+    func categoryModel(_ model: CategoryModelType, didSelect category: Category)
+    func categoryModel(_ model: CategoryModelType, didReload category: Category)
 }
 
 extension CategoryModelDelegate {
-    func categoryModel(_ model: CategoryModel, didReload category: Category) {
-        
-    }
+    func categoryModel(_ model: CategoryModelType, didReload category: Category) { }
 }
 
 protocol CategoryModelType: BaseModelType {

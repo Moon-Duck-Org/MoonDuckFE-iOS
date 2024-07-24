@@ -35,26 +35,28 @@ protocol ProgramSearchPresenter: AnyObject {
 class ProgramSearchViewPresenter: BaseViewPresenter, ProgramSearchPresenter {
     weak var view: ProgramSearchView?
     
-    private let model: ProgramSearchModelType
+//    private let model: ProgramSearchModelType
     private weak var delegate: WriteReviewPresenterDelegate?
     
     private var searchText: String?
     
     init(with provider: AppServices,
-         model: ProgramSearchModel,
+         model: AppModels,
          delegate: WriteReviewPresenterDelegate?) {
-        self.model = model
+//        self.model = model
         self.delegate = delegate
-        super.init(with: provider)
-        self.model.delegate = self
+        super.init(with: provider, model: model)
+        self.model.programSearchModel?.delegate = self
     }
     
     // MARK: - Data
     var numberOfPrograms: Int {
-        return model.numberOfPrograms
+        return model.programSearchModel?.numberOfPrograms ?? 0
     }
     
     func program(at index: Int) -> Program? {
+        guard let model = model.programSearchModel else { return nil }
+        
         if index < model.numberOfPrograms {
             return model.programs[index]
         } else {
@@ -70,11 +72,15 @@ extension ProgramSearchViewPresenter {
         view?.createTouchEvent()
         view?.updateUserInputButtonEnabled(false)
         
-        view?.updateTextFieldPlaceHolder(with: L10n.Localizable.Search.placeholder(model.category.title))
+        if let model = model.programSearchModel {
+            view?.updateTextFieldPlaceHolder(with: L10n.Localizable.Search.placeholder(model.category.title))
+        }
     }
     
     // MARK: - Action
     func userInputButtonTapped() {
+        guard let model = model.programSearchModel else { return }
+        
         if let searchText, searchText.isNotEmpty {
             let program = Program(category: model.category, title: searchText)
             moveWriteReview(with: program)
@@ -90,6 +96,8 @@ extension ProgramSearchViewPresenter {
     }
     
     func searchNextProgram() {
+        guard let model = model.programSearchModel else { return }
+        
         if !model.isLastPrograms {
             view?.updateLoadingView(isLoading: true)
             model.searchNext()
@@ -105,8 +113,9 @@ extension ProgramSearchViewPresenter {
     }
     
     private func moveWriteReview(with program: Program) {
-        let model = WriteReviewModel(provider, program: program)
-        let presenter = WriteReviewViewPresenter(with: provider, model: model, delegate: delegate)
+        let writeReviewModel = WriteReviewModel(provider, program: program)
+        let appModel = AppModels(writeReviewModel: writeReviewModel)
+        let presenter = WriteReviewViewPresenter(with: provider, model: appModel, delegate: delegate)
         view?.moveWriteReview(with: presenter)
     }
     
@@ -125,10 +134,10 @@ extension ProgramSearchViewPresenter {
     
     func textFieldShouldReturn(_ text: String?) -> Bool {
         guard let text,
-              text != model.lastSearchText else { return true }
+              text != model.programSearchModel?.lastSearchText ?? "" else { return true }
         view?.endEditing()
         view?.updateLoadingView(isLoading: true)
-        model.search(text)
+        model.programSearchModel?.search(text)
         return true
     }
 }

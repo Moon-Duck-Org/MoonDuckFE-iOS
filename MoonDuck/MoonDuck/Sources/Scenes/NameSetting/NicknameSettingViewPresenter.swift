@@ -34,20 +34,20 @@ class NicknameSettingViewPresenter: BaseViewPresenter, NicknameSettingPresenter 
     weak var view: NicknameSettingView?
     
     private weak var delegate: NicknameSettingPresenterDelegate?
-    private let model: UserModelType
+//    private let model: UserModelType
     private let isNew: Bool
     
     private let maxNicknameCount: Int = 10
     private var nicknameText: String?
     
     init(with provider: AppServices,
-         model: UserModelType,
+         model: AppModels,
          delegate: NicknameSettingPresenterDelegate?) {
-        self.model = model
+//        self.model = model
         self.delegate = delegate
         self.isNew = delegate == nil
-        super.init(with: provider)
-        self.model.delegate = self
+        super.init(with: provider, model: model)
+        self.model.userModel?.delegate = self
     }
 }
 
@@ -55,7 +55,7 @@ extension NicknameSettingViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         // 닉네임이 세팅
-        let nickname = model.user?.nickname ?? ""
+        let nickname = model.userModel?.user?.nickname ?? ""
         view?.updateCancelButtonHidden(isNew)
         view?.updateNameTextFieldText(with: nickname)
         view?.updateCountLabelText(with: "\(nickname.count)/\(maxNicknameCount)")
@@ -68,14 +68,14 @@ extension NicknameSettingViewPresenter {
     func completeButtonTapped() {
         guard let nicknameText else { return }
         
-        if let userNickname = model.user?.nickname,
+        if let userNickname = model.userModel?.user?.nickname,
             !userNickname.isEmpty,
            nicknameText == userNickname {
             delegate?.nicknameSettingDidCancel(self)
         } else {
             if isValidNickname(nicknameText) {
                 view?.updateLoadingView(isLoading: true)
-                model.nickname(nicknameText)
+                model.userModel?.nickname(nicknameText)
             } else {
                 view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.invalidNameHint)
             }
@@ -93,8 +93,9 @@ extension NicknameSettingViewPresenter {
     }
     
     private func moveLogin() {
-        let model = UserModel(provider)
-        let presenter = LoginViewPresenter(with: provider, model: model)
+        let userModel = UserModel(provider)
+        let appModel = AppModels(userModel: userModel)
+        let presenter = LoginViewPresenter(with: provider, model: appModel)
         view?.moveLogin(with: presenter)
     }
 }
@@ -153,8 +154,9 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
         
         if error.isAuthError {
             AuthManager.shared.logout()
-            let model = UserModel(provider)
-            let presenter = LoginViewPresenter(with: provider, model: model)
+            let userModel = UserModel(provider)
+            let appModel = AppModels(userModel: userModel)
+            let presenter = LoginViewPresenter(with: provider, model: appModel)
             view?.showAuthErrorAlert(with: presenter)
         } else if error.duplicateNickname {
             // 중복된 닉네임
@@ -174,10 +176,11 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
         if let user {
             if isNew {
                 let cateogryModel = CategoryModel()
-                let reviewModel = ReviewListModel(provider)
+                let reviewListModel = ReviewListModel(provider)
                 let sortModel = SortModel()
                 let shareModel = ShareModel(provider)
-                let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel, shareModel: shareModel)
+                let appModels = AppModels(userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewListModel: reviewListModel, shareModel: shareModel)
+                let presenter = HomeViewPresenter(with: provider, model: appModels)
                 view?.moveHome(with: presenter)
             } else {
                 delegate?.nicknameSetting(self, didSuccess: user.nickname)

@@ -21,19 +21,14 @@ protocol MyInfoPresenter: AnyObject {
 
 class MyInfoViewPresenter: BaseViewPresenter, MyInfoPresenter {
     weak var view: MyInfoView?
-    private let model: UserModelType
-    
-    init(with provider: AppServices, model: UserModelType) {
-        self.model = model
-        super.init(with: provider)
-    }
+//    private let model: UserModelType
 }
 
 extension MyInfoViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        if let user = model.user {
+        if let user = model.userModel?.user {
             view?.updateNameLabelText(with: user.nickname)
             view?.updateCountLabels(with: user.all, movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
         } else {
@@ -44,8 +39,9 @@ extension MyInfoViewPresenter {
     
     // MARK: - Action
     func nicknameSettingButtonTapped() {
-        let model = UserModel(provider)
-        model.user = self.model.user
+        let userModel = UserModel(provider)
+        userModel.user = self.model.userModel?.user
+        let model = AppModels(userModel: userModel)
         let presenter = NicknameSettingViewPresenter(with: provider, model: model, delegate: self)
         view?.presentNameSetting(with: presenter)
     }
@@ -56,21 +52,23 @@ extension MyInfoViewPresenter {
     }
     
     func settingButtonTapped() {
-        let model = UserModel(provider)
-        model.user = self.model.user
+        let userModel = UserModel(provider)
+        userModel.user = self.model.userModel?.user
+        let model = AppModels(userModel: userModel)
         let presenter = SettingViewPresenter(with: provider, model: model, delegate: self)
         self.view?.moveSetting(with: presenter)
     }
     
     // MARK: - Logic
     private func moveLogin() {
-        let model = UserModel(provider)
-        let presenter = LoginViewPresenter(with: provider, model: model)
+        let userModel = UserModel(provider)
+        let appModel = AppModels(userModel: userModel)
+        let presenter = LoginViewPresenter(with: provider, model: appModel)
         self.view?.moveLogin(with: presenter)
     }
     
     private func updateNotification() {
-        guard let user = model.user else { return }
+        guard let user = model.userModel?.user else { return }
         
         if user.isPush {
             AppNotification.resetAndScheduleNotification(with: user.nickname)
@@ -84,8 +82,8 @@ extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
         view?.dismiss()
         view?.updateNameLabelText(with: nickname)
         view?.showToastMessage(L10n.Localizable.NicknameSetting.completeToast)
-        model.save(nickname: nickname)
-        updateNotification()        
+        model.userModel?.save(nickname: nickname)
+        updateNotification()
     }
     
     func nicknameSettingDidCancel(_ presenter: NicknameSettingPresenter) {
@@ -96,6 +94,6 @@ extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
 // MARK: - SettingPresenterDelegate
 extension MyInfoViewPresenter: SettingPresenterDelegate {
     func setting(_ presenter: SettingPresenter, didSuccess isPush: Bool) {
-        model.save(isPush: isPush)
+        model.userModel?.save(isPush: isPush)
     }
 }

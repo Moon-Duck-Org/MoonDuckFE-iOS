@@ -22,12 +22,10 @@ protocol IntroPresenter: AnyObject {
 class IntroViewPresenter: BaseViewPresenter, IntroPresenter {
     
     weak var view: IntroView?
-    let model: UserModelType
     
-    init(with provider: AppServices, model: UserModelType) {
-        self.model = model
-        super.init(with: provider)
-        self.model.delegate = self
+    override init(with provider: AppServices, model: AppModels) {
+        super.init(with: provider, model: model)
+        self.model.userModel?.delegate = self
     }
 }
 
@@ -76,7 +74,7 @@ extension IntroViewPresenter {
             if let isHaveNickname, isHaveNickname {
                 if isHaveNickname {
                     // 로그인 성공 시, User 정보 조회
-                    self?.model.getUser()
+                    self?.model.userModel?.getUser()
                     return
                 }
             }
@@ -85,8 +83,9 @@ extension IntroViewPresenter {
     }
     
     private func moveLogin() {
-        let model = UserModel(provider)
-        let presenter = LoginViewPresenter(with: provider, model: model)
+        let userModel = UserModel(provider)
+        let appModel = AppModels(userModel: userModel)
+        let presenter = LoginViewPresenter(with: provider, model: appModel)
         view?.moveLogin(with: presenter)
     }
 }
@@ -102,10 +101,11 @@ extension IntroViewPresenter: UserModelDelegate {
         // User 정보 조회 성공 -> 홈 이동
         if user != nil {
             let cateogryModel = CategoryModel()
+            let reviewListModel = ReviewListModel(provider)
             let sortModel = SortModel()
-            let reviewModel = ReviewListModel(provider)
             let shareModel = ShareModel(provider)
-            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel, shareModel: shareModel)
+            let appModel = AppModels(userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewListModel: reviewListModel, shareModel: shareModel)
+            let presenter = HomeViewPresenter(with: provider, model: appModel)
             self.view?.moveHome(with: presenter)
         }
     }

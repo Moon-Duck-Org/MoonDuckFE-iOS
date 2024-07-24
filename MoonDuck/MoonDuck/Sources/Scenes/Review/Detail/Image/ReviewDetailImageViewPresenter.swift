@@ -32,7 +32,7 @@ class ReviewDetailImageViewPresenter: BaseViewPresenter, ReviewDetailImagePresen
          currentIndex: Int) {
         self.imageUrls = imageUrls
         self.currentPage = currentIndex
-        super.init(with: provider)
+        super.init(with: provider, model: AppModels())
     }
     
     // MARK: - Data
