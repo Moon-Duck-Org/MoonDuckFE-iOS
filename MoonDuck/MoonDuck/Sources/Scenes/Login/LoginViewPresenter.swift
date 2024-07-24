@@ -27,7 +27,6 @@ protocol LoginPresenter: AnyObject {
 final class LoginViewPresenter: BaseViewPresenter, LoginPresenter {
     
     weak var view: LoginView?
-//    let model: UserModelType
     
     override init(with provider: AppServices, model: AppModels) {
         super.init(with: provider, model: model)
@@ -142,8 +141,9 @@ extension LoginViewPresenter {
                     return
                 } else {
                     self.view?.updateLoadingView(isLoading: false)
-                    let userModel = UserModel(provider)
-                    let appModel = AppModels(userModel: userModel)
+                    let appModel = AppModels(
+                        userModel: UserModel(provider)
+                    )
                     let presenter = NicknameSettingViewPresenter(with: self.provider, model: appModel, delegate: nil)
                     self.view?.moveNameSetting(with: presenter)
                     return
@@ -181,11 +181,13 @@ extension LoginViewPresenter: UserModelDelegate {
         // User 정보 조회 성공 -> 홈 이동
         view?.updateLoadingView(isLoading: false)
         if user != nil {
-            let cateogryModel = CategoryModel()
-            let reviewListModel = ReviewListModel(provider)
-            let sortModel = SortModel()
-            let shareModel = ShareModel(provider)
-            let appModel = AppModels(userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewListModel: reviewListModel, shareModel: shareModel)
+            let appModel = AppModels(
+                userModel: model,
+                categoryModel: CategoryModel(),
+                sortModel: SortModel(),
+                reviewListModel: ReviewListModel(provider),
+                shareModel: ShareModel(provider)
+            )
             let presenter = HomeViewPresenter(with: provider, model: appModel)
             view?.moveHome(with: presenter)
         }

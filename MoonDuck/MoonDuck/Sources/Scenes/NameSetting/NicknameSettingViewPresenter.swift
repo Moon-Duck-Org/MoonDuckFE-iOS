@@ -34,7 +34,6 @@ class NicknameSettingViewPresenter: BaseViewPresenter, NicknameSettingPresenter 
     weak var view: NicknameSettingView?
     
     private weak var delegate: NicknameSettingPresenterDelegate?
-//    private let model: UserModelType
     private let isNew: Bool
     
     private let maxNicknameCount: Int = 10
@@ -43,7 +42,6 @@ class NicknameSettingViewPresenter: BaseViewPresenter, NicknameSettingPresenter 
     init(with provider: AppServices,
          model: AppModels,
          delegate: NicknameSettingPresenterDelegate?) {
-//        self.model = model
         self.delegate = delegate
         self.isNew = delegate == nil
         super.init(with: provider, model: model)
@@ -93,8 +91,9 @@ extension NicknameSettingViewPresenter {
     }
     
     private func moveLogin() {
-        let userModel = UserModel(provider)
-        let appModel = AppModels(userModel: userModel)
+        let appModel = AppModels(
+            userModel: UserModel(provider)
+        )
         let presenter = LoginViewPresenter(with: provider, model: appModel)
         view?.moveLogin(with: presenter)
     }
@@ -154,8 +153,9 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
         
         if error.isAuthError {
             AuthManager.shared.logout()
-            let userModel = UserModel(provider)
-            let appModel = AppModels(userModel: userModel)
+            let appModel = AppModels(
+                userModel: UserModel(provider)
+            )
             let presenter = LoginViewPresenter(with: provider, model: appModel)
             view?.showAuthErrorAlert(with: presenter)
         } else if error.duplicateNickname {
@@ -175,12 +175,14 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
         
         if let user {
             if isNew {
-                let cateogryModel = CategoryModel()
-                let reviewListModel = ReviewListModel(provider)
-                let sortModel = SortModel()
-                let shareModel = ShareModel(provider)
-                let appModels = AppModels(userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewListModel: reviewListModel, shareModel: shareModel)
-                let presenter = HomeViewPresenter(with: provider, model: appModels)
+                let appModel = AppModels(
+                    userModel: model,
+                    categoryModel: CategoryModel(),
+                    sortModel: SortModel(),
+                    reviewListModel: ReviewListModel(provider),
+                    shareModel: ShareModel(provider)
+                )
+                let presenter = HomeViewPresenter(with: provider, model: appModel)
                 view?.moveHome(with: presenter)
             } else {
                 delegate?.nicknameSetting(self, didSuccess: user.nickname)

@@ -139,8 +139,9 @@ extension SettingViewPresenter: UserModelDelegate {
         
         if error.isAuthError {
             AuthManager.shared.logout()
-            let userModel = UserModel(provider)
-            let appModel = AppModels(userModel: userModel)
+            let appModel = AppModels(
+                userModel: UserModel(provider)
+            )
             let presenter = LoginViewPresenter(with: provider, model: appModel)
             view?.showAuthErrorAlert(with: presenter)
         } else if error.isNetworkError {

@@ -35,7 +35,6 @@ protocol ProgramSearchPresenter: AnyObject {
 class ProgramSearchViewPresenter: BaseViewPresenter, ProgramSearchPresenter {
     weak var view: ProgramSearchView?
     
-//    private let model: ProgramSearchModelType
     private weak var delegate: WriteReviewPresenterDelegate?
     
     private var searchText: String?
@@ -43,7 +42,6 @@ class ProgramSearchViewPresenter: BaseViewPresenter, ProgramSearchPresenter {
     init(with provider: AppServices,
          model: AppModels,
          delegate: WriteReviewPresenterDelegate?) {
-//        self.model = model
         self.delegate = delegate
         super.init(with: provider, model: model)
         self.model.programSearchModel?.delegate = self
@@ -113,8 +111,9 @@ extension ProgramSearchViewPresenter {
     }
     
     private func moveWriteReview(with program: Program) {
-        let writeReviewModel = WriteReviewModel(provider, program: program)
-        let appModel = AppModels(writeReviewModel: writeReviewModel)
+        let appModel = AppModels(
+            writeReviewModel: WriteReviewModel(provider, program: program)
+        )
         let presenter = WriteReviewViewPresenter(with: provider, model: appModel, delegate: delegate)
         view?.moveWriteReview(with: presenter)
     }

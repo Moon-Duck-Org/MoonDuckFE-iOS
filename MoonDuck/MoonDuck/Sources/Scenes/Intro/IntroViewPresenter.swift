@@ -83,8 +83,9 @@ extension IntroViewPresenter {
     }
     
     private func moveLogin() {
-        let userModel = UserModel(provider)
-        let appModel = AppModels(userModel: userModel)
+        let appModel = AppModels(
+            userModel: UserModel(provider)
+        )
         let presenter = LoginViewPresenter(with: provider, model: appModel)
         view?.moveLogin(with: presenter)
     }
@@ -100,11 +101,13 @@ extension IntroViewPresenter: UserModelDelegate {
     func userModel(_ model: UserModelType, didChange user: User?) {
         // User 정보 조회 성공 -> 홈 이동
         if user != nil {
-            let cateogryModel = CategoryModel()
-            let reviewListModel = ReviewListModel(provider)
-            let sortModel = SortModel()
-            let shareModel = ShareModel(provider)
-            let appModel = AppModels(userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewListModel: reviewListModel, shareModel: shareModel)
+            let appModel = AppModels(
+                userModel: model,
+                categoryModel: CategoryModel(),
+                sortModel: SortModel(),
+                reviewListModel: ReviewListModel(provider),
+                shareModel: ShareModel(provider)
+            )
             let presenter = HomeViewPresenter(with: provider, model: appModel)
             self.view?.moveHome(with: presenter)
         }

@@ -56,8 +56,10 @@ extension WithdrawViewPresenter: UserModelDelegate {
         view?.updateLoadingView(isLoading: false)
         AuthManager.shared.withDraw()
         
-        let model = AppModels(userModel: UserModel(provider))
-        let presenter = IntroViewPresenter(with: provider, model: model)
+        let appModel = AppModels(
+            userModel: UserModel(provider)
+        )
+        let presenter = IntroViewPresenter(with: provider, model: appModel)
         view?.showComplteWithDrawAlert(with: presenter)
     }
 }

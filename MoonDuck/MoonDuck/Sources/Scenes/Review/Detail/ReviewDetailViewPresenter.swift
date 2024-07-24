@@ -52,8 +52,9 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     func writeReviewHandler() -> (() -> Void)? {
         return { [weak self] in
             guard let self else { return }
-            let writeReviewModel = WriteReviewModel(self.provider, review: review)
-            let appModel = AppModels(writeReviewModel: writeReviewModel)
+            let appModel = AppModels(
+                writeReviewModel: WriteReviewModel(self.provider, review: review)
+            )
             let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self)
             view?.moveWriteReview(with: presenter)
         }
@@ -131,8 +132,9 @@ extension ReviewDetailViewPresenter: ShareModelDelegate {
         if let error {
             if error.isAuthError {
                 AuthManager.shared.logout()
-                let userModel = UserModel(provider)
-                let appModel = AppModels(userModel: userModel)
+                let appModel = AppModels(
+                    userModel: UserModel(provider)
+                )
                 let presenter = LoginViewPresenter(with: provider, model: appModel)
                 view?.showAuthErrorAlert(with: presenter)
                 return

@@ -26,13 +26,11 @@ protocol SelectProgramPresenter: AnyObject {
 
 class SelectProgramViewPresenter: BaseViewPresenter, SelectProgramPresenter {
     weak var view: SelectProgramView?
-//    private let categoryModel: CategoryModelType
     private weak var delegate: WriteReviewPresenterDelegate?
     
     init(with provider: AppServices,
          model: AppModels,
          delegate: WriteReviewPresenterDelegate?) {
-//        self.categoryModel = categoryModel
         self.delegate = delegate
         super.init(with: provider, model: model)
         self.model.categoryModel?.delegate = self
@@ -65,8 +63,10 @@ extension SelectProgramViewPresenter {
     
     func nextButtonTapped() {
         guard let selectedCategory = model.categoryModel?.selectedCategory else { return }
-        let model = AppModels(programSearchModel: ProgramSearchModel(provider, category: selectedCategory))
-        let presenter = ProgramSearchViewPresenter(with: provider, model: model, delegate: delegate)
+        let appModel = AppModels(
+            programSearchModel: ProgramSearchModel(provider, category: selectedCategory)
+        )
+        let presenter = ProgramSearchViewPresenter(with: provider, model: appModel, delegate: delegate)
         view?.moveProgramSearch(with: presenter)
     }
 }

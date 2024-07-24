@@ -41,8 +41,10 @@ extension MyInfoViewPresenter {
     func nicknameSettingButtonTapped() {
         let userModel = UserModel(provider)
         userModel.user = self.model.userModel?.user
-        let model = AppModels(userModel: userModel)
-        let presenter = NicknameSettingViewPresenter(with: provider, model: model, delegate: self)
+        let appModel = AppModels(
+            userModel: userModel
+        )
+        let presenter = NicknameSettingViewPresenter(with: provider, model: appModel, delegate: self)
         view?.presentNameSetting(with: presenter)
     }
     
@@ -54,15 +56,18 @@ extension MyInfoViewPresenter {
     func settingButtonTapped() {
         let userModel = UserModel(provider)
         userModel.user = self.model.userModel?.user
-        let model = AppModels(userModel: userModel)
-        let presenter = SettingViewPresenter(with: provider, model: model, delegate: self)
+        let appModel = AppModels(
+            userModel: userModel
+        )
+        let presenter = SettingViewPresenter(with: provider, model: appModel, delegate: self)
         self.view?.moveSetting(with: presenter)
     }
     
     // MARK: - Logic
     private func moveLogin() {
-        let userModel = UserModel(provider)
-        let appModel = AppModels(userModel: userModel)
+        let appModel = AppModels(
+            userModel: UserModel(provider)
+        )
         let presenter = LoginViewPresenter(with: provider, model: appModel)
         self.view?.moveLogin(with: presenter)
     }

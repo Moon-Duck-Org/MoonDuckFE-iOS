@@ -92,8 +92,9 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     func writeReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
             guard let self else { return }
-            let writeReviewModel = WriteReviewModel(self.provider, review: review)
-            let appModel = AppModels(writeReviewModel: writeReviewModel)
+            let appModel = AppModels(
+                writeReviewModel:  WriteReviewModel(self.provider, review: review)
+            )
             let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self)
             view?.moveWriteReview(with: presenter)
         }
@@ -119,9 +120,10 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
         return { [weak self] in
             guard let self else { return }
             let handler = self.deleteReviewHandler(for: review)
-            let reviewModel = ReviewModel(self.provider, review: review, deleteReviewHandler: handler)
-            let shareModel = ShareModel(self.provider)
-            let model = AppModels(reviewModel: reviewModel, shareModel: shareModel)
+            let appModel = AppModels(
+                reviewModel: ReviewModel(self.provider, review: review, deleteReviewHandler: handler),
+                shareModel: ShareModel(self.provider)
+            )
             let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
             view?.moveReviewDetail(with: presenter)
         }
@@ -149,10 +151,11 @@ extension HomeViewPresenter {
         if let category = model.categoryModel?.selectedCategory,
            let review = model.reviewListModel?.review(with: category, at: index) {
             let handler = deleteReviewHandler(for: review)
-            let reviewModel = ReviewModel(provider, review: review, deleteReviewHandler: handler)
-            let shareModel = ShareModel(self.provider)
-            let model = AppModels(reviewModel: reviewModel, shareModel: shareModel)
-            let presenter = ReviewDetailViewPresenter(with: provider, model: model, delegate: self)
+            let appModel = AppModels(
+                reviewModel: ReviewModel(provider, review: review, deleteReviewHandler: handler),
+                shareModel: ShareModel(provider)
+            )
+            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, delegate: self)
             view?.moveReviewDetail(with: presenter)
         }
     }
@@ -160,8 +163,10 @@ extension HomeViewPresenter {
     func myButtonTapped() {
         model.userModel?.getUser()
         
-        let model = AppModels(userModel: model.userModel)
-        let presenter = MyInfoViewPresenter(with: provider, model: model)
+        let appModel = AppModels(
+            userModel: model.userModel
+        )
+        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
         view?.moveMy(with: presenter)
     }
     
@@ -171,8 +176,10 @@ extension HomeViewPresenter {
            category != .all {
             categoryModel.selectedCategory = category
         }
-        let model = AppModels(categoryModel: categoryModel)
-        let presenter = SelectProgramViewPresenter(with: provider, model: model, delegate: self)
+        let appModel = AppModels(
+            categoryModel: categoryModel
+        )
+        let presenter = SelectProgramViewPresenter(with: provider, model: appModel, delegate: self)
         view?.moveSelectProgram(with: presenter)
     }
     
@@ -230,8 +237,10 @@ extension HomeViewPresenter {
     }
     
     private func moveMyInfo(with userModel: UserModel) {
-        let model = AppModels(userModel: userModel)
-        let presenter = MyInfoViewPresenter(with: provider, model: model)
+        let appModel = AppModels(
+            userModel: userModel
+        )
+        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
         view?.moveMy(with: presenter)
     }
     
@@ -251,8 +260,9 @@ extension HomeViewPresenter: UserModelDelegate {
         
         if error.isAuthError {
             AuthManager.shared.logout()
-            let userModel = UserModel(provider)
-            let appModel = AppModels(userModel: userModel)
+            let appModel = AppModels(
+                userModel: UserModel(provider)
+            )
             let presenter = LoginViewPresenter(with: provider, model: appModel)
             view?.showAuthErrorAlert(with: presenter)
         }
@@ -320,8 +330,9 @@ extension HomeViewPresenter: ReviewListModelDelegate {
         if let error {
             if error.isAuthError {
                 AuthManager.shared.logout()
-                let userModel = UserModel(provider)
-                let appModel = AppModels(userModel: userModel)
+                let appModel = AppModels(
+                    userModel: UserModel(provider)
+                )
                 let presenter = LoginViewPresenter(with: provider, model: appModel)
                 view?.showAuthErrorAlert(with: presenter)
                 return
@@ -385,8 +396,9 @@ extension HomeViewPresenter: ShareModelDelegate {
         if let error {
             if error.isAuthError {
                 AuthManager.shared.logout()
-                let userModel = UserModel(provider)
-                let appModel = AppModels(userModel: userModel)
+                let appModel = AppModels(
+                    userModel: UserModel(provider)
+                )
                 let presenter = LoginViewPresenter(with: provider, model: appModel)
                 view?.showAuthErrorAlert(with: presenter)
                 return
