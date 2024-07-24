@@ -21,6 +21,8 @@ enum APIError: Error, Equatable, LocalizedError {
     case invalidProgram(_ message: String?)
     case fileProcessing(_ message: String?)
     case imageSizeLimitExceeded(_ message: String?)
+    case revokeTokenGenerationFailed(_ message: String?)
+    case invalidRefreshToken(_ message: String?)
 
     // ERROR
     case auth
@@ -54,6 +56,10 @@ enum APIError: Error, Equatable, LocalizedError {
             return message
         case let .duplicateNickname(message):
             return message
+        case let .revokeTokenGenerationFailed(message):
+            return message
+        case let .invalidRefreshToken(message):
+            return message
             
         case .auth:
             return "사용자 인증 오류 발생"
@@ -85,7 +91,14 @@ enum APIError: Error, Equatable, LocalizedError {
     
     var isAuthError: Bool {
         switch self {
-        case .invalidToken, .missingToken, .missingUser, .auth: return true
+        case .invalidToken, .missingToken, .missingUser, .auth, .invalidRefreshToken: return true
+        default: return false
+        }
+    }
+    
+    var isRevokeTokenError: Bool {
+        switch self {
+        case .revokeTokenGenerationFailed: return true
         default: return false
         }
     }
@@ -96,6 +109,7 @@ enum APIError: Error, Equatable, LocalizedError {
         default: return false
         }
     }
+    
     
     var isReviewError: Bool {
         switch self {
@@ -129,6 +143,10 @@ enum APIError: Error, Equatable, LocalizedError {
         case "AU003": self = .expiredToken(error.message)
             // 유효하지 않은 토큰
         case "AU005": self = .invalidToken(error.message)
+            // Revoke Token 생성 실패
+        case "AU007": self = .revokeTokenGenerationFailed(error.message)
+            // 유효하지 않은 Refresh Token
+        case "AU008": self = .invalidRefreshToken(error.message)
             // 존재하지 않는 유저
         case "US001": self = .missingUser(error.message)
             // 중복된 닉네임
