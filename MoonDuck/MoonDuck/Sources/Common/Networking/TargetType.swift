@@ -76,7 +76,7 @@ extension TargetType {
     }
     
     private func refreshTokenAndRetryRequest<T: Decodable>(responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
-        AuthManager.default.refreshToken { success, error in
+        AuthManager.shared.refreshToken { success, error in
             if let error {
                 // 토큰 재발급 실패 시 오류 반환
                 completion(.failure(error))
@@ -160,7 +160,7 @@ extension TargetType {
     }
     
     private func refreshTokenAndRetryUpload<T: Decodable>(responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
-        AuthManager.default.refreshToken { success, error in
+        AuthManager.shared.refreshToken { success, error in
             if let error {
                 // 토큰 재발급 실패 시 오류 반환
                 completion(.failure(error))

@@ -126,7 +126,7 @@ extension LoginViewPresenter {
     
     private func login(_ auth: Auth) {
         view?.updateLoadingView(isLoading: true)
-        AuthManager.default.login(auth: auth) { [weak self] isHaveNickname, failed in
+        AuthManager.shared.login(auth: auth) { [weak self] isHaveNickname, failed in
             guard let self else {
                 self?.view?.updateLoadingView(isLoading: false)
                 return
@@ -173,7 +173,7 @@ extension LoginViewPresenter: UserModelDelegate {
     
     func userModel(_ model: UserModelType, didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         
         if let error {
             if error.isNetworkError {
@@ -190,13 +190,13 @@ extension LoginViewPresenter: UserModelDelegate {
     
     func userModelDidFailLogin(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         loginError()
     }
     
     func userModelDidAuthError(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         loginError()
     }
 }

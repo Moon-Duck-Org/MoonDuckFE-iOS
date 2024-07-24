@@ -166,7 +166,7 @@ extension SettingViewPresenter: UserModelDelegate {
     
     func userModelDidAuthError(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         let model = UserModel(provider)
         let presenter = LoginViewPresenter(with: provider, model: model)
         view?.showAuthErrorAlert(with: presenter)

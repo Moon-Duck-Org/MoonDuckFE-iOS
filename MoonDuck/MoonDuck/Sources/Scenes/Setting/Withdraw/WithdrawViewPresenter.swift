@@ -50,7 +50,7 @@ extension WithdrawViewPresenter {
 extension WithdrawViewPresenter: UserModelDelegate {
     func userModelDidAuthError(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         let model = UserModel(provider)
         let presenter = LoginViewPresenter(with: provider, model: model)
         view?.showAuthErrorAlert(with: presenter)
@@ -63,7 +63,7 @@ extension WithdrawViewPresenter: UserModelDelegate {
     
     func userModel(_ model: UserModelType, didChange user: User?) {
         view?.updateLoadingView(isLoading: false)
-        AuthManager.default.withDraw()
+        AuthManager.shared.withDraw()
         
         let presenter = IntroViewPresenter(with: provider, model: model)
         view?.showComplteWithDrawAlert(with: presenter)

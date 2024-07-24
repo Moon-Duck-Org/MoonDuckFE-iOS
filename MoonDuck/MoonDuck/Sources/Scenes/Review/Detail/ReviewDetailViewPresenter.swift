@@ -130,7 +130,7 @@ extension ReviewDetailViewPresenter: ShareModelDelegate {
         view?.updateLoadingView(isLoading: false)
         if let error {
             if error.isAuthError {
-                AuthManager.default.logout()
+                AuthManager.shared.logout()
                 let model = UserModel(provider)
                 let presenter = LoginViewPresenter(with: provider, model: model)
                 view?.showAuthErrorAlert(with: presenter)

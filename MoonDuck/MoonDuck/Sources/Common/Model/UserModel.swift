@@ -131,6 +131,7 @@ class UserModel: UserModelType {
             if let succeed {
                 // User 정보 조회 성공
                 self.save(user: succeed)
+                AuthManager.shared.saveUserId(succeed.userId)
             } else {
                 // 오류 발생
                 if failed?.isAuthError ?? false {

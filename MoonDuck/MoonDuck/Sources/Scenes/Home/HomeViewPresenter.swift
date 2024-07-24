@@ -250,7 +250,7 @@ extension HomeViewPresenter {
 extension HomeViewPresenter: UserModelDelegate {
     func userModelDidAuthError(_ model: UserModelType) {
         view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         let model = UserModel(provider)
         let presenter = LoginViewPresenter(with: provider, model: model)
         view?.showAuthErrorAlert(with: presenter)
@@ -317,7 +317,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
         view?.updateLoadingView(isLoading: false)
         if let error {
             if error.isAuthError {
-                AuthManager.default.logout()
+                AuthManager.shared.logout()
                 let model = UserModel(provider)
                 let presenter = LoginViewPresenter(with: provider, model: model)
                 view?.showAuthErrorAlert(with: presenter)
@@ -381,7 +381,7 @@ extension HomeViewPresenter: ShareModelDelegate {
         view?.updateLoadingView(isLoading: false)
         if let error {
             if error.isAuthError {
-                AuthManager.default.logout()
+                AuthManager.shared.logout()
                 let model = UserModel(provider)
                 let presenter = LoginViewPresenter(with: provider, model: model)
                 view?.showAuthErrorAlert(with: presenter)

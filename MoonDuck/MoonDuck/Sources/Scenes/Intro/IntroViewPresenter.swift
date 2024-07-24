@@ -63,7 +63,7 @@ extension IntroViewPresenter {
     }
     
     private func checkAutoLogin() {
-        if let auth = AuthManager.default.getAutoLoginAuth() {
+        if let auth = AuthManager.shared.getAutoLoginAuth() {
             // 자동 로그인 정보 있으면 로그인 시도
             login(auth)
         } else {
@@ -72,7 +72,7 @@ extension IntroViewPresenter {
     }
     
     private func login(_ auth: Auth) {
-        AuthManager.default.login(auth: auth) { [weak self] isHaveNickname, _ in
+        AuthManager.shared.login(auth: auth) { [weak self] isHaveNickname, _ in
             if let isHaveNickname, isHaveNickname {
                 if isHaveNickname {
                     // 로그인 성공 시, User 정보 조회
@@ -107,22 +107,22 @@ extension IntroViewPresenter: UserModelDelegate {
     }
     
     func userModel(_ model: UserModelType, didRecieve error: APIError?) {
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         moveLogin()
     }
     
     func userModelDidFailLogin(_ model: UserModelType) {
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         moveLogin()
     }
     
     func userModelDidFailFetchingUser(_ model: UserModelType) {
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         moveLogin()
     }
     
     func userModelDidAuthError(_ model: UserModelType) {
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         moveLogin()
     }
 }

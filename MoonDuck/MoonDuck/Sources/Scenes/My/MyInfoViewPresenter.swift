@@ -37,7 +37,7 @@ extension MyInfoViewPresenter {
             view?.updateNameLabelText(with: user.nickname)
             view?.updateCountLabels(with: user.all, movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
         } else {
-            AuthManager.default.logout()
+            AuthManager.shared.logout()
             moveLogin()
         }
     }
@@ -51,7 +51,7 @@ extension MyInfoViewPresenter {
     }
     
     func logoutButtonTapped() {
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         moveLogin()
     }
     
