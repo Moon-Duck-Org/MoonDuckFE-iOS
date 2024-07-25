@@ -41,8 +41,11 @@ extension AppDelegate {
         open url: URL, 
         options: [UIApplication.OpenURLOptionsKey: Any] = [:]
     ) -> Bool {
-        var handled: Bool
+        if url.scheme == Constants.appScheme {
+            return true
+        }
         
+        var handled: Bool        
         handled = GIDSignIn.sharedInstance.handle(url)
         if handled {
             // Handle other custom URL types.

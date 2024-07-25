@@ -94,7 +94,7 @@ class Utils {
     }
     
     static func moveAppStore() {
-        if let appStoreURL = URL(string: "https://apps.apple.com/app/id6502997117") {
+        if let appStoreURL = URL(string: "https://apps.apple.com/app/\(Constants.appStoreId)") {
             DispatchQueue.main.async {
                 UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
             }

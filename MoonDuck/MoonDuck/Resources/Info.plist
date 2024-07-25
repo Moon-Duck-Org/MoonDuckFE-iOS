@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BaseURL</key>
+	<string>$(BASE_URL)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -24,7 +26,19 @@
 				<string>com.googleusercontent.apps.696736038970-a9f5iou77c31lnisphaaodals3op665t</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>MoonDuck</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>moonduck</string>
+			</array>
+		</dict>
 	</array>
+	<key>KakaoAppKey</key>
+	<string>$(KAKAO_APP_KEY)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaolink</string>
@@ -35,6 +49,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>SearchBookApiId</key>
+	<string>$(SEARCH_BOOK_API_ID)</string>
+	<key>SearchBookApiKey</key>
+	<string>$(SEARCH_BOOK_API_KEY)</string>
+	<key>SearchConcertApiKey</key>
+	<string>$(SEARCH_CONCERT_API_KEY)</string>
+	<key>SearchDramaApiKey</key>
+	<string>$(SEARCH_DRAMA_API_KEY)</string>
+	<key>SearchMovieApiKey</key>
+	<string>$(SEARCH_MOVIE_API_KEY)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansCJKkr-Black.otf</string>
@@ -58,19 +82,5 @@
 			</array>
 		</dict>
 	</dict>
-    <key>BaseURL</key>
-    <string>$(BASE_URL)</string>
-    <key>KakaoAppKey</key>
-    <string>$(KAKAO_APP_KEY)</string>
-    <key>SearchMovieApiKey</key>
-    <string>$(SEARCH_MOVIE_API_KEY)</string>
-    <key>SearchConcertApiKey</key>
-    <string>$(SEARCH_CONCERT_API_KEY)</string>
-    <key>SearchDramaApiKey</key>
-    <string>$(SEARCH_DRAMA_API_KEY)</string>
-    <key>SearchBookApiId</key>
-    <string>$(SEARCH_BOOK_API_ID)</string>
-    <key>SearchBookApiKey</key>
-    <string>$(SEARCH_BOOK_API_KEY)</string>
 </dict>
 </plist>

@@ -12,6 +12,8 @@ class Constants {
     
     static let appLanguage: String = "ko_KR"
     static let appMail: String = "poduck405@gmail.com"
+    static let appScheme: String = "moonduck"
+    static let appStoreId: String = "id6502997117"
     
     static let kakaoAppKey: String = Bundle.main.object(forInfoDictionaryKey: "KakaoAppKey") as? String ?? ""
     static let searchMovieKey: String = Bundle.main.object(forInfoDictionaryKey: "SearchMovieApiKey") as? String ?? ""
