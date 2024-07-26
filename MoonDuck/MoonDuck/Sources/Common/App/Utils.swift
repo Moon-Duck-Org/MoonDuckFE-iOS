@@ -192,12 +192,6 @@ class Utils {
         }
     }
     
-    static func requestReview() {
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-            SKStoreReviewController.requestReview(in: windowScene)
-        }
-    }
-    
     static func showSystemShare(_ viewController: UIViewController, url: URL) {
         DispatchQueue.main.async {
             // UIActivityViewController 생성
@@ -249,6 +243,23 @@ class Utils {
         }
         
         return false
-        #endif
+#endif
+    }
+    
+    static func requestAppReview() {
+        let maxRequestCount = 2
+        let currentCount = AppUserDefaults.getObject(forKey: .appReviewRequestCount) as? Int ?? 0
+        
+        guard currentCount < maxRequestCount else {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                SKStoreReviewController.requestReview(in: scene)
+                
+                AppUserDefaults.set(currentCount + 1, forKey: .appReviewRequestCount)
+            }
+        }
     }
 }

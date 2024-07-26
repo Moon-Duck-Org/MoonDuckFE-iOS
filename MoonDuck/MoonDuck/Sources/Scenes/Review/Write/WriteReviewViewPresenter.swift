@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol WriteReviewPresenterDelegate: AnyObject {
-    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review)
+    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool)
     func writeReviewDidCancel(_ presenter: WriteReviewPresenter)
 }
 
@@ -52,7 +52,7 @@ protocol WriteReviewPresenter: AnyObject {
 class WriteReviewViewPresenter: BaseViewPresenter, WriteReviewPresenter {
     
     weak var view: WriteReviewView?
-//    private var model: WriteReviewModelType
+    
     private weak var delegate: WriteReviewPresenterDelegate?
     
     private struct Config {
@@ -313,7 +313,8 @@ extension WriteReviewViewPresenter {
 extension WriteReviewViewPresenter: WriteReviewModelDelegate {
     func writeReviewModel(_ model: WriteReviewModelType, didSuccess review: Review) {
         view?.updateLoadingView(isLoading: false)
-        delegate?.writeReview(self, didSuccess: review)
+        
+        delegate?.writeReview(self, didSuccess: review, isNewWrite: model.isNewWrite)
     }
     
     func writeReviewModel(_ model: WriteReviewModelType, didRecieve error: APIError?) {

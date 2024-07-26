@@ -40,12 +40,7 @@ protocol HomePresenter: AnyObject {
 class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     
     weak var view: HomeView?
-//    private let userModel: UserModelType
-//    private let categoryModel: CategoryModelType
-//    private let sortModel: SortModelType
-//    private let reviewModel: ReviewListModelType
-//    private let shareModel: ShareModelType
-//    
+    
     private var reloadCategoryTrigger: [Category] = []
     
     override init(with provider: AppServices, model: AppModels) {
@@ -196,6 +191,16 @@ extension HomeViewPresenter {
     }
     
     // MARK: - Logic
+    private func incrementWriteReviewCount() {
+        let currentCount = AppUserDefaults.getObject(forKey: .writeReviewCount) as? Int ?? 0
+        let newCount = currentCount + 1
+        AppUserDefaults.set(newCount, forKey: .writeReviewCount)
+        
+        if newCount == 3 {
+            Utils.requestAppReview()
+        }
+    }
+    
     private func checkNotificationAuthorization() {
         AppNotification.getNotificationSettingStatus { [weak self] status in
             if status == .notDetermined {
@@ -203,6 +208,7 @@ extension HomeViewPresenter {
             }
         }
     }
+    
     private func updateNotification() {
         guard let user = model.userModel?.user else { return }
         
@@ -247,6 +253,17 @@ extension HomeViewPresenter {
     private func setReloadCategoryTrigger(with category: Category) {
         if !reloadCategoryTrigger.contains(category) {
             reloadCategoryTrigger.append(category)
+        }
+    }
+    
+    private func reloadData(with review: Review) {
+        model.categoryModel?.reloadCategory()
+        model.sortModel?.reloadSortOption()
+        model.userModel?.createReview(category: review.category)
+        setReloadCategoryTrigger(with: review.category)
+        if let selectedCategory = model.categoryModel?.selectedCategory {
+            view?.updateLoadingView(isLoading: true)
+            model.reviewListModel?.reloadReviews(with: selectedCategory, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
         }
     }
 }
@@ -416,20 +433,16 @@ extension HomeViewPresenter: ShareModelDelegate {
 
 // MARK: - WriteReviewPresenterDelegate
 extension HomeViewPresenter: WriteReviewPresenterDelegate {
-    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review) {
+    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
         view?.updateLoadingView(isLoading: false)
         view?.popToSelf()
         
-        model.categoryModel?.reloadCategory()
-        model.sortModel?.reloadSortOption()
-        model.userModel?.createReview(category: review.category)
-        setReloadCategoryTrigger(with: review.category)
-        if let selectedCategory = model.categoryModel?.selectedCategory {
-            view?.updateLoadingView(isLoading: true)
-            model.reviewListModel?.reloadReviews(with: selectedCategory, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
-        }
-        
+        reloadData(with: review)
         view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
+        
+        if isNewWrite {
+            incrementWriteReviewCount()
+        }
     }
     
     func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
@@ -440,13 +453,6 @@ extension HomeViewPresenter: WriteReviewPresenterDelegate {
 // MARK: - ReviewDetailPresenterDelegate
 extension HomeViewPresenter: ReviewDetailPresenterDelegate {
     func reviewDetail(_ presenter: ReviewDetailPresenter, didWrite review: Review) {
-        model.categoryModel?.reloadCategory()
-        model.sortModel?.reloadSortOption()
-        model.userModel?.createReview(category: review.category)
-        setReloadCategoryTrigger(with: review.category)
-        if let selectedCategory = model.categoryModel?.selectedCategory {
-            view?.updateLoadingView(isLoading: true)
-            model.reviewListModel?.reloadReviews(with: selectedCategory, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
-        }
+        reloadData(with: review)
     }
 }

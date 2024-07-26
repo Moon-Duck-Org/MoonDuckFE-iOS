@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         KakaoSDK.initSDK(appKey: Constants.kakaoAppKey)
+        
+        incrementAppOpenCount()
         return true
     }
     
@@ -54,5 +56,15 @@ extension AppDelegate {
         
         // If not handled by this app, return false.
         return false
+    }
+    
+    private func incrementAppOpenCount() {
+        let currentCount = AppUserDefaults.getObject(forKey: .appOpenCount) as? Int ?? 0
+        let newCount = currentCount + 1
+        AppUserDefaults.set(newCount, forKey: .appOpenCount)
+        
+        if newCount == 5 {
+            Utils.requestAppReview()
+        }
     }
 }

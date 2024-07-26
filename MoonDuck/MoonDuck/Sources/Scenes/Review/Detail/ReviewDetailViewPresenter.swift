@@ -152,7 +152,7 @@ extension ReviewDetailViewPresenter: ShareModelDelegate {
 
 // MARK: - WriteReviewPresenterDelegate
 extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
-    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review) {
+    func writeReview(_ presenter: any WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
         view?.updateLoadingView(isLoading: false)
         
         delegate?.reviewDetail(self, didWrite: review)
