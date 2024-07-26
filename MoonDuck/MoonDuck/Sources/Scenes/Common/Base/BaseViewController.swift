@@ -92,20 +92,53 @@ class BaseViewController: UIViewController, Navigatable {
     }
     
     func showAuthErrorAlert(with presenter: LoginPresenter) {
-        AppAlert.default.showAuthError(self) { [weak self] in
-            self?.moveLogin(with: presenter)
+        if isRoot() {
+            AppAlert.default.showAuthError(self) { [weak self] in
+                self?.moveLogin(with: presenter)
+            }
         }
     }
     
     func showNetworkErrorAlert() {
-        AppAlert.default.showNetworkError(self)
+        if isRoot() {
+            AppAlert.default.showNetworkError(self)
+        }
     }
     
     func showSystemErrorAlert() {
-        AppAlert.default.showSystemErrorAlert(self)
+        if isRoot() {
+            AppAlert.default.showSystemErrorAlert(self)
+        }
     }
     
     func showErrorAlert(title: String = "", message: String = "") {
-        AppAlert.default.showDone(self, title: title, message: message)
+        if isRoot() {
+            AppAlert.default.showDone(self, title: title, message: message)
+        }
+    }
+    
+    func isRoot() -> Bool {
+        if let topVC = UIApplication.topViewController() {
+            return topVC == self
+        }
+        return true
+    }
+}
+extension UIApplication {
+    class func topViewController(base: UIViewController? = {
+        let scene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
+        return scene?.windows.first(where: { $0.isKeyWindow })?.rootViewController
+    }()) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return topViewController(base: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
+            return topViewController(base: selected)
+        }
+        if let presented = base?.presentedViewController {
+            return topViewController(base: presented)
+        }
+        return base
     }
 }

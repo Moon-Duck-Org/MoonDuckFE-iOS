@@ -282,13 +282,12 @@ extension HomeViewPresenter: UserModelDelegate {
             )
             let presenter = LoginViewPresenter(with: provider, model: appModel)
             view?.showAuthErrorAlert(with: presenter)
-            return
         } else if error.isNetworkError {
             view?.showNetworkErrorAlert()
-            return
         } else if error.isSystemError {
             view?.showSystemErrorAlert()
-            return
+        } else {
+            view?.showSystemErrorAlert()
         }
     }
 }
