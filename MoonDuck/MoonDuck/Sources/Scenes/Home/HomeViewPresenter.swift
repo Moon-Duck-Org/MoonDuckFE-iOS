@@ -282,6 +282,13 @@ extension HomeViewPresenter: UserModelDelegate {
             )
             let presenter = LoginViewPresenter(with: provider, model: appModel)
             view?.showAuthErrorAlert(with: presenter)
+            return
+        } else if error.isNetworkError {
+            view?.showNetworkErrorAlert()
+            return
+        } else if error.isSystemError {
+            view?.showSystemErrorAlert()
+            return
         }
     }
 }
@@ -340,28 +347,6 @@ extension HomeViewPresenter: ReviewListModelDelegate {
             updateData(with: list)
             view?.resetScrollAndEndRefresh()
         }
-    }
-    
-    func reviewListModel(_ model: ReviewListModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        if let error {
-            if error.isAuthError {
-                AuthManager.shared.logout()
-                let appModel = AppModels(
-                    userModel: UserModel(provider)
-                )
-                let presenter = LoginViewPresenter(with: provider, model: appModel)
-                view?.showAuthErrorAlert(with: presenter)
-                return
-            } else if error.isNetworkError {
-                view?.showNetworkErrorAlert()
-                return
-            } else if error.isSystemError {
-                view?.showSystemErrorAlert()
-                return
-            }
-        }
-        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 불러오기"), message: L10n.Localizable.Error.message)
     }
     
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
