@@ -311,41 +311,36 @@ extension WriteReviewViewPresenter {
 
 // MARK: - WriteReviewModelDelegate
 extension WriteReviewViewPresenter: WriteReviewModelDelegate {
+    func error(didRecieve error: APIError?) {
+        view?.updateLoadingView(isLoading: false)
+        
+        guard let error else { return }
+        
+        if error.isAuthError {
+            AuthManager.shared.logout()
+            let appModel = AppModels(
+                userModel: UserModel(provider)
+            )
+            let presenter = LoginViewPresenter(with: provider, model: appModel)
+            view?.showAuthErrorAlert(with: presenter)
+            return
+        } else if error.isNetworkError {
+            view?.showNetworkErrorAlert()
+            return
+        } else if error.isSystemError {
+            view?.showSystemErrorAlert()
+            return
+        } else if error.imageSizeLimitExceeded {
+            view?.showErrorAlert(title: "", message: L10n.Localizable.Error.networkImageSizeMessage)
+            return
+        } else {
+            view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 작성"), message: L10n.Localizable.Error.message)
+        }
+    }
+    
     func writeReviewModel(_ model: WriteReviewModelType, didSuccess review: Review) {
         view?.updateLoadingView(isLoading: false)
         
         delegate?.writeReview(self, didSuccess: review, isNewWrite: model.isNewWrite)
-    }
-    
-    func writeReviewModel(_ model: WriteReviewModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        if let error {
-            if error.isAuthError {
-                AuthManager.shared.logout()
-                let appModel = AppModels(
-                    userModel: UserModel(provider)
-                )
-                let presenter = LoginViewPresenter(with: provider, model: appModel)
-                view?.showAuthErrorAlert(with: presenter)
-                return
-            } else if error.isNetworkError {
-                view?.showNetworkErrorAlert()
-                return
-            } else if error.isSystemError {
-                view?.showSystemErrorAlert()
-                return
-            }
-        }
-        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 작성"), message: L10n.Localizable.Error.message)
-    }
-    
-    func writeReviewDidFailSaveReview(_ model: WriteReviewModelType) {
-        view?.updateLoadingView(isLoading: false)
-        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 작성"), message: L10n.Localizable.Error.message)
-    }
-    
-    func writeReviewDidExceedeImageSize(_ model: WriteReviewModelType) {
-        view?.updateLoadingView(isLoading: false)
-        view?.showErrorAlert(title: "", message: L10n.Localizable.Error.networkImageSizeMessage)
     }
 }

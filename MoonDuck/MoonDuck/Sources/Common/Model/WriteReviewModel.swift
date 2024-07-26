@@ -8,14 +8,10 @@
 import Foundation
 import UIKit
 
-protocol WriteReviewModelDelegate: AnyObject {
+protocol WriteReviewModelDelegate: BaseModelDelegate {
     func writeReviewModel(_ model: WriteReviewModelType, didSuccess review: Review)
-    func writeReviewModel(_ model: WriteReviewModelType, didRecieve error: APIError?)
-    func writeReviewDidFailSaveReview(_ model: WriteReviewModelType)
-    func writeReviewDidExceedeImageSize(_ model: WriteReviewModelType)
-    
 }
-protocol WriteReviewModelType: AnyObject {
+protocol WriteReviewModelType: BaseModelType {
     // Data
     var delegate: WriteReviewModelDelegate? { get set }
     var program: Program? { get }
@@ -53,7 +49,7 @@ class WriteReviewModel: WriteReviewModelType {
     // MARK: - Networking
     func putReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?) {
         guard let review else {
-            self.delegate?.writeReviewDidFailSaveReview(self)
+            self.delegate?.error(didRecieve: .unknown)
             return
         }
         
@@ -66,23 +62,14 @@ class WriteReviewModel: WriteReviewModelType {
                 self.delegate?.writeReviewModel(self, didSuccess: succeed)
             } else {
                 // 오류 발생
-                if let error = failed {
-                    if error.imageSizeLimitExceeded {
-                        self.delegate?.writeReviewDidExceedeImageSize(self)
-                        return
-                    } else if error.isReviewError {
-                        self.delegate?.writeReviewDidFailSaveReview(self)
-                        return
-                    }
-                }
-                self.delegate?.writeReviewModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
     
     func postReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?) {
         guard let program else { 
-            self.delegate?.writeReviewDidFailSaveReview(self)
+            self.delegate?.error(didRecieve: .unknown)
             return
         }
         
@@ -95,16 +82,7 @@ class WriteReviewModel: WriteReviewModelType {
                 self.delegate?.writeReviewModel(self, didSuccess: succeed)
             } else {
                 // 오류 발생
-                if let error = failed {
-                    if error.imageSizeLimitExceeded {
-                        self.delegate?.writeReviewDidExceedeImageSize(self)
-                        return
-                    } else if error.isReviewError {
-                        self.delegate?.writeReviewDidFailSaveReview(self)
-                        return
-                    }
-                }
-                self.delegate?.writeReviewModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
