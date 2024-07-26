@@ -101,6 +101,14 @@ class Utils {
         }
     }
     
+    static func moveAppReviewInStore() {
+        if let appStoreURL = URL(string: "https://apps.apple.com/app/\(Constants.appStoreId)?action=write-review") {
+            DispatchQueue.main.async {
+                UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
     static func moveAppSetting() {
         if let appSetting = URL(string: UIApplication.openSettingsURLString) {
             DispatchQueue.main.async {

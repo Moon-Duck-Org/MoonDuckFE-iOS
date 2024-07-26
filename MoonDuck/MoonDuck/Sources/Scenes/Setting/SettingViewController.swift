@@ -48,7 +48,7 @@ class SettingViewController: BaseViewController, SettingView {
         showContractUsMail()
     }
     @IBAction private func goReviewButtonTapped(_ sender: Any) {
-        Utils.moveAppStore()
+        Utils.moveAppReviewInStore()
     }
     @IBAction private func appVersionButtonTapped(_ sender: Any) {
         presenter.appVersionButtonTapped()

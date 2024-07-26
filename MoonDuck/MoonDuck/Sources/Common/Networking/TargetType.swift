@@ -102,6 +102,10 @@ extension TargetType {
                     for (index, image) in images.enumerated() {
                         if let imageData = image.jpegData(compressionQuality: 0.8) {
                             multipartFormData.append(imageData, withName: "images", fileName: "image\(index).jpg", mimeType: "image/jpeg")
+                            let imageSizeInBytes = imageData.count
+                            let imageSizeInKB = Double(imageSizeInBytes) / 1024.0
+                            let imageSizeInMB = imageSizeInKB / 1024.0
+                            Log.debug("이미지 바이트 체크 \(imageSizeInMB)")
                         }
                     }
                     Log.network("MultipartFormData success Images --> \(images)")
