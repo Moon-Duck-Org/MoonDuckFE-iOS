@@ -23,7 +23,11 @@ enum APIError: Error, Equatable, LocalizedError {
     case imageSizeLimitExceeded(_ message: String?)
     case revokeTokenGenerationFailed(_ message: String?)
     case invalidRefreshToken(_ message: String?)
-
+    
+    // Open API
+    case openApi
+    case emptySearchData
+    
     // ERROR
     case auth
     case network
@@ -61,6 +65,11 @@ enum APIError: Error, Equatable, LocalizedError {
         case let .invalidRefreshToken(message):
             return message
             
+        case .openApi:
+            return "오픈 API 오류 발생"
+        case .emptySearchData:
+            return "검색 결과 비어있음"
+            
         case .auth:
             return "사용자 인증 오류 발생"
         case .network:
@@ -75,7 +84,7 @@ enum APIError: Error, Equatable, LocalizedError {
             return "알 수 없는 오류 발생"
         }
     }
-    
+        
     var isNetworkError: Bool {
         switch self {
         case .network: return true

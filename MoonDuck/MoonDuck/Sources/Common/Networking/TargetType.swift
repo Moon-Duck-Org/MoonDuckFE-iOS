@@ -14,6 +14,7 @@ protocol TargetType: URLRequestConvertible {
     var path: String { get }
     var parameters: RequestParams? { get }
     var headers: HTTPHeaders { get }
+    var errorType: ErrorType { get }
 }
 
 extension TargetType {
@@ -52,13 +53,26 @@ extension TargetType {
                 case .failure(let error):
                     if let data = response.data {
                         do {
-                            let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
-                            let apiError = APIError(error: errorResponse)
-                            if apiError.needsTokenRefresh {
-                                self.refreshTokenAndRetryRequest(responseType: responseType, completion: completion)
-                            } else {
-                                completion(.failure(apiError))
+                            switch errorType {
+                            case .appError:
+                                let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
+                                let apiError = APIError(error: errorResponse)
+                                if apiError.needsTokenRefresh {
+                                    self.refreshTokenAndRetryRequest(responseType: responseType, completion: completion)
+                                } else {
+                                    completion(.failure(apiError))
+                                }
+                            case .searchConcertError:
+                                let errorResponse = try JSONDecoder().decode(SearchConcertError.self, from: data)
+                                if errorResponse.result.code == "INFO-200" {
+                                    completion(.failure(.emptySearchData))
+                                } else {
+                                    completion(.failure(.openApi))
+                                }
+                            case .openApiError:
+                                completion(.failure(.openApi))
                             }
+
                         } catch {
                             completion(.failure(.decoding))
                         }
@@ -184,6 +198,12 @@ enum RequestParams {
     case query(_ parameter: Codable?)
     case body(_ parameter: Codable?)
     case multipart(_ parameter: Codable?, images: [UIImage]?)
+}
+
+enum ErrorType {
+    case appError
+    case searchConcertError
+    case openApiError
 }
 
 extension Encodable {

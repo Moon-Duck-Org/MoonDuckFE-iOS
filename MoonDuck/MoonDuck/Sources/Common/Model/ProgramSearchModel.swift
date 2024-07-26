@@ -7,13 +7,12 @@
 
 import Foundation
 
-protocol ProgramSearchModelDelegate: AnyObject {
+protocol ProgramSearchModelDelegate: BaseModelDelegate {
     func programSearchModel(_ model: ProgramSearchModelType, didChange programs: [Program])
-    func programSearchModel(_ model: ProgramSearchModelType, didRecieve error: Error?)
     func programSearchDidLast(_ model: ProgramSearchModelType)
 }
 
-protocol ProgramSearchModelType: AnyObject {
+protocol ProgramSearchModelType: BaseModelType {
     // Data
     var delegate: ProgramSearchModelDelegate? { get set }
     var category: Category { get }
@@ -76,7 +75,7 @@ class ProgramSearchModel: ProgramSearchModelType {
         case .concert:
             searchConcert(text)
         default:
-            delegate?.programSearchModel(self, didRecieve: nil)
+            delegate?.error(didRecieve: nil)
         }
     }
     
@@ -92,7 +91,7 @@ class ProgramSearchModel: ProgramSearchModelType {
         case .concert:
             searchConcert(lastSearchText)
         default:
-            delegate?.programSearchModel(self, didRecieve: nil)
+            delegate?.error(didRecieve: nil)
         }
     }
     
@@ -113,7 +112,7 @@ class ProgramSearchModel: ProgramSearchModelType {
                 }
             } else {
                 // 오류 발생
-                self.delegate?.programSearchModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
@@ -135,7 +134,7 @@ class ProgramSearchModel: ProgramSearchModelType {
                 }
             } else {
                 // 오류 발생
-                self.delegate?.programSearchModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
@@ -157,7 +156,7 @@ class ProgramSearchModel: ProgramSearchModelType {
                 }
             } else {
                 // 오류 발생
-                self.delegate?.programSearchModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
@@ -180,7 +179,7 @@ class ProgramSearchModel: ProgramSearchModelType {
                 }
             } else {
                 // 오류 발생
-                self.delegate?.programSearchModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }

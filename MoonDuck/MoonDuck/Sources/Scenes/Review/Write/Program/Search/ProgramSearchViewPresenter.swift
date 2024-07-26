@@ -150,16 +150,16 @@ extension ProgramSearchViewPresenter {
 
 // MARK: - ProgramSearchModelDelegate
 extension ProgramSearchViewPresenter: ProgramSearchModelDelegate {
+    func error(didRecieve error: APIError?) {
+        view?.updateLoadingView(isLoading: false)
+        showToastWithEndEditing(L10n.Localizable.Error.title("검색") + "\n" + L10n.Localizable.Error.message)
+    }
+    
     func programSearchModel(_ model: ProgramSearchModelType, didChange programs: [Program]) {
         view?.updateLoadingView(isLoading: false)
         view?.reloadTableView()
         view?.endEditing()
         view?.updateEmptyResultViewHidden(!programs.isEmpty)
-    }
-    
-    func programSearchModel(_ model: ProgramSearchModelType, didRecieve error: Error?) {
-        view?.updateLoadingView(isLoading: false)
-        showToastWithEndEditing(L10n.Localizable.Error.title("검색") + "\n" + L10n.Localizable.Error.message)
     }
     
     func programSearchDidLast(_ model: ProgramSearchModelType) {
