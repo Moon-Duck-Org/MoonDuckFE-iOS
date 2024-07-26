@@ -33,20 +33,19 @@ protocol SettingPresenter: AnyObject {
 class SettingViewPresenter: BaseViewPresenter, SettingPresenter {
     weak var view: SettingView?
     private weak var delegate: SettingPresenterDelegate?
-    private let model: UserModelType
+//    private let model: UserModelType
     
     init(with provider: AppServices, 
-         model: UserModelType,
+         model: AppModels,
          delegate: SettingPresenterDelegate) {
-        self.model = model
         self.delegate = delegate
-        super.init(with: provider)
-        self.model.delegate = self
+        super.init(with: provider, model: model)
+        self.model.userModel?.delegate = self
     }
     
     // MARK: - Data
     var contractUs: ContractUs {
-        let nickname = model.user?.nickname ?? ""
+        let nickname = model.userModel?.user?.nickname ?? ""
         return ContractUs(nickName: nickname)
     }
     
@@ -73,13 +72,13 @@ extension SettingViewPresenter {
     
     func privacyPolicyButtonTapped() {
         let title = L10n.Localizable.Title.policy
-        let url =  Constants.privacyPolicyUrl
+        let url = Constants.privacyPolicyUrl
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
     }
     
     func appVersionButtonTapped() {
-        let presenter = AppVersionViewPresenter(with: provider)
+        let presenter = AppVersionViewPresenter(with: provider, model: AppModels())
         view?.moveAppVersion(with: presenter)
     }
     
@@ -109,10 +108,10 @@ extension SettingViewPresenter {
     }
     
     private func setPushStatus(isOn: Bool) {
-        guard let user = model.user, user.isPush != isOn else { return }
+        guard let user = model.userModel?.user, user.isPush != isOn else { return }
         
         view?.updateLoadingView(isLoading: true)
-        model.push(isOn)
+        model.userModel?.push(isOn)
     }
     
     // MARK: - Logic
@@ -121,7 +120,7 @@ extension SettingViewPresenter {
             guard let self else { return }
             
             if status == .authorized {
-                self.view?.updatePushSwitchSetOn(self.model.user?.isPush ?? false)
+                self.view?.updatePushSwitchSetOn(self.model.userModel?.user?.isPush ?? false)
                 self.view?.updatePushLabelText(isAddOsString: false)
             } else {
                 self.view?.updatePushSwitchSetOn(false)
@@ -133,6 +132,25 @@ extension SettingViewPresenter {
 
 // MARK: - UserModelDelegate
 extension SettingViewPresenter: UserModelDelegate {
+    func error(didRecieve error: APIError?) {
+        view?.updateLoadingView(isLoading: false)
+        
+        guard let error else { return }
+        
+        if error.isAuthError {
+            AuthManager.shared.logout()
+            let appModel = AppModels(
+                userModel: UserModel(provider)
+            )
+            let presenter = LoginViewPresenter(with: provider, model: appModel)
+            view?.showAuthErrorAlert(with: presenter)
+        } else if error.isNetworkError {
+            view?.showNetworkErrorAlert()
+        } else if error.isSystemError {
+            view?.showSystemErrorAlert()
+        }
+    }
+    
     func userModel(_ model: UserModelType, didChange user: User?) {
         // Push 설정 성공
         view?.updateLoadingView(isLoading: false)
@@ -148,27 +166,5 @@ extension SettingViewPresenter: UserModelDelegate {
             AppNotification.removeNotification()
             view?.showToastMessage(L10n.Localizable.Push.offCompleteToast(today))
         }
-    }
-    
-    func userModel(_ model: UserModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        
-        if let error {
-            if error.isNetworkError {
-                view?.showNetworkErrorAlert()
-                return
-            } else if error.isSystemError {
-                view?.showSystemErrorAlert()
-                return
-            }
-        }
-    }
-    
-    func userModelDidAuthError(_ model: UserModelType) {
-        view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
-        let model = UserModel(provider)
-        let presenter = LoginViewPresenter(with: provider, model: model)
-        view?.showAuthErrorAlert(with: presenter)
     }
 }

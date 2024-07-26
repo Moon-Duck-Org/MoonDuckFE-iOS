@@ -22,19 +22,21 @@ protocol IntroPresenter: AnyObject {
 class IntroViewPresenter: BaseViewPresenter, IntroPresenter {
     
     weak var view: IntroView?
-    let model: UserModelType
     
-    init(with provider: AppServices, model: UserModelType) {
-        self.model = model
-        super.init(with: provider)
-        self.model.delegate = self
+    override init(with provider: AppServices, model: AppModels) {
+        super.init(with: provider, model: model)
+        self.model.userModel?.delegate = self
     }
 }
 
 extension IntroViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
-        checkAppVersion()
+        if Utils.isJailbroken() {
+            view?.showJalibrokenAlert()
+        } else {
+            startApp()
+        }
     }
     
     // MARK: - Action
@@ -44,7 +46,7 @@ extension IntroViewPresenter {
 }
 // MARK: - Logic
 extension IntroViewPresenter {
-    private func checkAppVersion() {
+    private func startApp() {
         Utils.initConfig()
         Utils.checkForUpdate { [weak self] appUpdate in
             switch appUpdate {
@@ -59,7 +61,7 @@ extension IntroViewPresenter {
     }
     
     private func checkAutoLogin() {
-        if let auth = AuthManager.default.getAutoLoginAuth() {
+        if let auth = AuthManager.shared.getAutoLoginAuth() {
             // 자동 로그인 정보 있으면 로그인 시도
             login(auth)
         } else {
@@ -68,11 +70,11 @@ extension IntroViewPresenter {
     }
     
     private func login(_ auth: Auth) {
-        AuthManager.default.login(auth: auth) { [weak self] isHaveNickname, _ in
+        AuthManager.shared.login(auth: auth) { [weak self] isHaveNickname, _ in
             if let isHaveNickname, isHaveNickname {
                 if isHaveNickname {
                     // 로그인 성공 시, User 정보 조회
-                    self?.model.getUser()
+                    self?.model.userModel?.getUser()
                     return
                 }
             }
@@ -81,44 +83,38 @@ extension IntroViewPresenter {
     }
     
     private func moveLogin() {
-        let model = UserModel(provider)
-        let presenter = LoginViewPresenter(with: provider, model: model)
+        let appModel = AppModels(
+            userModel: UserModel(provider)
+        )
+        let presenter = LoginViewPresenter(with: provider, model: appModel)
         view?.moveLogin(with: presenter)
     }
 }
 
 // MARK: - UserModelDelegate
 extension IntroViewPresenter: UserModelDelegate {
+    func error(didRecieve error: APIError?) {
+        AuthManager.shared.logout()
+        moveLogin()
+    }
     
     func userModel(_ model: UserModelType, didChange user: User?) {
         // User 정보 조회 성공 -> 홈 이동
         if user != nil {
-            let cateogryModel = CategoryModel()
-            let sortModel = SortModel()
-            let reviewModel = ReviewListModel(provider)
-            let shareModel = ShareModel(provider)
-            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel, shareModel: shareModel)
+            let appModel = AppModels(
+                userModel: model,
+                categoryModel: CategoryModel(),
+                sortModel: SortModel(),
+                reviewListModel: ReviewListModel(provider),
+                shareModel: ShareModel(provider)
+            )
+            let presenter = HomeViewPresenter(with: provider, model: appModel)
             self.view?.moveHome(with: presenter)
         }
     }
     
-    func userModel(_ model: UserModelType, didRecieve error: APIError?) {
-        AuthManager.default.logout()
-        moveLogin()
-    }
-    
-    func userModelDidFailLogin(_ model: UserModelType) {
-        AuthManager.default.logout()
-        moveLogin()
-    }
-    
     func userModelDidFailFetchingUser(_ model: UserModelType) {
-        AuthManager.default.logout()
-        moveLogin()
-    }
-    
-    func userModelDidAuthError(_ model: UserModelType) {
-        AuthManager.default.logout()
+        AuthManager.shared.logout()
         moveLogin()
     }
 }

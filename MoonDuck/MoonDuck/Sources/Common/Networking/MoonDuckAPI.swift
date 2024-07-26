@@ -170,7 +170,7 @@ extension MoonDuckAPI: TargetType {
         case .authLogin, .authReissue:
             return ["Content-Type": "application/json"]
         case .user, .deleteUser, .userNickname, .userPush, .reviewAll, .getReview, .deleteReview, .reviewDetail, .getShareUrl:
-            if let token: String = AuthManager.default.getAccessToken() {
+            if let token: String = AuthManager.shared.getAccessToken() {
                 return ["Content-Type": "application/json",
                         "Authorization": "Bearer \(token)"]
             } else {
@@ -186,7 +186,7 @@ extension MoonDuckAPI: TargetType {
             return ["accept": "application/json",
                     "Authorization": "Bearer \(apiKey)"]
         case .postReview, .putReview:
-            if let token: String = AuthManager.default.getAccessToken() {
+            if let token: String = AuthManager.shared.getAccessToken() {
                 return ["Content-Type": "multipart/form-data",
                         "Authorization": "Bearer \(token)"]
             } else {

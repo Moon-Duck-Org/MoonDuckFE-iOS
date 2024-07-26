@@ -40,57 +40,47 @@ protocol HomePresenter: AnyObject {
 class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     
     weak var view: HomeView?
-    private let userModel: UserModelType
-    private let categoryModel: CategoryModelType
-    private let sortModel: SortModelType
-    private let reviewModel: ReviewListModelType
-    private let shareModel: ShareModelType
-    
+//    private let userModel: UserModelType
+//    private let categoryModel: CategoryModelType
+//    private let sortModel: SortModelType
+//    private let reviewModel: ReviewListModelType
+//    private let shareModel: ShareModelType
+//    
     private var reloadCategoryTrigger: [Category] = []
     
-    init(with provider: AppServices,
-         userModel: UserModelType,
-         categoryModel: CategoryModelType,
-         sortModel: SortModelType,
-         reviewModel: ReviewListModelType,
-         shareModel: ShareModelType) {
-        self.userModel = userModel
-        self.categoryModel = categoryModel
-        self.sortModel = sortModel
-        self.reviewModel = reviewModel
-        self.shareModel = shareModel
-        super.init(with: provider)
-        self.userModel.delegate = self
-        self.sortModel.delegate = self
-        self.categoryModel.delegate = self
-        self.reviewModel.delegate = self
-        self.shareModel.delegate = self
+    override init(with provider: AppServices, model: AppModels) {
+        super.init(with: provider, model: model)
+        self.model.userModel?.delegate = self
+        self.model.sortModel?.delegate = self
+        self.model.categoryModel?.delegate = self
+        self.model.reviewListModel?.delegate = self
+        self.model.shareModel?.delegate = self
     }
     // MARK: - Data
     var numberOfCategories: Int {
-        return categoryModel.numberOfCategories
+        return model.categoryModel?.numberOfCategories ?? 0
     }
     
     var indexOfSelectedCategory: Int? {
-        return categoryModel.indexOfSelectedCategory
+        return model.categoryModel?.indexOfSelectedCategory
     }
     
     var numberOfReviews: Int {
-        let category = categoryModel.selectedCategory ?? .none
-        return reviewModel.numberOfReviews(with: category)
+        let category = model.categoryModel?.selectedCategory ?? .none
+        return model.reviewListModel?.numberOfReviews(with: category) ?? 0
     }
     
     var sortTitles: [String] {
-        return sortModel.sortOptions.map { $0.title }
+        return model.sortModel?.sortOptions.map { $0.title } ?? []
     }
     
     func category(at index: Int) -> Category? {
-        return categoryModel.category(at: index)
+        return model.categoryModel?.category(at: index)
     }
     
     func review(at index: Int) -> Review? {
-        let category = categoryModel.selectedCategory ?? .none
-        return reviewModel.review(with: category, at: index)
+        let category = model.categoryModel?.selectedCategory ?? .none
+        return model.reviewListModel?.review(with: category, at: index)
     }
     
     func reviewOptionHandler(for review: Review) -> (() -> Void)? {
@@ -102,8 +92,10 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     func writeReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
             guard let self else { return }
-            let model = WriteReviewModel(self.provider, review: review)
-            let presenter = WriteReviewViewPresenter(with: self.provider, model: model, delegate: self)
+            let appModel = AppModels(
+                writeReviewModel: WriteReviewModel(self.provider, review: review)
+            )
+            let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self)
             view?.moveWriteReview(with: presenter)
         }
     }
@@ -113,14 +105,14 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
             guard let self, let reviewId = review.id else { return }
             
             self.view?.updateLoadingView(isLoading: true)
-            self.shareModel.getShareUrl(with: reviewId)
+            self.model.shareModel?.getShareUrl(with: reviewId)
         }
     }
     
     func deleteReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
             self?.view?.updateLoadingView(isLoading: true)
-            self?.reviewModel.deleteReview(for: review)
+            self?.model.reviewListModel?.deleteReview(for: review)
         }
     }
     
@@ -128,9 +120,11 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
         return { [weak self] in
             guard let self else { return }
             let handler = self.deleteReviewHandler(for: review)
-            let model = ReviewModel(self.provider, review: review, deleteReviewHandler: handler)
-            let shareModel = ShareModel(self.provider)
-            let presenter = ReviewDetailViewPresenter(with: provider, model: model, shareModel: shareModel, delegate: self)
+            let appModel = AppModels(
+                reviewModel: ReviewModel(self.provider, review: review, deleteReviewHandler: handler),
+                shareModel: ShareModel(self.provider)
+            )
+            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, delegate: self)
             view?.moveReviewDetail(with: presenter)
         }
     }
@@ -139,57 +133,65 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
 extension HomeViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
-        categoryModel.getCategories(isHaveAll: true)
+        model.categoryModel?.getCategories(isHaveAll: true)
         checkNotificationAuthorization()
         updateNotification()
     }
     
     // MARK: - Action
     func selectCategory(at index: Int) {
-        categoryModel.selectCategory(at: index)
+        model.categoryModel?.selectCategory(at: index)
     }
     
     func selectSort(at index: Int) {
-        sortModel.selectSortOption(index)
+        model.sortModel?.selectSortOption(index)
     }
     
     func selectReview(at index: Int) {
-        if let category = categoryModel.selectedCategory,
-           let review = reviewModel.review(with: category, at: index) {
+        if let category = model.categoryModel?.selectedCategory,
+           let review = model.reviewListModel?.review(with: category, at: index) {
             let handler = deleteReviewHandler(for: review)
-            let model = ReviewModel(provider, review: review, deleteReviewHandler: handler)
-            let shareModel = ShareModel(self.provider)
-            let presenter = ReviewDetailViewPresenter(with: provider, model: model, shareModel: shareModel, delegate: self)
+            let appModel = AppModels(
+                reviewModel: ReviewModel(provider, review: review, deleteReviewHandler: handler),
+                shareModel: ShareModel(provider)
+            )
+            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, delegate: self)
             view?.moveReviewDetail(with: presenter)
         }
     }
     
     func myButtonTapped() {
-        userModel.getUser()
+        model.userModel?.getUser()
         
-        let presenter = MyInfoViewPresenter(with: provider, model: userModel)
+        let appModel = AppModels(
+            userModel: model.userModel
+        )
+        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
         view?.moveMy(with: presenter)
     }
     
     func writeNewReviewButtonTapped() {
-        let model = CategoryModel()
+        let categoryModel = CategoryModel()
         if let category = categoryModel.selectedCategory,
            category != .all {
-            model.selectedCategory = category
+            categoryModel.selectedCategory = category
         }
-        let presenter = SelectProgramViewPresenter(with: provider, categoryModel: model, delegate: self)
+        let appModel = AppModels(
+            categoryModel: categoryModel
+        )
+        let presenter = SelectProgramViewPresenter(with: provider, model: appModel, delegate: self)
         view?.moveSelectProgram(with: presenter)
     }
     
     func refreshReviews() {
-        if let category = categoryModel.selectedCategory {
-            reviewModel.reloadReviews(with: category, filter: sortModel.selectedSortOption)
+        if let category = model.categoryModel?.selectedCategory {
+            model.reviewListModel?.reloadReviews(with: category, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
         }
     }
 
     func loadNextReviews() {
-        if let category = categoryModel.selectedCategory {
-            reviewModel.loadReviews(with: category, filter: sortModel.selectedSortOption)
+        if let category = model.categoryModel?.selectedCategory {
+            model.reviewListModel?.loadReviews(with: category, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
         }
     }
     
@@ -202,7 +204,7 @@ extension HomeViewPresenter {
         }
     }
     private func updateNotification() {
-        guard let user = userModel.user else { return }
+        guard let user = model.userModel?.user else { return }
         
         if user.isPush {
             AppNotification.resetAndScheduleNotification(with: user.nickname)
@@ -217,7 +219,7 @@ extension HomeViewPresenter {
     }
     
     private func isNeededReloadReviews(with category: Category) -> Bool {
-        if let list = reviewModel.reviewList(with: category) {
+        if let list = model.reviewListModel?.reviewList(with: category) {
             // 1. 리뷰 수정/삭제가 일어난 카테고리면 리로드
             if let firstIndex = reloadCategoryTrigger.firstIndex(of: category) {
                 reloadCategoryTrigger.remove(at: firstIndex)
@@ -225,7 +227,7 @@ extension HomeViewPresenter {
             }
             
             // 2. 선택된 정렬과 캐싱된 리스트 정렬이 다르면 리로드
-            if list.sortOption != sortModel.selectedSortOption {
+            if list.sortOption != model.sortModel?.selectedSortOption {
                 return true
             }
             
@@ -234,8 +236,11 @@ extension HomeViewPresenter {
         return true
     }
     
-    private func moveMyInfo(with model: UserModel) {
-        let presenter = MyInfoViewPresenter(with: provider, model: model)
+    private func moveMyInfo(with userModel: UserModel) {
+        let appModel = AppModels(
+            userModel: userModel
+        )
+        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
         view?.moveMy(with: presenter)
     }
     
@@ -248,39 +253,46 @@ extension HomeViewPresenter {
 
 // MARK: - UserModelDelegate
 extension HomeViewPresenter: UserModelDelegate {
-    func userModelDidAuthError(_ model: UserModelType) {
+    func error(didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
-        let model = UserModel(provider)
-        let presenter = LoginViewPresenter(with: provider, model: model)
-        view?.showAuthErrorAlert(with: presenter)
+        
+        guard let error else { return }
+        
+        if error.isAuthError {
+            AuthManager.shared.logout()
+            let appModel = AppModels(
+                userModel: UserModel(provider)
+            )
+            let presenter = LoginViewPresenter(with: provider, model: appModel)
+            view?.showAuthErrorAlert(with: presenter)
+        }
     }
 }
 
 // MARK: - CategoryModelDelegate
 extension HomeViewPresenter: CategoryModelDelegate {
-    func categoryModel(_ model: CategoryModel, didChange categories: [Category]) {
+    func categoryModel(_ model: CategoryModelType, didChange categories: [Category]) {
         model.selectCategory(at: 0)
     }
     
-    func categoryModel(_ model: CategoryModel, didSelect category: Category) {
+    func categoryModel(_ model: CategoryModelType, didSelect category: Category) {
         view?.reloadCategories()
         
         if isNeededReloadReviews(with: category) {
             // API 호출
             view?.updateLoadingView(isLoading: true)
-            reviewModel.reloadReviews(with: category, filter: sortModel.selectedSortOption)
+            self.model.reviewListModel?.reloadReviews(with: category, filter: self.model.sortModel?.selectedSortOption ?? .latestOrder)
         } else {
             // 테이블 뷰만 리로드
             view?.reloadReviews()
-            if let list = reviewModel.reviewList(with: category) {
+            if let list = self.model.reviewListModel?.reviewList(with: category) {
                 updateData(with: list)
             }
             view?.resetScrollAndEndRefresh()
         }
     }
     
-    func categoryModel(_ model: CategoryModel, didReload category: Category) {
+    func categoryModel(_ model: CategoryModelType, didReload category: Category) {
         view?.reloadCategories()
     }
 }
@@ -290,8 +302,8 @@ extension HomeViewPresenter: SortModelDelegate {
     func sortModel(_ model: SortModel, didSelect sortOption: Sort) {
         view?.updateSortTitleLabelText(with: sortOption.title)
         
-        if let selectedCategory = categoryModel.selectedCategory {
-            reviewModel.reloadReviews(with: selectedCategory, filter: sortOption)
+        if let selectedCategory = self.model.categoryModel?.selectedCategory {
+            self.model.reviewListModel?.reloadReviews(with: selectedCategory, filter: sortOption)
         }
     }
     
@@ -317,9 +329,11 @@ extension HomeViewPresenter: ReviewListModelDelegate {
         view?.updateLoadingView(isLoading: false)
         if let error {
             if error.isAuthError {
-                AuthManager.default.logout()
-                let model = UserModel(provider)
-                let presenter = LoginViewPresenter(with: provider, model: model)
+                AuthManager.shared.logout()
+                let appModel = AppModels(
+                    userModel: UserModel(provider)
+                )
+                let presenter = LoginViewPresenter(with: provider, model: appModel)
                 view?.showAuthErrorAlert(with: presenter)
                 return
             } else if error.isNetworkError {
@@ -335,10 +349,10 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
         view?.updateLoadingView(isLoading: false)
-        userModel.deleteReview(category: review.category)
+        self.model.userModel?.deleteReview(category: review.category)
         view?.popToSelf()
         
-        if let category = categoryModel.selectedCategory {
+        if let category = self.model.categoryModel?.selectedCategory {
             if category != review.category {
                 setReloadCategoryTrigger(with: review.category)
             }
@@ -381,9 +395,11 @@ extension HomeViewPresenter: ShareModelDelegate {
         view?.updateLoadingView(isLoading: false)
         if let error {
             if error.isAuthError {
-                AuthManager.default.logout()
-                let model = UserModel(provider)
-                let presenter = LoginViewPresenter(with: provider, model: model)
+                AuthManager.shared.logout()
+                let appModel = AppModels(
+                    userModel: UserModel(provider)
+                )
+                let presenter = LoginViewPresenter(with: provider, model: appModel)
                 view?.showAuthErrorAlert(with: presenter)
                 return
             } else if error.isNetworkError {
@@ -404,13 +420,13 @@ extension HomeViewPresenter: WriteReviewPresenterDelegate {
         view?.updateLoadingView(isLoading: false)
         view?.popToSelf()
         
-        categoryModel.reloadCategory()
-        sortModel.reloadSortOption()
-        userModel.createReview(category: review.category)
+        model.categoryModel?.reloadCategory()
+        model.sortModel?.reloadSortOption()
+        model.userModel?.createReview(category: review.category)
         setReloadCategoryTrigger(with: review.category)
-        if let selectedCategory = categoryModel.selectedCategory {
+        if let selectedCategory = model.categoryModel?.selectedCategory {
             view?.updateLoadingView(isLoading: true)
-            reviewModel.reloadReviews(with: selectedCategory, filter: sortModel.selectedSortOption)
+            model.reviewListModel?.reloadReviews(with: selectedCategory, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
         }
         
         view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
@@ -423,14 +439,14 @@ extension HomeViewPresenter: WriteReviewPresenterDelegate {
 
 // MARK: - ReviewDetailPresenterDelegate
 extension HomeViewPresenter: ReviewDetailPresenterDelegate {
-    func reviewDetail(_ presenter: any ReviewDetailPresenter, didWrite review: Review) {
-        categoryModel.reloadCategory()
-        sortModel.reloadSortOption()
-        userModel.createReview(category: review.category)
+    func reviewDetail(_ presenter: ReviewDetailPresenter, didWrite review: Review) {
+        model.categoryModel?.reloadCategory()
+        model.sortModel?.reloadSortOption()
+        model.userModel?.createReview(category: review.category)
         setReloadCategoryTrigger(with: review.category)
-        if let selectedCategory = categoryModel.selectedCategory {
+        if let selectedCategory = model.categoryModel?.selectedCategory {
             view?.updateLoadingView(isLoading: true)
-            reviewModel.reloadReviews(with: selectedCategory, filter: sortModel.selectedSortOption)
+            model.reviewListModel?.reloadReviews(with: selectedCategory, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
         }
     }
 }

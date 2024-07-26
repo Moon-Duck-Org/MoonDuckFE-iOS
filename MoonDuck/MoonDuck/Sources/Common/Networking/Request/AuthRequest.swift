@@ -15,6 +15,7 @@ struct AuthLoginRequest: Codable {
 struct AuthReissueRequest: Codable {
     var accessToken: String
     var refreshToken: String
+    var userId: Int
 }
 
 struct AuthRevokeAppleRequest: Codable {

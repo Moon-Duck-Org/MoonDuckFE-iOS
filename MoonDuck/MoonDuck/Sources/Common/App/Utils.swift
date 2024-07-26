@@ -94,7 +94,7 @@ class Utils {
     }
     
     static func moveAppStore() {
-        if let appStoreURL = URL(string: "https://apps.apple.com/app/id6502997117") {
+        if let appStoreURL = URL(string: "https://apps.apple.com/app/\(Constants.appStoreId)") {
             DispatchQueue.main.async {
                 UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
             }
@@ -209,5 +209,46 @@ class Utils {
             // UIActivityViewController를 화면에 표시
             viewController.present(activityViewController, animated: true, completion: nil)
         }
+    }
+    
+    static func isJailbroken() -> Bool {
+        #if targetEnvironment(simulator)
+        // 시뮬레이터에서는 탈옥 확인을 하지 않습니다.
+        return false
+        #else
+        // 탈옥된 디바이스에서 발견될 수 있는 경로들
+        let jailbreakFilePaths = [
+            "/Applications/Cydia.app",
+            "/Library/MobileSubstrate/MobileSubstrate.dylib",
+            "/bin/bash",
+            "/usr/sbin/sshd",
+            "/etc/apt",
+            "/private/var/lib/apt/",
+            "/private/var/stash"
+        ]
+        
+        // 탈옥 관련 파일 존재 여부 확인
+        for path in jailbreakFilePaths where FileManager.default.fileExists(atPath: path) {
+            return true
+        }
+        
+        // 시스템 디렉토리에 쓰기 권한 테스트
+        let testPath = "/private/jailbreakTest.txt"
+        do {
+            try "This is a test.".write(toFile: testPath, atomically: true, encoding: .utf8)
+            // 쓰기 성공 시 탈옥된 것으로 간주
+            try FileManager.default.removeItem(atPath: testPath)
+            return true
+        } catch {
+            // 쓰기 실패 시 탈옥되지 않은 것으로 간주
+        }
+        
+        // Cydia URL Scheme 확인
+        if let cydiaUrl = URL(string: "cydia://package/com.example.package"), UIApplication.shared.canOpenURL(cydiaUrl) {
+            return true
+        }
+        
+        return false
+        #endif
     }
 }

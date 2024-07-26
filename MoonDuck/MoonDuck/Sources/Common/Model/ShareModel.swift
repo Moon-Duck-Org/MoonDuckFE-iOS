@@ -12,7 +12,6 @@ protocol ShareModelDelegate: AnyObject {
     func shareModel(_ model: ShareModelType, didRecieve error: APIError?)
 }
 
-
 protocol ShareModelType: AnyObject {
     // Data
     var delegate: ShareModelDelegate? { get set }

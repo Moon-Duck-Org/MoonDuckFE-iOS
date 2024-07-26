@@ -277,7 +277,7 @@ extension ExpandableLabel {
         linkText.append(linkName)
 
         let lengthDifference = lineTextTrimmedNewLines.string.composedCount - linkText.string.composedCount
-        let makeRange = NSMakeRange(0, lengthDifference >= 0 ? lengthDifference : lineTextTrimmedNewLines.string.composedCount)
+        let makeRange = NSRange(location: 0, length: lengthDifference >= 0 ? lengthDifference : lineTextTrimmedNewLines.string.composedCount)
         let truncatedString = lineTextTrimmedNewLines.attributedSubstring(from: makeRange)
         let lineTextWithLink = NSMutableAttributedString(attributedString: truncatedString)
         lineTextWithLink.append(linkText)
@@ -292,7 +292,7 @@ extension ExpandableLabel {
             let spaceOrNewLine = expandedLinkPosition == nil ? "  " : "\n"
             expandedText.append(NSAttributedString(string: "\(spaceOrNewLine)"))
             expandedText.append(NSMutableAttributedString(string: "\(link.string)", attributes: link.attributes(at: 0, effectiveRange: nil)).copyWithAddedFontAttribute(font))
-            expandedLinkTextRange = NSMakeRange(expandedText.length - link.length, link.length)
+            expandedLinkTextRange = NSRange(location: expandedText.length - link.length, length: link.length)
         }
 
         return expandedText

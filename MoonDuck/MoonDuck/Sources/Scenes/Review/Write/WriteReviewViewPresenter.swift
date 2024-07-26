@@ -52,7 +52,7 @@ protocol WriteReviewPresenter: AnyObject {
 class WriteReviewViewPresenter: BaseViewPresenter, WriteReviewPresenter {
     
     weak var view: WriteReviewView?
-    private var model: WriteReviewModelType
+//    private var model: WriteReviewModelType
     private weak var delegate: WriteReviewPresenterDelegate?
     
     private struct Config {
@@ -78,12 +78,11 @@ class WriteReviewViewPresenter: BaseViewPresenter, WriteReviewPresenter {
     private var addImage: UIImage = Asset.Assets.imageAdd.image
     
     init(with provider: AppServices,
-         model: WriteReviewModelType,
+         model: AppModels,
          delegate: WriteReviewPresenterDelegate?) {
-        self.model = model
         self.delegate = delegate
-        super.init(with: provider)
-        self.model.delegate = self
+        super.init(with: provider, model: model)
+        self.model.writeReviewModel?.delegate = self
     }
     
     // MARK: - Data
@@ -125,7 +124,7 @@ extension WriteReviewViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         view?.createTouchEvent()
-        if let review = model.review {
+        if let review = model.writeReviewModel?.review {
             let program = review.program
             view?.updateProgramInfo(for: program.category, with: program.title, and: program.subInfo)
             view?.updateTextField(for: review.title, with: review.content, and: review.link)
@@ -144,7 +143,7 @@ extension WriteReviewViewPresenter {
                     }
                 }
             }
-        } else if let program = model.program {
+        } else if let program = model.writeReviewModel?.program {
             view?.updateProgramInfo(for: program.category, with: program.title, and: program.subInfo)
         }
     }
@@ -188,10 +187,10 @@ extension WriteReviewViewPresenter {
             return
         }
         
-        if model.isNewWrite {
-            model.postReview(title: title, content: content, score: score, url: linkText, images: images)
+        if model.writeReviewModel?.isNewWrite ?? false {
+            model.writeReviewModel?.postReview(title: title, content: content, score: score, url: linkText, images: images)
         } else {
-            model.putReview(title: title, content: content, score: score, url: linkText, images: images)
+            model.writeReviewModel?.putReview(title: title, content: content, score: score, url: linkText, images: images)
         }
     }
     
@@ -321,9 +320,11 @@ extension WriteReviewViewPresenter: WriteReviewModelDelegate {
         view?.updateLoadingView(isLoading: false)
         if let error {
             if error.isAuthError {
-                AuthManager.default.logout()
-                let model = UserModel(provider)
-                let presenter = LoginViewPresenter(with: provider, model: model)
+                AuthManager.shared.logout()
+                let appModel = AppModels(
+                    userModel: UserModel(provider)
+                )
+                let presenter = LoginViewPresenter(with: provider, model: appModel)
                 view?.showAuthErrorAlert(with: presenter)
                 return
             } else if error.isNetworkError {

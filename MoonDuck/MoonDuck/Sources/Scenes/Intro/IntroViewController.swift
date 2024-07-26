@@ -9,6 +9,7 @@ import UIKit
 
 protocol IntroView: BaseView {
     // UI Logic
+    func showJalibrokenAlert()
     func showForceUpdateAlert()
     func showLatestUpdateAlert()
     
@@ -39,6 +40,15 @@ class IntroViewController: BaseViewController, IntroView {
 }
 // MARK: - UI Logic
 extension IntroViewController {
+    func showJalibrokenAlert() {
+        AppAlert.default.showDone(
+            self,
+            title: L10n.Localizable.Jalibroken.message,
+            doneHandler: {
+                exit(0)
+            })
+    }
+    
     func showForceUpdateAlert() {
         AppAlert.default.showDone(
             self,

@@ -15,7 +15,7 @@ protocol ReviewDetailPresenter: AnyObject {
     var view: ReviewDetailView? { get set }
     
     // Data
-    var review: Review { get }
+    var review: Review? { get }
     
     func writeReviewHandler() -> (() -> Void)?
     func shareReviewHandler() -> (() -> Void)?
@@ -31,54 +31,53 @@ protocol ReviewDetailPresenter: AnyObject {
 class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     
     weak var view: ReviewDetailView?
-    private var model: ReviewModelType
-    private var shareModel: ShareModelType
+//    private var model: ReviewModelType
+//    private var shareModel: ShareModelType
     private weak var delegate: ReviewDetailPresenterDelegate?
     
     init(with provider: AppServices, 
-         model: ReviewModelType,
-         shareModel: ShareModelType,
+         model: AppModels,
          delegate: ReviewDetailPresenterDelegate?) {
-        self.model = model
-        self.shareModel = shareModel
         self.delegate = delegate
-        super.init(with: provider)
-        self.model.delegate = self
-        self.shareModel.delegate = self
+        super.init(with: provider, model: model)
+        self.model.reviewModel?.delegate = self
+        self.model.shareModel?.delegate = self
     }
     
     // MARK: - Data
-    var review: Review {
-        return model.review
+    var review: Review? {
+        return model.reviewModel?.review
     }
     
     func writeReviewHandler() -> (() -> Void)? {
         return { [weak self] in
             guard let self else { return }
-            let model = WriteReviewModel(self.provider, review: review)
-            let presenter = WriteReviewViewPresenter(with: self.provider, model: model, delegate: self)
+            let appModel = AppModels(
+                writeReviewModel: WriteReviewModel(self.provider, review: review)
+            )
+            let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self)
             view?.moveWriteReview(with: presenter)
         }
     }
     
     func shareReviewHandler() -> (() -> Void)? {
         return { [weak self] in
-            guard let self, let reviewId = model.review.id else { return }
+            guard let self, let reviewId = model.reviewModel?.review.id else { return }
             
             self.view?.updateLoadingView(isLoading: true)
-            self.shareModel.getShareUrl(with: reviewId)
+            self.model.shareModel?.getShareUrl(with: reviewId)
         }
     }
     
     func deleteReviewHandler() -> (() -> Void)? {
-        if let deleteReviewHandler = model.deleteReviewHandler {
+        if let deleteReviewHandler = model.reviewModel?.deleteReviewHandler {
             return { [weak self] in
                 guard let self else { return }
                 view?.updateLoadingView(isLoading: true)
                 deleteReviewHandler()
             }
         } else {
-            return model.deleteReviewHandler
+            return model.reviewModel?.deleteReviewHandler
         }
     }
     
@@ -88,12 +87,14 @@ extension ReviewDetailViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        view?.updateData(for: model.review)
+        if let reviewModel = model.reviewModel {
+            view?.updateData(for: reviewModel.review)
+        }
     }
     
     // MARK: - Action
     func selectReviewImage(_ index: Int) {
-        if index < review.imageUrlList.count {
+        if let review, index < review.imageUrlList.count {
             let imageUrls = review.imageUrlList
             let presenter = ReviewDetailImageViewPresenter(with: provider, imageUrls: imageUrls, currentIndex: index)
             view?.moveDetailImage(with: presenter)
@@ -130,9 +131,11 @@ extension ReviewDetailViewPresenter: ShareModelDelegate {
         view?.updateLoadingView(isLoading: false)
         if let error {
             if error.isAuthError {
-                AuthManager.default.logout()
-                let model = UserModel(provider)
-                let presenter = LoginViewPresenter(with: provider, model: model)
+                AuthManager.shared.logout()
+                let appModel = AppModels(
+                    userModel: UserModel(provider)
+                )
+                let presenter = LoginViewPresenter(with: provider, model: appModel)
                 view?.showAuthErrorAlert(with: presenter)
                 return
             } else if error.isNetworkError {
@@ -154,7 +157,7 @@ extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
         
         delegate?.reviewDetail(self, didWrite: review)
         view?.popToSelf()
-        model.save(for: review)
+        model.reviewModel?.save(for: review)
         
         view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
     }

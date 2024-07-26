@@ -24,7 +24,7 @@ class WebViewPresenter: BaseViewPresenter, WebPresenter {
     init(with provider: AppServices, title: String, url: String) {
         self.url = url
         self.title = title
-        super.init(with: provider)
+        super.init(with: provider, model: AppModels())
     }
 }
 

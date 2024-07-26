@@ -13,7 +13,7 @@ import GoogleSignIn
 import AuthenticationServices
 
 class AuthManager {
-    static let `default` = AuthManager()
+    static let shared = AuthManager()
     
     private var provider: AppServices?
     
@@ -23,12 +23,10 @@ class AuthManager {
         
     func saveAuth(_ auth: Auth) {
         Secrets.auth = auth
-        
     }
     
     func removeAuth() {
-        Secrets.auth = nil
-        
+        Secrets.auth = nil        
     }
     
     func saveToken(_ token: Token) {
@@ -37,6 +35,14 @@ class AuthManager {
     
     func removeToken() {
         Secrets.token = nil
+    }
+    
+    func saveUserId(_ id: Int) {
+        Secrets.userId = id
+    }
+    
+    func removeUserId() {
+        Secrets.userId = nil
     }
     
     func getAccessToken() -> String? {
@@ -62,6 +68,7 @@ class AuthManager {
         
         removeAuth()
         removeToken()
+        removeUserId()
     }
     
     func withDraw() {
@@ -75,6 +82,7 @@ class AuthManager {
         
         removeAuth()
         removeToken()
+        removeUserId()
     }
     
     enum LoginResultCode {
@@ -88,8 +96,8 @@ class AuthManager {
         provider?.authService.login(request: request) { succeed, failed in
             if let succeed {
                 // 앱에 토큰 및 로그인 정보 저장
-                AuthManager.default.saveAuth(auth)
-                AuthManager.default.saveToken(
+                AuthManager.shared.saveAuth(auth)
+                AuthManager.shared.saveToken(
                     Token(accessToken: succeed.accessToken,
                           refreshToken: succeed.refreshToken)
                 )
@@ -102,12 +110,13 @@ class AuthManager {
     
     func refreshToken(completion: @escaping (_ success: Bool, _ error: APIError?) -> Void) {
         guard let accessToken = Secrets.token?.accessToken,
-              let refreshToken = Secrets.token?.refreshToken else {
+              let refreshToken = Secrets.token?.refreshToken,
+              let userId = Secrets.userId else {
             completion(false, .unknown)
             return
         }
         
-        let request = AuthReissueRequest(accessToken: accessToken, refreshToken: refreshToken)
+        let request = AuthReissueRequest(accessToken: accessToken, refreshToken: refreshToken, userId: userId)
         provider?.authService.reissue(request: request) { succeed, failed in
             if let succeed {
                 self.saveToken(succeed)

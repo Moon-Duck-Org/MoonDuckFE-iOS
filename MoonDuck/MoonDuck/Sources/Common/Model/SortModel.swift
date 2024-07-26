@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol SortModelDelegate: AnyObject {
+protocol SortModelDelegate: BaseModelDelegate {
     func sortModel(_ model: SortModel, didSelect sortOption: Sort)
     func sortModel(_ model: SortModel, didReload sortOption: Sort)
 }
 
-protocol SortModelType: AnyObject {
+protocol SortModelType: BaseModelType {
     // Data
     var delegate: SortModelDelegate? { get set }
     var sortOptions: [Sort] { get }

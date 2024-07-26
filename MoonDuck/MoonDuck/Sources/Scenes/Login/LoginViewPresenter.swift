@@ -27,12 +27,10 @@ protocol LoginPresenter: AnyObject {
 final class LoginViewPresenter: BaseViewPresenter, LoginPresenter {
     
     weak var view: LoginView?
-    let model: UserModelType
     
-    init(with provider: AppServices, model: UserModelType) {
-        self.model = model
-        super.init(with: provider)
-        self.model.delegate = self
+    override init(with provider: AppServices, model: AppModels) {
+        super.init(with: provider, model: model)
+        self.model.userModel?.delegate = self
     }
 }
 
@@ -126,7 +124,7 @@ extension LoginViewPresenter {
     
     private func login(_ auth: Auth) {
         view?.updateLoadingView(isLoading: true)
-        AuthManager.default.login(auth: auth) { [weak self] isHaveNickname, failed in
+        AuthManager.shared.login(auth: auth) { [weak self] isHaveNickname, failed in
             guard let self else {
                 self?.view?.updateLoadingView(isLoading: false)
                 return
@@ -139,12 +137,14 @@ extension LoginViewPresenter {
             
             if let isHaveNickname {
                 if isHaveNickname {
-                    self.model.getUser()
+                    self.model.userModel?.getUser()
                     return
                 } else {
                     self.view?.updateLoadingView(isLoading: false)
-                    let model = UserModel(provider)
-                    let presenter = NicknameSettingViewPresenter(with: self.provider, model: model, delegate: nil)
+                    let appModel = AppModels(
+                        userModel: UserModel(provider)
+                    )
+                    let presenter = NicknameSettingViewPresenter(with: self.provider, model: appModel, delegate: nil)
                     self.view?.moveNameSetting(with: presenter)
                     return
                 }
@@ -158,45 +158,38 @@ extension LoginViewPresenter {
 
 // MARK: - UserModelDelegate
 extension LoginViewPresenter: UserModelDelegate {
+    func error(didRecieve error: APIError?) {
+        view?.updateLoadingView(isLoading: false)
+        AuthManager.shared.logout()
+        
+        guard let error else {
+            loginError()
+            return
+        }
+    
+        if error.isAuthError {
+            AuthManager.shared.logout()
+            loginError()
+        } else if error.isNetworkError {
+            view?.showNetworkErrorAlert()
+        } else if error.isSystemError {
+            view?.showSystemErrorAlert()
+        }
+    }
+    
     func userModel(_ model: UserModelType, didChange user: User?) {
         // User 정보 조회 성공 -> 홈 이동
         view?.updateLoadingView(isLoading: false)
         if user != nil {
-            let cateogryModel = CategoryModel()
-            let reviewModel = ReviewListModel(provider)
-            let sortModel = SortModel()
-            let shareModel = ShareModel(provider)
-            let presenter = HomeViewPresenter(with: provider, userModel: model, categoryModel: cateogryModel, sortModel: sortModel, reviewModel: reviewModel, shareModel: shareModel)
+            let appModel = AppModels(
+                userModel: model,
+                categoryModel: CategoryModel(),
+                sortModel: SortModel(),
+                reviewListModel: ReviewListModel(provider),
+                shareModel: ShareModel(provider)
+            )
+            let presenter = HomeViewPresenter(with: provider, model: appModel)
             view?.moveHome(with: presenter)
         }
-    }
-    
-    func userModel(_ model: UserModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
-        
-        if let error {
-            if error.isNetworkError {
-                view?.showNetworkErrorAlert()
-                return
-            } else if error.isSystemError {
-                view?.showSystemErrorAlert()
-                return
-            }
-        }
-        
-        loginError()
-    }
-    
-    func userModelDidFailLogin(_ model: UserModelType) {
-        view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
-        loginError()
-    }
-    
-    func userModelDidAuthError(_ model: UserModelType) {
-        view?.updateLoadingView(isLoading: false)
-        AuthManager.default.logout()
-        loginError()
     }
 }

@@ -7,23 +7,14 @@
 
 import Foundation
 
-protocol UserModelDelegate: AnyObject {
+protocol UserModelDelegate: BaseModelDelegate {
     func userModel(_ model: UserModelType, didChange user: User?)
-    func userModel(_ model: UserModelType, didRecieve error: APIError?)
-    func userModelDidFailLogin(_ model: UserModelType)
-    func userModelDidDuplicateNickname(_ model: UserModelType)
-    func userModelDidFailDeleteUser(_ model: UserModelType)
-    func userModelDidAuthError(_ model: UserModelType)
 }
 extension UserModelDelegate {
     func userModel(_ model: UserModelType, didChange user: User?) { }
-    func userModel(_ model: UserModelType, didRecieve error: APIError?) { }
-    func userModelDidFailLogin(_ model: UserModelType) { }
-    func userModelDidDuplicateNickname(_ model: UserModelType) { }
-    func userModelDidFailDeleteUser(_ model: UserModelType) { }
 }
 
-protocol UserModelType: AnyObject {
+protocol UserModelType: BaseModelType {
     // Data
     var delegate: UserModelDelegate? { get set }
     var user: User? { get set }
@@ -131,14 +122,10 @@ class UserModel: UserModelType {
             if let succeed {
                 // User 정보 조회 성공
                 self.save(user: succeed)
+                AuthManager.shared.saveUserId(succeed.userId)
             } else {
                 // 오류 발생
-                if failed?.isAuthError ?? false {
-                    self.delegate?.userModelDidAuthError(self)
-                    return
-                }
-                // User 정보 조회 실패
-                self.delegate?.userModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
@@ -152,17 +139,7 @@ class UserModel: UserModelType {
                 self.save(nickname: succeed.nickname)
             } else {
                 // 오류 발생
-                if let error = failed {
-                    if error.isAuthError {
-                        self.delegate?.userModelDidAuthError(self)
-                        return
-                    } else if error.duplicateNickname {
-                        // 중복된 닉네임
-                        self.delegate?.userModelDidDuplicateNickname(self)
-                        return
-                    }
-                }
-                self.delegate?.userModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
@@ -170,20 +147,11 @@ class UserModel: UserModelType {
     func deleteUser() {
         provider.userService.deleteUser { [weak self] succeed, failed in
             guard let self else { return }
-            if let succeed {
-                if succeed {
-                    self.logout()
-                } else {
-                    self.delegate?.userModelDidFailDeleteUser(self)
-                }
+            if let succeed, succeed {
+                self.logout()
             } else {
                 // 오류 발생
-                if failed?.isAuthError ?? false {
-                    self.delegate?.userModelDidAuthError(self)
-                    return
-                }
-                // User 정보 조회 실패
-                self.delegate?.userModelDidFailDeleteUser(self)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
@@ -197,11 +165,7 @@ class UserModel: UserModelType {
                 self.save(isPush: succeed)
             } else {
                 // 오류 발생
-                if failed?.isAuthError ?? false {
-                    self.delegate?.userModelDidAuthError(self)
-                    return
-                }
-                self.delegate?.userModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
