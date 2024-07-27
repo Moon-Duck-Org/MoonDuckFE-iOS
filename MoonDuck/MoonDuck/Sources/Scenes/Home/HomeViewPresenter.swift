@@ -40,12 +40,7 @@ protocol HomePresenter: AnyObject {
 class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     
     weak var view: HomeView?
-//    private let userModel: UserModelType
-//    private let categoryModel: CategoryModelType
-//    private let sortModel: SortModelType
-//    private let reviewModel: ReviewListModelType
-//    private let shareModel: ShareModelType
-//    
+    
     private var reloadCategoryTrigger: [Category] = []
     
     override init(with provider: AppServices, model: AppModels) {
@@ -196,6 +191,16 @@ extension HomeViewPresenter {
     }
     
     // MARK: - Logic
+    private func incrementWriteReviewCount() {
+        let currentCount = AppUserDefaults.getObject(forKey: .writeReviewCount) as? Int ?? 0
+        let newCount = currentCount + 1
+        AppUserDefaults.set(newCount, forKey: .writeReviewCount)
+        
+        if newCount == 3 {
+            Utils.requestAppReview()
+        }
+    }
+    
     private func checkNotificationAuthorization() {
         AppNotification.getNotificationSettingStatus { [weak self] status in
             if status == .notDetermined {
@@ -203,6 +208,7 @@ extension HomeViewPresenter {
             }
         }
     }
+    
     private func updateNotification() {
         guard let user = model.userModel?.user else { return }
         
@@ -249,6 +255,17 @@ extension HomeViewPresenter {
             reloadCategoryTrigger.append(category)
         }
     }
+    
+    private func reloadData(with review: Review) {
+        model.categoryModel?.reloadCategory()
+        model.sortModel?.reloadSortOption()
+        model.userModel?.createReview(category: review.category)
+        setReloadCategoryTrigger(with: review.category)
+        if let selectedCategory = model.categoryModel?.selectedCategory {
+            view?.updateLoadingView(isLoading: true)
+            model.reviewListModel?.reloadReviews(with: selectedCategory, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
+        }
+    }
 }
 
 // MARK: - UserModelDelegate
@@ -265,6 +282,12 @@ extension HomeViewPresenter: UserModelDelegate {
             )
             let presenter = LoginViewPresenter(with: provider, model: appModel)
             view?.showAuthErrorAlert(with: presenter)
+        } else if error.isNetworkError {
+            view?.showNetworkErrorAlert()
+        } else if error.isSystemError {
+            view?.showSystemErrorAlert()
+        } else {
+            view?.showSystemErrorAlert()
         }
     }
 }
@@ -323,28 +346,6 @@ extension HomeViewPresenter: ReviewListModelDelegate {
             updateData(with: list)
             view?.resetScrollAndEndRefresh()
         }
-    }
-    
-    func reviewListModel(_ model: ReviewListModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        if let error {
-            if error.isAuthError {
-                AuthManager.shared.logout()
-                let appModel = AppModels(
-                    userModel: UserModel(provider)
-                )
-                let presenter = LoginViewPresenter(with: provider, model: appModel)
-                view?.showAuthErrorAlert(with: presenter)
-                return
-            } else if error.isNetworkError {
-                view?.showNetworkErrorAlert()
-                return
-            } else if error.isSystemError {
-                view?.showSystemErrorAlert()
-                return
-            }
-        }
-        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 불러오기"), message: L10n.Localizable.Error.message)
     }
     
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
@@ -416,20 +417,16 @@ extension HomeViewPresenter: ShareModelDelegate {
 
 // MARK: - WriteReviewPresenterDelegate
 extension HomeViewPresenter: WriteReviewPresenterDelegate {
-    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review) {
+    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
         view?.updateLoadingView(isLoading: false)
         view?.popToSelf()
         
-        model.categoryModel?.reloadCategory()
-        model.sortModel?.reloadSortOption()
-        model.userModel?.createReview(category: review.category)
-        setReloadCategoryTrigger(with: review.category)
-        if let selectedCategory = model.categoryModel?.selectedCategory {
-            view?.updateLoadingView(isLoading: true)
-            model.reviewListModel?.reloadReviews(with: selectedCategory, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
-        }
-        
+        reloadData(with: review)
         view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
+        
+        if isNewWrite {
+            incrementWriteReviewCount()
+        }
     }
     
     func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
@@ -440,13 +437,6 @@ extension HomeViewPresenter: WriteReviewPresenterDelegate {
 // MARK: - ReviewDetailPresenterDelegate
 extension HomeViewPresenter: ReviewDetailPresenterDelegate {
     func reviewDetail(_ presenter: ReviewDetailPresenter, didWrite review: Review) {
-        model.categoryModel?.reloadCategory()
-        model.sortModel?.reloadSortOption()
-        model.userModel?.createReview(category: review.category)
-        setReloadCategoryTrigger(with: review.category)
-        if let selectedCategory = model.categoryModel?.selectedCategory {
-            view?.updateLoadingView(isLoading: true)
-            model.reviewListModel?.reloadReviews(with: selectedCategory, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
-        }
+        reloadData(with: review)
     }
 }

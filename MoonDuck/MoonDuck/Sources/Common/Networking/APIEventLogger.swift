@@ -14,6 +14,7 @@ class APIEventLogger: EventMonitor {
     func requestDidFinish(_ request: Request) {
         
         let headers = request.request?.allHTTPHeaderFields ?? [:]
+        let method = request.request?.httpMethod ?? "nil"
         let urlStr = request.request?.url?.absoluteString ?? "nil"
         let path = urlStr.replacingOccurrences(of: "\(MoonDuckAPI.baseUrl())", with: "")
         if let body = request.request?.httpBody {
@@ -22,6 +23,7 @@ class APIEventLogger: EventMonitor {
                                     
             ---------- HTTP REQUEST ----------
             path: \(path) - \(Date().debugDescription)
+            method: \(method)
             url: \(urlStr)
             headers: \(headers)
             body: \(bodyString)
@@ -34,6 +36,7 @@ class APIEventLogger: EventMonitor {
                         
             ---------- HTTP REQUEST ----------
             path: \(path) - \(Date().debugDescription)
+            method: \(method)
             url: \(urlStr)
             headers: \(headers)
             body: nil

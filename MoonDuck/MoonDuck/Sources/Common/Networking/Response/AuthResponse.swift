@@ -11,6 +11,7 @@ struct AuthLoginResponse: Codable {
     let accessToken: String
     let refreshToken: String
     let isHaveNickname: Bool
+    let userId: Int
 }
 
 struct AuthReissueResponse: Codable {

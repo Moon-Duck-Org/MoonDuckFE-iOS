@@ -7,17 +7,16 @@
 
 import Foundation
 
-protocol ReviewListModelDelegate: AnyObject {
+protocol ReviewListModelDelegate: BaseModelDelegate {
     func reviewListModel(_ model: ReviewListModelType, didSuccess list: ReviewList)
     func reviewListModel(_ model: ReviewListModelType, didAync list: ReviewList)
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review)
     func reviewListDidFail(_ model: ReviewListModelType)
     func reviewListDidLast(_ model: ReviewListModelType)
     func reviewListDidFailDeleteReview(_ model: ReviewListModelType)
-    func reviewListModel(_ model: ReviewListModelType, didRecieve error: APIError?)
 }
 
-protocol ReviewListModelType: AnyObject {
+protocol ReviewListModelType: BaseModelType {
     // Data
     var delegate: ReviewListModelDelegate? { get set }
     
@@ -157,7 +156,7 @@ extension ReviewListModel {
                     self.delegate?.reviewListDidFail(self)
                     return
                 }
-                self.delegate?.reviewListModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
@@ -180,7 +179,7 @@ extension ReviewListModel {
                     self.delegate?.reviewListDidFail(self)
                     return
                 }
-                self.delegate?.reviewListModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }
@@ -215,10 +214,6 @@ extension ReviewListModel {
                 self.delegate?.reviewListModel(self, didAync: self.reviewLists[listIndex])
             } else {
                 // 오류 발생
-                if failed?.isReviewError ?? false {
-                    return
-                }
-                self.delegate?.reviewListModel(self, didRecieve: failed)
             }
         }
     }
@@ -244,10 +239,6 @@ extension ReviewListModel {
                 self.delegate?.reviewListModel(self, didAync: self.reviewLists[listIndex])
             } else {
                 // 오류 발생
-                if failed?.isReviewError ?? false {
-                    return
-                }
-                self.delegate?.reviewListModel(self, didRecieve: failed)
             }
         }
     }
@@ -266,7 +257,7 @@ extension ReviewListModel {
                 }
             } else {
                 // 오류 발생
-                self.delegate?.reviewListModel(self, didRecieve: failed)
+                self.delegate?.error(didRecieve: failed)
             }
         }
     }

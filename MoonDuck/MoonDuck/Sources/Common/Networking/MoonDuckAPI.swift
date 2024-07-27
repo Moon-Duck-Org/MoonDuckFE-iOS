@@ -198,6 +198,16 @@ extension MoonDuckAPI: TargetType {
             return ["Content-Type": "application/json"]
         }
     }    
+    
+    var errorType: ErrorType {
+        switch self {
+        case .searchConcert:
+            return .searchConcertError
+        case .searchBook, .searchDrama, .searchMovie:
+            return .openApiError
+        default: return .appError
+        }
+    }
 }
 
 class API {

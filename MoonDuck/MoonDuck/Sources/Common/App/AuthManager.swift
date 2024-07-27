@@ -101,6 +101,7 @@ class AuthManager {
                     Token(accessToken: succeed.accessToken,
                           refreshToken: succeed.refreshToken)
                 )
+                AuthManager.shared.saveUserId(succeed.userId)
                 completion(succeed.isHaveNickname, nil)
             } else {
                 completion(nil, failed)

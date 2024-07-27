@@ -10,6 +10,8 @@ import Foundation
 protocol BaseModelDelegate: AnyObject {
     func error(didRecieve error: APIError?)
 }
+extension BaseModelDelegate {
+}
 
 protocol BaseModelType: AnyObject {
     
