@@ -616,8 +616,9 @@
 				EA6B3C7E2C47C56400FBD9B0 /* Secrets-Release.xcconfig */,
 				EA1F2A162C4FB8D0003AAD84 /* Secrets.swift */,
 			);
-			path = Secrets;
-			sourceTree = "<group>";
+			name = Secrets;
+			path = MoonDuck/Secrets;
+			sourceTree = SOURCE_ROOT;
 		};
 		EA4E1DA12C1E7D7E00125239 /* SearchProgram */ = {
 			isa = PBXGroup;

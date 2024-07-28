@@ -112,4 +112,21 @@ enum Category: String {
             return 0
         }
     }
+    
+    func getSamllImageHeight(width: CGFloat = 18) -> CGFloat {
+        switch self {
+        case .all:
+            return 0
+        case .movie:
+            return width * 51 / 18
+        case .book:
+            return width * 45 / 18
+        case .drama:
+            return width * 60 / 18
+        case .concert:
+            return width * 55 / 18
+        case .none:
+            return 0
+        }
+    }
 }

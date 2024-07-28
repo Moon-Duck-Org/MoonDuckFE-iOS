@@ -82,16 +82,20 @@
                                 <rect key="frame" x="16" y="5" width="60" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="UhF-EL-4ap"/>
+                                    <constraint firstAttribute="width" constant="60" id="npr-fd-8Dq"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="·" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1U-dx-DL1">
                                 <rect key="frame" x="81" y="6" width="6.3333333333333286" height="16.333333333333332"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="6.3300000000000001" id="Ab9-vJ-erT"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="11"/>
                                 <color key="textColor" name="Black"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygO-1n-f0J">
-                                <rect key="frame" x="92.333333333333329" y="14" width="0.0" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가나다가나다가나다가나다가나다가나다가나다가나다가나" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygO-1n-f0J">
+                                <rect key="frame" x="92.333333333333343" y="6" width="266.66666666666663" height="16.333333333333332"/>
                                 <fontDescription key="fontDescription" name="NotoSansCJKkr-Medium" family="Noto Sans CJK KR" pointSize="11"/>
                                 <color key="textColor" name="Black"/>
                                 <nil key="highlightedColor"/>
@@ -215,7 +219,7 @@
                             <constraint firstItem="iUj-fl-USb" firstAttribute="top" secondItem="ZyE-Tf-9j0" secondAttribute="bottom" constant="5" id="6s7-4R-Jcf"/>
                             <constraint firstItem="ZyE-Tf-9j0" firstAttribute="leading" secondItem="cvq-sW-Sbd" secondAttribute="leading" constant="16" id="G3N-7U-Mhk"/>
                             <constraint firstItem="V1U-dx-DL1" firstAttribute="leading" secondItem="uyV-WF-Dg4" secondAttribute="trailing" constant="5" id="JNr-lz-GqP"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ygO-1n-f0J" secondAttribute="trailing" constant="16" id="TOM-iU-Tyt"/>
+                            <constraint firstAttribute="trailing" secondItem="ygO-1n-f0J" secondAttribute="trailing" constant="16" id="TOM-iU-Tyt"/>
                             <constraint firstItem="iUj-fl-USb" firstAttribute="leading" secondItem="cvq-sW-Sbd" secondAttribute="leading" constant="16" id="UzL-3k-3Tl"/>
                             <constraint firstItem="ygO-1n-f0J" firstAttribute="centerY" secondItem="uyV-WF-Dg4" secondAttribute="centerY" id="a9C-e5-U58"/>
                             <constraint firstItem="V1U-dx-DL1" firstAttribute="centerY" secondItem="uyV-WF-Dg4" secondAttribute="centerY" id="hSj-mT-kWZ"/>
@@ -309,6 +313,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="categoryImageview" destination="uyV-WF-Dg4" id="vBd-rK-zCA"/>
+                <outlet property="categoryWidthConstraint" destination="npr-fd-8Dq" id="6GX-Bd-dSz"/>
                 <outlet property="contentLabel" destination="iUj-fl-USb" id="KPW-F9-Ac9"/>
                 <outlet property="dateLabel" destination="Pnv-lg-uEy" id="KSL-d0-EDR"/>
                 <outlet property="imageCollectionView" destination="Sng-hw-RAJ" id="RNT-mM-ciT"/>
