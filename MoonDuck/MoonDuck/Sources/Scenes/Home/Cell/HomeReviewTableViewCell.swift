@@ -17,6 +17,7 @@ class HomeReviewTableViewCell: UITableViewCell {
     @IBOutlet private weak var dateLabel: UILabel!
     
     @IBOutlet private weak var categoryImageview: UIImageView!
+    @IBOutlet private weak var categoryWidthConstraint: NSLayoutConstraint!
     
     @IBOutlet private weak var programTitleLabel: UILabel!
     @IBOutlet private weak var programTitleDot: UILabel!
@@ -47,7 +48,9 @@ class HomeReviewTableViewCell: UITableViewCell {
     func configure(with review: Review, optionButtonHandler: (() -> Void)? = nil, tappedHandler: (() -> Void)? = nil) {
         titleLabel.text = review.title
         dateLabel.text = review.createdAt
+        
         categoryImageview.image = review.category.roundSmallImage
+        categoryWidthConstraint.constant = review.category.getSamllImageHeight()
         
         if review.program.title.isNotEmpty {
             programTitleLabel.text = review.program.title
