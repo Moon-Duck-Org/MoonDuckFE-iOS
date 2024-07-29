@@ -167,9 +167,9 @@ extension HomeViewPresenter {
     
     func writeNewReviewButtonTapped() {
         let categoryModel = CategoryModel()
-        if let category = categoryModel.selectedCategory,
-           category != .all {
-            categoryModel.selectedCategory = category
+        if let selectedCategory = model.categoryModel?.selectedCategory,
+           selectedCategory != .all {
+            categoryModel.selectedCategory = selectedCategory
         }
         let appModel = AppModels(
             categoryModel: categoryModel
