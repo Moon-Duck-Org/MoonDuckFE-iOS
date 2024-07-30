@@ -142,9 +142,9 @@ extension MoonDuckAPI: TargetType {
         case .revokeToken(let request):
             return .body(request)
         case .revokeApple(let request):
-            return .body(request)
+            return .query(request)
         case .appleToken(let request):
-            return .body(request)
+            return .query(request)
         case .user:
             return nil
         case .userNickname(let request):
@@ -215,7 +215,8 @@ extension MoonDuckAPI: TargetType {
                 return ["Content-Type": "multipart/form-data"]
             }
         case .revokeApple, .appleToken:
-            return ["Content-Type": "application/x-www-form-urlencoded"]
+            return ["Content-Type": "application/x-www-form-urlencoded",
+                    "Accept": "application/json"]
         default:
             return ["Content-Type": "application/json"]
         }

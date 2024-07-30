@@ -38,7 +38,7 @@ struct RevokeTokenResponse: Codable {
 
 struct AppleTokenResponse: Codable {
     let accessToken: String
-    let expiresIn: String
+    let expiresIn: Int
     let idToken: String
     let refreshToken: String
     let tokenType: String

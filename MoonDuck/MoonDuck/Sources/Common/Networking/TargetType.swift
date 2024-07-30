@@ -43,6 +43,44 @@ extension TargetType {
         return urlRequest
     }
     
+    func performRequest(completion: @escaping (Result<Bool, APIError>) -> Void) {
+        do {
+            let urlRequest = try asURLRequest()
+            API.session.request(urlRequest).response(responseSerializer: EmptyDataResponseSerializer()) { response in
+                switch response.result {
+                case .success:
+                    completion(.success(response.response?.statusCode == 200))
+                case .failure(let error):
+                    if let data = response.data {
+                        do {
+                            switch errorType {
+                            case .appError:
+                                let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
+                                let apiError = APIError(error: errorResponse)
+                                completion(.failure(apiError))
+                            case .openApiError:
+                                completion(.failure(.openApi))
+                            case .appleApiError:
+                                completion(.failure(.appleApi))
+                            default: completion(.failure(.unknown))
+                            }
+                            
+                        } catch {
+                            completion(.failure(.decoding))
+                        }
+                    } else {
+                        let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
+                        let error = response.error ?? error
+                        let apiError = APIError(statusCode: statusCode, error: error)
+                        completion(.failure(apiError))
+                    }
+                }
+            }
+        } catch {
+            completion(.failure(.unknown))
+        }
+    }
+    
     func performRequest<T: Decodable>(responseType: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
         do {
             let urlRequest = try asURLRequest()
@@ -215,5 +253,19 @@ extension Encodable {
               let jsonData = try? JSONSerialization.jsonObject(with: data),
               let dictionaryData = jsonData as? [String: Any] else { return [:] }
         return dictionaryData
+    }
+}
+
+struct EmptyDataResponseSerializer: DataResponseSerializerProtocol {
+    public init() {}
+
+    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) throws -> Data? {
+        if let error = error { throw error }
+        
+        guard let data = data, !data.isEmpty else {
+            return Data() // or nil based on your requirement
+        }
+        
+        return data
     }
 }

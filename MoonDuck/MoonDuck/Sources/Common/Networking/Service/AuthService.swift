@@ -65,10 +65,10 @@ class AuthService {
     }
     
     func revokeApple(request: RevokeAppleRequest, completion: @escaping (_ succeed: Bool?, _ failed: APIError?) -> Void) {
-        MoonDuckAPI.revokeApple(request).performRequest(responseType: Data.self, completion: {  result in
+        MoonDuckAPI.revokeApple(request).performRequest(completion: { result in
             switch result {
-            case .success:
-                completion(true, nil)
+            case .success(let isSuccess):
+                completion(isSuccess, nil)
             case .failure(let error):
                 completion(nil, error)
             }
