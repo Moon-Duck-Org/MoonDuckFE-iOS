@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct AuthLoginRequest: Codable {
+struct LoginRequest: Codable {
     var dvsnCd: String  // 소셜 로그인 타입
     var id: String      // 소셜 로그인 ID
 }
 
-struct AuthReissueRequest: Codable {
+struct ReissueRequest: Codable {
     var accessToken: String
     var refreshToken: String
     var userId: Int
 }
 
-struct AuthRevokeAppleRequest: Codable {
+struct RevokeAppleRequest: Codable {
     var clientId: String = Utils.appBundleId
     var clientSecret: String
     var token: String

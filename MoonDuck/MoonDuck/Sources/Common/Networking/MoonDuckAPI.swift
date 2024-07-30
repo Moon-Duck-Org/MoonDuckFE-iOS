@@ -9,9 +9,10 @@ import Foundation
 import Alamofire
 
 enum MoonDuckAPI {
-    case authLogin(AuthLoginRequest)
-    case authReissue(AuthReissueRequest)
-    case authRevokeApple(AuthRevokeAppleRequest)
+    case login(LoginRequest)
+    case logout
+    case reissue(ReissueRequest)
+    case revokeApple(RevokeAppleRequest)
     case user
     case deleteUser
     case userNickname(UserNicknameRequest)
@@ -43,7 +44,7 @@ extension MoonDuckAPI: TargetType {
             return URL(string: "https://api.themoviedb.org")!
         case .searchConcert:
             return URL(string: "http://openapi.seoul.go.kr:8088")!
-        case .authRevokeApple:
+        case .revokeApple:
             return URL(string: "https://appleid.apple.com")!
         default:
             return URL(string: MoonDuckAPI.baseUrl())!
@@ -54,7 +55,7 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .user, .searchMovie, .searchBook, .searchDrama, .searchConcert, .reviewAll, .getReview, .reviewDetail, .getShareUrl:
             return .get
-        case .authLogin, .authReissue, .authRevokeApple, .postReview:
+        case .login, .logout, .reissue, .revokeApple, .postReview:
             return .post
         case .userNickname, .userPush, .putReview:
             return .put
@@ -66,15 +67,18 @@ extension MoonDuckAPI: TargetType {
     var path: String {
         switch self {
             // 로그인
-        case .authLogin:
+        case .login:
             return SecretAPIPath.login
+            // 로그아웃
+        case .logout:
+            return SecretAPIPath.logout
             // access 토큰 재발급
-        case .authReissue:
+        case .reissue:
             return SecretAPIPath.reissue
             
             // Apple Login 탈퇴
-        case .authRevokeApple:
-            return "/auth/revoke"
+        case .revokeApple:
+            return SecretAPIPath.revokeApple
             
             // User 정보 조회 / 삭제
         case .user, .deleteUser:
@@ -117,11 +121,13 @@ extension MoonDuckAPI: TargetType {
     
     var parameters: RequestParams? {
         switch self {
-        case .authLogin(let request):
+        case .login(let request):
             return .body(request)
-        case .authReissue(let request):
+        case .logout:
+            return nil
+        case .reissue(let request):
             return .body(request)
-        case .authRevokeApple(let request):
+        case .revokeApple(let request):
             return .body(request)
         case .user, .deleteUser:
             return nil
@@ -167,9 +173,9 @@ extension MoonDuckAPI: TargetType {
     
     var headers: HTTPHeaders {
         switch self {
-        case .authLogin, .authReissue:
+        case .login, .reissue:
             return ["Content-Type": "application/json"]
-        case .user, .deleteUser, .userNickname, .userPush, .reviewAll, .getReview, .deleteReview, .reviewDetail, .getShareUrl:
+        case .logout, .user, .deleteUser, .userNickname, .userPush, .reviewAll, .getReview, .deleteReview, .reviewDetail, .getShareUrl:
             if let token: String = AuthManager.shared.getAccessToken() {
                 return ["Content-Type": "application/json",
                         "Authorization": "Bearer \(token)"]
@@ -192,7 +198,7 @@ extension MoonDuckAPI: TargetType {
             } else {
                 return ["Content-Type": "multipart/form-data"]
             }
-        case .authRevokeApple:
+        case .revokeApple:
             return ["Content-Type": "application/x-www-form-urlencoded"]
         default:
             return ["Content-Type": "application/json"]

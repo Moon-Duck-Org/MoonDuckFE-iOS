@@ -7,14 +7,18 @@
 
 import Foundation
 
-struct AuthLoginResponse: Codable {
+struct LoginResponse: Codable {
     let accessToken: String
     let refreshToken: String
     let isHaveNickname: Bool
     let userId: Int
 }
 
-struct AuthReissueResponse: Codable {
+struct LogoutResponse: Codable {
+    let userId: Int
+}
+
+struct ReissueResponse: Codable {
     let accessToken: String
     let refreshToken: String
     

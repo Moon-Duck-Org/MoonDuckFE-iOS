@@ -56,26 +56,12 @@ class AuthManager {
     func getAutoLoginAuth() -> Auth? {
         return Secrets.getAutoLoginAuth()
     }
-    
-    func logout() {
-        if let auth = Secrets.auth {
-            switch auth.loginType {
-            case .kakao: logoutWithKakao { _ in }
-            case .apple: break
-            case .google: logoutWithGoogle()
-            }
-        }
         
-        removeAuth()
-        removeToken()
-        removeUserId()
-    }
-    
     func withDraw() {
         if let auth = Secrets.auth {
             switch auth.loginType {
             case .kakao: withdrawWithKakao { _ in }
-            case .apple: break
+            case .apple: break // TODO: - 애플 로그인 해제
             case .google: withdrawWithGoogle { _ in }
             }
         }
@@ -92,7 +78,7 @@ class AuthManager {
     }
     
     func login(auth: Auth, completion: @escaping (_ isHaveNickname: Bool?, _ failed: APIError?) -> Void) {
-        let request = AuthLoginRequest(dvsnCd: auth.loginType.rawValue, id: auth.id)
+        let request = LoginRequest(dvsnCd: auth.loginType.rawValue, id: auth.id)
         provider?.authService.login(request: request) { succeed, failed in
             if let succeed {
                 // 앱에 토큰 및 로그인 정보 저장
@@ -109,6 +95,22 @@ class AuthManager {
         }
     }
     
+    func logout() {
+        provider?.authService.logout {  _, _ in  }
+        
+        if let auth = Secrets.auth {
+            switch auth.loginType {
+            case .kakao: logoutWithKakao { _ in }
+            case .apple: break
+            case .google: logoutWithGoogle()
+            }
+        }
+        
+        removeAuth()
+        removeToken()
+        removeUserId()
+    }
+    
     func refreshToken(completion: @escaping (_ success: Bool, _ error: APIError?) -> Void) {
         guard let accessToken = Secrets.token?.accessToken,
               let refreshToken = Secrets.token?.refreshToken,
@@ -117,7 +119,7 @@ class AuthManager {
             return
         }
         
-        let request = AuthReissueRequest(accessToken: accessToken, refreshToken: refreshToken, userId: userId)
+        let request = ReissueRequest(accessToken: accessToken, refreshToken: refreshToken, userId: userId)
         provider?.authService.reissue(request: request) { succeed, failed in
             if let succeed {
                 self.saveToken(succeed)
@@ -135,9 +137,10 @@ extension AuthManager {
         UserApi.shared.logout { error in
             if let error {
                 Log.error("로그아웃 실패: \(error.localizedDescription)")
+                completion(.failure(error))
             } else {
                 Log.debug("로그아웃 성공")
-                // 앱 내에서 로그아웃 후의 처리를 추가합니다.
+                completion(.success(()))
             }
         }
     }
@@ -172,7 +175,7 @@ extension AuthManager {
     }
     
     private func withdrawWithApple(clientSecret: String, token: String, completion: @escaping (Result<Void, Error>?) -> Void) {
-        let request = AuthRevokeAppleRequest(clientSecret: clientSecret, token: token)
+        let request = RevokeAppleRequest(clientSecret: clientSecret, token: token)
         provider?.authService.revokeApple(request: request, completion: { succeed, failed in
             if let failed {
                 Log.error("에플 연결 해제 실패: \(failed.localizedDescription)")

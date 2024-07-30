@@ -8,8 +8,8 @@
 import Alamofire
 
 class AuthService {
-    func login(request: AuthLoginRequest, completion: @escaping (_ succeed: AuthLoginResponse?, _ failed: APIError?) -> Void) {
-        MoonDuckAPI.authLogin(request).performRequest(responseType: AuthLoginResponse.self, completion: {  result in
+    func login(request: LoginRequest, completion: @escaping (_ succeed: LoginResponse?, _ failed: APIError?) -> Void) {
+        MoonDuckAPI.login(request).performRequest(responseType: LoginResponse.self, completion: {  result in
             switch result {
             case .success(let response):
                 completion(response, nil)
@@ -19,8 +19,19 @@ class AuthService {
         })
     }
 
-    func reissue(request: AuthReissueRequest, completion: @escaping (_ succeed: Token?, _ failed: APIError?) -> Void) {
-        MoonDuckAPI.authReissue(request).performRequest(responseType: AuthReissueResponse.self, completion: {  result in
+    func logout(completion: @escaping (_ succeed: LogoutResponse?, _ failed: APIError?) -> Void) {
+        MoonDuckAPI.logout.performRequest(responseType: LogoutResponse.self, completion: {  result in
+            switch result {
+            case .success(let response):
+                completion(response, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
+        })
+    }
+
+    func reissue(request: ReissueRequest, completion: @escaping (_ succeed: Token?, _ failed: APIError?) -> Void) {
+        MoonDuckAPI.reissue(request).performRequest(responseType: ReissueResponse.self, completion: {  result in
             switch result {
             case .success(let response):
                 completion(response.toDomain, nil)
@@ -30,8 +41,8 @@ class AuthService {
         })
     }
     
-    func revokeApple(request: AuthRevokeAppleRequest, completion: @escaping (_ succeed: Bool?, _ failed: Error?) -> Void) {
-        API.session.request(MoonDuckAPI.authRevokeApple(request))
+    func revokeApple(request: RevokeAppleRequest, completion: @escaping (_ succeed: Bool?, _ failed: Error?) -> Void) {
+        API.session.request(MoonDuckAPI.revokeApple(request))
             .responseData { response in
                 guard let statusCode = response.response?.statusCode else {
                     completion(false, nil)
