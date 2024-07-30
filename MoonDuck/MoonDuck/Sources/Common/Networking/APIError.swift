@@ -24,6 +24,9 @@ enum APIError: Error, Equatable, LocalizedError {
     case revokeTokenGenerationFailed(_ message: String?)
     case invalidRefreshToken(_ message: String?)
     
+    // Apple API
+    case appleApi
+    
     // Open API
     case openApi
     case emptySearchData
@@ -69,6 +72,9 @@ enum APIError: Error, Equatable, LocalizedError {
             return "오픈 API 오류 발생"
         case .emptySearchData:
             return "검색 결과 비어있음"
+            
+        case .appleApi:
+            return "애플 API 오류 발생"
             
         case .auth:
             return "사용자 인증 오류 발생"

@@ -11,10 +11,12 @@ import Alamofire
 enum MoonDuckAPI {
     case login(LoginRequest)
     case logout
+    case exit
     case reissue(ReissueRequest)
+    case revokeToken(RevokeTokenRequest)
     case revokeApple(RevokeAppleRequest)
+    case appleToken(AppleTokenRequest)
     case user
-    case deleteUser
     case userNickname(UserNicknameRequest)
     case userPush(UserPushRequest)
     case searchMovie(SearchMovieRequest)
@@ -44,7 +46,7 @@ extension MoonDuckAPI: TargetType {
             return URL(string: "https://api.themoviedb.org")!
         case .searchConcert:
             return URL(string: "http://openapi.seoul.go.kr:8088")!
-        case .revokeApple:
+        case .revokeApple, .appleToken:
             return URL(string: "https://appleid.apple.com")!
         default:
             return URL(string: MoonDuckAPI.baseUrl())!
@@ -55,11 +57,11 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .user, .searchMovie, .searchBook, .searchDrama, .searchConcert, .reviewAll, .getReview, .reviewDetail, .getShareUrl:
             return .get
-        case .login, .logout, .reissue, .revokeApple, .postReview:
+        case .login, .logout, .reissue, .revokeToken, .revokeApple, .appleToken, .postReview:
             return .post
         case .userNickname, .userPush, .putReview:
             return .put
-        case .deleteUser, .deleteReview:
+        case .exit, .deleteReview:
             return HTTPMethod.delete
         }
     }
@@ -72,16 +74,24 @@ extension MoonDuckAPI: TargetType {
             // 로그아웃
         case .logout:
             return SecretAPIPath.logout
+            // 회원탈퇴
+        case .exit:
+            return SecretAPIPath.exit
             // access 토큰 재발급
         case .reissue:
             return SecretAPIPath.reissue
+        case .revokeToken:
+            return SecretAPIPath.revokeToken
             
             // Apple Login 탈퇴
         case .revokeApple:
-            return SecretAPIPath.revokeApple
+            return "/auth/revoke"
+            // Apple Token 발급
+        case .appleToken:
+            return "/auth/token"
             
             // User 정보 조회 / 삭제
-        case .user, .deleteUser:
+        case .user:
             return "/user"
             // User Nickname 수정
         case .userNickname:
@@ -125,11 +135,17 @@ extension MoonDuckAPI: TargetType {
             return .body(request)
         case .logout:
             return nil
+        case .exit:
+            return nil
         case .reissue(let request):
+            return .body(request)
+        case .revokeToken(let request):
             return .body(request)
         case .revokeApple(let request):
             return .body(request)
-        case .user, .deleteUser:
+        case .appleToken(let request):
+            return .body(request)
+        case .user:
             return nil
         case .userNickname(let request):
             return .body(request)
@@ -175,7 +191,7 @@ extension MoonDuckAPI: TargetType {
         switch self {
         case .login, .reissue:
             return ["Content-Type": "application/json"]
-        case .logout, .user, .deleteUser, .userNickname, .userPush, .reviewAll, .getReview, .deleteReview, .reviewDetail, .getShareUrl:
+        case .logout, .exit, .revokeToken, .user, .userNickname, .userPush, .reviewAll, .getReview, .deleteReview, .reviewDetail, .getShareUrl:
             if let token: String = AuthManager.shared.getAccessToken() {
                 return ["Content-Type": "application/json",
                         "Authorization": "Bearer \(token)"]
@@ -198,7 +214,7 @@ extension MoonDuckAPI: TargetType {
             } else {
                 return ["Content-Type": "multipart/form-data"]
             }
-        case .revokeApple:
+        case .revokeApple, .appleToken:
             return ["Content-Type": "application/x-www-form-urlencoded"]
         default:
             return ["Content-Type": "application/json"]
@@ -211,6 +227,8 @@ extension MoonDuckAPI: TargetType {
             return .searchConcertError
         case .searchBook, .searchDrama, .searchMovie:
             return .openApiError
+        case .appleToken, .revokeApple:
+            return .appleApiError
         default: return .appError
         }
     }

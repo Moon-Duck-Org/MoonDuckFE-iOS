@@ -19,18 +19,6 @@ class UserService {
         })
     }
     
-    func deleteUser(completion: @escaping (_ succeed: Bool?, _ failed: APIError?) -> Void) {
-        MoonDuckAPI.deleteUser.performRequest(responseType: Bool.self, completion: {  result in
-            switch result {
-            case .success(let response):
-                completion(response, nil)
-            case .failure(let error):
-                completion(nil, error)
-            }
-        })
-
-    }
-    
     func nickname(request: UserNicknameRequest, completion: @escaping (_ succeed: UserNicknameResponse?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.userNickname(request).performRequest(responseType: UserNicknameResponse.self, completion: {  result in
             switch result {

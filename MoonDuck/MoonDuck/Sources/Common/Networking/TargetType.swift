@@ -71,6 +71,8 @@ extension TargetType {
                                 }
                             case .openApiError:
                                 completion(.failure(.openApi))
+                            case .appleApiError:
+                                completion(.failure(.appleApi))
                             }
 
                         } catch {
@@ -204,6 +206,7 @@ enum ErrorType {
     case appError
     case searchConcertError
     case openApiError
+    case appleApiError
 }
 
 extension Encodable {

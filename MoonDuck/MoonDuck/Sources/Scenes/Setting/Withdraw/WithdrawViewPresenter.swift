@@ -15,6 +15,7 @@ protocol WithdrawPresenter: AnyObject {
     
     // Action
     func withdrawButtonTapped()
+    func withdrawWithApple(authorizationCode: String)
 }
 
 class WithdrawViewPresenter: BaseViewPresenter, WithdrawPresenter {
@@ -40,21 +41,47 @@ extension WithdrawViewPresenter {
     // MARK: - Action
     func withdrawButtonTapped() {
         view?.updateLoadingView(isLoading: true)
-        model.userModel?.deleteUser()
+        if let loginType = AuthManager.shared.getLoginType() {
+            if loginType == .apple {
+                view?.showWithdrawWithAppleAlert()
+            } else {
+                model.userModel?.withdraw()
+            }
+        } else {
+            view?.updateLoadingView(isLoading: false)
+            view?.showErrorAlert(title: L10n.Localizable.Error.title("회원 탈퇴"), message: L10n.Localizable.Error.message)
+        }
     }
     
-    // MARK: - Logic
+    func withdrawWithApple(authorizationCode: String) {
+        model.userModel?.withdrawWithApple(authorizationCode: authorizationCode)
+    }
 }
 
 extension WithdrawViewPresenter: UserModelDelegate {
     func error(didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
-        view?.showErrorAlert(title: L10n.Localizable.Error.title("회원 탈퇴"), message: L10n.Localizable.Error.message)
+        
+        guard let error else { return }
+        
+        if error.isAuthError {
+            AuthManager.shared.logout()
+            let appModel = AppModels(
+                userModel: UserModel(provider)
+            )
+            let presenter = LoginViewPresenter(with: provider, model: appModel)
+            view?.showAuthErrorAlert(with: presenter)
+        } else if error.isNetworkError {
+            view?.showNetworkErrorAlert()
+        } else if error.isSystemError {
+            view?.showSystemErrorAlert()
+        } else {
+            view?.showErrorAlert(title: L10n.Localizable.Error.title("회원 탈퇴"), message: L10n.Localizable.Error.message)
+        }
     }
     
     func userModel(_ model: UserModelType, didChange user: User?) {
         view?.updateLoadingView(isLoading: false)
-        AuthManager.shared.withDraw()
         
         let appModel = AppModels(
             userModel: UserModel(provider)

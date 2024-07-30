@@ -32,6 +32,18 @@ struct RevokeAppleRequest: Codable {
     }
 }
 
+struct AppleTokenRequest: Codable {
+    var clientSecret: String
+    var code: String
+    var grantType: String = "authorization_code"
+    
+    enum CodingKeys: String, CodingKey {
+        case clientSecret = "client_secret"
+        case code
+        case grantType = "grant_type"
+    }
+}
+
 struct  RevokeTokenRequest: Codable {
     var keyId: String  = Constants.signInAppleKeyId
     var teamId: String = Constants.teamId
