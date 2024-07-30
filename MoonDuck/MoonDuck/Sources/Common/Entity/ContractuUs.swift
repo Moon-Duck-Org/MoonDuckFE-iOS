@@ -9,10 +9,10 @@ import Foundation
 
 struct ContractUs {
     let mail: String = Constants.appMail
-    let subject: String = "[\(Utils.appName) 문의] "
+    let subject: String = "[\(Constants.appName) 문의] "
     var nickName: String
-    let appVersion: String = Utils.appVersion ?? "알 수 없음"
-    let appName: String = Utils.appName
+    let appVersion: String = Constants.appVersion
+    let appName: String = Constants.appName
     
     func getBody() -> String {
         return """

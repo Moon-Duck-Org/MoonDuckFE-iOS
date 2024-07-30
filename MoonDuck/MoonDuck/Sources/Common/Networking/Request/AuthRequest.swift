@@ -19,7 +19,7 @@ struct ReissueRequest: Codable {
 }
 
 struct RevokeAppleRequest: Codable {
-    var clientId: String = Utils.appBundleId
+    var clientId: String = Constants.appBundleId
     var clientSecret: String
     var token: String
     var tokenTypeHint: String = "access_token"
@@ -30,4 +30,11 @@ struct RevokeAppleRequest: Codable {
         case token
         case tokenTypeHint = "token_type_hint"
     }
+}
+
+struct  RevokeTokenRequest: Codable {
+    var keyId: String  = Constants.signInAppleKeyId
+    var teamId: String = Constants.teamId
+    var audience: String = "https://appleid.apple.com"
+    var subject: String = Constants.appBundleId
 }

@@ -53,6 +53,10 @@
 	<string>$(SEARCH_BOOK_API_ID)</string>
 	<key>SearchBookApiKey</key>
 	<string>$(SEARCH_BOOK_API_KEY)</string>
+	<key>TeamId</key>
+	<string>$(TEAM_ID)</string>
+	<key>SignInAppleKeyId</key>
+	<string>$(SIGN_IN_APPLE_KEY_ID)</string>
 	<key>SearchConcertApiKey</key>
 	<string>$(SEARCH_CONCERT_API_KEY)</string>
 	<key>SearchDramaApiKey</key>

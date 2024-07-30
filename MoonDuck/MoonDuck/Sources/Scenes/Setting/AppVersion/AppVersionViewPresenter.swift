@@ -34,7 +34,7 @@ extension AppVersionViewPresenter {
     
     // MARK: - Logic
     private func checkForUpdate() {
-        let currentVersion: String = Utils.appVersion ?? "1.0.0"
+        let currentVersion: String = Constants.appVersion
         let versionInfo = L10n.Localizable.Update.versionText(currentVersion)
         
         Utils.checkForUpdate { [weak self] appUpdate in
