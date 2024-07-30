@@ -33,11 +33,13 @@ struct RevokeAppleRequest: Codable {
 }
 
 struct AppleTokenRequest: Codable {
+    var clientId: String = Constants.appBundleId
     var clientSecret: String
     var code: String
     var grantType: String = "authorization_code"
     
     enum CodingKeys: String, CodingKey {
+        case clientId = "client_id"
         case clientSecret = "client_secret"
         case code
         case grantType = "grant_type"
