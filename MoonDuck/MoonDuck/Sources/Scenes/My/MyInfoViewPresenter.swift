@@ -31,6 +31,10 @@ extension MyInfoViewPresenter {
         if let user = model.userModel?.user {
             view?.updateNameLabelText(with: user.nickname)
             view?.updateCountLabels(with: user.all, movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
+            
+            if let loginType = AuthManager.shared.getLoginType() {
+                view?.updateSnsLogin(with: loginType)
+            }
         } else {
             AuthManager.shared.logout()
             moveLogin()
