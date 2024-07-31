@@ -57,42 +57,37 @@ class AuthManager {
         return Secrets.getAutoLoginAuth()
     }
     
-    func logout() {
-        if let auth = Secrets.auth {
-            switch auth.loginType {
-            case .kakao: logoutWithKakao { _ in }
-            case .apple: break
-            case .google: logoutWithGoogle()
-            }
-        }
+    func getLoginType() -> SnsLoginType? {
+        return Secrets.auth?.loginType
+    }
         
+    func withdraw(completion: @escaping (_ isSuccess: Bool, _ error: APIError?) -> Void) {
+        if let loginType = getLoginType() {
+            switch loginType {
+            case .kakao:
+                withdrawWithKakao { [weak self] _ in
+                    self?.exit(completion: completion)
+                }
+            case .apple:
+                completion(false, .unknown)
+            case .google:
+                withdrawWithGoogle { [weak self] _ in
+                    self?.exit(completion: completion)
+                }
+            }
+        } else {
+            completion(false, .auth)
+        }
+    }
+    
+    func removeAppUserData() {
         removeAuth()
         removeToken()
         removeUserId()
-    }
-    
-    func withDraw() {
-        if let auth = Secrets.auth {
-            switch auth.loginType {
-            case .kakao: withdrawWithKakao { _ in }
-            case .apple: break
-            case .google: withdrawWithGoogle { _ in }
-            }
-        }
-        
-        removeAuth()
-        removeToken()
-        removeUserId()
-    }
-    
-    enum LoginResultCode {
-        case success
-        case error
-        case donthaveNickname
     }
     
     func login(auth: Auth, completion: @escaping (_ isHaveNickname: Bool?, _ failed: APIError?) -> Void) {
-        let request = AuthLoginRequest(dvsnCd: auth.loginType.rawValue, id: auth.id)
+        let request = LoginRequest(dvsnCd: auth.loginType.rawValue, id: auth.id)
         provider?.authService.login(request: request) { succeed, failed in
             if let succeed {
                 // 앱에 토큰 및 로그인 정보 저장
@@ -109,6 +104,38 @@ class AuthManager {
         }
     }
     
+    func logout() {
+        provider?.authService.logout { _, _ in }
+        
+        if let loginType = getLoginType() {
+            switch loginType {
+            case .kakao: logoutWithKakao { _ in }
+            case .apple: break
+            case .google: logoutWithGoogle()
+            }
+        }
+        
+        removeAppUserData()
+    }
+    
+    func exit(completion: @escaping (_ isSuccess: Bool, _ error: APIError?) -> Void) {
+        provider?.authService.exit { succeed, failed in
+            if succeed != nil {
+                completion(true, nil)
+            } else {
+                // 오류 발생
+                completion(false, failed)
+            }
+        }
+    }
+    
+    func revokeToken(completion: @escaping (_ success: String?, _ error: APIError?) -> Void) {
+        let request = RevokeTokenRequest()
+        provider?.authService.revokeToken(request: request) { succeed, failed in
+            completion(succeed, failed)
+        }
+    }
+    
     func refreshToken(completion: @escaping (_ success: Bool, _ error: APIError?) -> Void) {
         guard let accessToken = Secrets.token?.accessToken,
               let refreshToken = Secrets.token?.refreshToken,
@@ -117,7 +144,7 @@ class AuthManager {
             return
         }
         
-        let request = AuthReissueRequest(accessToken: accessToken, refreshToken: refreshToken, userId: userId)
+        let request = ReissueRequest(accessToken: accessToken, refreshToken: refreshToken, userId: userId)
         provider?.authService.reissue(request: request) { succeed, failed in
             if let succeed {
                 self.saveToken(succeed)
@@ -135,9 +162,10 @@ extension AuthManager {
         UserApi.shared.logout { error in
             if let error {
                 Log.error("로그아웃 실패: \(error.localizedDescription)")
+                completion(.failure(error))
             } else {
                 Log.debug("로그아웃 성공")
-                // 앱 내에서 로그아웃 후의 처리를 추가합니다.
+                completion(.success(()))
             }
         }
     }
@@ -171,21 +199,52 @@ extension AuthManager {
         }
     }
     
-    private func withdrawWithApple(clientSecret: String, token: String, completion: @escaping (Result<Void, Error>?) -> Void) {
-        let request = AuthRevokeAppleRequest(clientSecret: clientSecret, token: token)
-        provider?.authService.revokeApple(request: request, completion: { succeed, failed in
-            if let failed {
-                Log.error("에플 연결 해제 실패: \(failed.localizedDescription)")
-                completion(.failure(failed))
-            } else if let succeed {
-                if succeed {
-                    Log.error("에플 연결 해제 성공")
-                    completion(.success(()))
-                } else {
-                    Log.error("에플 연결 해제 실패")
-                    completion(nil)
-                }
+    private func appleToken(clientSecret: String, authorizationCode: String, completion: @escaping (_ token: String?, _ error: APIError?) -> Void) {
+        let request = AppleTokenRequest(clientSecret: clientSecret, code: authorizationCode)
+        provider?.authService.appleToken(request: request, completion: { succeed, failed in
+            if let succeed {
+                completion(succeed.accessToken, nil)
+            } else {
+                completion(nil, failed)
             }
         })
+    }
+    
+    private func revokeApple(clientSecret: String, token: String, completion: @escaping (_ isSuccess: Bool, _ error: APIError?) -> Void) {
+        let request = RevokeAppleRequest(clientSecret: clientSecret, token: token)
+        provider?.authService.revokeApple(request: request, completion: { succeed, failed in
+            if let succeed, succeed {
+                completion(true, nil)
+            } else {
+                completion(false, failed)
+            }
+        })
+    }
+    
+    func withdrawWithApple(authorizationCode: String, completion: @escaping (_ isSuccess: Bool, _ error: APIError?) -> Void) {
+        // STEP 1. Apple Auth Code 발급 -> VC에서 수행
+        // STEP 2. JWT Token 발급
+        revokeToken { [weak self] clientSecret, error in
+            if let clientSecret {
+                // STEP 3. Apple Token 발급
+                self?.appleToken(clientSecret: clientSecret, authorizationCode: authorizationCode) { [weak self] token, error in
+                    // STEP 4. Revoke Token 요청
+                    if let token {
+                        self?.revokeApple(clientSecret: clientSecret, token: token) { [weak self] isSuccess, error in
+                            if isSuccess {
+                                // STEP 5. 앱 회원 탈퇴
+                                self?.exit(completion: completion)
+                            } else {
+                                completion(false, error)
+                            }
+                        }
+                    } else {
+                        completion(false, error)
+                    }
+                }
+            } else {
+                completion(false, error)
+            }
+        }
     }
 }

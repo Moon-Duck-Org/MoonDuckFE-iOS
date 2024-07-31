@@ -208,6 +208,12 @@ internal enum L10n {
       internal static func text(_ p1: Any, _ p2: Any) -> String {
         return L10n.tr("Localizable", "withdraw. text", String(describing: p1), String(describing: p2), fallback: "%@님은 문덕이와\n%@번의 기록을 함께했어요.\n정말 탈퇴하시겠어요? 너무 아쉬워요.")
       }
+      internal enum Apple {
+        /// 인증에 실패했습니다.
+        internal static let error = L10n.tr("Localizable", "withdraw. apple. error", fallback: "인증에 실패했습니다.")
+        /// 애플 로그인 사용자는 회원 탈퇴를 위해 로그인 정보 확인이 필요합니다.
+        internal static let message = L10n.tr("Localizable", "withdraw. apple. message", fallback: "애플 로그인 사용자는 회원 탈퇴를 위해 로그인 정보 확인이 필요합니다.")
+      }
     }
     internal enum Write {
       /// 작성된 내용은 모두 지워져요.

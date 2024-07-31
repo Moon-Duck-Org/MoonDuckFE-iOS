@@ -29,7 +29,8 @@ protocol UserModelType: BaseModelType {
     // Networking
     func getUser()
     func nickname(_ name: String)
-    func deleteUser()
+    func withdraw()
+    func withdrawWithApple(authorizationCode: String)
     func push(_ isPush: Bool)
 }
 
@@ -72,7 +73,7 @@ class UserModel: UserModelType {
         self.user = user
     }
     
-    func logout() {
+    func removeUser() {
         self.user = nil
     }
     
@@ -143,14 +144,34 @@ class UserModel: UserModelType {
         }
     }
     
-    func deleteUser() {
-        provider.userService.deleteUser { [weak self] succeed, failed in
+    func withdrawWithApple(authorizationCode: String) {
+        AuthManager.shared.withdrawWithApple(authorizationCode: authorizationCode) { [weak self] isSuccess, error in
             guard let self else { return }
-            if let succeed, succeed {
-                self.logout()
+            if let error {
+                self.delegate?.error(didRecieve: error)
+            }
+            
+            if isSuccess {
+                AuthManager.shared.removeAppUserData()
+                self.removeUser()
             } else {
-                // 오류 발생
-                self.delegate?.error(didRecieve: failed)
+                self.delegate?.error(didRecieve: .unknown)
+            }
+        }
+    }
+    
+    func withdraw() {
+        AuthManager.shared.withdraw { [weak self] isSuccess, error in
+            guard let self else { return }
+            if let error {
+                self.delegate?.error(didRecieve: error)
+            }
+            
+            if isSuccess {
+                AuthManager.shared.removeAppUserData()
+                self.removeUser()
+            } else {
+                self.delegate?.error(didRecieve: .unknown)
             }
         }
     }

@@ -204,7 +204,7 @@ extension ReviewListModel {
         let size = list.size
         
         let request = GetReviewRequest(category: category.apiKey, filter: filter.apiKey, offset: offset, size: size)
-        provider.reviewService.getReview(request: request) { [weak self] succeed, failed in
+        provider.reviewService.getReview(request: request) { [weak self] succeed, _ in
             guard let self else { return }
             self.isLoading = false
             if let succeed {
@@ -229,7 +229,7 @@ extension ReviewListModel {
         let size = list.size
         
         let allRequest = ReviewAllRequest(filter: filter.apiKey, offset: offset, size: size)
-        provider.reviewService.reviewAll(request: allRequest) { [weak self]  succeed, failed in
+        provider.reviewService.reviewAll(request: allRequest) { [weak self]  succeed, _ in
             guard let self else { return }
             self.isLoading = false
             if let succeed {

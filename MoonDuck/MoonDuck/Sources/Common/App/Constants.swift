@@ -26,4 +26,23 @@ class Constants {
     static func getSharePath(with boardId: String) -> String {
         return MoonDuckAPI.baseUrl() + "/share/\(boardId)"
     }
+    
+    static let signInAppleKeyId: String = Bundle.main.object(forInfoDictionaryKey: "SignInAppleKeyId") as? String ?? ""
+    static let teamId: String = Bundle.main.object(forInfoDictionaryKey: "TeamId") as? String ?? ""
+    
+    static var appBundleId: String {
+        return Bundle.main.bundleIdentifier ?? "com.poduck.moonduck"
+    }
+    
+    static var appName: String {
+        if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String {
+            return appName
+        } else {
+            return L10n.Localizable.appName
+        }
+    }
+    
+    static var appVersion: String {
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+    }
 }

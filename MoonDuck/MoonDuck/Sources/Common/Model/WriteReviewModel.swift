@@ -56,13 +56,15 @@ class WriteReviewModel: WriteReviewModelType {
         let programRequest = ProgramRequest(program: review.program)
         let request = WriteReviewRequest(title: title, category: review.category.apiKey, program: programRequest, content: content, url: url ?? "", score: score, boardId: review.id)
         
-        provider.reviewService.putReview(request: request, images: images) { [weak self] succeed, failed in
-            guard let self else { return }
-            if let succeed {
-                self.delegate?.writeReviewModel(self, didSuccess: succeed)
-            } else {
-                // 오류 발생
-                self.delegate?.error(didRecieve: failed)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.provider.reviewService.putReview(request: request, images: images) { [weak self] succeed, failed in
+                guard let self else { return }
+                if let succeed {
+                    self.delegate?.writeReviewModel(self, didSuccess: succeed)
+                } else {
+                    // 오류 발생
+                    self.delegate?.error(didRecieve: failed)
+                }
             }
         }
     }
@@ -76,13 +78,15 @@ class WriteReviewModel: WriteReviewModelType {
         let programRequest = ProgramRequest(program: program)
         let request = WriteReviewRequest(title: title, category: program.category.apiKey, program: programRequest, content: content, url: url ?? "", score: score)
         
-        provider.reviewService.postReview(request: request, images: images) { [weak self] succeed, failed in
-            guard let self else { return }
-            if let succeed {
-                self.delegate?.writeReviewModel(self, didSuccess: succeed)
-            } else {
-                // 오류 발생
-                self.delegate?.error(didRecieve: failed)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.provider.reviewService.postReview(request: request, images: images) { [weak self] succeed, failed in
+                guard let self else { return }
+                if let succeed {
+                    self.delegate?.writeReviewModel(self, didSuccess: succeed)
+                } else {
+                    // 오류 발생
+                    self.delegate?.error(didRecieve: failed)
+                }
             }
         }
     }

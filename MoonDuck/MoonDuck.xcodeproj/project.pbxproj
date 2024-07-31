@@ -85,6 +85,7 @@
 		EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */; };
 		EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA81F4A82BFF716600FDC7A7 /* Category.swift */; };
 		EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA81F4B12BFF881800FDC7A7 /* IntroViewController.xib */; };
+		EA8327D02C5A3168005784BA /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8327CF2C5A3168005784BA /* UIImage+Extension.swift */; };
 		EA8495322C36265F00112EDB /* WithdrawViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8495312C36265F00112EDB /* WithdrawViewController.xib */; };
 		EA8495332C36265F00112EDB /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8495302C36265F00112EDB /* WithdrawViewController.swift */; };
 		EA8495352C36277900112EDB /* WithdrawViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8495342C36277900112EDB /* WithdrawViewPresenter.swift */; };
@@ -286,6 +287,7 @@
 		EA81F4A52BFF70D300FDC7A7 /* BaseCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCategoryCell.swift; sourceTree = "<group>"; };
 		EA81F4A82BFF716600FDC7A7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		EA81F4B12BFF881800FDC7A7 /* IntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
+		EA8327CF2C5A3168005784BA /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		EA8495302C36265F00112EDB /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
 		EA8495312C36265F00112EDB /* WithdrawViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawViewController.xib; sourceTree = "<group>"; };
 		EA8495342C36277900112EDB /* WithdrawViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewPresenter.swift; sourceTree = "<group>"; };
@@ -704,6 +706,7 @@
 				EAB6E65E2C17F9B000A9E191 /* Array+Extension.swift */,
 				EA8C5CF72C44EE5B00AA7884 /* Date+Extension.swift */,
 				EA8C5CF92C44F5F100AA7884 /* Bool+Extension.swift */,
+				EA8327CF2C5A3168005784BA /* UIImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1322,6 +1325,7 @@
 				EA7208432C12735A00E96212 /* AuthService.swift in Sources */,
 				EACCDA0C2C354C3600D9ADAD /* ContractuUs.swift in Sources */,
 				EA6379C52BFEF3FA00464A19 /* Navigator.swift in Sources */,
+				EA8327D02C5A3168005784BA /* UIImage+Extension.swift in Sources */,
 				EAD957632C002982001FB6E1 /* User.swift in Sources */,
 				EA8C5D002C45132700AA7884 /* ShareService.swift in Sources */,
 				EA8C5CFE2C4512E500AA7884 /* ShareResponse.swift in Sources */,

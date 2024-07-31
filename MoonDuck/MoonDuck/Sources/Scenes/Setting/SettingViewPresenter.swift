@@ -55,7 +55,7 @@ extension SettingViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        view?.updateAppVersionLabelText(with: Utils.appVersion ?? "")
+        view?.updateAppVersionLabelText(with: Constants.appVersion)
     }
     
     func viewWillAppear() {

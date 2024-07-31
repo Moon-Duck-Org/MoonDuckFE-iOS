@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 protocol WithdrawView: BaseView {
     // UI Logic
     func updateContentLabelText(with text: String)
+    func showWithdrawWithAppleAlert()
         
     // Navigation
     func showComplteWithDrawAlert(with presenter: IntroPresenter)
@@ -63,9 +65,53 @@ extension WithdrawViewController {
         contentLabel?.text = text
     }
     
-    func showMoveLoginAlert(_ message: String) {
-        
+    func showWithdrawWithAppleAlert() {
+        AppAlert.default.showCancelAndDone(
+            self,
+            message: L10n.Localizable.Withdraw.Apple.message,
+            doneHandler: { [weak self] in
+                self?.appleLogin()
+            }
+        )
     }
+    private func appleLogin() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+               
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+}
+
+// MARK: - ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding
+extension WithdrawViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window ?? UIWindow()
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            if let authorizationCodeData = appleIDCredential.authorizationCode,
+               let authorizationCode = String(data: authorizationCodeData, encoding: .utf8) {
+                presenter.withdrawWithApple(authorizationCode: authorizationCode)
+                return
+            }
+        }
+        appleLoginError()
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // 로그인 실패(유저의 취소도 포함)
+        appleLoginError()
+    }
+    
+    private func appleLoginError() {
+        updateLoadingView(isLoading: false)
+        showToastMessage(L10n.Localizable.Withdraw.Apple.error)
+    }
+    
 }
 
 // MARK: - Navigation

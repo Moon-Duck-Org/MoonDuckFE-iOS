@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct AuthLoginRequest: Codable {
+struct LoginRequest: Codable {
     var dvsnCd: String  // 소셜 로그인 타입
     var id: String      // 소셜 로그인 ID
 }
 
-struct AuthReissueRequest: Codable {
+struct ReissueRequest: Codable {
     var accessToken: String
     var refreshToken: String
     var userId: Int
 }
 
-struct AuthRevokeAppleRequest: Codable {
-    var clientId: String = Utils.appBundleId
+struct RevokeAppleRequest: Codable {
+    var clientId: String = Constants.appBundleId
     var clientSecret: String
     var token: String
     var tokenTypeHint: String = "access_token"
@@ -30,4 +30,25 @@ struct AuthRevokeAppleRequest: Codable {
         case token
         case tokenTypeHint = "token_type_hint"
     }
+}
+
+struct AppleTokenRequest: Codable {
+    var clientId: String = Constants.appBundleId
+    var clientSecret: String
+    var code: String
+    var grantType: String = "authorization_code"
+    
+    enum CodingKeys: String, CodingKey {
+        case clientId = "client_id"
+        case clientSecret = "client_secret"
+        case code
+        case grantType = "grant_type"
+    }
+}
+
+struct  RevokeTokenRequest: Codable {
+    var keyId: String  = Constants.signInAppleKeyId
+    var teamId: String = Constants.teamId
+    var audience: String = "https://appleid.apple.com"
+    var subject: String = Constants.appBundleId
 }

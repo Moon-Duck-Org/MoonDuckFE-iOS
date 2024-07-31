@@ -11,6 +11,7 @@ protocol MyInfoView: BaseView {
     // UI Logic
     func updateNameLabelText(with text: String)
     func updateCountLabels(with all: Int, movie: Int, book: Int, drama: Int, concert: Int)
+    func updateSnsLogin(with type: SnsLoginType)
     
     // Navigation
     func dismiss()
@@ -29,6 +30,8 @@ class MyInfoViewController: BaseViewController, MyInfoView {
     @IBOutlet private weak var bookCountLabel: UILabel!
     @IBOutlet private weak var dramaCountLabel: UILabel!
     @IBOutlet private weak var concertCountLabel: UILabel!
+    @IBOutlet private weak var snsLoginImageView: UIImageView!
+    @IBOutlet private weak var snsLoginLabel: UILabel!
     
     // @IBAction
     @IBAction private func backButtonTapped(_ sender: Any) {
@@ -86,6 +89,11 @@ extension MyInfoViewController {
         bookCountLabel.text = "\(book)"
         dramaCountLabel.text = "\(drama)"
         concertCountLabel.text = "\(concert)"
+    }
+    
+    func updateSnsLogin(with type: SnsLoginType) {
+        snsLoginLabel.text = "\(type.title) 간편 로그인"
+        snsLoginImageView.image = type.smallImage
     }
 }
 

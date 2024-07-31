@@ -77,22 +77,6 @@ class Utils {
         }
     }
     
-    static var appVersion: String? {
-        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-    }
-    
-    static var appName: String {
-        if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String {
-            return appName
-        } else {
-            return L10n.Localizable.appName
-        }
-    }
-    
-    static var appBundleId: String {
-        return Bundle.main.bundleIdentifier ?? "com.poduck.moonduck"
-    }
-    
     static func moveAppStore() {
         if let appStoreURL = URL(string: "https://apps.apple.com/app/\(Constants.appStoreId)") {
             DispatchQueue.main.async {
@@ -159,7 +143,7 @@ class Utils {
                     // 값을 사용할 수 있습니다.
                     let forceVersion = remoteConfig["forceUpdateVersion"].stringValue ?? "1.0.0"
                     let latestVersion = remoteConfig["latestUpdateVersion"].stringValue ?? "1.0.0"
-                    let currentVersion = Utils.appVersion ?? "1.0.0"
+                    let currentVersion = Constants.appVersion
                     
                     let currentComponents = currentVersion.split(separator: ".").map { Int($0) ?? 0 }
                     
