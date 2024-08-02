@@ -977,12 +977,13 @@
 			buildConfigurationList = A0E658212BFE22BA001A8D54 /* Build configuration list for PBXNativeTarget "MoonDuck" */;
 			buildPhases = (
 				2B70096F4250B70332E903AC /* [CP] Check Pods Manifest.lock */,
+				A0E658332BFE343A001A8D54 /* SwiftGen */,
 				A0E657F32BFE22B7001A8D54 /* Sources */,
 				A0E657F42BFE22B7001A8D54 /* Frameworks */,
 				A0E657F52BFE22B7001A8D54 /* Resources */,
 				0DC006108A9696E0FF4D859A /* [CP] Embed Pods Frameworks */,
-				A0E658332BFE343A001A8D54 /* SwiftGen */,
 				A0E658472BFE3929001A8D54 /* SwiftLint */,
+				EA9DF10D2C5CDD11005569BD /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1275,6 +1276,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		EA9DF10D2C5CDD11005569BD /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ \"${CONFIGURATION}\" == \"Release\" ]; then\n    \"${PODS_ROOT}/FirebaseCrashlytics/run\"\n    \"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp \"${PROJECT_DIR}/Secrets/GoogleService-Info.plist\" -p ios ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
