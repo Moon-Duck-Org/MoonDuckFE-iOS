@@ -502,7 +502,6 @@
 			isa = PBXGroup;
 			children = (
 				EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */,
-				EA96A9652C1D635C0010AB60 /* GoogleService-Info.plist */,
 				A0E658082BFE22B9001A8D54 /* Info.plist */,
 				A0E658342BFE35DD001A8D54 /* Font */,
 				A0E658032BFE22B9001A8D54 /* Assets.xcassets */,
@@ -614,6 +613,7 @@
 		EA1F2A152C4FB816003AAD84 /* Secrets */ = {
 			isa = PBXGroup;
 			children = (
+				EA96A9652C1D635C0010AB60 /* GoogleService-Info.plist */,
 				EA6B3C7F2C47C5EA00FBD9B0 /* Secrets-Debug.xcconfig */,
 				EA6B3C7E2C47C56400FBD9B0 /* Secrets-Release.xcconfig */,
 				EA1F2A162C4FB8D0003AAD84 /* Secrets.swift */,
