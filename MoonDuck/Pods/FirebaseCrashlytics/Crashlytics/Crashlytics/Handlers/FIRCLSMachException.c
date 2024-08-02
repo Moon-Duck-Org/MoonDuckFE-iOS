@@ -108,11 +108,13 @@ static bool FIRCLSMachExceptionThreadStart(FIRCLSMachExceptionReadContext* conte
 
   if (pthread_attr_init(&attr) != 0) {
     FIRCLSSDKLog("pthread_attr_init %s\n", strerror(errno));
+    pthread_attr_destroy(&attr);
     return false;
   }
 
   if (pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED) != 0) {
     FIRCLSSDKLog("pthread_attr_setdetachstate %s\n", strerror(errno));
+    pthread_attr_destroy(&attr);
     return false;
   }
 
@@ -121,11 +123,13 @@ static bool FIRCLSMachExceptionThreadStart(FIRCLSMachExceptionReadContext* conte
   if (pthread_attr_setstack(&attr, _firclsContext.readonly->machStack,
                             CLS_MACH_EXCEPTION_HANDLER_STACK_SIZE) != 0) {
     FIRCLSSDKLog("pthread_attr_setstack %s\n", strerror(errno));
+    pthread_attr_destroy(&attr);
     return false;
   }
 
   if (pthread_create(&context->thread, &attr, FIRCLSMachExceptionServer, context) != 0) {
     FIRCLSSDKLog("pthread_create %s\n", strerror(errno));
+    pthread_attr_destroy(&attr);
     return false;
   }
 
@@ -150,8 +154,6 @@ exception_mask_t FIRCLSMachExceptionMaskForSignal(int signal) {
       return EXC_MASK_CRASH;
     case SIGFPE:
       return EXC_MASK_ARITHMETIC;
-    case SIGTERM:
-      return EXC_MASK_CRASH;
   }
 
   return 0;
