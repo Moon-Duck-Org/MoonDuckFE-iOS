@@ -42,6 +42,13 @@ class Utils {
         return date
     }
     
+    static func getCurrentKSTTimestamp() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return dateFormatter.string(from: Date())
+    }
+    
     static func openSafariViewController(urlString: String) {
         let viewController = Navigator.default.root
         

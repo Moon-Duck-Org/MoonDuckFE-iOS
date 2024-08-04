@@ -193,6 +193,8 @@ class AnalyticsService {
     ]
     
     private let eventParameters: [EventName: [EventParameter]] = [
+        .OPEN_APP: [.TIME_STAMP],
+        .OPEN_PUSH: [.TIME_STAMP],
         .FAIL_API: [.API_TYPE, .API_URL, .API_METHOD, .ERROR_CODE, .ERROR_MESSAGE, .TIME_STAMP],
         .SUCCESS_LOGIN: [.SNS_TYPE, .REVIEW_COUNT, .IS_PUSH],
         .FAIL_LOGIN: [.SNS_TYPE, .ERROR_CODE, .ERROR_MESSAGE, .TIME_STAMP],
@@ -264,7 +266,7 @@ class AnalyticsService {
              if errorEventNames.contains(event) {
                  fullParameters[.ERROR_CODE] = fullParameters[.ERROR_CODE] ?? ""
                  fullParameters[.ERROR_MESSAGE] = fullParameters[.ERROR_MESSAGE] ?? ""
-                 fullParameters[.TIME_STAMP] = fullParameters[.TIME_STAMP] ?? Date().timeIntervalSince1970
+                 fullParameters[.TIME_STAMP] = fullParameters[.TIME_STAMP] ?? Utils.getCurrentKSTTimestamp()
              }
              
              // eventParameters에 정의된 파라미터 추가

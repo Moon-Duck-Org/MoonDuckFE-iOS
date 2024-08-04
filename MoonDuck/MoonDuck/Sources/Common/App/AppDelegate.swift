@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         KakaoSDK.initSDK(appKey: Constants.kakaoAppKey)
         
         incrementAppOpenCount()
+        
+        UNUserNotificationCenter.current().delegate = self
+        application.registerForRemoteNotifications()
+        
         return true
     }
     
@@ -34,6 +38,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+    
+    private func handleNotification(userInfo: [AnyHashable: Any]) {
+        // 푸시 노티피케이션을 통해 앱이 열릴 때 로그 전송
+        AnalyticsService.shared.logEvent(.OPEN_PUSH, parameters: [
+            .TIME_STAMP: Utils.getCurrentKSTTimestamp()
+        ])
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        handleNotification(userInfo: userInfo)
+        completionHandler()
     }
 }
 
