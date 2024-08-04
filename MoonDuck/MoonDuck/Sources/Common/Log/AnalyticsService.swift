@@ -11,7 +11,7 @@ import FirebaseAnalytics
 
 class AnalyticsService {
     static let shared = AnalyticsService()
-    
+    // swiftlint:disable identifier_name
     enum EventName: String {
         // APP
         case OPEN_PUSH
@@ -170,6 +170,7 @@ class AnalyticsService {
         case REVIEW_IMAGE_COUNT
         case IMAGE_TOTAL_COUNT
     }
+    // swiftlint:enable identifier_name
     
     private let errorEventNames: Set<EventName> = [
         .FAIL_API,
