@@ -270,20 +270,20 @@ class AnalyticsService {
              }
              
              // eventParameters에 정의된 파라미터 추가
-             if let requiredParams = eventParameters[event] {
-                 for param in requiredParams {
-                     if fullParameters[param] == nil {
-                         fullParameters[param] = "" // or provide a default value
-                     }
-                 }
-             }
+            if let requiredParams = eventParameters[event] {
+                for param in requiredParams where fullParameters[param] == nil {
+                    fullParameters[param] = "" // or provide a default value
+                }
+            }
              
              let params = fullParameters.reduce(into: [String: Any]()) { result, param in
                  result[param.key.rawValue] = param.value
              }
              
+            Log.debug("Analytics.logEvent - \(event.rawValue) : \(params)")
              Analytics.logEvent(event.rawValue, parameters: params)
         } else {
+            Log.debug("Analytics.logEvent - \(event.rawValue)")
             Analytics.logEvent(event.rawValue, parameters: nil)
         }
     }

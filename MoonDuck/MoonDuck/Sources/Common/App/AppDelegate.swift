@@ -24,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().delegate = self
         application.registerForRemoteNotifications()
         
+        AnalyticsService.shared.logEvent(.OPEN_APP, parameters: [
+            .TIME_STAMP: Utils.getCurrentKSTTimestamp()
+        ])
+        
         return true
     }
     
