@@ -53,6 +53,8 @@ extension MyInfoViewPresenter {
     }
     
     func logoutButtonTapped() {
+        let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
+        AnalyticsService.shared.logEvent(.TAP_LOGOUT, parameters: [.SNS_TYPE: snsType])
         AuthManager.shared.logout()
         moveLogin()
     }

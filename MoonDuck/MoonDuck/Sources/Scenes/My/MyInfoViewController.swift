@@ -51,6 +51,7 @@ class MyInfoViewController: BaseViewController, MyInfoView {
     }
     
     @IBAction private func logoutButtonTapped(_ sender: Any) {
+        AnalyticsService.shared.logEvent(.ALERT_LOGOUT)
         AppAlert.default
             .showDestructive(self,
                              title: L10n.Localizable.My.logoutAlertMessage,

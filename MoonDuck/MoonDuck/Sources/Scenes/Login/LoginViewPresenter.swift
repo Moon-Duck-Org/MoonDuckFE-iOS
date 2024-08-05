@@ -174,7 +174,8 @@ extension LoginViewPresenter: UserModelDelegate {
             .FAIL_LOGIN,
             parameters: [.SNS_TYPE: snsType,
                          .ERROR_CODE: error?.code ?? "",
-                         .ERROR_MESSAGE: error?.message ?? ""
+                         .ERROR_MESSAGE: error?.message ?? "",
+                         .TIME_STAMP: Utils.getCurrentKSTTimestamp()
             ]
         )
         
