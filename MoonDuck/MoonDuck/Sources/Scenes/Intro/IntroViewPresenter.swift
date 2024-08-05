@@ -23,9 +23,11 @@ class IntroViewPresenter: BaseViewPresenter, IntroPresenter {
     
     weak var view: IntroView?
     private var launchedFromPush: Bool
+    private var launchedFromDeeplink: Bool
     
-    init(with provider: AppServices, model: AppModels, launchedFromPush: Bool = false) {
+    init(with provider: AppServices, model: AppModels, launchedFromPush: Bool = false, launchedFromDeeplink: Bool = false) {
         self.launchedFromPush = launchedFromPush
+        self.launchedFromDeeplink = launchedFromDeeplink
         super.init(with: provider, model: model)
         self.model.userModel?.delegate = self
     }
@@ -54,7 +56,13 @@ extension IntroViewPresenter {
         ])
         
         if self.launchedFromPush {
-            AnalyticsService.shared.logEvent(.OPEN_PUSH, parameters: [
+            AnalyticsService.shared.logEvent(.OPEN_APP_PUSH, parameters: [
+                .TIME_STAMP: Utils.getCurrentKSTTimestamp()
+            ])
+        }
+        
+        if self.launchedFromDeeplink {
+            AnalyticsService.shared.logEvent(.OPEN_APP_DEEPLINK, parameters: [
                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()
             ])
         }

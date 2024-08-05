@@ -56,11 +56,40 @@ extension TargetType {
                             switch errorType {
                             case .appError:
                                 let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
+                                AnalyticsService.shared.logEvent(
+                                    .FAIL_API,
+                                    parameters: [.API_TYPE: "APP",
+                                                 .API_URL: urlRequest.url ?? "",
+                                                 .API_METHOD: urlRequest.httpMethod ?? "",
+                                                 .ERROR_CODE: errorResponse.code ?? "",
+                                                 .ERROR_MESSAGE: errorResponse.message ?? "",
+                                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                                )
                                 let apiError = APIError(error: errorResponse)
                                 completion(.failure(apiError))
                             case .openApiError:
+                                let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
+                                AnalyticsService.shared.logEvent(
+                                    .FAIL_API,
+                                    parameters: [.API_TYPE: "OPEN",
+                                                 .API_URL: urlRequest.url ?? "",
+                                                 .API_METHOD: urlRequest.httpMethod ?? "",
+                                                 .ERROR_CODE: statusCode,
+                                                 .ERROR_MESSAGE: error.localizedDescription,
+                                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                                )
                                 completion(.failure(.openApi))
                             case .appleApiError:
+                                let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
+                                AnalyticsService.shared.logEvent(
+                                    .FAIL_API,
+                                    parameters: [.API_TYPE: "SNS",
+                                                 .API_URL: urlRequest.url ?? "",
+                                                 .API_METHOD: urlRequest.httpMethod ?? "",
+                                                 .ERROR_CODE: statusCode,
+                                                 .ERROR_MESSAGE: error.localizedDescription,
+                                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                                )
                                 completion(.failure(.appleApi))
                             default: completion(.failure(.unknown))
                             }
@@ -72,6 +101,15 @@ extension TargetType {
                         let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
                         let error = response.error ?? error
                         let apiError = APIError(statusCode: statusCode, error: error)
+                        AnalyticsService.shared.logEvent(
+                            .FAIL_API,
+                            parameters: [.API_TYPE: "UNKNOWN",
+                                         .API_URL: urlRequest.url ?? "",
+                                         .API_METHOD: urlRequest.httpMethod ?? "",
+                                         .ERROR_CODE: statusCode,
+                                         .ERROR_MESSAGE: error.localizedDescription,
+                                         .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                        )
                         completion(.failure(apiError))
                     }
                 }
@@ -98,6 +136,15 @@ extension TargetType {
                                 if apiError.needsTokenRefresh {
                                     self.refreshTokenAndRetryRequest(responseType: responseType, completion: completion)
                                 } else {
+                                    AnalyticsService.shared.logEvent(
+                                        .FAIL_API,
+                                        parameters: [.API_TYPE: "APP",
+                                                     .API_URL: urlRequest.url ?? "",
+                                                     .API_METHOD: urlRequest.httpMethod ?? "",
+                                                     .ERROR_CODE: errorResponse.code ?? "",
+                                                     .ERROR_MESSAGE: errorResponse.message ?? "",
+                                                     .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                                    )
                                     completion(.failure(apiError))
                                 }
                             case .searchConcertError:
@@ -105,11 +152,42 @@ extension TargetType {
                                 if errorResponse.result.code == "INFO-200" {
                                     completion(.failure(.emptySearchData))
                                 } else {
+                                    let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
+                                    AnalyticsService.shared.logEvent(
+                                        .FAIL_API,
+                                        parameters: [.API_TYPE: "OPEN",
+                                                     .API_URL: urlRequest.url ?? "",
+                                                     .API_METHOD: urlRequest.httpMethod ?? "",
+                                                     .ERROR_CODE: statusCode,
+                                                     .ERROR_MESSAGE: error.localizedDescription,
+                                                     .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                                    )
                                     completion(.failure(.openApi))
                                 }
                             case .openApiError:
+                                let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
+                                AnalyticsService.shared.logEvent(
+                                    .FAIL_API,
+                                    parameters: [.API_TYPE: "OPEN",
+                                                 .API_URL: urlRequest.url ?? "",
+                                                 .API_METHOD: urlRequest.httpMethod ?? "",
+                                                 .ERROR_CODE: statusCode,
+                                                 .ERROR_MESSAGE: error.localizedDescription,
+                                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                                )
                                 completion(.failure(.openApi))
                             case .appleApiError:
+                                let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
+                                AnalyticsService.shared.logEvent(
+                                    .FAIL_API,
+                                    parameters: [.API_TYPE: "SNS",
+                                                 .API_URL: urlRequest.url ?? "",
+                                                 .API_METHOD: urlRequest.httpMethod ?? "",
+                                                 .ERROR_CODE: statusCode,
+                                                 .ERROR_MESSAGE: error.localizedDescription,
+                                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                                )
+                                completion(.failure(.appleApi))
                                 completion(.failure(.appleApi))
                             }
 
@@ -120,6 +198,15 @@ extension TargetType {
                         let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
                         let error = response.error ?? error
                         let apiError = APIError(statusCode: statusCode, error: error)
+                        AnalyticsService.shared.logEvent(
+                            .FAIL_API,
+                            parameters: [.API_TYPE: "UNKNOWN",
+                                         .API_URL: urlRequest.url ?? "",
+                                         .API_METHOD: urlRequest.httpMethod ?? "",
+                                         .ERROR_CODE: statusCode,
+                                         .ERROR_MESSAGE: error.localizedDescription,
+                                         .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                        )
                         completion(.failure(apiError))
                     }
                 }
@@ -162,7 +249,6 @@ extension TargetType {
                             Log.debug("이미지 바이트 체크 \(imageSizeInMB)")
                         }
                     }
-                    Log.network("MultipartFormData success Images --> \(images)")
                 }
                 
                 // JSON 문자열을 멀티파트 폼 데이터에 추가
@@ -199,6 +285,15 @@ extension TargetType {
                                 if apiError.needsTokenRefresh {
                                     self.refreshTokenAndRetryUpload(responseType: responseType, completion: completion)
                                 } else {
+                                    AnalyticsService.shared.logEvent(
+                                        .FAIL_API,
+                                        parameters: [.API_TYPE: "APP",
+                                                     .API_URL: urlRequest.url ?? "",
+                                                     .API_METHOD: urlRequest.httpMethod ?? "",
+                                                     .ERROR_CODE: errorResponse.code ?? "",
+                                                     .ERROR_MESSAGE: errorResponse.message ?? "",
+                                                     .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                                    )
                                     completion(.failure(apiError))
                                 }
                             } catch {
@@ -208,6 +303,15 @@ extension TargetType {
                             let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
                             let error = response.error ?? error
                             let apiError = APIError(statusCode: statusCode, error: error)
+                            AnalyticsService.shared.logEvent(
+                                .FAIL_API,
+                                parameters: [.API_TYPE: "UNKNOWN",
+                                             .API_URL: urlRequest.url ?? "",
+                                             .API_METHOD: urlRequest.httpMethod ?? "",
+                                             .ERROR_CODE: statusCode,
+                                             .ERROR_MESSAGE: error.localizedDescription,
+                                             .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                            )
                             completion(.failure(apiError))
                         }
                     }

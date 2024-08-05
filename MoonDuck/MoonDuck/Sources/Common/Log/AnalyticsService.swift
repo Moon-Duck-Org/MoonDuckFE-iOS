@@ -14,7 +14,7 @@ class AnalyticsService {
     // swiftlint:disable identifier_name
     enum EventName: String {
         // APP
-        case OPEN_PUSH
+        case OPEN_APP_PUSH
         case OPEN_APP
         case OPEN_APP_DEEPLINK
         case ALERT_PERMISSION_PUSH
@@ -196,7 +196,9 @@ class AnalyticsService {
     
     private let eventParameters: [EventName: [EventParameter]] = [
         .OPEN_APP: [.TIME_STAMP],
-        .OPEN_PUSH: [.TIME_STAMP],
+        .OPEN_APP_PUSH: [.TIME_STAMP],
+        .OPEN_APP_DEEPLINK: [.TIME_STAMP],
+        .ALERT_JALIBROKEN: [.TIME_STAMP],
         .FAIL_API: [.API_TYPE, .API_URL, .API_METHOD, .ERROR_CODE, .ERROR_MESSAGE, .TIME_STAMP],
         .SUCCESS_LOGIN: [.SNS_TYPE, .REVIEW_COUNT, .IS_PUSH],
         .FAIL_LOGIN: [.SNS_TYPE, .ERROR_CODE, .ERROR_MESSAGE, .TIME_STAMP],

@@ -101,12 +101,14 @@ class BaseViewController: UIViewController, Navigatable {
     
     func showNetworkErrorAlert() {
         if isRoot() {
+            AnalyticsService.shared.logEvent(.ALERT_ERROR_NETWORK)
             AppAlert.default.showNetworkError(self)
         }
     }
     
     func showSystemErrorAlert() {
         if isRoot() {
+            AnalyticsService.shared.logEvent(.ALERT_ERROR_SYSTEM)
             AppAlert.default.showSystemErrorAlert(self)
         }
     }

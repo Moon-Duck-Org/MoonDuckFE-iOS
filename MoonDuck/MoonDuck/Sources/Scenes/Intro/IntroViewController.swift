@@ -41,6 +41,7 @@ class IntroViewController: BaseViewController, IntroView {
 // MARK: - UI Logic
 extension IntroViewController {
     func showJalibrokenAlert() {
+        AnalyticsService.shared.logEvent(.ALERT_JALIBROKEN, parameters: [.TIME_STAMP: Utils.getCurrentKSTTimestamp()])
         AppAlert.default.showDone(
             self,
             title: L10n.Localizable.Jalibroken.message,
@@ -50,17 +51,20 @@ extension IntroViewController {
     }
     
     func showForceUpdateAlert() {
+        AnalyticsService.shared.logEvent(.ALERT_FORCEUPDATE)
         AppAlert.default.showDone(
             self,
             title: L10n.Localizable.Update.forceUpdateTitle,
             message: L10n.Localizable.Update.forceUpdateMessage,
             doneTitle: L10n.Localizable.Button.update,
             doneHandler: {
+                AnalyticsService.shared.logEvent(.TAP_FORCEUPDATE_GO)
                 Utils.moveAppStore()
             })
     }
     
     func showLatestUpdateAlert() {
+        AnalyticsService.shared.logEvent(.ALERT_UPDATE)
         AppAlert.default.showCancelAndDone(
             self,
             title: L10n.Localizable.Update.latestUpdateTitle,
@@ -68,10 +72,12 @@ extension IntroViewController {
             cancelTitle: L10n.Localizable.Button.update,
             doneTitle: L10n.Localizable.Button.later,
             cancelHandler: { [weak self] in
+                AnalyticsService.shared.logEvent(.TAP_UPDATE_GO)
                 Utils.moveAppStore()
                 self?.presenter.latestUpdateButtonTapped()
             },
             doneHandler: { [weak self] in
+                AnalyticsService.shared.logEvent(.TAP_UPDATE_LATER)
                 self?.presenter.latestUpdateButtonTapped()
             })
     }

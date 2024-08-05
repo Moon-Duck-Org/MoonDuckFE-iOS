@@ -256,6 +256,8 @@ class Utils {
             return
         }
         
+        AnalyticsService.shared.logEvent(.ALERT_REQUEST_APPREVIEW)
+        
         DispatchQueue.main.async {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 SKStoreReviewController.requestReview(in: scene)

@@ -32,9 +32,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         AuthManager.shared.initProvider(appService)
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let launchedFromPush = appDelegate?.launchedFromPush ?? false
+        let launchedFromDeeplink = appDelegate?.launchedFromDeeplink ?? false
         let navigator = Navigator.default
         let appModel = AppModels(userModel: UserModel(appService))
-        let presenter = IntroViewPresenter(with: appService, model: appModel, launchedFromPush: launchedFromPush)
+        let presenter = IntroViewPresenter(with: appService, model: appModel, launchedFromPush: launchedFromPush, launchedFromDeeplink: launchedFromDeeplink)
         navigator.show(seque: .intro(presenter: presenter), sender: nil, transition: .root)
         
         window?.windowScene = windowScene

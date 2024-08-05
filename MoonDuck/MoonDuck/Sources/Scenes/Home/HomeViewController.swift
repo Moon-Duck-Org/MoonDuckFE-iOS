@@ -135,6 +135,8 @@ extension HomeViewController {
     }
     
     func showRequestNotiAuthAlert() {
+        AnalyticsService.shared.logEvent(.ALERT_PERMISSION_PUSH)
+        
         AppAlert.default
             .showDone(
                 self,
@@ -153,8 +155,10 @@ extension HomeViewController {
     private func requestNotificationAuthorization() {
         AppNotification.requestNotificationAuthorization {  [weak self] isSuccess in
             if isSuccess {
+                AnalyticsService.shared.logEvent(.TAP_PERMISSION_PUSH_YES)
                 self?.showToastMessage(L10n.Localizable.Push.onCompleteToast(Utils.getToday()))
             } else {
+                AnalyticsService.shared.logEvent(.TAP_PERMISSION_PUSH_NO)
                 self?.showToastMessage(L10n.Localizable.Push.settingTextOs)
             }
         }
