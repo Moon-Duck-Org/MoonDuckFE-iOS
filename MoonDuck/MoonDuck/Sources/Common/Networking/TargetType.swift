@@ -56,42 +56,21 @@ extension TargetType {
                             switch errorType {
                             case .appError:
                                 let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
-                                AnalyticsService.shared.logEvent(
-                                    .FAIL_API,
-                                    parameters: [.API_TYPE: "APP",
-                                                 .API_URL: urlRequest.url ?? "",
-                                                 .API_METHOD: urlRequest.httpMethod ?? "",
-                                                 .ERROR_CODE: errorResponse.code ?? "",
-                                                 .ERROR_MESSAGE: errorResponse.message ?? "",
-                                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
-                                )
+                                self.sendLogEvent(type: "APP", urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
                                 let apiError = APIError(error: errorResponse)
                                 completion(.failure(apiError))
                             case .openApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
-                                AnalyticsService.shared.logEvent(
-                                    .FAIL_API,
-                                    parameters: [.API_TYPE: "OPEN",
-                                                 .API_URL: urlRequest.url ?? "",
-                                                 .API_METHOD: urlRequest.httpMethod ?? "",
-                                                 .ERROR_CODE: statusCode,
-                                                 .ERROR_MESSAGE: error.localizedDescription,
-                                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
-                                )
+                                self.sendLogEvent(type: "OPEN", urlRequest: urlRequest, code: "\(statusCode)", message: error.localizedDescription)
                                 completion(.failure(.openApi))
                             case .appleApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
-                                AnalyticsService.shared.logEvent(
-                                    .FAIL_API,
-                                    parameters: [.API_TYPE: "SNS",
-                                                 .API_URL: urlRequest.url ?? "",
-                                                 .API_METHOD: urlRequest.httpMethod ?? "",
-                                                 .ERROR_CODE: statusCode,
-                                                 .ERROR_MESSAGE: error.localizedDescription,
-                                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
-                                )
+                                self.sendLogEvent(type: "SNS", urlRequest: urlRequest, code: "\(statusCode)", message: error.localizedDescription)
                                 completion(.failure(.appleApi))
-                            default: completion(.failure(.unknown))
+                            default: 
+                                let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
+                                self.sendLogEvent(type: "UNKNOWN", urlRequest: urlRequest, code: "\(statusCode)", message: error.localizedDescription)
+                                completion(.failure(.unknown))
                             }
                             
                         } catch {
@@ -101,15 +80,7 @@ extension TargetType {
                         let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
                         let error = response.error ?? error
                         let apiError = APIError(statusCode: statusCode, error: error)
-                        AnalyticsService.shared.logEvent(
-                            .FAIL_API,
-                            parameters: [.API_TYPE: "UNKNOWN",
-                                         .API_URL: urlRequest.url ?? "",
-                                         .API_METHOD: urlRequest.httpMethod ?? "",
-                                         .ERROR_CODE: statusCode,
-                                         .ERROR_MESSAGE: error.localizedDescription,
-                                         .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
-                        )
+                        self.sendLogEvent(type: "UNKNOWN", urlRequest: urlRequest, code: "\(statusCode)", message: error.localizedDescription)
                         completion(.failure(apiError))
                     }
                 }
@@ -136,15 +107,7 @@ extension TargetType {
                                 if apiError.needsTokenRefresh {
                                     self.refreshTokenAndRetryRequest(responseType: responseType, completion: completion)
                                 } else {
-                                    AnalyticsService.shared.logEvent(
-                                        .FAIL_API,
-                                        parameters: [.API_TYPE: "APP",
-                                                     .API_URL: urlRequest.url ?? "",
-                                                     .API_METHOD: urlRequest.httpMethod ?? "",
-                                                     .ERROR_CODE: errorResponse.code ?? "",
-                                                     .ERROR_MESSAGE: errorResponse.message ?? "",
-                                                     .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
-                                    )
+                                    self.sendLogEvent(type: "APP", urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
                                     completion(.failure(apiError))
                                 }
                             case .searchConcertError:
@@ -153,41 +116,16 @@ extension TargetType {
                                     completion(.failure(.emptySearchData))
                                 } else {
                                     let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
-                                    AnalyticsService.shared.logEvent(
-                                        .FAIL_API,
-                                        parameters: [.API_TYPE: "OPEN",
-                                                     .API_URL: urlRequest.url ?? "",
-                                                     .API_METHOD: urlRequest.httpMethod ?? "",
-                                                     .ERROR_CODE: statusCode,
-                                                     .ERROR_MESSAGE: error.localizedDescription,
-                                                     .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
-                                    )
+                                    self.sendLogEvent(type: "OPEN", urlRequest: urlRequest, code: "\(statusCode)", message: error.localizedDescription)
                                     completion(.failure(.openApi))
                                 }
                             case .openApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
-                                AnalyticsService.shared.logEvent(
-                                    .FAIL_API,
-                                    parameters: [.API_TYPE: "OPEN",
-                                                 .API_URL: urlRequest.url ?? "",
-                                                 .API_METHOD: urlRequest.httpMethod ?? "",
-                                                 .ERROR_CODE: statusCode,
-                                                 .ERROR_MESSAGE: error.localizedDescription,
-                                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
-                                )
+                                self.sendLogEvent(type: "OPEN", urlRequest: urlRequest, code: "\(statusCode)", message: error.localizedDescription)
                                 completion(.failure(.openApi))
                             case .appleApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
-                                AnalyticsService.shared.logEvent(
-                                    .FAIL_API,
-                                    parameters: [.API_TYPE: "SNS",
-                                                 .API_URL: urlRequest.url ?? "",
-                                                 .API_METHOD: urlRequest.httpMethod ?? "",
-                                                 .ERROR_CODE: statusCode,
-                                                 .ERROR_MESSAGE: error.localizedDescription,
-                                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
-                                )
-                                completion(.failure(.appleApi))
+                                self.sendLogEvent(type: "SNS", urlRequest: urlRequest, code: "\(statusCode)", message: error.localizedDescription)
                                 completion(.failure(.appleApi))
                             }
 
@@ -197,16 +135,8 @@ extension TargetType {
                     } else {
                         let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
                         let error = response.error ?? error
+                        self.sendLogEvent(type: "UNKNOWN", urlRequest: urlRequest, code: "\(statusCode)", message: error.localizedDescription)
                         let apiError = APIError(statusCode: statusCode, error: error)
-                        AnalyticsService.shared.logEvent(
-                            .FAIL_API,
-                            parameters: [.API_TYPE: "UNKNOWN",
-                                         .API_URL: urlRequest.url ?? "",
-                                         .API_METHOD: urlRequest.httpMethod ?? "",
-                                         .ERROR_CODE: statusCode,
-                                         .ERROR_MESSAGE: error.localizedDescription,
-                                         .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
-                        )
                         completion(.failure(apiError))
                     }
                 }
@@ -285,15 +215,7 @@ extension TargetType {
                                 if apiError.needsTokenRefresh {
                                     self.refreshTokenAndRetryUpload(responseType: responseType, completion: completion)
                                 } else {
-                                    AnalyticsService.shared.logEvent(
-                                        .FAIL_API,
-                                        parameters: [.API_TYPE: "APP",
-                                                     .API_URL: urlRequest.url ?? "",
-                                                     .API_METHOD: urlRequest.httpMethod ?? "",
-                                                     .ERROR_CODE: errorResponse.code ?? "",
-                                                     .ERROR_MESSAGE: errorResponse.message ?? "",
-                                                     .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
-                                    )
+                                    self.sendLogEvent(type: "APP", urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
                                     completion(.failure(apiError))
                                 }
                             } catch {
@@ -302,16 +224,8 @@ extension TargetType {
                         } else {
                             let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? error.responseCode ?? -99
                             let error = response.error ?? error
+                            self.sendLogEvent(type: "UNKNOWN", urlRequest: urlRequest, code: "\(statusCode)", message: error.localizedDescription)
                             let apiError = APIError(statusCode: statusCode, error: error)
-                            AnalyticsService.shared.logEvent(
-                                .FAIL_API,
-                                parameters: [.API_TYPE: "UNKNOWN",
-                                             .API_URL: urlRequest.url ?? "",
-                                             .API_METHOD: urlRequest.httpMethod ?? "",
-                                             .ERROR_CODE: statusCode,
-                                             .ERROR_MESSAGE: error.localizedDescription,
-                                             .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
-                            )
                             completion(.failure(apiError))
                         }
                     }
@@ -334,6 +248,18 @@ extension TargetType {
                 completion(.failure(APIError.auth))
             }
         }
+    }
+    
+    private func sendLogEvent(type: String, urlRequest: URLRequest, code: String?, message: String?) {
+        AnalyticsService.shared.logEvent(
+            .FAIL_API,
+            parameters: [.API_TYPE: type,
+                         .API_URL: urlRequest.url ?? "",
+                         .API_METHOD: urlRequest.httpMethod ?? "",
+                         .ERROR_CODE: code ?? "",
+                         .ERROR_MESSAGE: message ?? "",
+                         .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+        )
     }
     
 }
