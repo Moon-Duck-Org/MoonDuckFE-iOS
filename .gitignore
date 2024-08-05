@@ -96,6 +96,7 @@ iOSInjectionProject/
 # 보안 파일
 Secrets.swift
 Secrets/
+GoogleService-Info.plist
 
 # 빌드 출력 디렉토리
 dist/
