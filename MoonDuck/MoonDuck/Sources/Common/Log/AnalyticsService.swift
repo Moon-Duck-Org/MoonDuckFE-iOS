@@ -35,6 +35,7 @@ class AnalyticsService {
         
         // LOGIN
         case VIEW_LOGIN
+        case SUCCESS_LOGIN_NEW
         case SUCCESS_LOGIN
         case FAIL_LOGIN
         case ALERT_LOGOUT
@@ -200,6 +201,7 @@ class AnalyticsService {
         .OPEN_APP_DEEPLINK: [.TIME_STAMP],
         .ALERT_JALIBROKEN: [.TIME_STAMP],
         .FAIL_API: [.API_TYPE, .API_URL, .API_METHOD, .ERROR_CODE, .ERROR_MESSAGE, .TIME_STAMP],
+        .SUCCESS_LOGIN_NEW: [.SNS_TYPE],
         .SUCCESS_LOGIN: [.SNS_TYPE, .REVIEW_COUNT, .IS_PUSH],
         .FAIL_LOGIN: [.SNS_TYPE, .ERROR_CODE, .ERROR_MESSAGE, .TIME_STAMP],
         .TAP_LOGOUT: [.SNS_TYPE],

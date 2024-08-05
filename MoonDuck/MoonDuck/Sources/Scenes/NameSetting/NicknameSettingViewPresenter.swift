@@ -174,6 +174,12 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
         
         if let user {
             if isNew {
+                let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
+                AnalyticsService.shared.logEvent(
+                    .SUCCESS_LOGIN_NEW,
+                    parameters: [.SNS_TYPE: snsType]
+                )
+                
                 let appModel = AppModels(
                     userModel: model,
                     categoryModel: CategoryModel(),
