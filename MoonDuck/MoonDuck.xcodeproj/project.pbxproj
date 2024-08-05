@@ -474,6 +474,7 @@
 		A0E657F92BFE22B7001A8D54 /* MoonDuck */ = {
 			isa = PBXGroup;
 			children = (
+				EA96A9652C1D635C0010AB60 /* GoogleService-Info.plist */,
 				EA9E1ABF2C2AC097001C7706 /* MoonDuckRelease.entitlements */,
 				A0F5B1EC2C0DEBC900A4215A /* MoonDuckDebug.entitlements */,
 				EA1F2A152C4FB816003AAD84 /* Secrets */,
@@ -616,7 +617,6 @@
 		EA1F2A152C4FB816003AAD84 /* Secrets */ = {
 			isa = PBXGroup;
 			children = (
-				EA96A9652C1D635C0010AB60 /* GoogleService-Info.plist */,
 				EA6B3C7F2C47C5EA00FBD9B0 /* Secrets-Debug.xcconfig */,
 				EA6B3C7E2C47C56400FBD9B0 /* Secrets-Release.xcconfig */,
 				EA1F2A162C4FB8D0003AAD84 /* Secrets.swift */,
@@ -1304,7 +1304,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ \"${CONFIGURATION}\" == \"Release\" ]; then\n    \"${PODS_ROOT}/FirebaseCrashlytics/run\"\n    \"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp \"${PROJECT_DIR}/Secrets/GoogleService-Info.plist\" -p ios ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ \"${CONFIGURATION}\" == \"Release\" ]; then\n    \"${PODS_ROOT}/FirebaseCrashlytics/run\"\n    \"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist -p ios ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
