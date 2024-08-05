@@ -201,6 +201,14 @@ enum APIError: Error, Equatable, LocalizedError {
         }
     }
     
+    var isFailApiLogEvent: Bool {
+        switch self {
+        case .expiredToken, .duplicateNickname:
+            return false
+        default: return true
+        }
+    }
+    
     // swiftlint:disable cyclomatic_complexity
     init(error: ErrorEntity) {
         switch error.code {

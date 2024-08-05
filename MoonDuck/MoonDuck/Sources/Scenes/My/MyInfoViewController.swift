@@ -46,6 +46,7 @@ class MyInfoViewController: BaseViewController, MyInfoView {
     
     @IBAction private func nicknameSettingButtonTapped(_ sender: Any) {
         throttler.throttle {
+            AnalyticsService.shared.logEvent(.TAP_NICKNAME_SETTING)
             self.presenter.nicknameSettingButtonTapped()
         }
     }

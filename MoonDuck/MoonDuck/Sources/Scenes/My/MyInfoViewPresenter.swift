@@ -29,6 +29,7 @@ extension MyInfoViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         if let user = model.userModel?.user {
+            AnalyticsService.shared.logEvent(.VIEW_MY)
             view?.updateNameLabelText(with: user.nickname)
             view?.updateCountLabels(with: user.all, movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
             
@@ -89,7 +90,7 @@ extension MyInfoViewPresenter {
 
 // MARK: - NicknameSettingPresenterDelegate
 extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
-    func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {
+    func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {        
         view?.dismiss()
         view?.updateNameLabelText(with: nickname)
         view?.showToastMessage(L10n.Localizable.NicknameSetting.completeToast)

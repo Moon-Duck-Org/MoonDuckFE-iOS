@@ -139,6 +139,10 @@ extension NicknameSettingViewPresenter {
         if isValidNickname(text) {
             view?.updateHintLabelText(with: "")
         } else {
+            AnalyticsService.shared.logEvent(
+                .FAIL_NICKNAME_SETTING_INVALID,
+                parameters: [.NICKNAME: nicknameText ?? ""]
+            )
             view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.invalidNameHint)
         }
     }
@@ -148,6 +152,17 @@ extension NicknameSettingViewPresenter {
 extension NicknameSettingViewPresenter: UserModelDelegate {
     func error(didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
+        
+        if !(error?.duplicateNickname ?? false) {
+            AnalyticsService.shared.logEvent(
+                .FAIL_NICKNAME_SETTING,
+                parameters: [.NICKNAME: nicknameText ?? "",
+                             .ERROR_CODE: error?.code ?? "",
+                             .ERROR_MESSAGE: error?.message ?? "",
+                             .TIME_STAMP: Utils.getCurrentKSTTimestamp()
+                ]
+            )
+        }
         
         guard let error else { return }
         
@@ -173,6 +188,8 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
         view?.updateLoadingView(isLoading: false)
         
         if let user {
+            AnalyticsService.shared.logEvent(.SUCCESS_NICKNAME_SETTING, parameters: [.NICKNAME: user.nickname])
+            
             if isNew {
                 let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
                 AnalyticsService.shared.logEvent(

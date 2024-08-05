@@ -57,8 +57,10 @@ extension TargetType {
                             switch errorType {
                             case .appError:
                                 let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
-                                self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
                                 let apiError = APIError(error: errorResponse)
+                                if apiError.isFailApiLogEvent {
+                                    self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
+                                }
                                 completion(.failure(apiError))
                             case .openApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
@@ -77,7 +79,7 @@ extension TargetType {
                             let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
                             self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                             let error = response.error ?? failed
-                            let apiError = APIError(statusCode: statusCode, error: failed)
+                            let apiError = APIError(statusCode: statusCode, error: error)
                             completion(.failure(apiError))
                         }
                     } else {
@@ -111,7 +113,9 @@ extension TargetType {
                                 if apiError.needsTokenRefresh {
                                     self.refreshTokenAndRetryRequest(responseType: responseType, completion: completion)
                                 } else {
-                                    self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
+                                    if apiError.isFailApiLogEvent {
+                                        self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
+                                    }
                                     completion(.failure(apiError))
                                 }
                             case .searchConcertError:
@@ -224,7 +228,9 @@ extension TargetType {
                                 if apiError.needsTokenRefresh {
                                     self.refreshTokenAndRetryUpload(responseType: responseType, completion: completion)
                                 } else {
-                                    self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
+                                    if apiError.isFailApiLogEvent {
+                                        self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
+                                    }
                                     completion(.failure(apiError))
                                 }
                             } catch {
