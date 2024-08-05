@@ -14,7 +14,7 @@ protocol WithdrawView: BaseView {
     func showWithdrawWithAppleAlert()
         
     // Navigation
-    func showComplteWithDrawAlert(with presenter: IntroPresenter)
+    func showComplteWithDrawAlert(with presenter: LoginPresenter)
 }
 
 class WithdrawViewController: BaseViewController, WithdrawView {
@@ -120,9 +120,9 @@ extension WithdrawViewController {
         navigator?.pop(sender: self, animated: true)
     }
     
-    func showComplteWithDrawAlert(with presenter: IntroPresenter) {
+    func showComplteWithDrawAlert(with presenter: LoginPresenter) {
         AppAlert.default.showDone(self, message: L10n.Localizable.My.withdrawCompleteMessage, doneHandler: { [weak self] in
-            self?.navigator?.show(seque: .intro(presenter: presenter), sender: nil, transition: .root)
+            self?.navigator?.show(seque: .login(presenter: presenter), sender: nil, transition: .root)
         })
     }
 }

@@ -129,8 +129,10 @@ extension HomeViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         model.categoryModel?.getCategories(isHaveAll: true)
-        checkNotificationAuthorization()
-        updateNotification()
+        Utils.requestTrackingAuthorization { [weak self] in
+            self?.checkNotificationAuthorization()
+            self?.updateNotification()
+        }
     }
     
     // MARK: - Action
@@ -200,7 +202,7 @@ extension HomeViewPresenter {
             Utils.requestAppReview()
         }
     }
-    
+        
     private func checkNotificationAuthorization() {
         AppNotification.getNotificationSettingStatus { [weak self] status in
             if status == .notDetermined {

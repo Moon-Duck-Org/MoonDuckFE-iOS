@@ -12,6 +12,9 @@ import SafariServices
 import Kingfisher
 import FirebaseRemoteConfig
 import StoreKit
+import AppTrackingTransparency
+import AdSupport
+import FirebaseAnalytics
 
 class Utils {
     static func getToday() -> String {
@@ -260,5 +263,70 @@ class Utils {
                 AppUserDefaults.set(currentCount + 1, forKey: .appReviewRequestCount)
             }
         }
+    } 
+    
+    static func requestTrackingAuthorization(completion: @escaping () -> Void) {
+        ATTrackingManager.requestTrackingAuthorization { status in
+            let isShowRequestIDAFAuth = AppUserDefaults.getObject(forKey: .isShowRequestIDAFAuth)
+            switch status {
+            case .authorized:
+                Log.debug("requestTrackingAuthorization authorized")
+                if !(isShowRequestIDAFAuth as? Bool ?? false) {
+                    AnalyticsService.shared.logEvent(.TAP_PERMISSION_IDAF_YES)
+                    AppUserDefaults.set(true, forKey: .isShowRequestIDAFAuth)
+                }
+                Analytics.setAnalyticsCollectionEnabled(true)
+                completion()
+            case.denied:
+                Log.debug("requestTrackingAuthorization denied")
+                if !(isShowRequestIDAFAuth as? Bool ?? false) {
+                    AnalyticsService.shared.logEvent(.TAP_PERMISSION_IDAF_NO)
+                    AppUserDefaults.set(true, forKey: .isShowRequestIDAFAuth)
+                }
+                Analytics.setAnalyticsCollectionEnabled(false)
+                completion()
+            case.notDetermined:
+                Log.debug("requestTrackingAuthorization notDetermined")
+                Utils.retryRequestTrackingPermission(completion: completion)
+            case.restricted:
+                Log.debug("requestTrackingAuthorization restricted")
+                Analytics.setAnalyticsCollectionEnabled(false)
+                completion()
+            default:
+                Log.debug("requestTrackingAuthorization default")
+                Analytics.setAnalyticsCollectionEnabled(false)
+                completion()
+            }
+        }
     }
+    
+    static func retryRequestTrackingPermission(completion: @escaping () -> Void) {
+        // 권한이 아직 결정되지 않은 상태
+        ATTrackingManager.requestTrackingAuthorization { status in
+            let isShowRequestIDAFAuth = AppUserDefaults.getObject(forKey: .isShowRequestIDAFAuth)
+            switch status {
+            case .authorized:
+                Log.debug("requestTrackingAuthorization authorized")
+                if !(isShowRequestIDAFAuth as? Bool ?? false) {
+                    AnalyticsService.shared.logEvent(.TAP_PERMISSION_IDAF_YES)
+                    AppUserDefaults.set(true, forKey: .isShowRequestIDAFAuth)
+                }
+                Analytics.setAnalyticsCollectionEnabled(true)
+            case .denied:
+                Log.debug("requestTrackingAuthorization denied")
+                if !(isShowRequestIDAFAuth as? Bool ?? false) {
+                    AnalyticsService.shared.logEvent(.TAP_PERMISSION_IDAF_NO)
+                    AppUserDefaults.set(true, forKey: .isShowRequestIDAFAuth)
+                }
+                Analytics.setAnalyticsCollectionEnabled(false)
+            case .restricted, .notDetermined:
+                Log.debug("requestTrackingAuthorization not authorized")
+                Analytics.setAnalyticsCollectionEnabled(false)
+            @unknown default:
+                Analytics.setAnalyticsCollectionEnabled(false)
+            }
+            completion()
+        }
+    }
+    
 }

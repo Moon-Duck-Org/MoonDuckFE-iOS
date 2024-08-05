@@ -22,8 +22,10 @@ protocol IntroPresenter: AnyObject {
 class IntroViewPresenter: BaseViewPresenter, IntroPresenter {
     
     weak var view: IntroView?
+    private var launchedFromPush: Bool
     
-    override init(with provider: AppServices, model: AppModels) {
+    init(with provider: AppServices, model: AppModels, launchedFromPush: Bool = false) {
+        self.launchedFromPush = launchedFromPush
         super.init(with: provider, model: model)
         self.model.userModel?.delegate = self
     }
@@ -47,6 +49,15 @@ extension IntroViewPresenter {
 // MARK: - Logic
 extension IntroViewPresenter {
     private func startApp() {
+        AnalyticsService.shared.logEvent(.OPEN_APP, parameters: [
+            .TIME_STAMP: Utils.getCurrentKSTTimestamp()
+        ])
+        
+        if self.launchedFromPush {
+            AnalyticsService.shared.logEvent(.OPEN_PUSH, parameters: [
+                .TIME_STAMP: Utils.getCurrentKSTTimestamp()
+            ])
+        }
         Utils.initConfig()
         Utils.checkForUpdate { [weak self] appUpdate in
             switch appUpdate {

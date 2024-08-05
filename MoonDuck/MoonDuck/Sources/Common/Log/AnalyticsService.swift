@@ -20,6 +20,8 @@ class AnalyticsService {
         case ALERT_PERMISSION_PUSH
         case TAP_PERMISSION_PUSH_YES
         case TAP_PERMISSION_PUSH_NO
+        case TAP_PERMISSION_IDAF_YES
+        case TAP_PERMISSION_IDAF_NO
         case ALERT_FORCEUPDATE
         case TAP_FORCEUPDATE_GO
         case ALERT_UPDATE

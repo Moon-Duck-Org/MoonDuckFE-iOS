@@ -86,7 +86,7 @@ extension WithdrawViewPresenter: UserModelDelegate {
         let appModel = AppModels(
             userModel: UserModel(provider)
         )
-        let presenter = IntroViewPresenter(with: provider, model: appModel)
+        let presenter = LoginViewPresenter(with: provider, model: appModel)
         view?.showComplteWithDrawAlert(with: presenter)
     }
 }

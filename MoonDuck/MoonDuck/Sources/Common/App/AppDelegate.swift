@@ -8,25 +8,25 @@
 import UIKit
 
 import FirebaseCore
+import FirebaseAnalytics
 import KakaoSDKCommon
 import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    var launchedFromPush: Bool = false
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        Analytics.setAnalyticsCollectionEnabled(true)
         KakaoSDK.initSDK(appKey: Constants.kakaoAppKey)
         
         incrementAppOpenCount()
         
         UNUserNotificationCenter.current().delegate = self
         application.registerForRemoteNotifications()
-        
-        AnalyticsService.shared.logEvent(.OPEN_APP, parameters: [
-            .TIME_STAMP: Utils.getCurrentKSTTimestamp()
-        ])
         
         return true
     }
@@ -43,19 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-    
-    private func handleNotification(userInfo: [AnyHashable: Any]) {
-        // 푸시 노티피케이션을 통해 앱이 열릴 때 로그 전송
-        AnalyticsService.shared.logEvent(.OPEN_PUSH, parameters: [
-            .TIME_STAMP: Utils.getCurrentKSTTimestamp()
-        ])
-    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        handleNotification(userInfo: userInfo)
+        launchedFromPush = true
         completionHandler()
     }
 }
