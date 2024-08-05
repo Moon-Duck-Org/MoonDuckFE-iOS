@@ -17,7 +17,10 @@ import AuthenticationServices
 protocol LoginPresenter: AnyObject {
     var view: LoginView? { get set }
     
-    /// Action
+    // Life Cycle
+    func viewDidLoad()
+    
+    // Action
     func kakaoLoginButtonTapped()
     func googleLogin(result: GIDSignInResult?, error: Error?)
     func appleLogin(id: String)
@@ -34,8 +37,13 @@ final class LoginViewPresenter: BaseViewPresenter, LoginPresenter {
     }
 }
 
-// MARK: - Input
 extension LoginViewPresenter {
+    // MARK: - Life Cycle
+    func viewDidLoad() {
+        AnalyticsService.shared.logEvent(.VIEW_LOGIN)
+    }
+    
+    // MARK: - Action
     func kakaoLoginButtonTapped() {
         kakaoLogin()
     }
@@ -160,6 +168,16 @@ extension LoginViewPresenter {
 extension LoginViewPresenter: UserModelDelegate {
     func error(didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
+        
+        let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
+        AnalyticsService.shared.logEvent(
+            .FAIL_LOGIN,
+            parameters: [.SNS_TYPE: snsType,
+                         .ERROR_CODE: error?.code ?? "",
+                         .ERROR_MESSAGE: error?.message ?? ""
+            ]
+        )
+        
         AuthManager.shared.logout()
         
         guard let error else {
@@ -168,7 +186,6 @@ extension LoginViewPresenter: UserModelDelegate {
         }
     
         if error.isAuthError {
-            AuthManager.shared.logout()
             loginError()
         } else if error.isNetworkError {
             view?.showNetworkErrorAlert()
@@ -180,7 +197,16 @@ extension LoginViewPresenter: UserModelDelegate {
     func userModel(_ model: UserModelType, didChange user: User?) {
         // User 정보 조회 성공 -> 홈 이동
         view?.updateLoadingView(isLoading: false)
-        if user != nil {
+        if let user {
+            let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
+            AnalyticsService.shared.logEvent(
+                .SUCCESS_LOGIN,
+                parameters: [.SNS_TYPE: snsType,
+                             .REVIEW_COUNT: user.all,
+                             .IS_PUSH: user.isPush
+                ]
+            )
+            
             let appModel = AppModels(
                 userModel: model,
                 categoryModel: CategoryModel(),

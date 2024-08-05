@@ -46,6 +46,7 @@ class LoginViewController: BaseViewController, LoginView {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.view = self
+        presenter.viewDidLoad()
     }
     
 }

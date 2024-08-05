@@ -10,80 +10,133 @@ import Alamofire
 
 enum APIError: Error, Equatable, LocalizedError {
     // API ERROR
-    case error(code: String?, message: String?)
-    case expiredToken(_ message: String?)
-    case invalidToken(_ message: String?)
-    case missingToken(_ message: String?)
-    case missingUser(_ message: String?)
-    case duplicateNickname(_ message: String?)
-    case invalidFilterCondition(_ message: String?)
-    case nonExistentReview(_ message: String?)
-    case invalidProgram(_ message: String?)
-    case fileProcessing(_ message: String?)
-    case imageSizeLimitExceeded(_ message: String?)
-    case revokeTokenGenerationFailed(_ message: String?)
-    case invalidRefreshToken(_ message: String?)
+    case error(_ code: String?, _ message: String?)
+    case expiredToken(_ code: String?, _ message: String?)
+    case invalidToken(_ code: String?, _ message: String?)
+    case missingToken(_ code: String?, _ message: String?)
+    case missingUser(_ code: String?, _ message: String?)
+    case duplicateNickname(_ code: String?, _ message: String?)
+    case invalidFilterCondition(_ code: String?, _ message: String?)
+    case nonExistentReview(_ code: String?, _ message: String?)
+    case invalidProgram(_ code: String?, _ message: String?)
+    case fileProcessing(_ code: String?, _ message: String?)
+    case imageSizeLimitExceeded(_ code: String?, _ message: String?)
+    case revokeTokenGenerationFailed(_ code: String?, _ message: String?)
+    case invalidRefreshToken(_ code: String?, _ message: String?)
     
     // Apple API
-    case appleApi
+    case appleApi(_ code: String?, _ message: String?)
     
     // Open API
-    case openApi
+    case openApi(_ code: String?, _ message: String?)
     case emptySearchData
     
     // ERROR
     case auth
-    case network
-    case client
-    case server
+    case network(_ code: String?, _ message: String?)
+    case client(_ code: String?, _ message: String?)
+    case server(_ code: String?, _ message: String?)
     case decoding
     case unknown
-        
-    var errorDescription: String? {
+    
+    var code: String? {
         switch self {
         case let .error(code, message):
-            return "ErrorCode: \(code ?? "-99") | Message: \(message ?? "unknown")"
-        case let .expiredToken(message):
+            return code
+        case let .expiredToken(code, message):
+            return code
+        case let .invalidToken(code, message):
+            return code
+        case let .missingToken(code, message):
+            return code
+        case let .missingUser(code, message):
+            return code
+        case let .invalidFilterCondition(code, message):
+            return code
+        case let .nonExistentReview(code, message):
+            return code
+        case let .invalidProgram(code, message):
+            return code
+        case let .fileProcessing(code, message):
+            return code
+        case let .imageSizeLimitExceeded(code, message):
+            return code
+        case let .duplicateNickname(code, message):
+            return code
+        case let .revokeTokenGenerationFailed(code, message):
+            return code
+        case let .invalidRefreshToken(code, message):
+            return code
+            
+        case let .openApi(code, message):
+            return code
+        case .emptySearchData:
+            return "EMPTY_SEARCH_DATA"
+            
+        case let .appleApi(code, message):
+            return code
+            
+        case .auth:
+            return "AUTH_ERROR"
+        case let .network(code, message):
+            return code
+        case let .client(code, message):
+            return code
+        case let .server(code, message):
+            return code
+        case .decoding:
+            return "DECODING_ERROR"
+        case .unknown:
+            return "UNKNOWN"
+        }
+        
+    }
+        
+    var message: String? {
+        switch self {
+        case let .error(code, message):
             return message
-        case let .invalidToken(message):
+        case let .expiredToken(code, message):
             return message
-        case let .missingToken(message):
+        case let .invalidToken(code, message):
             return message
-        case let .missingUser(message):
+        case let .missingToken(code, message):
             return message
-        case let .invalidFilterCondition(message):
+        case let .missingUser(code, message):
             return message
-        case let .nonExistentReview(message):
+        case let .invalidFilterCondition(code, message):
             return message
-        case let .invalidProgram(message):
+        case let .nonExistentReview(code, message):
             return message
-        case let .fileProcessing(message):
+        case let .invalidProgram(code, message):
             return message
-        case let .imageSizeLimitExceeded(message):
+        case let .fileProcessing(code, message):
             return message
-        case let .duplicateNickname(message):
+        case let .imageSizeLimitExceeded(code, message):
             return message
-        case let .revokeTokenGenerationFailed(message):
+        case let .duplicateNickname(code, message):
             return message
-        case let .invalidRefreshToken(message):
+        case let .revokeTokenGenerationFailed(code, message):
+            return message
+        case let .invalidRefreshToken(code, message):
             return message
             
-        case .openApi:
-            return "오픈 API 오류 발생"
+        case let .openApi(code, message):
+            return message
         case .emptySearchData:
             return "검색 결과 비어있음"
             
-        case .appleApi:
-            return "애플 API 오류 발생"
+        case let .appleApi(code, message):
+            return message
             
         case .auth:
-            return "사용자 인증 오류 발생"
-        case .network:
-            return "네트워크 오류 발생"
-        case .client:
-            return "클라이언트 오류 발생"
-        case .server:
-            return "서버 오류 발생"
+            return "인증 오류 발생"
+        case let .network(code, message):
+            return message
+        case let .client(code, message):
+            return message
+        case let .server(code, message):
+            return message
         case .decoding:
             return "디코딩 오류 발생"
         case .unknown:
@@ -99,7 +152,7 @@ enum APIError: Error, Equatable, LocalizedError {
     }
     var isSystemError: Bool {
         switch self {
-        case .client, .server, .decoding, .unknown: return true
+        case .client, .server, .decoding, .unknown, .error: return true
         default: return false
         }
     }
@@ -152,40 +205,40 @@ enum APIError: Error, Equatable, LocalizedError {
     init(error: ErrorEntity) {
         switch error.code {
             // 토큰이 존재하지 않음
-        case "AU001": self = .missingToken(error.message)
+        case "AU001": self = .missingToken(error.code, error.message)
             // 만료된 토큰
-        case "AU003": self = .expiredToken(error.message)
+        case "AU003": self = .expiredToken(error.code, error.message)
             // 유효하지 않은 토큰
-        case "AU005": self = .invalidToken(error.message)
+        case "AU005": self = .invalidToken(error.code, error.message)
             // Revoke Token 생성 실패
-        case "AU007": self = .revokeTokenGenerationFailed(error.message)
+        case "AU007": self = .revokeTokenGenerationFailed(error.code, error.message)
             // 유효하지 않은 Refresh Token
-        case "AU008": self = .invalidRefreshToken(error.message)
+        case "AU008": self = .invalidRefreshToken(error.code, error.message)
             // 존재하지 않는 유저
-        case "US001": self = .missingUser(error.message)
+        case "US001": self = .missingUser(error.code, error.message)
             // 중복된 닉네임
-        case "US002": self = .duplicateNickname(error.message)
+        case "US002": self = .duplicateNickname(error.code, error.message)
             // 존재하지 않는 리뷰
-        case "BO001": self = .nonExistentReview(error.message)
+        case "BO001": self = .nonExistentReview(error.code, error.message)
             // 잘못된 필터 조건
-        case "BO003": self = .invalidFilterCondition(error.message)
+        case "BO003": self = .invalidFilterCondition(error.code, error.message)
             // 파일 처리 중 오류
-        case "BO004": self = .fileProcessing(error.message)
+        case "BO004": self = .fileProcessing(error.code, error.message)
             // 유효하지 않은 프로그램
-        case "BO005": self = .invalidProgram(error.message)
+        case "BO005": self = .invalidProgram(error.code, error.message)
             // 이미지 용량 초과
-        case "BO006": self = .imageSizeLimitExceeded(error.message)
-        default: self = .error(code: error.code, message: error.message)
+        case "BO006": self = .imageSizeLimitExceeded(error.code, error.message)
+        default: self = .error(error.code, error.message)
         }
     }
     // swiftlint:enable cyclomatic_complexity    
     init(statusCode: Int, error: AFError) {
         switch statusCode {
         case 400..<500:
-            self = .client
+            self = .client("\(statusCode)", error.localizedDescription)
             return
         case 500..<600:
-            self = .server
+            self = .server("\(statusCode)", error.localizedDescription)
             return
         default: break
         }
@@ -193,7 +246,7 @@ enum APIError: Error, Equatable, LocalizedError {
         if let nsError = error as NSError? {
             switch nsError.code {
             case NSURLErrorTimedOut, NSURLErrorCannotFindHost, NSURLErrorCannotConnectToHost, NSURLErrorNetworkConnectionLost, NSURLErrorDNSLookupFailed, NSURLErrorNotConnectedToInternet, NSURLErrorSecureConnectionFailed:
-                self = .network
+                self = .network("\(nsError.code)", nsError.localizedDescription)
                 return
             default: break
             }
@@ -205,9 +258,9 @@ enum APIError: Error, Equatable, LocalizedError {
             error.isInvalidURLError ||
             error.isRequestAdaptationError ||
             error.isSessionTaskError {
-            self = .network
+            self = .network("\(statusCode)", error.localizedDescription)
         } else {
-            self = .error(code: "\(statusCode)", message: "\(error.localizedDescription)")
+            self = .error("\(statusCode)", error.localizedDescription)
         }
     }
 }

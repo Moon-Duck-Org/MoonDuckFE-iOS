@@ -63,12 +63,12 @@ extension TargetType {
                             case .openApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
                                 self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
-                                completion(.failure(.openApi))
+                                completion(.failure(.openApi("\(statusCode)", failed.localizedDescription)))
                             case .appleApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
                                 self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
-                                completion(.failure(.appleApi))
-                            default: 
+                                completion(.failure(.appleApi("\(statusCode)", failed.localizedDescription)))
+                            default:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
                                 self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                                 completion(.failure(.unknown))
@@ -121,16 +121,16 @@ extension TargetType {
                                 } else {
                                     let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
                                     self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
-                                    completion(.failure(.openApi))
+                                    completion(.failure(.openApi("\(statusCode)", failed.localizedDescription)))
                                 }
                             case .openApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
                                 self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
-                                completion(.failure(.openApi))
+                                completion(.failure(.openApi("\(statusCode)", failed.localizedDescription)))
                             case .appleApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
                                 self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
-                                completion(.failure(.appleApi))
+                                completion(.failure(.appleApi("\(statusCode)", failed.localizedDescription)))
                             }
 
                         } catch {
