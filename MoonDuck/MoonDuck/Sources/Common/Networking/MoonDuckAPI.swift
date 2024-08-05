@@ -233,6 +233,16 @@ extension MoonDuckAPI: TargetType {
         default: return .appError
         }
     }
+    
+    var apiType: APIType {
+        switch self {
+        case .searchBook, .searchDrama, .searchMovie, .searchConcert:
+            return .open
+        case .appleToken, .revokeApple:
+            return .sns
+        default: return .app
+        }
+    }
 }
 
 class API {

@@ -15,6 +15,7 @@ protocol TargetType: URLRequestConvertible {
     var parameters: RequestParams? { get }
     var headers: HTTPHeaders { get }
     var errorType: ErrorType { get }
+    var apiType: APIType { get }
 }
 
 extension TargetType {
@@ -56,32 +57,32 @@ extension TargetType {
                             switch errorType {
                             case .appError:
                                 let errorResponse = try JSONDecoder().decode(ErrorEntity.self, from: data)
-                                self.sendLogEvent(type: "APP", urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
+                                self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
                                 let apiError = APIError(error: errorResponse)
                                 completion(.failure(apiError))
                             case .openApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                                self.sendLogEvent(type: "OPEN", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                                self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                                 completion(.failure(.openApi))
                             case .appleApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                                self.sendLogEvent(type: "SNS", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                                self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                                 completion(.failure(.appleApi))
                             default: 
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                                self.sendLogEvent(type: "UNKNOWN", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                                self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                                 completion(.failure(.unknown))
                             }
                         } catch {
                             let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                            self.sendLogEvent(type: "UNKNOWN", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                            self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                             let error = response.error ?? failed
                             let apiError = APIError(statusCode: statusCode, error: failed)
                             completion(.failure(apiError))
                         }
                     } else {
                         let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                        self.sendLogEvent(type: "UNKNOWN", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                        self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                         let error = response.error ?? failed
                         let apiError = APIError(statusCode: statusCode, error: error)
                         completion(.failure(apiError))
@@ -110,7 +111,7 @@ extension TargetType {
                                 if apiError.needsTokenRefresh {
                                     self.refreshTokenAndRetryRequest(responseType: responseType, completion: completion)
                                 } else {
-                                    self.sendLogEvent(type: "APP", urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
+                                    self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
                                     completion(.failure(apiError))
                                 }
                             case .searchConcertError:
@@ -119,29 +120,29 @@ extension TargetType {
                                     completion(.failure(.emptySearchData))
                                 } else {
                                     let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                                    self.sendLogEvent(type: "OPEN", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                                    self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                                     completion(.failure(.openApi))
                                 }
                             case .openApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                                self.sendLogEvent(type: "OPEN", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                                self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                                 completion(.failure(.openApi))
                             case .appleApiError:
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                                self.sendLogEvent(type: "SNS", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                                self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                                 completion(.failure(.appleApi))
                             }
 
                         } catch {
                             let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                            self.sendLogEvent(type: "UNKNOWN", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                            self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                             let error = response.error ?? failed
                             let apiError = APIError(statusCode: statusCode, error: error)
                             completion(.failure(apiError))
                         }
                     } else {
                         let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                        self.sendLogEvent(type: "UNKNOWN", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                        self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                         let error = response.error ?? failed
                         let apiError = APIError(statusCode: statusCode, error: error)
                         completion(.failure(apiError))
@@ -224,19 +225,19 @@ extension TargetType {
                                 if apiError.needsTokenRefresh {
                                     self.refreshTokenAndRetryUpload(responseType: responseType, completion: completion)
                                 } else {
-                                    self.sendLogEvent(type: "APP", urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
+                                    self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: errorResponse.code, message: errorResponse.message)
                                     completion(.failure(apiError))
                                 }
                             } catch {
                                 let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                                self.sendLogEvent(type: "UNKNOWN", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                                self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                                 let error = response.error ?? failed
                                 let apiError = APIError(statusCode: statusCode, error: error)
                                 completion(.failure(apiError))
                             }
                         } else {
                             let statusCode = response.response?.statusCode ?? response.error?.responseCode ?? failed.responseCode ?? -99
-                            self.sendLogEvent(type: "UNKNOWN", urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
+                            self.sendLogEvent(type: apiType, urlRequest: urlRequest, code: "\(statusCode)", message: failed.localizedDescription)
                             let error = response.error ?? failed
                             let apiError = APIError(statusCode: statusCode, error: error)
                             completion(.failure(apiError))
@@ -263,10 +264,10 @@ extension TargetType {
         }
     }
     
-    private func sendLogEvent(type: String, urlRequest: URLRequest, code: String?, message: String?) {
+    private func sendLogEvent(type: APIType, urlRequest: URLRequest, code: String?, message: String?) {
         AnalyticsService.shared.logEvent(
             .FAIL_API,
-            parameters: [.API_TYPE: type,
+            parameters: [.API_TYPE: type.rawValue,
                          .API_URL: urlRequest.url ?? "",
                          .API_METHOD: urlRequest.httpMethod ?? "",
                          .ERROR_CODE: code ?? "",
@@ -288,6 +289,13 @@ enum ErrorType {
     case searchConcertError
     case openApiError
     case appleApiError
+}
+
+enum APIType: String {
+    case app = "APP"
+    case open = "OPEN"
+    case sns = "SNS"
+    case unowned = "UNOWNED"
 }
 
 extension Encodable {
