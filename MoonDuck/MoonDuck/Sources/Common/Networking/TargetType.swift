@@ -179,9 +179,8 @@ extension TargetType {
                 // 이미지를 멀티파트 폼 데이터에 추가
                 if let images {
                     for (index, image) in images.enumerated() {
-                        if let imageData = image.jpegData(compressionQuality: 0.8) {
-
-//                        if let imageData = image.downscaleTOjpegData(maxBytes: 1_000_000) {
+//                        if let imageData = image.jpegData(compressionQuality: 0.8) {
+                        if let imageData = image.downscaleTOjpegData(maxBytes: 1_000_000) {
                             multipartFormData.append(imageData, withName: "images", fileName: "image\(index).jpg", mimeType: "image/jpeg")
                             let imageSizeInBytes = imageData.count
                             let imageSizeInKB = Double(imageSizeInBytes) / 1024.0
