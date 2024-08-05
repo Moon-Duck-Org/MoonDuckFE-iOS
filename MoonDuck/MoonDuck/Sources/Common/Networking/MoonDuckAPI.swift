@@ -222,7 +222,7 @@ extension MoonDuckAPI: TargetType {
         }
     }    
     
-    var errorType: ErrorType {
+    var errorType: APIErrorType {
         switch self {
         case .searchConcert:
             return .searchConcertError

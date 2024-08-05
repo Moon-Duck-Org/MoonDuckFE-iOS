@@ -14,7 +14,7 @@ protocol TargetType: URLRequestConvertible {
     var path: String { get }
     var parameters: RequestParams? { get }
     var headers: HTTPHeaders { get }
-    var errorType: ErrorType { get }
+    var errorType: APIErrorType { get }
     var apiType: APIType { get }
 }
 
@@ -289,7 +289,7 @@ enum RequestParams {
     case multipart(_ parameter: Codable?, images: [UIImage]?)
 }
 
-enum ErrorType {
+enum APIErrorType {
     case appError
     case searchConcertError
     case openApiError

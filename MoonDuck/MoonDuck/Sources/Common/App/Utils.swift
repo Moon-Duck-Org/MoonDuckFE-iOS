@@ -132,27 +132,27 @@ class Utils {
         case none
     }
     
-    static func checkForUpdate(completion: @escaping (AppUpdate) -> Void) {
+    static func checkForUpdate(completion: @escaping (_ update: AppUpdate, _ storeVersion: String?) -> Void) {
         guard let remoteConfig else {
-            completion(.none)
+            completion(.none, nil)
             return
         }
         // Remote Config 값 가져오기
         remoteConfig.fetch { status, error -> Void in
             if error != nil {
                 // 실패
-                completion(.none)
+                completion(.none, nil)
             }
             if status == .success {
                 remoteConfig.activate { _, error in
                     if error != nil {
                         // 실패
-                        completion(.none)
+                        completion(.none, nil)
                     }
                     
                     // 값을 사용할 수 있습니다.
-                    let forceVersion = remoteConfig["forceUpdateVersion"].stringValue ?? "1.0.0"
-                    let latestVersion = remoteConfig["latestUpdateVersion"].stringValue ?? "1.0.0"
+                    let forceVersion = remoteConfig["forceUpdateVersion"].stringValue
+                    let latestVersion = remoteConfig["latestUpdateVersion"].stringValue
                     let currentVersion = Constants.appVersion
                     
                     let currentComponents = currentVersion.split(separator: ".").map { Int($0) ?? 0 }
@@ -166,7 +166,7 @@ class Utils {
                         
                         if current < new {
                             // 강제 업데이트 필요
-                            completion(.forceUpdate)
+                            completion(.forceUpdate, forceVersion)
                             return
                         }
                     }
@@ -180,16 +180,16 @@ class Utils {
                         
                         if current < new {
                             // 최신 업데이트 확인
-                            completion(.latestUpdate)
+                            completion(.latestUpdate, latestVersion)
                             return
                         }
                     }
                     
-                    completion(.none)
+                    completion(.none, latestVersion)
                 }
             } else {
                 // 실패
-                completion(.none)
+                completion(.none, nil)
             }
         }
     }

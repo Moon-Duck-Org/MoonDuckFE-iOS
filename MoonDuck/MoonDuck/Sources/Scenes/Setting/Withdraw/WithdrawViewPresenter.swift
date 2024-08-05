@@ -20,11 +20,15 @@ protocol WithdrawPresenter: AnyObject {
 
 class WithdrawViewPresenter: BaseViewPresenter, WithdrawPresenter {
     weak var view: WithdrawView?
-//    private let model: UserModelType
+    private var reviewCount: Int?
+    private var userLoginType: SnsLoginType?
     
     override init(with provider: AppServices, model: AppModels) {
         super.init(with: provider, model: model)
         self.model.userModel?.delegate = self
+        
+        reviewCount = model.userModel?.user?.all
+        userLoginType = AuthManager.shared.getLoginType()
     }
 }
 
@@ -32,8 +36,10 @@ extension WithdrawViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
+        AnalyticsService.shared.logEvent(.VIEW_WITHDRAW)
+        
         let nickname = model.userModel?.user?.nickname ?? "사용자"
-        let all = "\(model.userModel?.user?.all ?? 0)"
+        let all = "\(reviewCount ?? 0)"
         let text: String = L10n.Localizable.Withdraw.text(nickname, all)
         view?.updateContentLabelText(with: text)
     }
@@ -41,7 +47,13 @@ extension WithdrawViewPresenter {
     // MARK: - Action
     func withdrawButtonTapped() {
         view?.updateLoadingView(isLoading: true)
-        if let loginType = AuthManager.shared.getLoginType() {
+        
+        AnalyticsService.shared.logEvent(
+            .TAP_WITHDRAW,
+            parameters: [.SNS_TYPE: userLoginType?.rawValue ?? "",
+                         .REVIEW_COUNT: reviewCount ?? 0])
+        
+        if let loginType = userLoginType {
             if loginType == .apple {
                 view?.showWithdrawWithAppleAlert()
             } else {
@@ -82,6 +94,12 @@ extension WithdrawViewPresenter: UserModelDelegate {
     
     func userModel(_ model: UserModelType, didChange user: User?) {
         view?.updateLoadingView(isLoading: false)
+        
+        let snsType = AuthManager.shared.getLoginType()
+        AnalyticsService.shared.logEvent(
+            .SUCCESS_WITHDRAW,
+            parameters: [.SNS_TYPE: userLoginType?.rawValue ?? "",
+                         .REVIEW_COUNT: reviewCount ?? 0])
         
         let appModel = AppModels(
             userModel: UserModel(provider)

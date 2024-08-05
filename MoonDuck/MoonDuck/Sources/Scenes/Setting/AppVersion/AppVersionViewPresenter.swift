@@ -18,6 +18,7 @@ protocol AppVersionPresenter: AnyObject {
 }
 class AppVersionViewPresenter: BaseViewPresenter, AppVersionPresenter {
     weak var view: AppVersionView?
+    private var storeVersion: String?
 }
 
 extension AppVersionViewPresenter {
@@ -29,6 +30,12 @@ extension AppVersionViewPresenter {
     
     // MARK: - Action
     func updateButtonTapped() {
+        let currentVersion: String = Constants.appVersion
+        AnalyticsService.shared.logEvent(
+            .TAP_APPVERSION_UPDATE_GO,
+            parameters: [.APP_VERSION: currentVersion,
+                         .STORE_VERSION: storeVersion ?? ""])
+        
         Utils.moveAppStore()
     }
     
@@ -37,7 +44,12 @@ extension AppVersionViewPresenter {
         let currentVersion: String = Constants.appVersion
         let versionInfo = L10n.Localizable.Update.versionText(currentVersion)
         
-        Utils.checkForUpdate { [weak self] appUpdate in
+        Utils.checkForUpdate { [weak self] appUpdate, storeVersion in
+            AnalyticsService.shared.logEvent(
+                .VIEW_APPVERSION,
+                parameters: [.APP_VERSION: currentVersion,
+                             .STORE_VERSION: storeVersion ?? ""])
+            self?.storeVersion = storeVersion
             DispatchQueue.main.async {
                 if appUpdate == .none {
                     let updateInfo = L10n.Localizable.Update.latestVersionText

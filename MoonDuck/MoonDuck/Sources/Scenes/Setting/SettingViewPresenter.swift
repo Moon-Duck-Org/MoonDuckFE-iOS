@@ -55,6 +55,7 @@ extension SettingViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
+        AnalyticsService.shared.logEvent(.VIEW_SETTING)
         view?.updateAppVersionLabelText(with: Constants.appVersion)
     }
     
@@ -68,6 +69,8 @@ extension SettingViewPresenter {
         let url = Constants.termsOfServiceUrl
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
+        
+        AnalyticsService.shared.logEvent(.VIEW_TERMSOFSERVICE)
     }
     
     func privacyPolicyButtonTapped() {
@@ -75,6 +78,8 @@ extension SettingViewPresenter {
         let url = Constants.privacyPolicyUrl
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
+        
+        AnalyticsService.shared.logEvent(.VIEW_PRIVACY)
     }
     
     func appVersionButtonTapped() {
@@ -87,6 +92,8 @@ extension SettingViewPresenter {
         let url = Constants.noticeUrl
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
+        
+        AnalyticsService.shared.logEvent(.VIEW_NOTICE)
     }
     
     func withdrawButtonTapped() {
@@ -109,6 +116,8 @@ extension SettingViewPresenter {
     
     private func setPushStatus(isOn: Bool) {
         guard let user = model.userModel?.user, user.isPush != isOn else { return }
+        
+        AnalyticsService.shared.logEvent(isOn ? .TAP_SETTING_PUSH_ON : .TAP_SETTING_PUSH_OFF)
         
         view?.updateLoadingView(isLoading: true)
         model.userModel?.push(isOn)

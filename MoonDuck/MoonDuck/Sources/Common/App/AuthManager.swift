@@ -124,6 +124,13 @@ class AuthManager {
                 completion(true, nil)
             } else {
                 // 오류 발생
+                let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
+                AnalyticsService.shared.logEvent(
+                    .FAIL_WITHDRAW,
+                    parameters: [.SNS_TYPE: snsType,
+                                 .ERROR_CODE: failed?.code ?? "",
+                                 .ERROR_MESSAGE: failed?.message ?? "",
+                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()])
                 completion(false, failed)
             }
         }
@@ -235,10 +242,26 @@ extension AuthManager {
                                 // STEP 5. 앱 회원 탈퇴
                                 self?.exit(completion: completion)
                             } else {
+                                AnalyticsService.shared.logEvent(
+                                    .FAIL_APPLE_LOGIN_AUTH,
+                                    parameters: [.AUTH_TYPE: "REVOKE",
+                                                 .ERROR_CODE: error?.code ?? "",
+                                                 .ERROR_MESSAGE: error?.message ?? "",
+                                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()
+                                    ]
+                                )
                                 completion(false, error)
                             }
                         }
                     } else {
+                        AnalyticsService.shared.logEvent(
+                            .FAIL_APPLE_LOGIN_AUTH,
+                            parameters: [.AUTH_TYPE: "TOKEN",
+                                         .ERROR_CODE: error?.code ?? "",
+                                         .ERROR_MESSAGE: error?.message ?? "",
+                                         .TIME_STAMP: Utils.getCurrentKSTTimestamp()
+                            ]
+                        )
                         completion(false, error)
                     }
                 }

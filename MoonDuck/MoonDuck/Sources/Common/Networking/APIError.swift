@@ -209,6 +209,15 @@ enum APIError: Error, Equatable, LocalizedError {
         }
     }
     
+    var errorType: APIErrorType {
+        switch self {
+        case .openApi: return .openApiError
+        case .emptySearchData: return .searchConcertError
+        case .appleApi: return .appleApiError
+        default: return .appError
+        }
+    }
+    
     // swiftlint:disable cyclomatic_complexity
     init(error: ErrorEntity) {
         switch error.code {

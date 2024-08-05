@@ -45,9 +45,13 @@ class SettingViewController: BaseViewController, SettingView {
         
     }
     @IBAction private func contactUsButtonTapped(_ sender: Any) {
+        AnalyticsService.shared.logEvent(.TAP_CONTRACTUS)
+        
         showContractUsMail()
     }
     @IBAction private func goReviewButtonTapped(_ sender: Any) {
+        AnalyticsService.shared.logEvent(.TAP_APPREVIEW_GO)
+        
         Utils.moveAppReviewInStore()
     }
     @IBAction private func appVersionButtonTapped(_ sender: Any) {
@@ -163,10 +167,27 @@ extension SettingViewController: MFMailComposeViewControllerDelegate {
         case .saved:
             Log.debug("Mail saved")
         case .sent:
+            AnalyticsService.shared.logEvent(.SUCCESS_CONTRACTUS, parameters: [.APP_VERSION: Constants.appVersion])
             showToastMessage(L10n.Localizable.ContractUs.completeMessage)
         case .failed:
+            AnalyticsService.shared.logEvent(
+                .FAIL_CONTRACTUS,
+                parameters: [.APP_VERSION: Constants.appVersion,
+                             .ERROR_CODE: result,
+                             .ERROR_MESSAGE: error?.localizedDescription ?? "",
+                             .TIME_STAMP: Utils.getCurrentKSTTimestamp()
+                            ]
+            )
             showToastMessage(L10n.Localizable.ContractUs.errorMessage)
         @unknown default:
+            AnalyticsService.shared.logEvent(
+                .FAIL_CONTRACTUS,
+                parameters: [.APP_VERSION: Constants.appVersion,
+                             .ERROR_CODE: result,
+                             .ERROR_MESSAGE: error?.localizedDescription ?? "",
+                             .TIME_STAMP: Utils.getCurrentKSTTimestamp()
+                            ]
+            )
             showToastMessage(L10n.Localizable.ContractUs.errorMessage)
         }
     }

@@ -28,6 +28,7 @@ class WithdrawViewController: BaseViewController, WithdrawView {
         back()
     }
     @IBAction private func cancelButtonTapped(_ sender: Any) {
+        AnalyticsService.shared.logEvent(.TAP_WITHDRAW_CANCEL)
         back()
     }
     @IBAction private func withdrawButtonTapped(_ sender: Any) {

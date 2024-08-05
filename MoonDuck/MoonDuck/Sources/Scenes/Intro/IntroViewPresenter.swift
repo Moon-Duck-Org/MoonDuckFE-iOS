@@ -67,7 +67,7 @@ extension IntroViewPresenter {
             ])
         }
         Utils.initConfig()
-        Utils.checkForUpdate { [weak self] appUpdate in
+        Utils.checkForUpdate { [weak self] appUpdate, _ in
             switch appUpdate {
             case .forceUpdate:
                 self?.view?.showForceUpdateAlert()
