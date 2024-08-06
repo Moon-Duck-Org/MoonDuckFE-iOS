@@ -57,16 +57,22 @@ class Utils {
         
         guard let url = URL(string: urlString),
               UIApplication.shared.canOpenURL(url) else {
+            AnalyticsService.shared.logEvent(.FAIL_REVIEW_LINK_MOVE, parameters: [.REVIEW_LINK: urlString])
+            
             viewController.showToast(message: L10n.Localizable.Error.linkMessage)
             return
         }
         
         if url.scheme == "http" || url.scheme == "https" {
+            AnalyticsService.shared.logEvent(.SUCCESS_REVIEW_LINK_MOVE, parameters: [.REVIEW_LINK: urlString])
+            
             let safariViewController = SFSafariViewController(url: url)
             DispatchQueue.main.async {
                 viewController.present(safariViewController, animated: true, completion: nil)
             }
         } else {
+            AnalyticsService.shared.logEvent(.FAIL_REVIEW_LINK_MOVE, parameters: [.REVIEW_LINK: urlString])
+            
             viewController.showToast(message: L10n.Localizable.Error.linkMessage)
         }
     }

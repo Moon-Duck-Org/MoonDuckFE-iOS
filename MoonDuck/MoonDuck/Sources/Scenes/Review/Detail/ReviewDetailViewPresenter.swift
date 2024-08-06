@@ -52,6 +52,8 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     func writeReviewHandler() -> (() -> Void)? {
         return { [weak self] in
             guard let self else { return }
+            AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_EDIT, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
+            
             let appModel = AppModels(
                 writeReviewModel: WriteReviewModel(self.provider, review: review)
             )
@@ -63,6 +65,7 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     func shareReviewHandler() -> (() -> Void)? {
         return { [weak self] in
             guard let self, let reviewId = model.reviewModel?.review.id else { return }
+            AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_SHARE, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
             
             self.view?.updateLoadingView(isLoading: true)
             self.model.shareModel?.getShareUrl(with: reviewId)
@@ -73,6 +76,8 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
         if let deleteReviewHandler = model.reviewModel?.deleteReviewHandler {
             return { [weak self] in
                 guard let self else { return }
+                AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_DELETE, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
+                
                 view?.updateLoadingView(isLoading: true)
                 deleteReviewHandler()
             }
@@ -87,8 +92,13 @@ extension ReviewDetailViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        if let reviewModel = model.reviewModel {
-            view?.updateData(for: reviewModel.review)
+        AnalyticsService.shared.logEvent(
+            .VIEW_REVIEW_DETAIL,
+            parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""]
+        )
+        
+        if let review {
+            view?.updateData(for: review)
         }
     }
     
@@ -121,6 +131,7 @@ extension ReviewDetailViewPresenter: ShareModelDelegate {
         view?.updateLoadingView(isLoading: false)
         let shareUrlString = Constants.getSharePath(with: url)
         if let shareUrl = URL(string: shareUrlString) {
+            AnalyticsService.shared.logEvent(.SUCCESS_REVIEW_SHARE, parameters: [.SHARE_URL: shareUrlString])
             view?.showSystemShare(with: shareUrl)
         } else {
             view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)

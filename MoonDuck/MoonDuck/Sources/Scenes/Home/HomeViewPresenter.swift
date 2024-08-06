@@ -21,7 +21,7 @@ protocol HomePresenter: AnyObject {
     func reviewOptionHandler(for review: Review) -> (() -> Void)?
     func writeReviewHandler(for review: Review) -> (() -> Void)?
     func shareReviewHandler(for review: Review) -> (() -> Void)?
-    func deleteReviewHandler(for review: Review) -> (() -> Void)?
+    func deleteReviewHandler(for review: Review, isHome: Bool) -> (() -> Void)?
     func reviewTappedHandler(for review: Review) -> (() -> Void)?
     
     /// Life Cycle
@@ -87,6 +87,8 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     func writeReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
             guard let self else { return }
+            AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_EDIT, parameters: [.CATEGORY_TYPE: review.category.rawValue])
+            
             let appModel = AppModels(
                 writeReviewModel: WriteReviewModel(self.provider, review: review)
             )
@@ -98,14 +100,18 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     func shareReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
             guard let self, let reviewId = review.id else { return }
+            AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_SHARE, parameters: [.CATEGORY_TYPE: review.category.rawValue])
             
             self.view?.updateLoadingView(isLoading: true)
             self.model.shareModel?.getShareUrl(with: reviewId)
         }
     }
     
-    func deleteReviewHandler(for review: Review) -> (() -> Void)? {
+    func deleteReviewHandler(for review: Review, isHome: Bool = true) -> (() -> Void)? {
         return { [weak self] in
+            if isHome {
+                AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_DELETE, parameters: [.CATEGORY_TYPE: review.category.rawValue])
+            }
             self?.view?.updateLoadingView(isLoading: true)
             self?.model.reviewListModel?.deleteReview(for: review)
         }
@@ -114,7 +120,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     func reviewTappedHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
             guard let self else { return }
-            let handler = self.deleteReviewHandler(for: review)
+            let handler = self.deleteReviewHandler(for: review, isHome: false)
             let appModel = AppModels(
                 reviewModel: ReviewModel(self.provider, review: review, deleteReviewHandler: handler),
                 shareModel: ShareModel(self.provider)
@@ -128,6 +134,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
 extension HomeViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
+        AnalyticsService.shared.logEvent(.VIEW_HOME, parameters: [.REVIEW_COUNT: model.userModel?.user?.all ?? 0])
         model.categoryModel?.getCategories(isHaveAll: true)
         Utils.requestTrackingAuthorization { [weak self] in
             self?.checkNotificationAuthorization()
@@ -137,17 +144,23 @@ extension HomeViewPresenter {
     
     // MARK: - Action
     func selectCategory(at index: Int) {
+        let categoryType = model.categoryModel?.category(at: index)?.rawValue
+        AnalyticsService.shared.logEvent(.TAP_HOME_CATEGORY, parameters: [.CATEGORY_TYPE: categoryType ?? ""])
+        
         model.categoryModel?.selectCategory(at: index)
     }
     
     func selectSort(at index: Int) {
+        let sortType = model.sortModel?.sortOption(at: index)?.rawValue
+        AnalyticsService.shared.logEvent(.TAP_HOME_SORT, parameters: [.SORT_TYPE: sortType ?? ""])
+        
         model.sortModel?.selectSortOption(index)
     }
     
     func selectReview(at index: Int) {
         if let category = model.categoryModel?.selectedCategory,
            let review = model.reviewListModel?.review(with: category, at: index) {
-            let handler = deleteReviewHandler(for: review)
+            let handler = deleteReviewHandler(for: review, isHome: false)
             let appModel = AppModels(
                 reviewModel: ReviewModel(provider, review: review, deleteReviewHandler: handler),
                 shareModel: ShareModel(provider)
@@ -352,6 +365,7 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
         view?.updateLoadingView(isLoading: false)
+        
         self.model.userModel?.deleteReview(category: review.category)
         view?.popToSelf()
         
@@ -388,6 +402,7 @@ extension HomeViewPresenter: ShareModelDelegate {
         view?.updateLoadingView(isLoading: false)
         let shareUrlString = Constants.getSharePath(with: url)
         if let shareUrl = URL(string: shareUrlString) {
+            AnalyticsService.shared.logEvent(.SUCCESS_REVIEW_SHARE, parameters: [.SHARE_URL: shareUrlString])
             view?.showSystemShare(with: shareUrl)
         } else {
             view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)

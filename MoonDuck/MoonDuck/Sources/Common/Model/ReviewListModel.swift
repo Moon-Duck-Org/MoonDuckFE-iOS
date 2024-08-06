@@ -251,12 +251,29 @@ extension ReviewListModel {
             guard let self else { return }
             if let succeed {
                 if succeed {
+                    AnalyticsService.shared.logEvent(.SUCCESS_REVIEW_DELETE, parameters: [.CATEGORY_TYPE: review.category.rawValue])
                     self.delegate?.reviewListModel(self, didDelete: review)
                 } else {
+                    AnalyticsService.shared.logEvent(
+                        .FAIL_REVIEW_DELETE,
+                        parameters: [.CATEGORY_TYPE: review.category.rawValue,
+                                     .REVIEW_ID: review.id ?? -1,
+                                     .ERROR_CODE: "FAIL_DELETE",
+                                     .ERROR_MESSAGE: "삭제 실패",
+                                     .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                    )
                     self.delegate?.reviewListDidFailDeleteReview(self)
                 }
             } else {
                 // 오류 발생
+                AnalyticsService.shared.logEvent(
+                    .FAIL_REVIEW_DELETE,
+                    parameters: [.CATEGORY_TYPE: review.category.rawValue,
+                                 .REVIEW_ID: review.id ?? -1,
+                                 .ERROR_CODE: failed?.code ?? "",
+                                 .ERROR_MESSAGE: failed?.message ?? "",
+                                 .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                )
                 self.delegate?.error(didRecieve: failed)
             }
         }

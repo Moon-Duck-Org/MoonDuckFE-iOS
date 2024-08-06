@@ -12,6 +12,13 @@ class APIEventLogger: EventMonitor {
     let queue = DispatchQueue(label: "MoonDuckAPILogger")
     
     func requestDidFinish(_ request: Request) {
+        // DateFormatter를 사용하여 시간을 UTC로 포맷합니다.
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC") // UTC 시간대 설정
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        // UTC 시간으로 포맷된 문자열을 얻습니다.
+        let utcTimeString = dateFormatter.string(from: Date())
         
         let headers = request.request?.allHTTPHeaderFields ?? [:]
         let method = request.request?.httpMethod ?? "nil"
@@ -22,7 +29,7 @@ class APIEventLogger: EventMonitor {
             let message: String = """
                                     
             ---------- HTTP REQUEST ----------
-            path: \(path) - \(Date().debugDescription)
+            path: \(path) - UTC \(utcTimeString)
             method: \(method)
             url: \(urlStr)
             headers: \(headers)
@@ -35,7 +42,7 @@ class APIEventLogger: EventMonitor {
             let message: String = """
                         
             ---------- HTTP REQUEST ----------
-            path: \(path) - \(Date().debugDescription)
+            path: \(path) - UTC \(utcTimeString)
             method: \(method)
             url: \(urlStr)
             headers: \(headers)

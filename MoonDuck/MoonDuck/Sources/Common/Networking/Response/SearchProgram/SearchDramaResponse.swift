@@ -9,14 +9,15 @@ import Foundation
 
 struct SearchDramaResponse: Codable {
     let page: Int
+    let totalResults: Int
+    let totalPages: Int
     let results: [ResultItem]
     
-//    func toDomain() -> ProgramList {
-//        let programs = results.map { $0.toDomain() }
-//        return ProgramList(category: .drama,
-//                           currentPage: page,
-//                           programs: programs)
-//    }
+    enum CodingKeys: String, CodingKey {
+        case page, results
+        case totalResults = "total_results"
+        case totalPages = "total_pages"
+    }
     
     struct ResultItem: Codable {
         let adult: Bool?

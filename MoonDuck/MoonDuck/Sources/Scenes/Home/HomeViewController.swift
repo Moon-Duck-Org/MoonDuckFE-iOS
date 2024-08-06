@@ -167,7 +167,7 @@ extension HomeViewController {
             .showDestructive(
                 self,
                 title: L10n.Localizable.Review.deleteMessage,
-                destructiveHandler: presenter.deleteReviewHandler(for: review)
+                destructiveHandler: presenter.deleteReviewHandler(for: review, isHome: true)
             )
     }
     

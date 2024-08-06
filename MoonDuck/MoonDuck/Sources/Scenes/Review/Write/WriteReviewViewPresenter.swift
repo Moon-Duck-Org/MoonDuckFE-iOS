@@ -126,6 +126,9 @@ extension WriteReviewViewPresenter {
         view?.createTouchEvent()
         if let review = model.writeReviewModel?.review {
             let program = review.program
+            
+            AnalyticsService.shared.logEvent(.VIEW_EDIT_REIVEW, parameters: [.CATEGORY_TYPE: program.category.rawValue])
+            
             view?.updateProgramInfo(for: program.category, with: program.title, and: program.subInfo)
             view?.updateTextField(for: review.title, with: review.content, and: review.link)
             titleText = review.title
@@ -144,6 +147,8 @@ extension WriteReviewViewPresenter {
                 }
             }
         } else if let program = model.writeReviewModel?.program {
+            AnalyticsService.shared.logEvent(.VIEW_WRITE_REVIEW, parameters: [.CATEGORY_TYPE: program.category.rawValue])
+            
             view?.updateProgramInfo(for: program.category, with: program.title, and: program.subInfo)
         }
     }
@@ -159,6 +164,13 @@ extension WriteReviewViewPresenter {
     
     func saveButtonTapped() {
         view?.updateLoadingView(isLoading: true)
+        var categoryType = ""
+        if let category = model.writeReviewModel?.program?.category.rawValue {
+            categoryType = category
+        } else if let category = model.writeReviewModel?.program?.title {
+            categoryType = category
+        }
+        
         var title: String = ""
         var content: String = ""
         var score: Int = 0
@@ -166,6 +178,10 @@ extension WriteReviewViewPresenter {
         if let titleText, titleText.isNotEmpty {
             title = titleText
         } else {
+            if model.writeReviewModel?.isNewWrite ?? false {
+                AnalyticsService.shared.logEvent(.TOAST_WRITE_REVIEW_EMPTY_TITLE, parameters: [.CATEGORY_TYPE: categoryType])
+            }
+            
             view?.updateLoadingView(isLoading: false)
             view?.showToastMessage(L10n.Localizable.Write.emptyTitleMessage)
             return
@@ -174,6 +190,10 @@ extension WriteReviewViewPresenter {
         if let contentText, contentText.isNotEmpty {
             content = contentText
         } else {
+            if model.writeReviewModel?.isNewWrite ?? false {
+                AnalyticsService.shared.logEvent(.TOAST_WRITE_REVIEW_EMPTY_CONTENT, parameters: [.CATEGORY_TYPE: categoryType])
+            }
+            
             view?.updateLoadingView(isLoading: false)
             view?.showToastMessage(L10n.Localizable.Write.emptyContentMessage)
             return
@@ -182,14 +202,35 @@ extension WriteReviewViewPresenter {
         if rating > 0 {
             score = rating
         } else {
+            if model.writeReviewModel?.isNewWrite ?? false {
+                AnalyticsService.shared.logEvent(.TOAST_WRITE_REVIEW_EMPTY_RATING, parameters: [.CATEGORY_TYPE: categoryType])
+            }
+            
             view?.updateLoadingView(isLoading: false)
             view?.showToastMessage(L10n.Localizable.Write.emptyRatingMessage)
             return
         }
         
         if model.writeReviewModel?.isNewWrite ?? false {
+            AnalyticsService.shared.logEvent(
+                .TAP_WRITE_REIVEW_COMPLETE,
+                parameters: [.CATEGORY_TYPE: categoryType,
+                             .PROGRAM_NAME: model.writeReviewModel?.program?.title ?? "",
+                             .IS_REVIEW_LINK: linkText?.isNotEmpty ?? false,
+                             .REVIEW_IMAGE_COUNT: images.count]
+            )
+            
             model.writeReviewModel?.postReview(title: title, content: content, score: score, url: linkText, images: images)
         } else {
+            AnalyticsService.shared.logEvent(
+                .TAP_EDIT_REIVEW_COMPLETE,
+                parameters: [.REVIEW_ID: model.writeReviewModel?.review?.id ?? -1,
+                             .CATEGORY_TYPE: categoryType,
+                             .PROGRAM_NAME: model.writeReviewModel?.review?.program.title ?? "",
+                             .IS_REVIEW_LINK: linkText?.isNotEmpty ?? false,
+                             .REVIEW_IMAGE_COUNT: images.count]
+            )
+            
             model.writeReviewModel?.putReview(title: title, content: content, score: score, url: linkText, images: images)
         }
     }

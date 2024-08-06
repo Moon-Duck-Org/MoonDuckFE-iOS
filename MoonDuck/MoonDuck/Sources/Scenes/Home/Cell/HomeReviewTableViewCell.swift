@@ -91,7 +91,9 @@ class HomeReviewTableViewCell: UITableViewCell {
             linkLabel.text = link
             linkView.isHidden = false
             linkHeightContraint.constant = 34
-            linkButtonHandler = { Utils.openSafariViewController(urlString: link)
+            linkButtonHandler = { 
+                AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_LINK, parameters: [.REVIEW_LINK: link])
+                Utils.openSafariViewController(urlString: link)
             }
         } else {
             linkLabel.text = ""

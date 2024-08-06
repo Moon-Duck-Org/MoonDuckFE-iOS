@@ -60,9 +60,28 @@ class WriteReviewModel: WriteReviewModelType {
             self.provider.reviewService.putReview(request: request, images: images) { [weak self] succeed, failed in
                 guard let self else { return }
                 if let succeed {
+                    AnalyticsService.shared.logEvent(
+                        .SUCCESS_EDIT_REIVEW,
+                        parameters: [.REVIEW_ID: review.id ?? -1,
+                                     .CATEGORY_TYPE: review.program.category.rawValue,
+                                     .PROGRAM_NAME: review.program.title,
+                                     .IS_REVIEW_LINK: url?.isNotEmpty ?? false,
+                                     .REVIEW_IMAGE_COUNT: images?.count ?? 0]
+                    )
+                    
                     self.delegate?.writeReviewModel(self, didSuccess: succeed)
                 } else {
                     // 오류 발생
+                    AnalyticsService.shared.logEvent(
+                        .FAIL_WRITE_REVIEW,
+                        parameters: [.REVIEW_ID: review.id ?? -1,
+                                     .IS_REVIEW_LINK: url?.isNotEmpty ?? false,
+                                     .REVIEW_IMAGE_COUNT: images?.count ?? 0,
+                                     .ERROR_CODE: failed?.code ?? "",
+                                     .ERROR_MESSAGE: failed?.message ?? "",
+                                     .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                    )
+                    
                     self.delegate?.error(didRecieve: failed)
                 }
             }
@@ -82,9 +101,28 @@ class WriteReviewModel: WriteReviewModelType {
             self.provider.reviewService.postReview(request: request, images: images) { [weak self] succeed, failed in
                 guard let self else { return }
                 if let succeed {
+                    AnalyticsService.shared.logEvent(
+                        .SUCCESS_WRITE_REIVEW,
+                        parameters: [.CATEGORY_TYPE: program.category.rawValue,
+                                     .PROGRAM_NAME: program.title,
+                                     .IS_REVIEW_LINK: url?.isNotEmpty ?? false,
+                                     .REVIEW_IMAGE_COUNT: images?.count ?? 0]
+                    )
+                    
                     self.delegate?.writeReviewModel(self, didSuccess: succeed)
                 } else {
                     // 오류 발생
+                    AnalyticsService.shared.logEvent(
+                        .FAIL_WRITE_REVIEW,
+                        parameters: [.CATEGORY_TYPE: program.category.rawValue,
+                                     .PROGRAM_NAME: program.title,
+                                     .IS_REVIEW_LINK: url?.isNotEmpty ?? false,
+                                     .REVIEW_IMAGE_COUNT: images?.count ?? 0,
+                                     .ERROR_CODE: failed?.code ?? "",
+                                     .ERROR_MESSAGE: failed?.message ?? "",
+                                     .TIME_STAMP: Utils.getCurrentKSTTimestamp()]
+                    )
+                    
                     self.delegate?.error(didRecieve: failed)
                 }
             }

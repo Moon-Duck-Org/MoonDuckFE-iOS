@@ -53,6 +53,8 @@ class SelectProgramViewPresenter: BaseViewPresenter, SelectProgramPresenter {
 extension SelectProgramViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
+        AnalyticsService.shared.logEvent(.VIEW_WRITE_REVIEW_CATEGORY)
+        
         model.categoryModel?.getCategories(isHaveAll: false)
     }
     
