@@ -30,12 +30,6 @@ extension AppVersionViewPresenter {
     
     // MARK: - Action
     func updateButtonTapped() {
-        let currentVersion: String = Constants.appVersion
-        AnalyticsService.shared.logEvent(
-            .TAP_APPVERSION_UPDATE_GO,
-            parameters: [.APP_VERSION: currentVersion,
-                         .STORE_VERSION: storeVersion ?? ""])
-        
         Utils.moveAppStore()
     }
     
@@ -45,10 +39,6 @@ extension AppVersionViewPresenter {
         let versionInfo = L10n.Localizable.Update.versionText(currentVersion)
         
         Utils.checkForUpdate { [weak self] appUpdate, storeVersion in
-            AnalyticsService.shared.logEvent(
-                .VIEW_APPVERSION,
-                parameters: [.APP_VERSION: currentVersion,
-                             .STORE_VERSION: storeVersion ?? ""])
             self?.storeVersion = storeVersion
             DispatchQueue.main.async {
                 if appUpdate == .none {

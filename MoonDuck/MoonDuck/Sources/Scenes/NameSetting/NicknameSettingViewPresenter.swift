@@ -153,17 +153,6 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
     func error(didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
         
-        if !(error?.duplicateNickname ?? false) {
-            AnalyticsService.shared.logEvent(
-                .FAIL_NICKNAME_SETTING,
-                parameters: [.NICKNAME: nicknameText ?? "",
-                             .ERROR_CODE: error?.code ?? "",
-                             .ERROR_MESSAGE: error?.message ?? "",
-                             .TIME_STAMP: Utils.getCurrentKSTTimestamp()
-                ]
-            )
-        }
-        
         guard let error else { return }
         
         if error.isAuthError {

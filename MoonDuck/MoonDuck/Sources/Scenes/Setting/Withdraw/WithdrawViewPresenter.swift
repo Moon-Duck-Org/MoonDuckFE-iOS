@@ -35,9 +35,7 @@ class WithdrawViewPresenter: BaseViewPresenter, WithdrawPresenter {
 extension WithdrawViewPresenter {
     
     // MARK: - Life Cycle
-    func viewDidLoad() {
-        AnalyticsService.shared.logEvent(.VIEW_WITHDRAW)
-        
+    func viewDidLoad() {        
         let nickname = model.userModel?.user?.nickname ?? "사용자"
         let all = "\(reviewCount ?? 0)"
         let text: String = L10n.Localizable.Withdraw.text(nickname, all)

@@ -170,24 +170,8 @@ extension SettingViewController: MFMailComposeViewControllerDelegate {
             AnalyticsService.shared.logEvent(.SUCCESS_CONTRACTUS, parameters: [.APP_VERSION: Constants.appVersion])
             showToastMessage(L10n.Localizable.ContractUs.completeMessage)
         case .failed:
-            AnalyticsService.shared.logEvent(
-                .FAIL_CONTRACTUS,
-                parameters: [.APP_VERSION: Constants.appVersion,
-                             .ERROR_CODE: result,
-                             .ERROR_MESSAGE: error?.localizedDescription ?? "",
-                             .TIME_STAMP: Utils.getCurrentKSTTimestamp()
-                            ]
-            )
             showToastMessage(L10n.Localizable.ContractUs.errorMessage)
         @unknown default:
-            AnalyticsService.shared.logEvent(
-                .FAIL_CONTRACTUS,
-                parameters: [.APP_VERSION: Constants.appVersion,
-                             .ERROR_CODE: result,
-                             .ERROR_MESSAGE: error?.localizedDescription ?? "",
-                             .TIME_STAMP: Utils.getCurrentKSTTimestamp()
-                            ]
-            )
             showToastMessage(L10n.Localizable.ContractUs.errorMessage)
         }
     }

@@ -135,8 +135,6 @@ extension HomeViewController {
     }
     
     func showRequestNotiAuthAlert() {
-        AnalyticsService.shared.logEvent(.ALERT_PERMISSION_PUSH)
-        
         AppAlert.default
             .showDone(
                 self,

@@ -69,17 +69,13 @@ extension SettingViewPresenter {
         let url = Constants.termsOfServiceUrl
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
-        
-        AnalyticsService.shared.logEvent(.VIEW_TERMSOFSERVICE)
     }
     
     func privacyPolicyButtonTapped() {
         let title = L10n.Localizable.Title.policy
         let url = Constants.privacyPolicyUrl
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
-        view?.moveWebview(with: presenter)
-        
-        AnalyticsService.shared.logEvent(.VIEW_PRIVACY)
+        view?.moveWebview(with: presenter)        
     }
     
     func appVersionButtonTapped() {
@@ -92,8 +88,6 @@ extension SettingViewPresenter {
         let url = Constants.noticeUrl
         let presenter = WebViewPresenter(with: provider, title: title, url: url)
         view?.moveWebview(with: presenter)
-        
-        AnalyticsService.shared.logEvent(.VIEW_NOTICE)
     }
     
     func withdrawButtonTapped() {
