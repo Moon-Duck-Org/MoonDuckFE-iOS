@@ -242,6 +242,7 @@ extension AuthManager {
                                 // STEP 5. 앱 회원 탈퇴
                                 self?.exit(completion: completion)
                             } else {
+                                // STEP 5 ERROR. 로그만 보내고 앱 회원 탈퇴 진행
                                 AnalyticsService.shared.logEvent(
                                     .FAIL_APPLE_LOGIN_AUTH,
                                     parameters: [.AUTH_TYPE: "REVOKE",
@@ -250,10 +251,11 @@ extension AuthManager {
                                                  .TIME_STAMP: Utils.getCurrentKSTTimestamp()
                                     ]
                                 )
-                                completion(false, error)
+                                self?.exit(completion: completion)
                             }
                         }
                     } else {
+                        // STEP 4 ERROR. 로그만 보내고 앱 회원 탈퇴 진행
                         AnalyticsService.shared.logEvent(
                             .FAIL_APPLE_LOGIN_AUTH,
                             parameters: [.AUTH_TYPE: "TOKEN",
@@ -262,7 +264,7 @@ extension AuthManager {
                                          .TIME_STAMP: Utils.getCurrentKSTTimestamp()
                             ]
                         )
-                        completion(false, error)
+                        self?.exit(completion: completion)
                     }
                 }
             } else {
