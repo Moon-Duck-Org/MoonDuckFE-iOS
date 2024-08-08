@@ -20,7 +20,6 @@ target 'MoonDuck' do
   #Firebase
   pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'
-  pod 'Firebase/Messaging'
   pod 'Firebase/AppDistribution'
   pod 'Firebase/RemoteConfig'
   pod 'Firebase/Auth'
