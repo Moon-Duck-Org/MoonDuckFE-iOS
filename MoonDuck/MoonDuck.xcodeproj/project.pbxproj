@@ -20,7 +20,6 @@
 		A0A6337E2C28758600744694 /* HomeReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6337B2C28758600744694 /* HomeReviewTableViewCell.swift */; };
 		A0E657FB2BFE22B7001A8D54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E657FA2BFE22B7001A8D54 /* AppDelegate.swift */; };
 		A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E657FC2BFE22B7001A8D54 /* SceneDelegate.swift */; };
-		A0E658022BFE22B7001A8D54 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A0E658012BFE22B7001A8D54 /* Base */; };
 		A0E658042BFE22B9001A8D54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0E658032BFE22B9001A8D54 /* Assets.xcassets */; };
 		A0E658072BFE22B9001A8D54 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A0E658062BFE22B9001A8D54 /* Base */; };
 		A0E658122BFE22BA001A8D54 /* MoonDuckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E658112BFE22BA001A8D54 /* MoonDuckTests.swift */; };
@@ -215,7 +214,6 @@
 		A0E657F72BFE22B7001A8D54 /* MoonDuck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonDuck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E657FA2BFE22B7001A8D54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0E657FC2BFE22B7001A8D54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A0E658012BFE22B7001A8D54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A0E658032BFE22B9001A8D54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0E658062BFE22B9001A8D54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0E658082BFE22B9001A8D54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -324,7 +322,6 @@
 		EA9A84282C00BF04004B7FDF /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		EA9A842A2C00C33E004B7FDF /* NicknameSettingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingViewPresenter.swift; sourceTree = "<group>"; };
 		EA9A842E2C00D577004B7FDF /* AppAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlert.swift; sourceTree = "<group>"; };
-		EA9A84362C00DBC4004B7FDF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		EA9A84372C00DBC4004B7FDF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		EA9A84402C00DCDD004B7FDF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EA9A84412C00DD08004B7FDF /* Strings+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
@@ -512,7 +509,6 @@
 				A0E6584A2BFE3C03001A8D54 /* Fonts+Generated.swift */,
 				EA9A84412C00DD08004B7FDF /* Strings+Generated.swift */,
 				A0E6584C2BFE3C0A001A8D54 /* XCAssets+Generated.swift */,
-				A0E658002BFE22B7001A8D54 /* Main.storyboard */,
 				A0E658052BFE22B9001A8D54 /* LaunchScreen.storyboard */,
 				EA9A843D2C00DCDA004B7FDF /* Localizable.strings */,
 			);
@@ -1130,7 +1126,6 @@
 				A0E658422BFE36A5001A8D54 /* NotoSansCJKkr-Light.otf in Resources */,
 				EACCDA042C35351200D9ADAD /* WebViewController.xib in Resources */,
 				A0FE0E3E2C283A0C005C403C /* WriteImageCollectionViewCell.xib in Resources */,
-				A0E658022BFE22B7001A8D54 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1475,15 +1470,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A0E658002BFE22B7001A8D54 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A0E658012BFE22B7001A8D54 /* Base */,
-				EA9A84362C00DBC4004B7FDF /* ko */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A0E658052BFE22B9001A8D54 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1648,7 +1634,6 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "기록 이미지 업로드를 위해 사용됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -1694,7 +1679,6 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "기록 이미지 업로드를 위해 사용됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";

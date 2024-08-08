@@ -228,8 +228,6 @@ internal enum L10n {
       internal static let emptyTitleMessage = L10n.tr("Localizable", "write. empty_title_message", fallback: "제목을 입력해 주세요.")
     }
   }
-  internal enum Main {
-    }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

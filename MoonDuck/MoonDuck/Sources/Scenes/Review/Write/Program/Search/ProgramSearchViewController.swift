@@ -66,16 +66,22 @@ class ProgramSearchViewController: BaseViewController, ProgramSearchView {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerNotifications()
         presenter.view = self
         presenter.viewDidLoad()
         
         searchDataSource.configure(with: resultTableView)
     }
     
-    deinit {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         unregisterNotifications()
     }
+    
 }
 
 // MARK: - UI Logic

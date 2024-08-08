@@ -27,7 +27,11 @@ class NicknameSettingViewController: BaseViewController, NicknameSettingView {
     // @IBOutlet
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet private weak var completeButton: UIButton!
-    @IBOutlet private weak var nicknameTextField: TextField!
+    @IBOutlet private weak var nicknameTextField: TextField! {
+        didSet {
+            nicknameTextField.delegate = self
+        }
+    }
     @IBOutlet private weak var hintLabel: UILabel!
     @IBOutlet private weak var countLabel: UILabel!
     
@@ -59,7 +63,6 @@ class NicknameSettingViewController: BaseViewController, NicknameSettingView {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.view = self
-        nicknameTextField.delegate = self
         presenter.viewDidLoad()
     }
 }

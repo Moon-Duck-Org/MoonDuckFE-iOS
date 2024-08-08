@@ -96,22 +96,29 @@ class WriteReviewViewController: BaseViewController, WriteReviewView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        unregisterNotifications()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerNotifications()
         presenter.view = self
         presenter.viewDidLoad()
         
+        registeRatingButtonAction()
+        imageDataSource.configure(with: imageCollectionView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerNotifications()
+        
         // interactivePopGestureRecognizer 설정
         navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unregisterNotifications()
         
-        registeRatingButtonAction()
-        
-        imageDataSource.configure(with: imageCollectionView)
+        // interactivePopGestureRecognizer 설정
+        navigationController?.interactivePopGestureRecognizer?.delegate = navigator?.root as? BaseNavigationController
     }
     
 }
