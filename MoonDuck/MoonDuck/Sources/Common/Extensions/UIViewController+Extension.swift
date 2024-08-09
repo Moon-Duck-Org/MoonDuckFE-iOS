@@ -6,35 +6,39 @@
 //
 
 import UIKit
-import SnapKit
-import Then
 
 extension UIViewController {
     func showToast(message: String) {
         DispatchQueue.main.async {
-            let frameView = UIView().then({
-                $0.backgroundColor = Asset.Color.black.color.withAlphaComponent(0.9)
-                $0.alpha = 0.8
-                $0.layer.cornerRadius = 6
-            })
+            let frameView = UIView()
+            frameView.backgroundColor = Asset.Color.black.color.withAlphaComponent(0.9)
+            frameView.alpha = 0.8
+            frameView.layer.cornerRadius = 6
+            frameView.translatesAutoresizingMaskIntoConstraints = false
+            
             let toastLabel = UILabel()
             toastLabel.textColor = UIColor(asset: Asset.Color.white)
             toastLabel.font = FontFamily.NotoSansCJKKR.medium.font(size: 14)
             toastLabel.text = message
             toastLabel.numberOfLines = 0
             toastLabel.textAlignment = .center
+            toastLabel.translatesAutoresizingMaskIntoConstraints = false
             
             self.view.addSubview(frameView)
             frameView.addSubview(toastLabel)
-            frameView.snp.makeConstraints({
-                $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-7)
-                $0.centerX.equalTo(self.view.snp.centerX)
-                $0.leading.equalTo(self.view.snp.leading).offset(16)
-                $0.trailing.equalTo(self.view.snp.trailing).offset(-16)
-            })
-            toastLabel.snp.makeConstraints({
-                $0.leading.trailing.bottom.top.equalToSuperview().inset(8)
-            })
+            NSLayoutConstraint.activate([
+                // frameView constraints
+                frameView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -7),
+                frameView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                frameView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+                frameView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+                
+                // toastLabel constraints
+                toastLabel.topAnchor.constraint(equalTo: frameView.topAnchor, constant: 8),
+                toastLabel.bottomAnchor.constraint(equalTo: frameView.bottomAnchor, constant: -8),
+                toastLabel.leadingAnchor.constraint(equalTo: frameView.leadingAnchor, constant: 8),
+                toastLabel.trailingAnchor.constraint(equalTo: frameView.trailingAnchor, constant: -8)
+            ])
             
             UIView.animate(withDuration: 2.0,
                            delay: 1.5,
