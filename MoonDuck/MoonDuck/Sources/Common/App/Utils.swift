@@ -138,6 +138,19 @@ class Utils {
         case none
     }
     
+    enum AppVersionKey: String {
+        case forceUpdateVersion
+        case latestUpdateVersion
+        
+        func getKey() -> String {
+        #if DEBUG
+            return self.rawValue + "_dev"
+        #else
+            return self.rawValue
+        #endif
+        }
+    }
+    
     static func checkForUpdate(completion: @escaping (_ update: AppUpdate, _ storeVersion: String?) -> Void) {
         guard let remoteConfig else {
             completion(.none, nil)
@@ -157,8 +170,8 @@ class Utils {
                     }
                     
                     // 값을 사용할 수 있습니다.
-                    let forceVersion = remoteConfig["forceUpdateVersion"].stringValue
-                    let latestVersion = remoteConfig["latestUpdateVersion"].stringValue
+                    let forceVersion = remoteConfig[AppVersionKey.forceUpdateVersion.getKey()].stringValue
+                    let latestVersion = remoteConfig[AppVersionKey.latestUpdateVersion.getKey()].stringValue
                     let currentVersion = Constants.appVersion
                     
                     let currentComponents = currentVersion.split(separator: ".").map { Int($0) ?? 0 }
@@ -251,7 +264,7 @@ class Utils {
         }
         
         return false
-#endif
+        #endif
     }
     
     static func requestAppReview() {
