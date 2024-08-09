@@ -59,7 +59,7 @@
 <br>
 
 ### [마이페이지]
-내가 기록한 모든 문화생활 개수를 한눈에 확인할 수 있습니다. <br>
+- 내가 기록한 모든 문화생활 개수를 한눈에 확인할 수 있습니다. <br>
 <image src="https://github.com/user-attachments/assets/6efc7a39-e3e7-4b5f-8b6d-54535e460d88" width=200 />
 <br>
 
