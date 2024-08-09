@@ -34,7 +34,7 @@
 <br>
 
 ### [홈 화면] 나만의 문화생활 다이어리
-- 나만의 문화생활 다이어리: 영화, 책, 드라마, 공연 등 카테고리별로 손쉽게 검색이 가능합니다.
+- 나만의 문화생활 다이어리: 문화생활을 카테고리 별(영화/책/드라마/공연)로 관리
 - 최신순, 오래된순, 별점순으로 정렬하여 검색할 수 있습니다.<br> 
 <image src="https://github.com/user-attachments/assets/d344afee-ab7c-4ce2-8e17-aa8be0ffde43" width=200 />
 <image src="https://github.com/user-attachments/assets/4931dfc8-0bfc-4b98-ba97-372797279c7d" width=200 />
