@@ -1,0 +1,50 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'MoonDuck' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for MoonDuck
+  #UI&CodeConvention
+  pod 'Kingfisher'
+  pod 'SwiftLint'
+  pod 'SwiftGen'
+  pod 'SnapKit'
+  pod 'Then'
+
+  #Networking
+  pod 'SwiftyJSON'
+  pod 'Alamofire'
+
+  #Firebase
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/AppDistribution'
+  pod 'Firebase/RemoteConfig'
+  pod 'Firebase/Auth'
+  
+  #Google
+  pod 'GoogleSignIn'
+
+  #Kakao
+  pod 'RxKakaoSDKAuth'
+  pod 'RxKakaoSDKUser'
+  
+  #Keychain
+  pod 'SwiftKeychainWrapper'
+
+  #Test
+  pod 'OHHTTPStubs'
+  pod 'OHHTTPStubs/Swift'
+  
+  target 'MoonDuckTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'MoonDuckUITests' do
+    # Pods for testing
+  end
+
+end

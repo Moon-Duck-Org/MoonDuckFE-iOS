@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSansCJKkr-Regular.otf">
+            <string>NotoSansCJKkr-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IntroViewController" customModule="MoonDuck" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A0V-Zx-fAG">
+                    <rect key="frame" x="153" y="375" width="87.333333333333314" height="127.33333333333331"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="CPa-BN-XaT">
+                            <rect key="frame" x="8" y="0.0" width="71" height="71"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="71" id="Chl-bQ-eit"/>
+                                <constraint firstAttribute="width" constant="71" id="m22-NX-0R2"/>
+                            </constraints>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ION-GE-8DY">
+                            <rect key="frame" x="0.0" y="86" width="87.333333333333329" height="41.333333333333343"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="ION-GE-8DY" firstAttribute="leading" secondItem="A0V-Zx-fAG" secondAttribute="leading" id="0wH-bq-tHT"/>
+                        <constraint firstAttribute="trailing" secondItem="ION-GE-8DY" secondAttribute="trailing" id="3vQ-cH-icx"/>
+                        <constraint firstAttribute="bottom" secondItem="ION-GE-8DY" secondAttribute="bottom" id="KXS-X3-a6h"/>
+                        <constraint firstItem="CPa-BN-XaT" firstAttribute="centerX" secondItem="A0V-Zx-fAG" secondAttribute="centerX" id="OQL-iL-1JU"/>
+                        <constraint firstItem="CPa-BN-XaT" firstAttribute="top" secondItem="A0V-Zx-fAG" secondAttribute="top" id="edL-Sx-fAN"/>
+                        <constraint firstItem="ION-GE-8DY" firstAttribute="top" secondItem="CPa-BN-XaT" secondAttribute="bottom" constant="15" id="y5h-lI-9cY"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright 2024. Poduck. All Right Reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpz-qn-ss5">
+                    <rect key="frame" x="16" y="787" width="361" height="15"/>
+                    <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="10"/>
+                    <color key="textColor" name="Black"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="Main"/>
+            <constraints>
+                <constraint firstItem="tpz-qn-ss5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="JqD-jX-kFi"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tpz-qn-ss5" secondAttribute="trailing" constant="16" id="QuN-hV-Xwz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="tpz-qn-ss5" secondAttribute="bottom" constant="16" id="RLq-2t-7LL"/>
+                <constraint firstItem="A0V-Zx-fAG" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="rKX-bw-UyK"/>
+                <constraint firstItem="A0V-Zx-fAG" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="tx4-hp-mSh"/>
+            </constraints>
+            <point key="canvasLocation" x="28" y="21"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Logo" width="71" height="70.666664123535156"/>
+        <image name="LogoTitle" width="87.333335876464844" height="41.333332061767578"/>
+        <namedColor name="Black">
+            <color red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Main">
+            <color red="1" green="0.8666666666666667" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

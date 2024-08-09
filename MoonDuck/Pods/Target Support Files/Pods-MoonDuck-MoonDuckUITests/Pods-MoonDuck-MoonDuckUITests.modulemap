@@ -1,0 +1,6 @@
+framework module Pods_MoonDuck_MoonDuckUITests {
+  umbrella header "Pods-MoonDuck-MoonDuckUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,114 @@
+/* 
+  Localizable.strings
+  MoonDuck
+
+  Created by suni on 5/24/24.
+  
+*/
+
+"app_name" = "문덕이";
+
+"expand" = "더보기";
+// 알럿 버튼
+"button. done" = "확인";
+"button. cancel" = "취소";
+"button. close" = "닫기";
+"button. delete" = "삭제";
+"button. edit" = "수정";
+"button. share" = "공유";
+"button. logout" = "로그아웃";
+"button. update" = "업데이트하러 가기";
+"button. later" = "나중에 하기";
+"button. withdraw" = "탈퇴";
+
+// 취소 메시지
+"message. cancel" = "취소하시겠어요?";
+
+// 카테고리
+"category. all" = "ALL";
+"category. movie" = "영화";
+"category. book" = "책";
+"category. drama" = "드라마";
+"category. concert" = "공연";
+
+// 닉네임 설정
+"nickname_setting. invalid_name_hint" = "특수문자는 사용 불가해요.";
+"nickname_setting. duplicate_name_hint" = "중복된 닉네임입니다.";
+"nickname_setting. complete_toast" = "닉네임 설정 완료!";
+
+// 마이
+"my. logout_alert_message" = "로그아웃하시겠어요?";
+"my. withdraw_complete_message" = "회원 탈퇴가 성공적으로 완료되었습니다. 문덕이를 이용해 주셔서 감사합니다.";
+"my. withdraw_alert_message" = "정말 탈퇴하시겠어요?";
+
+// 오류 메시지
+"error. login_message" = "로그인에 실패했어요. 다시 시도해 주세요.";
+"error. title" = "%@에 실패하였습니다. 다시 시도해 주세요.";
+"error. message" = "문제가 지속되면 '설정 -> 문의하기'에 문의해 주세요.";
+"error. network_message" = "네트워크 연결 상태를 확인해 주세요.";
+"error. system_message" = "시스템 오류를 해결하기 위해 노력 중이에요. 잠시 후에 다시 확인해 주세요.";
+"error. auth_message"  = "인증 정보가 유효하지 않습니다.\n다시 로그인해 주세요.";
+"error. network_image_size_message" = "이미지 용량을 초과했습니다.\n다시 시도해 주세요.";
+"error. system_image_size_message" = "용량이 크거나 확장자가 부적절한 %@개의 사진은 처리되지 않았어요.";
+"error. link_message" = "유효하지 않은 링크입니다.";
+
+"jalibroken. message" = "루팅된 기기에서는 문덕이를 이용 하실 수 없습니다.";
+
+// 업데이트
+"update. force_update_title" = "업데이트가 필요합니다.";
+"update. force_update_message" = "문덕이를 계속 사용하려면 새로운 버전으로 업데이트해야 해요. 지금 바로 업데이트해 주세요!";
+"update. latest_update_title" = "새로운 버전 업데이트가 있어요";
+"update. latest_update_message" = "문덕이의 새로운 기능과 개선된 성능을 경험할 수 있어요. 앱을 지금 최신 버전으로 업데이트해 보세요!";
+"update. latest_update_text" = "새로운 버전 업데이트가 있어요";
+"update. latest_version_text" = "가장 최신 버전이에요";
+"update. version_text" = "현재 버전은 %@이에요.";
+
+// 정렬
+"sort. latest_order" = "최신순";
+"sort. rating_order" = "별점순";
+"sort. oldest_first" = "오래된 순";
+
+// 리뷰
+"review. delete_message" = "삭제하시겠어요?";
+"review. write_complete_message" = "기록 작성 완료!";
+
+// 리뷰 작성
+"write. back_title" = "이전 화면으로 가시겠어요?";
+"write. back_message" = "작성된 내용은 모두 지워져요.";
+"write. empty_title_message" = "제목을 입력해 주세요.";
+"write. empty_content_message" = "내용을 입력해 주세요.";
+"write. empty_rating_message" = "별점을 입력해 주세요.";
+
+// 검색
+"search. placeholder" = "%@ 검색어를 입력해 주세요";
+"search. toast" = "%@ 검색어를 입력해 주세요.";
+
+// 타이틀
+"title. service" = "서비스 이용약관";
+"title. policy" = "개인정보 처리방침";
+"title. notice" = "공지사항";
+
+// 문의하기
+"contractUs. complete_message" = "메일이 성공적으로 전송되었습니다.\n문의해 주셔서 감사합니다.";
+"contractUs. error_message" = "메일 전송에 실패했습니다.\n인터넷 연결을 확인하고 다시 시도해 주세요.";
+"contractUs. not_available_mail_title" = "죄송합니다.\n메일을 보낼 수 없습니다. 메일 설정을 확인해 주세요.";
+"contractUs. not_available_mail_message" = "더 많은 도움이 필요하시면 %@으로 문의해 주세요.";
+
+// 푸쉬
+"push. title" = "문화생활덕후 🐥 문덕이";
+"push. message_type1" = "%@님! 새로운 기록을 남기지 않으셨어요.\n최근 즐긴 문화생활에 대해 이야기해 주세요!😊";
+"push. message_type2" = "%@님! 최근 어떤 멋진 문화생활을 즐기셨나요?\n기록을 남겨주세요🌟";
+
+"push. on_complete_toast" = "[문덕이] 푸시 알림 허용이 완료되었습니다! (%@)";
+"push. off_complete_toast" = "[문덕이] 푸시 알림 거부가 완료되었습니다. (%@)";
+
+"push. request_alert_title" = "푸시 알림 요청";
+"push. request_alert_message" = "문덕이 이용에 유용한 알림을 보내드릴 수 있도록 푸시 알림 권한을 허용해 주세요!";
+"push. setting_text" = "문덕이 이용에 유용한 알림을 보내드려요.";
+"push. setting_text_os" = "푸시 알림을 받으려면 기기 설정에서 알림을 켜주세요.";
+"push. setting_text_os_emphasize" = "알림을 켜주세요.";
+
+// 탈퇴
+"withdraw. text" = "%@님은 문덕이와\n%@번의 기록을 함께했어요.\n정말 탈퇴하시겠어요? 너무 아쉬워요.";
+"withdraw. apple. message" = "애플 로그인 사용자는 회원 탈퇴를 위해 로그인 정보 확인이 필요합니다.";
+"withdraw. apple. error" = "인증에 실패했습니다.";
