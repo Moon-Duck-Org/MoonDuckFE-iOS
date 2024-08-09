@@ -15,7 +15,7 @@
 			<string>KaKaoSignIn</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao115f84135ae908760cadabb7d51a0e26</string>
+				<string>kakao$(KAKAO_APP_KEY)</string>
 			</array>
 		</dict>
 		<dict>
@@ -25,7 +25,7 @@
 			<string>GoogleSignIn</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.696736038970-a9f5iou77c31lnisphaaodals3op665t</string>
+				<string>com.googleusercontent.apps.$(GOOGLE_CLIENT_ID)</string>
 			</array>
 		</dict>
 		<dict>
@@ -41,6 +41,8 @@
 	</array>
 	<key>KakaoAppKey</key>
 	<string>$(KAKAO_APP_KEY)</string>
+    <key>GoogleClientId</key>
+    <string>$(GOOGLE_CLIENT_ID)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaolink</string>
