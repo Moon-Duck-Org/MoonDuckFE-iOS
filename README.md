@@ -68,9 +68,25 @@
 <br>
 
 ## ⚒️ 사용 기술
-
+### 개발환경
+<img src="https://img.shields.io/badge/iOS-000000?style=flat-square&logo=apple&logoColor=white"/> <img src="https://img.shields.io/badge/Xcode-147EFB?style=flat-square&logo=xcode&logoColor=white"/>
 <br>
 
-## 📚 License
+### 언어 및 프레임워크
+<img src="https://img.shields.io/badge/Swift5-F05138?style=flat-square&logo=swift&logoColor=white"/> <img src="https://img.shields.io/badge/UIKit-2396F3?style=flat-square&logo=uikit&logoColor=white"/>
+<br>
 
+### 아키텍처 및 디자인 패턴
+- MVP
+<img src="https://github.com/user-attachments/assets/2f53c1b5-762a-43d8-8bb0-a1c420afec3a"/>
+
+### 사용 라이브러리
+- [CocoaPods로 라이브러리 관리](https://github.com/Moon-Duck-Org/MoonDuckFE-iOS/blob/master/MoonDuck/Podfile)
+- KaKaoSDK / GoogleSignIn : SNS 로그인 개발 <img src="https://img.shields.io/badge/KaKaoSDK-FFCD00?style=flat-square&logo=kakao&logoColor=white"/> <img src="https://img.shields.io/badge/GoogleSignIn-4285F4?style=flat-square&logo=google&logoColor=white"/>
+- Alamofire : HTTP 네트워킹 구현
+- Kingfisher : 이미지 다운로드 및 캐싱 간소화
+- SwiftLint : Code Style Guide 관리
+- SwiftGen : 안전하고 효율적인 리소스 관리
+- Firebase : Google Analytics, Crashlytics 활용한 앱 모니터링 개발 / RemoteConfig를 활용한 버전 관리 개발 <img src="https://img.shields.io/badge/Firebase-DD2C00?style=flat-square&logo=firebase&logoColor=white"/>
+- OHHTTPStubs : 네트워크 통신 Test Case 구현
 
