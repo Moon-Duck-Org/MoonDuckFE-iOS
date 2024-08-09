@@ -7,8 +7,6 @@
 
 import UIKit
 
-import SnapKit
-
 protocol BaseView: AnyObject {
     var isEditingText: Bool { get set }
     
@@ -46,9 +44,12 @@ class BaseViewController: UIViewController, Navigatable {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(loadingView)
-        loadingView.snp.makeConstraints({
-            $0.edges.equalToSuperview()
-        })
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: view.topAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
         
         loadingView.isLoading = false
     }

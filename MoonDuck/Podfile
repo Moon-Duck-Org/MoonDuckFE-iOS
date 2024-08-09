@@ -9,18 +9,14 @@ target 'MoonDuck' do
   #UI&CodeConvention
   pod 'Kingfisher'
   pod 'SwiftLint'
-  pod 'SwiftGen'
-  pod 'SnapKit'
-  pod 'Then'
+  pod 'SwiftGen' 
 
   #Networking
-  pod 'SwiftyJSON'
   pod 'Alamofire'
 
   #Firebase
   pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'
-  pod 'Firebase/AppDistribution'
   pod 'Firebase/RemoteConfig'
   pod 'Firebase/Auth'
   

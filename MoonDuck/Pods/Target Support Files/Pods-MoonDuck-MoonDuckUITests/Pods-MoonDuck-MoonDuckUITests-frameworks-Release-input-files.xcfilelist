@@ -3,7 +3,6 @@ ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseABTesting/FirebaseABTesting.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseAppCheckInterop/FirebaseAppCheckInterop.framework
-${BUILT_PRODUCTS_DIR}/FirebaseAppDistribution/FirebaseAppDistribution.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseAuthInterop/FirebaseAuthInterop.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework
@@ -35,8 +34,5 @@ ${BUILT_PRODUCTS_DIR}/RxKakaoSDKCommon/RxKakaoSDKCommon.framework
 ${BUILT_PRODUCTS_DIR}/RxKakaoSDKUser/RxKakaoSDKUser.framework
 ${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework
 ${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
-${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
 ${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework
-${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework
-${BUILT_PRODUCTS_DIR}/Then/Then.framework
 ${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework
