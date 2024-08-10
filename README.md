@@ -14,7 +14,7 @@
   <br>
   [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FMoon-Duck-Org%2FMoonDuckFE-iOS&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=COUNT&edge_flat=false)](https://hits.seeyoufarm.com)
   
-  ### [📱 문덕이 다운받으러 가기](https://apps.apple.com/kr/app/%EB%AC%B8%ED%99%94%EC%83%9D%ED%99%9C%EB%8D%95%ED%9B%84-%EB%AC%B8%EB%8D%95%EC%9D%B4/id6502997117)
+  ### [📱 AppStore 다운받으러 가기](https://apps.apple.com/kr/app/%EB%AC%B8%ED%99%94%EC%83%9D%ED%99%9C%EB%8D%95%ED%9B%84-%EB%AC%B8%EB%8D%95%EC%9D%B4/id6502997117)
   
 </div>
  <br>
