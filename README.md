@@ -87,6 +87,6 @@
 - Kingfisher : 이미지 다운로드 및 캐싱 간소화
 - SwiftLint : Code Style Guide 관리
 - SwiftGen : 안전하고 효율적인 리소스 관리
-- Firebase : Google Analytics, Crashlytics를 활용하여 앱 모니터링 개발 / RemoteConfig를 활용하여 버전 관리 개발 <img src="https://img.shields.io/badge/Firebase-DD2C00?style=flat-square&logo=firebase&logoColor=white"/>
+- Firebase : Google Analytics, Crashlytics를 활용하여 앱 모니터링 개발 / RemoteConfig를 활용하여 버전 관리 개발 
 - OHHTTPStubs : 네트워크 통신 Test Case 구현
 
