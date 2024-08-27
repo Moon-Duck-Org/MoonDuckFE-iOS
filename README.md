@@ -75,6 +75,7 @@
 ### 언어 및 프레임워크
 <img src="https://img.shields.io/badge/Swift5-F05138?style=flat-square&logo=swift&logoColor=white"/> <img src="https://img.shields.io/badge/UIKit-2396F3?style=flat-square&logo=uikit&logoColor=white"/>
 <br>
+- StoreKit, AppTrackingTransparency, MessageUI, SafariServices
 
 ### 아키텍처 및 디자인 패턴
 - MVP
