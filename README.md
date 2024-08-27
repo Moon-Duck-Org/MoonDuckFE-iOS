@@ -82,11 +82,10 @@
 
 ### 사용 라이브러리
 - [CocoaPods로 라이브러리 관리](https://github.com/Moon-Duck-Org/MoonDuckFE-iOS/blob/master/MoonDuck/Podfile)
-- KaKaoSDK / GoogleSignIn : SNS 로그인 개발 <img src="https://img.shields.io/badge/KaKaoSDK-FFCD00?style=flat-square&logo=kakao&logoColor=white"/> <img src="https://img.shields.io/badge/GoogleSignIn-4285F4?style=flat-square&logo=google&logoColor=white"/>
-- Alamofire : HTTP 네트워킹 구현
-- Kingfisher : 이미지 다운로드 및 캐싱 간소화
-- SwiftLint : Code Style Guide 관리
-- SwiftGen : 안전하고 효율적인 리소스 관리
-- Firebase : Google Analytics, Crashlytics를 활용하여 앱 모니터링 개발 / RemoteConfig를 활용하여 버전 관리 개발 
-- OHHTTPStubs : 네트워크 통신 Test Case 구현
-
+- KaKaoSDK <img src="https://img.shields.io/badge/KaKaoSDK-FFCD00?style=flat-square&logo=kakao&logoColor=white"/> / GoogleSignIn <img src="https://img.shields.io/badge/GoogleSignIn-4285F4?style=flat-square&logo=google&logoColor=white"/>: 다양한 SNS 로그인 기능을 구현하여 사용자 인증을 손쉽게 관리.  
+- Alamofire: 강력한 HTTP 네트워킹 라이브러리를 사용하여 API 통신 및 데이터 전송 작업을 간편하고 효율적으로 구현.
+- Kingfisher: 이미지 다운로드 및 캐싱을 간소화하여 원활하고 빠른 이미지 로딩을 구현, 사용자 경험 최적화.
+- SwiftLint: 코드 스타일 가이드를 자동으로 관리하고, 일관된 코드 품질 유지 및 유지보수를 간소화.
+- SwiftGen: 안전하고 효율적인 리소스 관리를 통해 하드코딩을 줄이고, 타입 안전성을 보장하여 코드 품질 향상.
+- Firebase: Google Analytics와 Crashlytics를 사용하여 앱 성능을 모니터링하고, 사용자 행동 분석 및 오류 추적 기능을 강화. / RemoteConfig를 통해 동적 앱 설정 및 버전 관리 지원.
+- OHHTTPStubs: 네트워크 통신을 테스트하기 위한 강력한 도구로, API의 응답을 시뮬레이션하여 테스트 케이스를 구현 및 검증.
