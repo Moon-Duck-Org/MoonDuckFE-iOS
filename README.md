@@ -79,7 +79,6 @@
 
 ### 아키텍처 및 디자인 패턴
 - MVP
-<img src="https://github.com/user-attachments/assets/2f53c1b5-762a-43d8-8bb0-a1c420afec3a"/>
 
 ### 사용 라이브러리
 - [CocoaPods로 라이브러리 관리](https://github.com/Moon-Duck-Org/MoonDuckFE-iOS/blob/master/MoonDuck/Podfile)
