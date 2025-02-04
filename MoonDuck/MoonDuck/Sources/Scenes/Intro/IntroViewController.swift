@@ -12,6 +12,7 @@ protocol IntroView: BaseView {
     func showJalibrokenAlert()
     func showForceUpdateAlert()
     func showLatestUpdateAlert()
+    func showNoticePopup()
     
     // Navigation
     func moveNameSetting(with presenter: NicknameSettingPresenter)
@@ -75,6 +76,21 @@ extension IntroViewController {
                 AnalyticsService.shared.logEvent(.TAP_UPDATE_LATER)
                 self?.presenter.latestUpdateButtonTapped()
             })
+    }
+    
+    func showNoticePopup() {
+        guard let view = UINib.init(nibName: "NoticePopupView", bundle: nil).instantiate(withOwner: self, options: nil).first as? NoticePopupView else { return }
+        
+        DispatchQueue.main.async {
+            view.frame = self.view.bounds
+            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            view.closeButtonHandler = { [weak self] in
+                self?.presenter.notionCloseButtonTapped()
+            }
+            
+            self.view.addSubview(view)
+        }
     }
 }
 

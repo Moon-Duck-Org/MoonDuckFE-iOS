@@ -25,6 +25,7 @@ protocol HomeView: BaseView {
     func moveWriteReview(with presenter: WriteReviewPresenter)
     func moveReviewDetail(with presenter: ReviewDetailPresenter)
     func popToSelf()
+    func moveWebview(with presenter: WebPresenter)
 }
 
 class HomeViewController: BaseViewController, HomeView {
@@ -42,6 +43,11 @@ class HomeViewController: BaseViewController, HomeView {
     @IBOutlet private weak var emptyReviewsView: UIView!
     
     // @IBAction
+    @IBAction func noticeButonTapped(_ sender: Any) {
+        throttler.throttle {
+            self.presenter.noticeButtonTapped()
+        }
+    }
     @IBAction private func myButtonTapped(_ sender: Any) {
         throttler.throttle {
             self.presenter.myButtonTapped()
@@ -199,5 +205,9 @@ extension HomeViewController {
     
     func popToSelf() {
         navigator?.pop(sender: self, popType: .popToSelf, animated: true)
+    }
+    
+    func moveWebview(with presenter: WebPresenter) {
+        navigator?.show(seque: .webview(presenter: presenter), sender: self, transition: .navigation, animated: true)
     }
 }

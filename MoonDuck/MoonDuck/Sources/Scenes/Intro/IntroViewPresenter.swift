@@ -17,6 +17,7 @@ protocol IntroPresenter: AnyObject {
     
     // Action
     func latestUpdateButtonTapped()
+    func notionCloseButtonTapped()
 }
 
 class IntroViewPresenter: BaseViewPresenter, IntroPresenter {
@@ -47,6 +48,10 @@ extension IntroViewPresenter {
     func latestUpdateButtonTapped() {
         checkAutoLogin()
     }
+    
+    func notionCloseButtonTapped() {
+        checkAutoLogin()
+    }
 }
 // MARK: - Logic
 extension IntroViewPresenter {
@@ -74,7 +79,8 @@ extension IntroViewPresenter {
             case .latestUpdate:
                 self?.view?.showLatestUpdateAlert()
             case .none:
-                self?.checkAutoLogin()
+                self?.view?.showNoticePopup()
+//                self?.checkAutoLogin()
             }
         }
     }

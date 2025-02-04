@@ -43,6 +43,8 @@
 		A0FE0E3E2C283A0C005C403C /* WriteImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0FE0E3D2C283A0C005C403C /* WriteImageCollectionViewCell.xib */; };
 		A0FE0E3F2C283A0C005C403C /* WriteImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FE0E3C2C283A0C005C403C /* WriteImageCollectionViewCell.swift */; };
 		B1172CFFFCCD4092EAB9B177 /* Pods_MoonDuck_MoonDuckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */; };
+		EA050F502D51FE8600F27835 /* NoticePopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA050F4F2D51FE8600F27835 /* NoticePopupView.xib */; };
+		EA050F522D52044900F27835 /* NoticePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA050F512D52044900F27835 /* NoticePopupView.swift */; };
 		EA1F2A172C4FB8D0003AAD84 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1F2A162C4FB8D0003AAD84 /* Secrets.swift */; };
 		EA33F75B2C0D7D0C00893C35 /* BaseViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA33F75A2C0D7D0C00893C35 /* BaseViewPresenter.swift */; };
 		EA5758ED2C154E5400E80050 /* SelectProgramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5758EB2C154E5400E80050 /* SelectProgramViewController.swift */; };
@@ -243,6 +245,8 @@
 		B7ADC973B3F765CF9AA757FF /* Pods_MoonDuck_MoonDuckUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoonDuck_MoonDuckUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD2F616893EF44F45B03BA4 /* Pods-MoonDuck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck/Pods-MoonDuck.debug.xcconfig"; sourceTree = "<group>"; };
 		DFBEA84FB81504AE187A5E07 /* Pods-MoonDuck-MoonDuckUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; path = "Target Support Files/Pods-MoonDuck-MoonDuckUITests/Pods-MoonDuck-MoonDuckUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		EA050F4F2D51FE8600F27835 /* NoticePopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoticePopupView.xib; sourceTree = "<group>"; };
+		EA050F512D52044900F27835 /* NoticePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePopupView.swift; sourceTree = "<group>"; };
 		EA1F2A162C4FB8D0003AAD84 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		EA33F75A2C0D7D0C00893C35 /* BaseViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewPresenter.swift; sourceTree = "<group>"; };
 		EA5758EB2C154E5400E80050 /* SelectProgramViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProgramViewController.swift; sourceTree = "<group>"; };
@@ -560,6 +564,7 @@
 				A0F384062BFFAF390035D2E3 /* Base */,
 				EACCDA062C35352000D9ADAD /* Review */,
 				EACCDA012C3534F800D9ADAD /* WebView */,
+				EA050F4E2D51FE6900F27835 /* Popup */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -608,6 +613,15 @@
 				A0FE0E3D2C283A0C005C403C /* WriteImageCollectionViewCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		EA050F4E2D51FE6900F27835 /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				EA050F4F2D51FE8600F27835 /* NoticePopupView.xib */,
+				EA050F512D52044900F27835 /* NoticePopupView.swift */,
+			);
+			path = Popup;
 			sourceTree = "<group>";
 		};
 		EA1F2A152C4FB816003AAD84 /* Secrets */ = {
@@ -1096,6 +1110,7 @@
 				EA81F4B32BFF881800FDC7A7 /* IntroViewController.xib in Resources */,
 				EA8C24172C2EAC0F00F2C2F4 /* ReviewDetailViewController.xib in Resources */,
 				EA8DC7B92C3B825E00DB8815 /* RemoteConfigDefaults.plist in Resources */,
+				EA050F502D51FE8600F27835 /* NoticePopupView.xib in Resources */,
 				EAA914D52C022DF700A98950 /* SelectCategoryCollectionViewCell.xib in Resources */,
 				EAA98FBD2C33F5F300F3A723 /* SettingViewController.xib in Resources */,
 				A0E658402BFE36A5001A8D54 /* NotoSansCJKkr-Regular.otf in Resources */,
@@ -1429,6 +1444,7 @@
 				EA8495352C36277900112EDB /* WithdrawViewPresenter.swift in Sources */,
 				EAC8CE742C4120BF0077899D /* ExpandableLabel.swift in Sources */,
 				A0A633742C286DA100744694 /* HomeReviewDataSource.swift in Sources */,
+				EA050F522D52044900F27835 /* NoticePopupView.swift in Sources */,
 				EADD89062C23F7B700CA2B43 /* WriteReviewModel.swift in Sources */,
 				EA72084D2C12869B00E96212 /* AuthResponse.swift in Sources */,
 				EA810A392C17269800DF6C72 /* ProgramSearchViewPresenter.swift in Sources */,
@@ -1643,7 +1659,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.poduck.moonduck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1688,7 +1704,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.poduck.moonduck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

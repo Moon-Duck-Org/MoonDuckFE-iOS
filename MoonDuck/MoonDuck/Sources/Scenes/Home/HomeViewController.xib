@@ -179,12 +179,53 @@
                         <constraint firstAttribute="height" constant="1" id="ISC-qL-OzH"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wk8-pg-Nne" userLabel="NoticeView">
+                    <rect key="frame" x="0.0" y="267" width="393" height="30"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFi-zS-0dd">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="30"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain"/>
+                            <connections>
+                                <action selector="noticeButonTapped:" destination="-1" eventType="touchUpInside" id="sTF-he-fCq"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[공지사항] 2025. 2. 10 이후 문덕이 서비스 서버 종료 안내 &gt;" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WhL-Xu-zvJ">
+                            <rect key="frame" x="16" y="0.0" width="361" height="30"/>
+                            <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="13"/>
+                            <color key="textColor" name="Black"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8cd-Wj-bSh">
+                            <rect key="frame" x="0.0" y="29" width="393" height="1"/>
+                            <color key="backgroundColor" name="Gray2"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="eol-HC-mWx"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" name="Gray3"/>
+                    <constraints>
+                        <constraint firstItem="8cd-Wj-bSh" firstAttribute="leading" secondItem="Wk8-pg-Nne" secondAttribute="leading" id="1gz-t6-oVX"/>
+                        <constraint firstItem="WhL-Xu-zvJ" firstAttribute="top" secondItem="Wk8-pg-Nne" secondAttribute="top" id="6Sv-oQ-8bc"/>
+                        <constraint firstAttribute="height" constant="30" id="AP8-ml-Fb9"/>
+                        <constraint firstAttribute="bottom" secondItem="8cd-Wj-bSh" secondAttribute="bottom" id="MdT-vB-fd4"/>
+                        <constraint firstItem="WhL-Xu-zvJ" firstAttribute="leading" secondItem="Wk8-pg-Nne" secondAttribute="leading" constant="16" id="NmD-5q-PyS"/>
+                        <constraint firstAttribute="bottom" secondItem="WhL-Xu-zvJ" secondAttribute="bottom" id="XAf-97-c7k"/>
+                        <constraint firstAttribute="trailing" secondItem="WhL-Xu-zvJ" secondAttribute="trailing" constant="16" id="dpx-Y1-709"/>
+                        <constraint firstItem="GFi-zS-0dd" firstAttribute="leading" secondItem="Wk8-pg-Nne" secondAttribute="leading" id="mg6-S7-vaG"/>
+                        <constraint firstItem="GFi-zS-0dd" firstAttribute="top" secondItem="Wk8-pg-Nne" secondAttribute="top" id="oIW-En-god"/>
+                        <constraint firstAttribute="trailing" secondItem="GFi-zS-0dd" secondAttribute="trailing" id="rvK-JB-JcY"/>
+                        <constraint firstAttribute="trailing" secondItem="8cd-Wj-bSh" secondAttribute="trailing" id="sIQ-2g-9Dk"/>
+                        <constraint firstAttribute="bottom" secondItem="GFi-zS-0dd" secondAttribute="bottom" id="tWL-PJ-ZOm"/>
+                    </constraints>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeJ-hE-v5h">
-                    <rect key="frame" x="0.0" y="267" width="393" height="585"/>
+                    <rect key="frame" x="0.0" y="297" width="393" height="555"/>
                     <color key="backgroundColor" name="White"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZO-AC-av6">
-                    <rect key="frame" x="0.0" y="267" width="393" height="585"/>
+                    <rect key="frame" x="0.0" y="297" width="393" height="555"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7l1-gn-ugz">
                             <rect key="frame" x="51.333333333333343" y="195" width="290.66666666666663" height="86.333333333333314"/>
@@ -196,7 +237,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="영화, 책, 드라마 등 어떤 기록이든 좋아요. 더하기 버튼을 탭하여 기록을 시작해 볼까요?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbX-dO-0Yl">
-                                    <rect key="frame" x="0.0" y="38.666666666666686" width="290.66666666666669" height="47.666666666666657"/>
+                                    <rect key="frame" x="0.0" y="38.666666666666629" width="290.66666666666669" height="47.666666666666657"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="16"/>
                                     <color key="textColor" name="Gray1"/>
                                     <nil key="highlightedColor"/>
@@ -245,21 +286,24 @@
                 <constraint firstItem="BgP-g2-2sq" firstAttribute="leading" secondItem="LeH-dl-Ksy" secondAttribute="leading" id="9Iz-Wo-bL3"/>
                 <constraint firstItem="LeH-dl-Ksy" firstAttribute="trailing" secondItem="BgP-g2-2sq" secondAttribute="trailing" id="9wQ-cg-k2i"/>
                 <constraint firstItem="dTc-CL-Im9" firstAttribute="top" secondItem="aik-Bg-Vtp" secondAttribute="bottom" id="CkG-aj-EVV"/>
-                <constraint firstItem="IeJ-hE-v5h" firstAttribute="top" secondItem="Vnm-eJ-7s3" secondAttribute="bottom" id="FUT-T1-VB6"/>
+                <constraint firstItem="IeJ-hE-v5h" firstAttribute="top" secondItem="Wk8-pg-Nne" secondAttribute="bottom" id="FUT-T1-VB6"/>
                 <constraint firstItem="dTc-CL-Im9" firstAttribute="leading" secondItem="LeH-dl-Ksy" secondAttribute="leading" id="Fd6-id-EfR"/>
                 <constraint firstAttribute="trailing" secondItem="Vnm-eJ-7s3" secondAttribute="trailing" id="FxS-rf-Bkx"/>
                 <constraint firstItem="lZO-AC-av6" firstAttribute="bottom" secondItem="IeJ-hE-v5h" secondAttribute="bottom" id="I4j-Y4-VEL"/>
+                <constraint firstItem="Wk8-pg-Nne" firstAttribute="leading" secondItem="LeH-dl-Ksy" secondAttribute="leading" id="OrJ-ze-Ic6"/>
                 <constraint firstAttribute="bottom" secondItem="IeJ-hE-v5h" secondAttribute="bottom" id="SWL-At-F80"/>
                 <constraint firstItem="lZO-AC-av6" firstAttribute="top" secondItem="IeJ-hE-v5h" secondAttribute="top" id="eLF-bD-ApG"/>
                 <constraint firstItem="aik-Bg-Vtp" firstAttribute="leading" secondItem="LeH-dl-Ksy" secondAttribute="leading" id="eZm-Qk-UIx"/>
                 <constraint firstItem="Lkn-Nd-Qz1" firstAttribute="top" secondItem="BgP-g2-2sq" secondAttribute="bottom" id="epH-kk-rpn"/>
                 <constraint firstItem="aik-Bg-Vtp" firstAttribute="top" secondItem="LeH-dl-Ksy" secondAttribute="top" id="fbW-GB-0la"/>
+                <constraint firstItem="LeH-dl-Ksy" firstAttribute="trailing" secondItem="Wk8-pg-Nne" secondAttribute="trailing" id="hyV-Xm-gj7"/>
                 <constraint firstItem="Vnm-eJ-7s3" firstAttribute="top" secondItem="Lkn-Nd-Qz1" secondAttribute="bottom" id="jXU-jm-3DL"/>
                 <constraint firstItem="LeH-dl-Ksy" firstAttribute="trailing" secondItem="aik-Bg-Vtp" secondAttribute="trailing" id="kMH-Pf-arM"/>
                 <constraint firstItem="lZO-AC-av6" firstAttribute="trailing" secondItem="IeJ-hE-v5h" secondAttribute="trailing" id="lgN-vU-e77"/>
                 <constraint firstItem="LeH-dl-Ksy" firstAttribute="trailing" secondItem="IeJ-hE-v5h" secondAttribute="trailing" id="lsV-Hb-m9V"/>
                 <constraint firstItem="LeH-dl-Ksy" firstAttribute="bottom" secondItem="kUr-13-kzE" secondAttribute="bottom" constant="30" id="lwX-93-MLr"/>
                 <constraint firstItem="LeH-dl-Ksy" firstAttribute="trailing" secondItem="kUr-13-kzE" secondAttribute="trailing" constant="15" id="n13-K0-Gjr"/>
+                <constraint firstItem="Wk8-pg-Nne" firstAttribute="top" secondItem="Vnm-eJ-7s3" secondAttribute="bottom" id="ouq-z2-cwd"/>
                 <constraint firstItem="lZO-AC-av6" firstAttribute="leading" secondItem="IeJ-hE-v5h" secondAttribute="leading" id="pDA-wa-0fN"/>
                 <constraint firstItem="BgP-g2-2sq" firstAttribute="top" secondItem="dTc-CL-Im9" secondAttribute="bottom" id="tmS-WL-rKv"/>
                 <constraint firstItem="LeH-dl-Ksy" firstAttribute="trailing" secondItem="Lkn-Nd-Qz1" secondAttribute="trailing" id="uBP-a8-EKq"/>
@@ -285,6 +329,9 @@
         </namedColor>
         <namedColor name="Gray2">
             <color red="0.83137254901960789" green="0.83137254901960789" blue="0.83137254901960789" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Gray3">
+            <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

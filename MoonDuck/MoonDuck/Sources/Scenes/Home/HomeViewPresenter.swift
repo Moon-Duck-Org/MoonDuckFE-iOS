@@ -28,6 +28,7 @@ protocol HomePresenter: AnyObject {
     func viewDidLoad()
     
     /// Action
+    func noticeButtonTapped()
     func selectCategory(at index: Int)
     func selectSort(at index: Int)
     func selectReview(at index: Int)
@@ -143,6 +144,13 @@ extension HomeViewPresenter {
     }
     
     // MARK: - Action
+    func noticeButtonTapped() {
+        let title = L10n.Localizable.Title.notice
+        let url = Constants.noticeUrl
+        let presenter = WebViewPresenter(with: provider, title: title, url: url)
+        view?.moveWebview(with: presenter)
+    }
+    
     func selectCategory(at index: Int) {
         let categoryType = model.categoryModel?.category(at: index)?.rawValue
         AnalyticsService.shared.logEvent(.TAP_HOME_CATEGORY, parameters: [.CATEGORY_TYPE: categoryType ?? ""])
