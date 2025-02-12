@@ -13,6 +13,9 @@ target 'MoonDuck' do
 
   #Networking
   pod 'Alamofire'
+  
+  #DataBase
+  pod 'RealmSwift'
 
   #Firebase
   pod 'Firebase/Analytics'
