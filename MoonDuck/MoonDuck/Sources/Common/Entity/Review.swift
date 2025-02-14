@@ -9,16 +9,21 @@ import UIKit
 
 struct Review {
     let id: Int?
-    var title: String
+    var rating: Int
+    
+    var createdAt: String
+    var modifiedAt: String
+    
     var category: Category
-    let user: User
     var program: Program
+    
+    var title: String
+    var link: String?
     var content: String
     var imageUrlList: [String]
-    var link: String?
-    var rating: Int
-    let createdAt: String
-        
+    
+    // API 제거 후, 미사용
+    let user: User
     struct User {
         let userId: Int
         let nickname: String

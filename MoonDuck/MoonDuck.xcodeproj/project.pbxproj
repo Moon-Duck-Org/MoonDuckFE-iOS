@@ -14,7 +14,7 @@
 		A0A6336B2C2862E600744694 /* HomeCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633682C2862E600744694 /* HomeCategoryCollectionViewCell.swift */; };
 		A0A6336E2C28687100744694 /* ReviewListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6336D2C28687100744694 /* ReviewListResponse.swift */; };
 		A0A633702C286A4C00744694 /* ReviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6336F2C286A4C00744694 /* ReviewList.swift */; };
-		A0A633722C286B3E00744694 /* ReviewListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633712C286B3E00744694 /* ReviewListModel.swift */; };
+		A0A633722C286B3E00744694 /* APIReviewListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633712C286B3E00744694 /* APIReviewListModel.swift */; };
 		A0A633742C286DA100744694 /* HomeReviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A633732C286DA100744694 /* HomeReviewDataSource.swift */; };
 		A0A6337D2C28758600744694 /* HomeReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0A6337C2C28758600744694 /* HomeReviewTableViewCell.xib */; };
 		A0A6337E2C28758600744694 /* HomeReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6337B2C28758600744694 /* HomeReviewTableViewCell.swift */; };
@@ -93,12 +93,10 @@
 		EA88C2CA2D59DB62006651E0 /* AppRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2C92D59DB62006651E0 /* AppRealm.swift */; };
 		EA88C2CB2D59DB62006651E0 /* AppRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2C92D59DB62006651E0 /* AppRealm.swift */; };
 		EA88C2CC2D59DB62006651E0 /* AppRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2C92D59DB62006651E0 /* AppRealm.swift */; };
-		EA88C2D32D59F516006651E0 /* RealmBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2D22D59F516006651E0 /* RealmBoard.swift */; };
-		EA88C2D42D59F516006651E0 /* RealmBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2D22D59F516006651E0 /* RealmBoard.swift */; };
-		EA88C2D52D59F516006651E0 /* RealmBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2D22D59F516006651E0 /* RealmBoard.swift */; };
+		EA88C2D32D59F516006651E0 /* RealmReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2D22D59F516006651E0 /* RealmReview.swift */; };
+		EA88C2D42D59F516006651E0 /* RealmReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2D22D59F516006651E0 /* RealmReview.swift */; };
+		EA88C2D52D59F516006651E0 /* RealmReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2D22D59F516006651E0 /* RealmReview.swift */; };
 		EA88C2DD2D5A08E7006651E0 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2DC2D5A08E7006651E0 /* UserModel.swift */; };
-		EA88C2DE2D5A08E7006651E0 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2DC2D5A08E7006651E0 /* UserModel.swift */; };
-		EA88C2DF2D5A08E7006651E0 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2DC2D5A08E7006651E0 /* UserModel.swift */; };
 		EA88C2E32D5A0982006651E0 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2E22D5A0982006651E0 /* UserStorage.swift */; };
 		EA88C2E42D5A0982006651E0 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2E22D5A0982006651E0 /* UserStorage.swift */; };
 		EA88C2E52D5A0982006651E0 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA88C2E22D5A0982006651E0 /* UserStorage.swift */; };
@@ -150,11 +148,10 @@
 		EAA2B1952D5F815700048AAB /* BaseViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA2B1942D5F815700048AAB /* BaseViewPresenter.swift */; };
 		EAA2B1962D5F815700048AAB /* BaseViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA2B1942D5F815700048AAB /* BaseViewPresenter.swift */; };
 		EAA2B1972D5F815700048AAB /* BaseViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA2B1942D5F815700048AAB /* BaseViewPresenter.swift */; };
-		EAA2B1982D5F81E600048AAB /* AppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7118E42C51962500D73B1F /* AppModels.swift */; };
-		EAA2B1992D5F81E600048AAB /* AppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7118E42C51962500D73B1F /* AppModels.swift */; };
 		EAA2B19B2D5F81EB00048AAB /* APIAppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA2B19A2D5F81EB00048AAB /* APIAppModels.swift */; };
 		EAA2B19C2D5F81EB00048AAB /* APIAppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA2B19A2D5F81EB00048AAB /* APIAppModels.swift */; };
 		EAA2B19D2D5F81EB00048AAB /* APIAppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA2B19A2D5F81EB00048AAB /* APIAppModels.swift */; };
+		EAA2B19F2D5FB86200048AAB /* ReviewListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA2B19E2D5FB86200048AAB /* ReviewListModel.swift */; };
 		EAA914CE2C02274700A98950 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914CD2C02274700A98950 /* String+Extension.swift */; };
 		EAA914D42C022DF700A98950 /* SelectCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA914D22C022DF700A98950 /* SelectCategoryCollectionViewCell.swift */; };
 		EAA914D52C022DF700A98950 /* SelectCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA914D32C022DF700A98950 /* SelectCategoryCollectionViewCell.xib */; };
@@ -235,7 +232,7 @@
 		A0A633692C2862E600744694 /* HomeCategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		A0A6336D2C28687100744694 /* ReviewListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListResponse.swift; sourceTree = "<group>"; };
 		A0A6336F2C286A4C00744694 /* ReviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewList.swift; sourceTree = "<group>"; };
-		A0A633712C286B3E00744694 /* ReviewListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListModel.swift; sourceTree = "<group>"; };
+		A0A633712C286B3E00744694 /* APIReviewListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIReviewListModel.swift; sourceTree = "<group>"; };
 		A0A633732C286DA100744694 /* HomeReviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeReviewDataSource.swift; sourceTree = "<group>"; };
 		A0A6337B2C28758600744694 /* HomeReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeReviewTableViewCell.swift; sourceTree = "<group>"; };
 		A0A6337C2C28758600744694 /* HomeReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeReviewTableViewCell.xib; sourceTree = "<group>"; };
@@ -321,7 +318,7 @@
 		EA8495312C36265F00112EDB /* WithdrawViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawViewController.xib; sourceTree = "<group>"; };
 		EA8495342C36277900112EDB /* WithdrawViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewPresenter.swift; sourceTree = "<group>"; };
 		EA88C2C92D59DB62006651E0 /* AppRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRealm.swift; sourceTree = "<group>"; };
-		EA88C2D22D59F516006651E0 /* RealmBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmBoard.swift; sourceTree = "<group>"; };
+		EA88C2D22D59F516006651E0 /* RealmReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmReview.swift; sourceTree = "<group>"; };
 		EA88C2DC2D5A08E7006651E0 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		EA88C2E22D5A0982006651E0 /* UserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorage.swift; sourceTree = "<group>"; };
 		EA8C24142C2EAC0F00F2C2F4 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
@@ -369,6 +366,7 @@
 		EAA2B1902D5CF58600048AAB /* BoardStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStorage.swift; sourceTree = "<group>"; };
 		EAA2B1942D5F815700048AAB /* BaseViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewPresenter.swift; sourceTree = "<group>"; };
 		EAA2B19A2D5F81EB00048AAB /* APIAppModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAppModels.swift; sourceTree = "<group>"; };
+		EAA2B19E2D5FB86200048AAB /* ReviewListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListModel.swift; sourceTree = "<group>"; };
 		EAA914CD2C02274700A98950 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		EAA914D22C022DF700A98950 /* SelectCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAA914D32C022DF700A98950 /* SelectCategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectCategoryCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -568,7 +566,7 @@
 				EA9E1AC52C2ACC38001C7706 /* App */,
 				EADD89092C2409FD00CA2B43 /* Navigator */,
 				EA88C2C82D59DA97006651E0 /* Realm */,
-				EA6379D32BFF2A2000464A19 /* Networking */,
+				EA6379D32BFF2A2000464A19 /* Networking(LegacyAPI) */,
 				EA81F4A72BFF714000FDC7A7 /* Model */,
 				EAF78F062C14C98500EFBCB0 /* Entity */,
 				EA6D9A782BFF6875003B459A /* UI */,
@@ -760,7 +758,7 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		EA6379D32BFF2A2000464A19 /* Networking */ = {
+		EA6379D32BFF2A2000464A19 /* Networking(LegacyAPI) */ = {
 			isa = PBXGroup;
 			children = (
 				EA6379CE2BFF1C5400464A19 /* MoonDuckAPI.swift */,
@@ -771,7 +769,7 @@
 				EA6379D82BFF2BA300464A19 /* Response */,
 				EA6379DD2BFF2D3900464A19 /* Service */,
 			);
-			path = Networking;
+			path = "Networking(LegacyAPI)";
 			sourceTree = "<group>";
 		};
 		EA6379D82BFF2BA300464A19 /* Response */ = {
@@ -821,14 +819,14 @@
 		EA81F4A72BFF714000FDC7A7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EA88C2E02D5A093E006651E0 /* withRealm */,
-				EA88C2DB2D5A08AB006651E0 /* withAPI */,
-				EA7118E12C518DD100D73B1F /* BaseModel.swift */,
+				EA88C2DB2D5A08AB006651E0 /* LegacyAPI */,
+				EA7118E42C51962500D73B1F /* AppModels.swift */,
+				EA88C2DC2D5A08E7006651E0 /* UserModel.swift */,
 				EA5758F82C155AF800E80050 /* CategoryModel.swift */,
 				EA9E1ABD2C2ABFBA001C7706 /* SortModel.swift */,
 				EAB6E65C2C17DC2500A9E191 /* ProgramSearchModel.swift */,
 				EADD89052C23F7B700CA2B43 /* WriteReviewModel.swift */,
-				A0A633712C286B3E00744694 /* ReviewListModel.swift */,
+				EAA2B19E2D5FB86200048AAB /* ReviewListModel.swift */,
 				EA96F1FF2C32A32500E46D87 /* ReviewModel.swift */,
 				EA8C5D012C4513BE00AA7884 /* ShareModel.swift */,
 			);
@@ -858,27 +856,20 @@
 		EA88C2CD2D59F42C006651E0 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				EA88C2D22D59F516006651E0 /* RealmBoard.swift */,
+				EA88C2D22D59F516006651E0 /* RealmReview.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		EA88C2DB2D5A08AB006651E0 /* withAPI */ = {
+		EA88C2DB2D5A08AB006651E0 /* LegacyAPI */ = {
 			isa = PBXGroup;
 			children = (
-				EAF78F072C14CAAE00EFBCB0 /* APIUserModel.swift */,
+				EA7118E12C518DD100D73B1F /* BaseModel.swift */,
 				EAA2B19A2D5F81EB00048AAB /* APIAppModels.swift */,
+				EAF78F072C14CAAE00EFBCB0 /* APIUserModel.swift */,
+				A0A633712C286B3E00744694 /* APIReviewListModel.swift */,
 			);
-			path = withAPI;
-			sourceTree = "<group>";
-		};
-		EA88C2E02D5A093E006651E0 /* withRealm */ = {
-			isa = PBXGroup;
-			children = (
-				EA7118E42C51962500D73B1F /* AppModels.swift */,
-				EA88C2DC2D5A08E7006651E0 /* UserModel.swift */,
-			);
-			path = withRealm;
+			path = LegacyAPI;
 			sourceTree = "<group>";
 		};
 		EA88C2E12D5A0975006651E0 /* Storeage */ = {
@@ -967,6 +958,14 @@
 				EA7208522C1290C700E96212 /* AuthManager.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		EAA2B1A22D5FBA2500048AAB /* LegacyAPI */ = {
+			isa = PBXGroup;
+			children = (
+				A0A6336F2C286A4C00744694 /* ReviewList.swift */,
+			);
+			path = LegacyAPI;
 			sourceTree = "<group>";
 		};
 		EAA914D12C022DAA00A98950 /* Cell */ = {
@@ -1059,13 +1058,13 @@
 		EAF78F062C14C98500EFBCB0 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				EAA2B1A22D5FBA2500048AAB /* LegacyAPI */,
 				EA7208542C12929700E96212 /* Auth.swift */,
 				EAD957622C002982001FB6E1 /* User.swift */,
 				EA81F4A82BFF716600FDC7A7 /* Category.swift */,
 				EAC93F422C157006008FDFF2 /* Program.swift */,
 				EA95C8AF2C37D51300369BED /* ProgramList.swift */,
 				EAD957642C0029D3001FB6E1 /* Review.swift */,
-				A0A6336F2C286A4C00744694 /* ReviewList.swift */,
 				EAE017D62C01AA3D00699145 /* Sort.swift */,
 				EACCDA0B2C354C3600D9ADAD /* ContractuUs.swift */,
 			);
@@ -1405,7 +1404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0A633722C286B3E00744694 /* ReviewListModel.swift in Sources */,
+				A0A633722C286B3E00744694 /* APIReviewListModel.swift in Sources */,
 				EA7208552C12929700E96212 /* Auth.swift in Sources */,
 				EAC25CFA2C369F70004254D4 /* Throttler.swift in Sources */,
 				EA81F4A62BFF70D300FDC7A7 /* BaseCategoryCell.swift in Sources */,
@@ -1419,7 +1418,7 @@
 				EA7118E52C51962500D73B1F /* AppModels.swift in Sources */,
 				A0E6584D2BFE3C0B001A8D54 /* XCAssets+Generated.swift in Sources */,
 				EACCDA082C35371B00D9ADAD /* WebViewPresenter.swift in Sources */,
-				EA88C2D32D59F516006651E0 /* RealmBoard.swift in Sources */,
+				EA88C2D32D59F516006651E0 /* RealmReview.swift in Sources */,
 				EA7208532C1290C700E96212 /* AuthManager.swift in Sources */,
 				EA946D5C2C16EBA200F44BB5 /* BaseViewController.swift in Sources */,
 				EA7C07342C20155300563264 /* SearchDramaResponse.swift in Sources */,
@@ -1428,6 +1427,7 @@
 				EAE017EE2C02015900699145 /* UIKeyboardInfo.swift in Sources */,
 				EA96F2002C32A32500E46D87 /* ReviewModel.swift in Sources */,
 				A0E6584B2BFE3C03001A8D54 /* Fonts+Generated.swift in Sources */,
+				EAA2B19F2D5FB86200048AAB /* ReviewListModel.swift in Sources */,
 				EA96A9602C1D47890010AB60 /* WriteReviewViewController.swift in Sources */,
 				EA7118E22C518DD100D73B1F /* BaseModel.swift in Sources */,
 				EA5758F92C155AF800E80050 /* CategoryModel.swift in Sources */,
@@ -1548,13 +1548,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAA2B1962D5F815700048AAB /* BaseViewPresenter.swift in Sources */,
-				EA88C2D42D59F516006651E0 /* RealmBoard.swift in Sources */,
+				EA88C2D42D59F516006651E0 /* RealmReview.swift in Sources */,
 				A0E658122BFE22BA001A8D54 /* MoonDuckTests.swift in Sources */,
 				EAA2B18E2D5CF2EE00048AAB /* AppStorages.swift in Sources */,
-				EAA2B1992D5F81E600048AAB /* AppModels.swift in Sources */,
 				EA88C2E42D5A0982006651E0 /* UserStorage.swift in Sources */,
 				EA88C2CB2D59DB62006651E0 /* AppRealm.swift in Sources */,
-				EA88C2DE2D5A08E7006651E0 /* UserModel.swift in Sources */,
 				EAA2B19C2D5F81EB00048AAB /* APIAppModels.swift in Sources */,
 				EAA2B1922D5CF58600048AAB /* BoardStorage.swift in Sources */,
 			);
@@ -1568,12 +1566,10 @@
 				EA88C2CC2D59DB62006651E0 /* AppRealm.swift in Sources */,
 				EAA2B1972D5F815700048AAB /* BaseViewPresenter.swift in Sources */,
 				EAA2B19D2D5F81EB00048AAB /* APIAppModels.swift in Sources */,
-				EAA2B1982D5F81E600048AAB /* AppModels.swift in Sources */,
 				A0E6581C2BFE22BA001A8D54 /* MoonDuckUITests.swift in Sources */,
 				EA88C2E52D5A0982006651E0 /* UserStorage.swift in Sources */,
 				EAA2B18F2D5CF2EE00048AAB /* AppStorages.swift in Sources */,
-				EA88C2DF2D5A08E7006651E0 /* UserModel.swift in Sources */,
-				EA88C2D52D59F516006651E0 /* RealmBoard.swift in Sources */,
+				EA88C2D52D59F516006651E0 /* RealmReview.swift in Sources */,
 				EAA2B1932D5CF58600048AAB /* BoardStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -142,10 +142,6 @@ extension NicknameSettingViewPresenter {
 
 // MARK: - UserModelDelegate
 extension NicknameSettingViewPresenter: UserModelDelegate {
-    func error(didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-    }
-    
     func userModel(_ model: UserModelType, didChange user: User) {
         // 닉네임 변경 성공
         view?.updateLoadingView(isLoading: false)

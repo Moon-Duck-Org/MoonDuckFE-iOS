@@ -126,10 +126,6 @@ extension IntroViewPresenter {
 
 // MARK: - UserModelDelegate
 extension IntroViewPresenter: UserModelDelegate {
-    func error(didRecieve error: APIError?) {
-        
-    }
-    
     func userModel(_ model: UserModelType, didChange user: User) {
         
     }

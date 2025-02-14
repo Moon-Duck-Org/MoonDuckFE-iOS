@@ -11,6 +11,7 @@ import Foundation
 struct User {
     var userId: Int = 0
     var nickname: String?
+    var isPush: Bool = false
     
     // API 통신 제거 이후, 미사용
     var all: Int = 0
@@ -18,5 +19,4 @@ struct User {
     var book: Int = 0
     var drama: Int = 0
     var concert: Int = 0
-    var isPush: Bool = false
 }

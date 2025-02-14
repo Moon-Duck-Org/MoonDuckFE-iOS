@@ -1,5 +1,5 @@
 //
-//  RealmBoard.swift
+//  RealmReview.swift
 //  MoonDuck
 //
 //  Created by suni on 2/10/25.
@@ -9,9 +9,9 @@ import Foundation
 
 import RealmSwift
 
-class RealmBoard: Object {
+class RealmReview: Object {
     @objc dynamic let boardId: Int = 0
-    @objc dynamic var score: Int = 0
+    @objc dynamic var rating: Int = 0
     
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var modifiedAt: Date = Date()
@@ -26,7 +26,7 @@ class RealmBoard: Object {
     @objc dynamic var programPlace: String = ""
     
     @objc dynamic var title: String = ""
-    @objc dynamic var url: String = ""
+    @objc dynamic var link: String = ""
     @objc dynamic var content: String = ""
     @objc dynamic var image1: String = ""
     @objc dynamic var image2: String = ""

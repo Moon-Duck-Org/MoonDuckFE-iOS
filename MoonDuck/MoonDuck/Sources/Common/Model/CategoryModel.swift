@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CategoryModelDelegate: BaseModelDelegate {
+protocol CategoryModelDelegate: AnyObject {
     func categoryModel(_ model: CategoryModelType, didChange categories: [Category])
     func categoryModel(_ model: CategoryModelType, didSelect category: Category)
     func categoryModel(_ model: CategoryModelType, didReload category: Category)
@@ -17,7 +17,7 @@ extension CategoryModelDelegate {
     func categoryModel(_ model: CategoryModelType, didReload category: Category) { }
 }
 
-protocol CategoryModelType: BaseModelType {
+protocol CategoryModelType: AnyObject {
     // Data
     var delegate: CategoryModelDelegate? { get set }
     var categories: [Category] { get }

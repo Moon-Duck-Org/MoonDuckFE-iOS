@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol UserModelDelegate: BaseModelDelegate {
+protocol UserModelDelegate: AnyObject {
     func userModel(_ model: UserModelType, didChange user: User)
 }
 extension UserModelDelegate {
     func userModel(_ model: UserModelType, didChange user: User) { }
 }
 
-protocol UserModelType: BaseModelType {
+protocol UserModelType: AnyObject {
     // Data
     var delegate: UserModelDelegate? { get set }
     var user: User { get set }
