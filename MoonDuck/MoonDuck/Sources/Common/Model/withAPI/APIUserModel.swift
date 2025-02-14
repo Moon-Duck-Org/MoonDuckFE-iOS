@@ -5,18 +5,20 @@
 //  Created by suni on 6/9/24.
 //
 
+// MARK: - API Version
+
 import Foundation
 
-protocol UserModelDelegate: BaseModelDelegate {
-    func userModel(_ model: UserModelType, didChange user: User?)
+protocol APIUserModelDelegate: BaseModelDelegate {
+    func userModel(_ model: APIUserModelType, didChange user: User?)
 }
-extension UserModelDelegate {
-    func userModel(_ model: UserModelType, didChange user: User?) { }
+extension APIUserModelDelegate {
+    func userModel(_ model: APIUserModelType, didChange user: User?) { }
 }
 
-protocol UserModelType: BaseModelType {
+protocol APIUserModelType: BaseModelType {
     // Data
-    var delegate: UserModelDelegate? { get set }
+    var delegate: APIUserModelDelegate? { get set }
     var user: User? { get set }
     
     // Logic
@@ -34,7 +36,7 @@ protocol UserModelType: BaseModelType {
     func push(_ isPush: Bool)
 }
 
-class UserModel: UserModelType {
+class APIUserModel: APIUserModelType {
     
     private let provider: AppServices
     
@@ -43,7 +45,7 @@ class UserModel: UserModelType {
     }
     
     // MARK: - Data
-    weak var delegate: UserModelDelegate?
+    weak var delegate: APIUserModelDelegate?
     var user: User? {
         didSet {
             delegate?.userModel(self, didChange: user)

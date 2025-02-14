@@ -28,84 +28,84 @@ extension MyInfoViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-        if let user = model.userModel?.user {
-            AnalyticsService.shared.logEvent(.VIEW_MY)
-            view?.updateNameLabelText(with: user.nickname)
-            view?.updateCountLabels(with: user.all, movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
-            
-            if let loginType = AuthManager.shared.getLoginType() {
-                view?.updateSnsLogin(with: loginType)
-            }
-        } else {
-            AuthManager.shared.logout()
-            moveLogin()
-        }
+//        if let user = model.userModel?.user {
+//            AnalyticsService.shared.logEvent(.VIEW_MY)
+//            view?.updateNameLabelText(with: user.nickname)
+//            view?.updateCountLabels(with: user.all, movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
+//            
+//            if let loginType = AuthManager.shared.getLoginType() {
+//                view?.updateSnsLogin(with: loginType)
+//            }
+//        } else {
+//            AuthManager.shared.logout()
+//            moveLogin()
+//        }
     }
     
     // MARK: - Action
     func nicknameSettingButtonTapped() {
-        let userModel = UserModel(provider)
-        userModel.user = self.model.userModel?.user
-        let appModel = AppModels(
-            userModel: userModel
-        )
-        let presenter = NicknameSettingViewPresenter(with: provider, model: appModel, delegate: self)
-        view?.presentNameSetting(with: presenter)
+//        let userModel = UserModel(provider)
+//        userModel.user = self.model.userModel?.user
+//        let appModel = AppModels(
+//            userModel: userModel
+//        )
+//        let presenter = NicknameSettingViewPresenter(with: provider, model: appModel, delegate: self)
+//        view?.presentNameSetting(with: presenter)
     }
     
     func logoutButtonTapped() {
-        let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
-        AnalyticsService.shared.logEvent(.TAP_LOGOUT, parameters: [.SNS_TYPE: snsType])
-        AuthManager.shared.logout()
-        moveLogin()
+//        let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
+//        AnalyticsService.shared.logEvent(.TAP_LOGOUT, parameters: [.SNS_TYPE: snsType])
+//        AuthManager.shared.logout()
+//        moveLogin()
     }
     
     func settingButtonTapped() {
-        let userModel = UserModel(provider)
-        userModel.user = self.model.userModel?.user
-        let appModel = AppModels(
-            userModel: userModel
-        )
-        let presenter = SettingViewPresenter(with: provider, model: appModel, delegate: self)
-        self.view?.moveSetting(with: presenter)
+//        let userModel = UserModel(provider)
+//        userModel.user = self.model.userModel?.user
+//        let appModel = AppModels(
+//            userModel: userModel
+//        )
+//        let presenter = SettingViewPresenter(with: provider, model: appModel, delegate: self)
+//        self.view?.moveSetting(with: presenter)
     }
     
     // MARK: - Logic
     private func moveLogin() {
-        let appModel = AppModels(
-            userModel: UserModel(provider)
-        )
-        let presenter = LoginViewPresenter(with: provider, model: appModel)
-        self.view?.moveLogin(with: presenter)
-    }
-    
-    private func updateNotification() {
-        guard let user = model.userModel?.user else { return }
-        
-        if user.isPush {
-            AppNotification.resetAndScheduleNotification(with: user.nickname)
-        }
+//        let appModel = AppModels(
+//            userModel: UserModel(provider)
+//        )
+//        let presenter = LoginViewPresenter(with: provider, model: appModel)
+//        self.view?.moveLogin(with: presenter)
+//    }
+//    
+//    private func updateNotification() {
+//        guard let user = model.userModel?.user else { return }
+//        
+//        if user.isPush {
+//            AppNotification.resetAndScheduleNotification(with: user.nickname)
+//        }
     }
 }
 
 // MARK: - NicknameSettingPresenterDelegate
-extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
-    func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {        
-        view?.dismiss()
-        view?.updateNameLabelText(with: nickname)
-        view?.showToastMessage(L10n.Localizable.NicknameSetting.completeToast)
-        model.userModel?.save(nickname: nickname)
-        updateNotification()
-    }
-    
-    func nicknameSettingDidCancel(_ presenter: NicknameSettingPresenter) {
-        view?.dismiss()
-    }
-}
-
-// MARK: - SettingPresenterDelegate
-extension MyInfoViewPresenter: SettingPresenterDelegate {
-    func setting(_ presenter: SettingPresenter, didSuccess isPush: Bool) {
-        model.userModel?.save(isPush: isPush)
-    }
-}
+//extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
+//    func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String) {        
+//        view?.dismiss()
+//        view?.updateNameLabelText(with: nickname)
+//        view?.showToastMessage(L10n.Localizable.NicknameSetting.completeToast)
+//        model.userModel?.save(nickname: nickname)
+//        updateNotification()
+//    }
+//    
+//    func nicknameSettingDidCancel(_ presenter: NicknameSettingPresenter) {
+//        view?.dismiss()
+//    }
+//}
+//
+//// MARK: - SettingPresenterDelegate
+//extension MyInfoViewPresenter: SettingPresenterDelegate {
+//    func setting(_ presenter: SettingPresenter, didSuccess isPush: Bool) {
+//        model.userModel?.save(isPush: isPush)
+//    }
+//}

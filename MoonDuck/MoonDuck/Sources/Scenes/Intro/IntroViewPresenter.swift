@@ -26,7 +26,9 @@ class IntroViewPresenter: BaseViewPresenter, IntroPresenter {
     private var launchedFromPush: Bool
     private var launchedFromDeeplink: Bool
     
-    init(with provider: AppServices, model: AppModels, launchedFromPush: Bool = false, launchedFromDeeplink: Bool = false) {
+    init(with provider: AppStorages, 
+         model: AppModels,
+         launchedFromPush: Bool = false, launchedFromDeeplink: Bool = false) {
         self.launchedFromPush = launchedFromPush
         self.launchedFromDeeplink = launchedFromDeeplink
         super.init(with: provider, model: model)
@@ -46,11 +48,11 @@ extension IntroViewPresenter {
     
     // MARK: - Action
     func latestUpdateButtonTapped() {
-        checkAutoLogin()
+        checkUserData()
     }
     
     func notionCloseButtonTapped() {
-        checkAutoLogin()
+        checkUserData()
     }
 }
 // MARK: - Logic
@@ -79,67 +81,56 @@ extension IntroViewPresenter {
             case .latestUpdate:
                 self?.view?.showLatestUpdateAlert()
             case .none:
-                self?.view?.showNoticePopup()
-//                self?.checkAutoLogin()
+                self?.checkNoticePopup()
             }
         }
     }
     
-    private func checkAutoLogin() {
-        if let auth = AuthManager.shared.getAutoLoginAuth() {
-            // 자동 로그인 정보 있으면 로그인 시도
-            login(auth)
-        } else {
-            moveLogin()
-        }
+    private func checkNoticePopup() {
+        // TODO: - 다시 보지 않기 설정 확인 로직 추가
+        self.view?.showNoticePopup()
     }
     
-    private func login(_ auth: Auth) {
-        AuthManager.shared.login(auth: auth) { [weak self] isHaveNickname, _ in
-            if let isHaveNickname, isHaveNickname {
-                if isHaveNickname {
-                    // 로그인 성공 시, User 정보 조회
-                    self?.model.userModel?.getUser()
-                    return
-                }
-            }
-            self?.moveLogin()
+    private func checkUserData() {
+        if AppUserDefaults.getObject(forKey: .appInstalledAt) as? Date == nil {
+            // 앱 첫 실행 시, 세팅
+            AppUserDefaults.set(Date(), forKey: .appInstalledAt)
         }
-    }
-    
-    private func moveLogin() {
+        
+        // TODO: App Model 설정
         let appModel = AppModels(
-            userModel: UserModel(provider)
+            userModel: model.userModel
         )
-        let presenter = LoginViewPresenter(with: provider, model: appModel)
-        view?.moveLogin(with: presenter)
+        
+        //            let appModel = AppModels(
+        //                userModel: model,
+        //                categoryModel: CategoryModel(),
+        //                sortModel: SortModel(),
+        //                reviewListModel: ReviewListModel(provider),
+        //                shareModel: ShareModel(provider)
+        //            )
+        
+        if model.userModel?.user.nickname == nil {
+            // 닉네임 미설정 case
+            let presenter = NicknameSettingViewPresenter(with: provider, model: appModel, delegate: nil)
+            self.view?.moveNameSetting(with: presenter)
+        } else {
+            // TODO: 홈 이동
+            let presenter = NicknameSettingViewPresenter(with: provider, model: appModel, delegate: nil)
+            self.view?.moveNameSetting(with: presenter)
+//            let presenter = HomeViewPresenter(with: provider, model: appModel)
+//            self.view?.moveHome(with: presenter)
+        }
     }
 }
 
 // MARK: - UserModelDelegate
 extension IntroViewPresenter: UserModelDelegate {
     func error(didRecieve error: APIError?) {
-        AuthManager.shared.logout()
-        moveLogin()
+        
     }
     
-    func userModel(_ model: UserModelType, didChange user: User?) {
-        // User 정보 조회 성공 -> 홈 이동
-        if user != nil {
-            let appModel = AppModels(
-                userModel: model,
-                categoryModel: CategoryModel(),
-                sortModel: SortModel(),
-                reviewListModel: ReviewListModel(provider),
-                shareModel: ShareModel(provider)
-            )
-            let presenter = HomeViewPresenter(with: provider, model: appModel)
-            self.view?.moveHome(with: presenter)
-        }
-    }
-    
-    func userModelDidFailFetchingUser(_ model: UserModelType) {
-        AuthManager.shared.logout()
-        moveLogin()
+    func userModel(_ model: UserModelType, didChange user: User) {
+        
     }
 }

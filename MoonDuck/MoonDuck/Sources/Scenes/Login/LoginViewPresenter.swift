@@ -5,6 +5,8 @@
 //  Created by suni on 5/24/24.
 //
 
+// MARK: - API Version
+
 import Foundation
 import UIKit
 
@@ -27,11 +29,11 @@ protocol LoginPresenter: AnyObject {
     func loginError()
 }
 
-final class LoginViewPresenter: BaseViewPresenter, LoginPresenter {
+final class LoginViewPresenter: BaseAPIViewPresenter, LoginPresenter {
     
     weak var view: LoginView?
     
-    override init(with provider: AppServices, model: AppModels) {
+    override init(with provider: AppServices, model: APIAppModels) {
         super.init(with: provider, model: model)
         self.model.userModel?.delegate = self
     }
@@ -149,11 +151,11 @@ extension LoginViewPresenter {
                     return
                 } else {
                     self.view?.updateLoadingView(isLoading: false)
-                    let appModel = AppModels(
-                        userModel: UserModel(provider)
-                    )
-                    let presenter = NicknameSettingViewPresenter(with: self.provider, model: appModel, delegate: nil)
-                    self.view?.moveNameSetting(with: presenter)
+//                    let appModel = AppModels(
+//                        userModel: UserModel(provider)
+//                    )
+//                    let presenter = NicknameSettingViewPresenter(with: self.provider, model: appModel, delegate: nil)
+//                    self.view?.moveNameSetting(with: presenter)
                     return
                 }
             }
@@ -165,7 +167,7 @@ extension LoginViewPresenter {
 }
 
 // MARK: - UserModelDelegate
-extension LoginViewPresenter: UserModelDelegate {
+extension LoginViewPresenter: APIUserModelDelegate {
     func error(didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
         
@@ -195,7 +197,7 @@ extension LoginViewPresenter: UserModelDelegate {
         }
     }
     
-    func userModel(_ model: UserModelType, didChange user: User?) {
+    func userModel(_ model: APIUserModelType, didChange user: User?) {
         // User 정보 조회 성공 -> 홈 이동
         view?.updateLoadingView(isLoading: false)
         if let user {
@@ -208,15 +210,15 @@ extension LoginViewPresenter: UserModelDelegate {
                 ]
             )
             
-            let appModel = AppModels(
-                userModel: model,
-                categoryModel: CategoryModel(),
-                sortModel: SortModel(),
-                reviewListModel: ReviewListModel(provider),
-                shareModel: ShareModel(provider)
-            )
-            let presenter = HomeViewPresenter(with: provider, model: appModel)
-            view?.moveHome(with: presenter)
+//            let appModel = AppModels(
+//                userModel: model,
+//                categoryModel: CategoryModel(),
+//                sortModel: SortModel(),
+//                reviewListModel: ReviewListModel(provider),
+//                shareModel: ShareModel(provider)
+//            )
+//            let presenter = HomeViewPresenter(with: provider, model: appModel)
+//            view?.moveHome(with: presenter)
         }
     }
 }

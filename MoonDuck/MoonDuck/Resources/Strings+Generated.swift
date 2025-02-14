@@ -125,11 +125,17 @@ internal enum L10n {
       internal static func messageType1(_ p1: Any) -> String {
         return L10n.tr("Localizable", "push. message_type1", String(describing: p1), fallback: "%@님! 새로운 기록을 남기지 않으셨어요.\n최근 즐긴 문화생활에 대해 이야기해 주세요!😊")
       }
+      /// 새로운 기록을 남기지 않으셨어요.
+      /// 최근 즐긴 문화생활에 대해 이야기해 주세요!😊
+      internal static let messageType1EmptyName = L10n.tr("Localizable", "push. message_type1_empty_name", fallback: "새로운 기록을 남기지 않으셨어요.\n최근 즐긴 문화생활에 대해 이야기해 주세요!😊")
       /// %@님! 최근 어떤 멋진 문화생활을 즐기셨나요?
       /// 기록을 남겨주세요🌟
       internal static func messageType2(_ p1: Any) -> String {
         return L10n.tr("Localizable", "push. message_type2", String(describing: p1), fallback: "%@님! 최근 어떤 멋진 문화생활을 즐기셨나요?\n기록을 남겨주세요🌟")
       }
+      /// 최근 어떤 멋진 문화생활을 즐기셨나요?
+      /// 기록을 남겨주세요🌟
+      internal static let messageType2EmptyName = L10n.tr("Localizable", "push. message_type2_empty_name", fallback: "최근 어떤 멋진 문화생활을 즐기셨나요?\n기록을 남겨주세요🌟")
       /// [문덕이] 푸시 알림 거부가 완료되었습니다. (%@)
       internal static func offCompleteToast(_ p1: Any) -> String {
         return L10n.tr("Localizable", "push. off_complete_toast", String(describing: p1), fallback: "[문덕이] 푸시 알림 거부가 완료되었습니다. (%@)")

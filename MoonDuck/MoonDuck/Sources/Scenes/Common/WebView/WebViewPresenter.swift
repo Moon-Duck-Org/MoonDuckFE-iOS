@@ -21,7 +21,7 @@ class WebViewPresenter: BaseViewPresenter, WebPresenter {
     private let title: String
     private let url: String
     
-    init(with provider: AppServices, title: String, url: String) {
+    init(with provider: AppStorages, title: String, url: String) {
         self.url = url
         self.title = title
         super.init(with: provider, model: AppModels())

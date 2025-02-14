@@ -34,18 +34,26 @@ class AppNotification {
     }
     
     // 기존 알림 제거 및 새로운 알림 설정
-    static func resetAndScheduleNotification(with nickname: String) {
+    static func resetAndScheduleNotification(with nickname: String?) {
         removeNotification()
         scheduleRepeatingNotification(with: nickname)
     }
     
-    static func scheduleRepeatingNotification(with nickname: String) {
+    static func scheduleRepeatingNotification(with nickname: String?) {
         // Notification 콘텐츠 생성
         let content = UNMutableNotificationContent()
         content.title = L10n.Localizable.Push.title
         
-        let messages = [L10n.Localizable.Push.messageType1(nickname),
+        var messages: [String] = []
+        
+        if let nickname {
+            messages = [L10n.Localizable.Push.messageType1(nickname),
                         L10n.Localizable.Push.messageType2(nickname)]
+        } else {
+            messages = [L10n.Localizable.Push.messageType1EmptyName,
+                        L10n.Localizable.Push.messageType2EmptyName]
+        }
+        
         content.sound = .default
         // 현재 날짜와 시간
         let currentDate = Utils.getNow()

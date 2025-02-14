@@ -98,6 +98,8 @@
 "push. title" = "문화생활덕후 🐥 문덕이";
 "push. message_type1" = "%@님! 새로운 기록을 남기지 않으셨어요.\n최근 즐긴 문화생활에 대해 이야기해 주세요!😊";
 "push. message_type2" = "%@님! 최근 어떤 멋진 문화생활을 즐기셨나요?\n기록을 남겨주세요🌟";
+"push. message_type1_empty_name" = "새로운 기록을 남기지 않으셨어요.\n최근 즐긴 문화생활에 대해 이야기해 주세요!😊";
+"push. message_type2_empty_name" = "최근 어떤 멋진 문화생활을 즐기셨나요?\n기록을 남겨주세요🌟";
 
 "push. on_complete_toast" = "[문덕이] 푸시 알림 허용이 완료되었습니다! (%@)";
 "push. off_complete_toast" = "[문덕이] 푸시 알림 거부가 완료되었습니다. (%@)";

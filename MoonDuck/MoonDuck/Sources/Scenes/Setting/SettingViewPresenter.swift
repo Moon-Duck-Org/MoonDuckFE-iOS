@@ -35,7 +35,7 @@ class SettingViewPresenter: BaseViewPresenter, SettingPresenter {
     private weak var delegate: SettingPresenterDelegate?
 //    private let model: UserModelType
     
-    init(with provider: AppServices, 
+    init(with provider: AppStorages,
          model: AppModels,
          delegate: SettingPresenterDelegate) {
         self.delegate = delegate
@@ -45,7 +45,7 @@ class SettingViewPresenter: BaseViewPresenter, SettingPresenter {
     
     // MARK: - Data
     var contractUs: ContractUs {
-        let nickname = model.userModel?.user?.nickname ?? ""
+        let nickname = model.userModel?.user.nickname ?? ""
         return ContractUs(nickName: nickname)
     }
     
@@ -65,29 +65,29 @@ extension SettingViewPresenter {
     
     // MARK: - Action
     func termsOfServiceButtonTapped() {
-        let title = L10n.Localizable.Title.service
-        let url = Constants.termsOfServiceUrl
-        let presenter = WebViewPresenter(with: provider, title: title, url: url)
-        view?.moveWebview(with: presenter)
+//        let title = L10n.Localizable.Title.service
+//        let url = Constants.termsOfServiceUrl
+//        let presenter = WebViewPresenter(with: provider, title: title, url: url)
+//        view?.moveWebview(with: presenter)
     }
     
     func privacyPolicyButtonTapped() {
-        let title = L10n.Localizable.Title.policy
-        let url = Constants.privacyPolicyUrl
-        let presenter = WebViewPresenter(with: provider, title: title, url: url)
-        view?.moveWebview(with: presenter)        
+//        let title = L10n.Localizable.Title.policy
+//        let url = Constants.privacyPolicyUrl
+//        let presenter = WebViewPresenter(with: provider, title: title, url: url)
+//        view?.moveWebview(with: presenter)        
     }
     
     func appVersionButtonTapped() {
-        let presenter = AppVersionViewPresenter(with: provider, model: AppModels())
-        view?.moveAppVersion(with: presenter)
+//        let presenter = AppVersionViewPresenter(with: provider, model: AppModels())
+//        view?.moveAppVersion(with: presenter)
     }
     
     func noticeButtonTapped() {
-        let title = L10n.Localizable.Title.notice
-        let url = Constants.noticeUrl
-        let presenter = WebViewPresenter(with: provider, title: title, url: url)
-        view?.moveWebview(with: presenter)
+//        let title = L10n.Localizable.Title.notice
+//        let url = Constants.noticeUrl
+//        let presenter = WebViewPresenter(with: provider, title: title, url: url)
+//        view?.moveWebview(with: presenter)
     }
     
     func withdrawButtonTapped() {
@@ -114,7 +114,7 @@ extension SettingViewPresenter {
         AnalyticsService.shared.logEvent(isOn ? .TAP_SETTING_PUSH_ON : .TAP_SETTING_PUSH_OFF)
         
         view?.updateLoadingView(isLoading: true)
-        model.userModel?.push(isOn)
+//        model.userModel?.push(isOn)
     }
     
     // MARK: - Logic
@@ -123,7 +123,7 @@ extension SettingViewPresenter {
             guard let self else { return }
             
             if status == .authorized {
-                self.view?.updatePushSwitchSetOn(self.model.userModel?.user?.isPush ?? false)
+//                self.view?.updatePushSwitchSetOn(self.model.userModel?.user?.isPush ?? false)
                 self.view?.updatePushLabelText(isAddOsString: false)
             } else {
                 self.view?.updatePushSwitchSetOn(false)
@@ -136,38 +136,38 @@ extension SettingViewPresenter {
 // MARK: - UserModelDelegate
 extension SettingViewPresenter: UserModelDelegate {
     func error(didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        
-        guard let error else { return }
-        
-        if error.isAuthError {
-            AuthManager.shared.logout()
-            let appModel = AppModels(
-                userModel: UserModel(provider)
-            )
-            let presenter = LoginViewPresenter(with: provider, model: appModel)
-            view?.showAuthErrorAlert(with: presenter)
-        } else if error.isNetworkError {
-            view?.showNetworkErrorAlert()
-        } else if error.isSystemError {
-            view?.showSystemErrorAlert()
-        }
+//        view?.updateLoadingView(isLoading: false)
+//        
+//        guard let error else { return }
+//        
+//        if error.isAuthError {
+//            AuthManager.shared.logout()
+//            let appModel = AppModels(
+//                userModel: UserModel(provider)
+//            )
+//            let presenter = LoginViewPresenter(with: provider, model: appModel)
+//            view?.showAuthErrorAlert(with: presenter)
+//        } else if error.isNetworkError {
+//            view?.showNetworkErrorAlert()
+//        } else if error.isSystemError {
+//            view?.showSystemErrorAlert()
+//        }
     }
     
-    func userModel(_ model: UserModelType, didChange user: User?) {
+    func userModel(_ model: UserModelType, didChange user: User) {
         // Push 설정 성공
-        view?.updateLoadingView(isLoading: false)
-        
-        guard let user else { return }
-        delegate?.setting(self, didSuccess: user.isPush)
-        
-        let today = Utils.getToday()
-        if user.isPush {
-            AppNotification.resetAndScheduleNotification(with: user.nickname)
-            view?.showToastMessage(L10n.Localizable.Push.onCompleteToast(today))
-        } else {
-            AppNotification.removeNotification()
-            view?.showToastMessage(L10n.Localizable.Push.offCompleteToast(today))
-        }
+//        view?.updateLoadingView(isLoading: false)
+//        
+//        guard let user else { return }
+//        delegate?.setting(self, didSuccess: user.isPush)
+//        
+//        let today = Utils.getToday()
+//        if user.isPush {
+//            AppNotification.resetAndScheduleNotification(with: user.nickname)
+//            view?.showToastMessage(L10n.Localizable.Push.onCompleteToast(today))
+//        } else {
+//            AppNotification.removeNotification()
+//            view?.showToastMessage(L10n.Localizable.Push.offCompleteToast(today))
+//        }
     }
 }

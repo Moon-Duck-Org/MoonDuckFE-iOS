@@ -179,11 +179,11 @@
                         <constraint firstAttribute="height" constant="1" id="ISC-qL-OzH"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wk8-pg-Nne" userLabel="NoticeView">
-                    <rect key="frame" x="0.0" y="267" width="393" height="30"/>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wk8-pg-Nne" userLabel="NoticeView">
+                    <rect key="frame" x="0.0" y="267" width="393" height="0.0"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFi-zS-0dd">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="0.0"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain"/>
                             <connections>
@@ -191,13 +191,13 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[공지사항] 2025. 2. 10 이후 문덕이 서비스 서버 종료 안내 &gt;" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WhL-Xu-zvJ">
-                            <rect key="frame" x="16" y="0.0" width="361" height="30"/>
+                            <rect key="frame" x="16" y="0.0" width="361" height="0.0"/>
                             <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="13"/>
                             <color key="textColor" name="Black"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8cd-Wj-bSh">
-                            <rect key="frame" x="0.0" y="29" width="393" height="1"/>
+                            <rect key="frame" x="0.0" y="-1" width="393" height="1"/>
                             <color key="backgroundColor" name="Gray2"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="eol-HC-mWx"/>
@@ -208,7 +208,7 @@
                     <constraints>
                         <constraint firstItem="8cd-Wj-bSh" firstAttribute="leading" secondItem="Wk8-pg-Nne" secondAttribute="leading" id="1gz-t6-oVX"/>
                         <constraint firstItem="WhL-Xu-zvJ" firstAttribute="top" secondItem="Wk8-pg-Nne" secondAttribute="top" id="6Sv-oQ-8bc"/>
-                        <constraint firstAttribute="height" constant="30" id="AP8-ml-Fb9"/>
+                        <constraint firstAttribute="height" id="AP8-ml-Fb9"/>
                         <constraint firstAttribute="bottom" secondItem="8cd-Wj-bSh" secondAttribute="bottom" id="MdT-vB-fd4"/>
                         <constraint firstItem="WhL-Xu-zvJ" firstAttribute="leading" secondItem="Wk8-pg-Nne" secondAttribute="leading" constant="16" id="NmD-5q-PyS"/>
                         <constraint firstAttribute="bottom" secondItem="WhL-Xu-zvJ" secondAttribute="bottom" id="XAf-97-c7k"/>
@@ -221,11 +221,11 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeJ-hE-v5h">
-                    <rect key="frame" x="0.0" y="297" width="393" height="555"/>
+                    <rect key="frame" x="0.0" y="267" width="393" height="585"/>
                     <color key="backgroundColor" name="White"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZO-AC-av6">
-                    <rect key="frame" x="0.0" y="297" width="393" height="555"/>
+                    <rect key="frame" x="0.0" y="267" width="393" height="585"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7l1-gn-ugz">
                             <rect key="frame" x="51.333333333333343" y="195" width="290.66666666666663" height="86.333333333333314"/>
@@ -237,7 +237,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="영화, 책, 드라마 등 어떤 기록이든 좋아요. 더하기 버튼을 탭하여 기록을 시작해 볼까요?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbX-dO-0Yl">
-                                    <rect key="frame" x="0.0" y="38.666666666666629" width="290.66666666666669" height="47.666666666666657"/>
+                                    <rect key="frame" x="0.0" y="38.666666666666686" width="290.66666666666669" height="47.666666666666657"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="16"/>
                                     <color key="textColor" name="Gray1"/>
                                     <nil key="highlightedColor"/>

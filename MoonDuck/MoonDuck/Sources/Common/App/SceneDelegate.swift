@@ -13,12 +13,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     
-    var appService = {
-        return AppServices(authService: AuthService(),
-                           userService: UserService(),
-                           reviewService: ReviewService(),
-                           programSearchService: ProgramSearchService(), 
-                           shareService: ShareService())
+    // FIXME: API -> Realm 변경으로 미사용
+//    var appService = {
+//        return AppServices(authService: AuthService(),
+//                           userService: UserService(),
+//                           reviewService: ReviewService(),
+//                           programSearchService: ProgramSearchService(), 
+//                           shareService: ShareService())
+//    }()
+    
+    var appStorages = {
+        return AppStorages(userStorage: UserStorage())
     }()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -29,13 +34,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        AuthManager.shared.initProvider(appService)
+        // FIXME: API -> Realm 변경으로 미사용
+//        AuthManager.shared.initProvider(appService)
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let launchedFromPush = appDelegate?.launchedFromPush ?? false
         let launchedFromDeeplink = appDelegate?.launchedFromDeeplink ?? false
         let navigator = Navigator.default
-        let appModel = AppModels(userModel: UserModel(appService))
-        let presenter = IntroViewPresenter(with: appService, model: appModel, launchedFromPush: launchedFromPush, launchedFromDeeplink: launchedFromDeeplink)
+        let appModel = AppModels(userModel: UserModel(appStorages))
+        let presenter = IntroViewPresenter(with: appStorages, model: appModel, launchedFromPush: launchedFromPush, launchedFromDeeplink: launchedFromDeeplink)
         navigator.show(seque: .intro(presenter: presenter), sender: nil, transition: .root)
         
         window?.windowScene = windowScene

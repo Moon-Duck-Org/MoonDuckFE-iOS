@@ -39,7 +39,7 @@ class ProgramSearchViewPresenter: BaseViewPresenter, ProgramSearchPresenter {
     
     private var searchText: String?
     
-    init(with provider: AppServices,
+    init(with provider: AppStorages,
          model: AppModels,
          delegate: WriteReviewPresenterDelegate?) {
         self.delegate = delegate
@@ -169,11 +169,11 @@ extension ProgramSearchViewPresenter {
     }
     
     private func moveWriteReview(with program: Program) {
-        let appModel = AppModels(
-            writeReviewModel: WriteReviewModel(provider, program: program)
-        )
-        let presenter = WriteReviewViewPresenter(with: provider, model: appModel, delegate: delegate)
-        view?.moveWriteReview(with: presenter)
+//        let appModel = AppModels(
+//            writeReviewModel: WriteReviewModel(provider, program: program)
+//        )
+//        let presenter = WriteReviewViewPresenter(with: provider, model: appModel, delegate: delegate)
+//        view?.moveWriteReview(with: presenter)
     }
     
 }

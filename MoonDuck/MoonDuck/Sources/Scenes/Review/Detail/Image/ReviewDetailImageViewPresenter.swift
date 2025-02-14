@@ -27,7 +27,7 @@ class ReviewDetailImageViewPresenter: BaseViewPresenter, ReviewDetailImagePresen
     
     weak var view: ReviewDetailImageView?
     
-    init(with provider: AppServices,
+    init(with provider: AppStorages,
          imageUrls: [String],
          currentIndex: Int) {
         self.imageUrls = imageUrls

@@ -7,9 +7,12 @@
 
 import Foundation
 
+// MARK: - API Version
 struct User {
-    let userId: Int
-    var nickname: String
+    var userId: Int = 0
+    var nickname: String?
+    
+    // API 통신 제거 이후, 미사용
     var all: Int = 0
     var movie: Int = 0
     var book: Int = 0

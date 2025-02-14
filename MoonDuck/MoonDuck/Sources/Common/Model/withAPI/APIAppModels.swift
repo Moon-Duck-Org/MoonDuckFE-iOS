@@ -5,10 +5,12 @@
 //  Created by suni on 7/25/24.
 //
 
+// MARK: - API Version
+
 import Foundation
 
-struct AppModels {
-    var userModel: UserModelType?
+struct APIAppModels {
+    var userModel: APIUserModelType?
     var categoryModel: CategoryModelType?
     var sortModel: SortModelType?
     var programSearchModel: ProgramSearchModelType?

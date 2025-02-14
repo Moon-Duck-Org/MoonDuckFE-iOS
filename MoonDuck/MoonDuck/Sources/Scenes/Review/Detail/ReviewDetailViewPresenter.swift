@@ -31,11 +31,9 @@ protocol ReviewDetailPresenter: AnyObject {
 class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     
     weak var view: ReviewDetailView?
-//    private var model: ReviewModelType
-//    private var shareModel: ShareModelType
     private weak var delegate: ReviewDetailPresenterDelegate?
     
-    init(with provider: AppServices, 
+    init(with provider: AppStorages,
          model: AppModels,
          delegate: ReviewDetailPresenterDelegate?) {
         self.delegate = delegate
@@ -51,14 +49,14 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     
     func writeReviewHandler() -> (() -> Void)? {
         return { [weak self] in
-            guard let self else { return }
-            AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_EDIT, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
-            
-            let appModel = AppModels(
-                writeReviewModel: WriteReviewModel(self.provider, review: review)
-            )
-            let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self)
-            view?.moveWriteReview(with: presenter)
+//            guard let self else { return }
+//            AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_EDIT, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
+//            
+//            let appModel = AppModels(
+//                writeReviewModel: WriteReviewModel(self.provider, review: review)
+//            )
+//            let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self)
+//            view?.moveWriteReview(with: presenter)
         }
     }
     
@@ -104,11 +102,11 @@ extension ReviewDetailViewPresenter {
     
     // MARK: - Action
     func selectReviewImage(_ index: Int) {
-        if let review, index < review.imageUrlList.count {
-            let imageUrls = review.imageUrlList
-            let presenter = ReviewDetailImageViewPresenter(with: provider, imageUrls: imageUrls, currentIndex: index)
-            view?.moveDetailImage(with: presenter)
-        }
+//        if let review, index < review.imageUrlList.count {
+//            let imageUrls = review.imageUrlList
+//            let presenter = ReviewDetailImageViewPresenter(with: provider, imageUrls: imageUrls, currentIndex: index)
+//            view?.moveDetailImage(with: presenter)
+//        }
     }
     
     // MARK: - Logic
@@ -139,25 +137,25 @@ extension ReviewDetailViewPresenter: ShareModelDelegate {
     }
     
     func shareModel(_ model: ShareModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        if let error {
-            if error.isAuthError {
-                AuthManager.shared.logout()
-                let appModel = AppModels(
-                    userModel: UserModel(provider)
-                )
-                let presenter = LoginViewPresenter(with: provider, model: appModel)
-                view?.showAuthErrorAlert(with: presenter)
-                return
-            } else if error.isNetworkError {
-                view?.showNetworkErrorAlert()
-                return
-            } else if error.isSystemError {
-                view?.showSystemErrorAlert()
-                return
-            }
-        }
-        view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
+//        view?.updateLoadingView(isLoading: false)
+//        if let error {
+//            if error.isAuthError {
+//                AuthManager.shared.logout()
+//                let appModel = AppModels(
+//                    userModel: UserModel(provider)
+//                )
+//                let presenter = LoginViewPresenter(with: provider, model: appModel)
+//                view?.showAuthErrorAlert(with: presenter)
+//                return
+//            } else if error.isNetworkError {
+//                view?.showNetworkErrorAlert()
+//                return
+//            } else if error.isSystemError {
+//                view?.showSystemErrorAlert()
+//                return
+//            }
+//        }
+//        view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
     }
 }
 

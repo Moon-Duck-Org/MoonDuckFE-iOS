@@ -28,7 +28,7 @@ class SelectProgramViewPresenter: BaseViewPresenter, SelectProgramPresenter {
     weak var view: SelectProgramView?
     private weak var delegate: WriteReviewPresenterDelegate?
     
-    init(with provider: AppServices,
+    init(with provider: AppStorages,
          model: AppModels,
          delegate: WriteReviewPresenterDelegate?) {
         self.delegate = delegate
@@ -64,12 +64,12 @@ extension SelectProgramViewPresenter {
     }
     
     func nextButtonTapped() {
-        guard let selectedCategory = model.categoryModel?.selectedCategory else { return }
-        let appModel = AppModels(
-            programSearchModel: ProgramSearchModel(provider, category: selectedCategory)
-        )
-        let presenter = ProgramSearchViewPresenter(with: provider, model: appModel, delegate: delegate)
-        view?.moveProgramSearch(with: presenter)
+//        guard let selectedCategory = model.categoryModel?.selectedCategory else { return }
+//        let appModel = AppModels(
+//            programSearchModel: ProgramSearchModel(provider, category: selectedCategory)
+//        )
+//        let presenter = ProgramSearchViewPresenter(with: provider, model: appModel, delegate: delegate)
+//        view?.moveProgramSearch(with: presenter)
     }
 }
 

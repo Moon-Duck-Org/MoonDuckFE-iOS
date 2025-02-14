@@ -39,7 +39,7 @@ class NicknameSettingViewPresenter: BaseViewPresenter, NicknameSettingPresenter 
     private let maxNicknameCount: Int = 10
     private var nicknameText: String?
     
-    init(with provider: AppServices,
+    init(with provider: AppStorages,
          model: AppModels,
          delegate: NicknameSettingPresenterDelegate?) {
         self.delegate = delegate
@@ -53,7 +53,7 @@ extension NicknameSettingViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         // 닉네임이 세팅
-        let nickname = model.userModel?.user?.nickname ?? ""
+        let nickname = model.userModel?.user.nickname ?? ""
         view?.updateCancelButtonHidden(isNew)
         view?.updateNameTextFieldText(with: nickname)
         view?.updateCountLabelText(with: "\(nickname.count)/\(maxNicknameCount)")
@@ -66,14 +66,14 @@ extension NicknameSettingViewPresenter {
     func completeButtonTapped() {
         guard let nicknameText else { return }
         
-        if let userNickname = model.userModel?.user?.nickname,
+        if let userNickname = model.userModel?.user.nickname,
             !userNickname.isEmpty,
            nicknameText == userNickname {
             delegate?.nicknameSettingDidCancel(self)
         } else {
             if isValidNickname(nicknameText) {
                 view?.updateLoadingView(isLoading: true)
-                model.userModel?.nickname(nicknameText)
+                model.userModel?.setNickname(nickname: nicknameText)
             } else {
                 view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.invalidNameHint)
             }
@@ -88,14 +88,6 @@ extension NicknameSettingViewPresenter {
         } else {
             return false
         }
-    }
-    
-    private func moveLogin() {
-        let appModel = AppModels(
-            userModel: UserModel(provider)
-        )
-        let presenter = LoginViewPresenter(with: provider, model: appModel)
-        view?.moveLogin(with: presenter)
     }
 }
 // MARK: - UITextFieldDelegate
@@ -152,32 +144,14 @@ extension NicknameSettingViewPresenter {
 extension NicknameSettingViewPresenter: UserModelDelegate {
     func error(didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
-        
-        guard let error else { return }
-        
-        if error.isAuthError {
-            AuthManager.shared.logout()
-            let appModel = AppModels(
-                userModel: UserModel(provider)
-            )
-            let presenter = LoginViewPresenter(with: provider, model: appModel)
-            view?.showAuthErrorAlert(with: presenter)
-        } else if error.duplicateNickname {
-            // 중복된 닉네임
-            view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.duplicateNameHint)
-        } else if error.isNetworkError {
-            view?.showNetworkErrorAlert()
-        } else {
-            view?.showSystemErrorAlert()
-        }
     }
     
-    func userModel(_ model: UserModelType, didChange user: User?) {
+    func userModel(_ model: UserModelType, didChange user: User) {
         // 닉네임 변경 성공
         view?.updateLoadingView(isLoading: false)
         
-        if let user {
-            AnalyticsService.shared.logEvent(.SUCCESS_NICKNAME_SETTING, parameters: [.NICKNAME: user.nickname])
+        if let nickname = user.nickname {
+            AnalyticsService.shared.logEvent(.SUCCESS_NICKNAME_SETTING, parameters: [.NICKNAME: user.nickname ?? ""])
             
             if isNew {
                 let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
@@ -186,17 +160,20 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
                     parameters: [.SNS_TYPE: snsType]
                 )
                 
+//                let appModel = AppModels(
+//                    userModel: model,
+//                    categoryModel: CategoryModel(),
+//                    sortModel: SortModel(),
+//                    reviewListModel: ReviewListModel(provider),
+//                    shareModel: ShareModel(provider)
+//                )
                 let appModel = AppModels(
-                    userModel: model,
-                    categoryModel: CategoryModel(),
-                    sortModel: SortModel(),
-                    reviewListModel: ReviewListModel(provider),
-                    shareModel: ShareModel(provider)
+                    userModel: model
                 )
                 let presenter = HomeViewPresenter(with: provider, model: appModel)
                 view?.moveHome(with: presenter)
             } else {
-                delegate?.nicknameSetting(self, didSuccess: user.nickname)
+                delegate?.nicknameSetting(self, didSuccess: nickname)
             }
         }
     }

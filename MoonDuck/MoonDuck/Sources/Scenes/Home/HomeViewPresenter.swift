@@ -44,7 +44,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     
     private var reloadCategoryTrigger: [Category] = []
     
-    override init(with provider: AppServices, model: AppModels) {
+    override init(with provider: AppStorages, model: AppModels) {
         super.init(with: provider, model: model)
         self.model.userModel?.delegate = self
         self.model.sortModel?.delegate = self
@@ -87,24 +87,24 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     
     func writeReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
-            guard let self else { return }
-            AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_EDIT, parameters: [.CATEGORY_TYPE: review.category.rawValue])
-            
-            let appModel = AppModels(
-                writeReviewModel: WriteReviewModel(self.provider, review: review)
-            )
-            let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self)
-            view?.moveWriteReview(with: presenter)
+//            guard let self else { return }
+//            AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_EDIT, parameters: [.CATEGORY_TYPE: review.category.rawValue])
+//            
+//            let appModel = AppModels(
+//                writeReviewModel: WriteReviewModel(self.provider, review: review)
+//            )
+//            let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self)
+//            view?.moveWriteReview(with: presenter)
         }
     }
     
     func shareReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
-            guard let self, let reviewId = review.id else { return }
-            AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_SHARE, parameters: [.CATEGORY_TYPE: review.category.rawValue])
-            
-            self.view?.updateLoadingView(isLoading: true)
-            self.model.shareModel?.getShareUrl(with: reviewId)
+//            guard let self, let reviewId = review.id else { return }
+//            AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_SHARE, parameters: [.CATEGORY_TYPE: review.category.rawValue])
+//            
+//            self.view?.updateLoadingView(isLoading: true)
+//            self.model.shareModel?.getShareUrl(with: reviewId)
         }
     }
     
@@ -121,13 +121,13 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     func reviewTappedHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
             guard let self else { return }
-            let handler = self.deleteReviewHandler(for: review, isHome: false)
-            let appModel = AppModels(
-                reviewModel: ReviewModel(self.provider, review: review, deleteReviewHandler: handler),
-                shareModel: ShareModel(self.provider)
-            )
-            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, delegate: self)
-            view?.moveReviewDetail(with: presenter)
+//            let handler = self.deleteReviewHandler(for: review, isHome: false)
+//            let appModel = AppModels(
+//                reviewModel: ReviewModel(self.provider, review: review, deleteReviewHandler: handler),
+//                shareModel: ShareModel(self.provider)
+//            )
+//            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, delegate: self)
+//            view?.moveReviewDetail(with: presenter)
         }
     }
 }
@@ -135,7 +135,8 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
 extension HomeViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
-        AnalyticsService.shared.logEvent(.VIEW_HOME, parameters: [.REVIEW_COUNT: model.userModel?.user?.all ?? 0])
+        // TODO: REVIEW_COUNT
+//        AnalyticsService.shared.logEvent(.VIEW_HOME, parameters: [.REVIEW_COUNT: model.userModel?.user.all])
         model.categoryModel?.getCategories(isHaveAll: true)
         Utils.requestTrackingAuthorization { [weak self] in
             self?.checkNotificationAuthorization()
@@ -145,10 +146,11 @@ extension HomeViewPresenter {
     
     // MARK: - Action
     func noticeButtonTapped() {
-        let title = L10n.Localizable.Title.notice
-        let url = Constants.noticeUrl
-        let presenter = WebViewPresenter(with: provider, title: title, url: url)
-        view?.moveWebview(with: presenter)
+        // MARK: - 중요 공지 영역
+//        let title = L10n.Localizable.Title.notice
+//        let url = Constants.noticeUrl
+//        let presenter = WebViewPresenter(with: provider, title: title, url: url)
+//        view?.moveWebview(with: presenter)
     }
     
     func selectCategory(at index: Int) {
@@ -166,26 +168,26 @@ extension HomeViewPresenter {
     }
     
     func selectReview(at index: Int) {
-        if let category = model.categoryModel?.selectedCategory,
-           let review = model.reviewListModel?.review(with: category, at: index) {
-            let handler = deleteReviewHandler(for: review, isHome: false)
-            let appModel = AppModels(
-                reviewModel: ReviewModel(provider, review: review, deleteReviewHandler: handler),
-                shareModel: ShareModel(provider)
-            )
-            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, delegate: self)
-            view?.moveReviewDetail(with: presenter)
-        }
+//        if let category = model.categoryModel?.selectedCategory,
+//           let review = model.reviewListModel?.review(with: category, at: index) {
+//            let handler = deleteReviewHandler(for: review, isHome: false)
+//            let appModel = AppModels(
+//                reviewModel: ReviewModel(provider, review: review, deleteReviewHandler: handler),
+//                shareModel: ShareModel(provider)
+//            )
+//            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, delegate: self)
+//            view?.moveReviewDetail(with: presenter)
+//        }
     }
     
     func myButtonTapped() {
-        model.userModel?.getUser()
-        
-        let appModel = AppModels(
-            userModel: model.userModel
-        )
-        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
-        view?.moveMy(with: presenter)
+//        model.userModel?.getUser()
+//        
+//        let appModel = AppModels(
+//            userModel: model.userModel
+//        )
+//        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
+//        view?.moveMy(with: presenter)
     }
     
     func writeNewReviewButtonTapped() {
@@ -282,7 +284,8 @@ extension HomeViewPresenter {
     private func reloadData(with review: Review) {
         model.categoryModel?.reloadCategory()
         model.sortModel?.reloadSortOption()
-        model.userModel?.createReview(category: review.category)
+        // TODO: - Review Count 계산
+//        model.userModel?.createReview(category: review.category)
         setReloadCategoryTrigger(with: review.category)
         if let selectedCategory = model.categoryModel?.selectedCategory {
             view?.updateLoadingView(isLoading: true)
@@ -295,23 +298,7 @@ extension HomeViewPresenter {
 extension HomeViewPresenter: UserModelDelegate {
     func error(didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
-        
-        guard let error else { return }
-        
-        if error.isAuthError {
-            AuthManager.shared.logout()
-            let appModel = AppModels(
-                userModel: UserModel(provider)
-            )
-            let presenter = LoginViewPresenter(with: provider, model: appModel)
-            view?.showAuthErrorAlert(with: presenter)
-        } else if error.isNetworkError {
-            view?.showNetworkErrorAlert()
-        } else if error.isSystemError {
-            view?.showSystemErrorAlert()
-        } else {
-            view?.showSystemErrorAlert()
-        }
+        view?.showSystemErrorAlert()
     }
 }
 
@@ -374,7 +361,8 @@ extension HomeViewPresenter: ReviewListModelDelegate {
     func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
         view?.updateLoadingView(isLoading: false)
         
-        self.model.userModel?.deleteReview(category: review.category)
+        // TODO: - Review Count 재계산
+//        self.model.userModel?.deleteReview(category: review.category)
         view?.popToSelf()
         
         if let category = self.model.categoryModel?.selectedCategory {
@@ -419,23 +407,6 @@ extension HomeViewPresenter: ShareModelDelegate {
     
     func shareModel(_ model: ShareModelType, didRecieve error: APIError?) {
         view?.updateLoadingView(isLoading: false)
-        if let error {
-            if error.isAuthError {
-                AuthManager.shared.logout()
-                let appModel = AppModels(
-                    userModel: UserModel(provider)
-                )
-                let presenter = LoginViewPresenter(with: provider, model: appModel)
-                view?.showAuthErrorAlert(with: presenter)
-                return
-            } else if error.isNetworkError {
-                view?.showNetworkErrorAlert()
-                return
-            } else if error.isSystemError {
-                view?.showSystemErrorAlert()
-                return
-            }
-        }
         view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
     }
 }
