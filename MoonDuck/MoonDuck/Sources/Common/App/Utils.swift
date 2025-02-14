@@ -157,7 +157,7 @@ class Utils {
             return
         }
         // Remote Config 값 가져오기
-        remoteConfig.fetch { status, error -> Void in
+        remoteConfig.fetch { status, error in
             if error != nil {
                 // 실패
                 completion(.none, nil)

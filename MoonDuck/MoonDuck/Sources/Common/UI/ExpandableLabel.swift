@@ -350,7 +350,7 @@ extension ExpandableLabel {
 
     private func spiltIntoWords(str: NSString) -> [String] {
         var strings: [String] = []
-        str.enumerateSubstrings(in: NSRange(location: 0, length: str.length), options: [.byWords, .reverse]) { word, _, _, stop -> Void in
+        str.enumerateSubstrings(in: NSRange(location: 0, length: str.length), options: [.byWords, .reverse]) { word, _, _, stop in
             if let unwrappedWord = word {
                 strings.append(unwrappedWord)
             }

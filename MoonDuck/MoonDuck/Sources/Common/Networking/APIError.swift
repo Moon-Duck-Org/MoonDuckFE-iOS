@@ -41,48 +41,48 @@ enum APIError: Error, Equatable, LocalizedError {
     
     var code: String? {
         switch self {
-        case let .error(code, message):
+        case let .error(code, _):
             return code
-        case let .expiredToken(code, message):
+        case let .expiredToken(code, _):
             return code
-        case let .invalidToken(code, message):
+        case let .invalidToken(code, _):
             return code
-        case let .missingToken(code, message):
+        case let .missingToken(code, _):
             return code
-        case let .missingUser(code, message):
+        case let .missingUser(code, _):
             return code
-        case let .invalidFilterCondition(code, message):
+        case let .invalidFilterCondition(code, _):
             return code
-        case let .nonExistentReview(code, message):
+        case let .nonExistentReview(code, _):
             return code
-        case let .invalidProgram(code, message):
+        case let .invalidProgram(code, _):
             return code
-        case let .fileProcessing(code, message):
+        case let .fileProcessing(code, _):
             return code
-        case let .imageSizeLimitExceeded(code, message):
+        case let .imageSizeLimitExceeded(code, _):
             return code
-        case let .duplicateNickname(code, message):
+        case let .duplicateNickname(code, _):
             return code
-        case let .revokeTokenGenerationFailed(code, message):
+        case let .revokeTokenGenerationFailed(code, _):
             return code
-        case let .invalidRefreshToken(code, message):
+        case let .invalidRefreshToken(code, _):
             return code
             
-        case let .openApi(code, message):
+        case let .openApi(code, _):
             return code
         case .emptySearchData:
             return "EMPTY_SEARCH_DATA"
             
-        case let .appleApi(code, message):
+        case let .appleApi(code, _):
             return code
             
         case .auth:
             return "AUTH_ERROR"
-        case let .network(code, message):
+        case let .network(code, _):
             return code
-        case let .client(code, message):
+        case let .client(code, _):
             return code
-        case let .server(code, message):
+        case let .server(code, _):
             return code
         case .decoding:
             return "DECODING_ERROR"
@@ -94,48 +94,48 @@ enum APIError: Error, Equatable, LocalizedError {
         
     var message: String? {
         switch self {
-        case let .error(code, message):
+        case let .error(_, message):
             return message
-        case let .expiredToken(code, message):
+        case let .expiredToken(_, message):
             return message
-        case let .invalidToken(code, message):
+        case let .invalidToken(_, message):
             return message
-        case let .missingToken(code, message):
+        case let .missingToken(_, message):
             return message
-        case let .missingUser(code, message):
+        case let .missingUser(_, message):
             return message
-        case let .invalidFilterCondition(code, message):
+        case let .invalidFilterCondition(_, message):
             return message
-        case let .nonExistentReview(code, message):
+        case let .nonExistentReview(_, message):
             return message
-        case let .invalidProgram(code, message):
+        case let .invalidProgram(_, message):
             return message
-        case let .fileProcessing(code, message):
+        case let .fileProcessing(_, message):
             return message
-        case let .imageSizeLimitExceeded(code, message):
+        case let .imageSizeLimitExceeded(_, message):
             return message
-        case let .duplicateNickname(code, message):
+        case let .duplicateNickname(_, message):
             return message
-        case let .revokeTokenGenerationFailed(code, message):
+        case let .revokeTokenGenerationFailed(_, message):
             return message
-        case let .invalidRefreshToken(code, message):
+        case let .invalidRefreshToken(_, message):
             return message
             
-        case let .openApi(code, message):
+        case let .openApi(_, message):
             return message
         case .emptySearchData:
             return "검색 결과 비어있음"
             
-        case let .appleApi(code, message):
+        case let .appleApi(_, message):
             return message
             
         case .auth:
             return "인증 오류 발생"
-        case let .network(code, message):
+        case let .network(_, message):
             return message
-        case let .client(code, message):
+        case let .client(_, message):
             return message
-        case let .server(code, message):
+        case let .server(_, message):
             return message
         case .decoding:
             return "디코딩 오류 발생"
