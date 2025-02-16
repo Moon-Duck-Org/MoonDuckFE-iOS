@@ -69,7 +69,6 @@ class ReviewModel: ReviewModelType {
     
     // MARK: - Logic
     
-
     // MARK: - DataBase
     func loadReviews(with category: Category, sort: Sort) {
         if category == .all {

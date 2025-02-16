@@ -164,7 +164,11 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
 //                    shareModel: ShareModel(provider)
 //                )
                 let appModel = AppModels(
-                    userModel: model
+                    userModel: model,
+                    categoryModel: CategoryModel(),
+                    sortModel: SortModel(),
+                    reviewModel: ReviewModel(provider)
+//                    shareModel: ShareModel(provider)
                 )
                 let presenter = HomeViewPresenter(with: provider, model: appModel)
                 view?.moveHome(with: presenter)

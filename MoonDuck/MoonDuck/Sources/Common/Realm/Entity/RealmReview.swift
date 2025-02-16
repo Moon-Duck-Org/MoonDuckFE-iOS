@@ -11,22 +11,22 @@ import RealmSwift
 
 class RealmReview: Object {
     @Persisted(primaryKey: true) var id: ObjectId = ObjectId.generate()
-    @objc dynamic var rating: Int = 0
+    @Persisted var rating: Int = 0
     
-    @objc dynamic var createdAt: Date = Date()
-    @objc dynamic var modifiedAt: Date = Date()
+    @Persisted var createdAt: Date = Date()
+    @Persisted var modifiedAt: Date = Date()
     
-    @objc dynamic var categoryKey: String = ""
+    @Persisted var categoryKey: String = ""
     
-    @objc dynamic var programTitle: String = ""
-    @objc dynamic var programSubTitle: String = ""
+    @Persisted var programTitle: String = ""
+    @Persisted var programSubTitle: String = ""
     
-    @objc dynamic var title: String = ""
-    @objc dynamic var link: String = ""
-    @objc dynamic var content: String = ""
-    @objc dynamic var image1: String = ""
-    @objc dynamic var image2: String = ""
-    @objc dynamic var image3: String = ""
-    @objc dynamic var image4: String = ""
-    @objc dynamic var image5: String = ""
+    @Persisted var title: String = ""
+    @Persisted var link: String = ""
+    @Persisted var content: String = ""
+    @Persisted var image1: String = ""
+    @Persisted var image2: String = ""
+    @Persisted var image3: String = ""
+    @Persisted var image4: String = ""
+    @Persisted var image5: String = ""
 }

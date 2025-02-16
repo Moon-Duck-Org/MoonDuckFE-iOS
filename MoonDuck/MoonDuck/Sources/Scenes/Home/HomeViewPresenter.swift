@@ -49,7 +49,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
         self.model.userModel?.delegate = self
         self.model.sortModel?.delegate = self
         self.model.categoryModel?.delegate = self
-//        self.model.reviewListModel?.delegate = self
+        self.model.reviewModel?.delegate = self
         self.model.shareModel?.delegate = self
     }
     // MARK: - Data
@@ -245,12 +245,12 @@ extension HomeViewPresenter {
         }
     }
     
-    private func updateData(with list: ReviewList) {
-        view?.updateReviewCountLabelText(with: "\(list.totalElements)")
-        view?.updateEmptyReviewsViewHidden(!list.reviews.isEmpty)
+    private func updateData(with reviews: [RealmReview]) {
+        view?.updateReviewCountLabelText(with: "\(reviews.count)")
+        view?.updateEmptyReviewsViewHidden(!reviews.isEmpty)
     }
     
-    private func isNeededReloadReviews(with category: Category) -> Bool {
+//    private func isNeededReloadReviews(with category: Category) -> Bool {
 //        if let list = model.reviewListModel?.reviewList(with: category) {
 //            // 1. 리뷰 수정/삭제가 일어난 카테고리면 리로드
 //            if let firstIndex = reloadCategoryTrigger.firstIndex(of: category) {
@@ -265,8 +265,8 @@ extension HomeViewPresenter {
 //            
 //            return false
 //        }
-        return true
-    }
+//        return true
+//    }
     
     private func moveMyInfo(with userModel: UserModel) {
 //        let appModel = AppModels(
@@ -282,15 +282,15 @@ extension HomeViewPresenter {
         }
     }
     
-    private func reloadData(with review: Review) {
+    private func reloadData(with review: RealmReview) {
         model.categoryModel?.reloadCategory()
         model.sortModel?.reloadSortOption()
+        
         // TODO: - Review Count 계산
-//        model.userModel?.createReview(category: review.category)
-        setReloadCategoryTrigger(with: review.category)
-        if let selectedCategory = model.categoryModel?.selectedCategory {
-            view?.updateLoadingView(isLoading: true)
-//            model.reviewListModel?.reloadReviews(with: selectedCategory, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
+        if let selectedCategory = self.model.categoryModel?.selectedCategory {
+            let selectedSort =  model.sortModel?.selectedSortOption ?? .latestOrder
+            model.reviewModel?.loadReviews(with: selectedCategory, sort: selectedSort)
+            
         }
     }
 }
@@ -312,18 +312,8 @@ extension HomeViewPresenter: CategoryModelDelegate {
     func categoryModel(_ model: CategoryModelType, didSelect category: Category) {
         view?.reloadCategories()
         
-        if isNeededReloadReviews(with: category) {
-            // API 호출
-            view?.updateLoadingView(isLoading: true)
-//            self.model.reviewListModel?.reloadReviews(with: category, filter: self.model.sortModel?.selectedSortOption ?? .latestOrder)
-        } else {
-            // 테이블 뷰만 리로드
-            view?.reloadReviews()
-//            if let list = self.model.reviewListModel?.reviewList(with: category) {
-//                updateData(with: list)
-//            }
-            view?.resetScrollAndEndRefresh()
-        }
+        view?.updateLoadingView(isLoading: true)
+        self.model.reviewModel?.loadReviews(with: category, sort: self.model.sortModel?.selectedSortOption ?? .latestOrder)
     }
     
     func categoryModel(_ model: CategoryModelType, didReload category: Category) {
@@ -337,7 +327,8 @@ extension HomeViewPresenter: SortModelDelegate {
         view?.updateSortTitleLabelText(with: sortOption.title)
         
         if let selectedCategory = self.model.categoryModel?.selectedCategory {
-//            self.model.reviewListModel?.reloadReviews(with: selectedCategory, filter: sortOption)
+            self.model.reviewModel?.loadReviews(with: selectedCategory, sort: sortOption)
+        
         }
     }
     
@@ -346,19 +337,20 @@ extension HomeViewPresenter: SortModelDelegate {
     }
 }
 
-//// MARK: - ReviewListModelDelegate
-//extension HomeViewPresenter: ReviewListModelDelegate {
-//    func reviewListModel(_ model: ReviewListModelType, didSuccess list: ReviewList) {
-//        view?.updateLoadingView(isLoading: false)
-//        
-//        view?.reloadReviews()
-//        if list.isFirst {
-//            // 첫 번째 리뷰 리스트면 데이터 업데이트
-//            updateData(with: list)
-//            view?.resetScrollAndEndRefresh()
-//        }
-//    }
-//    
+// MARK: - ReviewListModelDelegate
+extension HomeViewPresenter: ReviewModelDelegate {
+    func getReviews(_ model: ReviewModelType, didSuccess reviews: [RealmReview]) {
+        view?.updateLoadingView(isLoading: false)
+        
+        view?.reloadReviews()
+        updateData(with: reviews)
+        view?.resetScrollAndEndRefresh()
+    }
+    
+    func didFailToGetReviews(_ model: ReviewModelType) {
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 불러오기"), message: L10n.Localizable.Error.message)
+    }
+    
 //    func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
 //        view?.updateLoadingView(isLoading: false)
 //        
@@ -379,19 +371,11 @@ extension HomeViewPresenter: SortModelDelegate {
 //        view?.reloadReviews()
 //        updateData(with: list)
 //    }
-//    
-//    func reviewListDidFail(_ model: ReviewListModelType) {
-//        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 불러오기"), message: L10n.Localizable.Error.message)
-//    }
-//    
-//    func reviewListDidLast(_ model: ReviewListModelType) {
-//        
-//    }
-//    
+    
 //    func reviewListDidFailDeleteReview(_ model: ReviewListModelType) {
 //        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 삭제"), message: L10n.Localizable.Error.message)
 //    }
-//}
+}
 
 // MARK: - ShareModelDelegate
 extension HomeViewPresenter: ShareModelDelegate {
@@ -418,7 +402,7 @@ extension HomeViewPresenter: WriteReviewPresenterDelegate {
         view?.updateLoadingView(isLoading: false)
         view?.popToSelf()
         
-//        reloadData(with: review)
+        reloadData(with: review)
         view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
         
         if isNewWrite {
@@ -434,6 +418,6 @@ extension HomeViewPresenter: WriteReviewPresenterDelegate {
 // MARK: - ReviewDetailPresenterDelegate
 extension HomeViewPresenter: ReviewDetailPresenterDelegate {
     func reviewDetail(_ presenter: ReviewDetailPresenter, didWrite review: Review) {
-        reloadData(with: review)
+//        reloadData(with: review)
     }
 }
