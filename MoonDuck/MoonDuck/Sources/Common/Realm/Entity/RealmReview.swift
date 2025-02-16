@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class RealmReview: Object {
-    @objc dynamic let boardId: Int = 0
+    @Persisted(primaryKey: true) var id: ObjectId = ObjectId.generate()
     @objc dynamic var rating: Int = 0
     
     @objc dynamic var createdAt: Date = Date()
@@ -18,12 +18,8 @@ class RealmReview: Object {
     
     @objc dynamic var categoryKey: String = ""
     
-    @objc dynamic var programId: Int = 0
-    @objc dynamic var programDate: Date = Date()
-    @objc dynamic var programGenre: String = ""
-    @objc dynamic var programDirector: String = ""
-    @objc dynamic var programPublisher: String = ""
-    @objc dynamic var programPlace: String = ""
+    @objc dynamic var programTitle: String = ""
+    @objc dynamic var programSubTitle: String = ""
     
     @objc dynamic var title: String = ""
     @objc dynamic var link: String = ""

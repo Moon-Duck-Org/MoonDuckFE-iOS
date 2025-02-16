@@ -23,7 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //    }()
     
     var appStorages = {
-        return AppStorages(userStorage: UserStorage())
+        return AppStorages(userStorage: UserStorage(), 
+                           reviewStorage: ReviewStorage())
     }()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -40,7 +41,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let launchedFromPush = appDelegate?.launchedFromPush ?? false
         let launchedFromDeeplink = appDelegate?.launchedFromDeeplink ?? false
         let navigator = Navigator.default
-        let appModel = AppModels(userModel: UserModel(appStorages))
+        let appModel = AppModels(userModel: UserModel(appStorages),
+                                 reviewModel: ReviewModel(appStorages))
         let presenter = IntroViewPresenter(with: appStorages, model: appModel, launchedFromPush: launchedFromPush, launchedFromDeeplink: launchedFromDeeplink)
         navigator.show(seque: .intro(presenter: presenter), sender: nil, transition: .root)
         

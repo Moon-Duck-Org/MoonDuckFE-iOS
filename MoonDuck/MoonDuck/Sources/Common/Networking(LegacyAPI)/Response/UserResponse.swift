@@ -37,8 +37,8 @@ struct UserResponse: Codable {
                     movie: movie,
                     book: book,
                     drama: drama,
-                    concert: concert,
-                    isPush: isPush)
+                    concert: concert)
+//                    isPush: isPush)
     }
 }
 

@@ -35,7 +35,7 @@ protocol HomePresenter: AnyObject {
     func myButtonTapped()
     func writeNewReviewButtonTapped()
     func refreshReviews()
-    func loadNextReviews()
+//    func loadNextReviews()
 }
 
 class HomeViewPresenter: BaseViewPresenter, HomePresenter {
@@ -49,7 +49,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
         self.model.userModel?.delegate = self
         self.model.sortModel?.delegate = self
         self.model.categoryModel?.delegate = self
-        self.model.reviewListModel?.delegate = self
+//        self.model.reviewListModel?.delegate = self
         self.model.shareModel?.delegate = self
     }
     // MARK: - Data
@@ -63,7 +63,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     
     var numberOfReviews: Int {
         let category = model.categoryModel?.selectedCategory ?? .none
-        return model.reviewListModel?.numberOfReviews(with: category) ?? 0
+        return model.reviewModel?.numberOfReviews(with: category) ?? 0
     }
     
     var sortTitles: [String] {
@@ -75,8 +75,9 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     }
     
     func review(at index: Int) -> Review? {
-        let category = model.categoryModel?.selectedCategory ?? .none
-        return model.reviewListModel?.review(with: category, at: index)
+        return nil
+//        let category = model.categoryModel?.selectedCategory ?? .none
+//        return model.reviewListModel?.review(with: category, at: index)
     }
     
     func reviewOptionHandler(for review: Review) -> (() -> Void)? {
@@ -87,8 +88,8 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     
     func writeReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
-//            guard let self else { return }
-//            AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_EDIT, parameters: [.CATEGORY_TYPE: review.category.rawValue])
+            guard let self else { return }
+            AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_EDIT, parameters: [.CATEGORY_TYPE: review.category.rawValue])
 //            
 //            let appModel = AppModels(
 //                writeReviewModel: WriteReviewModel(self.provider, review: review)
@@ -114,7 +115,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
                 AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_DELETE, parameters: [.CATEGORY_TYPE: review.category.rawValue])
             }
             self?.view?.updateLoadingView(isLoading: true)
-            self?.model.reviewListModel?.deleteReview(for: review)
+//            self?.model.review?.deleteReview(for: review)
         }
     }
     
@@ -205,13 +206,13 @@ extension HomeViewPresenter {
     
     func refreshReviews() {
         if let category = model.categoryModel?.selectedCategory {
-            model.reviewListModel?.reloadReviews(with: category, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
+//            model.reviewListModel?.reloadReviews(with: category, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
         }
     }
 
     func loadNextReviews() {
         if let category = model.categoryModel?.selectedCategory {
-            model.reviewListModel?.loadReviews(with: category, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
+//            model.reviewListModel?.loadReviews(with: category, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
         }
     }
     
@@ -250,29 +251,29 @@ extension HomeViewPresenter {
     }
     
     private func isNeededReloadReviews(with category: Category) -> Bool {
-        if let list = model.reviewListModel?.reviewList(with: category) {
-            // 1. 리뷰 수정/삭제가 일어난 카테고리면 리로드
-            if let firstIndex = reloadCategoryTrigger.firstIndex(of: category) {
-                reloadCategoryTrigger.remove(at: firstIndex)
-                return true
-            }
-            
-            // 2. 선택된 정렬과 캐싱된 리스트 정렬이 다르면 리로드
-            if list.sortOption != model.sortModel?.selectedSortOption {
-                return true
-            }
-            
-            return false
-        }
+//        if let list = model.reviewListModel?.reviewList(with: category) {
+//            // 1. 리뷰 수정/삭제가 일어난 카테고리면 리로드
+//            if let firstIndex = reloadCategoryTrigger.firstIndex(of: category) {
+//                reloadCategoryTrigger.remove(at: firstIndex)
+//                return true
+//            }
+//            
+//            // 2. 선택된 정렬과 캐싱된 리스트 정렬이 다르면 리로드
+//            if list.sortOption != model.sortModel?.selectedSortOption {
+//                return true
+//            }
+//            
+//            return false
+//        }
         return true
     }
     
     private func moveMyInfo(with userModel: UserModel) {
-        let appModel = AppModels(
-            userModel: userModel
-        )
-        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
-        view?.moveMy(with: presenter)
+//        let appModel = AppModels(
+//            userModel: userModel
+//        )
+//        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
+//        view?.moveMy(with: presenter)
     }
     
     private func setReloadCategoryTrigger(with category: Category) {
@@ -289,7 +290,7 @@ extension HomeViewPresenter {
         setReloadCategoryTrigger(with: review.category)
         if let selectedCategory = model.categoryModel?.selectedCategory {
             view?.updateLoadingView(isLoading: true)
-            model.reviewListModel?.reloadReviews(with: selectedCategory, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
+//            model.reviewListModel?.reloadReviews(with: selectedCategory, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
         }
     }
 }
@@ -314,13 +315,13 @@ extension HomeViewPresenter: CategoryModelDelegate {
         if isNeededReloadReviews(with: category) {
             // API 호출
             view?.updateLoadingView(isLoading: true)
-            self.model.reviewListModel?.reloadReviews(with: category, filter: self.model.sortModel?.selectedSortOption ?? .latestOrder)
+//            self.model.reviewListModel?.reloadReviews(with: category, filter: self.model.sortModel?.selectedSortOption ?? .latestOrder)
         } else {
             // 테이블 뷰만 리로드
             view?.reloadReviews()
-            if let list = self.model.reviewListModel?.reviewList(with: category) {
-                updateData(with: list)
-            }
+//            if let list = self.model.reviewListModel?.reviewList(with: category) {
+//                updateData(with: list)
+//            }
             view?.resetScrollAndEndRefresh()
         }
     }
@@ -336,7 +337,7 @@ extension HomeViewPresenter: SortModelDelegate {
         view?.updateSortTitleLabelText(with: sortOption.title)
         
         if let selectedCategory = self.model.categoryModel?.selectedCategory {
-            self.model.reviewListModel?.reloadReviews(with: selectedCategory, filter: sortOption)
+//            self.model.reviewListModel?.reloadReviews(with: selectedCategory, filter: sortOption)
         }
     }
     
@@ -345,52 +346,52 @@ extension HomeViewPresenter: SortModelDelegate {
     }
 }
 
-// MARK: - ReviewListModelDelegate
-extension HomeViewPresenter: ReviewListModelDelegate {
-    func reviewListModel(_ model: ReviewListModelType, didSuccess list: ReviewList) {
-        view?.updateLoadingView(isLoading: false)
-        
-        view?.reloadReviews()
-        if list.isFirst {
-            // 첫 번째 리뷰 리스트면 데이터 업데이트
-            updateData(with: list)
-            view?.resetScrollAndEndRefresh()
-        }
-    }
-    
-    func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
-        view?.updateLoadingView(isLoading: false)
-        
-        // TODO: - Review Count 재계산
-//        self.model.userModel?.deleteReview(category: review.category)
-        view?.popToSelf()
-        
-        if let category = self.model.categoryModel?.selectedCategory {
-            if category != review.category {
-                setReloadCategoryTrigger(with: review.category)
-            }
-            model.syncReviewList(with: category, review: review)
-        }
-    }
-    
-    func reviewListModel(_ model: ReviewListModelType, didAync list: ReviewList) {
-        view?.updateLoadingView(isLoading: false)
-        view?.reloadReviews()
-        updateData(with: list)
-    }
-    
-    func reviewListDidFail(_ model: ReviewListModelType) {
-        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 불러오기"), message: L10n.Localizable.Error.message)
-    }
-    
-    func reviewListDidLast(_ model: ReviewListModelType) {
-        
-    }
-    
-    func reviewListDidFailDeleteReview(_ model: ReviewListModelType) {
-        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 삭제"), message: L10n.Localizable.Error.message)
-    }
-}
+//// MARK: - ReviewListModelDelegate
+//extension HomeViewPresenter: ReviewListModelDelegate {
+//    func reviewListModel(_ model: ReviewListModelType, didSuccess list: ReviewList) {
+//        view?.updateLoadingView(isLoading: false)
+//        
+//        view?.reloadReviews()
+//        if list.isFirst {
+//            // 첫 번째 리뷰 리스트면 데이터 업데이트
+//            updateData(with: list)
+//            view?.resetScrollAndEndRefresh()
+//        }
+//    }
+//    
+//    func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
+//        view?.updateLoadingView(isLoading: false)
+//        
+//        // TODO: - Review Count 재계산
+////        self.model.userModel?.deleteReview(category: review.category)
+//        view?.popToSelf()
+//        
+//        if let category = self.model.categoryModel?.selectedCategory {
+//            if category != review.category {
+//                setReloadCategoryTrigger(with: review.category)
+//            }
+//            model.syncReviewList(with: category, review: review)
+//        }
+//    }
+//    
+//    func reviewListModel(_ model: ReviewListModelType, didAync list: ReviewList) {
+//        view?.updateLoadingView(isLoading: false)
+//        view?.reloadReviews()
+//        updateData(with: list)
+//    }
+//    
+//    func reviewListDidFail(_ model: ReviewListModelType) {
+//        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 불러오기"), message: L10n.Localizable.Error.message)
+//    }
+//    
+//    func reviewListDidLast(_ model: ReviewListModelType) {
+//        
+//    }
+//    
+//    func reviewListDidFailDeleteReview(_ model: ReviewListModelType) {
+//        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 삭제"), message: L10n.Localizable.Error.message)
+//    }
+//}
 
 // MARK: - ShareModelDelegate
 extension HomeViewPresenter: ShareModelDelegate {
@@ -413,11 +414,11 @@ extension HomeViewPresenter: ShareModelDelegate {
 
 // MARK: - WriteReviewPresenterDelegate
 extension HomeViewPresenter: WriteReviewPresenterDelegate {
-    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
+    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: RealmReview, isNewWrite: Bool) {
         view?.updateLoadingView(isLoading: false)
         view?.popToSelf()
         
-        reloadData(with: review)
+//        reloadData(with: review)
         view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
         
         if isNewWrite {

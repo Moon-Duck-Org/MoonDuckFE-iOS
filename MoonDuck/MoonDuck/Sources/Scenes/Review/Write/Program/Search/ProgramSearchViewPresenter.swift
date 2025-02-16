@@ -169,11 +169,11 @@ extension ProgramSearchViewPresenter {
     }
     
     private func moveWriteReview(with program: Program) {
-//        let appModel = AppModels(
-//            writeReviewModel: WriteReviewModel(provider, program: program)
-//        )
-//        let presenter = WriteReviewViewPresenter(with: provider, model: appModel, delegate: delegate)
-//        view?.moveWriteReview(with: presenter)
+        let appModel = AppModels(
+            reviewModel: ReviewModel(provider)
+        )
+        let presenter = WriteReviewViewPresenter(with: provider, model: appModel, delegate: delegate, program: program, editReview: nil)
+        view?.moveWriteReview(with: presenter)
     }
     
 }
@@ -197,7 +197,7 @@ extension ProgramSearchViewPresenter {
         
         // LOG
         if let category = model.programSearchModel?.category {
-            var parameters: [AnalyticsService.EventParameter: Any] = [.PROGRAM_NAME: text]
+            let parameters: [AnalyticsService.EventParameter: Any] = [.PROGRAM_NAME: text]
             switch category {
             case .movie: AnalyticsService.shared.logEvent(.TAP_SEARCH_PROGRAM_MOVIE, parameters: parameters)
             case .drama: AnalyticsService.shared.logEvent(.TAP_SEARCH_PROGRAM_DRAMA, parameters: parameters)

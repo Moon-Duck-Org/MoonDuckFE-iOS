@@ -15,6 +15,7 @@ class AppRealm {
     
     init() {
         realm = AppRealm.initializeRealm()
+        print("Realm file location: \(realm.configuration.fileURL?.path)")
     }
     
     static let shared = AppRealm()
@@ -70,6 +71,10 @@ class AppRealm {
     
     func fetch<T: Object>(_ type: T.Type) -> Results<T>? {
         return realm.objects(type)
+    }
+    
+    func fetch<T: Object>(_ type: T.Type, primaryKey: ObjectId) -> T? {
+        return realm.object(ofType: type, forPrimaryKey: primaryKey)
     }
     
     func update(block: () -> Void, completion: @escaping (_ isSuccess: Bool, _ error: Error?) -> Void) {

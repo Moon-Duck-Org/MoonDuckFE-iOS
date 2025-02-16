@@ -12,8 +12,6 @@ struct AppModels {
     var categoryModel: CategoryModelType?
     var sortModel: SortModelType?
     var programSearchModel: ProgramSearchModelType?
-    var writeReviewModel: WriteReviewModelType?
-    var reviewListModel: ReviewListModelType?
     var reviewModel: ReviewModelType?
     var shareModel: ShareModelType?
 }

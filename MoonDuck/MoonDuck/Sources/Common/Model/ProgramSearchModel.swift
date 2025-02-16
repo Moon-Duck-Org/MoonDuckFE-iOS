@@ -28,14 +28,12 @@ protocol ProgramSearchModelType: BaseModelType {
 
 class ProgramSearchModel: ProgramSearchModelType {
     
-    private let provider: AppServices
+    private let provider = ProgramSearchService()
     private var isLoading: Bool = false
     
     private var currentPage: Int = 1
     
-    init(_ provider: AppServices,
-         category: Category) {
-        self.provider = provider
+    init(category: Category) {
         self.category = category
     }
     
@@ -98,7 +96,7 @@ class ProgramSearchModel: ProgramSearchModelType {
     private func searchConcert(_ concert: String) {
         lastSearchText = concert
         let request = SearchConcertRequest(startIndex: currentPage, endIndex: category.searchSize, title: concert)
-        provider.programSearchService.concert(request: request) { [weak self]  succeed, failed in
+        provider.concert(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
             if let succeed {
                 // 검색 성공
@@ -120,7 +118,7 @@ class ProgramSearchModel: ProgramSearchModelType {
     private func searchDrama(_ drama: String) {
         lastSearchText = drama
         let request = SearchDramaRequest(query: drama, page: currentPage)
-        provider.programSearchService.drama(request: request) { [weak self]  succeed, failed in
+        provider.drama(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
             if let succeed {
                 // 검색 성공
@@ -142,7 +140,7 @@ class ProgramSearchModel: ProgramSearchModelType {
     private func searchBook(_ book: String) {
         lastSearchText = book
         let request = SearchBookRequest(query: book, display: category.searchSize, start: currentPage)
-        provider.programSearchService.book(request: request) { [weak self]  succeed, failed in
+        provider.book(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
             if let succeed {
                 // 검색 성공
@@ -164,7 +162,7 @@ class ProgramSearchModel: ProgramSearchModelType {
     private func searchMovie(_ movie: String) {
         lastSearchText = movie
         let request = SearchMovieRequest(curPage: "\(currentPage)", itemPerPage: "\(category.searchSize)", movieNm: movie)
-        provider.programSearchService.movie(request: request) { [weak self]  succeed, failed in
+        provider.movie(request: request) { [weak self]  succeed, failed in
             guard let self else { return }
             if let succeed {
                 // 검색 성공

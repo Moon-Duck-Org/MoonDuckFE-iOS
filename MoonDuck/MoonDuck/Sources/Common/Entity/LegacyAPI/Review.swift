@@ -12,7 +12,6 @@ struct Review {
     var rating: Int
     
     var createdAt: String
-    var modifiedAt: String
     
     var category: Category
     var program: Program

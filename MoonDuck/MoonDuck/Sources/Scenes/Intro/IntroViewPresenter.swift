@@ -97,29 +97,21 @@ extension IntroViewPresenter {
             AppUserDefaults.set(Date(), forKey: .appInstalledAt)
         }
         
-        // TODO: App Model 설정
         let appModel = AppModels(
-            userModel: model.userModel
+            userModel: model.userModel,
+            categoryModel: CategoryModel(),
+            sortModel: SortModel(),
+            reviewModel: ReviewModel(provider)
+//            shareModel: ShareModel(provider)
         )
-        
-        //            let appModel = AppModels(
-        //                userModel: model,
-        //                categoryModel: CategoryModel(),
-        //                sortModel: SortModel(),
-        //                reviewListModel: ReviewListModel(provider),
-        //                shareModel: ShareModel(provider)
-        //            )
         
         if model.userModel?.user.nickname == nil {
             // 닉네임 미설정 case
             let presenter = NicknameSettingViewPresenter(with: provider, model: appModel, delegate: nil)
             self.view?.moveNameSetting(with: presenter)
         } else {
-            // TODO: 홈 이동
-            let presenter = NicknameSettingViewPresenter(with: provider, model: appModel, delegate: nil)
-            self.view?.moveNameSetting(with: presenter)
-//            let presenter = HomeViewPresenter(with: provider, model: appModel)
-//            self.view?.moveHome(with: presenter)
+            let presenter = HomeViewPresenter(with: provider, model: appModel)
+            self.view?.moveHome(with: presenter)
         }
     }
 }

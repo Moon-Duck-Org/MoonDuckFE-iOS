@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol WriteReviewPresenterDelegate: AnyObject {
-    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool)
+    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: RealmReview, isNewWrite: Bool)
     func writeReviewDidCancel(_ presenter: WriteReviewPresenter)
 }
 
@@ -62,6 +62,8 @@ class WriteReviewViewPresenter: BaseViewPresenter, WriteReviewPresenter {
     }
     
     private let config: Config = Config()
+    private var editReview: RealmReview?
+    private var program: Program?
     private var titleText: String?
     private var contentText: String?
     private var rating: Int = 0 {
@@ -79,10 +81,14 @@ class WriteReviewViewPresenter: BaseViewPresenter, WriteReviewPresenter {
     
     init(with provider: AppStorages,
          model: AppModels,
-         delegate: WriteReviewPresenterDelegate?) {
+         delegate: WriteReviewPresenterDelegate?,
+         program: Program?,
+         editReview: RealmReview?) {
         self.delegate = delegate
+        self.editReview = editReview
+        self.program = program
         super.init(with: provider, model: model)
-        self.model.writeReviewModel?.delegate = self
+        self.model.reviewModel?.delegate = self
     }
     
     // MARK: - Data
@@ -124,12 +130,10 @@ extension WriteReviewViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         view?.createTouchEvent()
-        if let review = model.writeReviewModel?.review {
-            let program = review.program
+        if let review = self.editReview {
+            AnalyticsService.shared.logEvent(.VIEW_EDIT_REIVEW, parameters: [.CATEGORY_TYPE: review.categoryKey])
             
-            AnalyticsService.shared.logEvent(.VIEW_EDIT_REIVEW, parameters: [.CATEGORY_TYPE: program.category.rawValue])
-            
-            view?.updateProgramInfo(for: program.category, with: program.title, and: program.subInfo)
+            view?.updateProgramInfo(for: Category(rawValue: review.categoryKey) ?? .none, with: review.programTitle, and: review.programSubTitle)
             view?.updateTextField(for: review.title, with: review.content, and: review.link)
             titleText = review.title
             contentText = review.content
@@ -139,14 +143,15 @@ extension WriteReviewViewPresenter {
             view?.updateRating(for: review.rating)
             rating = review.rating
             
-            for imageUrl in review.imageUrlList {
-                if let url = URL(string: imageUrl) {
-                    Utils.downloadImage(from: url) { [weak self] image in
-                        self?.images.append(image)
-                    }
-                }
-            }
-        } else if let program = model.writeReviewModel?.program {
+            // TODO: Image
+//            for imageUrl in review.imageUrlList {
+//                if let url = URL(string: imageUrl) {
+//                    Utils.downloadImage(from: url) { [weak self] image in
+//                        self?.images.append(image)
+//                    }
+//                }
+//            }
+        } else if let program {
             AnalyticsService.shared.logEvent(.VIEW_WRITE_REVIEW, parameters: [.CATEGORY_TYPE: program.category.rawValue])
             
             view?.updateProgramInfo(for: program.category, with: program.title, and: program.subInfo)
@@ -164,12 +169,14 @@ extension WriteReviewViewPresenter {
     
     func saveButtonTapped() {
         view?.updateLoadingView(isLoading: true)
-        var categoryType = ""
-        if let category = model.writeReviewModel?.program?.category.rawValue {
-            categoryType = category
-        } else if let category = model.writeReviewModel?.program?.title {
-            categoryType = category
-        }
+//        var categoryType = ""
+//        if let category = model.writeReviewModel?.program?.category.rawValue {
+//            categoryType = category
+//        } else if let category = model.writeReviewModel?.program?.title {
+//            categoryType = category
+//        }
+        
+        let categoryType = editReview?.categoryKey ?? program?.category.apiKey ?? ""
         
         var title: String = ""
         var content: String = ""
@@ -178,7 +185,7 @@ extension WriteReviewViewPresenter {
         if let titleText, titleText.isNotEmpty {
             title = titleText
         } else {
-            if model.writeReviewModel?.isNewWrite ?? false {
+            if editReview == nil {
                 AnalyticsService.shared.logEvent(.TOAST_WRITE_REVIEW_EMPTY_TITLE, parameters: [.CATEGORY_TYPE: categoryType])
             }
             
@@ -190,7 +197,7 @@ extension WriteReviewViewPresenter {
         if let contentText, contentText.isNotEmpty {
             content = contentText
         } else {
-            if model.writeReviewModel?.isNewWrite ?? false {
+            if editReview == nil {
                 AnalyticsService.shared.logEvent(.TOAST_WRITE_REVIEW_EMPTY_CONTENT, parameters: [.CATEGORY_TYPE: categoryType])
             }
             
@@ -202,7 +209,7 @@ extension WriteReviewViewPresenter {
         if rating > 0 {
             score = rating
         } else {
-            if model.writeReviewModel?.isNewWrite ?? false {
+            if editReview == nil {
                 AnalyticsService.shared.logEvent(.TOAST_WRITE_REVIEW_EMPTY_RATING, parameters: [.CATEGORY_TYPE: categoryType])
             }
             
@@ -210,28 +217,40 @@ extension WriteReviewViewPresenter {
             view?.showToastMessage(L10n.Localizable.Write.emptyRatingMessage)
             return
         }
+            
+        let review = self.editReview ?? RealmReview()
+        review.rating = score
+        review.createdAt = Date()
+        review.modifiedAt = review.createdAt
+        review.categoryKey = editReview?.categoryKey ?? program?.category.apiKey ?? "none"
+        review.programTitle = editReview?.programTitle ?? program?.title ?? ""
+        review.programSubTitle = editReview?.programTitle ?? program?.subInfo ?? ""
+        review.title = title
+        review.link = linkText ?? ""
+        review.content = content
         
-        if model.writeReviewModel?.isNewWrite ?? false {
+        // TODO: Image
+        
+        if editReview == nil {
             AnalyticsService.shared.logEvent(
                 .TAP_WRITE_REIVEW_COMPLETE,
                 parameters: [.CATEGORY_TYPE: categoryType,
-                             .PROGRAM_NAME: model.writeReviewModel?.program?.title ?? "",
+                             .PROGRAM_NAME: program?.title ?? "",
                              .IS_REVIEW_LINK: linkText?.isNotEmpty ?? false,
                              .REVIEW_IMAGE_COUNT: images.count]
             )
             
-            model.writeReviewModel?.postReview(title: title, content: content, score: score, url: linkText, images: images)
+            model.reviewModel?.writeReview(for: review)
         } else {
             AnalyticsService.shared.logEvent(
                 .TAP_EDIT_REIVEW_COMPLETE,
-                parameters: [.REVIEW_ID: model.writeReviewModel?.review?.id ?? -1,
-                             .CATEGORY_TYPE: categoryType,
-                             .PROGRAM_NAME: model.writeReviewModel?.review?.program.title ?? "",
+                parameters: [.CATEGORY_TYPE: categoryType,
+                             .PROGRAM_NAME: editReview?.programTitle ?? "",
                              .IS_REVIEW_LINK: linkText?.isNotEmpty ?? false,
                              .REVIEW_IMAGE_COUNT: images.count]
             )
             
-            model.writeReviewModel?.putReview(title: title, content: content, score: score, url: linkText, images: images)
+            model.reviewModel?.editReview(for: review)
         }
     }
     
@@ -273,6 +292,7 @@ extension WriteReviewViewPresenter {
             return false
         }
     }
+    
 }
 
 // MARK: - UITextFieldDelegate
@@ -351,37 +371,10 @@ extension WriteReviewViewPresenter {
 }
 
 // MARK: - WriteReviewModelDelegate
-extension WriteReviewViewPresenter: WriteReviewModelDelegate {
-    func error(didRecieve error: APIError?) {
-//        view?.updateLoadingView(isLoading: false)
-//        
-//        guard let error else { return }
-//        
-//        if error.isAuthError {
-//            AuthManager.shared.logout()
-//            let appModel = AppModels(
-//                userModel: UserModel(provider)
-//            )
-//            let presenter = LoginViewPresenter(with: provider, model: appModel)
-//            view?.showAuthErrorAlert(with: presenter)
-//            return
-//        } else if error.isNetworkError {
-//            view?.showNetworkErrorAlert()
-//            return
-//        } else if error.isSystemError {
-//            view?.showSystemErrorAlert()
-//            return
-//        } else if error.imageSizeLimitExceeded {
-//            view?.showErrorAlert(title: "", message: L10n.Localizable.Error.networkImageSizeMessage)
-//            return
-//        } else {
-//            view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 작성"), message: L10n.Localizable.Error.message)
-//        }
-    }
-    
-    func writeReviewModel(_ model: WriteReviewModelType, didSuccess review: Review) {
+extension WriteReviewViewPresenter: ReviewModelDelegate {
+    func writeReview(_ model: ReviewModelType, didSuccess review: RealmReview) {
         view?.updateLoadingView(isLoading: false)
         
-        delegate?.writeReview(self, didSuccess: review, isNewWrite: model.isNewWrite)
+        delegate?.writeReview(self, didSuccess: review, isNewWrite: editReview == nil)
     }
 }

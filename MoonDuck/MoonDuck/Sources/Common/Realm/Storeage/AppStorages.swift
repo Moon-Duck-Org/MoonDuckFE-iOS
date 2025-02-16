@@ -9,4 +9,5 @@ import Foundation
 
 struct AppStorages {
     let userStorage: UserStorage
+    let reviewStorage: ReviewStorage
 }

@@ -57,7 +57,7 @@ extension HomeReviewDataSource: UITableViewDataSourcePrefetching {
         
         // 마지막 인덱스가 현재 로드된 데이터의 갯수보다 많으면 다음 페이지를 로드
         if lastIndex > presenter.numberOfReviews - 2 {
-            presenter.loadNextReviews()
+//            presenter.loadNextReviews()
         }
     }
 }

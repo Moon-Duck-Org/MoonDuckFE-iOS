@@ -86,14 +86,13 @@ struct ReviewResponse: Codable {
         }
         
         return Review(id: id,
-                      title: title,
+                      rating: score ?? 0,
+                      createdAt: created,
                       category: domainCategory,
-                      user: Review.User(userId: user?.userId ?? 0, nickname: user?.nickname ?? ""),
                       program: domainProgram,
+                      title: title,
                       content: content ?? "",
                       imageUrlList: imageUrlList,
-                      link: url,
-                      rating: score ?? 0,
-                      createdAt: created)
+                      user: Review.User(userId: user?.userId ?? 0, nickname: user?.nickname ?? ""))
     }
 }

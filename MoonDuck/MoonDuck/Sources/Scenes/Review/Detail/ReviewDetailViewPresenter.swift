@@ -38,13 +38,14 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
          delegate: ReviewDetailPresenterDelegate?) {
         self.delegate = delegate
         super.init(with: provider, model: model)
-        self.model.reviewModel?.delegate = self
+//        self.model.reviewModel?.delegate = self
         self.model.shareModel?.delegate = self
     }
     
     // MARK: - Data
     var review: Review? {
-        return model.reviewModel?.review
+        return nil
+//        return model.reviewModel?.review
     }
     
     func writeReviewHandler() -> (() -> Void)? {
@@ -62,26 +63,27 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     
     func shareReviewHandler() -> (() -> Void)? {
         return { [weak self] in
-            guard let self, let reviewId = model.reviewModel?.review.id else { return }
-            AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_SHARE, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
-            
-            self.view?.updateLoadingView(isLoading: true)
-            self.model.shareModel?.getShareUrl(with: reviewId)
+//            guard let self, let reviewId = model.reviewModel?.review.id else { return }
+//            AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_SHARE, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
+//            
+//            self.view?.updateLoadingView(isLoading: true)
+//            self.model.shareModel?.getShareUrl(with: reviewId)
         }
     }
     
     func deleteReviewHandler() -> (() -> Void)? {
-        if let deleteReviewHandler = model.reviewModel?.deleteReviewHandler {
-            return { [weak self] in
-                guard let self else { return }
-                AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_DELETE, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
-                
-                view?.updateLoadingView(isLoading: true)
-                deleteReviewHandler()
-            }
-        } else {
-            return model.reviewModel?.deleteReviewHandler
-        }
+//        if let deleteReviewHandler = model.reviewModel?.deleteReviewHandler {
+//            return { [weak self] in
+//                guard let self else { return }
+//                AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_DELETE, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
+//                
+//                view?.updateLoadingView(isLoading: true)
+//                deleteReviewHandler()
+//            }
+//        } else {
+//            return model.reviewModel?.deleteReviewHandler
+//        }
+        return nil
     }
     
 }
@@ -113,15 +115,15 @@ extension ReviewDetailViewPresenter {
 }
 
 // MARK: - ReviewModelDelegate
-extension ReviewDetailViewPresenter: ReviewModelDelegate {
-    func reviewModel(_ model: ReviewModelType, didSuccess review: Review) {
-        view?.updateData(for: review)
-    }
-    
-    func reviewModel(_ model: ReviewModelType, didRecieve error: APIError?) {
-        
-    }
-}
+//extension ReviewDetailViewPresenter: ReviewModelDelegate {
+//    func reviewModel(_ model: ReviewModelType, didSuccess review: Review) {
+//        view?.updateData(for: review)
+//    }
+//    
+//    func reviewModel(_ model: ReviewModelType, didRecieve error: APIError?) {
+//        
+//    }
+//}
 
 // MARK: - ShareModelDelegate
 extension ReviewDetailViewPresenter: ShareModelDelegate {
@@ -161,12 +163,12 @@ extension ReviewDetailViewPresenter: ShareModelDelegate {
 
 // MARK: - WriteReviewPresenterDelegate
 extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
-    func writeReview(_ presenter: any WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
+    func writeReview(_ presenter: any WriteReviewPresenter, didSuccess review: RealmReview, isNewWrite: Bool) {
         view?.updateLoadingView(isLoading: false)
         
-        delegate?.reviewDetail(self, didWrite: review)
+//        delegate?.reviewDetail(self, didWrite: review)
         view?.popToSelf()
-        model.reviewModel?.save(for: review)
+//        model.reviewModel?.save(for: review)
         
         view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
     }

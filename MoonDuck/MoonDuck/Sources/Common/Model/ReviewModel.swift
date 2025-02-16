@@ -2,69 +2,105 @@
 //  ReviewModel.swift
 //  MoonDuck
 //
-//  Created by suni on 7/1/24.
+//  Created by suni on 2/17/25.
 //
 
 import Foundation
 
 protocol ReviewModelDelegate: AnyObject {
-    func reviewModel(_ model: ReviewModelType, didSuccess review: Review)
-    func reviewModel(_ model: ReviewModelType, didRecieve error: APIError?)
+    func getReviews(_ model: ReviewModelType, didSuccess reviews: [RealmReview])
+    func deleteReview(_ model: ReviewModelType, didSuccess review: RealmReview)
+    func writeReview(_ model: ReviewModelType, didSuccess review: RealmReview)
+    func editReview(_ model: ReviewModelType, didSuccess review: RealmReview)
+    
+    func didFailToGetReviews(_ model: ReviewModelType)
+    func didFailToDeleteReview(_ model: ReviewModelType)
+    func didFailToWriteReview(_ model: ReviewModelType)
+    func didFailToEditReview(_ model: ReviewModelType)
+}
+extension ReviewModelDelegate {
+    func getReviews(_ model: ReviewModelType, didSuccess reviews: [RealmReview]) { }
+    func deleteReview(_ model: ReviewModelType, didSuccess review: RealmReview) { }
+    func writeReview(_ model: ReviewModelType, didSuccess review: RealmReview) { }
+    func editReview(_ model: ReviewModelType, didSuccess review: RealmReview) { }
+    
+    func didFailToGetReviews(_ model: ReviewModelType) { }
+    func didFailToDeleteReview(_ model: ReviewModelType) { }
+    func didFailToWriteReview(_ model: ReviewModelType) { }
+    func didFailToEditReview(_ model: ReviewModelType) { }
 }
 
 protocol ReviewModelType: AnyObject {
     // Data
     var delegate: ReviewModelDelegate? { get set }
-    var review: Review { get }
-    var deleteReviewHandler: (() -> Void)? { get }
     
-    // Logic
-    func save(for review: Review)
+    func numberOfReviews(with category: Category) -> Int
+//    func review(with category: Category, at index: Int) -> Review?
+//    func reviews(with category: Category) -> [Review]?
     
-    // Networking
-    func reviewDetail(with reviewId: Int)
+    // DateBase
+    func loadReviews(with category: Category, sort: Sort)
+    func deleteReview(for review: RealmReview)
+    func writeReview(for review: RealmReview)
+    func editReview(for review: RealmReview)
 }
 
 class ReviewModel: ReviewModelType {
-    private let provider: AppServices
     
-    init(_ provider: AppServices, review: Review, deleteReviewHandler: (() -> Void)?) {
+    private let provider: AppStorages
+    
+    init(_ provider: AppStorages) {
         self.provider = provider
-        self.review = review
-        self.deleteReviewHandler = deleteReviewHandler
     }
+    
+    private var isLoading: Bool = false
+    private var reviews: [RealmReview] = []
     
     // MARK: - Data
     weak var delegate: ReviewModelDelegate?
     
-    var review: Review {
-        didSet {
-            delegate?.reviewModel(self, didSuccess: review)
+    func numberOfReviews(with category: Category) -> Int {
+        if category == .all {
+            return provider.reviewStorage.count()
+        } else {
+            return provider.reviewStorage.count(with: category)
         }
     }
     
-    var deleteReviewHandler: (() -> Void)?
-    
     // MARK: - Logic
-    func save(for review: Review) {
-        self.review = review
+    
+
+    // MARK: - DataBase
+    func loadReviews(with category: Category, sort: Sort) {
+        if category == .all {
+            reviews = provider.reviewStorage.getAllReviews(sort: sort)
+        } else {
+            reviews = provider.reviewStorage.getReviews(with: category, sort: sort)
+        }
+        delegate?.getReviews(self, didSuccess: reviews)
     }
     
-}
-
-// MARK: - Networking
-extension ReviewModel {
-    func reviewDetail(with reviewId: Int) {
-        let request = ReviewDetailRequest(boardId: reviewId)
-        provider.reviewService.reviewDetail(request: request) { [weak self] succeed, failed in
+    func deleteReview(for review: RealmReview) {
+        provider.reviewStorage.deleteReview(for: review.id) { [weak self] isSuccess in
             guard let self else { return }
-            if let succeed {
-                // 검색 성공
-                self.review = succeed
+            if isSuccess {
+                self.reviews.removeAll { $0.id == review.id }
+                self.delegate?.deleteReview(self, didSuccess: review)
             } else {
-                // 오류 발생
-                self.delegate?.reviewModel(self, didRecieve: failed)
+                self.delegate?.didFailToDeleteReview(self)
             }
         }
     }
+    
+    func writeReview(for review: RealmReview) {
+        provider.reviewStorage.add(review)
+        delegate?.writeReview(self, didSuccess: review)
+    }
+    
+    // TODO: 리뷰 수정
+    func editReview(for review: RealmReview) {
+        provider.reviewStorage.add(review)
+        delegate?.writeReview(self, didSuccess: review)
+    }
+    
 }

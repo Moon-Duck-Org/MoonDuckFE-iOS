@@ -15,7 +15,7 @@ struct APIAppModels {
     var sortModel: SortModelType?
     var programSearchModel: ProgramSearchModelType?
     var writeReviewModel: WriteReviewModelType?
-    var reviewListModel: ReviewListModelType?
+    var reviewListModel: APIReviewListModelType?
     var reviewModel: ReviewModelType?
     var shareModel: ShareModelType?
 }
