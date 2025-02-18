@@ -40,7 +40,7 @@ extension MyInfoViewPresenter {
         let appModel = AppModels(
             userModel: model.userModel
         )
-        let presenter = NicknameSettingViewPresenter(with: provider, model: appModel)
+        let presenter = NicknameSettingViewPresenter(with: provider, model: appModel, delegate: self)
         view?.presentNameSetting(with: presenter)
     }
     
@@ -66,13 +66,19 @@ extension MyInfoViewPresenter {
 //        )
 //        let presenter = LoginViewPresenter(with: provider, model: appModel)
 //        self.view?.moveLogin(with: presenter)
-//    }
+    }
 
-//    private func updateNotification() {
+    private func updateNotification() {
 //        guard let user = model.userModel?.user else { return }
 //        
 //        if user.isPush {
 //            AppNotification.resetAndScheduleNotification(with: user.nickname)
 //        }
+    }
+}
+
+extension MyInfoViewPresenter: NicknameSettingPresenterDelegate {
+    func dismiss(_ presenter: NicknameSettingPresenter) {
+        view?.updateNameLabelText(with: model.userModel?.nickname ?? "")
     }
 }

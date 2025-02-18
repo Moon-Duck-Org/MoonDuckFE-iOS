@@ -9,8 +9,7 @@ import Foundation
 import UIKit
 
 protocol NicknameSettingPresenterDelegate: AnyObject {
-    func nicknameSetting(_ presenter: NicknameSettingPresenter, didSuccess nickname: String)
-    func nicknameSettingDidCancel(_ presenter: NicknameSettingPresenter)
+    func dismiss(_ presenter: NicknameSettingPresenter)
 }
 
 protocol NicknameSettingPresenter: AnyObject {
@@ -33,16 +32,18 @@ protocol NicknameSettingPresenter: AnyObject {
 class NicknameSettingViewPresenter: BaseViewPresenter, NicknameSettingPresenter {
     weak var view: NicknameSettingView?
     
+    private var delegate: NicknameSettingPresenterDelegate?
     private let isNew: Bool
     
     private let maxNicknameCount: Int = 10
     private var nicknameText: String?
     
-    override init(with provider: AppStorages,
-         model: AppModels) {
+    init(with provider: AppStorages,
+                  model: AppModels,
+                  delegate: NicknameSettingPresenterDelegate? = nil) {
         self.isNew = model.userModel?.nickname == nil
+        self.delegate = delegate
         super.init(with: provider, model: model)
-        self.model.userModel?.delegate = self
     }
 }
 
@@ -64,8 +65,28 @@ extension NicknameSettingViewPresenter {
         guard let nicknameText else { return }
         
         if isValidNickname(nicknameText) {
-            view?.updateLoadingView(isLoading: true)
             model.userModel?.setNickname(nickname: nicknameText)
+            
+            AnalyticsService.shared.logEvent(.SUCCESS_NICKNAME_SETTING, parameters: [.NICKNAME: nicknameText])
+            
+            if isNew {
+                let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
+                AnalyticsService.shared.logEvent(
+                    .SUCCESS_LOGIN_NEW,
+                    parameters: [.SNS_TYPE: snsType]
+                )
+                let appModel = AppModels(
+                    userModel: model.userModel,
+                    categoryModel: CategoryModel(),
+                    sortModel: SortModel(),
+                    reviewModel: ReviewModel(provider)
+                )
+                let presenter = HomeViewPresenter(with: provider, model: appModel)
+                view?.moveHome(with: presenter)
+            } else {
+                delegate?.dismiss(self)
+                view?.dismiss()
+            }
         } else {
             view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.invalidNameHint)
         }
@@ -127,36 +148,6 @@ extension NicknameSettingViewPresenter {
                 parameters: [.NICKNAME: nicknameText ?? ""]
             )
             view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.invalidNameHint)
-        }
-    }
-}
-
-// MARK: - UserModelDelegate
-extension NicknameSettingViewPresenter: UserModelDelegate {
-    func userModel(_ model: UserModelType, didChange user: User) {
-        // 닉네임 변경 성공
-        view?.updateLoadingView(isLoading: false)
-        
-        if let nickname = user.nickname {
-            AnalyticsService.shared.logEvent(.SUCCESS_NICKNAME_SETTING, parameters: [.NICKNAME: user.nickname ?? ""])
-            
-            if isNew {
-                let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
-                AnalyticsService.shared.logEvent(
-                    .SUCCESS_LOGIN_NEW,
-                    parameters: [.SNS_TYPE: snsType]
-                )
-                let appModel = AppModels(
-                    userModel: model,
-                    categoryModel: CategoryModel(),
-                    sortModel: SortModel(),
-                    reviewModel: ReviewModel(provider)
-                )
-                let presenter = HomeViewPresenter(with: provider, model: appModel)
-                view?.moveHome(with: presenter)
-            } else {
-                view?.dismiss()
-            }
         }
     }
 }
