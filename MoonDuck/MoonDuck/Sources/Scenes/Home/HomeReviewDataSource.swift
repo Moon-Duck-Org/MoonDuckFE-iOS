@@ -50,6 +50,7 @@ extension HomeReviewDataSource: UITableViewDelegate {
 
 // MARK: - UITableViewDataSourcePrefetching
 extension HomeReviewDataSource: UITableViewDataSourcePrefetching {
+    // FIXME: API -> Realm 변경으로 미사용
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         // 셀이 prefetch 되었을 때 호출되는 메서드
         guard let lastIndexPath = indexPaths.last else { return }

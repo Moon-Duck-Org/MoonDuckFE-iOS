@@ -15,7 +15,7 @@ protocol ReviewDetailPresenter: AnyObject {
     var view: ReviewDetailView? { get set }
     
     // Data
-    var review: Review? { get }
+    var review: Review { get }
     
     func writeReviewHandler() -> (() -> Void)?
     func deleteReviewHandler() -> (() -> Void)?
@@ -34,54 +34,37 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     
     init(with provider: AppStorages,
          model: AppModels,
+         review: Review,
          delegate: ReviewDetailPresenterDelegate?) {
         self.delegate = delegate
+        self.review = review
         super.init(with: provider, model: model)
-//        self.model.reviewModel?.delegate = self
+        self.model.reviewModel?.delegate = self
     }
     
     // MARK: - Data
-    var review: Review? {
-        return nil
-//        return model.reviewModel?.review
-    }
+    var review: Review
     
     func writeReviewHandler() -> (() -> Void)? {
         return { [weak self] in
-//            guard let self else { return }
-//            AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_EDIT, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
-//            
-//            let appModel = AppModels(
-//                writeReviewModel: WriteReviewModel(self.provider, review: review)
-//            )
-//            let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self)
-//            view?.moveWriteReview(with: presenter)
-        }
-    }
-    
-    func shareReviewHandler() -> (() -> Void)? {
-        return { [weak self] in
-//            guard let self, let reviewId = model.reviewModel?.review.id else { return }
-//            AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_SHARE, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
-//            
-//            self.view?.updateLoadingView(isLoading: true)
-//            self.model.shareModel?.getShareUrl(with: reviewId)
+            guard let self else { return }
+            AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_EDIT, parameters: [.CATEGORY_TYPE: review.program.category.apiKey])
+            
+            let appModel = AppModels(
+                reviewModel: ReviewModel(provider)
+            )
+            let presenter = WriteReviewViewPresenter(with: provider, model: appModel, delegate: self, program: nil, editReview: review)
+            view?.moveWriteReview(with: presenter)
         }
     }
     
     func deleteReviewHandler() -> (() -> Void)? {
-//        if let deleteReviewHandler = model.reviewModel?.deleteReviewHandler {
-//            return { [weak self] in
-//                guard let self else { return }
-//                AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_DELETE, parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""])
-//                
-//                view?.updateLoadingView(isLoading: true)
-//                deleteReviewHandler()
-//            }
-//        } else {
-//            return model.reviewModel?.deleteReviewHandler
-//        }
-        return nil
+        return { [weak self] in
+            guard let self else { return }
+            model.reviewModel?.deleteReview(for: review)
+            AnalyticsService.shared.logEvent(.TAP_DETAIL_REVIEW_DELETE, parameters: [.CATEGORY_TYPE: review.program.category.apiKey])
+            view?.updateLoadingView(isLoading: true)
+        }
     }
     
 }
@@ -92,12 +75,10 @@ extension ReviewDetailViewPresenter {
     func viewDidLoad() {
         AnalyticsService.shared.logEvent(
             .VIEW_REVIEW_DETAIL,
-            parameters: [.CATEGORY_TYPE: review?.program.category.rawValue ?? ""]
+            parameters: [.CATEGORY_TYPE: review.program.category.apiKey]
         )
         
-        if let review {
-            view?.updateData(for: review)
-        }
+        view?.updateData(for: review)
     }
     
     // MARK: - Action
@@ -113,15 +94,9 @@ extension ReviewDetailViewPresenter {
 }
 
 // MARK: - ReviewModelDelegate
-//extension ReviewDetailViewPresenter: ReviewModelDelegate {
-//    func reviewModel(_ model: ReviewModelType, didSuccess review: Review) {
-//        view?.updateData(for: review)
-//    }
-//    
-//    func reviewModel(_ model: ReviewModelType, didRecieve error: APIError?) {
-//        
-//    }
-//}
+extension ReviewDetailViewPresenter: ReviewModelDelegate {
+    
+}
 
 // MARK: - ShareModelDelegate
 //extension ReviewDetailViewPresenter: ShareModelDelegate {
@@ -164,9 +139,8 @@ extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
     func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
         view?.updateLoadingView(isLoading: false)
         
-//        delegate?.reviewDetail(self, didWrite: review)
+        delegate?.reviewDetail(self, didWrite: review)
         view?.popToSelf()
-//        model.reviewModel?.save(for: review)
         
         view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
     }

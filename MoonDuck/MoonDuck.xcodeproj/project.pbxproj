@@ -585,9 +585,9 @@
 		A0E6582E2BFE283E001A8D54 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				EA7FA70A2D64B13E00577D69 /* LegacyAPI */,
 				A0E6582F2BFE2851001A8D54 /* Common */,
 				A0E658302BFE2F18001A8D54 /* Intro */,
-				EAD9576A2C008EB6001FB6E1 /* Login */,
 				EA9A84212C00BBAE004B7FDF /* NameSetting */,
 				EA61048B2C14755C00CAC460 /* Home */,
 				EA5758E82C154DBE00E80050 /* Review */,
@@ -820,6 +820,14 @@
 				EAC25CF92C369F70004254D4 /* Throttler.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		EA7FA70A2D64B13E00577D69 /* LegacyAPI */ = {
+			isa = PBXGroup;
+			children = (
+				EAD9576A2C008EB6001FB6E1 /* Login */,
+			);
+			path = LegacyAPI;
 			sourceTree = "<group>";
 		};
 		EA81F4A72BFF714000FDC7A7 /* Model */ = {

@@ -34,7 +34,6 @@ protocol HomePresenter: AnyObject {
     func myButtonTapped()
     func writeNewReviewButtonTapped()
     func refreshReviews()
-//    func loadNextReviews()
 }
 
 class HomeViewPresenter: BaseViewPresenter, HomePresenter {
@@ -86,12 +85,12 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
         return { [weak self] in
             guard let self else { return }
             AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_EDIT, parameters: [.CATEGORY_TYPE: review.category.rawValue])
-//            
-//            let appModel = AppModels(
-//                writeReviewModel: WriteReviewModel(self.provider, review: review)
-//            )
-//            let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self)
-//            view?.moveWriteReview(with: presenter)
+            
+            let appModel = AppModels(
+                reviewModel: ReviewModel(provider)
+            )
+            let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self, program: nil, editReview: review)
+            view?.moveWriteReview(with: presenter)
         }
     }
     
@@ -109,23 +108,26 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     func deleteReviewHandler(for review: Review, isHome: Bool = true) -> (() -> Void)? {
         return { [weak self] in
             if isHome {
-                AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_DELETE, parameters: [.CATEGORY_TYPE: review.category.rawValue])
+                AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_DELETE, parameters: [.CATEGORY_TYPE: review.category.apiKey])
             }
             self?.view?.updateLoadingView(isLoading: true)
-//            self?.model.review?.deleteReview(for: review)
+            self?.model.reviewModel?.deleteReview(for: review)
         }
     }
     
     func reviewTappedHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
             guard let self else { return }
-//            let handler = self.deleteReviewHandler(for: review, isHome: false)
+            let handler = self.deleteReviewHandler(for: review, isHome: false)
+            let appModel = AppModels(
+                reviewModel: ReviewModel(provider)
+            )
 //            let appModel = AppModels(
 //                reviewModel: ReviewModel(self.provider, review: review, deleteReviewHandler: handler),
 //                shareModel: ShareModel(self.provider)
 //            )
-//            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, delegate: self)
-//            view?.moveReviewDetail(with: presenter)
+            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, review: review, delegate: self)
+            view?.moveReviewDetail(with: presenter)
         }
     }
 }
@@ -134,7 +136,7 @@ extension HomeViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         // TODO: REVIEW_COUNT
-//        AnalyticsService.shared.logEvent(.VIEW_HOME, parameters: [.REVIEW_COUNT: model.userModel?.user.all])
+        AnalyticsService.shared.logEvent(.VIEW_HOME, parameters: [.REVIEW_COUNT: model.reviewModel?.reviews.count ?? 0])
         model.categoryModel?.getCategories(isHaveAll: true)
         Utils.requestTrackingAuthorization { [weak self] in
             self?.checkNotificationAuthorization()
@@ -166,26 +168,29 @@ extension HomeViewPresenter {
     }
     
     func selectReview(at index: Int) {
-//        if let category = model.categoryModel?.selectedCategory,
-//           let review = model.reviewListModel?.review(with: category, at: index) {
-//            let handler = deleteReviewHandler(for: review, isHome: false)
+        guard let review = model.reviewModel?.review(at: index) else { return }
+        
+        let handler = deleteReviewHandler(for: review, isHome: false)
+        let appModel = AppModels(
+            reviewModel: ReviewModel(provider)
+        )
+        let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, review: review, delegate: self)
+        view?.moveReviewDetail(with: presenter)
+        
 //            let appModel = AppModels(
 //                reviewModel: ReviewModel(provider, review: review, deleteReviewHandler: handler),
 //                shareModel: ShareModel(provider)
 //            )
-//            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, delegate: self)
-//            view?.moveReviewDetail(with: presenter)
-//        }
     }
     
     func myButtonTapped() {
 //        model.userModel?.getUser()
-//        
-//        let appModel = AppModels(
-//            userModel: model.userModel
-//        )
-//        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
-//        view?.moveMy(with: presenter)
+        
+        let appModel = AppModels(
+            userModel: model.userModel
+        )
+        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
+        view?.moveMy(with: presenter)
     }
     
     func writeNewReviewButtonTapped() {
@@ -203,13 +208,7 @@ extension HomeViewPresenter {
     
     func refreshReviews() {
         if let category = model.categoryModel?.selectedCategory {
-//            model.reviewListModel?.reloadReviews(with: category, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
-        }
-    }
-
-    func loadNextReviews() {
-        if let category = model.categoryModel?.selectedCategory {
-//            model.reviewListModel?.loadReviews(with: category, filter: model.sortModel?.selectedSortOption ?? .latestOrder)
+            model.reviewModel?.loadReviews(with: category, sort: model.sortModel?.selectedSortOption ?? .latestOrder)
         }
     }
     

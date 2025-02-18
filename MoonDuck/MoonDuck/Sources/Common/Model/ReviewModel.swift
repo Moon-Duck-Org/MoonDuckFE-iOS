@@ -37,7 +37,7 @@ protocol ReviewModelType: AnyObject {
     var reviews: [Review] { get }
     
     func numberOfReviews(with category: Category) -> Int
-    func review(at index: Int) -> Review
+    func review(at index: Int) -> Review?
     
     // DateBase
     func loadReviews(with category: Category, sort: Sort)
@@ -68,8 +68,11 @@ class ReviewModel: ReviewModelType {
         }
     }
     
-    func review(at index: Int) -> Review {
-        return reviews[index]
+    func review(at index: Int) -> Review? {
+        if index < reviews.count {
+            return reviews[index]
+        }
+        return nil
     }
     
     // MARK: - Logic
@@ -123,7 +126,29 @@ class ReviewModel: ReviewModelType {
     
     // TODO: 리뷰 수정
     func editReview(for review: Review) {
-//        provider.reviewStorage.add(review)
-        delegate?.writeReview(self, didSuccess: review)
+        guard let id = review.id else { return }
+        
+        let realm = RealmReview()
+        realm.id = id
+        realm.rating = review.rating
+        realm.title = review.title
+        realm.link = review.link ?? ""
+        realm.content = review.content
+        realm.modifiedAt = Date()
+        
+        if review.imageUrlList.count > 0 { realm.image1 = review.imageUrlList[0] }
+        if review.imageUrlList.count > 1 { realm.image2 = review.imageUrlList[1] }
+        if review.imageUrlList.count > 2 { realm.image3 = review.imageUrlList[2] }
+        if review.imageUrlList.count > 3 { realm.image4 = review.imageUrlList[3] }
+        if review.imageUrlList.count > 4 { realm.image5 = review.imageUrlList[4] }
+        
+        provider.reviewStorage.update(for: realm) { [weak self] isSuccess in
+            guard let self else { return }
+            if isSuccess {
+                delegate?.editReview(self, didSuccess: review)
+            } else {
+                delegate?.didFailToEditReview(self)
+            }
+        }
     }
 }

@@ -78,4 +78,25 @@ class ReviewStorage {
     func add(_ review: RealmReview) {
         realm.add(review)
     }
+    
+    func update(for edit: RealmReview, completion: @escaping (Bool) -> Void) {
+        if let review = realm.fetch(RealmReview.self, primaryKey: edit.id) {
+            realm.update {
+                review.title = edit.title
+                review.content = edit.content
+                review.rating = edit.rating
+                review.modifiedAt = edit.modifiedAt
+                review.link = edit.link
+                review.image1 = edit.image1
+                review.image2 = edit.image2
+                review.image3 = edit.image3
+                review.image4 = edit.image4
+                review.image5 = edit.image5
+            } completion: { isSuccess, _ in
+                completion(isSuccess)
+            }
+        } else {
+            completion(false)
+        }
+    }
 }
