@@ -144,7 +144,6 @@ extension ReviewDetailViewController {
             .showReviewOption(
                 self,
                 writeHandler: presenter.writeReviewHandler(),
-                shareHandler: presenter.shareReviewHandler(),
                 deleteHandler: { [weak self] in
                     self?.showDeleteReviewAlert()
                 }

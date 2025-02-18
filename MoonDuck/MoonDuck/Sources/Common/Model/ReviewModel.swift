@@ -34,9 +34,10 @@ protocol ReviewModelType: AnyObject {
     // Data
     var delegate: ReviewModelDelegate? { get set }
     
+    var reviews: [Review] { get }
+    
     func numberOfReviews(with category: Category) -> Int
-//    func review(with category: Category, at index: Int) -> Review?
-//    func reviews(with category: Category) -> [Review]?
+    func review(at index: Int) -> Review
     
     // DateBase
     func loadReviews(with category: Category, sort: Sort)
@@ -54,7 +55,7 @@ class ReviewModel: ReviewModelType {
     }
     
     private var isLoading: Bool = false
-    private var reviews: [Review] = []
+    var reviews: [Review] = []
     
     // MARK: - Data
     weak var delegate: ReviewModelDelegate?
@@ -65,6 +66,10 @@ class ReviewModel: ReviewModelType {
         } else {
             return provider.reviewStorage.count(with: category)
         }
+    }
+    
+    func review(at index: Int) -> Review {
+        return reviews[index]
     }
     
     // MARK: - Logic

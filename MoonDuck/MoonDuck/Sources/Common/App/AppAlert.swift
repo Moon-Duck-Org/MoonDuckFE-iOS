@@ -121,7 +121,6 @@ class AppAlert {
     
     func showReviewOption(_ viewController: UIViewController,
                           writeHandler: (() -> Void)? = nil,
-                          shareHandler: (() -> Void)? = nil,
                           deleteHandler: (() -> Void)? = nil
     ) {
         DispatchQueue.main.async {
@@ -132,12 +131,6 @@ class AppAlert {
                 writeHandler?()
             }
             alert.addAction(writeAction)
-            
-            let shareAction = UIAlertAction(title: L10n.Localizable.Button.share, style: .default) { _ in
-                alert.dismiss(animated: true)
-                shareHandler?()
-            }
-            alert.addAction(shareAction)
             
             let deleteAction = UIAlertAction(title: L10n.Localizable.Button.delete, style: .destructive) { _ in
                 alert.dismiss(animated: true)

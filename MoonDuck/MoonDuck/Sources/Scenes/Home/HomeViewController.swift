@@ -17,7 +17,6 @@ protocol HomeView: BaseView {
     func resetScrollAndEndRefresh()
     func showOptionAlert(for review: Review)
     func showRequestNotiAuthAlert()
-    func showSystemShare(with url: URL)
     
     // Navigation
     func moveMy(with presenter: MyInfoPresenter)
@@ -43,7 +42,7 @@ class HomeViewController: BaseViewController, HomeView {
     @IBOutlet private weak var emptyReviewsView: UIView!
     
     // @IBAction
-    @IBAction func noticeButonTapped(_ sender: Any) {
+    @IBAction private func noticeButonTapped(_ sender: Any) {
         throttler.throttle {
             self.presenter.noticeButtonTapped()
         }
@@ -133,7 +132,6 @@ extension HomeViewController {
             .showReviewOption(
                 self,
                 writeHandler: presenter.writeReviewHandler(for: review),
-                shareHandler: presenter.shareReviewHandler(for: review),
                 deleteHandler: { [weak self] in
                     self?.showDeleteReviewAlert(for: review)
                 }

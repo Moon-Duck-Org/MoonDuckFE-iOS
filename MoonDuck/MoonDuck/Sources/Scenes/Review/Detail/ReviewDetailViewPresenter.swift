@@ -18,7 +18,6 @@ protocol ReviewDetailPresenter: AnyObject {
     var review: Review? { get }
     
     func writeReviewHandler() -> (() -> Void)?
-    func shareReviewHandler() -> (() -> Void)?
     func deleteReviewHandler() -> (() -> Void)?
     
     // Life Cycle

@@ -20,7 +20,6 @@ protocol HomePresenter: AnyObject {
     func review(at index: Int) -> Review?
     func reviewOptionHandler(for review: Review) -> (() -> Void)?
     func writeReviewHandler(for review: Review) -> (() -> Void)?
-    func shareReviewHandler(for review: Review) -> (() -> Void)?
     func deleteReviewHandler(for review: Review, isHome: Bool) -> (() -> Void)?
     func reviewTappedHandler(for review: Review) -> (() -> Void)?
     
@@ -74,9 +73,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     }
     
     func review(at index: Int) -> Review? {
-        return nil
-//        let category = model.categoryModel?.selectedCategory ?? .none
-//        return model.reviewListModel?.review(with: category, at: index)
+        return model.reviewModel?.review(at: index)
     }
     
     func reviewOptionHandler(for review: Review) -> (() -> Void)? {
@@ -377,24 +374,24 @@ extension HomeViewPresenter: ReviewModelDelegate {
 //    }
 }
 
-// MARK: - ShareModelDelegate
-//extension HomeViewPresenter: ShareModelDelegate {
-//    func shareModel(_ model: ShareModelType, didSuccess url: String) {
-//        view?.updateLoadingView(isLoading: false)
-//        let shareUrlString = Constants.getSharePath(with: url)
-//        if let shareUrl = URL(string: shareUrlString) {
-//            AnalyticsService.shared.logEvent(.SUCCESS_REVIEW_SHARE, parameters: [.SHARE_URL: shareUrlString])
+// MARK: - ShareModelDelegate - API Version
+extension HomeViewPresenter: APIShareModelDelegate {
+    func shareModel(_ model: APIShareModelType, didSuccess url: String) {
+        view?.updateLoadingView(isLoading: false)
+        let shareUrlString = Constants.getSharePath(with: url)
+        if let shareUrl = URL(string: shareUrlString) {
+            AnalyticsService.shared.logEvent(.SUCCESS_REVIEW_SHARE, parameters: [.SHARE_URL: shareUrlString])
 //            view?.showSystemShare(with: shareUrl)
-//        } else {
-//            view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
-//        }
-//    }
-//    
-//    func shareModel(_ model: ShareModelType, didRecieve error: APIError?) {
-//        view?.updateLoadingView(isLoading: false)
-//        view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
-//    }
-//}
+        } else {
+            view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
+        }
+    }
+    
+    func shareModel(_ model: APIShareModelType, didRecieve error: APIError?) {
+        view?.updateLoadingView(isLoading: false)
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
+    }
+}
 
 // MARK: - WriteReviewPresenterDelegate
 extension HomeViewPresenter: WriteReviewPresenterDelegate {
