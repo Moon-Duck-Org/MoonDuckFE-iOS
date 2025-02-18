@@ -11,12 +11,12 @@ class UserStorage {
 
     private let realm: AppRealm = AppRealm.shared
     
-    func user() -> User {
-        return User(nickname: nickname())
-    }
-    
     func nickname() -> String? {
         return AppUserDefaults.getObject(forKey: .nickname) as? String
+    }
+    
+    func isPush() -> Bool {
+        return AppUserDefaults.getObject(forKey: .isPush) as? Bool ?? false
     }
     
     func update(nickname: String) {
@@ -24,6 +24,6 @@ class UserStorage {
     }
     
     func update(isPush: Bool) {
-        AppUserDefaults.set(nickname, forKey: .nickname)
+        AppUserDefaults.set(isPush, forKey: .isPush)
     }
 }

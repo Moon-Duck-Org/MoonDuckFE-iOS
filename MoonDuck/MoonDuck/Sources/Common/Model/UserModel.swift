@@ -8,16 +8,18 @@
 import Foundation
 
 protocol UserModelDelegate: AnyObject {
-    func userModel(_ model: UserModelType, didChange user: User)
+    
 }
+
 extension UserModelDelegate {
-    func userModel(_ model: UserModelType, didChange user: User) { }
+    
 }
 
 protocol UserModelType: AnyObject {
     // Data
     var delegate: UserModelDelegate? { get set }
-    var user: User { get set }
+    var nickname: String? { get }
+    var isPush: Bool { get }
     
     // DateBase
     func setNickname(nickname: String)
@@ -25,32 +27,29 @@ protocol UserModelType: AnyObject {
 }
 
 class UserModel: UserModelType {
-    
     private let provider: AppStorages
     
     init(_ provider: AppStorages) {
         self.provider = provider
-        self.user = provider.userStorage.user()
     }
     
     // MARK: - Data
     weak var delegate: UserModelDelegate?
-    var user: User
+    var nickname: String? {
+        return provider.userStorage.nickname()
+    }
+    var isPush: Bool {
+        return provider.userStorage.isPush()
+    }
     
     // MARK: - Logic
 
     // MARK: - DataBase
     func setNickname(nickname: String) {
         provider.userStorage.update(nickname: nickname)
-        self.user.nickname = nickname
-        
-        delegate?.userModel(self, didChange: user)
     }
     
     func setPush(isPush: Bool) {
         provider.userStorage.update(isPush: isPush)
-        self.user.isPush = isPush
-        
-        delegate?.userModel(self, didChange: user)
     }
 }

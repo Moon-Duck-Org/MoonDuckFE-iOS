@@ -33,17 +33,14 @@ protocol NicknameSettingPresenter: AnyObject {
 class NicknameSettingViewPresenter: BaseViewPresenter, NicknameSettingPresenter {
     weak var view: NicknameSettingView?
     
-    private weak var delegate: NicknameSettingPresenterDelegate?
     private let isNew: Bool
     
     private let maxNicknameCount: Int = 10
     private var nicknameText: String?
     
-    init(with provider: AppStorages,
-         model: AppModels,
-         delegate: NicknameSettingPresenterDelegate?) {
-        self.delegate = delegate
-        self.isNew = delegate == nil
+    override init(with provider: AppStorages,
+         model: AppModels) {
+        self.isNew = model.userModel?.nickname == nil
         super.init(with: provider, model: model)
         self.model.userModel?.delegate = self
     }
@@ -53,7 +50,7 @@ extension NicknameSettingViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         // 닉네임이 세팅
-        let nickname = model.userModel?.user.nickname ?? ""
+        let nickname = model.userModel?.nickname ?? ""
         view?.updateCancelButtonHidden(isNew)
         view?.updateNameTextFieldText(with: nickname)
         view?.updateCountLabelText(with: "\(nickname.count)/\(maxNicknameCount)")
@@ -66,17 +63,11 @@ extension NicknameSettingViewPresenter {
     func completeButtonTapped() {
         guard let nicknameText else { return }
         
-        if let userNickname = model.userModel?.user.nickname,
-            !userNickname.isEmpty,
-           nicknameText == userNickname {
-            delegate?.nicknameSettingDidCancel(self)
+        if isValidNickname(nicknameText) {
+            view?.updateLoadingView(isLoading: true)
+            model.userModel?.setNickname(nickname: nicknameText)
         } else {
-            if isValidNickname(nicknameText) {
-                view?.updateLoadingView(isLoading: true)
-                model.userModel?.setNickname(nickname: nicknameText)
-            } else {
-                view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.invalidNameHint)
-            }
+            view?.updateHintLabelText(with: L10n.Localizable.NicknameSetting.invalidNameHint)
         }
     }
 
@@ -155,14 +146,6 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
                     .SUCCESS_LOGIN_NEW,
                     parameters: [.SNS_TYPE: snsType]
                 )
-                
-//                let appModel = AppModels(
-//                    userModel: model,
-//                    categoryModel: CategoryModel(),
-//                    sortModel: SortModel(),
-//                    reviewListModel: ReviewListModel(provider),
-//                    shareModel: ShareModel(provider)
-//                )
                 let appModel = AppModels(
                     userModel: model,
                     categoryModel: CategoryModel(),
@@ -172,7 +155,7 @@ extension NicknameSettingViewPresenter: UserModelDelegate {
                 let presenter = HomeViewPresenter(with: provider, model: appModel)
                 view?.moveHome(with: presenter)
             } else {
-                delegate?.nicknameSetting(self, didSuccess: nickname)
+                view?.dismiss()
             }
         }
     }

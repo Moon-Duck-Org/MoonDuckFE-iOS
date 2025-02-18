@@ -225,7 +225,7 @@ extension HomeViewPresenter {
     }
     
     private func updateNotification() {
-        guard let user = model.userModel?.user else { return }
+        guard let user = model.userModel else { return }
         
         if user.isPush {
             AppNotification.resetAndScheduleNotification(with: user.nickname)

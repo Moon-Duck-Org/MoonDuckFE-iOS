@@ -104,9 +104,9 @@ extension IntroViewPresenter {
             reviewModel: ReviewModel(provider)
         )
         
-        if model.userModel?.user.nickname == nil {
+        if model.userModel?.nickname == nil {
             // 닉네임 미설정 case
-            let presenter = NicknameSettingViewPresenter(with: provider, model: appModel, delegate: nil)
+            let presenter = NicknameSettingViewPresenter(with: provider, model: appModel)
             self.view?.moveNameSetting(with: presenter)
         } else {
             let presenter = HomeViewPresenter(with: provider, model: appModel)

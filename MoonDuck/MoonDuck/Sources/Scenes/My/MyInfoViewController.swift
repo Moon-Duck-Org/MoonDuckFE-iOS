@@ -51,13 +51,13 @@ class MyInfoViewController: BaseViewController, MyInfoView {
     }
     
     @IBAction private func logoutButtonTapped(_ sender: Any) {
-        AppAlert.default
-            .showDestructive(self,
-                             title: L10n.Localizable.My.logoutAlertMessage,
-                             destructiveTitle: L10n.Localizable.Button.logout,
-                             destructiveHandler: { [weak self] in
-                self?.presenter.logoutButtonTapped()
-            })
+//        AppAlert.default
+//            .showDestructive(self,
+//                             title: L10n.Localizable.My.logoutAlertMessage,
+//                             destructiveTitle: L10n.Localizable.Button.logout,
+//                             destructiveHandler: { [weak self] in
+//                self?.presenter.logoutButtonTapped()
+//            })
     }
     
     init(navigator: Navigator,
@@ -74,6 +74,12 @@ class MyInfoViewController: BaseViewController, MyInfoView {
         super.viewDidLoad()
         presenter.view = self
         presenter.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        presenter.viewWillAppear()
     }
 }
 

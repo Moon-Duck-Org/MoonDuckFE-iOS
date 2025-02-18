@@ -33,19 +33,16 @@ protocol SettingPresenter: AnyObject {
 class SettingViewPresenter: BaseViewPresenter, SettingPresenter {
     weak var view: SettingView?
     private weak var delegate: SettingPresenterDelegate?
-//    private let model: UserModelType
     
-    init(with provider: AppStorages,
-         model: AppModels,
-         delegate: SettingPresenterDelegate) {
-        self.delegate = delegate
+    override init(with provider: AppStorages,
+         model: AppModels) {
         super.init(with: provider, model: model)
         self.model.userModel?.delegate = self
     }
     
     // MARK: - Data
     var contractUs: ContractUs {
-        let nickname = model.userModel?.user.nickname ?? ""
+        let nickname = model.userModel?.nickname ?? ""
         return ContractUs(nickName: nickname)
     }
     
@@ -79,8 +76,8 @@ extension SettingViewPresenter {
     }
     
     func appVersionButtonTapped() {
-//        let presenter = AppVersionViewPresenter(with: provider, model: AppModels())
-//        view?.moveAppVersion(with: presenter)
+        let presenter = AppVersionViewPresenter(with: provider, model: AppModels())
+        view?.moveAppVersion(with: presenter)
     }
     
     func noticeButtonTapped() {
@@ -109,12 +106,12 @@ extension SettingViewPresenter {
     }
     
     private func setPushStatus(isOn: Bool) {
-        guard let user = model.userModel?.user, user.isPush != isOn else { return }
+        guard let user = model.userModel, user.isPush != isOn else { return }
         
         AnalyticsService.shared.logEvent(isOn ? .TAP_SETTING_PUSH_ON : .TAP_SETTING_PUSH_OFF)
         
         view?.updateLoadingView(isLoading: true)
-//        model.userModel?.push(isOn)
+        model.userModel?.setPush(isPush: isOn)
     }
     
     // MARK: - Logic
@@ -135,24 +132,6 @@ extension SettingViewPresenter {
 
 // MARK: - UserModelDelegate
 extension SettingViewPresenter: UserModelDelegate {
-    func error(didRecieve error: APIError?) {
-//        view?.updateLoadingView(isLoading: false)
-//        
-//        guard let error else { return }
-//        
-//        if error.isAuthError {
-//            AuthManager.shared.logout()
-//            let appModel = AppModels(
-//                userModel: UserModel(provider)
-//            )
-//            let presenter = LoginViewPresenter(with: provider, model: appModel)
-//            view?.showAuthErrorAlert(with: presenter)
-//        } else if error.isNetworkError {
-//            view?.showNetworkErrorAlert()
-//        } else if error.isSystemError {
-//            view?.showSystemErrorAlert()
-//        }
-    }
     
     func userModel(_ model: UserModelType, didChange user: User) {
         // Push 설정 성공
