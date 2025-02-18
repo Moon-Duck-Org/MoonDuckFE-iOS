@@ -11,13 +11,13 @@ import Foundation
 import UIKit
 
 protocol APIWriteReviewModelDelegate: BaseModelDelegate {
-    func writeReviewModel(_ model: APIWriteReviewModelType, didSuccess review: Review)
+    func writeReviewModel(_ model: APIWriteReviewModelType, didSuccess review: APIReview)
 }
 protocol APIWriteReviewModelType: BaseModelType {
     // Data
     var delegate: APIWriteReviewModelDelegate? { get set }
     var program: Program? { get }
-    var review: Review? { get }
+    var review: APIReview? { get }
     var isNewWrite: Bool { get }
     
     // Logic
@@ -31,7 +31,7 @@ class WriteReviewModel: APIWriteReviewModelType {
     private let provider: AppServices
     
     init(_ provider: AppServices,
-         review: Review? = nil,
+         review: APIReview? = nil,
          program: Program? = nil) {
         self.provider = provider
         self.review = review
@@ -40,7 +40,7 @@ class WriteReviewModel: APIWriteReviewModelType {
     
     // MARK: - Data
     weak var delegate: APIWriteReviewModelDelegate?
-    var review: Review?
+    var review: APIReview?
     var program: Program?
     
     // MARK: - Logic

@@ -49,7 +49,7 @@ struct ReviewResponse: Codable {
         }
     }
     
-    func toDomain() -> Review {
+    func toDomain() -> APIReview {
         
         var imageUrlList: [String] = []
         if let image1 {
@@ -85,7 +85,7 @@ struct ReviewResponse: Codable {
             return program
         }
         
-        return Review(id: id,
+        return APIReview(id: id,
                       rating: score ?? 0,
                       createdAt: created,
                       category: domainCategory,
@@ -93,6 +93,6 @@ struct ReviewResponse: Codable {
                       title: title,
                       content: content ?? "",
                       imageUrlList: imageUrlList,
-                      user: Review.User(userId: user?.userId ?? 0, nickname: user?.nickname ?? ""))
+                      user: APIReview.User(userId: user?.userId ?? 0, nickname: user?.nickname ?? ""))
     }
 }

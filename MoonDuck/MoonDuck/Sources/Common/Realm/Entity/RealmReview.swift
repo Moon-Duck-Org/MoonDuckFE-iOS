@@ -30,3 +30,9 @@ class RealmReview: Object {
     @Persisted var image4: String = ""
     @Persisted var image5: String = ""
 }
+
+extension RealmReview {
+    func toDomain() -> Review {
+        return Review(realm: self)
+    }
+}

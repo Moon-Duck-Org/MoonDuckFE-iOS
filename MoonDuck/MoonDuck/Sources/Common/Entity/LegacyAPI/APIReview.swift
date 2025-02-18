@@ -5,9 +5,11 @@
 //  Created by suni on 5/24/24.
 //
 
+// MARK: - API Version
+
 import UIKit
 
-struct Review {
+struct APIReview {
     let id: Int?
     var rating: Int
     
@@ -21,7 +23,6 @@ struct Review {
     var content: String
     var imageUrlList: [String]
     
-    // API 제거 후, 미사용
     let user: User
     struct User {
         let userId: Int

@@ -98,12 +98,13 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
         }
     }
     
+    // FIXME: API 미사용으로 기능 제거
     func shareReviewHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
-//            guard let self, let reviewId = review.id else { return }
-//            AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_SHARE, parameters: [.CATEGORY_TYPE: review.category.rawValue])
-//            
-//            self.view?.updateLoadingView(isLoading: true)
+            guard let self else { return }
+            AnalyticsService.shared.logEvent(.TAP_HOME_REVIEW_SHARE, parameters: [.CATEGORY_TYPE: review.category.rawValue])
+            
+            self.view?.updateLoadingView(isLoading: true)
 //            self.model.shareModel?.getShareUrl(with: reviewId)
         }
     }

@@ -32,7 +32,7 @@ class ReviewService {
         
     }
     
-    func putReview(request: WriteReviewRequest, images: [UIImage]?, completion: @escaping (_ succeed: Review?, _ failed: APIError?) -> Void) {
+    func putReview(request: WriteReviewRequest, images: [UIImage]?, completion: @escaping (_ succeed: APIReview?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.putReview(request, images).uploadMultipartFromData(responseType: ReviewResponse.self, completion: {  result in
             switch result {
             case .success(let response):
@@ -44,7 +44,7 @@ class ReviewService {
         
     }
     
-    func postReview(request: WriteReviewRequest, images: [UIImage]?, completion: @escaping (_ succeed: Review?, _ failed: APIError?) -> Void) {
+    func postReview(request: WriteReviewRequest, images: [UIImage]?, completion: @escaping (_ succeed: APIReview?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.postReview(request, images).uploadMultipartFromData(responseType: ReviewResponse.self, completion: {  result in
             switch result {
             case .success(let response):
@@ -66,7 +66,7 @@ class ReviewService {
         })
     }
     
-    func reviewDetail(request: ReviewDetailRequest, completion: @escaping (_ succeed: Review?, _ failed: APIError?) -> Void) {
+    func reviewDetail(request: ReviewDetailRequest, completion: @escaping (_ succeed: APIReview?, _ failed: APIError?) -> Void) {
         MoonDuckAPI.reviewDetail(request).performRequest(responseType: ReviewResponse.self, completion: {  result in
             switch result {
             case .success(let response):

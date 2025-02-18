@@ -83,6 +83,9 @@
 		EA7D2B8F2D62519F004E77C4 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7D2B8E2D62519F004E77C4 /* ReviewModel.swift */; };
 		EA7D2B902D62519F004E77C4 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7D2B8E2D62519F004E77C4 /* ReviewModel.swift */; };
 		EA7D2B912D62519F004E77C4 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7D2B8E2D62519F004E77C4 /* ReviewModel.swift */; };
+		EA7FA7072D6494AF00577D69 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7FA7062D6494AF00577D69 /* Review.swift */; };
+		EA7FA7082D6494AF00577D69 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7FA7062D6494AF00577D69 /* Review.swift */; };
+		EA7FA7092D6494AF00577D69 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7FA7062D6494AF00577D69 /* Review.swift */; };
 		EA810A362C17253F00DF6C72 /* ProgramSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA810A342C17253F00DF6C72 /* ProgramSearchViewController.swift */; };
 		EA810A372C17253F00DF6C72 /* ProgramSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA810A352C17253F00DF6C72 /* ProgramSearchViewController.xib */; };
 		EA810A392C17269800DF6C72 /* ProgramSearchViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA810A382C17269800DF6C72 /* ProgramSearchViewPresenter.swift */; };
@@ -183,7 +186,7 @@
 		EACCDA0A2C353CF600D9ADAD /* SettingViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCDA092C353CF600D9ADAD /* SettingViewPresenter.swift */; };
 		EACCDA0C2C354C3600D9ADAD /* ContractuUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCDA0B2C354C3600D9ADAD /* ContractuUs.swift */; };
 		EAD957632C002982001FB6E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957622C002982001FB6E1 /* User.swift */; };
-		EAD957652C0029D3001FB6E1 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957642C0029D3001FB6E1 /* Review.swift */; };
+		EAD957652C0029D3001FB6E1 /* APIReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD957642C0029D3001FB6E1 /* APIReview.swift */; };
 		EAD9576D2C008ED5001FB6E1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9576B2C008ED5001FB6E1 /* LoginViewController.swift */; };
 		EAD9576E2C008ED5001FB6E1 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD9576C2C008ED5001FB6E1 /* LoginViewController.xib */; };
 		EAD957702C0094A1001FB6E1 /* LoginViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9576F2C0094A1001FB6E1 /* LoginViewPresenter.swift */; };
@@ -310,6 +313,7 @@
 		EA7C07332C20155300563264 /* SearchDramaResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDramaResponse.swift; sourceTree = "<group>"; };
 		EA7C07352C2029C800563264 /* SearchConcertResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConcertResponse.swift; sourceTree = "<group>"; };
 		EA7D2B8E2D62519F004E77C4 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
+		EA7FA7062D6494AF00577D69 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		EA810A342C17253F00DF6C72 /* ProgramSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchViewController.swift; sourceTree = "<group>"; };
 		EA810A352C17253F00DF6C72 /* ProgramSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgramSearchViewController.xib; sourceTree = "<group>"; };
 		EA810A382C17269800DF6C72 /* ProgramSearchViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchViewPresenter.swift; sourceTree = "<group>"; };
@@ -398,7 +402,7 @@
 		EACCDA092C353CF600D9ADAD /* SettingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewPresenter.swift; sourceTree = "<group>"; };
 		EACCDA0B2C354C3600D9ADAD /* ContractuUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractuUs.swift; sourceTree = "<group>"; };
 		EAD957622C002982001FB6E1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		EAD957642C0029D3001FB6E1 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		EAD957642C0029D3001FB6E1 /* APIReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIReview.swift; sourceTree = "<group>"; };
 		EAD9576B2C008ED5001FB6E1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		EAD9576C2C008ED5001FB6E1 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		EAD9576F2C0094A1001FB6E1 /* LoginViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewPresenter.swift; sourceTree = "<group>"; };
@@ -965,7 +969,7 @@
 		EAA2B1A22D5FBA2500048AAB /* LegacyAPI */ = {
 			isa = PBXGroup;
 			children = (
-				EAD957642C0029D3001FB6E1 /* Review.swift */,
+				EAD957642C0029D3001FB6E1 /* APIReview.swift */,
 				A0A6336F2C286A4C00744694 /* ReviewList.swift */,
 			);
 			path = LegacyAPI;
@@ -1069,6 +1073,7 @@
 				EA95C8AF2C37D51300369BED /* ProgramList.swift */,
 				EAE017D62C01AA3D00699145 /* Sort.swift */,
 				EACCDA0B2C354C3600D9ADAD /* ContractuUs.swift */,
+				EA7FA7062D6494AF00577D69 /* Review.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1413,7 +1418,7 @@
 				EAF78F032C14814400EFBCB0 /* MyInfoViewPresenter.swift in Sources */,
 				EA8C24192C2EB86600F2C2F4 /* ReviewDetailViewPresenter.swift in Sources */,
 				EA6379D72BFF2B2D00464A19 /* TargetType.swift in Sources */,
-				EAD957652C0029D3001FB6E1 /* Review.swift in Sources */,
+				EAD957652C0029D3001FB6E1 /* APIReview.swift in Sources */,
 				EA9DF1102C5CDF80005569BD /* AnalyticsService.swift in Sources */,
 				EA95C8B02C37D51300369BED /* ProgramList.swift in Sources */,
 				EA72084F2C1287EF00E96212 /* AppUserDefaults.swift in Sources */,
@@ -1520,6 +1525,7 @@
 				EA8DC7C72C3BE0CB00DB8815 /* ReviewDetailImageCollectionViewCell.swift in Sources */,
 				EAA914D42C022DF700A98950 /* SelectCategoryCollectionViewCell.swift in Sources */,
 				EAB6E6672C1846C900A9E191 /* ProgramSearchTableViewCell.swift in Sources */,
+				EA7FA7072D6494AF00577D69 /* Review.swift in Sources */,
 				EAE017EC2C01FBD600699145 /* TextView.swift in Sources */,
 				EA6379C82BFEF49800464A19 /* BaseNavigationController.swift in Sources */,
 				EA33F75B2C0D7D0C00893C35 /* BaseAPIViewPresenter.swift in Sources */,
@@ -1554,6 +1560,7 @@
 				A0E658122BFE22BA001A8D54 /* MoonDuckTests.swift in Sources */,
 				EAA2B18E2D5CF2EE00048AAB /* AppStorages.swift in Sources */,
 				EA88C2E42D5A0982006651E0 /* UserStorage.swift in Sources */,
+				EA7FA7082D6494AF00577D69 /* Review.swift in Sources */,
 				EA88C2CB2D59DB62006651E0 /* AppRealm.swift in Sources */,
 				EAA2B19C2D5F81EB00048AAB /* APIAppModels.swift in Sources */,
 				EAA2B1922D5CF58600048AAB /* ReviewStorage.swift in Sources */,
@@ -1571,6 +1578,7 @@
 				EAA2B19D2D5F81EB00048AAB /* APIAppModels.swift in Sources */,
 				A0E6581C2BFE22BA001A8D54 /* MoonDuckUITests.swift in Sources */,
 				EA7D2B912D62519F004E77C4 /* ReviewModel.swift in Sources */,
+				EA7FA7092D6494AF00577D69 /* Review.swift in Sources */,
 				EA88C2E52D5A0982006651E0 /* UserStorage.swift in Sources */,
 				EAA2B18F2D5CF2EE00048AAB /* AppStorages.swift in Sources */,
 				EA88C2D52D59F516006651E0 /* RealmReview.swift in Sources */,

@@ -36,7 +36,7 @@ struct ReviewListResponse: Codable {
     }
     
     func toDomain() -> ReviewList {
-        var reviews: [Review] = []
+        var reviews: [APIReview] = []
         if let content {
             reviews = content.map { $0.toDomain() }
         }

@@ -8,10 +8,10 @@
 import Foundation
 
 protocol ReviewModelDelegate: AnyObject {
-    func getReviews(_ model: ReviewModelType, didSuccess reviews: [RealmReview])
-    func deleteReview(_ model: ReviewModelType, didSuccess review: RealmReview)
-    func writeReview(_ model: ReviewModelType, didSuccess review: RealmReview)
-    func editReview(_ model: ReviewModelType, didSuccess review: RealmReview)
+    func getReviews(_ model: ReviewModelType, didSuccess reviews: [Review])
+    func deleteReview(_ model: ReviewModelType, didSuccess review: Review)
+    func writeReview(_ model: ReviewModelType, didSuccess review: Review)
+    func editReview(_ model: ReviewModelType, didSuccess review: Review)
     
     func didFailToGetReviews(_ model: ReviewModelType)
     func didFailToDeleteReview(_ model: ReviewModelType)
@@ -19,10 +19,10 @@ protocol ReviewModelDelegate: AnyObject {
     func didFailToEditReview(_ model: ReviewModelType)
 }
 extension ReviewModelDelegate {
-    func getReviews(_ model: ReviewModelType, didSuccess reviews: [RealmReview]) { }
-    func deleteReview(_ model: ReviewModelType, didSuccess review: RealmReview) { }
-    func writeReview(_ model: ReviewModelType, didSuccess review: RealmReview) { }
-    func editReview(_ model: ReviewModelType, didSuccess review: RealmReview) { }
+    func getReviews(_ model: ReviewModelType, didSuccess reviews: [Review]) { }
+    func deleteReview(_ model: ReviewModelType, didSuccess review: Review) { }
+    func writeReview(_ model: ReviewModelType, didSuccess review: Review) { }
+    func editReview(_ model: ReviewModelType, didSuccess review: Review) { }
     
     func didFailToGetReviews(_ model: ReviewModelType) { }
     func didFailToDeleteReview(_ model: ReviewModelType) { }
@@ -40,9 +40,9 @@ protocol ReviewModelType: AnyObject {
     
     // DateBase
     func loadReviews(with category: Category, sort: Sort)
-    func deleteReview(for review: RealmReview)
-    func writeReview(for review: RealmReview)
-    func editReview(for review: RealmReview)
+    func deleteReview(for review: Review)
+    func writeReview(for review: Review)
+    func editReview(for review: Review)
 }
 
 class ReviewModel: ReviewModelType {
@@ -54,7 +54,7 @@ class ReviewModel: ReviewModelType {
     }
     
     private var isLoading: Bool = false
-    private var reviews: [RealmReview] = []
+    private var reviews: [Review] = []
     
     // MARK: - Data
     weak var delegate: ReviewModelDelegate?
@@ -71,16 +71,20 @@ class ReviewModel: ReviewModelType {
     
     // MARK: - DataBase
     func loadReviews(with category: Category, sort: Sort) {
+        var realms: [RealmReview] = []
         if category == .all {
-            reviews = provider.reviewStorage.getAllReviews(sort: sort)
+            realms = provider.reviewStorage.getAllReviews(sort: sort)
         } else {
-            reviews = provider.reviewStorage.getReviews(with: category, sort: sort)
+            realms = provider.reviewStorage.getReviews(with: category, sort: sort)
         }
+        reviews = realms.map { $0.toDomain() }
         delegate?.getReviews(self, didSuccess: reviews)
     }
     
-    func deleteReview(for review: RealmReview) {
-        provider.reviewStorage.deleteReview(for: review.id) { [weak self] isSuccess in
+    func deleteReview(for review: Review) {
+        guard let id = review.id else { return }
+        
+        provider.reviewStorage.deleteReview(for: id) { [weak self] isSuccess in
             guard let self else { return }
             if isSuccess {
                 self.reviews.removeAll { $0.id == review.id }
@@ -91,15 +95,30 @@ class ReviewModel: ReviewModelType {
         }
     }
     
-    func writeReview(for review: RealmReview) {
-        provider.reviewStorage.add(review)
+    func writeReview(for review: Review) {
+        
+        let realm = RealmReview()
+        realm.rating = review.rating
+        realm.categoryKey = review.category.apiKey
+        realm.programTitle = review.program.title
+        realm.programSubTitle = review.program.subInfo
+        realm.title = review.title
+        realm.link = review.link ?? ""
+        realm.content = review.content
+        
+        if review.imageUrlList.count > 0 { realm.image1 = review.imageUrlList[0] }
+        if review.imageUrlList.count > 1 { realm.image2 = review.imageUrlList[1] }
+        if review.imageUrlList.count > 2 { realm.image3 = review.imageUrlList[2] }
+        if review.imageUrlList.count > 3 { realm.image4 = review.imageUrlList[3] }
+        if review.imageUrlList.count > 4 { realm.image5 = review.imageUrlList[4] }
+        
+        provider.reviewStorage.add(realm)
         delegate?.writeReview(self, didSuccess: review)
     }
     
     // TODO: 리뷰 수정
-    func editReview(for review: RealmReview) {
-        provider.reviewStorage.add(review)
+    func editReview(for review: Review) {
+//        provider.reviewStorage.add(review)
         delegate?.writeReview(self, didSuccess: review)
     }
-    
 }

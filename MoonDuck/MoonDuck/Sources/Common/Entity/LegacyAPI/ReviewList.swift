@@ -17,7 +17,7 @@ struct ReviewList {
     var isFirst: Bool
     var isLast: Bool
     var isEmpty: Bool
-    var reviews: [Review]
+    var reviews: [APIReview]
     
     mutating func update(for list: ReviewList) {
         // Update the properties

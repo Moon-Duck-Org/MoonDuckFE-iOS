@@ -12,7 +12,7 @@ import Foundation
 protocol APIReviewListModelDelegate: BaseModelDelegate {
     func reviewListModel(_ model: APIReviewListModelType, didSuccess list: ReviewList)
     func reviewListModel(_ model: APIReviewListModelType, didAync list: ReviewList)
-    func reviewListModel(_ model: APIReviewListModelType, didDelete review: Review)
+    func reviewListModel(_ model: APIReviewListModelType, didDelete review: APIReview)
     func reviewListDidFail(_ model: APIReviewListModelType)
     func reviewListDidLast(_ model: APIReviewListModelType)
     func reviewListDidFailDeleteReview(_ model: APIReviewListModelType)
@@ -23,7 +23,7 @@ protocol APIReviewListModelType: BaseModelType {
     var delegate: APIReviewListModelDelegate? { get set }
     
     func numberOfReviews(with category: Category) -> Int
-    func review(with category: Category, at index: Int) -> Review?
+    func review(with category: Category, at index: Int) -> APIReview?
     func reviewList(with category: Category) -> ReviewList?
     
     // Logic
@@ -31,8 +31,8 @@ protocol APIReviewListModelType: BaseModelType {
     // Networking
     func loadReviews(with category: Category, filter: Sort)
     func reloadReviews(with category: Category, filter: Sort)
-    func deleteReview(for review: Review)
-    func syncReviewList(with category: Category, review: Review)
+    func deleteReview(for review: APIReview)
+    func syncReviewList(with category: Category, review: APIReview)
 }
 
 class APIReviewListModel: APIReviewListModelType {
@@ -57,7 +57,7 @@ class APIReviewListModel: APIReviewListModelType {
         return reviews(with: category).count
     }
     
-    func review(with category: Category, at index: Int) -> Review? {
+    func review(with category: Category, at index: Int) -> APIReview? {
         let reviews = reviews(with: category)
         if index < reviews.count {
             return reviews[index]
@@ -69,7 +69,7 @@ class APIReviewListModel: APIReviewListModelType {
         return reviewLists.first(where: { $0.category == category })
     }
     
-    private func reviews(with category: Category) -> [Review] {
+    private func reviews(with category: Category) -> [APIReview] {
         if let reviewList = reviewList(with: category) {
             return reviewList.reviews
         }
@@ -186,7 +186,7 @@ extension APIReviewListModel {
         }
     }
     
-    func syncReviewList(with category: Category, review: Review) {
+    func syncReviewList(with category: Category, review: APIReview) {
         guard !isLoading else { return }
             if category == .all {
                 syncGetAllReview(with: review)
@@ -195,7 +195,7 @@ extension APIReviewListModel {
             }
     }
     
-    private func syncGetReview(with category: Category, review: Review) {
+    private func syncGetReview(with category: Category, review: APIReview) {
         isLoading = true
         guard let listIndex = reviewListIndex(with: category) else { return }
         let list = reviewLists[listIndex]
@@ -220,7 +220,7 @@ extension APIReviewListModel {
         }
     }
     
-    private func syncGetAllReview(with review: Review) {
+    private func syncGetAllReview(with review: APIReview) {
         isLoading = true
         guard let listIndex = reviewListIndex(with: .all) else { return }
         let list = reviewLists[listIndex]
@@ -245,7 +245,7 @@ extension APIReviewListModel {
         }
     }
         
-    func deleteReview(for review: Review) {
+    func deleteReview(for review: APIReview) {
         guard let id = review.id else { return }
         
         let request = DeleteReviewRequest(boardId: id)

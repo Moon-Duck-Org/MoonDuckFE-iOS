@@ -32,6 +32,8 @@ struct Program {
         }
     }
     
+    var subTitle: String? = nil
+    
     private func getMovieInfo(with program: Program) -> String {
        
         var subInfo: String = ""
