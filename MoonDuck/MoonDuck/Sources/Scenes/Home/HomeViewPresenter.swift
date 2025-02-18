@@ -50,7 +50,6 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
         self.model.sortModel?.delegate = self
         self.model.categoryModel?.delegate = self
         self.model.reviewModel?.delegate = self
-        self.model.shareModel?.delegate = self
     }
     // MARK: - Data
     var numberOfCategories: Int {
@@ -378,23 +377,23 @@ extension HomeViewPresenter: ReviewModelDelegate {
 }
 
 // MARK: - ShareModelDelegate
-extension HomeViewPresenter: ShareModelDelegate {
-    func shareModel(_ model: ShareModelType, didSuccess url: String) {
-        view?.updateLoadingView(isLoading: false)
-        let shareUrlString = Constants.getSharePath(with: url)
-        if let shareUrl = URL(string: shareUrlString) {
-            AnalyticsService.shared.logEvent(.SUCCESS_REVIEW_SHARE, parameters: [.SHARE_URL: shareUrlString])
-            view?.showSystemShare(with: shareUrl)
-        } else {
-            view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
-        }
-    }
-    
-    func shareModel(_ model: ShareModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
-    }
-}
+//extension HomeViewPresenter: ShareModelDelegate {
+//    func shareModel(_ model: ShareModelType, didSuccess url: String) {
+//        view?.updateLoadingView(isLoading: false)
+//        let shareUrlString = Constants.getSharePath(with: url)
+//        if let shareUrl = URL(string: shareUrlString) {
+//            AnalyticsService.shared.logEvent(.SUCCESS_REVIEW_SHARE, parameters: [.SHARE_URL: shareUrlString])
+//            view?.showSystemShare(with: shareUrl)
+//        } else {
+//            view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
+//        }
+//    }
+//    
+//    func shareModel(_ model: ShareModelType, didRecieve error: APIError?) {
+//        view?.updateLoadingView(isLoading: false)
+//        view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
+//    }
+//}
 
 // MARK: - WriteReviewPresenterDelegate
 extension HomeViewPresenter: WriteReviewPresenterDelegate {

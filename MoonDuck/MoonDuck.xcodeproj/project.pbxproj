@@ -111,7 +111,7 @@
 		EA8C5CFC2C45123D00AA7884 /* ShareRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5CFB2C45123D00AA7884 /* ShareRequest.swift */; };
 		EA8C5CFE2C4512E500AA7884 /* ShareResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5CFD2C4512E500AA7884 /* ShareResponse.swift */; };
 		EA8C5D002C45132700AA7884 /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5CFF2C45132700AA7884 /* ShareService.swift */; };
-		EA8C5D022C4513BE00AA7884 /* ShareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5D012C4513BE00AA7884 /* ShareModel.swift */; };
+		EA8C5D022C4513BE00AA7884 /* APIShareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C5D012C4513BE00AA7884 /* APIShareModel.swift */; };
 		EA8DC7B92C3B825E00DB8815 /* RemoteConfigDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */; };
 		EA8DC7BB2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8DC7BA2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift */; };
 		EA8DC7BF2C3BDD3F00DB8815 /* ReviewDetailImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8DC7BE2C3BDD3F00DB8815 /* ReviewDetailImageViewController.xib */; };
@@ -187,7 +187,7 @@
 		EAD9576D2C008ED5001FB6E1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9576B2C008ED5001FB6E1 /* LoginViewController.swift */; };
 		EAD9576E2C008ED5001FB6E1 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD9576C2C008ED5001FB6E1 /* LoginViewController.xib */; };
 		EAD957702C0094A1001FB6E1 /* LoginViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD9576F2C0094A1001FB6E1 /* LoginViewPresenter.swift */; };
-		EADD89062C23F7B700CA2B43 /* WriteReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADD89052C23F7B700CA2B43 /* WriteReviewModel.swift */; };
+		EADD89062C23F7B700CA2B43 /* APIWriteReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADD89052C23F7B700CA2B43 /* APIWriteReviewModel.swift */; };
 		EADD89102C241A1100CA2B43 /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADD890F2C241A1100CA2B43 /* CustomPushAnimator.swift */; };
 		EADD89122C2423CD00CA2B43 /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADD89112C2423CD00CA2B43 /* CustomPopAnimator.swift */; };
 		EAE017D12C01935700699145 /* ReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE017D02C01935700699145 /* ReviewService.swift */; };
@@ -332,7 +332,7 @@
 		EA8C5CFB2C45123D00AA7884 /* ShareRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRequest.swift; sourceTree = "<group>"; };
 		EA8C5CFD2C4512E500AA7884 /* ShareResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareResponse.swift; sourceTree = "<group>"; };
 		EA8C5CFF2C45132700AA7884 /* ShareService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
-		EA8C5D012C4513BE00AA7884 /* ShareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareModel.swift; sourceTree = "<group>"; };
+		EA8C5D012C4513BE00AA7884 /* APIShareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIShareModel.swift; sourceTree = "<group>"; };
 		EA8DC7B82C3B825E00DB8815 /* RemoteConfigDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RemoteConfigDefaults.plist; sourceTree = "<group>"; };
 		EA8DC7BA2C3BC07C00DB8815 /* ReviewDetailImageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailImageDataSource.swift; sourceTree = "<group>"; };
 		EA8DC7BD2C3BDD3F00DB8815 /* ReviewDetailImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailImageViewController.swift; sourceTree = "<group>"; };
@@ -402,7 +402,7 @@
 		EAD9576B2C008ED5001FB6E1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		EAD9576C2C008ED5001FB6E1 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		EAD9576F2C0094A1001FB6E1 /* LoginViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewPresenter.swift; sourceTree = "<group>"; };
-		EADD89052C23F7B700CA2B43 /* WriteReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewModel.swift; sourceTree = "<group>"; };
+		EADD89052C23F7B700CA2B43 /* APIWriteReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIWriteReviewModel.swift; sourceTree = "<group>"; };
 		EADD890F2C241A1100CA2B43 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
 		EADD89112C2423CD00CA2B43 /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
 		EAE017D02C01935700699145 /* ReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewService.swift; sourceTree = "<group>"; };
@@ -828,8 +828,6 @@
 				EA9E1ABD2C2ABFBA001C7706 /* SortModel.swift */,
 				EA7D2B8E2D62519F004E77C4 /* ReviewModel.swift */,
 				EAB6E65C2C17DC2500A9E191 /* ProgramSearchModel.swift */,
-				EADD89052C23F7B700CA2B43 /* WriteReviewModel.swift */,
-				EA8C5D012C4513BE00AA7884 /* ShareModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -865,11 +863,13 @@
 		EA88C2DB2D5A08AB006651E0 /* LegacyAPI */ = {
 			isa = PBXGroup;
 			children = (
+				EA8C5D012C4513BE00AA7884 /* APIShareModel.swift */,
 				EA7118E12C518DD100D73B1F /* BaseModel.swift */,
 				EAA2B19A2D5F81EB00048AAB /* APIAppModels.swift */,
 				EAF78F072C14CAAE00EFBCB0 /* APIUserModel.swift */,
 				A0A633712C286B3E00744694 /* APIReviewListModel.swift */,
 				EA96F1FF2C32A32500E46D87 /* APIReviewModel.swift */,
+				EADD89052C23F7B700CA2B43 /* APIWriteReviewModel.swift */,
 			);
 			path = LegacyAPI;
 			sourceTree = "<group>";
@@ -1458,7 +1458,7 @@
 				EA88C2CA2D59DB62006651E0 /* AppRealm.swift in Sources */,
 				EA9E1AC72C2ACD0B001C7706 /* Utils.swift in Sources */,
 				EAA914F22C02D63100A98950 /* ReviewImageCollectionViewCell.swift in Sources */,
-				EA8C5D022C4513BE00AA7884 /* ShareModel.swift in Sources */,
+				EA8C5D022C4513BE00AA7884 /* APIShareModel.swift in Sources */,
 				EA7208412C1272A500E96212 /* AuthRequest.swift in Sources */,
 				EA5758F02C154E9C00E80050 /* SelectProgramViewPresenter.swift in Sources */,
 				EAA2B1912D5CF58600048AAB /* ReviewStorage.swift in Sources */,
@@ -1537,7 +1537,7 @@
 				EAC8CE742C4120BF0077899D /* ExpandableLabel.swift in Sources */,
 				A0A633742C286DA100744694 /* HomeReviewDataSource.swift in Sources */,
 				EA050F522D52044900F27835 /* NoticePopupView.swift in Sources */,
-				EADD89062C23F7B700CA2B43 /* WriteReviewModel.swift in Sources */,
+				EADD89062C23F7B700CA2B43 /* APIWriteReviewModel.swift in Sources */,
 				EA72084D2C12869B00E96212 /* AuthResponse.swift in Sources */,
 				EA810A392C17269800DF6C72 /* ProgramSearchViewPresenter.swift in Sources */,
 				EA7208512C128CE800E96212 /* AppKeychain.swift in Sources */,

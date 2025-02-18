@@ -102,7 +102,6 @@ extension IntroViewPresenter {
             categoryModel: CategoryModel(),
             sortModel: SortModel(),
             reviewModel: ReviewModel(provider)
-//            shareModel: ShareModel(provider)
         )
         
         if model.userModel?.user.nickname == nil {

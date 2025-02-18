@@ -5,15 +5,17 @@
 //  Created by suni on 6/20/24.
 //
 
+// MARK: - API Version
+
 import Foundation
 import UIKit
 
-protocol WriteReviewModelDelegate: BaseModelDelegate {
-    func writeReviewModel(_ model: WriteReviewModelType, didSuccess review: Review)
+protocol APIWriteReviewModelDelegate: BaseModelDelegate {
+    func writeReviewModel(_ model: APIWriteReviewModelType, didSuccess review: Review)
 }
-protocol WriteReviewModelType: BaseModelType {
+protocol APIWriteReviewModelType: BaseModelType {
     // Data
-    var delegate: WriteReviewModelDelegate? { get set }
+    var delegate: APIWriteReviewModelDelegate? { get set }
     var program: Program? { get }
     var review: Review? { get }
     var isNewWrite: Bool { get }
@@ -25,7 +27,7 @@ protocol WriteReviewModelType: BaseModelType {
     func postReview(title: String, content: String, score: Int, url: String?, images: [UIImage]?)
 }
 
-class WriteReviewModel: WriteReviewModelType {
+class WriteReviewModel: APIWriteReviewModelType {
     private let provider: AppServices
     
     init(_ provider: AppServices,
@@ -37,7 +39,7 @@ class WriteReviewModel: WriteReviewModelType {
     }
     
     // MARK: - Data
-    weak var delegate: WriteReviewModelDelegate?
+    weak var delegate: APIWriteReviewModelDelegate?
     var review: Review?
     var program: Program?
     

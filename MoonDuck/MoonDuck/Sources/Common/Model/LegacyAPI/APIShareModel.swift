@@ -5,16 +5,18 @@
 //  Created by suni on 7/15/24.
 //
 
+// MARK: - API Version
+
 import Foundation
 
-protocol ShareModelDelegate: AnyObject {
-    func shareModel(_ model: ShareModelType, didSuccess url: String)
-    func shareModel(_ model: ShareModelType, didRecieve error: APIError?)
+protocol APIShareModelDelegate: AnyObject {
+    func shareModel(_ model: APIShareModelType, didSuccess url: String)
+    func shareModel(_ model: APIShareModelType, didRecieve error: APIError?)
 }
 
-protocol ShareModelType: AnyObject {
+protocol APIShareModelType: AnyObject {
     // Data
-    var delegate: ShareModelDelegate? { get set }
+    var delegate: APIShareModelDelegate? { get set }
     
     // Logic
     
@@ -22,7 +24,7 @@ protocol ShareModelType: AnyObject {
     func getShareUrl(with reviewId: Int)
 }
 
-class ShareModel: ShareModelType {
+class APIShareModel: APIShareModelType {
     private let provider: AppServices
     
     init(_ provider: AppServices) {
@@ -30,14 +32,14 @@ class ShareModel: ShareModelType {
     }
     
     // MARK: - Data
-    weak var delegate: ShareModelDelegate?
+    weak var delegate: APIShareModelDelegate?
         
     // MARK: - Logic
     
 }
 
 // MARK: - Networking
-extension ShareModel {
+extension APIShareModel {
     func getShareUrl(with reviewId: Int) {
         let request = GetShareUrlRequest(boardId: reviewId)
         provider.shareService.getShareUrl(request: request) { [weak self] succeed, failed in
