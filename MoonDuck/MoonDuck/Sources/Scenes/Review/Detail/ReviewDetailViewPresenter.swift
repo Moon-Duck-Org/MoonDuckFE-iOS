@@ -22,6 +22,7 @@ protocol ReviewDetailPresenter: AnyObject {
     
     // Life Cycle
     func viewDidLoad()
+    func viewWillAppear()
 
     // Action
     func selectReviewImage(_ index: Int)
@@ -78,6 +79,12 @@ extension ReviewDetailViewPresenter {
         view?.updateData(for: review)
     }
     
+    func viewWillAppear() {
+        guard let id = review.id else { return }
+        view?.updateLoadingView(isLoading: true)
+        model.reviewModel?.getReview(id)
+    }
+    
     // MARK: - Action
     func selectReviewImage(_ index: Int) {
 //        if let review, index < review.imageUrlList.count {
@@ -92,7 +99,25 @@ extension ReviewDetailViewPresenter {
 
 // MARK: - ReviewModelDelegate
 extension ReviewDetailViewPresenter: ReviewModelDelegate {
+    func getReview(_ model: ReviewModelType, didSuccess review: Review) {
+        view?.updateLoadingView(isLoading: false)
+        view?.updateData(for: review)
+    }
     
+    func deleteReview(_ model: ReviewModelType, didSuccess review: Review) {
+        view?.updateLoadingView(isLoading: false)
+        view?.backToHome()
+    }
+    
+    func didFailToGetReview(_ model: ReviewModelType) {
+        view?.updateLoadingView(isLoading: false)
+        view?.backToHome()
+    }
+    
+    func didFailToDeleteReview(_ model: ReviewModelType) {
+        view?.updateLoadingView(isLoading: false)
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 삭제"), message: L10n.Localizable.Error.message)
+    }
 }
 
 // MARK: - ShareModelDelegate
@@ -128,21 +153,5 @@ extension ReviewDetailViewPresenter: ReviewModelDelegate {
 //            }
 //        }
 //        view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
-//    }
-//}
-
-// MARK: - WriteReviewPresenterDelegate
-//extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
-//    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
-//        view?.updateLoadingView(isLoading: false)
-//        
-//        delegate?.reviewDetail(self, didWrite: review)
-//        view?.popToSelf()
-//        
-//        view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
-//    }
-//    
-//    func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
-//        view?.popToSelf()
 //    }
 //}

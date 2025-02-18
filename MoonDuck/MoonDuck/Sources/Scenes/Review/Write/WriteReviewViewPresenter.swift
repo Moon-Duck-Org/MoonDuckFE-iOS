@@ -371,11 +371,21 @@ extension WriteReviewViewPresenter {
 extension WriteReviewViewPresenter: ReviewModelDelegate {
     func writeReview(_ model: ReviewModelType, didSuccess review: Review) {
         view?.updateLoadingView(isLoading: false)
-        view?.back()
+        view?.goToHome()
     }
     
     func editReview(_ model: ReviewModelType, didSuccess review: Review) {
         view?.updateLoadingView(isLoading: false)
         view?.back()
+    }
+    
+    func didFailToWriteReview(_ model: ReviewModelType) {
+        view?.updateLoadingView(isLoading: false)
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 작성"), message: L10n.Localizable.Error.message)
+    }
+    
+    func didFailToEditReview(_ model: ReviewModelType) {
+        view?.updateLoadingView(isLoading: false)
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 수정"), message: L10n.Localizable.Error.message)
     }
 }

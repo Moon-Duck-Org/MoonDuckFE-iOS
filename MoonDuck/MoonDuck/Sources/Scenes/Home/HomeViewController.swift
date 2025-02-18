@@ -87,6 +87,12 @@ class HomeViewController: BaseViewController, HomeView {
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         reviewTableView.refreshControl = refreshControl
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        presenter.viewWillAppear()
+    }
 }
 
 // MARK: - UI Logic

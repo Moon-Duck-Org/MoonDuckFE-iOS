@@ -19,6 +19,14 @@ class ReviewStorage {
         return realm.fetch(RealmReview.self)?.count ?? 0
     }
     
+    func getReview(for id: ObjectId) -> RealmReview? {
+        if let review = realm.fetch(RealmReview.self, primaryKey: id) {
+            return review
+        } else {
+            return nil
+        }
+    }
+    
     func getReviews(with category: Category, sort: Sort) -> [RealmReview] {
                         
         switch sort {

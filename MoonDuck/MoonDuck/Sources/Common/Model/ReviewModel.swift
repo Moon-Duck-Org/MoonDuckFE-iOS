@@ -6,25 +6,30 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol ReviewModelDelegate: AnyObject {
     func getReviews(_ model: ReviewModelType, didSuccess reviews: [Review])
+    func getReview(_ model: ReviewModelType, didSuccess review: Review)
     func deleteReview(_ model: ReviewModelType, didSuccess review: Review)
     func writeReview(_ model: ReviewModelType, didSuccess review: Review)
     func editReview(_ model: ReviewModelType, didSuccess review: Review)
     
     func didFailToGetReviews(_ model: ReviewModelType)
+    func didFailToGetReview(_ model: ReviewModelType)
     func didFailToDeleteReview(_ model: ReviewModelType)
     func didFailToWriteReview(_ model: ReviewModelType)
     func didFailToEditReview(_ model: ReviewModelType)
 }
 extension ReviewModelDelegate {
     func getReviews(_ model: ReviewModelType, didSuccess reviews: [Review]) { }
+    func getReview(_ model: ReviewModelType, didSuccess review: Review) { }
     func deleteReview(_ model: ReviewModelType, didSuccess review: Review) { }
     func writeReview(_ model: ReviewModelType, didSuccess review: Review) { }
     func editReview(_ model: ReviewModelType, didSuccess review: Review) { }
     
     func didFailToGetReviews(_ model: ReviewModelType) { }
+    func didFailToGetReview(_ model: ReviewModelType) { }
     func didFailToDeleteReview(_ model: ReviewModelType) { }
     func didFailToWriteReview(_ model: ReviewModelType) { }
     func didFailToEditReview(_ model: ReviewModelType) { }
@@ -41,6 +46,7 @@ protocol ReviewModelType: AnyObject {
     
     // DateBase
     func loadReviews(with category: Category, sort: Sort)
+    func getReview(_ id: ObjectId)
     func deleteReview(for review: Review)
     func writeReview(for review: Review)
     func editReview(for review: Review)
@@ -89,6 +95,14 @@ class ReviewModel: ReviewModelType {
         delegate?.getReviews(self, didSuccess: reviews)
     }
     
+    func getReview(_ id: ObjectId) {
+        if let realm = provider.reviewStorage.getReview(for: id) {
+            delegate?.getReview(self, didSuccess: realm.toDomain())
+        } else {
+            delegate?.didFailToGetReview(self)
+        }
+    }
+    
     func deleteReview(for review: Review) {
         guard let id = review.id else { return }
         
@@ -124,7 +138,6 @@ class ReviewModel: ReviewModelType {
         delegate?.writeReview(self, didSuccess: review)
     }
     
-    // TODO: 리뷰 수정
     func editReview(for review: Review) {
         guard let id = review.id else { return }
         

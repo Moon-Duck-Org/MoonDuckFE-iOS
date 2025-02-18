@@ -23,6 +23,7 @@ protocol WriteReviewView: BaseView {
     
     // Navigation
     func back()
+    func goToHome()
 }
 
 class WriteReviewViewController: BaseViewController, WriteReviewView {
@@ -250,6 +251,10 @@ extension WriteReviewViewController {
 extension WriteReviewViewController {
     func back() {
         navigator?.pop(sender: self, animated: true)
+    }
+    
+    func goToHome() {
+        navigator?.pop(sender: self, popType: .popToRoot, animated: true)
     }
 }
 

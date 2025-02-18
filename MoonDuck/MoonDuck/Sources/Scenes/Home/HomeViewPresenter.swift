@@ -25,6 +25,7 @@ protocol HomePresenter: AnyObject {
     
     /// Life Cycle
     func viewDidLoad()
+    func viewWillAppear()
     
     /// Action
     func noticeButtonTapped()
@@ -137,6 +138,10 @@ extension HomeViewPresenter {
             self?.checkNotificationAuthorization()
             self?.updateNotification()
         }
+    }
+    
+    func viewWillAppear() {
+        refreshReviews()
     }
     
     // MARK: - Action
@@ -317,6 +322,16 @@ extension HomeViewPresenter: ReviewModelDelegate {
         view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 불러오기"), message: L10n.Localizable.Error.message)
     }
     
+    func deleteReview(_ model: ReviewModelType, didSuccess review: Review) {
+        view?.updateLoadingView(isLoading: false)
+        view?.reloadReviews()
+        updateData(with: model.reviews)
+    }
+    
+    func didFailToDeleteReview(_ model: ReviewModelType) {
+        view?.showErrorAlert(title: L10n.Localizable.Error.title("기록 삭제"), message: L10n.Localizable.Error.message)
+    }
+    
 //    func reviewListModel(_ model: ReviewListModelType, didDelete review: Review) {
 //        view?.updateLoadingView(isLoading: false)
 //        
@@ -344,46 +359,20 @@ extension HomeViewPresenter: ReviewModelDelegate {
 }
 
 // MARK: - ShareModelDelegate - API Version
-extension HomeViewPresenter: APIShareModelDelegate {
-    func shareModel(_ model: APIShareModelType, didSuccess url: String) {
-        view?.updateLoadingView(isLoading: false)
-        let shareUrlString = Constants.getSharePath(with: url)
-        if let shareUrl = URL(string: shareUrlString) {
-            AnalyticsService.shared.logEvent(.SUCCESS_REVIEW_SHARE, parameters: [.SHARE_URL: shareUrlString])
-//            view?.showSystemShare(with: shareUrl)
-        } else {
-            view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
-        }
-    }
-    
-    func shareModel(_ model: APIShareModelType, didRecieve error: APIError?) {
-        view?.updateLoadingView(isLoading: false)
-        view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
-    }
-}
-
-// MARK: - WriteReviewPresenterDelegate
-//extension HomeViewPresenter: WriteReviewPresenterDelegate {
-//    func writeReview(_ presenter: any WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
+//extension HomeViewPresenter: APIShareModelDelegate {
+//    func shareModel(_ model: APIShareModelType, didSuccess url: String) {
 //        view?.updateLoadingView(isLoading: false)
-//        view?.popToSelf()
-//        
-//        reloadData(with: review)
-//        view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
-//        
-//        if isNewWrite {
-//            incrementWriteReviewCount()
+//        let shareUrlString = Constants.getSharePath(with: url)
+//        if let shareUrl = URL(string: shareUrlString) {
+//            AnalyticsService.shared.logEvent(.SUCCESS_REVIEW_SHARE, parameters: [.SHARE_URL: shareUrlString])
+////            view?.showSystemShare(with: shareUrl)
+//        } else {
+//            view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
 //        }
 //    }
 //    
-//    func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
-//        view?.popToSelf()
+//    func shareModel(_ model: APIShareModelType, didRecieve error: APIError?) {
+//        view?.updateLoadingView(isLoading: false)
+//        view?.showErrorAlert(title: L10n.Localizable.Error.title("공유"), message: L10n.Localizable.Error.message)
 //    }
 //}
-
-// MARK: - ReviewDetailPresenterDelegate
-extension HomeViewPresenter: ReviewDetailPresenterDelegate {
-    func reviewDetail(_ presenter: ReviewDetailPresenter, didWrite review: Review) {
-//        reloadData(with: review)
-    }
-}

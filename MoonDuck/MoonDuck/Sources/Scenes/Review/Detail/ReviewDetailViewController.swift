@@ -74,6 +74,12 @@ class ReviewDetailViewController: BaseViewController, ReviewDetailView {
         presenter.view = self        
         presenter.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        presenter.viewWillAppear()
+    }
 }
 
 // MARK: - UI Logic
