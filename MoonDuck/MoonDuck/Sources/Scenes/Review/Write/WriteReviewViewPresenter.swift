@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol WriteReviewPresenterDelegate: AnyObject {
-    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: RealmReview, isNewWrite: Bool)
+    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool)
     func writeReviewDidCancel(_ presenter: WriteReviewPresenter)
 }
 
@@ -384,7 +384,7 @@ extension WriteReviewViewPresenter {
 
 // MARK: - WriteReviewModelDelegate
 extension WriteReviewViewPresenter: ReviewModelDelegate {
-    func writeReview(_ model: ReviewModelType, didSuccess review: RealmReview) {
+    func writeReview(_ model: ReviewModelType, didSuccess review: Review) {
         view?.updateLoadingView(isLoading: false)
         
         delegate?.writeReview(self, didSuccess: review, isNewWrite: editReview == nil)

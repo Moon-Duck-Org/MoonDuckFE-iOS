@@ -162,7 +162,7 @@ extension ReviewDetailViewPresenter {
 
 // MARK: - WriteReviewPresenterDelegate
 extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
-    func writeReview(_ presenter: any WriteReviewPresenter, didSuccess review: RealmReview, isNewWrite: Bool) {
+    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
         view?.updateLoadingView(isLoading: false)
         
 //        delegate?.reviewDetail(self, didWrite: review)

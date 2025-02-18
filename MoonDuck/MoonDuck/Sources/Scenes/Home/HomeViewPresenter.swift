@@ -245,7 +245,7 @@ extension HomeViewPresenter {
         }
     }
     
-    private func updateData(with reviews: [RealmReview]) {
+    private func updateData(with reviews: [Review]) {
         view?.updateReviewCountLabelText(with: "\(reviews.count)")
         view?.updateEmptyReviewsViewHidden(!reviews.isEmpty)
     }
@@ -282,13 +282,13 @@ extension HomeViewPresenter {
         }
     }
     
-    private func reloadData(with review: RealmReview) {
+    private func reloadData(with review: Review) {
         model.categoryModel?.reloadCategory()
         model.sortModel?.reloadSortOption()
         
         // TODO: - Review Count 계산
         if let selectedCategory = self.model.categoryModel?.selectedCategory {
-            let selectedSort =  model.sortModel?.selectedSortOption ?? .latestOrder
+            let selectedSort = model.sortModel?.selectedSortOption ?? .latestOrder
             model.reviewModel?.loadReviews(with: selectedCategory, sort: selectedSort)
             
         }
@@ -339,7 +339,7 @@ extension HomeViewPresenter: SortModelDelegate {
 
 // MARK: - ReviewListModelDelegate
 extension HomeViewPresenter: ReviewModelDelegate {
-    func getReviews(_ model: ReviewModelType, didSuccess reviews: [RealmReview]) {
+    func getReviews(_ model: ReviewModelType, didSuccess reviews: [Review]) {
         view?.updateLoadingView(isLoading: false)
         
         view?.reloadReviews()
@@ -398,7 +398,7 @@ extension HomeViewPresenter: ReviewModelDelegate {
 
 // MARK: - WriteReviewPresenterDelegate
 extension HomeViewPresenter: WriteReviewPresenterDelegate {
-    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: RealmReview, isNewWrite: Bool) {
+    func writeReview(_ presenter: any WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
         view?.updateLoadingView(isLoading: false)
         view?.popToSelf()
         
