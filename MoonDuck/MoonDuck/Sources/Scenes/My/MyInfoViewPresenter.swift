@@ -21,25 +21,21 @@ protocol MyInfoPresenter: AnyObject {
 
 class MyInfoViewPresenter: BaseViewPresenter, MyInfoPresenter {
     weak var view: MyInfoView?
-//    private let model: UserModelType
 }
 
 extension MyInfoViewPresenter {
     
     // MARK: - Life Cycle
     func viewDidLoad() {
-//        if let user = model.userModel?.user {
-//            AnalyticsService.shared.logEvent(.VIEW_MY)
-//            view?.updateNameLabelText(with: user.nickname)
+        if let user = model.userModel?.user {
+            AnalyticsService.shared.logEvent(.VIEW_MY)
+            view?.updateNameLabelText(with: user.nickname ?? "")
 //            view?.updateCountLabels(with: user.all, movie: user.movie, book: user.book, drama: user.drama, concert: user.concert)
-//            
-//            if let loginType = AuthManager.shared.getLoginType() {
-//                view?.updateSnsLogin(with: loginType)
-//            }
-//        } else {
-//            AuthManager.shared.logout()
-//            moveLogin()
-//        }
+            
+            if let loginType = AuthManager.shared.getLoginType() {
+                view?.updateSnsLogin(with: loginType)
+            }
+        }
     }
     
     // MARK: - Action

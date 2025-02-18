@@ -26,12 +26,9 @@ protocol SelectProgramPresenter: AnyObject {
 
 class SelectProgramViewPresenter: BaseViewPresenter, SelectProgramPresenter {
     weak var view: SelectProgramView?
-    private weak var delegate: WriteReviewPresenterDelegate?
     
-    init(with provider: AppStorages,
-         model: AppModels,
-         delegate: WriteReviewPresenterDelegate?) {
-        self.delegate = delegate
+    override init(with provider: AppStorages,
+         model: AppModels) {
         super.init(with: provider, model: model)
         self.model.categoryModel?.delegate = self
     }
@@ -68,7 +65,7 @@ extension SelectProgramViewPresenter {
         let appModel = AppModels(
             programSearchModel: ProgramSearchModel(category: selectedCategory)
         )
-        let presenter = ProgramSearchViewPresenter(with: provider, model: appModel, delegate: delegate)
+        let presenter = ProgramSearchViewPresenter(with: provider, model: appModel)
         view?.moveProgramSearch(with: presenter)
     }
 }

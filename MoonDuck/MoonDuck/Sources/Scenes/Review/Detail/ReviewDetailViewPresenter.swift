@@ -30,13 +30,10 @@ protocol ReviewDetailPresenter: AnyObject {
 class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
     
     weak var view: ReviewDetailView?
-    private weak var delegate: ReviewDetailPresenterDelegate?
     
     init(with provider: AppStorages,
          model: AppModels,
-         review: Review,
-         delegate: ReviewDetailPresenterDelegate?) {
-        self.delegate = delegate
+         review: Review) {
         self.review = review
         super.init(with: provider, model: model)
         self.model.reviewModel?.delegate = self
@@ -53,7 +50,7 @@ class ReviewDetailViewPresenter: BaseViewPresenter, ReviewDetailPresenter {
             let appModel = AppModels(
                 reviewModel: ReviewModel(provider)
             )
-            let presenter = WriteReviewViewPresenter(with: provider, model: appModel, delegate: self, program: nil, editReview: review)
+            let presenter = WriteReviewViewPresenter(with: provider, model: appModel, program: nil, editReview: review)
             view?.moveWriteReview(with: presenter)
         }
     }
@@ -135,17 +132,17 @@ extension ReviewDetailViewPresenter: ReviewModelDelegate {
 //}
 
 // MARK: - WriteReviewPresenterDelegate
-extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
-    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
-        view?.updateLoadingView(isLoading: false)
-        
-        delegate?.reviewDetail(self, didWrite: review)
-        view?.popToSelf()
-        
-        view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
-    }
-    
-    func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
-        view?.popToSelf()
-    }
-}
+//extension ReviewDetailViewPresenter: WriteReviewPresenterDelegate {
+//    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
+//        view?.updateLoadingView(isLoading: false)
+//        
+//        delegate?.reviewDetail(self, didWrite: review)
+//        view?.popToSelf()
+//        
+//        view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
+//    }
+//    
+//    func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
+//        view?.popToSelf()
+//    }
+//}

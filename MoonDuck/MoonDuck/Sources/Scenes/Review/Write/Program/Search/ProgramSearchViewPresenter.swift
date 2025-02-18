@@ -35,14 +35,10 @@ protocol ProgramSearchPresenter: AnyObject {
 class ProgramSearchViewPresenter: BaseViewPresenter, ProgramSearchPresenter {
     weak var view: ProgramSearchView?
     
-    private weak var delegate: WriteReviewPresenterDelegate?
-    
     private var searchText: String?
     
-    init(with provider: AppStorages,
-         model: AppModels,
-         delegate: WriteReviewPresenterDelegate?) {
-        self.delegate = delegate
+    override init(with provider: AppStorages,
+         model: AppModels) {
         super.init(with: provider, model: model)
         self.model.programSearchModel?.delegate = self
     }
@@ -172,7 +168,7 @@ extension ProgramSearchViewPresenter {
         let appModel = AppModels(
             reviewModel: ReviewModel(provider)
         )
-        let presenter = WriteReviewViewPresenter(with: provider, model: appModel, delegate: delegate, program: program, editReview: nil)
+        let presenter = WriteReviewViewPresenter(with: provider, model: appModel, program: program, editReview: nil)
         view?.moveWriteReview(with: presenter)
     }
     
@@ -226,7 +222,7 @@ extension ProgramSearchViewPresenter: ProgramSearchModelDelegate {
     }
     
     func programSearchModel(_ model: ProgramSearchModelType, didChange programs: [Program]) {
-        view?.updateLoadingView(isLoading:   false)
+        view?.updateLoadingView(isLoading: false)
         view?.reloadTableView()
         view?.endEditing()
         view?.updateEmptyResultViewHidden(!programs.isEmpty)

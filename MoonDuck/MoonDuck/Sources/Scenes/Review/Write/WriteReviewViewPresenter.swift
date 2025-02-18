@@ -8,11 +8,6 @@
 import Foundation
 import UIKit
 
-protocol WriteReviewPresenterDelegate: AnyObject {
-    func writeReview(_ presenter: WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool)
-    func writeReviewDidCancel(_ presenter: WriteReviewPresenter)
-}
-
 protocol WriteReviewPresenter: AnyObject {
     var view: WriteReviewView? { get set }
     
@@ -53,8 +48,6 @@ class WriteReviewViewPresenter: BaseViewPresenter, WriteReviewPresenter {
     
     weak var view: WriteReviewView?
     
-    private weak var delegate: WriteReviewPresenterDelegate?
-    
     private struct Config {
         let maxTitleCount = 40
         let maxContentCount = 500
@@ -81,10 +74,8 @@ class WriteReviewViewPresenter: BaseViewPresenter, WriteReviewPresenter {
     
     init(with provider: AppStorages,
          model: AppModels,
-         delegate: WriteReviewPresenterDelegate?,
          program: Program?,
          editReview: Review?) {
-        self.delegate = delegate
         self.editReview = editReview
         self.program = program
         super.init(with: provider, model: model)
@@ -171,12 +162,6 @@ extension WriteReviewViewPresenter {
     
     func saveButtonTapped() {
         view?.updateLoadingView(isLoading: true)
-//        var categoryType = ""
-//        if let category = model.writeReviewModel?.program?.category.rawValue {
-//            categoryType = category
-//        } else if let category = model.writeReviewModel?.program?.title {
-//            categoryType = category
-//        }
         
         let categoryType = editReview?.category.apiKey ?? program?.category.apiKey ?? ""
         
@@ -386,7 +371,11 @@ extension WriteReviewViewPresenter {
 extension WriteReviewViewPresenter: ReviewModelDelegate {
     func writeReview(_ model: ReviewModelType, didSuccess review: Review) {
         view?.updateLoadingView(isLoading: false)
-        
-        delegate?.writeReview(self, didSuccess: review, isNewWrite: editReview == nil)
+        view?.back()
+    }
+    
+    func editReview(_ model: ReviewModelType, didSuccess review: Review) {
+        view?.updateLoadingView(isLoading: false)
+        view?.back()
     }
 }

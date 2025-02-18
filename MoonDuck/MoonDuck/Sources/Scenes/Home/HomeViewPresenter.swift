@@ -89,7 +89,7 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
             let appModel = AppModels(
                 reviewModel: ReviewModel(provider)
             )
-            let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, delegate: self, program: nil, editReview: review)
+            let presenter = WriteReviewViewPresenter(with: self.provider, model: appModel, program: nil, editReview: review)
             view?.moveWriteReview(with: presenter)
         }
     }
@@ -118,15 +118,10 @@ class HomeViewPresenter: BaseViewPresenter, HomePresenter {
     func reviewTappedHandler(for review: Review) -> (() -> Void)? {
         return { [weak self] in
             guard let self else { return }
-            let handler = self.deleteReviewHandler(for: review, isHome: false)
             let appModel = AppModels(
                 reviewModel: ReviewModel(provider)
             )
-//            let appModel = AppModels(
-//                reviewModel: ReviewModel(self.provider, review: review, deleteReviewHandler: handler),
-//                shareModel: ShareModel(self.provider)
-//            )
-            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, review: review, delegate: self)
+            let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, review: review)
             view?.moveReviewDetail(with: presenter)
         }
     }
@@ -174,18 +169,11 @@ extension HomeViewPresenter {
         let appModel = AppModels(
             reviewModel: ReviewModel(provider)
         )
-        let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, review: review, delegate: self)
+        let presenter = ReviewDetailViewPresenter(with: provider, model: appModel, review: review)
         view?.moveReviewDetail(with: presenter)
-        
-//            let appModel = AppModels(
-//                reviewModel: ReviewModel(provider, review: review, deleteReviewHandler: handler),
-//                shareModel: ShareModel(provider)
-//            )
     }
     
     func myButtonTapped() {
-//        model.userModel?.getUser()
-        
         let appModel = AppModels(
             userModel: model.userModel
         )
@@ -202,7 +190,7 @@ extension HomeViewPresenter {
         let appModel = AppModels(
             categoryModel: categoryModel
         )
-        let presenter = SelectProgramViewPresenter(with: provider, model: appModel, delegate: self)
+        let presenter = SelectProgramViewPresenter(with: provider, model: appModel)
         view?.moveSelectProgram(with: presenter)
     }
     
@@ -246,30 +234,12 @@ extension HomeViewPresenter {
         view?.updateEmptyReviewsViewHidden(!reviews.isEmpty)
     }
     
-//    private func isNeededReloadReviews(with category: Category) -> Bool {
-//        if let list = model.reviewListModel?.reviewList(with: category) {
-//            // 1. 리뷰 수정/삭제가 일어난 카테고리면 리로드
-//            if let firstIndex = reloadCategoryTrigger.firstIndex(of: category) {
-//                reloadCategoryTrigger.remove(at: firstIndex)
-//                return true
-//            }
-//            
-//            // 2. 선택된 정렬과 캐싱된 리스트 정렬이 다르면 리로드
-//            if list.sortOption != model.sortModel?.selectedSortOption {
-//                return true
-//            }
-//            
-//            return false
-//        }
-//        return true
-//    }
-    
     private func moveMyInfo(with userModel: UserModel) {
-//        let appModel = AppModels(
-//            userModel: userModel
-//        )
-//        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
-//        view?.moveMy(with: presenter)
+        let appModel = AppModels(
+            userModel: userModel
+        )
+        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
+        view?.moveMy(with: presenter)
     }
     
     private func setReloadCategoryTrigger(with category: Category) {
@@ -393,23 +363,23 @@ extension HomeViewPresenter: APIShareModelDelegate {
 }
 
 // MARK: - WriteReviewPresenterDelegate
-extension HomeViewPresenter: WriteReviewPresenterDelegate {
-    func writeReview(_ presenter: any WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
-        view?.updateLoadingView(isLoading: false)
-        view?.popToSelf()
-        
-        reloadData(with: review)
-        view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
-        
-        if isNewWrite {
-            incrementWriteReviewCount()
-        }
-    }
-    
-    func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
-        view?.popToSelf()
-    }
-}
+//extension HomeViewPresenter: WriteReviewPresenterDelegate {
+//    func writeReview(_ presenter: any WriteReviewPresenter, didSuccess review: Review, isNewWrite: Bool) {
+//        view?.updateLoadingView(isLoading: false)
+//        view?.popToSelf()
+//        
+//        reloadData(with: review)
+//        view?.showToastMessage(L10n.Localizable.Review.writeCompleteMessage)
+//        
+//        if isNewWrite {
+//            incrementWriteReviewCount()
+//        }
+//    }
+//    
+//    func writeReviewDidCancel(_ presenter: WriteReviewPresenter) {
+//        view?.popToSelf()
+//    }
+//}
 
 // MARK: - ReviewDetailPresenterDelegate
 extension HomeViewPresenter: ReviewDetailPresenterDelegate {
