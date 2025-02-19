@@ -178,10 +178,14 @@ class Utils {
                     
                     // 강제 업데이트 확인
                     let forceComponents = forceVersion.split(separator: ".").map { Int($0) ?? 0 }
-                    
                     for index in 0..<max(currentComponents.count, forceComponents.count) {
                         let current = index < currentComponents.count ? currentComponents[index] : 0
                         let new = index < forceComponents.count ? forceComponents[index] : 0
+                        
+                        if current > new {
+                            // 현재 버전이 강제 업데이트 버전보다 크므로 업데이트 필요 없음
+                            break
+                        }
                         
                         if current < new {
                             // 강제 업데이트 필요
@@ -196,6 +200,10 @@ class Utils {
                     for index in 0..<max(currentComponents.count, latestComponents.count) {
                         let current = index < currentComponents.count ? currentComponents[index] : 0
                         let new = index < latestComponents.count ? latestComponents[index] : 0
+                        
+                        if current > new {
+                            break
+                        }
                         
                         if current < new {
                             // 최신 업데이트 확인
