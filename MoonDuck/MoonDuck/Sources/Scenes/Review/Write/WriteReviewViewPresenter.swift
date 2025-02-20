@@ -137,13 +137,12 @@ extension WriteReviewViewPresenter {
             rating = review.rating
             
             // TODO: Image
-//            for imageUrl in review.imageUrlList {
-//                if let url = URL(string: imageUrl) {
-//                    Utils.downloadImage(from: url) { [weak self] image in
-//                        self?.images.append(image)
-//                    }
-//                }
-//            }
+            for path in review.imagePaths {
+                if let image = ImageManager.shared.downloadImage(path: path) {
+                    images.append(image)
+                }
+            }
+            
         } else if let program {
             AnalyticsService.shared.logEvent(.VIEW_WRITE_REVIEW, parameters: [.CATEGORY_TYPE: program.category.rawValue])
             

@@ -12,7 +12,7 @@ class ReviewDetailImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var imageView: UIImageView!
     
     func configure(with imageUrl: String) {
-        let url = URL(string: imageUrl)
+        let url = URL(fileURLWithPath: imageUrl)
         imageView.kf.setImage(
             with: url,
             placeholder: Asset.Assets.imageEmpty.image,
