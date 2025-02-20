@@ -48,10 +48,11 @@ extension IntroViewPresenter {
     
     // MARK: - Action
     func latestUpdateButtonTapped() {
-        checkUserData()
+        checkNoticePopup()
     }
     
     func notionCloseButtonTapped() {
+        AppUserDefaults.set(NoticePopupView.notificationVersion, forKey: .lastNoticeVersion)
         checkUserData()
     }
 }
@@ -87,8 +88,13 @@ extension IntroViewPresenter {
     }
     
     private func checkNoticePopup() {
-        // TODO: - 다시 보지 않기 설정 확인 로직 추가
-        self.view?.showNoticePopup()
+        DispatchQueue.main.async {
+            if AppUserDefaults.getObject(forKey: .lastNoticeVersion) as? Int ?? 0 < NoticePopupView.notificationVersion {
+                self.view?.showNoticePopup()
+            } else {
+                self.checkUserData()
+            }
+        }
     }
     
     private func checkUserData() {

@@ -96,12 +96,18 @@ class Navigator {
     func pop(sender: UIViewController?, popType: PopType = .pop, animated: Bool = false) {
         switch popType {
         case .pop:
-            sender?.navigationController?.popViewController(animated: animated)
+            DispatchQueue.main.async {
+                sender?.navigationController?.popViewController(animated: animated)
+            }
         case .popToRoot:
-            sender?.navigationController?.popToRootViewController(animated: animated)
+            DispatchQueue.main.async {
+                sender?.navigationController?.popToRootViewController(animated: animated)
+            }
         case .popToSelf:
             if let sender {
-                sender.navigationController?.popToViewController(sender, animated: animated)
+                DispatchQueue.main.async {
+                    sender.navigationController?.popToViewController(sender, animated: animated)
+                }
             }
         }
     }
@@ -120,7 +126,9 @@ class Navigator {
     private func show(target: UIViewController, sender: UIViewController?, transition: Transition, animated: Bool) {
         switch transition {
         case .root:
-            rootViewController.setViewControllers([target], animated: animated)
+            DispatchQueue.main.async {
+                self.rootViewController.setViewControllers([target], animated: animated)
+            }
             return
         case .customNavigation:
             return

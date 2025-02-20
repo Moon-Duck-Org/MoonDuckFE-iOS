@@ -9,6 +9,8 @@ import UIKit
 
 class NoticePopupView: UIView {
     
+    static var notificationVersion: Int = 1
+    
     var closeButtonHandler: (() -> Void)?
     
     @IBAction private func didTapCloseButton(_ sender: UIButton) {

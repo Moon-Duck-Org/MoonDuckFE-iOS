@@ -32,7 +32,7 @@ class HomeViewController: BaseViewController, HomeView {
     
     private let categoryDataSource: HomeCategoryDataSource
     private let reviewDataSource: HomeReviewDataSource
-    private let refreshControl = UIRefreshControl()
+    private var refreshControl: UIRefreshControl?
     
     // @IBOutlet
     @IBOutlet private weak var categoryCollectioinView: UICollectionView!
@@ -83,8 +83,9 @@ class HomeViewController: BaseViewController, HomeView {
         categoryDataSource.configure(with: categoryCollectioinView)
         reviewDataSource.configure(with: reviewTableView)
         
-        refreshControl.tintColor = Asset.Color.gray3.color
-        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        refreshControl = UIRefreshControl()
+        refreshControl?.tintColor = Asset.Color.gray3.color
+        refreshControl?.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         reviewTableView.refreshControl = refreshControl
     }
     
@@ -118,9 +119,9 @@ extension HomeViewController {
     }
 
     func resetScrollAndEndRefresh() {
-        if refreshControl.isRefreshing {
+        if refreshControl?.isRefreshing ?? false {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.refreshControl.endRefreshing()
+                self.refreshControl?.endRefreshing()
             }
         } else {
             DispatchQueue.main.async {

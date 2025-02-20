@@ -28,7 +28,7 @@
                     <color key="backgroundColor" red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pZK-8F-lD8" customClass="RadiusView" customModule="MoonDuck" customModuleProvider="target">
-                    <rect key="frame" x="20" y="111.99999999999997" width="314" height="438.33333333333326"/>
+                    <rect key="frame" x="20" y="110.33333333333334" width="314" height="441.33333333333314"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XnC-kz-jb5">
                             <rect key="frame" x="264" y="10" width="40" height="40"/>
@@ -45,28 +45,30 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5xS-z8-f8L">
-                            <rect key="frame" x="5" y="55" width="304" height="343.33333333333331"/>
+                            <rect key="frame" x="5" y="55.000000000000028" width="304" height="346.33333333333337"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="문덕이 서비스 서버 중단 안내" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmp-L2-GTU">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📢 문덕이 서비스 운영 변경 안내" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmp-L2-GTU">
                                     <rect key="frame" x="0.0" y="0.0" width="304" height="29.666666666666668"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="20"/>
                                     <color key="textColor" name="Black"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lI4-J5-tCn">
-                                    <rect key="frame" x="0.0" y="49.666666666666657" width="304" height="227.99999999999997"/>
-                                    <string key="text">안녕하세요, 문덕이 서비스를 이용해 주시는 여러분께 안내드립니다.
+                                    <rect key="frame" x="0.0" y="49.666666666666671" width="304" height="248.66666666666663"/>
+                                    <string key="text">안녕하세요, 문덕이 팀입니다.
+2025년 2월 10일부터 문덕이 서비스의 서버 운영이 중단됨에 따라 아래와 같은 변경 사항이 있습니다.
 
-2025년 2월 10일부터 문덕이 서비스의 서버 운영이 중단됨에 따라, 기존에 작성된 모든 기록이 초기화될 예정입니다. 서비스 이용에 불편을 끼쳐드려 죄송합니다.
+1. 서버 동기화 기능 중단 : 앱을 삭제하면 기록 데이터도 자동 초기화됩니다.
+2. 기존 기록 데이터 삭제 : 2025년 2월 10일 이전의 모든 기록이 삭제되었습니다.
 
-더 나은 서비스로 다시 찾아뵐 수 있도록 노력하겠습니다.
-감사합니다.</string>
+이용에 참고 부탁드리며, 앞으로 더 좋은 서비스를 제공할 수 있도록 최선을 다하겠습니다.
+문덕이 팀 드림.</string>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
                                     <color key="textColor" name="Black"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* 자세한 내용은 [마이페이지 - 설정 - 공지사항]을 확인해주세요." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2LH-kZ-YC5">
-                                    <rect key="frame" x="0.0" y="307.66666666666669" width="304" height="35.666666666666686"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*문의는 [마이페이지 - 설정 - 문의하기]를 이용해주세요." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2LH-kZ-YC5">
+                                    <rect key="frame" x="0.0" y="328.33333333333337" width="304" height="18"/>
                                     <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="12"/>
                                     <color key="textColor" name="Gray1"/>
                                     <nil key="highlightedColor"/>

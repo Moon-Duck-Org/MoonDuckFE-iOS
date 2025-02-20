@@ -15,6 +15,7 @@ enum UserDefaultsKeys: String {
     case nickname = "moonduck_nickname"
     case appInstalledAt = "moonduck_appInstalledAt"
     case isPush = "moonduck_isPush"
+    case lastNoticeVersion = "moonduck_lastNoticeVersion"
 }
 
 class AppUserDefaults {

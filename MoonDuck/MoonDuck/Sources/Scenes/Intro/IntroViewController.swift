@@ -79,7 +79,7 @@ extension IntroViewController {
     }
     
     func showNoticePopup() {
-        guard let view = UINib.init(nibName: "NoticePopupView", bundle: nil).instantiate(withOwner: self, options: nil).first as? NoticePopupView else { return }
+        guard let view = UINib(nibName: "NoticePopupView", bundle: nil).instantiate(withOwner: self, options: nil).first as? NoticePopupView else { return }
         
         DispatchQueue.main.async {
             view.frame = self.view.bounds
