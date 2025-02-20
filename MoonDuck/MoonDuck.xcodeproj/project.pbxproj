@@ -86,6 +86,9 @@
 		EA7FA7072D6494AF00577D69 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7FA7062D6494AF00577D69 /* Review.swift */; };
 		EA7FA7082D6494AF00577D69 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7FA7062D6494AF00577D69 /* Review.swift */; };
 		EA7FA7092D6494AF00577D69 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7FA7062D6494AF00577D69 /* Review.swift */; };
+		EA7FA7142D671EBB00577D69 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7FA7132D671EBB00577D69 /* ImageManager.swift */; };
+		EA7FA7152D671EBB00577D69 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7FA7132D671EBB00577D69 /* ImageManager.swift */; };
+		EA7FA7162D671EBB00577D69 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7FA7132D671EBB00577D69 /* ImageManager.swift */; };
 		EA810A362C17253F00DF6C72 /* ProgramSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA810A342C17253F00DF6C72 /* ProgramSearchViewController.swift */; };
 		EA810A372C17253F00DF6C72 /* ProgramSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA810A352C17253F00DF6C72 /* ProgramSearchViewController.xib */; };
 		EA810A392C17269800DF6C72 /* ProgramSearchViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA810A382C17269800DF6C72 /* ProgramSearchViewPresenter.swift */; };
@@ -314,6 +317,7 @@
 		EA7C07352C2029C800563264 /* SearchConcertResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConcertResponse.swift; sourceTree = "<group>"; };
 		EA7D2B8E2D62519F004E77C4 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		EA7FA7062D6494AF00577D69 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		EA7FA7132D671EBB00577D69 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		EA810A342C17253F00DF6C72 /* ProgramSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchViewController.swift; sourceTree = "<group>"; };
 		EA810A352C17253F00DF6C72 /* ProgramSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgramSearchViewController.xib; sourceTree = "<group>"; };
 		EA810A382C17269800DF6C72 /* ProgramSearchViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramSearchViewPresenter.swift; sourceTree = "<group>"; };
@@ -970,6 +974,7 @@
 				EA9E1AC32C2ACB8E001C7706 /* Constants.swift */,
 				EA9E1AC62C2ACD0B001C7706 /* Utils.swift */,
 				EA7208522C1290C700E96212 /* AuthManager.swift */,
+				EA7FA7132D671EBB00577D69 /* ImageManager.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1542,6 +1547,7 @@
 				A0E657FD2BFE22B7001A8D54 /* SceneDelegate.swift in Sources */,
 				EAB6E65F2C17F9B000A9E191 /* Array+Extension.swift in Sources */,
 				EA81F4A92BFF716600FDC7A7 /* Category.swift in Sources */,
+				EA7FA7142D671EBB00577D69 /* ImageManager.swift in Sources */,
 				EAF78F052C148BE700EFBCB0 /* RadiusButton.swift in Sources */,
 				EACCDA0A2C353CF600D9ADAD /* SettingViewPresenter.swift in Sources */,
 				EA8495332C36265F00112EDB /* WithdrawViewController.swift in Sources */,
@@ -1572,6 +1578,7 @@
 				EA88C2CB2D59DB62006651E0 /* AppRealm.swift in Sources */,
 				EAA2B19C2D5F81EB00048AAB /* APIAppModels.swift in Sources */,
 				EAA2B1922D5CF58600048AAB /* ReviewStorage.swift in Sources */,
+				EA7FA7152D671EBB00577D69 /* ImageManager.swift in Sources */,
 				EA7D2B902D62519F004E77C4 /* ReviewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1583,6 +1590,7 @@
 				A0E6581E2BFE22BA001A8D54 /* MoonDuckUITestsLaunchTests.swift in Sources */,
 				EA88C2CC2D59DB62006651E0 /* AppRealm.swift in Sources */,
 				EAA2B1972D5F815700048AAB /* BaseViewPresenter.swift in Sources */,
+				EA7FA7162D671EBB00577D69 /* ImageManager.swift in Sources */,
 				EAA2B19D2D5F81EB00048AAB /* APIAppModels.swift in Sources */,
 				A0E6581C2BFE22BA001A8D54 /* MoonDuckUITests.swift in Sources */,
 				EA7D2B912D62519F004E77C4 /* ReviewModel.swift in Sources */,

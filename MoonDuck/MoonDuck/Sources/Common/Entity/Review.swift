@@ -19,9 +19,9 @@ struct Review {
     var title: String
     var link: String?
     var content: String
-    var imageUrlList: [String]
+    var imagePaths: [String]
     
-    init(id: ObjectId?, rating: Int, createdAt: String, category: Category, program: Program, title: String, link: String?, content: String, imageUrlList: [String]) {
+    init(id: ObjectId?, rating: Int, createdAt: String, category: Category, program: Program, title: String, link: String?, content: String, imagePaths: [String]) {
         self.id = id
         self.rating = rating
         self.createdAt = createdAt
@@ -30,7 +30,7 @@ struct Review {
         self.title = title
         self.link = link
         self.content = content
-        self.imageUrlList = imageUrlList
+        self.imagePaths = imagePaths
     }
     
     init(realm: RealmReview) {
@@ -42,6 +42,6 @@ struct Review {
         self.title = realm.title
         self.link = realm.link
         self.content = realm.content
-        self.imageUrlList = [realm.image1, realm.image2, realm.image3, realm.image4, realm.image5].filter { $0.isNotEmpty }
+        self.imagePaths = [realm.image1, realm.image2, realm.image3, realm.image4, realm.image5].filter { $0.isNotEmpty }
     }
 }

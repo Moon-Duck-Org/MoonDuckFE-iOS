@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import RealmSwift
 
 protocol ReviewModelDelegate: AnyObject {
@@ -48,8 +49,8 @@ protocol ReviewModelType: AnyObject {
     func loadReviews(with category: Category, sort: Sort)
     func getReview(_ id: ObjectId)
     func deleteReview(for review: Review)
-    func writeReview(for review: Review)
-    func editReview(for review: Review)
+    func writeReview(for review: Review, with images: [UIImage])
+    func editReview(for review: Review, with images: [UIImage])
 }
 
 class ReviewModel: ReviewModelType {
@@ -117,51 +118,69 @@ class ReviewModel: ReviewModelType {
         }
     }
     
-    func writeReview(for review: Review) {
-        
-        let realm = RealmReview()
-        realm.rating = review.rating
-        realm.categoryKey = review.category.apiKey
-        realm.programTitle = review.program.title
-        realm.programSubTitle = review.program.subInfo
-        realm.title = review.title
-        realm.link = review.link ?? ""
-        realm.content = review.content
-        
-        if review.imageUrlList.count > 0 { realm.image1 = review.imageUrlList[0] }
-        if review.imageUrlList.count > 1 { realm.image2 = review.imageUrlList[1] }
-        if review.imageUrlList.count > 2 { realm.image3 = review.imageUrlList[2] }
-        if review.imageUrlList.count > 3 { realm.image4 = review.imageUrlList[3] }
-        if review.imageUrlList.count > 4 { realm.image5 = review.imageUrlList[4] }
-        
-        provider.reviewStorage.add(realm)
-        delegate?.writeReview(self, didSuccess: review)
+    func writeReview(for review: Review, with images: [UIImage]) {
+        let realmReview = createRealmReview(from: review)
+        provider.reviewStorage.add(realmReview)
+
+        guard !images.isEmpty else {
+            delegate?.writeReview(self, didSuccess: review)
+            return
+        }
+
+        ImageManager.shared.saveImages(images: images, reviewID: realmReview.id.stringValue) { [weak self] paths in
+            self?.updateReview(with: realmReview, paths: paths, review: review)
+        }
     }
     
-    func editReview(for review: Review) {
-        guard let id = review.id else { return }
-        
-        let realm = RealmReview()
-        realm.id = id
-        realm.rating = review.rating
-        realm.title = review.title
-        realm.link = review.link ?? ""
-        realm.content = review.content
-        realm.modifiedAt = Date()
-        
-        if review.imageUrlList.count > 0 { realm.image1 = review.imageUrlList[0] }
-        if review.imageUrlList.count > 1 { realm.image2 = review.imageUrlList[1] }
-        if review.imageUrlList.count > 2 { realm.image3 = review.imageUrlList[2] }
-        if review.imageUrlList.count > 3 { realm.image4 = review.imageUrlList[3] }
-        if review.imageUrlList.count > 4 { realm.image5 = review.imageUrlList[4] }
-        
-        provider.reviewStorage.update(for: realm) { [weak self] isSuccess in
+    private func createRealmReview(from review: Review) -> RealmReview {
+        let realmReview = RealmReview()
+        realmReview.rating = review.rating
+        realmReview.categoryKey = review.category.apiKey
+        realmReview.programTitle = review.program.title
+        realmReview.programSubTitle = review.program.subInfo
+        realmReview.title = review.title
+        realmReview.link = review.link ?? ""
+        realmReview.content = review.content
+        return realmReview
+    }
+    
+    private func updateReview(with realmReview: RealmReview, paths: [String], review: Review) {
+        Log.info("✅ 저장된 이미지 경로: \(paths)")
+        provider.reviewStorage.updateImages(for: realmReview, with: paths) { [weak self] isSuccess in
             guard let self else { return }
             if isSuccess {
-                delegate?.editReview(self, didSuccess: review)
+                delegate?.writeReview(self, didSuccess: review)
             } else {
-                delegate?.didFailToEditReview(self)
+                delegate?.didFailToWriteReview(self)
             }
         }
     }
+    
+    func editReview(for review: Review, with images: [UIImage]) {
+        guard let id = review.id else { return }
+        
+        let realmReview = createRealmReview(from: review)
+        realmReview.id = id
+        realmReview.modifiedAt = Date()
+
+        guard !images.isEmpty else {
+            updateReview(with: realmReview, paths: [], review: review)
+            return
+        }
+
+        ImageManager.shared.saveImages(images: images, reviewID: id.stringValue) { [weak self] paths in
+            guard let self else { return }
+            applyImagePaths(to: realmReview, with: paths)
+            updateReview(with: realmReview, paths: paths, review: review)
+        }
+    }
+    
+    private func applyImagePaths(to realmReview: RealmReview, with paths: [String]) {
+        let imageKeys = [\RealmReview.image1, \.image2, \.image3, \.image4, \.image5]
+        
+        for (index, keyPath) in imageKeys.enumerated() {
+            realmReview[keyPath: keyPath] = paths.indices.contains(index) ? paths[index] : ""
+        }
+    }
+
 }

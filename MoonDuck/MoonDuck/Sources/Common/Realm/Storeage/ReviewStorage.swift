@@ -107,4 +107,29 @@ class ReviewStorage {
             completion(false)
         }
     }
+    
+    func updateImages(for edit: RealmReview, with paths: [String], completion: @escaping (Bool) -> Void) {
+        if let review = realm.fetch(RealmReview.self, primaryKey: edit.id) {
+            realm.update {
+                let imageKeys = [\RealmReview.image1, \.image2, \.image3, \.image4, \.image5]
+                
+                for (index, keyPath) in imageKeys.enumerated() {
+                    review[keyPath: keyPath] = paths.indices.contains(index) ? paths[index] : ""
+                }
+                
+            } completion: { isSuccess, _ in
+                completion(isSuccess)
+            }
+        } else {
+            completion(false)
+        }
+    }
+    
+    private func applyImagePaths(to realmReview: RealmReview, with paths: [String]) {
+        let imageKeys = [\RealmReview.image1, \.image2, \.image3, \.image4, \.image5]
+        
+        for (index, keyPath) in imageKeys.enumerated() {
+            realmReview[keyPath: keyPath] = paths.indices.contains(index) ? paths[index] : ""
+        }
+    }
 }

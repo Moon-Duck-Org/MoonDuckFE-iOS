@@ -206,6 +206,7 @@ extension WriteReviewViewPresenter {
         }
         
         // TODO: Image
+        
         if let edit = editReview {
             AnalyticsService.shared.logEvent(
                 .TAP_EDIT_REIVEW_COMPLETE,
@@ -224,10 +225,11 @@ extension WriteReviewViewPresenter {
                 title: title,
                 link: linkText ?? "",
                 content: content,
-                imageUrlList: []
-                
+                imagePaths: []
             )
-            model.reviewModel?.editReview(for: review)
+            
+            model.reviewModel?.editReview(for: review, with: images)
+            
         } else if let program {
             AnalyticsService.shared.logEvent(
                 .TAP_WRITE_REIVEW_COMPLETE,
@@ -245,9 +247,10 @@ extension WriteReviewViewPresenter {
                 title: title,
                 link: linkText ?? "",
                 content: content,
-                imageUrlList: []
+                imagePaths: []
             )
-            model.reviewModel?.writeReview(for: review)
+            
+            model.reviewModel?.writeReview(for: review, with: images)
         }
     }
     

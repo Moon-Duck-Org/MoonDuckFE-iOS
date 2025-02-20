@@ -113,7 +113,7 @@ extension ReviewDetailViewController {
         imageDataSource?.configure(with: imageCollectionView)
         imageCollectionView.reloadData()
         
-        if review.imageUrlList.count > 0 {
+        if review.imagePaths.count > 0 {
             imageCollectionView.isHidden = false
             imageViewHeightConstraint.constant = getImageSizeForRatioDynamic(with: imageCollectionView).height
             

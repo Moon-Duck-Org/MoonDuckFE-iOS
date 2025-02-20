@@ -73,7 +73,7 @@ class HomeReviewTableViewCell: UITableViewCell {
         imageDataSource?.configure(with: imageCollectionView, tappedHandler: tappedHandler)
         imageCollectionView.reloadData()
         
-        if review.imageUrlList.count > 0 {
+        if review.imagePaths.count > 0 {
             imageCollectionView.isHidden = false
             imageHeightConstraint.constant = getImageSizeForRatioDynamic(with: imageCollectionView).height
             
