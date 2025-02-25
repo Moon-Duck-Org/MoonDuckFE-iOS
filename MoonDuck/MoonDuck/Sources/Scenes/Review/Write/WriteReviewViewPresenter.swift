@@ -136,7 +136,6 @@ extension WriteReviewViewPresenter {
             view?.updateRating(for: review.rating)
             rating = review.rating
             
-            // TODO: Image
             for path in review.imagePaths {
                 if let image = ImageManager.shared.downloadImage(path: path) {
                     images.append(image)
@@ -203,9 +202,7 @@ extension WriteReviewViewPresenter {
             view?.showToastMessage(L10n.Localizable.Write.emptyRatingMessage)
             return
         }
-        
-        // TODO: Image
-        
+                
         if let edit = editReview {
             AnalyticsService.shared.logEvent(
                 .TAP_EDIT_REIVEW_COMPLETE,

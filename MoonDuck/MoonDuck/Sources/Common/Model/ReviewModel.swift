@@ -118,17 +118,60 @@ class ReviewModel: ReviewModelType {
         }
     }
     
+    // 리뷰 작성
     func writeReview(for review: Review, with images: [UIImage]) {
+        // 1. Realm Review 생성
         let realmReview = createRealmReview(from: review)
+        // 2. Realm Review 추가
         provider.reviewStorage.add(realmReview)
 
         guard !images.isEmpty else {
+            // 3. image가 없을 경우, delegate 호출
             delegate?.writeReview(self, didSuccess: review)
             return
         }
 
+        // 3. image가 있을 경우, 생성된 id로 FileManager Image 저장 -> Path Return
         ImageManager.shared.saveImages(images: images, reviewID: realmReview.id.stringValue) { [weak self] paths in
-            self?.updateReview(with: realmReview, paths: paths, review: review)
+            // 4. Realm에 Image 정보 Update
+            self?.updateReviewImages(with: realmReview, paths: paths, review: review)
+        }
+    }
+    
+    // 리뷰 수정
+    func editReview(for review: Review, with images: [UIImage]) {
+        guard let id = review.id else { return }
+        
+        // 1. Realm Review 생성
+        let realmReview = createRealmReview(from: review)
+        // 2. 수정 될 Review Id 저장 + 수정 날짜 업데이트
+        realmReview.id = id
+        realmReview.modifiedAt = Date()
+
+        guard !images.isEmpty else {
+            // 3. image가 없을 경우, image 데이터 삭제
+            self.editReview(with: realmReview, paths: [], review: review)
+            return
+        }
+        
+        // 3. image가 있을 경우, 수정할 id로 FileManager Image 저장 -> Path Return
+        ImageManager.shared.saveImages(images: images, reviewID: id.stringValue) { [weak self] paths in
+            self?.editReview(with: realmReview, paths: paths, review: review)
+        }
+    }
+    
+    private func editReview(with realmReview: RealmReview, paths: [String], review: Review) {
+        // 1. Image Path Update
+        applyImagePaths(to: realmReview, with: paths)
+        // 2. Realm Update
+        provider.reviewStorage.update(for: realmReview) { [weak self] isSuccess in
+            guard let self else { return }
+            // 3. Delegate 호출
+            if isSuccess {
+                delegate?.editReview(self, didSuccess: review)
+            } else {
+                delegate?.didFailToEditReview(self)
+            }
         }
     }
     
@@ -144,7 +187,7 @@ class ReviewModel: ReviewModelType {
         return realmReview
     }
     
-    private func updateReview(with realmReview: RealmReview, paths: [String], review: Review) {
+    private func updateReviewImages(with realmReview: RealmReview, paths: [String], review: Review) {
         Log.info("✅ 저장된 이미지 경로: \(paths)")
         provider.reviewStorage.updateImages(for: realmReview, with: paths) { [weak self] isSuccess in
             guard let self else { return }
@@ -153,25 +196,6 @@ class ReviewModel: ReviewModelType {
             } else {
                 delegate?.didFailToWriteReview(self)
             }
-        }
-    }
-    
-    func editReview(for review: Review, with images: [UIImage]) {
-        guard let id = review.id else { return }
-        
-        let realmReview = createRealmReview(from: review)
-        realmReview.id = id
-        realmReview.modifiedAt = Date()
-
-        guard !images.isEmpty else {
-            updateReview(with: realmReview, paths: [], review: review)
-            return
-        }
-
-        ImageManager.shared.saveImages(images: images, reviewID: id.stringValue) { [weak self] paths in
-            guard let self else { return }
-            applyImagePaths(to: realmReview, with: paths)
-            updateReview(with: realmReview, paths: paths, review: review)
         }
     }
     
