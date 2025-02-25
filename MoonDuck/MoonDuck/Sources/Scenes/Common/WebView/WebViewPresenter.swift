@@ -19,10 +19,10 @@ protocol WebPresenter: AnyObject {
 class WebViewPresenter: BaseViewPresenter, WebPresenter {
     weak var view: WebView?
     private let title: String
-    private let url: String
+    private let path: String
     
-    init(with provider: AppStorages, title: String, url: String) {
-        self.url = url
+    init(with provider: AppStorages, title: String, path: String) {
+        self.path = path
         self.title = title
         super.init(with: provider, model: AppModels())
     }
@@ -33,9 +33,8 @@ extension WebViewPresenter {
     // MARK: - Life Cycle
     func viewDidLoad() {
         view?.updateTitleLabelText(with: title)
-        if let loadUrl = URL(string: url) {
-            view?.loadWebView(with: loadUrl)
-        }
+        let loadUrl = URL(fileURLWithPath: path)
+        view?.loadWebView(with: loadUrl)
     }
     
     // MARK: - Action

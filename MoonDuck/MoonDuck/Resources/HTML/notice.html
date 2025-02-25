@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문덕이 서비스 신규 공지사항</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #000;
+        }
+        .container {
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 16px;
+            box-sizing: border-box;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .header h1 {
+            font-size: 15px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .date {
+            font-size: 12px;
+            color: #979797;
+            margin-bottom: 20px;
+        }
+        .content {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .details {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-weight: bold;
+        }
+        .details p {
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .details ul li {
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.4; /* 줄 간격을 줄이기 */
+        }
+
+        .details ul li::before {
+            content: "";  /* 기본적으로 "-" 추가 */
+            margin-right: 8px;
+            font-weight: bold;
+        }
+        /* 특정 항목의 "-" 제거 */
+        .details ul li.no-bullet::before {
+            content: "";
+        }
+        .footer {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #000;
+        }
+        .footer p {
+            margin-bottom: 16px;
+        }
+        .footer p:last-child {
+            font-weight: normal;
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 12px;
+            }
+            .header h1 {
+                font-size: 14px;
+            }
+            .date {
+                font-size: 11px;
+            }
+            .content, .details, .footer {
+                font-size: 12px;
+                line-height: 1.5;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 13px;
+            }
+            .date {
+                font-size: 10px;
+            }
+            .content, .details, .footer {
+                font-size: 11px;
+                line-height: 1.4;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📢 문덕이 서비스 신규 공지사항</h1>
+    </div>
+    <div class="date">2025-02-17</div>
+    <div class="content">
+        안녕하세요, 문덕이 팀입니다.<br>
+        항상 문덕이를 이용해 주시는 사용자 여러분께 감사드립니다.
+        내부 운영상의 사정으로 인해 문덕이 서비스의 <strong><u>서버 운영을 2월 10일부로 중단</u></strong>하게 되었습니다.
+        이에 따라 아래와 같은 변화가 있을 예정이오니, 서비스 이용에 참고해 주시길 바랍니다.
+    </div>
+    <div class="details">
+        <p>■ 주요 변경 사항</p>
+        <ul>
+            <li>1. 앞으로는 서버 동기화가 되지 않으며, 앱을 삭제하면 기존 기록 데이터도 함께 사라집니다.</li>
+            <li>2. 2025년 2월 10일 이전의 모든 기록 데이터는 삭제되었습니다.</li>
+        </ul>
+    </div>
+    <div class="footer">
+        <p>감사합니다.<br>문덕이 팀 드림.</p>
+    </div>
+</div>
+</body>
+</html>

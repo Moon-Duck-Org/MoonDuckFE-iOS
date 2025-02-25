@@ -15,6 +15,8 @@ class Constants {
     static let appScheme: String = "moonduck"
     static let appStoreId: String = "id6502997117"
     
+    // FIXME: - Legacy API
+    // =============================
     static let kakaoAppKey: String = Bundle.main.object(forInfoDictionaryKey: "KakaoAppKey") as? String ?? ""
     static let searchMovieKey: String = Bundle.main.object(forInfoDictionaryKey: "SearchMovieApiKey") as? String ?? ""
     static let searchConcertKey: String = Bundle.main.object(forInfoDictionaryKey: "SearchConcertApiKey") as? String ?? ""
@@ -26,8 +28,13 @@ class Constants {
     static func getSharePath(with boardId: String) -> String {
         return MoonDuckAPI.baseUrl() + "/share/\(boardId)"
     }
-    
     static let signInAppleKeyId: String = Bundle.main.object(forInfoDictionaryKey: "SignInAppleKeyId") as? String ?? ""
+    // =============================
+    
+    static let termsOfServicePath = Bundle.main.path(forResource: "contract", ofType: "html")
+    static let privacyPolicyPath = Bundle.main.path(forResource: "privacy", ofType: "html")
+    static let noticePath = Bundle.main.path(forResource: "notice", ofType: "html")
+    
     static let teamId: String = Bundle.main.object(forInfoDictionaryKey: "TeamId") as? String ?? ""
     
     static var appBundleId: String {

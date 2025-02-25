@@ -62,17 +62,19 @@ extension SettingViewPresenter {
     
     // MARK: - Action
     func termsOfServiceButtonTapped() {
-//        let title = L10n.Localizable.Title.service
-//        let url = Constants.termsOfServiceUrl
-//        let presenter = WebViewPresenter(with: provider, title: title, url: url)
-//        view?.moveWebview(with: presenter)
+        let title = L10n.Localizable.Title.service
+        if let path = Constants.termsOfServicePath {
+            let presenter = WebViewPresenter(with: provider, title: title, path: path)
+            view?.moveWebview(with: presenter)
+        }
     }
     
     func privacyPolicyButtonTapped() {
-//        let title = L10n.Localizable.Title.policy
-//        let url = Constants.privacyPolicyUrl
-//        let presenter = WebViewPresenter(with: provider, title: title, url: url)
-//        view?.moveWebview(with: presenter)        
+        let title = L10n.Localizable.Title.policy
+        if let path = Constants.privacyPolicyPath {
+            let presenter = WebViewPresenter(with: provider, title: title, path: path)
+            view?.moveWebview(with: presenter)
+        }
     }
     
     func appVersionButtonTapped() {
@@ -81,10 +83,11 @@ extension SettingViewPresenter {
     }
     
     func noticeButtonTapped() {
-//        let title = L10n.Localizable.Title.notice
-//        let url = Constants.noticeUrl
-//        let presenter = WebViewPresenter(with: provider, title: title, url: url)
-//        view?.moveWebview(with: presenter)
+        let title = L10n.Localizable.Title.notice
+        if let path = Constants.noticePath {
+            let presenter = WebViewPresenter(with: provider, title: title, path: path)
+            view?.moveWebview(with: presenter)
+        }
     }
     
     func withdrawButtonTapped() {

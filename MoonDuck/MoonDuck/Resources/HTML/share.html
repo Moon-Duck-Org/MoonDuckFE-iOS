@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/favicon.png}" type="image/png">
+    <title>기록 상세</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;700&display=swap">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script>
+        function openApp() {
+            var appLink = "moonduck://";
+            var storeLink = "https://apps.apple.com/app/id6502997117";
+
+            window.location.href = appLink;
+            // 일정 시간 후에 스토어로 이동
+            setTimeout(function() {
+                window.location.href = storeLink;
+            }, 500); // 1초 후에 스토어로 이동
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img th:src="@{/images/logo.png}" alt="Logo">
+        <span>앱에서 더 많은 정보를 확인</span>
+        <button onclick="openApp();">앱 설치</button>
+    </div>
+    <div class="separator"></div>
+    <h2>기록 상세</h2>
+    <div class="content-title">
+        <img th:if="${data.category == '영화'}" th:src="@{/images/movie.png}" alt="Movie Image">
+        <img th:if="${data.category == '드라마'}" th:src="@{/images/drama.png}" alt="Drama Image">
+        <img th:if="${data.category == '공연'}" th:src="@{/images/concert.png}" alt="Concert Image">
+        <img th:if="${data.category == '책'}" th:src="@{/images/book.png}" alt="Book Image">
+    </div>
+
+    <div class="program-details">
+        <!-- program이 null이 아닌 경우 -->
+        <div th:if="${data.program != null}">
+            <div class="program-title" th:text="${data.program.title}">프로그램 제목</div>
+            <div class="program-details">
+                <div th:if="${data.category == '영화'}">
+                    <span th:text="${data.program.date}"></span>
+                    <span th:text="${data.program.genre}">Genre: Action</span>
+                    <span th:text="${data.program.director}">Director: John Doe</span>
+                </div>
+                <div th:if="${data.category == '드라마'}">
+                    <span th:text="${data.program.date}"></span>
+                    <span th:text="${data.program.genre}">Genre: Drama</span>
+                </div>
+                <div th:if="${data.category == '공연'}">
+                    <span th:text="${data.program.date}"></span>
+                    <span th:text="${data.program.place}">Place: Theatre</span>
+                    <span th:text="${data.program.genre}">Genre: Concert</span>
+                </div>
+                <div th:if="${data.category == '책'}">
+                    <span th:text="${data.program.date}"></span>
+                    <span th:text="${data.program.author}">Author: Jane Doe</span>
+                    <span th:text="${data.program.publisher}">Publisher: ABC</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- program이 null인 경우 -->
+        <div th:if="${data.program == null}">
+            <div class="program-title"></div>
+            <div class="program-details-row">
+                <div>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 별점 -->
+    <div class="score">
+        <span th:each="i : ${#numbers.sequence(1, 5)}">
+            <img th:src="@{${i <= data.score} ? '/images/star.png' : '/images/unstar.png'}" alt="Star">
+        </span>
+    </div>
+
+    <h2 class="title" th:text="${data.title}"></h2>
+    <div class="date" th:text="${data.createdAt}"></div>
+    <div class="description" th:text="${data.content}"></div>
+
+    <div th:if="${data.image != null}" class="image-container">
+        <img th:src="${data.image}" alt="이미지 설명">
+    </div>
+
+</div>
+</body>
+</html>
