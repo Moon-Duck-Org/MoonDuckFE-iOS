@@ -29,6 +29,7 @@ extension MyInfoViewPresenter {
     func viewDidLoad() {
         AnalyticsService.shared.logEvent(.VIEW_MY)
         view?.updateNameLabelText(with: model.userModel?.nickname ?? "")
+        view?.updateCountLabels(with: model.reviewModel?.countReviews() ?? [:])
     }
     
     func viewWillAppear() {
@@ -44,12 +45,12 @@ extension MyInfoViewPresenter {
         view?.presentNameSetting(with: presenter)
     }
     
-//    func logoutButtonTapped() {
+    func logoutButtonTapped() {
 //        let snsType = AuthManager.shared.getLoginType()?.rawValue ?? ""
 //        AnalyticsService.shared.logEvent(.TAP_LOGOUT, parameters: [.SNS_TYPE: snsType])
 //        AuthManager.shared.logout()
 //        moveLogin()
-//    }
+    }
     
     func settingButtonTapped() {
         let appModel = AppModels(
@@ -66,14 +67,6 @@ extension MyInfoViewPresenter {
 //        )
 //        let presenter = LoginViewPresenter(with: provider, model: appModel)
 //        self.view?.moveLogin(with: presenter)
-    }
-
-    private func updateNotification() {
-//        guard let user = model.userModel?.user else { return }
-//        
-//        if user.isPush {
-//            AppNotification.resetAndScheduleNotification(with: user.nickname)
-//        }
     }
 }
 

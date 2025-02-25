@@ -19,6 +19,25 @@ class ReviewStorage {
         return realm.fetch(RealmReview.self)?.count ?? 0
     }
     
+    func countReviews() -> [Category: Int] {
+        guard let reviews = realm.fetch(RealmReview.self) else {
+            return [:]
+        }
+        
+        let totalCount = reviews.count
+        var categoryCounts: [Category: Int] = [:]
+        
+        for category in Category.allCases {
+            if category == .all {
+               categoryCounts[category] = totalCount
+            } else {
+                categoryCounts[category] = reviews.filter { $0.categoryKey == category.apiKey }.count
+            }
+        }
+        
+        return categoryCounts
+    }
+    
     func getReview(for id: ObjectId) -> RealmReview? {
         if let review = realm.fetch(RealmReview.self, primaryKey: id) {
             return review

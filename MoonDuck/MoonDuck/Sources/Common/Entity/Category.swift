@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum Category: String {
+enum Category: String, CaseIterable {
     case all = "ALL"
     case movie = "MOVIE"
     case book = "BOOK"

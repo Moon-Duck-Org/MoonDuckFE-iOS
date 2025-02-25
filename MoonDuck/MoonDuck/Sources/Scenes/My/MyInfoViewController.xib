@@ -394,7 +394,7 @@
                         <constraint firstItem="Ghx-Gh-0ym" firstAttribute="top" secondItem="jpx-sn-f9h" secondAttribute="bottom" constant="10" id="yDq-Pl-G8Z"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xc3-BP-SvN" customClass="RadiusButton" customModule="MoonDuck" customModuleProvider="target">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xc3-BP-SvN" customClass="RadiusButton" customModule="MoonDuck" customModuleProvider="target">
                     <rect key="frame" x="16" y="800" width="382" height="56"/>
                     <color key="backgroundColor" name="Gray3"/>
                     <constraints>

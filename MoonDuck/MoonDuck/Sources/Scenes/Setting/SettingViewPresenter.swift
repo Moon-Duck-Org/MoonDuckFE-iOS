@@ -108,7 +108,7 @@ extension SettingViewPresenter {
         AnalyticsService.shared.logEvent(isOn ? .TAP_SETTING_PUSH_ON : .TAP_SETTING_PUSH_OFF)
         
         model.userModel?.setPush(isPush: isOn)
-        notificationSetting(isPush: isOn)
+        updateNotification(isPush: isOn)
     }
     
     // MARK: - Logic
@@ -126,7 +126,7 @@ extension SettingViewPresenter {
         }
     }
     
-    private func notificationSetting(isPush: Bool) {
+    private func updateNotification(isPush: Bool) {
         let nickname = model.userModel?.nickname ?? "사용자"
         
         let today = Utils.getToday()

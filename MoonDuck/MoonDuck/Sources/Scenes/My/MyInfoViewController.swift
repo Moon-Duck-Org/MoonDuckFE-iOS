@@ -10,8 +10,8 @@ import UIKit
 protocol MyInfoView: BaseView {
     // UI Logic
     func updateNameLabelText(with text: String)
-    func updateCountLabels(with all: Int, movie: Int, book: Int, drama: Int, concert: Int)
-    func updateSnsLogin(with type: SnsLoginType)
+    func updateCountLabels(with counts: [Category: Int])
+//    func updateSnsLogin(with type: SnsLoginType)
     
     // Navigation
     func dismiss()
@@ -89,18 +89,18 @@ extension MyInfoViewController {
         nameLabel.text = text
     }
     
-    func updateCountLabels(with all: Int, movie: Int, book: Int, drama: Int, concert: Int) {
-        allCountLabel.text = "\(all)"
-        movieCountLabel.text = "\(movie)"
-        bookCountLabel.text = "\(book)"
-        dramaCountLabel.text = "\(drama)"
-        concertCountLabel.text = "\(concert)"
+    func updateCountLabels(with counts: [Category: Int]) {
+        allCountLabel.text = "\(counts[.all] ?? 0)"
+        movieCountLabel.text = "\(counts[.movie] ?? 0)"
+        bookCountLabel.text = "\(counts[.book] ?? 0)"
+        dramaCountLabel.text = "\(counts[.drama] ?? 0)"
+        concertCountLabel.text = "\(counts[.concert] ?? 0)"
     }
     
-    func updateSnsLogin(with type: SnsLoginType) {
-        snsLoginLabel.text = "\(type.title) 간편 로그인"
-        snsLoginImageView.image = type.smallImage
-    }
+//    func updateSnsLogin(with type: SnsLoginType) {
+//        snsLoginLabel.text = "\(type.title) 간편 로그인"
+//        snsLoginImageView.image = type.smallImage
+//    }
 }
 
 // MARK: - Navigation

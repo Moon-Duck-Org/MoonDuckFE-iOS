@@ -421,7 +421,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="hZo-tz-VNT" secondAttribute="trailing" id="w7l-zR-Sg2"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Twn-kd-cQf">
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Twn-kd-cQf">
                                             <rect key="frame" x="16" y="110.66666666666663" width="361" height="44"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="탈퇴하기" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r1h-9r-dFw">

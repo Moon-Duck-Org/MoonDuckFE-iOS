@@ -44,6 +44,7 @@ protocol ReviewModelType: AnyObject {
     
     func numberOfReviews(with category: Category) -> Int
     func review(at index: Int) -> Review?
+    func countReviews() -> [Category: Int]
     
     // DateBase
     func loadReviews(with category: Category, sort: Sort)
@@ -80,6 +81,10 @@ class ReviewModel: ReviewModelType {
             return reviews[index]
         }
         return nil
+    }
+    
+    func countReviews() -> [Category: Int] {
+        return provider.reviewStorage.countReviews()
     }
     
     // MARK: - Logic

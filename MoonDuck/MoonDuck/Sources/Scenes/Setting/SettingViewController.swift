@@ -61,7 +61,7 @@ class SettingViewController: BaseViewController, SettingView {
         presenter.noticeButtonTapped()
     }
     @IBAction private func withdrawButtonTapped(_ sender: Any) {
-        presenter.withdrawButtonTapped()
+//        presenter.withdrawButtonTapped()
     }
     
     init(navigator: Navigator,

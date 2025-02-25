@@ -180,7 +180,8 @@ extension HomeViewPresenter {
     
     func myButtonTapped() {
         let appModel = AppModels(
-            userModel: model.userModel
+            userModel: model.userModel,
+            reviewModel: model.reviewModel
         )
         let presenter = MyInfoViewPresenter(with: provider, model: appModel)
         view?.moveMy(with: presenter)
@@ -237,14 +238,6 @@ extension HomeViewPresenter {
     private func updateData(with reviews: [Review]) {
         view?.updateReviewCountLabelText(with: "\(reviews.count)")
         view?.updateEmptyReviewsViewHidden(!reviews.isEmpty)
-    }
-    
-    private func moveMyInfo(with userModel: UserModel) {
-        let appModel = AppModels(
-            userModel: userModel
-        )
-        let presenter = MyInfoViewPresenter(with: provider, model: appModel)
-        view?.moveMy(with: presenter)
     }
     
     private func setReloadCategoryTrigger(with category: Category) {
