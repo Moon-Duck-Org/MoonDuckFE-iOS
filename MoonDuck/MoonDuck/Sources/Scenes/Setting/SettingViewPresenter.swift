@@ -34,12 +34,6 @@ class SettingViewPresenter: BaseViewPresenter, SettingPresenter {
     weak var view: SettingView?
     private weak var delegate: SettingPresenterDelegate?
     
-    override init(with provider: AppStorages,
-         model: AppModels) {
-        super.init(with: provider, model: model)
-        self.model.userModel?.delegate = self
-    }
-    
     // MARK: - Data
     var contractUs: ContractUs {
         let nickname = model.userModel?.nickname ?? ""
@@ -113,8 +107,8 @@ extension SettingViewPresenter {
         
         AnalyticsService.shared.logEvent(isOn ? .TAP_SETTING_PUSH_ON : .TAP_SETTING_PUSH_OFF)
         
-        view?.updateLoadingView(isLoading: true)
         model.userModel?.setPush(isPush: isOn)
+        notificationSetting(isPush: isOn)
     }
     
     // MARK: - Logic
@@ -123,7 +117,7 @@ extension SettingViewPresenter {
             guard let self else { return }
             
             if status == .authorized {
-//                self.view?.updatePushSwitchSetOn(self.model.userModel?.user?.isPush ?? false)
+                self.view?.updatePushSwitchSetOn(self.model.userModel?.isPush ?? false)
                 self.view?.updatePushLabelText(isAddOsString: false)
             } else {
                 self.view?.updatePushSwitchSetOn(false)
@@ -131,25 +125,17 @@ extension SettingViewPresenter {
             }
         }
     }
-}
-
-// MARK: - UserModelDelegate
-extension SettingViewPresenter: UserModelDelegate {
     
-    func userModel(_ model: UserModelType, didChange user: User) {
-        // Push 설정 성공
-//        view?.updateLoadingView(isLoading: false)
-//        
-//        guard let user else { return }
-//        delegate?.setting(self, didSuccess: user.isPush)
-//        
-//        let today = Utils.getToday()
-//        if user.isPush {
-//            AppNotification.resetAndScheduleNotification(with: user.nickname)
-//            view?.showToastMessage(L10n.Localizable.Push.onCompleteToast(today))
-//        } else {
-//            AppNotification.removeNotification()
-//            view?.showToastMessage(L10n.Localizable.Push.offCompleteToast(today))
-//        }
+    private func notificationSetting(isPush: Bool) {
+        let nickname = model.userModel?.nickname ?? "사용자"
+        
+        let today = Utils.getToday()
+        if isPush {
+            AppNotification.resetAndScheduleNotification(with: nickname)
+            view?.showToastMessage(L10n.Localizable.Push.onCompleteToast(today))
+        } else {
+            AppNotification.removeNotification()
+            view?.showToastMessage(L10n.Localizable.Push.offCompleteToast(today))
+        }
     }
 }

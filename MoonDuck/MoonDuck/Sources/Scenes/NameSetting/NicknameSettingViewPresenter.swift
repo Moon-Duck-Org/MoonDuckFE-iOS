@@ -39,8 +39,8 @@ class NicknameSettingViewPresenter: BaseViewPresenter, NicknameSettingPresenter 
     private var nicknameText: String?
     
     init(with provider: AppStorages,
-                  model: AppModels,
-                  delegate: NicknameSettingPresenterDelegate? = nil) {
+         model: AppModels,
+         delegate: NicknameSettingPresenterDelegate? = nil) {
         self.isNew = model.userModel?.nickname == nil
         self.delegate = delegate
         super.init(with: provider, model: model)
