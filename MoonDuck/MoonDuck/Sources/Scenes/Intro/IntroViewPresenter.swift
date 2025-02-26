@@ -101,6 +101,7 @@ extension IntroViewPresenter {
         if AppUserDefaults.getObject(forKey: .appInstalledAt) as? Date == nil {
             // 앱 첫 실행 시, 세팅
             AppUserDefaults.set(Date(), forKey: .appInstalledAt)
+            AppUserDefaults.set(true, forKey: .isPush)
         }
         
         let appModel = AppModels(
