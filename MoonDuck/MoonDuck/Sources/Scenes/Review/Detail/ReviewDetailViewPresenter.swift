@@ -87,11 +87,11 @@ extension ReviewDetailViewPresenter {
     
     // MARK: - Action
     func selectReviewImage(_ index: Int) {
-//        if let review, index < review.imageUrlList.count {
-//            let imageUrls = review.imageUrlList
-//            let presenter = ReviewDetailImageViewPresenter(with: provider, imageUrls: imageUrls, currentIndex: index)
-//            view?.moveDetailImage(with: presenter)
-//        }
+        if index < review.imagePaths.count {
+            let imageUrls = review.imagePaths
+            let presenter = ReviewDetailImageViewPresenter(with: provider, imageUrls: imageUrls, currentIndex: index)
+            view?.moveDetailImage(with: presenter)
+        }
     }
     
     // MARK: - Logic
