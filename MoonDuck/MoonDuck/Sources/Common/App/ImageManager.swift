@@ -34,38 +34,46 @@ class ImageManager {
         }
 
         dispatchGroup.notify(queue: .main) {
-            completion(savedPaths.filter { !$0.isEmpty }) // 빈 값 제거 후 반환
+            completion(savedPaths)
         }
     }
 
     func saveImage(image: UIImage, reviewID: String, index: Int, completion: @escaping ((String?) -> Void)) {
         guard (0...4).contains(index) else {
-            Log.error("Invalid index: \(index). Must be between 0 and 4.")
+            Log.error("❌ Invalid index: \(index). Must be between 0 and 4.")
             completion(nil)
             return
         }
         
+        let fileManager = FileManager.default
         let imageName = "review_\(reviewID)_\(index).jpg"
         
-        guard let data: Data = image.jpegData(compressionQuality: 1) ?? image.pngData() else {
+        guard let directory = try? fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
+            Log.error("❌ Document Directory를 찾을 수 없습니다.")
             completion(nil)
             return
         }
         
-        if let directory = try? FileManager.default.url(for: .documentDirectory,
-                                                        in: .userDomainMask,
-                                                        appropriateFor: nil,
-                                                        create: false) {
-            let fileURL = directory.appendingPathComponent(imageName)
-            
-            do {
-                try data.write(to: fileURL)
-                completion(fileURL.path) // 저장 성공 시 경로 반환
-            } catch let error as NSError {
-                Log.error("Could not saveImage🥺: \(error), \(error.userInfo)")
-                completion(nil)
+        let fileURL = directory.appendingPathComponent(imageName)
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.8) ?? image.pngData() else {
+            Log.error("❌ 이미지 데이터를 변환할 수 없습니다.")
+            completion(nil)
+            return
+        }
+        
+        do {
+            // 기존 파일이 있을 경우 덮어씌움
+            if fileManager.fileExists(atPath: fileURL.path) {
+                try fileManager.removeItem(at: fileURL)
+                Log.info("🔄 기존 이미지 삭제 후 새 파일 저장: \(fileURL)")
             }
-        } else {
+            
+            try imageData.write(to: fileURL, options: .atomic)
+            Log.info("✅ 이미지 저장 성공: \(fileURL.path)")
+            completion(fileURL.path)
+        } catch {
+            Log.error("❌ 이미지 저장 실패: \(error.localizedDescription)")
             completion(nil)
         }
     }
@@ -105,8 +113,33 @@ class ImageManager {
                 }
             }
         } catch let error as NSError {
-            print("Could not deleteImage🥺: \(error), \(error.userInfo)")
+            Log.error("Could not deleteImage🥺: \(error), \(error.userInfo)")
             completion(false)
         }
     }
+    
+    func deleteImages(names: [String]) {
+        let fileManager = FileManager.default
+        
+        guard let directory = try? fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
+            Log.error("❌ Document Directory를 찾을 수 없습니다.")
+            return
+        }
+        
+        for name in names {
+            let fileURL = directory.appendingPathComponent(name)
+            
+            if fileManager.fileExists(atPath: fileURL.path) {
+                do {
+                    try fileManager.removeItem(at: fileURL)
+                    Log.info("✅ 이미지 삭제 성공: \(name)")
+                } catch {
+                    Log.error("❌ 이미지 삭제 실패: \(name), 오류: \(error.localizedDescription)")
+                }
+            } else {
+                Log.info("⚠️ 이미지 없음, 삭제 스킵: \(name)")
+            }
+        }
+    }
+
 }

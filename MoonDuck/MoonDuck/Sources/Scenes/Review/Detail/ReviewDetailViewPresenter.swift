@@ -101,6 +101,7 @@ extension ReviewDetailViewPresenter {
 extension ReviewDetailViewPresenter: ReviewModelDelegate {
     func getReview(_ model: ReviewModelType, didSuccess review: Review) {
         view?.updateLoadingView(isLoading: false)
+        self.review = review
         view?.updateData(for: review)
     }
     

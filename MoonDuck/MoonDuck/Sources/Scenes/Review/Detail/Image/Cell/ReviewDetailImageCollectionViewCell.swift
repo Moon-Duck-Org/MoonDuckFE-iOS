@@ -12,22 +12,27 @@ class ReviewDetailImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var imageView: UIImageView!
     
     func configure(with imageUrl: String) {
-        let url = URL(fileURLWithPath: imageUrl)
+        let url = URL(fileURLWithPath: imageUrl) // 기존 코드
+
         imageView.kf.setImage(
             with: url,
             placeholder: Asset.Assets.imageEmpty.image,
             options: [
-                .transition(.fade(0.2))
+                .transition(.fade(0.2)),
+                .memoryCacheExpiration(.expired), // 메모리 캐시 비활성화
+                .diskCacheExpiration(.expired) // 디스크 캐시 비활성화
             ],
             completionHandler: { [weak self] result in
                 switch result {
                 case .success:
                     break
-                case .failure:
+                case .failure(let error):
+                    Log.error("❌ 이미지 로드 실패: \(error)")
                     self?.imageView.image = Asset.Assets.imageEmpty.image
                 }
             }
         )
+
     }
     
     override func prepareForReuse() {

@@ -15,11 +15,14 @@ class ReviewImageCollectionViewCell: UICollectionViewCell {
     func configure(with imageUrl: String) {
         
         let url = URL(fileURLWithPath: imageUrl)
+        
         imageView.kf.setImage(
             with: url,
             placeholder: Asset.Assets.imageEmpty.image,
             options: [
-                .transition(.fade(0.2))
+                .transition(.fade(0.2)),
+                .memoryCacheExpiration(.expired), // 메모리 캐시 비활성화
+                .diskCacheExpiration(.expired) // 디스크 캐시 비활성화
             ],
             completionHandler: { [weak self] result in
                 switch result {
