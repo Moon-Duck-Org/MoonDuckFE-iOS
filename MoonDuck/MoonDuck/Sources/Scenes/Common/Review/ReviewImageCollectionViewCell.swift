@@ -14,28 +14,34 @@ class ReviewImageCollectionViewCell: UICollectionViewCell {
     
     func configure(with imageUrl: String) {
         
-        let url = URL(fileURLWithPath: imageUrl)
+        let image = ImageManager.shared.downloadImage(path: imageUrl)
+        imageView.image = image ?? Asset.Assets.imageEmpty.image
         
-        imageView.kf.setImage(
-            with: url,
-            placeholder: Asset.Assets.imageEmpty.image,
-            options: [
-                .transition(.fade(0.2)),
-                .memoryCacheExpiration(.expired), // 메모리 캐시 비활성화
-                .diskCacheExpiration(.expired) // 디스크 캐시 비활성화
-            ],
-            completionHandler: { [weak self] result in
-                switch result {
-                case .success:
-                    break
-                case .failure:
-                    self?.imageView.image = Asset.Assets.imageEmpty.image
-                }
-                self?.imageView.clipsToBounds = true
-                self?.imageView.contentMode = .scaleAspectFill
-                self?.roundCornersAndAddBorder(radius: 12.0)
-            }
-        )
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        roundCornersAndAddBorder(radius: 12.0)
+        
+//        let url = URL(fileURLWithPath: imageUrl)
+//        imageView.kf.setImage(
+//            with: url,
+//            placeholder: Asset.Assets.imageEmpty.image,
+//            options: [
+//                .transition(.fade(0.2)),
+//                .memoryCacheExpiration(.expired), // 메모리 캐시 비활성화
+//                .diskCacheExpiration(.expired) // 디스크 캐시 비활성화
+//            ],
+//            completionHandler: { [weak self] result in
+//                switch result {
+//                case .success:
+//                    break
+//                case .failure:
+//                    self?.imageView.image = Asset.Assets.imageEmpty.image
+//                }
+//                self?.imageView.clipsToBounds = true
+//                self?.imageView.contentMode = .scaleAspectFill
+//                self?.roundCornersAndAddBorder(radius: 12.0)
+//            }
+//        )
     }
     
     override func prepareForReuse() {
