@@ -4,53 +4,9 @@ MoonDuck의 아키텍처 구조를 설명합니다.
 
 <br/>
 
-## 아키텍처 개요
+## 현재 아키텍처 (v1.1)
 
-MoonDuck은 MVP 패턴을 기반으로 합니다. 초기 버전(v1.0)에서는 서버 API와 통신하는 구조였으나, v1.1에서 Realm 기반 로컬 DB 구조로 전환했습니다.
-
-<br/>
-
-## v1.0 아키텍처 (API 기반)
-
-RESTful API 서버와 통신하는 클라이언트-서버 구조입니다.
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      Presentation Layer                     │
-│  ┌──────────────┐         ┌─────────────────────────────┐   │
-│  │ViewController│◄────────│         Presenter           │   │
-│  └──────────────┘         └─────────────────────────────┘   │
-└───────────────────────────────────┬─────────────────────────┘
-                                    │
-                                    ▼
-┌─────────────────────────────────────────────────────────────┐
-│                       Service Layer                         │
-│   ┌──────────────────────────────────────────────────┐      │
-│   │              AppServices (Container)             │      │
-│   │  ┌───────────┐ ┌───────────┐ ┌──────────────┐    │      │
-│   │  │AuthService│ │UserService│ │ReviewService │    │      │
-│   │  └───────────┘ └───────────┘ └──────────────┘    │      │
-│   └──────────────────────────────────────────────────┘      │
-└───────────────────────────────┬─────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────┐
-│                     API Router Layer                        │
-│                    MoonDuckAPI (Enum)                       │
-│         baseURL, method, path, parameters, headers          │
-└───────────────────────────────┬─────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   Network Layer (Alamofire)                 │
-└─────────────────────────────────────────────────────────────┘
-```
-
-<br/>
-
-## v1.1 아키텍처 (Realm 기반)
-
-서버 비용 문제로 로컬 DB 중심 구조로 전환했습니다.
+Realm 기반 로컬 DB 중심 구조입니다.
 
 ```
 ┌────────────────────────────────────────────────────────────┐
@@ -90,21 +46,23 @@ RESTful API 서버와 통신하는 클라이언트-서버 구조입니다.
 
 <br/>
 
-## MVP 패턴 구현
+## 계층별 역할
 
-### View - Presenter 연결
+### Presentation Layer
+
+| 구성요소 | 역할 |
+|:---|:---|
+| ViewController | UI 렌더링, 사용자 입력을 Presenter에 전달 |
+| Presenter | 비즈니스 로직 처리, View 업데이트 지시 |
 
 Protocol을 통해 View와 Presenter를 연결합니다.
 
 ```swift
-// View Protocol
 protocol HomeView: BaseView {
-    func updateReviewCountLabelText(with text: String)
     func reloadReviews()
     func moveReviewDetail(with presenter: ReviewDetailViewPresenter)
 }
 
-// Presenter Protocol
 protocol HomePresenter: AnyObject {
     var view: HomeView? { get set }
     var numberOfReviews: Int { get }
@@ -113,28 +71,50 @@ protocol HomePresenter: AnyObject {
 }
 ```
 
-### Delegate 패턴을 통한 데이터 동기화
+### Domain Layer
 
-Model의 변경을 Presenter가 감지하고 View를 업데이트합니다.
+| 구성요소 | 역할 |
+|:---|:---|
+| AppModels | Model 인스턴스들의 컨테이너 |
+| Model | 비즈니스 로직, 상태 관리, Delegate를 통한 변경 알림 |
+| Entity | 도메인 객체 (Review, Program, Category 등) |
 
 ```swift
-class HomeViewPresenter: BaseViewPresenter {
-    override init(with provider: AppStorages, model: AppModels) {
-        super.init(with: provider, model: model)
-        self.model.reviewModel?.delegate = self
-    }
+struct AppModels {
+    var userModel: UserModelType?
+    var categoryModel: CategoryModelType?
+    var sortModel: SortModelType?
+    var programSearchModel: ProgramSearchModelType?
+    var reviewModel: ReviewModelType?
 }
+```
 
-extension HomeViewPresenter: ReviewModelDelegate {
-    func didChangeReviews() {
-        view?.reloadReviews()
+### Storage Layer
+
+| 구성요소 | 역할 |
+|:---|:---|
+| AppStorages | Storage 인스턴스들의 컨테이너 |
+| ReviewStorage | Realm을 통한 리뷰 CRUD |
+| UserStorage | 사용자 정보 저장 |
+
+```swift
+class ReviewStorage {
+    private let realm: Realm
+    
+    func readAll() -> [Review] {
+        let objects = realm.objects(ReviewObject.self)
+        return objects.map { $0.toDomain() }
     }
 }
 ```
 
+<br/>
+
+## MVP 패턴 구현
+
 ### BaseViewPresenter
 
-공통 의존성을 관리하는 베이스 클래스입니다.
+모든 Presenter가 상속하는 베이스 클래스입니다. AppStorages와 AppModels를 주입받아 관리합니다.
 
 ```swift
 class BaseViewPresenter {
@@ -148,85 +128,48 @@ class BaseViewPresenter {
 }
 ```
 
-### AppModels 구조
+### Delegate를 통한 데이터 동기화
 
-비즈니스 로직을 담당하는 Model들의 컨테이너입니다.
+Model의 상태가 변경되면 Delegate를 통해 Presenter에 알리고, Presenter는 View를 업데이트합니다.
 
 ```swift
-struct AppModels {
-    var userModel: UserModelType?
-    var categoryModel: CategoryModelType?
-    var sortModel: SortModelType?
-    var programSearchModel: ProgramSearchModelType?
-    var reviewModel: ReviewModelType?
+class HomeViewPresenter: BaseViewPresenter {
+    override init(with provider: AppStorages, model: AppModels) {
+        super.init(with: provider, model: model)
+        self.model.categoryModel?.delegate = self
+        self.model.sortModel?.delegate = self
+        self.model.reviewModel?.delegate = self
+    }
 }
+
+extension HomeViewPresenter: ReviewModelDelegate {
+    func didChangeReviews() {
+        view?.reloadReviews()
+    }
+}
+```
+
+### 데이터 흐름
+
+```
+사용자 액션
+    ↓
+ViewController (입력 전달)
+    ↓
+Presenter (로직 처리)
+    ↓
+Model (상태 변경) ←→ Storage (Realm CRUD)
+    ↓
+Delegate 호출
+    ↓
+Presenter (View 업데이트 지시)
+    ↓
+ViewController (UI 반영)
 ```
 
 <br/>
 
-## Router 패턴 (v1.0)
-
-초기 버전에서 API 엔드포인트를 관리하던 방식입니다.
-
-```swift
-enum MoonDuckAPI {
-    case login(provider: String, token: String)
-    case getReviews(category: String, sort: String)
-    case postReview(title: String, content: String, rating: Int, images: [UIImage])
-}
-
-extension MoonDuckAPI: TargetType {
-    var baseURL: String {
-        return "https://api.moonduck.com"
-    }
-    
-    var method: HTTPMethod {
-        switch self {
-        case .login, .postReview: return .post
-        case .getReviews: return .get
-        }
-    }
-    
-    var path: String {
-        switch self {
-        case .login: return "/auth/login"
-        case .getReviews: return "/reviews"
-        case .postReview: return "/reviews"
-        }
-    }
-}
-```
-
-<br/>
-
-## DTO Mapping
-
-서버 응답과 도메인 모델을 분리합니다.
-
-```swift
-struct LoginResponse: Decodable {
-    let accessToken: String
-    let refreshToken: String
-    let userId: Int
-    
-    func toDomain() -> Token {
-        return Token(
-            accessToken: accessToken,
-            refreshToken: refreshToken
-        )
-    }
-}
-```
-
-데이터 플로우:
-
-```
-서버 JSON → ResponseDTO (Decodable) → toDomain() → Domain Model → View
-```
-
-<br/>
-
-## Realm Object 구조 (v1.1)
+## Realm Object 설계
 
 ```swift
 class ReviewObject: Object {
@@ -249,7 +192,7 @@ class ReviewObject: Object {
             id: id,
             rating: rating,
             createdAt: createdAt.formatted("yyyy-MM-dd"),
-            category: Category(rawValue: categoryKey) ?? .none,
+            category: Category(rawValue: category) ?? .movie,
             title: title,
             content: content,
             imagePaths: imagePaths
@@ -257,6 +200,45 @@ class ReviewObject: Object {
     }
 }
 ```
+
+이미지 경로를 `List<String>` 대신 개별 프로퍼티(image1~5)로 분리한 이유:
+- 최대 5개 이미지 제한을 명시적으로 표현
+- 단순한 쿼리 접근
+
+<br/>
+
+## 이전 버전 (v1.0)
+
+초기 버전은 RESTful API 서버와 통신하는 구조였습니다. 서버 비용 문제로 v1.1에서 Realm 기반으로 전환했습니다.
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      Presentation Layer                     │
+│  ┌──────────────┐         ┌─────────────────────────────┐   │
+│  │ViewController│◄────────│         Presenter           │   │
+│  └──────────────┘         └─────────────────────────────┘   │
+└───────────────────────────────────┬─────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────┐
+│                       Service Layer                         │
+│   ┌──────────────────────────────────────────────────┐      │
+│   │              AppServices (Container)             │      │
+│   │  ┌───────────┐ ┌───────────┐ ┌──────────────┐    │      │
+│   │  │AuthService│ │UserService│ │ReviewService │    │      │
+│   │  └───────────┘ └───────────┘ └──────────────┘    │      │
+│   └──────────────────────────────────────────────────┘      │
+└───────────────────────────────┬─────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   Network Layer (Alamofire)                 │
+└─────────────────────────────────────────────────────────────┘
+```
+
+v1.0 코드는 [develop-api 브랜치](https://github.com/Moon-Duck-Org/MoonDuckFE-iOS/tree/develop-api)에서 확인할 수 있습니다.
+
+전환 과정에 대한 자세한 내용은 [마이그레이션 스토리](MIGRATION_STORY.md)를 참고해주세요.
 
 <br/>
 
