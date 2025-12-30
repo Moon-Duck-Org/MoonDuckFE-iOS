@@ -31,12 +31,21 @@
 
 <br/>
 
-## 👥 개발자
+## 👤 담당 역할
 
-|iOS Developer|Backend Developer|Backend Developer|
+**iOS 개발** (단독)
+
+- MVP 아키텍처 설계 및 전체 화면 구현
+- 4종 Open API 연동 (영화진흥위원회, 네이버, TMDB, 서울시)
+- Kakao / Google / Apple 소셜 로그인 구현
+- API 기반 → Realm 로컬 DB 마이그레이션
+
+## 👥 팀 구성
+
+| iOS | Backend | Backend |
 |:-:|:-:|:-:|
-|<img src="https://avatars.githubusercontent.com/u/56523702?v=4" width="100"/>|<img src="https://avatars.githubusercontent.com/u/55906796?v=4" width="100"/>|<img src="https://avatars.githubusercontent.com/u/86522955?v=4" width="100"/>|
-|**박현선**<br/>[@SuniDev](https://github.com/SuniDev)|**안정근**<br/>[@ajroot5685](https://github.com/ajroot5685)|**윤설이**<br/>[@Comesfullcircle](https://github.com/Comesfullcircle)|
+|<img src="https://avatars.githubusercontent.com/u/56523702?v=4" width="120"/>|<img src="https://avatars.githubusercontent.com/u/55906796?v=4" width="120"/>|<img src="https://avatars.githubusercontent.com/u/86522955?v=4" width="120"/>|
+|박현선<br/>[@SuniDev](https://github.com/SuniDev)|안정근<br/>[@ajroot5685](https://github.com/ajroot5685)|윤설이<br/>[@Comesfullcircle](https://github.com/Comesfullcircle)|
 
 <br/>
 
